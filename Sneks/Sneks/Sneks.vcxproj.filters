@@ -21,10 +21,10 @@
     <ClCompile Include="GameEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\EventHandler.cpp">
+    <ClCompile Include="ECS\Logger.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Logger.cpp">
+    <ClCompile Include="ECS\EventManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClInclude Include="ECS\Logger.h">
       <Filter>ECS</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\EventHandler.h">
+    <ClInclude Include="ECS\EventManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>

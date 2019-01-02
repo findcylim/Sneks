@@ -115,12 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ECS\EventHandler.cpp" />
+    <ClCompile Include="ECS\EventManager.cpp" />
     <ClCompile Include="ECS\Logger.cpp" />
     <ClCompile Include="GameEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\EventHandler.h" />
+    <ClInclude Include="ECS\EventManager.h" />
     <ClInclude Include="ECS\Logger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,10 +1,10 @@
 
-#include "ECS/EventHandler.h"
+#include "ECS/EventManager.h"
 #include "ECS/Logger.h"
 #include <iostream>
 
 
-EventHandler* eventworker;
+EventManager* eventworker;
 Logger* EventLogger;
 
 
@@ -13,7 +13,7 @@ int main() {
 
 
 
-	eventworker = new EventHandler;
+	eventworker = new EventManager;
 	EventLogger = new Logger;
 	//std::cout << "  a"<< eventworker->GetTest()<<  std::endl;
 	EventLogger->LogMessage("Test Message Log");

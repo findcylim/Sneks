@@ -32,11 +32,12 @@ Logger::Logger()
 	Returns -1 if something went wrong with the Log file.
 
 ***************************************************************************************/
-char Logger::LogMessage(const char * Message)
+char Logger::LogMessage(const char * Message, ...)
 {
 	time_t a_LogTime = chrono::system_clock::to_time_t(chrono::system_clock::now());
 	localtime_s(&buf, &a_LogTime);
-	
+
+
 	// File is open and ok to write
 	if (LogFile.is_open())
 	{
