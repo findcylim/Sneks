@@ -72,12 +72,20 @@ public:
 };
 #endif
 */
-typedef std::map<void*(*)(...), std::vector<void*>> EventFunctionMap;
 
-typedef struct Event
+class Callback
 {
+	Callback(void*(*f)(void *));
+	virtual ~Callback() {}
+
+	void(*function)(void *);
+};
+
+class Event
+{
+public:
 	short EventId;
-	char * EventDescription;
+	char * EventName;
 
 	/*****************************************************************************
 	A map of function pointers(returning a void pointer and taking in a variable 
@@ -87,9 +95,11 @@ typedef struct Event
 	Using std::make_pair to add to the functionlist
 	******************************************************************************/
 
-	EventFunctionMap FunctionList;
-	
-}Event;
+	Callback* EventCallback;
+
+	Event();
+	virtual ~Event();
+};
 
 
 class EventManager
@@ -100,12 +110,12 @@ protected :
 	static EventManager * EventInstance;
 public:
 	void Update();
-	bool AddEvent(short EventID, char *Description);
-	bool AddFunctionToEvent(const char *, void*(*)(...), std::vector<void*>);
-	bool EmitEvent(short EventID);
-	bool EventOccured(short EventID);
+	bool AddEvent(short EventID, char *Description,Callback* cb);
+	template<typename T>
+	bool CallEvent(short EventID, void* d1 = 0, void* d2 = 0, void* d3 = 0, void* d4 = 0, void* d5 = 0);
 	static EventManager* Instance();
 	static void ResetInstance();
+	void Initialize(Logger* logger);
 private:
 	EventManager();
 	virtual ~EventManager();

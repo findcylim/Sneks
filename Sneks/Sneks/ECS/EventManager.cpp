@@ -169,6 +169,19 @@ bool EventManager_3P<T, E, F>::hasEvent(int eventId)
 	return m_handlers.find(eventId) != m_handlers.end();
 }*/
 
+Event::Event()
+{
+
+}
+Event::~Event()
+{
+	
+}
+Callback::Callback(void(*f)(void *))
+{
+	Callback::function = f;
+}
+
 //Constructor
 EventManager::EventManager()
 {
@@ -193,7 +206,7 @@ void EventManager::Update()
 
 bool EventManager::hasEvent(short EventId)
 {
-	for (auto & event : EventList)
+	for (Event* event : EventList)
 	{
 		if (event->EventId == EventId)
 		{
@@ -203,41 +216,55 @@ bool EventManager::hasEvent(short EventId)
 	return false;
 }
 
-bool EventManager::AddEvent(short EventID, char * Desc)
+bool EventManager::AddEvent(short EventID, char *Name, Callback* cb)
 {
 	if (!hasEvent(EventID))
 	{
 		Event* newEvent = new Event;
 		newEvent->EventId = EventID;
-		newEvent->EventDescription = Desc;
+		newEvent->EventName = Name;
+		newEvent->EventCallback = cb;
 		EventManager::EventList.push_back(newEvent);
 		return true;
 	}
 	else
 	{
 		if(EventManager::LogObj)
-			EventManager::LogObj->LogMessage("Error 1000 : Cannot add new event ");
+			EventManager::LogObj->LogMessage("Error 1000 : Cannot add new event as it already exists");
 		return false;
 	}
 }
 
-bool EventManager::EmitEvent(short EventID) 
+template<class CalleeType>
+bool EventManager::CallEvent(short EventID,void* param1, void* param2, void* param3, void* param4, void* param5)
 {
 	Event* eventObj = EventManager::EventList.at(EventID);
 
-	if (eventObj->EventId == EventID)
+	if (eventObj)
 	{
-		std::map<void*(*)(std::vector<void*>), std::vector<void*>>::iterator it;
-		/*
-		for(it = eventObj->FunctionList.begin;it != eventObj->FunctionList.end;it++)
-		{
-			char NumOfParam = it->second.size();
-			it->first(it->second);
-		}
-		*/
+		//Needs to be typecasted into the correct objType
+
+		if (param5)
+			(void*(*)(void*, void*, void*, void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
+			->eventObj->EventCallback.function(param1, param2, param3, param4, param5);
+		else if (param4)
+			(void*(*)(void*, void*, void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
+			->eventObj->EventCallback.function(param1, param2, param3, param4);
+		else if (param3)
+			(void*(*)(void*, void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
+			->eventObj->EventCallback.function(param1, param2, param3);
+		else if (param2)
+			(void*(*)(void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
+			->eventObj->EventCallback.function(param1, param2);
+		else if (param1)
+			(void*(*)(void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
+			->eventObj->EventCallback.function(param1);
+		else
+			return false;
+
+		return true;
 	}
-	//TEMP
-	return true;
+	return false;
 }
 
 void EventManager::ResetInstance()
@@ -245,10 +272,6 @@ void EventManager::ResetInstance()
 	
 }
 
-bool EventManager::EventOccured(short EventID) 
-{
-	return true;
-}
 
 EventManager* EventManager::Instance()
 {
@@ -259,17 +282,9 @@ EventManager* EventManager::Instance()
 	return EventManager::EventInstance;
 }
 
-bool EventManager::AddFunctionToEvent(const char * EventDesc, void*(*func)(...), std::vector<void*> paramVec)
+
+
+void EventManager::Initialize(Logger* logger)
 {
-	for (Event* event : EventManager::EventList)
-	{
-		if (strcmp(EventDesc, event->EventDescription))
-		{
-			event->FunctionList.insert(std::make_pair(func, paramVec));
-			return true;
-		}
-	}
-	if(LogObj)
-		EventManager::LogObj->LogMessage("Error 1001 : Unable to add function to event, event not found");
-	return false;
+	LogObj = logger;
 }

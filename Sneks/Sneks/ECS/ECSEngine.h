@@ -10,7 +10,8 @@
 class ECSEngine
 {
 private:
-	Logger* logger;
+	
+	Logger* logger; //Logger object to log objects into the log file. 
 	bool EngineStatus;
 public:
 	ECSEngine();

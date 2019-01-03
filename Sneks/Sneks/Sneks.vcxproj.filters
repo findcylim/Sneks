@@ -1,26 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="ECS">
       <UniqueIdentifier>{e08fbdab-33bb-4fdb-ad1a-4f871787254e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{a03d6301-3b71-4178-a4cd-123658f78d2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{89e399a1-3ea3-4f2c-9e7e-a2ef2f3562ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameEntry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\ECSEngine.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
@@ -33,6 +28,14 @@
     <ClCompile Include="ECS\SystemManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\PlayerSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="BulletSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\ECSEngine.h">
@@ -47,5 +50,12 @@
     <ClInclude Include="ECS\SystemManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
+    <ClInclude Include="Systems\PlayerSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletSystem.h" />
   </ItemGroup>
 </Project>

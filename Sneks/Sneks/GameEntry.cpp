@@ -17,13 +17,13 @@ int main() {
 	ECSEngine* Engine = new ECSEngine;
 	Engine->InitializeEngine();
 
+	cout << "What" << endl;
 	while (Engine->IsEngineOn())
 	{
 		Engine->Update();
 	}
 
 
-	cout << "What" << endl;
 	cin >> lol;
 
 	return 0;

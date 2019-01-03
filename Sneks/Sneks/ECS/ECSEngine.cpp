@@ -26,17 +26,19 @@ Function: InitializeEngine
 ********************************************************/
 void ECSEngine::InitializeEngine()
 {
-	EventManager::Instance();
+	EventManager::Instance()->Initialize(logger);
 	/*
 		Create and add Events here
 	*/
 
 
 
-	SystemManager::Instance();
+	SystemManager::Instance()->Initialize(logger);
 	/*
 		Create and add Systems here
 	*/
+	
+
 
 
 	EngineStatus = true;
