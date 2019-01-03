@@ -32,7 +32,7 @@ Logger::Logger()
 	Returns -1 if something went wrong with the Log file.
 
 ***************************************************************************************/
-char Logger::LogMessage(const char * Message, ...)
+bool Logger::LogMessage(const char * Message, ...)
 {
 	time_t a_LogTime = chrono::system_clock::to_time_t(chrono::system_clock::now());
 	localtime_s(&buf, &a_LogTime);
@@ -45,10 +45,10 @@ char Logger::LogMessage(const char * Message, ...)
 			    << " "         << setfill('0') << setw(2) << buf.tm_hour    << ":" << setw(2)     
 			    << buf.tm_min  << "]"          << " : "   << Message        << endl;
 
-		return 0; // Output fine
+		return true; // Output fine
 	}
 
-	return -1; // Something went wrong
+	return false; // Something went wrong
 }
 
 

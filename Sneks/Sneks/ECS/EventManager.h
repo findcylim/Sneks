@@ -3,7 +3,10 @@
 
 
 #include <vector>
+#include <map>
 #include "Logger.h"
+
+using namespace std;
 /*
 	Handles Error Codes : 1000 - 1999
 */
@@ -69,11 +72,23 @@ public:
 };
 #endif
 */
+typedef std::map<void*(*)(...), std::vector<void*>> EventFunctionMap;
 
 typedef struct Event
 {
 	short EventId;
 	char * EventDescription;
+
+	/*****************************************************************************
+	A map of function pointers(returning a void pointer and taking in a variable 
+	vector of void* of which the function has to typecast into its proper type), 
+	which is mapped to the vector of void* parameter     
+
+	Using std::make_pair to add to the functionlist
+	******************************************************************************/
+
+	EventFunctionMap FunctionList;
+	
 }Event;
 
 
@@ -82,16 +97,19 @@ class EventManager
 	
 protected : 
 	Logger * LogObj;
+	static EventManager * EventInstance;
 public:
-	EventManager();
-	virtual ~EventManager();
 	void Update();
 	bool AddEvent(short EventID, char *Description);
-	void EmitEvent(short EventID);
+	bool AddFunctionToEvent(const char *, void*(*)(...), std::vector<void*>);
+	bool EmitEvent(short EventID);
 	bool EventOccured(short EventID);
+	static EventManager* Instance();
+	static void ResetInstance();
 private:
+	EventManager();
+	virtual ~EventManager();
 	bool hasEvent(short EventId);
 	std::vector<Event*> EventList;
 };
-
 

@@ -21,18 +21,30 @@
     <ClCompile Include="GameEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Logger.cpp">
+    <ClCompile Include="ECS\ECSEngine.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
     <ClCompile Include="ECS\EventManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Logger.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\SystemManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\Logger.h">
+    <ClInclude Include="ECS\ECSEngine.h">
       <Filter>ECS</Filter>
     </ClInclude>
     <ClInclude Include="ECS\EventManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Logger.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\SystemManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>

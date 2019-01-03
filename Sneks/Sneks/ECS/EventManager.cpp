@@ -175,11 +175,12 @@ EventManager::EventManager()
 	
 }
 
+EventManager* EventManager::EventInstance = 0;
 
 //Destructor
 EventManager::~EventManager()
 {
-
+	
 }
 
 
@@ -188,6 +189,7 @@ void EventManager::Update()
 
 
 }
+
 
 bool EventManager::hasEvent(short EventId)
 {
@@ -208,21 +210,66 @@ bool EventManager::AddEvent(short EventID, char * Desc)
 		Event* newEvent = new Event;
 		newEvent->EventId = EventID;
 		newEvent->EventDescription = Desc;
+		EventManager::EventList.push_back(newEvent);
+		return true;
 	}
 	else
 	{
-		EventManager::LogObj->LogMessage("Error 1000 : Cannot add new event at ");
+		if(EventManager::LogObj)
+			EventManager::LogObj->LogMessage("Error 1000 : Cannot add new event ");
 		return false;
 	}
 }
-void EventManager::EmitEvent(short EventID) 
+
+bool EventManager::EmitEvent(short EventID) 
 {
+	Event* eventObj = EventManager::EventList.at(EventID);
 
-
+	if (eventObj->EventId == EventID)
+	{
+		std::map<void*(*)(std::vector<void*>), std::vector<void*>>::iterator it;
+		/*
+		for(it = eventObj->FunctionList.begin;it != eventObj->FunctionList.end;it++)
+		{
+			char NumOfParam = it->second.size();
+			it->first(it->second);
+		}
+		*/
+	}
+	//TEMP
+	return true;
 }
+
+void EventManager::ResetInstance()
+{
+	
+}
+
 bool EventManager::EventOccured(short EventID) 
 {
-
-
+	return true;
 }
 
+EventManager* EventManager::Instance()
+{
+	if (!EventManager::EventInstance)
+	{
+		EventManager::EventInstance = new EventManager;
+	}
+	return EventManager::EventInstance;
+}
+
+bool EventManager::AddFunctionToEvent(const char * EventDesc, void*(*func)(...), std::vector<void*> paramVec)
+{
+	for (Event* event : EventManager::EventList)
+	{
+		if (strcmp(EventDesc, event->EventDescription))
+		{
+			event->FunctionList.insert(std::make_pair(func, paramVec));
+			return true;
+		}
+	}
+	if(LogObj)
+		EventManager::LogObj->LogMessage("Error 1001 : Unable to add function to event, event not found");
+	return false;
+}

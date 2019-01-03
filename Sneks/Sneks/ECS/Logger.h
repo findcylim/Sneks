@@ -8,7 +8,7 @@ class Logger
 	std::ofstream LogFile;
 public:
 	Logger();
-	char LogMessage(const char * Message, ...);
+	bool LogMessage(const char * Message, ...);
 	~Logger();
 
 };

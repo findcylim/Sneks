@@ -115,13 +115,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ECS\ECSEngine.cpp" />
     <ClCompile Include="ECS\EventManager.cpp" />
     <ClCompile Include="ECS\Logger.cpp" />
+    <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ECS\ECSEngine.h" />
     <ClInclude Include="ECS\EventManager.h" />
     <ClInclude Include="ECS\Logger.h" />
+    <ClInclude Include="ECS\SystemManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

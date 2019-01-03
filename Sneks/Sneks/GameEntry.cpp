@@ -1,24 +1,30 @@
 
 #include "ECS/EventManager.h"
 #include "ECS/Logger.h"
+#include "ECS/ECSEngine.h"
 #include <iostream>
 
 
-EventManager* eventworker;
 Logger* EventLogger;
+
+
+using namespace std;
 
 
 int main() {
 	//game goes here
+	int lol;
+	ECSEngine* Engine = new ECSEngine;
+	Engine->InitializeEngine();
+
+	while (Engine->IsEngineOn())
+	{
+		Engine->Update();
+	}
 
 
-
-	eventworker = new EventManager;
-	EventLogger = new Logger;
-	//std::cout << "  a"<< eventworker->GetTest()<<  std::endl;
-	EventLogger->LogMessage("Test Message Log");
-
-	delete eventworker;
+	cout << "What" << endl;
+	cin >> lol;
 
 	return 0;
 
