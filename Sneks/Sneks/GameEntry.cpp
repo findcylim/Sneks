@@ -1,11 +1,10 @@
 
 #include "ECS/EventManager.h"
-#include "ECS/Logger.h"
+#include "Utility/Logger.h"
 #include "ECS/ECSEngine.h"
 #include <iostream>
 
 
-Logger* EventLogger;
 
 
 using namespace std;

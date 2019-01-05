@@ -1,13 +1,13 @@
 
 #include "PlayerSystem.h"
+#include <iostream>
+
 
 PlayerSystem::PlayerSystem(EventManager* Emanager)
 {
 	playerHP = 123;
 	EManager = Emanager;
-	void*(*f)(void *) = AttackPlayer;
-	Callback* cb = new Callback(&AttackPlayer);
-	//Emanager->AddEvent(1,"Attack",)
+	Emanager->AddCallback(0, (FunctionP)&AttackPlayer, (void*)this);
 }
 
 PlayerSystem::~PlayerSystem()
@@ -15,14 +15,17 @@ PlayerSystem::~PlayerSystem()
 
 }
 
-void* PlayerSystem::AttackPlayer(void* dmg)
+void* PlayerSystem::AttackPlayer(void* dmg, void* callee)
 {
-	playerHP -= *((int*)dmg);
+	int lol = *((int*)dmg);
+	((PlayerSystem*)callee)->playerHP -= lol;
+	cout << lol;
+	return 0;
 }
 
 void PlayerSystem::Update()
 {
-
+	
 }
 
 

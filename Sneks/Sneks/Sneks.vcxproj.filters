@@ -14,6 +14,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Utlity">
+      <UniqueIdentifier>{5917b0d3-5d3f-4ca5-b609-3aedf52dd810}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ECS\ECSEngine.cpp">
@@ -22,20 +25,20 @@
     <ClCompile Include="ECS\EventManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\Logger.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\SystemManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
     <ClCompile Include="Systems\PlayerSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Utility.cpp">
-      <Filter>Libraries</Filter>
-    </ClCompile>
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="BulletSystem.cpp" />
+    <ClCompile Include="Utility\Logger.cpp">
+      <Filter>Utlity</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Utility.cpp">
+      <Filter>Utlity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\ECSEngine.h">
@@ -44,18 +47,18 @@
     <ClInclude Include="ECS\EventManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\Logger.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
     <ClInclude Include="ECS\SystemManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
     <ClInclude Include="Systems\PlayerSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h">
-      <Filter>Libraries</Filter>
-    </ClInclude>
     <ClInclude Include="BulletSystem.h" />
+    <ClInclude Include="Utility\Logger.h">
+      <Filter>Utlity</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Utility.h">
+      <Filter>Utlity</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,16 +1,17 @@
 #include "ECSEngine.h"
+#include "../Systems/PlayerSystem.h"
 
 
 ECSEngine::ECSEngine()
 {
-	logger = new Logger;
+	Logger::Instance();
 	EngineStatus = false;
 }
 
 
 ECSEngine::~ECSEngine()
 {
-	delete(logger);
+	//TODO Call logger destroy function here later on
 }
 
 
@@ -26,20 +27,23 @@ Function: InitializeEngine
 ********************************************************/
 void ECSEngine::InitializeEngine()
 {
-	EventManager::Instance()->Initialize(logger);
+	EventManager::Instance()->Initialize();
 	/*
 		Create and add Events here
 	*/
 
 
 
-	SystemManager::Instance()->Initialize(logger);
+	SystemManager::Instance()->Initialize();
 	/*
 		Create and add Systems here
 	*/
-	
 
-
+	//PlayerSystem
+	PlayerSystem* PlayerS = new PlayerSystem(EventManager::Instance());
+	PlayerS->SystemID = 0;
+	PlayerS->SystemName = "PlayerSystem";
+	SystemManager::Instance()->AddSystem(PlayerS);
 
 	EngineStatus = true;
 }
@@ -52,8 +56,8 @@ bool ECSEngine::IsEngineOn()
 
 void ECSEngine::Update()
 {
-	EventManager::Instance()->Update();
-	SystemManager::Instance()->Update();
+	EventManager::Update();
+	//SystemManager::Update();
 }
 
 

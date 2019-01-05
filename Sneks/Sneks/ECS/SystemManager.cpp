@@ -1,5 +1,5 @@
 #include "SystemManager.h"
-#include "../Utility.cpp"
+#include "../Utility/Utility.h"
 #include <iostream>
 
 //Errors > 2000
@@ -8,9 +8,11 @@ void System::Update()
 	cout << "Error 2001 : Updating a non overriden system" << endl;
 }
 
+std::vector<System*> SystemManager::SystemList;
+
 SystemManager::SystemManager()
 {
-
+	
 }
 
 SystemManager::~SystemManager()
@@ -30,9 +32,9 @@ SystemManager* SystemManager::Instance()
 	return instance;
 }
 
-void SystemManager::Initialize(Logger* logger)
+void SystemManager::Initialize()
 {
-	LogObj = logger;
+	
 }
 
 void SystemManager::AddSystem(System* NewSystem)
@@ -43,7 +45,7 @@ void SystemManager::AddSystem(System* NewSystem)
 	}
 	else
 	{
-		LogObj->LogMessage("Error 2002 : System has not been initialised");
+		Logger::LogMessage("Error 2002 : System has not been initialised");
 	}
 }
 
@@ -58,8 +60,6 @@ void SystemManager::RemoveSystem(System* RemSystem)
 		}
 	}*/
 }
-
-
 
 void SystemManager::Update()
 {

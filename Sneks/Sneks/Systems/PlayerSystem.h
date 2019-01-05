@@ -8,13 +8,15 @@
 
 
 //Test
-class PlayerSystem : System
+class PlayerSystem : public System
 {
+public:
 	int playerHP;
-	EventManager* EManager;
-	void* AttackPlayer(void* dmg);
-	void Update();
-
 	PlayerSystem(EventManager* Emanager);
 	~PlayerSystem();
+	static void* AttackPlayer(void* data, void* callee);
+	void Update();
+private:
+	EventManager* EManager;
+
 };

@@ -10,6 +10,11 @@ bool LogOpen;
 char buffer[26];
 struct tm buf;
 
+
+
+Logger * Logger::instance = 0;
+std::ofstream Logger::LogFile;
+
 Logger::Logger()
 {
 	LogFile.open("log.txt", ios::app);
@@ -49,6 +54,15 @@ bool Logger::LogMessage(const char * Message, ...)
 	}
 
 	return false; // Something went wrong
+}
+
+Logger * Logger::Instance()
+{
+	if (!instance)
+	{
+		instance = new Logger;
+	}
+	return instance;
 }
 
 

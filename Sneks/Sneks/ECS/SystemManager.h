@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Logger.h"
+#include "EventManager.h"
+#include "../Utility/Logger.h"
 
 
 using namespace std;
@@ -11,8 +12,9 @@ using namespace std;
 //Needs to be used to manage different systems in the SystemManager
 class System
 {
-	short SystemID;
 public:
+	short SystemID;
+	const char* SystemName;
 	virtual void Update();
 };
 
@@ -22,8 +24,7 @@ public:
 class SystemManager
 {
 private:
-	std::vector<System*> SystemList;
-	Logger* LogObj;
+	static std::vector<System*> SystemList;
 	static SystemManager * instance;
 	SystemManager();
 	~SystemManager();
@@ -31,7 +32,7 @@ public:
 	static SystemManager * Instance();
 	void AddSystem(System* NewSystem);
 	void RemoveSystem(System* RemSystem);
-	void Update();
-	void Initialize(Logger*);
+	static void Update();
+	void Initialize();
 };
 

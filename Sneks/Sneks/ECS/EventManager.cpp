@@ -1,194 +1,21 @@
 #include "EventManager.h"
 using namespace std;
 
-#include <functional>
-#include <map>
-
-
-/*
-	Ok
-	EventHandler is a function object that gets put into the the EventHandler Vector
-	An event can contain multiple function objects as an event such as 
-	"Damage player" can have multiple function calls and do many different things
-	So thats why you can add multiple listeners to a certain event
-	Events are distinguished by its EventId
-
-*/
-/*
-template<typename T>
-EventManager<T>::EventManager() 
-{
-	
-}
-template<typename T>
-EventManager<T>::~EventManager()
-{
-	
-}
-template<typename T>
-void EventManager<T>::addListener(int eventId, EventHandler listener)
-{
-	if (hasEvent(eventId))
-	{
-		EventHandlerList& list = m_handlers.at(eventId);
-		list.push_back(listener);
-	}
-	else
-	{
-		std::vector<EventHandler> list;
-		list.push_back(listener);
-		m_handlers.insert(std::make_pair(eventId, list));
-	}
-}
-
-template<typename T>
-void EventManager<T>::emitEvent(int eventId, T value) 
-{
-	if (hasEvent(eventId)) 
-	{
-		EventHandlerList& list = m_handlers.at(eventId);
-		for (auto & func : list)
-		{
-			func(value);
-		}
-	}
-	else 
-	{
-		std::cout << "cannot find eventId" << eventId << std::endl;
-	}
-}
-
-template<typename T>
-bool EventManager<T>::hasEvent(int eventId)
-{
-	return m_handlers.find(eventId) != m_handlers.end();
-}
-
-
-
-template<typename T,typename E>
-EventManager_2P<T,E>::EventManager_2P()
-{
-
-}
-
-template<typename T, typename E>
-EventManager_2P<T,E>::~EventManager_2P()
-{
-
-}
-
-template<typename T, typename E>
-void EventManager_2P<T,E>::addListener(int eventId, EventHandler listener)
-{
-	if (hasEvent(eventId)) 
-	{
-		EventHandlerList& list = m_handlers.at(eventId);
-		list.push_back(listener);
-	}
-	else 
-	{
-		std::vector<EventHandler> list;
-		list.push_back(listener);
-		m_handlers.insert(std::make_pair(eventId, list));
-	}
-}
-
-template<typename T, typename E>
-void EventManager_2P<T, E>::emitEvent(int eventId, T param1, E param2)
-{
-	if (hasEvent(eventId)) 
-	{
-		EventHandlerList& list = m_handlers.at(eventId);
-		for (auto & func : list)
-		{
-			func(param1, param2);
-		}
-	}
-	else 
-	{
-		std::cout << "cannot find eventId" << eventId << std::endl;
-	}
-}
-
-template<typename T, typename E>
-bool EventManager_2P<T,E>::hasEvent(int eventId) 
-{
-	return m_handlers.find(eventId) != m_handlers.end();
-}
-
-
-
-
-template<typename T, typename E,typename F>
-EventManager_3P<T, E, F>::EventManager_3P()
-{
-
-}
-
-template<typename T, typename E, typename F>
-EventManager_3P<T, E, F>::~EventManager_3P()
-{
-
-}
-
-template<typename T, typename E, typename F>
-void EventManager_3P<T,E,F>::addListener(int eventId, EventHandler listener) 
-{
-	if (hasEvent(eventId)) 
-	{
-		EventHandlerList& list = m_handlers.at(eventId);
-		list.push_back(listener);
-	}
-	else 
-	{
-		std::vector<EventHandler> list;
-		list.push_back(listener);
-		m_handlers.insert(std::make_pair(eventId, list));
-	}
-}
-
-template<typename T, typename E, typename F>
-void EventManager_3P<T, E, F>::emitEvent(int eventId, T param1, E param2, F param3) {
-	if (hasEvent(eventId))
-	{
-		EventHandlerList& list = m_handlers.at(eventId);
-		for (auto & func : list) {
-			func(param1, param2, param3);
-		}
-	}
-	else 
-	{
-		std::cout << "cannot find eventId" << eventId << std::endl;
-	}
-}
-
-template<typename T, typename E, typename F>
-bool EventManager_3P<T, E, F>::hasEvent(int eventId) 
-{
-	return m_handlers.find(eventId) != m_handlers.end();
-}*/
-
-Event::Event()
-{
-
-}
-Event::~Event()
-{
-	
-}
-Callback::Callback(void(*f)(void *))
-{
-	Callback::function = f;
-}
-
+std::list<Event*> EventManager::EventQueue;
+std::vector<vector<CallbackP>> EventManager::Event_CallBackList;
 //Constructor
 EventManager::EventManager()
 {
-	
+	//TODO EDIT THIS TO THE REAL NUMBER OF MAX EVENTS WE HAVE IN ENUM
+	for (char i = 0; i < 100; i++)
+	{
+		std::vector<CallbackP> vcbp;
+		Event_CallBackList.push_back(vcbp);
+	}
 }
 
 EventManager* EventManager::EventInstance = 0;
+
 
 //Destructor
 EventManager::~EventManager()
@@ -203,69 +30,59 @@ void EventManager::Update()
 
 }
 
+void EventManager::ProcessEvents()
+{
+	for (std::list<Event*>::iterator it = EventQueue.begin(); it != EventQueue.end(); it++)
+	{
+		for (std::vector<CallbackP>::iterator vit = Event_CallBackList[(*it)->EventId].begin();
+			vit != Event_CallBackList[(*it)->EventId].end(); vit++)
+		{
+			(*vit)->function((*it)->Data,(*vit)->CalleePtr);
+		}
+		//TODO change this to our own memory allocator later
+		free((*it)->Data);
+	}
+}
 
 bool EventManager::hasEvent(short EventId)
 {
-	for (Event* event : EventList)
+	if (Event_CallBackList.size() > EventId)
 	{
-		if (event->EventId == EventId)
-		{
-			return true;
-		}
+		return true;
 	}
 	return false;
 }
 
-bool EventManager::AddEvent(short EventID, char *Name, Callback* cb)
+bool EventManager::AddCallback(short EventID, FunctionP fp,void* callee)
 {
-	if (!hasEvent(EventID))
+	if (hasEvent(EventID))
 	{
-		Event* newEvent = new Event;
-		newEvent->EventId = EventID;
-		newEvent->EventName = Name;
-		newEvent->EventCallback = cb;
-		EventManager::EventList.push_back(newEvent);
+		CallbackP cbp = new CallbackT;
+		cbp->EventId = EventID;
+		cbp->function = fp;
+		cbp->CalleePtr = callee;
+		EventManager::Event_CallBackList[EventID].push_back(cbp);
 		return true;
 	}
 	else
 	{
-		if(EventManager::LogObj)
-			EventManager::LogObj->LogMessage("Error 1000 : Cannot add new event as it already exists");
+		Logger::LogMessage("Error 1000 : Cannot add callback as event does not exist");
 		return false;
 	}
 }
 
-template<class CalleeType>
-bool EventManager::CallEvent(short EventID,void* param1, void* param2, void* param3, void* param4, void* param5)
+bool EventManager::EmitEvent(short EventID,void* data)
 {
-	Event* eventObj = EventManager::EventList.at(EventID);
+	//Add check if eventid is legit
+	Event* newEvent = new Event;
+	newEvent->EventId = EventID;
+	newEvent->Data = data;
 
-	if (eventObj)
-	{
-		//Needs to be typecasted into the correct objType
-
-		if (param5)
-			(void*(*)(void*, void*, void*, void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
-			->eventObj->EventCallback.function(param1, param2, param3, param4, param5);
-		else if (param4)
-			(void*(*)(void*, void*, void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
-			->eventObj->EventCallback.function(param1, param2, param3, param4);
-		else if (param3)
-			(void*(*)(void*, void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
-			->eventObj->EventCallback.function(param1, param2, param3);
-		else if (param2)
-			(void*(*)(void*, void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
-			->eventObj->EventCallback.function(param1, param2);
-		else if (param1)
-			(void*(*)(void*))((CalleeType*)eventObj->EventCallback.CalleeObj)
-			->eventObj->EventCallback.function(param1);
-		else
-			return false;
-
-		return true;
-	}
-	return false;
+	EventQueue.push_back(newEvent);
+	return true;
 }
+
+
 
 void EventManager::ResetInstance()
 {
@@ -284,7 +101,7 @@ EventManager* EventManager::Instance()
 
 
 
-void EventManager::Initialize(Logger* logger)
+void EventManager::Initialize()
 {
-	LogObj = logger;
+
 }
