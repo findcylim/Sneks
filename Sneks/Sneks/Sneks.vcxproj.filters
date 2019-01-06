@@ -18,5 +18,24 @@
     <ClCompile Include="GameEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DrawObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\rsc\snake-graphics.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\rsc\red_snake.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\rsc\snek_hed.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DrawObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
