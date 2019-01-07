@@ -34,6 +34,7 @@ public:
 	static void Update();
 	static void ProcessEvents();
 	bool AddCallback(short EventID, FunctionP fp, void* callee);
+	bool RemoveCallback(short EventID, FunctionP FPRef, void* callee);
 	static bool EmitEvent(short EventID, void* data = 0);
 	static EventManager* Instance();
 	static void ResetInstance();

@@ -16,7 +16,6 @@ EventManager::EventManager()
 
 EventManager* EventManager::EventInstance = 0;
 
-
 //Destructor
 EventManager::~EventManager()
 {
@@ -74,11 +73,44 @@ bool EventManager::AddCallback(short EventID, FunctionP fp,void* callee)
 bool EventManager::EmitEvent(short EventID,void* data)
 {
 	//Add check if eventid is legit
-	Event* newEvent = new Event;
-	newEvent->EventId = EventID;
-	newEvent->Data = data;
+	if (EventID <= Event_CallBackList.size())
+	{
+		Event* newEvent = new Event;
+		newEvent->EventId = EventID;
+		newEvent->Data = data;
 
-	EventQueue.push_back(newEvent);
+		EventQueue.push_back(newEvent);
+		return true;
+	}
+	return false;
+}
+/*
+	TODO
+	REMOVE CALLBACKS FROM DEAD MEMBERS
+
+*/
+bool EventManager::RemoveCallback(short EventID, FunctionP FPRef, void* callee)
+{
+	for (std::vector<CallbackP>::iterator vit = Event_CallBackList[EventID].begin();
+		vit != Event_CallBackList[EventID].end(); vit++)
+	{
+		try
+		{
+			if ((**vit).function == FPRef)
+			{
+				if ((**vit).CalleePtr == callee)
+				{
+					delete(*vit);
+					Event_CallBackList[EventID].erase(vit);
+				}
+			}
+		}
+		catch(...)
+		{
+			Logger::LogMessage("Error 1004 : Exception caught at  EventManager::RemoveCallback");
+			return false;
+		}
+	}
 	return true;
 }
 

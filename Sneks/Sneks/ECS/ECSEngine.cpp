@@ -57,6 +57,7 @@ bool ECSEngine::IsEngineOn()
 void ECSEngine::Update()
 {
 	EventManager::Update();
+	Logger::LogMessage("%d %f %s", 23, 43.54f, "sdsfsfas");
 	//SystemManager::Update();
 }
 

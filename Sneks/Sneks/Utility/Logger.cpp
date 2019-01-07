@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <chrono>
 #include <ctime>
+#include <stdarg.h>
 using namespace std;
 
 bool LogOpen;
@@ -40,19 +41,75 @@ Logger::Logger()
 bool Logger::LogMessage(const char * Message, ...)
 {
 	time_t a_LogTime = chrono::system_clock::to_time_t(chrono::system_clock::now());
-	localtime_s(&buf, &a_LogTime);
+	va_list args;
+	va_start(args,Message);
 
+	localtime_s(&buf, &a_LogTime);
 
 	// File is open and ok to write
 	if (LogFile.is_open())
 	{
-		LogFile << "["		   << buf.tm_mday  << "/"     << buf.tm_mon + 1 << "/" << buf.tm_year + 1900 
-			    << " "         << setfill('0') << setw(2) << buf.tm_hour    << ":" << setw(2)     
-			    << buf.tm_min  << "]"          << " : "   << Message        << endl;
-
+		LogFile << "[" << buf.tm_mday << "/" << buf.tm_mon + 1 << "/" << buf.tm_year + 1900
+			<< " " << setfill('0') << setw(2) << buf.tm_hour << ":" << setw(2)
+			<< buf.tm_min << "]" << " : ";
+		while (*Message != '\0') 
+		{
+			if (*Message == '%')
+			{
+				Message++;
+				switch (*Message)
+				{
+					case 'd':
+					{
+						int i = va_arg(args, int);
+						LogFile << i;
+						break;
+					}
+					case 's':
+					{
+						char * c = va_arg(args, char*);
+						LogFile << c;
+						break;
+					}
+					case 'f': 
+					{
+						double d = va_arg(args, double);
+						double tempd = d;
+						int size = 1;
+						std::streamsize p = LogFile.precision();
+						char temp = 0;
+						while ((tempd/size) >= 1)
+						{
+							size *= 10;
+							temp++;
+						}
+						LogFile.precision(6 +temp);
+						LogFile << d;
+						LogFile.precision(p);
+						break;
+					}
+				}
+				Message++;
+			}
+			else if (*Message == '\\')
+			{
+				Message++;
+				switch (*Message)
+				{
+				case 'n':
+					{
+						LogFile << endl;
+						break;
+					}
+				}
+			}
+			if(*Message!=0)
+				LogFile << *Message;
+			Message++;
+		}
+		LogFile << endl;
 		return true; // Output fine
 	}
-
 	return false; // Something went wrong
 }
 
