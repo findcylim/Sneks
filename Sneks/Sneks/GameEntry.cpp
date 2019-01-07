@@ -5,6 +5,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include "DrawObject.h"
+#include "SnekHead.h"
+#include "SnekBody.h"
 
 #define GLEW_STATIC
 
@@ -27,15 +29,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto text_texture = AEGfxTextureLoad("../rsc/snek_hed.jpg");
 	auto text_texture2 = AEGfxTextureLoad("../rsc/red_snake.jpg");
 
-	DrawObject* testObj = new DrawObject(-150, 0, 200, 100, text_texture);
-	DrawObject* testObj2 = new DrawObject(500, 500, 200, 100, text_texture2);
-
+	SnekHead* testObj = (SnekHead*)new DrawObject(-150, 0, 200, 100, text_texture);
+	SnekBody* testObj2 = (SnekBody*)new DrawObject(100, 0, 200, 100, text_texture2);
+	testObj2->refHead = testObj;
 
 	while (1) {
 		AESysFrameStart();
 
 		//printf("X: %f Y: %f\n", testObj->GetPositionX(), testObj->GetPositionY());
 		testObj->Update();
+		testObj2->Update();
 		testObj->Draw();
 		testObj2->Draw();
 		

@@ -5,7 +5,7 @@
 
 
 class DrawObject {
-private:
+protected:
 	float		      m_fRotation = 0;
 	float			  m_fVelocity = 0;
 	float			  m_fPositionX;
@@ -17,6 +17,10 @@ private:
 
 	
 public:
+	void SetRotation(float f);
+	void SetVelocity(float f);
+	float GetRotation();
+	float GetVelocity();
 	float GetPositionX();
 	float GetPositionY();
 	DrawObject(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);

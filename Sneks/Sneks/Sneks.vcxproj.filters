@@ -21,6 +21,12 @@
     <ClCompile Include="DrawObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SnekHead.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SnekBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\rsc\snake-graphics.png">
@@ -35,6 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SnekHead.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SnekBody.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

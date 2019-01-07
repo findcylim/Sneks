@@ -137,6 +137,8 @@
   <ItemGroup>
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="SnekBody.cpp" />
+    <ClCompile Include="SnekHead.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\rsc\red_snake.jpg" />
@@ -145,6 +147,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawObject.h" />
+    <ClInclude Include="SnekBody.h" />
+    <ClInclude Include="SnekHead.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
