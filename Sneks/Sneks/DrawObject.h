@@ -17,16 +17,23 @@ protected:
 
 	
 public:
+	void SetTexture(AEGfxTexture * tex);
 	void SetRotation(float f);
 	void SetVelocity(float f);
+	void SetPositionX(float f);
+	void SetPositionY(float f);
 	float GetRotation();
 	float GetVelocity();
 	float GetPositionX();
 	float GetPositionY();
 	DrawObject(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);
 	~DrawObject(void);
-	void Draw();
+	virtual void Draw();
 	void Update();
+	float GetRotatedOffsetXX();
+	float GetRotatedOffsetXY();
+	float GetRotatedOffsetYX();
+	float GetRotatedOffsetYY();
 	//void SetScale(float x, float y);
 
 };

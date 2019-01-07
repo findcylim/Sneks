@@ -3,16 +3,20 @@
 #include "AEVec2.h"
 #include "AEGraphics.h"
 
-
+void DrawObject::SetTexture(AEGfxTexture* tex) {
+	m_pTex = tex;
+}
 void DrawObject::SetRotation(float f) {
-	/*while (f > 2*PI)
-		f -= 2*PI;
-	while (f < 0)
-		f += 2*PI;
-	*/m_fRotation = f;
+	m_fRotation = f;
 }
 void DrawObject::SetVelocity(float f) {
 	m_fVelocity = f;
+}
+void DrawObject::SetPositionX(float f) {
+	m_fPositionX = f;
+}
+void DrawObject::SetPositionY(float f) {
+	m_fPositionY = f;
 }
 float DrawObject::GetRotation() {
 	return m_fRotation;
@@ -72,4 +76,20 @@ void DrawObject::Draw() {
 
 void DrawObject::Update() {
 	
+}
+
+float DrawObject::GetRotatedOffsetXX() {
+	return m_fSizeX / 2 * (float)cos(GetRotation()) ;
+
+}
+float DrawObject::GetRotatedOffsetXY() {
+	return m_fSizeX / 2 * (float)sin(GetRotation());
+}
+
+float DrawObject::GetRotatedOffsetYX() {
+	return m_fSizeY / 2 * (float)sin(GetRotation());
+
+}
+float DrawObject::GetRotatedOffsetYY() {
+	return m_fSizeY / 2 * -(float)cos(GetRotation());
 }

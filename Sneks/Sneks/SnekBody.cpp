@@ -1,32 +1,35 @@
 #include "SnekBody.h"
+#include <math.h>
+
 
 void SnekBody::Update() {
 
-	/*
-	SetVelocity(refHead->GetVelocity());
-	float distX = GetPositionX() - refHead->GetPositionX();
-	float distY = GetPositionY() - refHead->GetPositionY();
-	float dist = sqrt(distX * distX + distY * distY);
-	if (dist > 250) {
-		float angleDiff = refHead->GetRotation() - GetRotation();
-		if (angleDiff < 0)
-			angleDiff *= -1;
-		if (angleDiff < PI / 18)
-			SetRotation(refHead->GetRotation() * 0.1 + GetRotation() * 0.9);
-		SetVelocity(GetVelocity() - dist * 0.01);
-	}
-	*/
-	//if out of screen, pop to the other side of screen X
-	if (m_fPositionX > AEGfxGetWinMaxX() + m_fSizeX / 2)
-		m_fPositionX = AEGfxGetWinMinX() - m_fSizeX / 2;
-	else if (m_fPositionX < AEGfxGetWinMinX() - m_fSizeX / 2)
-		m_fPositionX = AEGfxGetWinMaxX() + m_fSizeX / 2;
+	float bodyEdgeX = (GetPositionX() - GetRotatedOffsetXX());
+	float bodyEdgeY = (GetPositionY() - GetRotatedOffsetXY());
+	float headEdgeX = (refHead->GetPositionX() + refHead->GetRotatedOffsetXX());
+	float headEdgeY = (refHead->GetPositionY() + refHead->GetRotatedOffsetXY());
 
-	//if out of screen, pop to the other side of screen Y
-	if (m_fPositionY > AEGfxGetWinMaxY() + m_fSizeY / 2)
-		m_fPositionY = AEGfxGetWinMinY() - m_fSizeY / 2;
-	else if (m_fPositionY < AEGfxGetWinMinY() - m_fSizeY / 2)
-		m_fPositionY = AEGfxGetWinMaxY() + m_fSizeY / 2;
+	float diffX = -bodyEdgeX + headEdgeX;
+	float diffY = -bodyEdgeY + headEdgeY;
+
+	float newRot = atan2(diffY, diffX);
+	if (newRot < 0)
+		newRot += 2 * PI;
+
+		SetRotation(newRot);
+
+
+	float dist = diffX * diffX + diffY * diffY;
+	
+	//cap max distance for calculations at 500
+	if (dist > 500 * 500)
+		dist = 500 * 500;
+
+	if ( dist < (200 * 200) )
+		SetVelocity(0);
+	else
+		SetVelocity(3.0f +	((dist / (500 * 500) * 5.0f)));
+
 
 	//apply the velocity
 	AEVec2 testPos;
