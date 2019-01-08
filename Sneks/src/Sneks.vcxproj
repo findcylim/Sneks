@@ -144,9 +144,9 @@
     <ClCompile Include="SnekHead.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\rsc\red_snake.jpg" />
-    <Image Include="..\rsc\snake-graphics.png" />
-    <Image Include="..\rsc\snek_hed.jpg" />
+    <Image Include="..\Resources\red_snake.jpg" />
+    <Image Include="..\Resources\snake-graphics.png" />
+    <Image Include="..\Resources\snek_hed.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawObject.h" />

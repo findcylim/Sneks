@@ -51,6 +51,10 @@ DrawObject::DrawObject(float posX, float posY, float sizeX, float sizeY, AEGfxTe
 	m_pObj = AEGfxMeshEnd();
 }
 
+DrawObject::~DrawObject(void)
+{
+}
+
 
 
 void DrawObject::Draw() {
@@ -93,3 +97,4 @@ float DrawObject::GetRotatedOffsetYX() {
 float DrawObject::GetRotatedOffsetYY() {
 	return m_fSizeY / 2 * -(float)cos(GetRotation());
 }
+

@@ -24,12 +24,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 0);
 
-	auto snakehed_texture =		 AEGfxTextureLoad("../rsc/snek_hed.jpg");
-	auto snakehedl_texture =	 AEGfxTextureLoad("../rsc/snek_hed_l.jpg");
-	auto snakehedr_texture =	 AEGfxTextureLoad("../rsc/snek_hed_r.jpg");
-	auto snekbody_texture =		 AEGfxTextureLoad("../rsc/red_snake.jpg");
-	auto rocket_texture =		 AEGfxTextureLoad("../rsc/rocket_booster.jpg");
-	auto smoke_texture =		 AEGfxTextureLoad("../rsc/smoke.jpg");
+	auto snakehed_texture =		 AEGfxTextureLoad("../Resources/snek_hed.jpg");
+	auto snakehedl_texture =	 AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
+	auto snakehedr_texture =	 AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
+	auto snekbody_texture =		 AEGfxTextureLoad("../Resources/red_snake.jpg");
+	auto rocket_texture =		 AEGfxTextureLoad("../Resources/rocket_booster.jpg");
+	auto smoke_texture =		 AEGfxTextureLoad("../Resources/smoke.jpg");
 
 	SnekHead* snekHeadTest = (SnekHead*)new SnekHead(-150, 0, 200, 100, snakehed_texture, snakehedl_texture, snakehedr_texture);
 	snekHeadTest->SetParticles(smoke_texture, rocket_texture);

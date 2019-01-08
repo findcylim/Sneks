@@ -15,13 +15,7 @@
 *.userprefs
 
 # Build results
-*/[Dd]ebug/*.exe
-*/[Dd]ebug/*.exp
-*/[Dd]ebug/*.lib
-*/[Dd]ebug/*.pdb
-*/[Dd]ebug/*.tlog
-*/[Dd]ebug/*.idb
-*/*/[Dd]ebug/*.idb
+[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/

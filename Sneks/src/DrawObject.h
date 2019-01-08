@@ -12,9 +12,9 @@ protected:
 	float			  m_fPositionY;
 	float			  m_fSizeX;
 	float			  m_fSizeY;
-	AEGfxTexture*	  m_pTex;
+	AEGfxTexture*	  m_pTex;	
 	AEGfxVertexList*  m_pObj;
-
+	float what;
 	
 public:
 	void SetTexture(AEGfxTexture * tex);

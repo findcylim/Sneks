@@ -1,1 +1,84 @@
-//Code Standard Stuff goes here. TODO:CY
+--------------------------------------------------------------------------------------------------
+Code naming conventions/Good practice for GAM150
+--------------------------------------------------------------------------------------------------
+Reference:
+http://google.github.io/styleguide/cppguide.html
+other sites/forums/users opinions
+My opinion
+
+Let me know if you violently disagree with any of the conventions, or have your own ideas.
+If you have a good idea, we can stick to your idea instead.
+--------------------------------------------------------------------------------------------------
+1 Variable prefixes:
+	Using prefixes attempts to make your code more readable, stay consistent, and optimized
+	for the reader. Yes. Optimised for the reader, not the writer. 
+
+	m_		> member of a class
+	s_		> singleton/static
+	g_		> global
+
+	p			> pointer
+	pp		> pointer to pointer
+	i			> index/iterator
+
+	e.g.
+	for (int iCompany = 0; iCompany < numCompanies; iCompany++)
+			for (int iUser = 0; iUser < numUsers; iUser++)
+				 companyList[iCompany].score += userList[iUser].score;
+
+--------------------------------------------------------------------------------------------------
+2 Header Guards
+	All header files should have #define guards to prevent multiple inclusion. 
+	For our case, we can use both #pragma once and header guards, look at the example below.
+	
+	Name Format: <PATH>_<FILE>_H_
+	
+	To guarantee uniqueness, they should be based on the full path in a project's source tree. 
+	For example, the file Sneks/Snesk/bar/baz.h in project foo should have the following guard:
+
+	#ifndef FOO_BAR_BAZ_H_
+	#define FOO_BAR_BAZ_H_
+	#pragma once
+	
+	//code here
+
+	#endif  // FOO_BAR_BAZ_H_
+
+--------------------------------------------------------------------------------------------------
+3 Getters/Setters:
+--------------------------------------------------------------------------------------------------
+4 Avoiding Memory Leaks
+	The file which created an object should be the one to delete it.
+	There will be a macro that you can use to delete objects.
+	
+	Game.cpp - new CameraController();
+	...
+	delete CameraController();
+
+--------------------------------------------------------------------------------------------------
+5 Namespace
+	Optional, use freely, try to think of them as "folders" for your code.
+	Format: all small caps eg namespace physics{ ... }
+
+	DO NOT USE "using" directive e.g. using namespace std, it pollutes the namespace.
+
+	If there are too many "std::" polluting the code, consider using typedefs.
+	e.g.	typedef std::cout cout_std
+				cout_std << "wtv"
+			
+--------------------------------------------------------------------------------------------------
+6 Get Keyboard input
+	Use GetAsyncKeyState and check the most significant bit (0x8000) using bitwise operator (&) to 
+	see if the key is currently down.
+	There will be a macro for this. 
+	#define KEYDOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? true : false)
+
+--------------------------------------------------------------------------------------------------
+XXX Other Good Practices
+	i.	You are encouraged to declare variables in local scope if possible and as close to usage as 
+			possible.
+			This makes it easier for the reader to find the declaration and see what type the variable 
+			is and what it was initialized to. 
+
+	ii.
+
