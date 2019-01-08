@@ -1,5 +1,3 @@
-#include <glew/glew.h>
-#include <glew/wglew.h>
 
 #include <stdio.h>
 #include <math.h>
@@ -21,7 +19,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 	
 	MessageBox(NULL, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
-	AESysInit(hInstance, nCmdShow, 1500, 900, 1, 300, NULL);
+	AESysInit(hInstance, nCmdShow, 1500, 900, 1, 300, false, NULL);
 	AESysSetWindowTitle("TEST");
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 0);

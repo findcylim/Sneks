@@ -128,6 +128,21 @@ extern "C"
 AE_API s32 AEGfxInit(s32 Width, s32 Height);
 DECLARE_FUNCTION_FOR_ANDROID_2_INT(AEGfxInit, s32 Width, s32 Height);
 
+
+/******************************************************************************/
+/*!
+\fn         void SetVSync(bool vsync)
+
+\brief      Enable/Disable VSync
+
+\warning    
+
+\retval     void
+No return.
+*/
+/******************************************************************************/
+AE_API void SetVSync(bool vsync);
+
 /******************************************************************************/
 /*!
 \fn         void AEGfxReset()

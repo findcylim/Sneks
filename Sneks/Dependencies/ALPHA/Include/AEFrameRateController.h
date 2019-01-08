@@ -113,11 +113,24 @@ AE_API f64 AEFrameRateControllerGetFrameTime();
 
 \brief      Get the total number of frames elapsed.
 
-\retval     f64
+\retval     u32
             Return the total number of frames elapsed.
 */
 /******************************************************************************/
 AE_API u32 AEFrameRateControllerGetFrameCount();
+
+
+/******************************************************************************/
+/*!
+\fn         u32 AEFrameRateControllerGetFrameRate()
+
+\brief      Get the current fps.
+
+\retval     f64
+Return the total number of frames elapsed.
+*/
+/******************************************************************************/
+AE_API f64 AEFrameRateControllerGetFrameRate();
 
 // ---------------------------------------------------------------------------
 

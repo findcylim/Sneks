@@ -69,6 +69,9 @@ extern "C"
 \param      [in] FrameRateMax
             Set the maximum frames per second.
 
+\param      [in] vsync
+			enables/disables VSync
+
 \param      [in] pWinCallBack
             Pointer to a callback function. 
             May be left null if not needed.
@@ -78,7 +81,7 @@ extern "C"
             Else return 0.
 */
 /******************************************************************************/
-AE_API s32  AESysInit				(HINSTANCE hAppInstance, s32 show, s32 WinWidth, s32 WinHeight, s32 CreateConsole, u32 FrameRateMax, LRESULT (CALLBACK *pWinCallBack)(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp));
+AE_API s32  AESysInit				(HINSTANCE hAppInstance, s32 show, s32 WinWidth, s32 WinHeight, s32 CreateConsole, u32 FrameRateMax, bool vsync, LRESULT (CALLBACK *pWinCallBack)(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp));
 
 /******************************************************************************/
 /*!

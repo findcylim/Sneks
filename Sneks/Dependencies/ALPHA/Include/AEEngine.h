@@ -41,6 +41,8 @@
 #include <windows.h>
 
 #include "AEExport.h"
+//#include "AECollision_Part2.h"//for CS230_Cage_Part2 project
+//#include "AECollision_Part3.h"//for CS230_Cage_Part3 project
 
 // ---------------------------------------------------------------------------
 // assert defines
@@ -49,52 +51,57 @@
 
 // ---------------------------------------------------------------------------
 
-#define AE_ASSERT(x)												\
-{																	\
-	if((x) == 0)													\
-	{																\
-		PRINT("AE_ASSERT: %s\nLine: %d\nFunc: %s\nFile: %s\n",		\
-			#x, __LINE__, __FUNCTION__, __FILE__); 					\
-		exit(1);													\
-	}																\
+#define AE_ASSERT(x)														\
+{																			\
+	if((x) == 0)															\
+	{																		\
+		PRINT("AE_ASSERT: %s\nLine: %d\nFunc: %s\nFile: %s\n",				\
+			#x, __LINE__, __FUNCTION__, __FILE__); 							\
+		MessageBox(NULL, "Program Must Exit!", "Program Error", MB_OK);		\
+		exit(1);															\
+	}																		\
 }
 
 // ---------------------------------------------------------------------------
 
-#define AE_ASSERT_MESG(x, ...)										\
-{																	\
-	if((x) == 0)													\
-	{																\
-		PRINT("AE_ASSERT_MESG: %s\nLine: %d\nFunc: %s\nFile: %s\n",	\
-			#x, __LINE__, __FUNCTION__, __FILE__);					\
-		PRINT("Mesg: "__VA_ARGS__);									\
-		PRINT("\n");												\
-		exit(1);													\
-	}																\
+#define AE_ASSERT_MESG(x, ...)												\
+{																			\
+	if((x) == 0)															\
+	{																		\
+		PRINT("AE_ASSERT_MESG: %s\nLine: %d\nFunc: %s\nFile: %s\n",			\
+			#x, __LINE__, __FUNCTION__, __FILE__);							\
+		PRINT("Mesg: ");													\
+		PRINT(__VA_ARGS__);													\
+		PRINT("\n");														\
+		MessageBox(NULL, "Program Must Exit!", "Program Error", MB_OK);		\
+		exit(1);															\
+	}																		\
 }
 
 // ---------------------------------------------------------------------------
 
-#define AE_ASSERT_PARM(x)											\
-{																	\
-	if((x) == 0)													\
-	{																\
-		PRINT("AE_ASSERT_PARM: %s\nLine: %d\nFunc: %s\nFile: %s\n",	\
-			#x, __LINE__, __FUNCTION__, __FILE__);					\
-		exit(1);													\
-	}																\
+#define AE_ASSERT_PARM(x)													\
+{																			\
+	if((x) == 0)															\
+	{																		\
+		PRINT("AE_ASSERT_PARM: %s\nLine: %d\nFunc: %s\nFile: %s\n",			\
+			#x, __LINE__, __FUNCTION__, __FILE__);							\
+		MessageBox(NULL, "Program Must Exit!", "Program Error", MB_OK);		\
+		exit(1);															\
+	}																		\
 }
 
 // ---------------------------------------------------------------------------
 
-#define AE_ASSERT_ALLOC(x)												\
-{																		\
-	if((x) == 0)														\
-	{																	\
-		PRINT("AE_ASSERT_ALLOC: %s\nLine: %d\nFunc: %s\nFile: %s\n",	\
-			#x, __LINE__, __FUNCTION__, __FILE__);						\
-		exit(1);														\
-	}																	\
+#define AE_ASSERT_ALLOC(x)													\
+{																			\
+	if((x) == 0)															\
+	{																		\
+		PRINT("AE_ASSERT_ALLOC: %s\nLine: %d\nFunc: %s\nFile: %s\n",		\
+			#x, __LINE__, __FUNCTION__, __FILE__);							\
+		MessageBox(NULL, "Program Must Exit!", "Program Error", MB_OK);		\
+		exit(1);															\
+	}																		\
 }
 
 
@@ -117,7 +124,8 @@
 	{																	\
 		PRINT("AE_WARNING_MESG: %s\nLine: %d\nFunc: %s\nFile: %s\n",	\
 			#x, __LINE__, __FUNCTION__, __FILE__);						\
-		PRINT("Mesg: "__VA_ARGS__);										\
+		PRINT("Mesg: ");												\
+		PRINT(__VA_ARGS__);												\
 		PRINT("\n");													\
 	}																	\
 }
@@ -155,10 +163,12 @@
 
 // ---------------------------------------------------------------------------
 
-#define AE_FATAL_ERROR(...)					\
-{											\
-	PRINT("AE_FATAL_ERROR: "__VA_ARGS__);	\
-	exit(1);								\
+#define AE_FATAL_ERROR(...)												\
+{																		\
+	PRINT("AE_FATAL_ERROR: ");											\
+	PRINT(__VA_ARGS__);													\
+	MessageBox(NULL, "Program Must Exit!", "Program Error", MB_OK);		\
+	exit(1);															\
 }
 
 // ---------------------------------------------------------------------------
