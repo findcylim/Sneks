@@ -12,8 +12,7 @@ void SnekBody::Update() {
 
 	float dist = diffX * diffX + diffY * diffY;
 
-	float newRot;
-	newRot = (float)atan2(diffY, diffX);
+	float newRot = (float)atan2(diffY, diffX);
 
 	if (newRot < 0)
 		newRot += 2 * PI;

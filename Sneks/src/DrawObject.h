@@ -1,6 +1,7 @@
+#ifndef DRAW_OBJECT_H
+#define DRAW_OBJECT_H
 #pragma once
-#ifndef DRAWOBJECT_H
-#define DRAWOBJECT_H
+
 #include "AEEngine.h"
 
 
@@ -38,4 +39,4 @@ public:
 
 };
 
-#endif
+#endif	//DRAW_OBJECT_H

@@ -2,58 +2,113 @@
 Code naming conventions/Good practice for GAM150
 --------------------------------------------------------------------------------------------------
 Reference:
-http://google.github.io/styleguide/cppguide.html
-other sites/forums/users opinions
-My opinion
+	http://google.github.io/styleguide/cppguide.html
+	other sites/forums/users opinions
+	My opinion
 
-Let me know if you violently disagree with any of the conventions, or have your own ideas.
-If you have a good idea, we can stick to your idea instead.
+	Let me know if you violently disagree with any of the conventions, or have your own ideas.
+	If you have a good idea, we can stick to your idea instead.
+	
 --------------------------------------------------------------------------------------------------
 1 Variable prefixes:
 	Using prefixes attempts to make your code more readable, stay consistent, and optimized
 	for the reader. Yes. Optimised for the reader, not the writer. 
-
+	
+	(primary)-(prefixes)
 	m_		> member of a class
 	s_		> singleton/static
 	g_		> global
-
-	p			> pointer
-	pp		> pointer to pointer
-	i			> index/iterator
-
+	i_		> index/iterator 
 	e.g.
-	for (int iCompany = 0; iCompany < numCompanies; iCompany++)
-			for (int iUser = 0; iUser < numUsers; iUser++)
-				 companyList[iCompany].score += userList[iUser].score;
+		for (int i_Company = 0; i_Company < numCompanies; i_Company++)
+				for (int i_User = 0; i_User < numUsers; iUser++)
+					 companyList[i_Company].score += userList[i_User].score;
+	
+	(secondary)-(datatype)
+	i		> int
+	f		> float
+	b		> boolean
+	p		> pointer
+	pp		> pointer to pointer
+	o		> object
+	v		> vector
+	x		> custom type
+	...
+	
+	e.g.
+		class DrawObject {
+			protected:
+				float		    		 m_fRotation;
+				int			 		 m_iVelocity;
+				AEVec2		 		 m_xPosition;
+				double			 	 m_dSizeX;
+				float*				 m_pfTestFloat;
+				AEGfxTexture*	 	 m_poTex;	
+				AEGfxVertexList*   m_poObj;
+				vector<char>		 m_vBuffer;
+		}
 
+--------------------------------------------------------------------------------------------------
+2 Names
+	Function/Class	
+		UpperCamelCase for classes,
+		UpperCamelCase for functions.
+		
+		e.g. 
+			class DrawObject{
+				void SetTexture();
+				void Draw();
+			}
+	
+	File Names
+		UpperCamelCase for files  , no spaces
+		UpperCamelCase for folders, no spaces
+			e.g. Sneks\src\Systems\GameStateManager.cpp
+		NO SPACES. 
+		
 --------------------------------------------------------------------------------------------------
 2 Header Guards
 	All header files should have #define guards to prevent multiple inclusion. 
-	For our case, we can use both #pragma once and header guards, look at the example below.
+	For our case, we use both header guards and then #pragma once.
 	
 	Name Format: <PATH>_<FILE>_H_
 	
-	To guarantee uniqueness, they should be based on the full path in a project's source tree. 
-	For example, the file Sneks/Snesk/bar/baz.h in project foo should have the following guard:
+	To guarantee uniqueness, they should be based on the file name in a project's source tree. 
+	For example, the file Sneks/src/DrawObject.h should have the following guard:
 
-	#ifndef FOO_BAR_BAZ_H_
-	#define FOO_BAR_BAZ_H_
+	#ifndef DRAW_OBJECT_H
+	#define DRAW_OBJECT_H
 	#pragma once
 	
 	//code here
 
-	#endif  // FOO_BAR_BAZ_H_
+	#endif  //DRAW_OBJECT_H
 
 --------------------------------------------------------------------------------------------------
 3 Getters/Setters:
+	Avoid having public class fields. Use getters/setters where you need access to fields. 
+	Do not blanket create getters/setters for everything, only when needed.
+	
 --------------------------------------------------------------------------------------------------
 4 Avoiding Memory Leaks
-	The file which created an object should be the one to delete it.
-	There will be a macro that you can use to delete objects.
+	a. The new/delete operators will be globally overloaded so you can just keep using new
+		and delete. The new[] and delete[] operators will also be handled properly.
 	
-	Game.cpp - new CameraController();
-	...
-	delete CameraController();
+	b. Make sure you are using the custom defined new/delete instead of the default one.
+	
+	c. The file which created an object should be the one to delete it.
+	
+	e.g.
+		Game.cpp - 
+		Game::GameInit(){ //Called once when object is created
+			new CameraController();
+			...
+		}
+		
+		~Game(){ //destructor or shutdown function
+			delete CameraController();
+			...
+		}
 
 --------------------------------------------------------------------------------------------------
 5 Namespace
@@ -63,22 +118,76 @@ If you have a good idea, we can stick to your idea instead.
 	DO NOT USE "using" directive e.g. using namespace std, it pollutes the namespace.
 
 	If there are too many "std::" polluting the code, consider using typedefs.
-	e.g.	typedef std::cout cout_std
-				cout_std << "wtv"
+	e.g.	
+		typedef std::vector<int> int_vec_t;  
+		...
+		int_vec_t v;
+
 			
 --------------------------------------------------------------------------------------------------
-6 Get Keyboard input
-	Use GetAsyncKeyState and check the most significant bit (0x8000) using bitwise operator (&) to 
-	see if the key is currently down.
-	There will be a macro for this. 
-	#define KEYDOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? true : false)
+6 Typedef
+	Use typedef wherever it simplifies your code. 
+	e.g. Callback*
+--------------------------------------------------------------------------------------------------
+7 Structs vs Classes
+	Use struct only for objects that carry data but lack any functionality other than access/setting 
+	the data members
 
+	If in doubt, use classes.
+--------------------------------------------------------------------------------------------------
+8 auto
+	auto keyword exists. Use it smartly as much as possible. 
+--------------------------------------------------------------------------------------------------
+9 Passing by reference
+	Learning this soon, learn to use it well. This can save a lot of new/delete calls.
+--------------------------------------------------------------------------------------------------
+10 Indentation
+	When declaring a large number of variables at once, it can be helpful to align them to allow
+	a better looking template, or just look more professional.
+	e.g.
+		Game::Game()
+		{
+			m_hInst				= 0;
+			m_pRootState		= 0;
+
+			m_pRoot				= 0;
+			m_pCamera			= 0;
+			m_pRenderWindow	= 0;
+			m_pSceneManager	= 0;
+
+			m_pSceneManager1	= 0;
+			m_pSceneManager2	= 0;
+			m_pCamera1			= 0;
+			m_pCamera2			= 0;
+			m_nLevelLoaded		= -1;
+
+			m_pInputManager	= 0;
+			m_pEMS				= 0;
+			m_pConsole			= 0;
+			m_bConsole			= False;
+			m_pSound				= 0;
+			m_pNx					= 0;
+			m_pBspLevel			= 0;
+			m_pMenu				= 0;
+			m_pHUD				= 0;
+			m_bPlaying			= False;
+			m_pProfiler			= 0;
+			m_bProfiler			= False;
+
+			m_fElap				= 0;
+			m_pObjManager		= 0;
+		}
 --------------------------------------------------------------------------------------------------
 XXX Other Good Practices
-	i.	You are encouraged to declare variables in local scope if possible and as close to usage as 
-			possible.
-			This makes it easier for the reader to find the declaration and see what type the variable 
-			is and what it was initialized to. 
+	i.	You are encouraged to declare variables in local scope if possible and try to declare as 
+		close to usage as possible. (declare and use variable right away)
+		This makes it easier for the reader to find the declaration and see what type the variable 
+		is and what it was initialized to do. 
 
-	ii.
+	ii. Get Keyboard input
+		Use GetAsyncKeyState and check the most significant bit (0x8000) using bitwise operator (&) to 
+		see if the key is currently down.
+		There will be a macro for this. 
+		#define KEYDOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? true : false)
+
 
