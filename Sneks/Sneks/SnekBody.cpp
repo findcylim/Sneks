@@ -9,26 +9,34 @@ void SnekBody::Update() {
 	float headEdgeX = (refHead->GetPositionX() + refHead->GetRotatedOffsetXX());
 	float headEdgeY = (refHead->GetPositionY() + refHead->GetRotatedOffsetXY());
 
-	float diffX = -bodyEdgeX + headEdgeX;
-	float diffY = -bodyEdgeY + headEdgeY;
+	float diffX = bodyEdgeX - headEdgeX;
+	float diffY = bodyEdgeY - headEdgeY;
 
-	float newRot = atan2(diffY, diffX);
+	float dist = diffX * diffX + diffY * diffY;
+
+	float newRot;
+	newRot = atan2(diffY, diffX);
+	
 	if (newRot < 0)
 		newRot += 2 * PI;
+	else if (newRot >= 2 * PI)
+		newRot -= 2 * PI;
 
+	if (dist < 50 * 50) {
+	
+	}else
 		SetRotation(newRot);
 
 
-	float dist = diffX * diffX + diffY * diffY;
 	
 	//cap max distance for calculations at 500
 	if (dist > 500 * 500)
 		dist = 500 * 500;
 
-	if ( dist < (200 * 200) )
+	if (dist < (20 * 20))
 		SetVelocity(0);
 	else
-		SetVelocity(3.0f +	((dist / (500 * 500) * 5.0f)));
+		;// SetVelocity(-3.0f - ((dist / (500 * 500) * 5.0f)));
 
 
 	//apply the velocity

@@ -5,6 +5,6 @@ class SnekBody : public DrawObject {
 
 public:
 
-	SnekHead* refHead;
+	DrawObject* refHead;
 	void Update();
 };

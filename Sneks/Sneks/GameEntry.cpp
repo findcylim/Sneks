@@ -36,6 +36,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	SnekBody* snekBodyTest = (SnekBody*)new DrawObject(100, 0, 200, 100, snekbody_texture);
 	snekBodyTest->refHead = snekHeadTest;
+	SnekBody* snekBodyTest2 = (SnekBody*)new DrawObject(100, 0, 200, 100, snekbody_texture);
+	snekBodyTest2->refHead = snekBodyTest;
 
 	while (1) {
 		AESysFrameStart();
@@ -43,8 +45,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//printf("X: %f Y: %f\n", testObj->GetPositionX(), testObj->GetPositionY());
 		snekHeadTest->Update();
 		snekBodyTest->Update();
+		//snekBodyTest2->Update();
 		snekHeadTest->Draw();
 		snekBodyTest->Draw();
+		//snekBodyTest2->Draw();
 		
 		AESysFrameEnd();
 	}
