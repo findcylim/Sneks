@@ -65,7 +65,7 @@ bool EventManager::AddCallback(short EventID, FunctionP fp,void* callee)
 	}
 	else
 	{
-		Logger::LogMessage("Error 1000 : Cannot add callback as event does not exist");
+		Logger::LogMessage("Error 1000 : Cannot add callback %s as event does not exist(EventManger.cpp)",typeid(fp).name());
 		return false;
 	}
 }
@@ -87,9 +87,8 @@ bool EventManager::EmitEvent(short EventID,void* data)
 /*
 	TODO
 	REMOVE CALLBACKS FROM DEAD MEMBERS
-
 */
-bool EventManager::RemoveCallback(short EventID, FunctionP FPRef, void* callee)
+bool EventManager::RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void* callee)
 {
 	for (std::vector<CallbackP>::iterator vit = Event_CallBackList[EventID].begin();
 		vit != Event_CallBackList[EventID].end(); vit++)
@@ -107,8 +106,37 @@ bool EventManager::RemoveCallback(short EventID, FunctionP FPRef, void* callee)
 		}
 		catch(...)
 		{
-			Logger::LogMessage("Error 1004 : Exception caught at  EventManager::RemoveCallback");
+			Logger::LogMessage("Error 1004 : Exception caught at %s EventManager::RemoveCallback","RemoveCallbackFromEvent");
 			return false;
+		}
+	}
+	return true;
+}
+
+bool EventManager::RemoveCallback(FunctionP FPRef, void* callee)
+{
+	for (std::vector<vector<CallbackP>>::iterator it = Event_CallBackList.begin();
+		it != Event_CallBackList.end(); it++)
+	{
+		for (std::vector<CallbackP>::iterator vit = (*it).begin();
+			vit != (*it).end(); vit++)
+		{
+			try
+			{
+				if ((**vit).function == FPRef)
+				{
+					if ((**vit).CalleePtr == callee)
+					{
+						delete(*vit);
+						(*it).erase(vit);
+					}
+				}
+			}
+			catch (...)
+			{
+				Logger::LogMessage("Error 1004 : Exception caught at %s EventManager::RemoveCallback", "RemoveCallback");
+				return false;
+			}
 		}
 	}
 	return true;

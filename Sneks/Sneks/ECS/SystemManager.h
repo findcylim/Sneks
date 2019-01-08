@@ -12,10 +12,16 @@ using namespace std;
 //Needs to be used to manage different systems in the SystemManager
 class System
 {
-public:
+protected:
 	short SystemID;
 	const char* SystemName;
+	bool isActive;
+public:
 	virtual void Update();
+	short GetID();
+	const char * GetName();
+	void SetID(short id);
+	void SetName(const char* name);
 };
 
 

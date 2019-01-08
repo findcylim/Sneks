@@ -41,8 +41,8 @@ void ECSEngine::InitializeEngine()
 
 	//PlayerSystem
 	PlayerSystem* PlayerS = new PlayerSystem(EventManager::Instance());
-	PlayerS->SystemID = 0;
-	PlayerS->SystemName = "PlayerSystem";
+	PlayerS->SetID(0);
+	PlayerS->SetName("PlayerSystem");
 	SystemManager::Instance()->AddSystem(PlayerS);
 
 	EngineStatus = true;
@@ -57,7 +57,6 @@ bool ECSEngine::IsEngineOn()
 void ECSEngine::Update()
 {
 	EventManager::Update();
-	Logger::LogMessage("%d %f %s", 23, 43.54f, "sdsfsfas");
 	//SystemManager::Update();
 }
 

@@ -9,9 +9,9 @@ public:
 	static std::ofstream LogFile;
 
 	/*
-		Log Message Function
-		-Takes in a const char * string and logs it into Log.txt 
-		 to monitor our system logs to improve debugging.
+		<Log Message Function>
+		-Takes in a const char * string and logs it into Log.txt .
+		-Has some conversion specifiers, %s, %d, %f(only 5 decimal point precision).
 	*/
 	static bool LogMessage(const char * Message, ...);
 	//MAKE A DESTROY FOR THE SINGLETON LOGGER

@@ -8,6 +8,24 @@ void System::Update()
 	cout << "Error 2001 : Updating a non overriden system" << endl;
 }
 
+
+short System::GetID()
+{
+	return SystemID;
+}
+const char * System::GetName()
+{
+	return SystemName;
+}
+void System::SetID(short id)
+{
+	SystemID = id;
+}
+void System::SetName(const char* name)
+{
+	SystemName = name;
+}
+
 std::vector<System*> SystemManager::SystemList;
 
 SystemManager::SystemManager()
@@ -45,7 +63,7 @@ void SystemManager::AddSystem(System* NewSystem)
 	}
 	else
 	{
-		Logger::LogMessage("Error 2002 : System has not been initialised");
+		Logger::LogMessage("Error 2002 : System %s has not been initialised", NewSystem->GetName());
 	}
 }
 

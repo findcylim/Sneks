@@ -14,7 +14,7 @@ public:
 	int playerHP;
 	PlayerSystem(EventManager* Emanager);
 	~PlayerSystem();
-	static void* AttackPlayer(void* data, void* callee);
+	static void AttackPlayer(void* data, void* callee);
 	void Update();
 private:
 	EventManager* EManager;

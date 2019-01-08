@@ -127,4 +127,8 @@ Logger * Logger::Instance()
 Logger::~Logger()
 {
 	LogFile.close();
+	if (instance)
+	{
+		delete(instance);
+	}
 }

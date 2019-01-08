@@ -7,7 +7,15 @@
 
 using namespace std;
 
-typedef void*(*FunctionP)(void * data,void* callee);
+/*
+	<Standard function pointer format for callbacks>
+	-Returns void.
+	-Takes in void* to data structure, of which you will have to 
+	typecast in your callback function.
+	-Takes in a void* to member object of which the callback 
+	came from.
+*/
+typedef void(*FunctionP)(void * data,void* callee);
 
 typedef struct CallbackT
 {
@@ -34,7 +42,8 @@ public:
 	static void Update();
 	static void ProcessEvents();
 	bool AddCallback(short EventID, FunctionP fp, void* callee);
-	bool RemoveCallback(short EventID, FunctionP FPRef, void* callee);
+	bool RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void* callee);
+	bool RemoveCallback(FunctionP FPRef, void* callee);
 	static bool EmitEvent(short EventID, void* data = 0);
 	static EventManager* Instance();
 	static void ResetInstance();
