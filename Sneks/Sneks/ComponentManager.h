@@ -9,9 +9,16 @@
 #include "ComponentList.h"
 #include "EntityList.h"
 
-void cmInit();
-BaseComponent* newComponent(BaseEntity* ent, Components com);
-void deleteComponent(BaseEntity* ent, Components com);
-void deleteComponent(BaseComponent* com);
+class ComponentManager
+{
+	std::vector<BaseComponent*> componentpool;
+	void addComponent(BaseComponent* cptr, Components com);
+
+	public:
+		ComponentManager();
+		BaseComponent* newComponent(BaseEntity* ent, Components com);
+		void deleteComponent(BaseEntity* ent, Components com);
+		void deleteComponent(BaseComponent* com);
+};
 
 #endif

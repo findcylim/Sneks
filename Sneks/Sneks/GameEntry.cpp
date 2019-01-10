@@ -24,17 +24,18 @@ void printE(Entities ent)
 int main() {
 	//game goes here
 
-	cmInit();
-	emInit();
+	EntityManager* enMan = new EntityManager;
 
-	BaseEntity* eptr1 = newEntity(Entities::BaseE);
-	BaseEntity* eptr2 = newEntity(Entities::SampleE);
-	BaseEntity* eptr3 = newEntity(Entities::EndE);
+	BaseEntity* eptr1 = enMan->newEntity(Entities::BaseE);
+	BaseEntity* eptr2 = enMan->newEntity(Entities::SampleE);
+	BaseEntity* eptr3 = enMan->newEntity(Entities::EndE);
 
 	if (eptr1)
 	{
 		std::cout << "Entity 1: ";
 		printE(eptr1->entityID);
+
+		enMan->comMan->newComponent(eptr1, Components::SampleC);
 
 		if (eptr1->coe.size())
 		{
@@ -53,6 +54,8 @@ int main() {
 	{
 		std::cout << "Entity 2: ";
 		printE(eptr2->entityID);
+
+		enMan->comMan->deleteComponent(eptr2->coe[0]);
 
 		if (eptr2->coe.size())
 		{
@@ -85,9 +88,9 @@ int main() {
 
 	std::cout << std::endl;
 
-	deleteEntity(eptr1);
-	deleteEntity(eptr2);
-	deleteEntity(eptr3);
+	enMan->deleteEntity(eptr1);
+	enMan->deleteEntity(eptr2);
+	enMan->deleteEntity(eptr3);
 
 	getchar();
 

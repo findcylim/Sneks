@@ -2,40 +2,14 @@
 #include <vector>
 
 #include "EntityManager.h"
-#include "ComponentManager.h"
 
-std::vector<BaseEntity*> entitypool;
-
-void emInit()
+EntityManager::EntityManager()
 {
 	for (int i = 0; i < Entities::EndE; i++)
 		entitypool.push_back(NULL);
 }
 
-void attachAllComponents(BaseEntity* eptr, Entities ent)
-{
-	if (eptr)
-	{
-		Components* cptr = NULL;
-		switch (ent)
-		{
-		case Entities::SampleE:
-			cptr = ((sampleEntity*)eptr)->basicComponents;
-			break;
-		}
-
-		if (cptr)
-		{
-			while (*cptr != Components::EndC)
-			{
-				newComponent(eptr, *cptr);
-				cptr++;
-			}
-		}
-	}
-}
-
-void addEntity(BaseEntity* eptr, Entities ent)
+void EntityManager::addEntity(BaseEntity* eptr, Entities ent)
 {
 	if (eptr)
 	{
@@ -56,7 +30,30 @@ void addEntity(BaseEntity* eptr, Entities ent)
 	}
 }
 
-BaseEntity* newEntity(Entities ent)
+void EntityManager::attachAllComponents(BaseEntity* eptr, Entities ent)
+{
+	if (eptr)
+	{
+		Components* cptr = NULL;
+		switch (ent)
+		{
+		case Entities::SampleE:
+			cptr = ((sampleEntity*)eptr)->basicComponents;
+			break;
+		}
+
+		if (cptr)
+		{
+			while (*cptr != Components::EndC)
+			{
+				comMan->newComponent(eptr, *cptr);
+				cptr++;
+			}
+		}
+	}
+}
+
+BaseEntity* EntityManager::newEntity(Entities ent)
 {
 	BaseEntity* eptr = NULL;
 	switch (ent)
@@ -79,20 +76,20 @@ BaseEntity* newEntity(Entities ent)
 	return eptr;
 }
 
-void deleteEntity(BaseComponent* com)
+void EntityManager::deleteEntity(BaseComponent* com)
 {
 	if(com)
 		deleteEntity(com->ownerEntity);
 }
 
-void deleteEntity(BaseEntity* ent)
+void EntityManager::deleteEntity(BaseEntity* ent)
 {
 	if (ent)
 	{
 		BaseEntity *pptr = ent->prev, *nptr = ent->next;
 
 		while (ent->coe.size() > 0)
-			deleteComponent(ent->coe[0]);
+			comMan->deleteComponent(ent->coe[0]);
 
 		if (pptr && nptr)
 		{

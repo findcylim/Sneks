@@ -8,10 +8,20 @@
 #include "Component.h"
 #include "EntityList.h"
 #include "ComponentList.h"
+#include "ComponentManager.h"
 
-void emInit();
-BaseEntity* newEntity(Entities ent);
-void deleteEntity(BaseComponent* com);
-void deleteEntity(BaseEntity* ent);
+class EntityManager
+{
+	std::vector<BaseEntity*> entitypool;
+	void addEntity(BaseEntity* eptr, Entities ent);
+	void attachAllComponents(BaseEntity* eptr, Entities ent);
+
+	public:
+		EntityManager();
+		ComponentManager *comMan = new ComponentManager;
+		BaseEntity* newEntity(Entities ent);
+		void deleteEntity(BaseComponent* com);
+		void deleteEntity(BaseEntity* ent);
+};
 
 #endif

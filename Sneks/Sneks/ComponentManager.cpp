@@ -5,34 +5,13 @@
 
 #include "ComponentManager.h"
 
-std::vector<BaseComponent*> componentpool;
-
-void cmInit()
+ComponentManager::ComponentManager()
 {
 	for (int i = 0; i < Components::EndC; i++)
 		componentpool.push_back(NULL);
 }
 
-void addComponent(BaseComponent* cptr, Components com)
-{
-	if (cptr)
-	{
-		BaseComponent* vptr = componentpool[com];
-
-		if (vptr)
-		{
-			while (vptr->next)
-				vptr = vptr->next;
-
-			vptr->next = cptr;
-			cptr->prev = vptr;
-		}
-		else
-			componentpool[com] = cptr;
-	}
-}
-
-BaseComponent* newComponent(BaseEntity* ent, Components com)
+BaseComponent* ComponentManager::newComponent(BaseEntity* ent, Components com)
 {
 	BaseComponent* cptr = NULL;
 
@@ -59,7 +38,26 @@ BaseComponent* newComponent(BaseEntity* ent, Components com)
 	return cptr;
 }
 
-void deleteComponent(BaseEntity* ent, Components com)
+void ComponentManager::addComponent(BaseComponent* cptr, Components com)
+{
+	if (cptr)
+	{
+		BaseComponent* vptr = componentpool[com];
+
+		if (vptr)
+		{
+			while (vptr->next)
+				vptr = vptr->next;
+
+			vptr->next = cptr;
+			cptr->prev = vptr;
+		}
+		else
+			componentpool[com] = cptr;
+	}
+}
+
+void ComponentManager::deleteComponent(BaseEntity* ent, Components com)
 {
 	if (ent)
 	{
@@ -71,7 +69,7 @@ void deleteComponent(BaseEntity* ent, Components com)
 	}
 }
 
-void deleteComponent(BaseComponent* com)
+void ComponentManager::deleteComponent(BaseComponent* com)
 {
 	if (com)
 	{
