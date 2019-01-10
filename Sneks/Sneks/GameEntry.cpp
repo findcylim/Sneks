@@ -7,7 +7,6 @@
 
 
 
-using namespace std;
 
 
 int main() {
@@ -16,14 +15,14 @@ int main() {
 	ECSEngine* Engine = new ECSEngine;
 	Engine->InitializeEngine();
 
-	cout << "What" << endl;
+	std::cout << "What" << std::endl;
 	while (Engine->IsEngineOn())
 	{
 		Engine->Update();
 	}
 
 
-	cin >> lol;
+	std::cin >> lol;
 
 	return 0;
 

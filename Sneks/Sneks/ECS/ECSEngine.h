@@ -3,15 +3,16 @@
 
 #include "EventManager.h"
 #include "SystemManager.h"
-#include "../Utility/Logger.h"
+#include "../Utility/Utility.h"
 
 
 
 class ECSEngine
 {
 private:
-	
-	Logger* logger; //Logger object to log objects into the log file. 
+	EventManager* m_EventManager;
+	SystemManager* m_SystemManager;
+	Utility* m_Utility;
 	bool EngineStatus;
 public:
 	ECSEngine();

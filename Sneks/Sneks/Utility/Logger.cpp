@@ -3,26 +3,19 @@
 #include <iostream>
 #include <iomanip>
 #include <chrono>
-#include <ctime>
 #include <stdarg.h>
-using namespace std;
-
-bool LogOpen;
-char buffer[26];
-struct tm buf;
 
 
 
-Logger * Logger::instance = 0;
-std::ofstream Logger::LogFile;
+
 
 Logger::Logger()
 {
-	LogFile.open("log.txt", ios::app);
+	LogFile.open("log.txt", std::ios::app);
 
 	if (!LogFile.is_open())
 	{
-		cout << "ERROR : LOG FILE DID NOT OPEN" << endl;
+		std::cout << "ERROR : LOG FILE DID NOT OPEN" << std::endl;
 		LogOpen = false;
 	}
 	else
@@ -40,7 +33,7 @@ Logger::Logger()
 ***************************************************************************************/
 bool Logger::LogMessage(const char * Message, ...)
 {
-	time_t a_LogTime = chrono::system_clock::to_time_t(chrono::system_clock::now());
+	time_t a_LogTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 	va_list args;
 	va_start(args,Message);
 
@@ -50,7 +43,7 @@ bool Logger::LogMessage(const char * Message, ...)
 	if (LogFile.is_open())
 	{
 		LogFile << "[" << buf.tm_mday << "/" << buf.tm_mon + 1 << "/" << buf.tm_year + 1900
-			<< " " << setfill('0') << setw(2) << buf.tm_hour << ":" << setw(2)
+			<< " " << std::setfill('0') << std::setw(2) << buf.tm_hour << ":" << std::setw(2)
 			<< buf.tm_min << "]" << " : ";
 		while (*Message != '\0') 
 		{
@@ -98,7 +91,7 @@ bool Logger::LogMessage(const char * Message, ...)
 				{
 				case 'n':
 					{
-						LogFile << endl;
+						LogFile << std::endl;
 						break;
 					}
 				}
@@ -107,19 +100,10 @@ bool Logger::LogMessage(const char * Message, ...)
 				LogFile << *Message;
 			Message++;
 		}
-		LogFile << endl;
+		LogFile << std::endl;
 		return true; // Output fine
 	}
 	return false; // Something went wrong
-}
-
-Logger * Logger::Instance()
-{
-	if (!instance)
-	{
-		instance = new Logger;
-	}
-	return instance;
 }
 
 
@@ -127,8 +111,4 @@ Logger * Logger::Instance()
 Logger::~Logger()
 {
 	LogFile.close();
-	if (instance)
-	{
-		delete(instance);
-	}
 }

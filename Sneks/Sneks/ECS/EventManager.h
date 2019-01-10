@@ -2,10 +2,8 @@
 
 #include <list>
 #include <vector>
-#include "../Utility/Logger.h"
+#include "../Utility/Utility.h"
 #include "SystemManager.h"
-
-using namespace std;
 
 /*
 	<Standard function pointer format for callbacks>
@@ -19,9 +17,9 @@ typedef void(*FunctionP)(void * data,void* callee);
 
 typedef struct CallbackT
 {
-	FunctionP function;
-	short EventId;
-	void* CalleePtr;
+	FunctionP m_function;
+	short m_EventId;
+	void* m_CalleePtr;
 }CallbackT;
 
 typedef CallbackT* CallbackP;
@@ -36,22 +34,21 @@ class EventManager
 {
 	
 protected : 
-	static EventManager * EventInstance;
-	static std::list<Event*> EventQueue;
+	std::list<Event*> EventQueue;
 public:
-	static void Update();
-	static void ProcessEvents();
+	void Update();
+	void ProcessEvents();
 	bool AddCallback(short EventID, FunctionP fp, void* callee);
 	bool RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void* callee);
 	bool RemoveCallback(FunctionP FPRef, void* callee);
-	static bool EmitEvent(short EventID, void* data = 0);
-	static EventManager* Instance();
-	static void ResetInstance();
+	bool EmitEvent(short EventID, void* data = 0);
+	void ResetInstance();
 	void Initialize();
-	EventManager();
+	EventManager(Utility*);
 	virtual ~EventManager();
 private:
 	bool hasEvent(short EventId);
-	static std::vector<vector<CallbackP>> Event_CallBackList;
+	std::vector<std::vector<CallbackP>> m_EventCallBackList;
+	Utility* m_UtilityPtr;
 };
 

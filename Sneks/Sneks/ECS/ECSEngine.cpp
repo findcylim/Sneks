@@ -4,8 +4,10 @@
 
 ECSEngine::ECSEngine()
 {
-	Logger::Instance();
-	EngineStatus = false;
+	m_Utility		= new Utility();
+	m_EventManager	= new EventManager(m_Utility);
+	m_SystemManager = new SystemManager(m_Utility);
+	EngineStatus	= false;
 }
 
 
@@ -27,23 +29,23 @@ Function: InitializeEngine
 ********************************************************/
 void ECSEngine::InitializeEngine()
 {
-	EventManager::Instance()->Initialize();
+	m_EventManager->Initialize();
 	/*
 		Create and add Events here
 	*/
 
 
 
-	SystemManager::Instance()->Initialize();
+	m_SystemManager->Initialize();
 	/*
 		Create and add Systems here
 	*/
 
 	//PlayerSystem
-	PlayerSystem* PlayerS = new PlayerSystem(EventManager::Instance());
+	PlayerSystem* PlayerS = new PlayerSystem(m_EventManager);
 	PlayerS->SetID(0);
 	PlayerS->SetName("PlayerSystem");
-	SystemManager::Instance()->AddSystem(PlayerS);
+	m_SystemManager->AddSystem(PlayerS);
 
 	EngineStatus = true;
 }
@@ -56,8 +58,8 @@ bool ECSEngine::IsEngineOn()
 
 void ECSEngine::Update()
 {
-	EventManager::Update();
-	//SystemManager::Update();
+	m_EventManager->Update();
+	m_SystemManager->Update();
 }
 
 

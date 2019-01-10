@@ -5,7 +5,7 @@
 //Errors > 2000
 void System::Update()
 {
-	cout << "Error 2001 : Updating a non overriden system" << endl;
+	std::cout << "Error 2001 : Updating a non overriden system" << std::endl;
 }
 
 
@@ -26,11 +26,9 @@ void System::SetName(const char* name)
 	SystemName = name;
 }
 
-std::vector<System*> SystemManager::SystemList;
-
-SystemManager::SystemManager()
+SystemManager::SystemManager(Utility* UtilityPtr)
 {
-	
+	m_UtilityPtr = UtilityPtr;
 }
 
 SystemManager::~SystemManager()
@@ -38,17 +36,8 @@ SystemManager::~SystemManager()
 
 }
 
-SystemManager* SystemManager::instance = 0;
 
 
-SystemManager* SystemManager::Instance()
-{
-	if (!instance)
-	{
-		instance = new SystemManager;
-	}
-	return instance;
-}
 
 void SystemManager::Initialize()
 {
@@ -63,7 +52,7 @@ void SystemManager::AddSystem(System* NewSystem)
 	}
 	else
 	{
-		Logger::LogMessage("Error 2002 : System %s has not been initialised", NewSystem->GetName());
+		m_UtilityPtr->m_Logger->LogMessage("Error 2002 : System %s has not been initialised", NewSystem->GetName());
 	}
 }
 

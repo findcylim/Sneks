@@ -17,6 +17,9 @@
     <Filter Include="Utlity">
       <UniqueIdentifier>{5917b0d3-5d3f-4ca5-b609-3aedf52dd810}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test Files">
+      <UniqueIdentifier>{5fddb57f-7373-4619-9539-450ba76ad102}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ECS\ECSEngine.cpp">
@@ -32,12 +35,17 @@
       <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="BulletSystem.cpp" />
     <ClCompile Include="Utility\Logger.cpp">
       <Filter>Utlity</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Utility.cpp">
       <Filter>Utlity</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\GameStateManager.cpp">
+      <Filter>Utlity</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletSystem.cpp">
+      <Filter>Test Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,12 +61,17 @@
     <ClInclude Include="Systems\PlayerSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="BulletSystem.h" />
     <ClInclude Include="Utility\Logger.h">
       <Filter>Utlity</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Utility.h">
       <Filter>Utlity</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\GameStateManager.h">
+      <Filter>Utlity</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletSystem.h">
+      <Filter>Test Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

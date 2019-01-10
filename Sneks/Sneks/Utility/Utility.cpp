@@ -3,13 +3,19 @@
 
 
 
-
-template <class DstType, class SrcType>
-static bool IsType(const SrcType* src)
+Utility::Utility()
 {
-	return dynamic_cast<const DstType*>(src) != nullptr;
+	m_Logger	= new Logger();
+	m_GSManager = new GameStateManager();
+
+	m_GSManager->GameStateInit();
 }
 
+Utility::~Utility()
+{
+	delete(m_Logger);
+	delete(m_GSManager);
+}
 
 
 

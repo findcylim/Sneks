@@ -2,10 +2,9 @@
 
 #include <vector>
 #include "EventManager.h"
-#include "../Utility/Logger.h"
+#include "../Utility/Utility.h"
 
 
-using namespace std;
 
 //Virtual System Class
 //To be overriden by actual systems
@@ -30,15 +29,14 @@ public:
 class SystemManager
 {
 private:
-	static std::vector<System*> SystemList;
-	static SystemManager * instance;
-	SystemManager();
-	~SystemManager();
+	std::vector<System*> SystemList;
 public:
-	static SystemManager * Instance();
+	Utility* m_UtilityPtr;
 	void AddSystem(System* NewSystem);
 	void RemoveSystem(System* RemSystem);
-	static void Update();
+	void Update();
 	void Initialize();
+	SystemManager(Utility*);
+	~SystemManager();
 };
 

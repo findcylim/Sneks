@@ -1,17 +1,22 @@
 #pragma once
 
-namespace UtilityTools
+#include "Logger.h"
+#include "GameStateManager.h"
+
+
+
+
+class Utility
 {
-	template <class DstType, class SrcType>
-	static bool IsType(const SrcType* src);
+public:
+	Logger* m_Logger;
+	GameStateManager* m_GSManager;
 
-}
-
-
-
-
-
-
+	//There should only be one instance per Window
+	//Limit your news
+	Utility();
+	~Utility();
+};
 
 
 

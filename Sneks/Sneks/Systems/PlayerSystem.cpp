@@ -17,9 +17,9 @@ PlayerSystem::~PlayerSystem()
 
 void PlayerSystem::AttackPlayer(void* dmg, void* callee)
 {
-	int lol = *((int*)dmg);
+	/*int lol = *((int*)dmg);
 	((PlayerSystem*)callee)->playerHP -= lol;
-	cout << lol;
+	std::cout << lol;*/
 }
 
 void PlayerSystem::Update()
