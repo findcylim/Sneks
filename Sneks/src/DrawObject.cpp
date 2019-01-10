@@ -67,9 +67,11 @@ void DrawObject::Draw() {
 	AEMtx33* globalMatrix = new AEMtx33();
 	AEMtx33Concat(globalMatrix, transMatrix, rotMatrix);
 
+	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
-	AEGfxSetTintColor(1, 1, 1, 0);
+	AEGfxSetTintColor(1, 1, 1, 1);
 	AEGfxTextureSet(m_pTex, 0, 0);
+	AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
 	AEGfxSetTransparency(1);
 	AEGfxSetPosition(m_fPositionX, m_fPositionY);
 	AEGfxSetTransform(globalMatrix->m);
