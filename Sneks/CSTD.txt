@@ -38,14 +38,14 @@ Reference:
 	e.g.
 		class DrawObject {
 			protected:
-				float		    		 m_fRotation;
-				int			 		 m_iVelocity;
-				AEVec2		 		 m_xPosition;
-				double			 	 m_dSizeX;
-				float*				 m_pfTestFloat;
-				AEGfxTexture*	 	 m_poTex;	
-				AEGfxVertexList*   m_poObj;
-				vector<char>		 m_vBuffer;
+				float		        m_fRotation;
+				int			 		m_iVelocity;
+				AEVec2		 		m_xPosition;
+				double			 	m_dSizeX;
+				float*				m_pfTestFloat;
+				AEGfxTexture*	 	m_poTex;	
+				AEGfxVertexList*    m_poObj;
+				vector<char>		m_vBuffer;
 		}
 
 --------------------------------------------------------------------------------------------------
@@ -122,28 +122,36 @@ Reference:
 		typedef std::vector<int> int_vec_t;  
 		...
 		int_vec_t v;
-
 			
 --------------------------------------------------------------------------------------------------
 6 Typedef
 	Use typedef wherever it simplifies your code. 
 	e.g. Callback*
+	
 --------------------------------------------------------------------------------------------------
 7 Structs vs Classes
 	Use struct only for objects that carry data but lack any functionality other than access/setting 
 	the data members
 
 	If in doubt, use classes.
+	
 --------------------------------------------------------------------------------------------------
 8 auto
-	auto keyword exists. Use it smartly as much as possible. 
+	"auto" declares an object whose type is deducible from its initializer.
+	Use it smartly as much as possible. 
+	e.g.
+		auto c='a'; //char
+		auto d=0.5; //double
+		auto my_square= new Square();
+	
 --------------------------------------------------------------------------------------------------
 9 Passing by reference
 	Learning this soon, learn to use it well. This can save a lot of new/delete calls.
+
 --------------------------------------------------------------------------------------------------
 10 Indentation
-	When declaring a large number of variables at once, it can be helpful to align them to allow
-	a better looking template, or just look more professional.
+	When declaring or defining a large number of variables at once, it can be helpful to align 
+	them to allow a better looking template, or just look more professional.
 	e.g.
 		Game::Game()
 		{
@@ -152,8 +160,8 @@ Reference:
 
 			m_pRoot				= 0;
 			m_pCamera			= 0;
-			m_pRenderWindow	= 0;
-			m_pSceneManager	= 0;
+			m_pRenderWindow		= 0;
+			m_pSceneManager		= 0;
 
 			m_pSceneManager1	= 0;
 			m_pSceneManager2	= 0;
@@ -161,12 +169,11 @@ Reference:
 			m_pCamera2			= 0;
 			m_nLevelLoaded		= -1;
 
-			m_pInputManager	= 0;
+			m_pInputManager		= 0;
 			m_pEMS				= 0;
-			m_pConsole			= 0;
 			m_bConsole			= False;
-			m_pSound				= 0;
-			m_pNx					= 0;
+			m_pSound			= 0;
+			m_pNx				= 0;
 			m_pBspLevel			= 0;
 			m_pMenu				= 0;
 			m_pHUD				= 0;
@@ -177,6 +184,19 @@ Reference:
 			m_fElap				= 0;
 			m_pObjManager		= 0;
 		}
+
+--------------------------------------------------------------------------------------------------
+11 Typecasts
+	Use C++ style casts like static_cast<float>(double_value). Do not use C style casts like
+	int y = (int)x; 
+	Reason:
+	
+--------------------------------------------------------------------------------------------------
+12 0/nullptr/NULL
+	Use 0 for integers, 0.0 for reals, nullptr for pointers, and '\0' for chars.
+
+
+
 --------------------------------------------------------------------------------------------------
 XXX Other Good Practices
 	i.	You are encouraged to declare variables in local scope if possible and try to declare as 
