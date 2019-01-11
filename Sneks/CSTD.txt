@@ -50,21 +50,55 @@ Reference:
 
 --------------------------------------------------------------------------------------------------
 2 Names
-	Function/Class	
-		UpperCamelCase for classes,
-		UpperCamelCase for functions.
+	a. Formatting
+		Function/Class	
+			UpperCamelCase for classes,
+			UpperCamelCase for functions.
+			
+			e.g. 
+				class DrawObject{
+					void SetTexture();
+					void Draw();
+				}
 		
-		e.g. 
-			class DrawObject{
-				void SetTexture();
-				void Draw();
-			}
+		File Names
+			snake_case for files, all lowercase, separated by underscore
+				e.g. Sneks\src\Systems\game_state_manager.cpp
+		
+		
+		Variable Names
+			lowerCamelCase
+		
+	b. Naming Rules
+		Names should be descriptive, avoid abbreviation.
 	
-	File Names
-		UpperCamelCase for files  , no spaces
-		UpperCamelCase for folders, no spaces
-			e.g. Sneks\src\Systems\GameStateManager.cpp
-		NO SPACES. 
+		Give as descriptive a name as possible, within reason. Do not worry about saving horizontal
+		space as it is far more important to make your code immediately understandable by a new 
+		reader. Do not abbreviate by deleting letters within a word. Abbreviations that would 
+		be familiar to someone outside your project with relevant domain knowledge are OK. 
+		As a rule of thumb, an abbreviation is probably OK if it's listed in Wikipedia.
+		i.e.
+		GOOD:
+		
+		int price_count_reader;    // No abbreviation.
+		int num_errors;            // "num" is a widespread convention.
+		int num_dns_connections;   // Most people know what "DNS" stands for.
+		
+		BAD:
+	
+		int n;                     // Meaningless.
+		int nerr;                  // Ambiguous abbreviation.
+		int n_comp_conns;          // Ambiguous abbreviation.
+		int wgc_connections;       // Only your group knows what this stands for.
+		int pc_reader;             // Lots of things can be abbreviated "pc".
+		int cstmr_id;              // Deletes internal letters.
+		FooBarRequestInfo fbri;    // Not even a word.
+		
+		Whenever abbreviations or acronyms appear, only capitalise the first letter.
+		i.e. 
+			StartGsm() , rather than StartGSM()
+		
+		
 		
 --------------------------------------------------------------------------------------------------
 2 Header Guards
@@ -137,13 +171,13 @@ Reference:
 	
 --------------------------------------------------------------------------------------------------
 8 auto
-	"auto" declares an object whose type is deducible from its initializer.
-	Use it smartly as much as possible. 
+	"auto" declares an object whose type is deducible from its initializer. Use auto to avoid 
+	type names that are noisy, obvious, or unimportant - cases where the type doesn't aid in 
+	clarity for the reader.
 	e.g.
-		auto c='a'; //char
-		auto d=0.5; //double
-		auto my_square= new Square();
-	
+		auto mySquare= new Square();
+		auto exampleVector = static_cast<vector<int>>(getVector());
+		
 --------------------------------------------------------------------------------------------------
 9 Passing by reference
 	Learning this soon, learn to use it well. This can save a lot of new/delete calls.
@@ -189,25 +223,50 @@ Reference:
 11 Typecasts
 	Use C++ style casts like static_cast<float>(double_value). Do not use C style casts like
 	int y = (int)x; 
-	Reason:
+	Reason: The problem with C casts is the ambiguity of the operation; sometimes you are doing
+			a conversion (e.g., (int)3.5) and sometimes you are doing a cast (e.g., (int)"hello").
 	
 --------------------------------------------------------------------------------------------------
 12 0/nullptr/NULL
-	Use 0 for integers, 0.0 for reals, nullptr for pointers, and '\0' for chars.
-
-
+	Use 0 for integers, 0.0 for floating point, nullptr for pointers (don't use NULL), and
+	'\0' for chars.
 
 --------------------------------------------------------------------------------------------------
+13 Line Length, Tabs/Spaces
+	You are encouraged to stay within 80 line length as that is the industry standard.
+	Tabs/Spaces use at your own discretion, but do keep indentation consistent between files.
+	
+--------------------------------------------------------------------------------------------------
+14 Use of const
+	You are encouraged to use the const keyword wherever it makes sense.
+	i.e.
+	Declare methods to be const whenever possible. Accessors should almost always be const. 
+	Other methods should be const if they do not modify any data members, do not call any 
+	non-const methods, and do not return a non-const pointer or non-const 
+	reference to a data member.
+	
+--------------------------------------------------------------------------------------------------
+15 C++ constexpr
+	We are used to using #define to define a true constant, but C++ constexpr is far more robust
+	and allows types rather than using raw literals. Use constexpr for "true constants", which
+	refer to variables whose value are set at compile time. Use all caps to represent these 
+	variables, separated by underscores.
+	e.g.
+		constexpr float EVENT_COUNT 5;
+	
+--------------------------------------------------------------------------------------------------
 XXX Other Good Practices
-	i.	You are encouraged to declare variables in local scope if possible and try to declare as 
-		close to usage as possible. (declare and use variable right away)
+	a.	You are encouraged to declare variables in local scope if possible and try to declare as 
+		close to first usage as possible. (declare and use variable right away)
 		This makes it easier for the reader to find the declaration and see what type the variable 
 		is and what it was initialized to do. 
 
-	ii. Get Keyboard input
+	b. Get Keyboard input
 		Use GetAsyncKeyState and check the most significant bit (0x8000) using bitwise operator (&) to 
 		see if the key is currently down.
 		There will be a macro for this. 
 		#define KEYDOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? true : false)
 
-
+	c. sizeof
+		Prefer sizeof(varName) to sizeof(type). sizeof(varname) will update appropriately if 
+		someone changes the variable type either now or later.
