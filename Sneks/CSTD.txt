@@ -158,9 +158,15 @@ Reference:
 		int_vec_t v;
 			
 --------------------------------------------------------------------------------------------------
-6 Typedef
-	Use typedef wherever it simplifies your code. 
-	e.g. Callback*
+6 Typedef	
+	Use typedef wherever it simplifies your code, especially if there is a good chance you will be
+	using both object and object pointers a lot.
+	e.g. 
+		typedef Callback* CallbackP
+		
+	Or, when the type is long and messy.
+	e.g.
+		typedef std::vector<int> vec_int
 	
 --------------------------------------------------------------------------------------------------
 7 Structs vs Classes

@@ -26,28 +26,28 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto snake_head_texture =		 AEGfxTextureLoad("../Resources/snek_hed.jpg");
 	auto snake_head_l_texture =		 AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
 	auto snake_head_r_texture =		 AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
-	auto snake_body_texture =		 AEGfxTextureLoad("../Resources/red_snake.jpg");
+	auto snake_body_texture =		 AEGfxTextureLoad("../Resources/snake-body.png");
 	auto rocket_texture =			 AEGfxTextureLoad("../Resources/rocket_booster.jpg");
 	auto smoke_texture =			 AEGfxTextureLoad("../Resources/smoke.jpg");
 
-	SnekHead* snekHeadTest = static_cast<SnekHead*>(new SnekHead(-150, 0, 200, 100, snake_head_texture, snake_head_l_texture, snake_head_r_texture));
-	snekHeadTest->SetParticles(smoke_texture, rocket_texture);
+	auto snek_head_test = static_cast<SnekHead*>(new SnekHead(-150, 0, 200, 100, snake_head_texture, snake_head_l_texture, snake_head_r_texture));
+	snek_head_test->SetParticles(smoke_texture, rocket_texture);
 
-	SnekBody* snek_body_test  = dynamic_cast<SnekBody*>(new DrawObject( 100, 0, 200, 100, snake_body_texture));
-	snek_body_test->refHead = snekHeadTest;
-	SnekBody* snek_body_test2 = dynamic_cast<SnekBody*>(new DrawObject(100, 0, 200, 100, snake_body_texture));
+	auto snek_body_test  = static_cast<SnekBody*>(new DrawObject( 100, 0, 61, 80, snake_body_texture));
+	snek_body_test->refHead = snek_head_test;
+	auto snek_body_test2 = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 80, snake_body_texture));
 	snek_body_test2->refHead = snek_body_test;
 
 	while (true) {
 		AESysFrameStart();
 
 		//printf("X: %f Y: %f\n", testObj->GetPositionX(), testObj->GetPositionY());
-		snekHeadTest->Update();
+		snek_head_test->Update();
 		snek_body_test->Update();
-		//snekBodyTest2->Update();
-		snekHeadTest->Draw();
+		//snek_body_test2->Update();
+		snek_head_test->Draw();
 		snek_body_test->Draw();
-		//snekBodyTest2->Draw();
+		//snek_body_test2->Draw();
 		
 		AESysFrameEnd();
 	}

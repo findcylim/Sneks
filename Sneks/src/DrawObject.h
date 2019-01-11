@@ -15,8 +15,7 @@ protected:
 	float			  m_fSizeY;
 	AEGfxTexture*	  m_pTex;	
 	AEGfxVertexList*  m_pObj;
-	float what;
-	
+
 public:
 	void SetTexture(AEGfxTexture * tex);
 	void SetRotation(float f);
