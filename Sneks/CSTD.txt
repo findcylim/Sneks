@@ -47,7 +47,7 @@ Reference:
 				AEGfxVertexList*    m_poObj;
 				vector<char>		m_vBuffer;
 		}
-
+ 
 --------------------------------------------------------------------------------------------------
 2 Names
 	a. Formatting
@@ -62,8 +62,8 @@ Reference:
 				}
 		
 		File Names
-			snake_case for files, all lowercase, separated by underscore
-				e.g. Sneks\src\Systems\game_state_manager.cpp
+			UpperCamelCase for files, no spaces
+				e.g. Sneks\src\Systems\GameStateManager.cpp
 		
 		
 		Variable Names
@@ -99,7 +99,14 @@ Reference:
 			StartGsm() , rather than StartGSM()
 		
 		
-		
+	c. Enums
+		Append a lowercase k at the beginning of enums
+		enum Event{
+			kEventPlayerAttack,
+			kEventPlayerMove,
+			kEventEnemyMove,
+			...
+		};
 --------------------------------------------------------------------------------------------------
 2 Header Guards
 	All header files should have #define guards to prevent multiple inclusion. 
@@ -255,10 +262,10 @@ Reference:
 15 C++ constexpr
 	We are used to using #define to define a true constant, but C++ constexpr is far more robust
 	and allows types rather than using raw literals. Use constexpr for "true constants", which
-	refer to variables whose value are set at compile time. Use all caps to represent these 
-	variables, separated by underscores.
+	refer to variables whose value are set at compile time. Use prefix k for constants, then 
+	UpperCamelCase
 	e.g.
-		constexpr float EVENT_COUNT 5;
+		constexpr float kEventCount 5;
 	
 --------------------------------------------------------------------------------------------------
 XXX Other Good Practices
