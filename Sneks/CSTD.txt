@@ -199,41 +199,91 @@ Reference:
 
 --------------------------------------------------------------------------------------------------
 10 Indentation
-   When declaring or defining a large number of variables at once, it can be helpful to align 
-   them to allow a better looking template, or just look more professional.
-   e.g.
-      Game::Game()
-      {
-         m_hInst           = 0;
-         m_pRootState      = 0;
 
-         m_pRoot           = 0;
-         m_pCamera         = 0;
-         m_pRenderWindow   = 0;
-         m_pSceneManager   = 0;
+	Horizontal Indentation
+		When declaring or defining a large number of variables at once, it can be helpful to align 
+		them to allow a better looking template, or just look more professional.
+		e.g.
+			Game::Game()
+			{
+				m_hInst           = 0;
+				m_pRootState      = 0;
 
-         m_pSceneManager1  = 0;
-         m_pSceneManager2  = 0;
-         m_pCamera1        = 0;
-         m_pCamera2        = 0;
-         m_nLevelLoaded    = -1;
+				m_pRoot           = 0;
+				m_pCamera         = 0;
+				m_pRenderWindow   = 0;
+				m_pSceneManager   = 0;
 
-         m_pInputManager   = 0;
-         m_pEMS            = 0;
-         m_bConsole        = False;
-         m_pSound          = 0;
-         m_pNx             = 0;
-         m_pBspLevel       = 0;
-         m_pMenu           = 0;
-         m_pHUD            = 0;
-         m_bPlaying        = False;
-         m_pProfiler       = 0;
-         m_bProfiler       = False;
+				m_pSceneManager1  = 0;
+				m_pSceneManager2  = 0;
+				m_pCamera1        = 0;
+				m_pCamera2        = 0;
+				m_nLevelLoaded    = -1;
 
-         m_fElap           = 0;
-         m_pObjManager     = 0;
-      }
+				m_pInputManager   = 0;
+				m_pEMS            = 0;
+				m_bConsole        = False;
+				m_pSound          = 0;
+				m_pNx             = 0;
+				m_pBspLevel       = 0;
+				m_pMenu           = 0;
+				m_pHUD            = 0;
+				m_bPlaying        = False;
+				m_pProfiler       = 0;
+				m_bProfiler       = False;
 
+				m_fElap           = 0;
+				m_pObjManager     = 0;
+			}
+		
+		Pointers and References
+			No spaces around period or arrow. Pointer operators do not have trailing spaces.	No 
+			unnecessary spaces around the period or arrow when accessing a member.
+			Pointer operators have no space after the * or &.
+
+			e.g.
+			GOOD
+				x = *p;
+				p = &x;
+				x = r.y;
+				x = r->y;
+			
+			BAD
+				int x, *y;  // Disallowed - no & or * in multiple declaration
+				char * c;  // Bad - spaces on both sides of *
+				const string & str;  // Bad - spaces on both sides of &
+
+
+		
+	Vertical Indentation
+		If/Else
+			When you have a boolean expression that is longer than the standard line length, be 
+			consistent in how you break up the lines.
+
+			In this example, the logical AND operator is always at the end of the lines:
+			e.g.
+				if (this_one_thing > this_other_thing &&
+				 a_third_thing == a_fourth_thing &&
+				 yet_another && last_one) {
+				...
+				}
+			
+
+			If one part of an if-else statement uses curly braces, the other part must too:
+			i.e.
+				// Not allowed - curly on IF but not ELSE
+				if (condition) {
+				  foo;
+				} else
+				  bar;
+
+				// Not allowed - curly on ELSE but not IF
+				if (condition)
+				  foo;
+				else {
+				  bar;
+				}
+	
 --------------------------------------------------------------------------------------------------
 11 Typecasts
    Use C++ style casts like static_cast<float>(double_value). Do not use C style casts like
@@ -288,3 +338,13 @@ XXX Other Good Practices
 		
 	d. Treat all warnings as errors.
 		Use at least level 4 or higher warning, and treat all warnings as errors.
+		
+	e. Empty loop bodies should use either an empty pair of braces or continue with no braces, 
+		rather than a single semicolon.
+		i.e.
+		GOOD
+			while (condition){}
+		BAD
+			while (condition);
+			
+
