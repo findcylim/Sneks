@@ -21,8 +21,8 @@ Reference:
    i_    > index/iterator 
    e.g.
       for (int i_Company = 0; i_Company < numCompanies; i_Company++)
-            for (int i_User = 0; i_User < numUsers; iUser++)
-                companyList[i_Company].score += userList[i_User].score;
+         for (int i_User = 0; i_User < numUsers; iUser++)
+             companyList[i_Company].score += userList[i_User].score;
    
    (secondary)-(datatype)
    i     > int
@@ -80,18 +80,18 @@ Reference:
       i.e.
       GOOD:
       
-      int price_count_reader;    // No abbreviation.
-      int num_errors;            // "num" is a widespread convention.
-      int num_dns_connections;   // Most people know what "DNS" stands for.
+      int priceCountReader;    // No abbreviation.
+      int numErrors;            // "num" is a widespread convention.
+      int numDnsConnections;   // Most people know what "DNS" stands for.
       
       BAD:
    
       int n;                     // Meaningless.
       int nerr;                  // Ambiguous abbreviation.
-      int n_comp_conns;          // Ambiguous abbreviation.
-      int wgc_connections;       // Only your group knows what this stands for.
-      int pc_reader;             // Lots of things can be abbreviated "pc".
-      int cstmr_id;              // Deletes internal letters.
+      int nCompConns;          // Ambiguous abbreviation.
+      int wgcConnections;       // Only your group knows what this stands for.
+      int pcReader;             // Lots of things can be abbreviated "pc".
+      int cstmrId;              // Deletes internal letters.
       FooBarRequestInfo fbri;    // Not even a word.
       
       Whenever abbreviations or acronyms appear, only capitalise the first letter.
@@ -100,7 +100,8 @@ Reference:
       
       
    c. Enums
-      Append a lowercase k at the beginning of enums
+      Append a lowercase k at the beginning of enums, prefix class Name as well.
+		e.g.
       enum Event{
          kEventPlayerAttack,
          kEventPlayerMove,
@@ -283,3 +284,6 @@ XXX Other Good Practices
    c. sizeof
       Prefer sizeof(varName) to sizeof(type). sizeof(varname) will update appropriately if 
       someone changes the variable type either now or later.
+		
+	d. Treat all warnings as errors.
+		Use at least level 4 or higher warning, and treat all warnings as errors.
