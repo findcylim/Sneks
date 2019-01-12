@@ -1,7 +1,7 @@
 
 #include "ECS/EventManager.h"
 #include "Utility/Logger.h"
-#include "ECS/ECSEngine.h"
+#include "ECS/ECSystem.h"
 #include <iostream>
 
 
@@ -12,7 +12,7 @@
 int main() {
 	//game goes here
 	int lol;
-	ECSEngine* Engine = new ECSEngine;
+	ECSystem* Engine = new ECSystem;
 	Engine->InitializeEngine();
 
 	std::cout << "What" << std::endl;

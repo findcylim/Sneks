@@ -1,24 +1,26 @@
+#ifndef ECSYSTEM_H
+#define ECSYSTEM_H
 #pragma once
 
 
 #include "EventManager.h"
 #include "SystemManager.h"
-#include "../Utility/Utility.h"
+#include "../Utility/Logger.h"
 
 
 
-class ECSEngine
+class ECSystem
 {
 private:
 	EventManager* m_EventManager;
 	SystemManager* m_SystemManager;
-	Utility* m_Utility;
 	bool EngineStatus;
 public:
-	ECSEngine();
-	~ECSEngine();
+	ECSystem();
+	~ECSystem();
 	void InitializeEngine();
 	bool IsEngineOn();
 	void Update();
 };
 
+#endif

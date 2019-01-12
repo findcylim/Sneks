@@ -22,9 +22,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ECS\ECSEngine.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\EventManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
@@ -38,20 +35,23 @@
     <ClCompile Include="Utility\Logger.cpp">
       <Filter>Utlity</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Utility.cpp">
-      <Filter>Utlity</Filter>
-    </ClCompile>
     <ClCompile Include="Utility\GameStateManager.cpp">
       <Filter>Utlity</Filter>
     </ClCompile>
     <ClCompile Include="BulletSystem.cpp">
       <Filter>Test Files</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\ECSystem.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\System.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\InputSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\ECSEngine.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
     <ClInclude Include="ECS\EventManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
@@ -64,14 +64,20 @@
     <ClInclude Include="Utility\Logger.h">
       <Filter>Utlity</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Utility.h">
-      <Filter>Utlity</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\GameStateManager.h">
       <Filter>Utlity</Filter>
     </ClInclude>
     <ClInclude Include="BulletSystem.h">
       <Filter>Test Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ECSystem.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\System.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\InputSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

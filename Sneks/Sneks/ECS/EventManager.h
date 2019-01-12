@@ -1,9 +1,19 @@
-#pragma once
+
+#ifndef EVENT_MANAGER_H
+#define EVENT_MANAGER_H
 
 #include <list>
 #include <vector>
-#include "../Utility/Utility.h"
-#include "SystemManager.h"
+
+enum EventList
+{
+	Ev_PLAYER1GAME_LEFTKEY,
+	Ev_PLAYER1GAME_RIGHTKEY,
+	Ev_PLAYER1GAME_LEFTSHIFTKEY,
+	Ev_PLAYER2GAME_LEFTKEY,
+	Ev_PLAYER2GAME_RIGHTKEY,
+	Ev_PLAYER2GAME_LEFTSHIFTKEY,
+};
 
 /*
 	<Standard function pointer format for callbacks>
@@ -32,7 +42,6 @@ typedef struct Event
 
 class EventManager
 {
-	
 protected : 
 	std::list<Event*> EventQueue;
 public:
@@ -44,11 +53,11 @@ public:
 	bool EmitEvent(short EventID, void* data = 0);
 	void ResetInstance();
 	void Initialize();
-	EventManager(Utility*);
+	EventManager();
 	virtual ~EventManager();
 private:
 	bool hasEvent(short EventId);
 	std::vector<std::vector<CallbackP>> m_EventCallBackList;
-	Utility* m_UtilityPtr;
 };
 
+#endif

@@ -1,10 +1,9 @@
 #include "EventManager.h"
+#include "../Utility/Logger.h"
 
 //Constructor
-EventManager::EventManager(Utility* UtilityRef)
+EventManager::EventManager()
 {
-	m_UtilityPtr = UtilityRef;
-
 	//TODO EDIT THIS TO THE REAL NUMBER OF MAX EVENTS WE HAVE IN ENUM
 	for (char i = 0; i < 100; i++)
 	{
@@ -23,8 +22,7 @@ EventManager::~EventManager()
 
 void EventManager::Update()
 {
-
-
+	ProcessEvents();
 }
 
 void EventManager::ProcessEvents()
@@ -39,6 +37,7 @@ void EventManager::ProcessEvents()
 		//TODO change this to our own memory allocator later
 		free((*it)->Data);
 	}
+	EventQueue.clear();
 }
 
 bool EventManager::hasEvent(short EventId)
@@ -63,7 +62,7 @@ bool EventManager::AddCallback(short EventID, FunctionP fp,void* callee)
 	}
 	else
 	{
-		m_UtilityPtr->m_Logger->LogMessage("Error 1000 : Cannot add callback %s as event does not exist(EventManger.cpp)",typeid(fp).name());
+		Logger::LogMessage(LOGGER_SYSTEM,"Error 1000 : Cannot add callback %s as event does not exist(EventManger.cpp)",typeid(fp).name());
 		return false;
 	}
 }
@@ -104,7 +103,7 @@ bool EventManager::RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void*
 		}
 		catch(...)
 		{
-			m_UtilityPtr->m_Logger->LogMessage("Error 1004 : Exception caught at %s EventManager::RemoveCallback","RemoveCallbackFromEvent");
+			Logger::LogMessage(LOGGER_SYSTEM,"Error 1004 : Exception caught at %s EventManager::RemoveCallback","RemoveCallbackFromEvent");
 			return false;
 		}
 	}
@@ -132,7 +131,7 @@ bool EventManager::RemoveCallback(FunctionP FPRef, void* callee)
 			}
 			catch (...)
 			{
-				m_UtilityPtr->m_Logger->LogMessage("Error 1004 : Exception caught at %s EventManager::RemoveCallback", "RemoveCallback");
+				Logger::LogMessage(LOGGER_SYSTEM, "Error 1004 : Exception caught at %s EventManager::RemoveCallback", "RemoveCallback");
 				return false;
 			}
 		}

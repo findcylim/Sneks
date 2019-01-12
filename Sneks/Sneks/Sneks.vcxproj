@@ -116,24 +116,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BulletSystem.cpp" />
-    <ClCompile Include="ECS\ECSEngine.cpp" />
+    <ClCompile Include="ECS\ECSystem.cpp" />
     <ClCompile Include="ECS\EventManager.cpp" />
+    <ClCompile Include="ECS\System.cpp" />
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\PlayerSystem.cpp" />
     <ClCompile Include="Utility\GameStateManager.cpp" />
     <ClCompile Include="Utility\Logger.cpp" />
-    <ClCompile Include="Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BulletSystem.h" />
-    <ClInclude Include="ECS\ECSEngine.h" />
+    <ClInclude Include="ECS\ECSystem.h" />
     <ClInclude Include="ECS\EventManager.h" />
+    <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\SystemManager.h" />
+    <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\PlayerSystem.h" />
     <ClInclude Include="Utility\GameStateManager.h" />
     <ClInclude Include="Utility\Logger.h" />
-    <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

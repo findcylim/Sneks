@@ -1,43 +1,18 @@
+#include "../Utility/Logger.h"
 #include "SystemManager.h"
-#include "../Utility/Utility.h"
 #include <iostream>
 
 //Errors > 2000
-void System::Update()
-{
-	std::cout << "Error 2001 : Updating a non overriden system" << std::endl;
-}
 
+SystemManager::SystemManager()
+{
 
-short System::GetID()
-{
-	return SystemID;
-}
-const char * System::GetName()
-{
-	return SystemName;
-}
-void System::SetID(short id)
-{
-	SystemID = id;
-}
-void System::SetName(const char* name)
-{
-	SystemName = name;
-}
-
-SystemManager::SystemManager(Utility* UtilityPtr)
-{
-	m_UtilityPtr = UtilityPtr;
 }
 
 SystemManager::~SystemManager()
 {
 
 }
-
-
-
 
 void SystemManager::Initialize()
 {
@@ -52,20 +27,31 @@ void SystemManager::AddSystem(System* NewSystem)
 	}
 	else
 	{
-		m_UtilityPtr->m_Logger->LogMessage("Error 2002 : System %s has not been initialised", NewSystem->GetName());
+		Logger::LogMessage(LOGGER_SYSTEM, "Error 2002 : System %s has not been initialised", NewSystem->GetName());
 	}
 }
 
 //Needs to be tested. May just erase all systems
 void SystemManager::RemoveSystem(System* RemSystem)
 {
-	/*for (std::vector<System*>::iterator sys = SystemList.begin;sys != SystemList.end;sys++)
+	for (std::vector<System*>::iterator sys = SystemList.begin();sys != SystemList.end();)
 	{
 		if (typeid(*sys) == typeid(*RemSystem))
 		{
-			SystemList.erase(sys);
+			try
+			{
+				SystemList.erase(sys);
+			}
+			catch (...)
+			{
+				Logger::LogMessage(LOGGER_SYSTEM, "Error 2003 : Error removing System %s", typeid(RemSystem).name());
+			}
 		}
-	}*/
+		else
+		{
+			sys++;
+		}
+	}
 }
 
 void SystemManager::Update()

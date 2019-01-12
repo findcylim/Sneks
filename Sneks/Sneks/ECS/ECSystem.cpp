@@ -1,17 +1,19 @@
-#include "ECSEngine.h"
+
+#include "ECSystem.h"
 #include "../Systems/PlayerSystem.h"
+#include "../Utility/GameStateManager.h"
+#include "../Systems/InputSystem.h"
 
 
-ECSEngine::ECSEngine()
+ECSystem::ECSystem()
 {
-	m_Utility		= new Utility();
-	m_EventManager	= new EventManager(m_Utility);
-	m_SystemManager = new SystemManager(m_Utility);
+	m_EventManager	= new EventManager();
+	m_SystemManager = new SystemManager();
 	EngineStatus	= false;
 }
 
 
-ECSEngine::~ECSEngine()
+ECSystem::~ECSystem()
 {
 	//TODO Call logger destroy function here later on
 }
@@ -27,36 +29,41 @@ Function: InitializeEngine
 	Place all initialization functions here.
 
 ********************************************************/
-void ECSEngine::InitializeEngine()
+void ECSystem::InitializeEngine()
 {
+	//TODO change this state to splash screen/mainmenu in the future
+	GameStateManager::GameStateInit(state_Game);
+
 	m_EventManager->Initialize();
 	/*
 		Create and add Events here
 	*/
-
+	Logger::LogMessage(LOGGER_SYSTEM, "TEST %f", 232.034f);
 
 
 	m_SystemManager->Initialize();
 	/*
 		Create and add Systems here
 	*/
+	m_SystemManager->AddSystem(new InputSystem(m_EventManager, 0, "InputSystem"));
 
-	//PlayerSystem
+
+	//PlayerSystem TEST SYSTEM
 	PlayerSystem* PlayerS = new PlayerSystem(m_EventManager);
-	PlayerS->SetID(0);
+	PlayerS->SetID(1);
 	PlayerS->SetName("PlayerSystem");
 	m_SystemManager->AddSystem(PlayerS);
 
 	EngineStatus = true;
 }
 
-bool ECSEngine::IsEngineOn()
+bool ECSystem::IsEngineOn()
 {
 	return EngineStatus;
 }
 
 
-void ECSEngine::Update()
+void ECSystem::Update()
 {
 	m_EventManager->Update();
 	m_SystemManager->Update();
