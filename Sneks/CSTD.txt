@@ -166,8 +166,8 @@ Reference:
 
 			m_pRoot				= 0;
 			m_pCamera			= 0;
-			m_pRenderWindow		= 0;
-			m_pSceneManager		= 0;
+			m_pRenderWindow	= 0;
+			m_pSceneManager	= 0;
 
 			m_pSceneManager1	= 0;
 			m_pSceneManager2	= 0;
@@ -175,11 +175,11 @@ Reference:
 			m_pCamera2			= 0;
 			m_nLevelLoaded		= -1;
 
-			m_pInputManager		= 0;
+			m_pInputManager	= 0;
 			m_pEMS				= 0;
 			m_bConsole			= False;
-			m_pSound			= 0;
-			m_pNx				= 0;
+			m_pSound				= 0;
+			m_pNx					= 0;
 			m_pBspLevel			= 0;
 			m_pMenu				= 0;
 			m_pHUD				= 0;
@@ -201,8 +201,9 @@ Reference:
 12 0/nullptr/NULL
 	Use 0 for integers, 0.0 for reals, nullptr for pointers, and '\0' for chars.
 
-
-
+--------------------------------------------------------------------------------------------------
+13	Singleton
+	
 --------------------------------------------------------------------------------------------------
 XXX Other Good Practices
 	i.	You are encouraged to declare variables in local scope if possible and try to declare as 
