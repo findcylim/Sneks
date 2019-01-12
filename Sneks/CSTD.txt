@@ -18,34 +18,35 @@ Reference:
    m_    > member of a class
    s_    > singleton/static
    g_    > global
-   i_    > index/iterator 
+   i_    > index/iterator
    e.g.
       for (int i_Company = 0; i_Company < numCompanies; i_Company++)
          for (int i_User = 0; i_User < numUsers; iUser++)
              companyList[i_Company].score += userList[i_User].score;
    
    (secondary)-(datatype)
-   i     > int
-   f     > float
-   b     > boolean
-   p     > pointer
-   pp    > pointer to pointer
-   o     > object
-   v     > vector
-   x     > custom type
+   i_     > int
+   f_     > float
+   b_     > boolean
+   p_     > pointer
+   pp_    > pointer to pointer
+   o_     > object
+   v_     > vector
+   x_     > custom type
    ...
    
    e.g.
       class DrawObject {
          protected:
-            float             m_fRotation;
-            int               m_iVelocity;
-            AEVec2            m_xPosition;
-            double            m_dSizeX;
-            float*            m_pfTestFloat;
-            AEGfxTexture*     m_poTex; 
-            AEGfxVertexList*  m_poObj;
-            vector<char>      m_vBuffer;
+            float             m_f_Rotation;
+            int               m_i_Velocity;
+            AEVec2            m_x_Position;
+            double            m_d_SizeX;
+            float*            m_pf_TestFloat;
+            AEGfxTexture*     m_po_Tex; 
+            AEGfxVertexList*  m_po_Obj;
+				AEGfxVertexList** m_ppo_Obj;
+            vector<char>      m_v_Buffer;
       }
  
 --------------------------------------------------------------------------------------------------
@@ -80,19 +81,19 @@ Reference:
       i.e.
       GOOD:
       
-      int priceCountReader;    // No abbreviation.
+      int priceCountReader;     // No abbreviation.
       int numErrors;            // "num" is a widespread convention.
-      int numDnsConnections;   // Most people know what "DNS" stands for.
+      int numDnsConnections;    // Most people know what "DNS" stands for.
       
       BAD:
    
-      int n;                     // Meaningless.
-      int nerr;                  // Ambiguous abbreviation.
-      int nCompConns;          // Ambiguous abbreviation.
+      int n;                    // Meaningless.
+      int nerr;                 // Ambiguous abbreviation.
+      int nCompConns;           // Ambiguous abbreviation.
       int wgcConnections;       // Only your group knows what this stands for.
       int pcReader;             // Lots of things can be abbreviated "pc".
       int cstmrId;              // Deletes internal letters.
-      FooBarRequestInfo fbri;    // Not even a word.
+      FooBarRequestInfo fbri;   // Not even a word.
       
       Whenever abbreviations or acronyms appear, only capitalise the first letter.
       i.e. 
@@ -161,9 +162,9 @@ Reference:
 
    If there are too many "std::" polluting the code, consider using typedefs.
    e.g.  
-      typedef std::vector<int> int_vec_t;  
+      typedef std::vector<int> IntVec;  
       ...
-      int_vec_t v;
+      IntVec v;
          
 --------------------------------------------------------------------------------------------------
 6 Typedef   
@@ -174,7 +175,7 @@ Reference:
       
    Or, when the type is long and messy.
    e.g.
-      typedef std::vector<int> vec_int
+      typedef std::vector<int> vecInt
    
 --------------------------------------------------------------------------------------------------
 7 Structs vs Classes
