@@ -2,284 +2,284 @@
 Code naming conventions/Good practice for GAM150
 --------------------------------------------------------------------------------------------------
 Reference:
-	http://google.github.io/styleguide/cppguide.html
-	other sites/forums/users opinions
-	My opinion
+   http://google.github.io/styleguide/cppguide.html
+   other sites/forums/users opinions
+   My opinion
 
-	Let me know if you violently disagree with any of the conventions, or have your own ideas.
-	If you have a good idea, we can stick to your idea instead.
-	
+   Let me know if you violently disagree with any of the conventions, or have your own ideas.
+   If you have a good idea, we can stick to your idea instead.
+   
 --------------------------------------------------------------------------------------------------
 1 Variable prefixes:
-	Using prefixes attempts to make your code more readable, stay consistent, and optimized
-	for the reader. Yes. Optimised for the reader, not the writer. 
-	
-	(primary)-(prefixes)
-	m_		> member of a class
-	s_		> singleton/static
-	g_		> global
-	i_		> index/iterator 
-	e.g.
-		for (int i_Company = 0; i_Company < numCompanies; i_Company++)
-				for (int i_User = 0; i_User < numUsers; iUser++)
-					 companyList[i_Company].score += userList[i_User].score;
-	
-	(secondary)-(datatype)
-	i		> int
-	f		> float
-	b		> boolean
-	p		> pointer
-	pp		> pointer to pointer
-	o		> object
-	v		> vector
-	x		> custom type
-	...
-	
-	e.g.
-		class DrawObject {
-			protected:
-				float             m_fRotation;
-				int               m_iVelocity;
-				AEVec2            m_xPosition;
-				double            m_dSizeX;
-				float*            m_pfTestFloat;
-				AEGfxTexture*     m_poTex;	
-				AEGfxVertexList*  m_poObj;
-				vector<char>		  m_vBuffer;
-		}
+   Using prefixes attempts to make your code more readable, stay consistent, and optimized
+   for the reader. Yes. Optimised for the reader, not the writer. 
+   
+   (primary)-(prefixes)
+   m_    > member of a class
+   s_    > singleton/static
+   g_    > global
+   i_    > index/iterator 
+   e.g.
+      for (int i_Company = 0; i_Company < numCompanies; i_Company++)
+            for (int i_User = 0; i_User < numUsers; iUser++)
+                companyList[i_Company].score += userList[i_User].score;
+   
+   (secondary)-(datatype)
+   i     > int
+   f     > float
+   b     > boolean
+   p     > pointer
+   pp    > pointer to pointer
+   o     > object
+   v     > vector
+   x     > custom type
+   ...
+   
+   e.g.
+      class DrawObject {
+         protected:
+            float             m_fRotation;
+            int               m_iVelocity;
+            AEVec2            m_xPosition;
+            double            m_dSizeX;
+            float*            m_pfTestFloat;
+            AEGfxTexture*     m_poTex; 
+            AEGfxVertexList*  m_poObj;
+            vector<char>      m_vBuffer;
+      }
  
 --------------------------------------------------------------------------------------------------
 2 Names
-	a. Formatting
-		Function/Class	
-			UpperCamelCase for classes,
-			UpperCamelCase for functions.
-			
-			e.g. 
-				class DrawObject{
-					void SetTexture();
-					void Draw();
-				}
-		
-		File Names
-			UpperCamelCase for files, no spaces
-				e.g. Sneks\src\Systems\GameStateManager.cpp
-		
-		
-		Variable Names
-			lowerCamelCase
-		
-	b. Naming Rules
-		Names should be descriptive, avoid abbreviation.
-	
-		Give as descriptive a name as possible, within reason. Do not worry about saving horizontal
-		space as it is far more important to make your code immediately understandable by a new 
-		reader. Do not abbreviate by deleting letters within a word. Abbreviations that would 
-		be familiar to someone outside your project with relevant domain knowledge are OK. 
-		As a rule of thumb, an abbreviation is probably OK if it's listed in Wikipedia.
-		i.e.
-		GOOD:
-		
-		int price_count_reader;    // No abbreviation.
-		int num_errors;            // "num" is a widespread convention.
-		int num_dns_connections;   // Most people know what "DNS" stands for.
-		
-		BAD:
-	
-		int n;                     // Meaningless.
-		int nerr;                  // Ambiguous abbreviation.
-		int n_comp_conns;          // Ambiguous abbreviation.
-		int wgc_connections;       // Only your group knows what this stands for.
-		int pc_reader;             // Lots of things can be abbreviated "pc".
-		int cstmr_id;              // Deletes internal letters.
-		FooBarRequestInfo fbri;    // Not even a word.
-		
-		Whenever abbreviations or acronyms appear, only capitalise the first letter.
-		i.e. 
-			StartGsm() , rather than StartGSM()
-		
-		
-	c. Enums
-		Append a lowercase k at the beginning of enums
-		enum Event{
-			kEventPlayerAttack,
-			kEventPlayerMove,
-			kEventEnemyMove,
-			...
-		};
+   a. Formatting
+      Function/Class 
+         UpperCamelCase for classes,
+         UpperCamelCase for functions.
+         
+         e.g. 
+            class DrawObject{
+               void SetTexture();
+               void Draw();
+            }
+      
+      File Names
+         UpperCamelCase for files, no spaces
+            e.g. Sneks\src\Systems\GameStateManager.cpp
+      
+      
+      Variable Names
+         lowerCamelCase
+      
+   b. Naming Rules
+      Names should be descriptive, avoid abbreviation.
+   
+      Give as descriptive a name as possible, within reason. Do not worry about saving horizontal
+      space as it is far more important to make your code immediately understandable by a new 
+      reader. Do not abbreviate by deleting letters within a word. Abbreviations that would 
+      be familiar to someone outside your project with relevant domain knowledge are OK. 
+      As a rule of thumb, an abbreviation is probably OK if it's listed in Wikipedia.
+      i.e.
+      GOOD:
+      
+      int price_count_reader;    // No abbreviation.
+      int num_errors;            // "num" is a widespread convention.
+      int num_dns_connections;   // Most people know what "DNS" stands for.
+      
+      BAD:
+   
+      int n;                     // Meaningless.
+      int nerr;                  // Ambiguous abbreviation.
+      int n_comp_conns;          // Ambiguous abbreviation.
+      int wgc_connections;       // Only your group knows what this stands for.
+      int pc_reader;             // Lots of things can be abbreviated "pc".
+      int cstmr_id;              // Deletes internal letters.
+      FooBarRequestInfo fbri;    // Not even a word.
+      
+      Whenever abbreviations or acronyms appear, only capitalise the first letter.
+      i.e. 
+         StartGsm() , rather than StartGSM()
+      
+      
+   c. Enums
+      Append a lowercase k at the beginning of enums
+      enum Event{
+         kEventPlayerAttack,
+         kEventPlayerMove,
+         kEventEnemyMove,
+         ...
+      };
 --------------------------------------------------------------------------------------------------
 2 Header Guards
-	All header files should have #define guards to prevent multiple inclusion. 
-	For our case, we use both header guards and then #pragma once.
-	
-	Name Format: <PATH>_<FILE>_H_
-	
-	To guarantee uniqueness, they should be based on the file name in a project's source tree. 
-	For example, the file Sneks/src/DrawObject.h should have the following guard:
+   All header files should have #define guards to prevent multiple inclusion. 
+   For our case, we use both header guards and then #pragma once.
+   
+   Name Format: <PATH>_<FILE>_H_
+   
+   To guarantee uniqueness, they should be based on the file name in a project's source tree. 
+   For example, the file Sneks/src/DrawObject.h should have the following guard:
 
-	#ifndef DRAW_OBJECT_H
-	#define DRAW_OBJECT_H
-	#pragma once
-	
-	//code here
+   #ifndef DRAW_OBJECT_H
+   #define DRAW_OBJECT_H
+   #pragma once
+   
+   //code here
 
-	#endif  //DRAW_OBJECT_H
+   #endif  //DRAW_OBJECT_H
 
 --------------------------------------------------------------------------------------------------
 3 Getters/Setters:
-	Avoid having public class fields. Use getters/setters where you need access to fields. 
-	Do not blanket create getters/setters for everything, only when needed.
-	
+   Avoid having public class fields. Use getters/setters where you need access to fields. 
+   Do not blanket create getters/setters for everything, only when needed.
+   
 --------------------------------------------------------------------------------------------------
 4 Avoiding Memory Leaks
-	a. The new/delete operators will be globally overloaded so you can just keep using new
-		and delete. The new[] and delete[] operators will also be handled properly.
-	
-	b. Make sure you are using the custom defined new/delete instead of the default one.
-	
-	c. The file which created an object should be the one to delete it.
-	
-	e.g.
-		Game.cpp - 
-		Game::GameInit(){ //Called once when object is created
-			new CameraController();
-			...
-		}
-		
-		~Game(){ //destructor or shutdown function
-			delete CameraController();
-			...
-		}
+   a. The new/delete operators will be globally overloaded so you can just keep using new
+      and delete. The new[] and delete[] operators will also be handled properly.
+   
+   b. Make sure you are using the custom defined new/delete instead of the default one.
+   
+   c. The file which created an object should be the one to delete it.
+   
+   e.g.
+      Game.cpp - 
+      Game::GameInit(){ //Called once when object is created
+         new CameraController();
+         ...
+      }
+      
+      ~Game(){ //destructor or shutdown function
+         delete CameraController();
+         ...
+      }
 
 --------------------------------------------------------------------------------------------------
 5 Namespace
-	Optional, use freely, try to think of them as "folders" for your code.
-	Format: all small caps eg namespace physics{ ... }
+   Optional, use freely, try to think of them as "folders" for your code.
+   Format: all small caps eg namespace physics{ ... }
 
-	DO NOT USE "using" directive e.g. using namespace std, it pollutes the namespace.
+   DO NOT USE "using" directive e.g. using namespace std, it pollutes the namespace.
 
-	If there are too many "std::" polluting the code, consider using typedefs.
-	e.g.	
-		typedef std::vector<int> int_vec_t;  
-		...
-		int_vec_t v;
-			
+   If there are too many "std::" polluting the code, consider using typedefs.
+   e.g.  
+      typedef std::vector<int> int_vec_t;  
+      ...
+      int_vec_t v;
+         
 --------------------------------------------------------------------------------------------------
-6 Typedef	
-	Use typedef wherever it simplifies your code, especially if there is a good chance you will be
-	using both object and object pointers a lot.
-	e.g. 
-		typedef Callback* CallbackP
-		
-	Or, when the type is long and messy.
-	e.g.
-		typedef std::vector<int> vec_int
-	
+6 Typedef   
+   Use typedef wherever it simplifies your code, especially if there is a good chance you will be
+   using both object and object pointers a lot.
+   e.g. 
+      typedef Callback* CallbackP
+      
+   Or, when the type is long and messy.
+   e.g.
+      typedef std::vector<int> vec_int
+   
 --------------------------------------------------------------------------------------------------
 7 Structs vs Classes
-	Use struct only for objects that carry data but lack any functionality other than access/setting 
-	the data members
+   Use struct only for objects that carry data but lack any functionality other than access/setting 
+   the data members
 
-	If in doubt, use classes.
-	
+   If in doubt, use classes.
+   
 --------------------------------------------------------------------------------------------------
 8 auto
-	"auto" declares an object whose type is deducible from its initializer. Use auto to avoid 
-	type names that are noisy, obvious, or unimportant - cases where the type doesn't aid in 
-	clarity for the reader.
-	e.g.
-		auto mySquare= new Square();
-		auto exampleVector = static_cast<vector<int>>(getVector());
-		
+   "auto" declares an object whose type is deducible from its initializer. Use auto to avoid 
+   type names that are noisy, obvious, or unimportant - cases where the type doesn't aid in 
+   clarity for the reader.
+   e.g.
+      auto mySquare= new Square();
+      auto exampleVector = static_cast<vector<int>>(getVector());
+      
 --------------------------------------------------------------------------------------------------
 9 Passing by reference
-	Learning this soon, learn to use it well. This can save a lot of new/delete calls.
+   Learning this soon, learn to use it well. This can save a lot of new/delete calls.
 
 --------------------------------------------------------------------------------------------------
 10 Indentation
-	When declaring or defining a large number of variables at once, it can be helpful to align 
-	them to allow a better looking template, or just look more professional.
-	e.g.
-		Game::Game()
-		{
-			m_hInst				= 0;
-			m_pRootState		= 0;
+   When declaring or defining a large number of variables at once, it can be helpful to align 
+   them to allow a better looking template, or just look more professional.
+   e.g.
+      Game::Game()
+      {
+         m_hInst           = 0;
+         m_pRootState      = 0;
 
-			m_pRoot				= 0;
-			m_pCamera			= 0;
-			m_pRenderWindow	= 0;
-			m_pSceneManager	= 0;
+         m_pRoot           = 0;
+         m_pCamera         = 0;
+         m_pRenderWindow   = 0;
+         m_pSceneManager   = 0;
 
-			m_pSceneManager1	= 0;
-			m_pSceneManager2	= 0;
-			m_pCamera1			= 0;
-			m_pCamera2			= 0;
-			m_nLevelLoaded		= -1;
+         m_pSceneManager1  = 0;
+         m_pSceneManager2  = 0;
+         m_pCamera1        = 0;
+         m_pCamera2        = 0;
+         m_nLevelLoaded    = -1;
 
-			m_pInputManager	= 0;
-			m_pEMS				= 0;
-			m_bConsole			= False;
-			m_pSound				= 0;
-			m_pNx					= 0;
-			m_pBspLevel			= 0;
-			m_pMenu				= 0;
-			m_pHUD				= 0;
-			m_bPlaying			= False;
-			m_pProfiler			= 0;
-			m_bProfiler			= False;
+         m_pInputManager   = 0;
+         m_pEMS            = 0;
+         m_bConsole        = False;
+         m_pSound          = 0;
+         m_pNx             = 0;
+         m_pBspLevel       = 0;
+         m_pMenu           = 0;
+         m_pHUD            = 0;
+         m_bPlaying        = False;
+         m_pProfiler       = 0;
+         m_bProfiler       = False;
 
-			m_fElap				= 0;
-			m_pObjManager		= 0;
-		}
+         m_fElap           = 0;
+         m_pObjManager     = 0;
+      }
 
 --------------------------------------------------------------------------------------------------
 11 Typecasts
-	Use C++ style casts like static_cast<float>(double_value). Do not use C style casts like
-	int y = (int)x; 
-	Reason: The problem with C casts is the ambiguity of the operation; sometimes you are doing
-			a conversion (e.g., (int)3.5) and sometimes you are doing a cast (e.g., (int)"hello").
-	
+   Use C++ style casts like static_cast<float>(double_value). Do not use C style casts like
+   int y = (int)x; 
+   Reason: The problem with C casts is the ambiguity of the operation; sometimes you are doing
+         a conversion (e.g., (int)3.5) and sometimes you are doing a cast (e.g., (int)"hello").
+   
 --------------------------------------------------------------------------------------------------
 12 0/nullptr/NULL
-	Use 0 for integers, 0.0 for floating point, nullptr for pointers (don't use NULL), and
-	'\0' for chars.
+   Use 0 for integers, 0.0 for floating point, nullptr for pointers (don't use NULL), and
+   '\0' for chars.
 
 --------------------------------------------------------------------------------------------------
 13 Line Length, Tabs/Spaces
-	You are encouraged to stay within 80 line length as that is the industry standard.
-	Tabs/Spaces use at your own discretion, but do keep indentation consistent between files.
-	
+   You are encouraged to stay within 80 line length as that is the industry standard.
+   Tabs/Spaces use at your own discretion, but do keep indentation consistent between files.
+   
 --------------------------------------------------------------------------------------------------
 14 Use of const
-	You are encouraged to use the const keyword wherever it makes sense.
-	i.e.
-	Declare methods to be const whenever possible. Accessors should almost always be const. 
-	Other methods should be const if they do not modify any data members, do not call any 
-	non-const methods, and do not return a non-const pointer or non-const 
-	reference to a data member.
-	
+   You are encouraged to use the const keyword wherever it makes sense.
+   i.e.
+   Declare methods to be const whenever possible. Accessors should almost always be const. 
+   Other methods should be const if they do not modify any data members, do not call any 
+   non-const methods, and do not return a non-const pointer or non-const 
+   reference to a data member.
+   
 --------------------------------------------------------------------------------------------------
 15 C++ constexpr
-	We are used to using #define to define a true constant, but C++ constexpr is far more robust
-	and allows types rather than using raw literals. Use constexpr for "true constants", which
-	refer to variables whose value are set at compile time. Use prefix k for constants, then 
-	UpperCamelCase
-	e.g.
-		constexpr float kEventCount 5;
-	
+   We are used to using #define to define a true constant, but C++ constexpr is far more robust
+   and allows types rather than using raw literals. Use constexpr for "true constants", which
+   refer to variables whose value are set at compile time. Use prefix k for constants, then 
+   UpperCamelCase
+   e.g.
+      constexpr float kEventCount 5;
+   
 --------------------------------------------------------------------------------------------------
 XXX Other Good Practices
-	a.	You are encouraged to declare variables in local scope if possible and try to declare as 
-		close to first usage as possible. (declare and use variable right away)
-		This makes it easier for the reader to find the declaration and see what type the variable 
-		is and what it was initialized to do. 
+   a. You are encouraged to declare variables in local scope if possible and try to declare as 
+      close to first usage as possible. (declare and use variable right away)
+      This makes it easier for the reader to find the declaration and see what type the variable 
+      is and what it was initialized to do. 
 
-	b. Get Keyboard input
-		Use GetAsyncKeyState and check the most significant bit (0x8000) using bitwise operator (&) to 
-		see if the key is currently down.
-		There will be a macro for this. 
-		#define KEYDOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? true : false)
+   b. Get Keyboard input
+      Use GetAsyncKeyState and check the most significant bit (0x8000) using bitwise operator (&) to 
+      see if the key is currently down.
+      There will be a macro for this. 
+      #define KEYDOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? true : false)
 
-	c. sizeof
-		Prefer sizeof(varName) to sizeof(type). sizeof(varname) will update appropriately if 
-		someone changes the variable type either now or later.
+   c. sizeof
+      Prefer sizeof(varName) to sizeof(type). sizeof(varname) will update appropriately if 
+      someone changes the variable type either now or later.
