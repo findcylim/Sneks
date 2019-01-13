@@ -1,14 +1,14 @@
 #include "SnekHead.h"
 
 
-constexpr float kMaxVelocity		= 2.0f;
+constexpr float kMaxVelocity		= 10.0f;
 constexpr float kAccelerationForce	= 0.03f;
 constexpr float kBrakeForce			= 0.05f;
 constexpr float kTurnSpeed			= 0.01f;
 constexpr float kFriction	        = 0.01f;	   //natural slowdown
 constexpr float kTurnMinSpeed       = 0.2f;        //need to be moving at this speed to turn
 constexpr float kMinSpeed           = 0.01f;	   //if speed lower than this then clamp to 0
-constexpr float kIdleSpeed          = 0.0f;	   //default move speed
+constexpr float kIdleSpeed          = 0.0f;		   //default move speed
 
 
 void SnekHead::Update()
@@ -59,7 +59,7 @@ void SnekHead::Update()
 		m_f_PositionY = AEGfxGetWinMaxY() + m_f_SizeY / 2;
 		*/
 
-		//if out of screen, clamp movement
+	//if out of screen, clamp movement
 	if (m_f_PositionX > AEGfxGetWinMaxX() + m_f_SizeX / 2)
 		m_f_PositionX = AEGfxGetWinMaxX() + m_f_SizeX / 2;
 	else if (m_f_PositionX < AEGfxGetWinMinX() - m_f_SizeX / 2)

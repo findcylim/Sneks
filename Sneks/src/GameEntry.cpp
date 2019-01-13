@@ -13,7 +13,7 @@
 #include <Windows.h>
 #include <vector>
 
-constexpr int kNumBodyParts = 20;
+constexpr int kNumBodyParts = 200;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
