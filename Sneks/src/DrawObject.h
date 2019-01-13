@@ -28,6 +28,8 @@ public:
 	void SetVelocity(float f);
 	void SetPositionX(float f);
 	void SetPositionY(float f);
+	Vector2 GetMin(void);
+	Vector2 GetMax(void);
 	float GetRotation() const;
 	float GetVelocity() const;
 	Vector2 GetPosition() const;

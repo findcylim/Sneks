@@ -24,6 +24,23 @@ void DrawObject::SetPositionX(const float f) {
 void DrawObject::SetPositionY(const float f) {
 	m_x_Position.y = f;
 }
+
+Vector2 DrawObject::GetMin()
+{
+	Vector2 min = {};
+	min.x = m_x_Position.x - m_f_SizeX / 2;
+	min.y = m_x_Position.y - m_f_SizeY / 2;
+	return min;
+}
+
+Vector2 DrawObject::GetMax()
+{
+	Vector2 max = {};
+	max.x = m_x_Position.x + m_f_SizeX / 2;
+	max.y = m_x_Position.y + m_f_SizeY / 2;
+	return max;
+}
+
 float DrawObject::GetRotation() const
 {
 	return m_f_Rotation;

@@ -8,11 +8,11 @@
 class Snek
 {
 private:
-	std::vector<SnekBody*> m_v_BodyParts;
-	SnekHead*              m_po_Head;
+
 
 public:
-
+	std::vector<SnekBody*> m_v_BodyParts;
+	SnekHead*              m_po_Head;
 	int        m_i_Player;
 	Snek(SnekHead*);
 	~Snek();

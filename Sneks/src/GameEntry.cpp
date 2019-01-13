@@ -7,6 +7,7 @@
 #include "SnekBody.h"
 #include "Snek.h"
 #include "AEEngine.h"
+#include "Aabb.h"
 
 #include <Windows.h>
 #include <vector>
@@ -56,8 +57,54 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEInputUpdate();
 
 		snek->Update();
-		snek->Draw();
 		snek2->Update();
+
+		//Collision check with AABBs (Hardcoded)
+		Aabb snekHeadAabb = {};
+		snekHeadAabb.min = snek->m_po_Head->GetMin();
+		snekHeadAabb.max = snek->m_po_Head->GetMax();
+		Aabb snekHeadAabb2 ={};
+		snekHeadAabb.min = snek2->m_po_Head->GetMin();
+		snekHeadAabb.max = snek2->m_po_Head->GetMax();
+
+		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
+		{
+			snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
+			snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
+		}
+		else {// collision check each head with the other snakes' body
+			auto i_BodyParts = snek2->m_v_BodyParts.begin();
+			for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
+			{
+				Aabb bodyPartAabb ={};
+				bodyPartAabb.min = (*i_BodyParts)->GetMin();
+				bodyPartAabb.max = (*i_BodyParts)->GetMax();
+				if (CheckAabbIntersect(&bodyPartAabb, &snekHeadAabb))
+				{
+					snek->m_po_Head->SetColor(rand() % 10000);
+					snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
+				}
+			}
+
+
+			auto i_BodyParts2 = snek->m_v_BodyParts.begin();
+			for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
+			{
+				Aabb bodyPartAabb2 ={};
+				bodyPartAabb2.min = (*i_BodyParts2)->GetMin();
+				bodyPartAabb2.max = (*i_BodyParts2)->GetMax();
+				if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb))
+				{
+					snek2->m_po_Head->SetColor(rand() % 10000);
+					snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
+
+				}
+			}
+		}
+
+		//Collision check end
+
+		snek->Draw();
 		snek2->Draw();
 		AESysFrameEnd();
 	}
