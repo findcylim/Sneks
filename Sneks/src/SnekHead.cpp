@@ -9,14 +9,12 @@ constexpr float kTurnMinSpeed      = 0.2f;        //need to be moving at this sp
 constexpr float kMinSpeed          = 1.0f;	   //if speed lower than this then clamp to 0
 constexpr float kIdleSpeed         = 1.0f;		   //default move speed
 
-bool test = false;
 
 void SnekHead::Update()
 {	
 	// for removal
 	if (GetAsyncKeyState(m_i_BoostKey))
 	{
-		test = !test;
 		SetVelocity(GetVelocity() - kAccelerationForce * 5);
 	}
 	else if (GetAsyncKeyState(m_i_AccelerationKey)) {
@@ -85,8 +83,6 @@ void SnekHead::Update()
 	else if (m_f_Velocity > 0)
 		m_f_Velocity -= kFriction;
 
-	if (test && m_i_PlayerNumber == 1)
-		m_f_Velocity = 0;
 	//apply the velocity
 	AEVec2 testPos;
 	AEVec2FromAngle(&testPos, m_f_Rotation);

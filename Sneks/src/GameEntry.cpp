@@ -33,6 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(500, 0, 105, 77, snakeHeadTexture));
 	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
 	snekHeadTest->SetColor(9999);
+	snekHeadTest->SetRotation(PI);
 
 	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snakeHeadTexture));
 	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
@@ -64,11 +65,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snekHeadAabb.min = snek->m_po_Head->GetMin();
 		snekHeadAabb.max = snek->m_po_Head->GetMax();
 		Aabb snekHeadAabb2 ={};
-		snekHeadAabb.min = snek2->m_po_Head->GetMin();
-		snekHeadAabb.max = snek2->m_po_Head->GetMax();
+		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
+		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
 
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
+			if (snek->m_v_BodyParts.empty())  {
+				MessageBox(nullptr, "PLAYER WINS", "ENDGAME", MB_OK);
+				return 0;
+			}
+			else if (snek2->m_v_BodyParts.empty())
+			{
+				MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
+				return 0;
+			}
+			snek2->m_v_BodyParts.pop_back();
+			snek->m_v_BodyParts.pop_back();
 			snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
 			snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
 		}
@@ -81,8 +93,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				bodyPartAabb.max = (*i_BodyParts)->GetMax();
 				if (CheckAabbIntersect(&bodyPartAabb, &snekHeadAabb))
 				{
-					snek->m_po_Head->SetColor(rand() % 10000);
+					//snek->m_po_Head->SetColor(rand() % 10000);
 					snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
+					snek2->m_v_BodyParts.erase(i_BodyParts, snek2->m_v_BodyParts.end());
+					break;
 				}
 			}
 
@@ -93,11 +107,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				Aabb bodyPartAabb2 ={};
 				bodyPartAabb2.min = (*i_BodyParts2)->GetMin();
 				bodyPartAabb2.max = (*i_BodyParts2)->GetMax();
-				if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb))
+				if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb2))
 				{
-					snek2->m_po_Head->SetColor(rand() % 10000);
+					//snek2->m_po_Head->SetColor(rand() % 10000);
 					snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
-
+					snek->m_v_BodyParts.erase(i_BodyParts2, snek->m_v_BodyParts.end());
+					break;
 				}
 			}
 		}
