@@ -6,15 +6,11 @@
 #include <stdarg.h>
 #include <string>
 
-Logger* Logger::instance = 0;
-struct tm Logger::buf;
-std::ofstream Logger::LogFile;
 
 
-
-Logger::Logger()
+Logger::Logger(const char * filename)
 {
-	LogFile.open("log.txt", std::ios::trunc);
+	LogFile.open(filename, std::ios::trunc);
 
 	if (!LogFile.is_open())
 	{
@@ -28,20 +24,16 @@ Logger::Logger()
 
 void Logger::LogMessage(LogNum LogNumber,const char * Message, ...)
 {
-	if (instance == 0)
-	{
-		instance = new Logger();
-	}
 	std::string MessageBuffer;
 
-	time_t a_LogTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	time_t l_LogTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 	va_list args;
 	const char * FirstMessage = Message;
 	va_start(args,Message);
 
 	std::ofstream *LoggerFile;
 
-	localtime_s(&buf, &a_LogTime);
+	localtime_s(&buf, &l_LogTime);
 
 	switch (LogNumber)
 	{
@@ -116,12 +108,6 @@ void Logger::LogMessage(LogNum LogNumber,const char * Message, ...)
 	{
 		*LoggerFile << MessageBuffer.c_str();
 	}
-}
-
-
-void Logger::DeleteLogger()
-{
-	delete(instance);
 }
 
 Logger::~Logger()

@@ -336,7 +336,5 @@ ASALocalRun/
 # Log Files
 *Log.txt
 *log.txt
-Log.txt
-log.txt
-Log.txt/Sneks
-log.txt/Sneks
+Log*.txt
+log*.txt

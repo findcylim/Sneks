@@ -1,6 +1,4 @@
 #include "InputSystem.h"
-#include "../Utility/Logger.h"
-#include "../Utility/GameStateManager.h"
 #include <Windows.h>
 
 /**************************************************
@@ -17,12 +15,13 @@
 
 ***************************************************/
 
-InputSystem::InputSystem(EventManager* eventmanager, short ID, const char * name)
+InputSystem::InputSystem(EventManager* eventmanager, short id, const char * name, GameStateManager* gamestatemanager)
 {
-	m_EventManager = eventmanager;
-	this->SetID(ID);
+	m_o_EventManager = eventmanager;
+	m_o_GameStateManager = gamestatemanager;
+	this->SetID(id);
 	this->SetName(name);
-	m_EventManager->AddCallback(Ev_PLAYER1GAME_LEFTKEY, (FunctionP)&Printspeed, (void*)this);
+	m_o_EventManager->AddCallback(Ev_PLAYER1GAME_LEFTKEY, (FunctionP)&Printspeed, (void*)this);
 }
 
 InputSystem::~InputSystem()
@@ -39,7 +38,7 @@ void InputSystem::Printspeed(void * data,void * callee)
 
 void InputSystem::Update()
 {
-	State currentState = GameStateManager::ReturnCurrentState();
+	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
 	//Player 1 Controls
 	//'A' Key (Turn Left)
@@ -50,7 +49,7 @@ void InputSystem::Update()
 		{
 			case state_Game:
 				Logger::LogMessage(LOGGER_SYSTEM, "P1 TURN LEFT");
-				m_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTKEY);
+				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTKEY);
 				break;
 		}
 		
@@ -62,7 +61,7 @@ void InputSystem::Update()
 		{
 			case state_Game:
 				Logger::LogMessage(LOGGER_SYSTEM, "P1 TURN RIGHT");
-				m_EventManager->EmitEvent(Ev_PLAYER1GAME_RIGHTKEY);
+				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_RIGHTKEY);
 				break;
 		}
 	}
@@ -73,7 +72,7 @@ void InputSystem::Update()
 		{
 			case state_Game:
 				Logger::LogMessage(LOGGER_SYSTEM, "P1 POWERUP");
-				m_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTSHIFTKEY);
+				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTSHIFTKEY);
 				break;
 		}
 	}
@@ -86,7 +85,7 @@ void InputSystem::Update()
 		{
 		case state_Game:
 			Logger::LogMessage(LOGGER_SYSTEM, "P2 TURN LEFT");
-			m_EventManager->EmitEvent(Ev_PLAYER2GAME_LEFTKEY);
+			m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_LEFTKEY);
 			break;
 		}
 
@@ -98,7 +97,7 @@ void InputSystem::Update()
 		{
 		case state_Game:
 			Logger::LogMessage(LOGGER_SYSTEM, "P2 TURN RIGHT");
-			m_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTKEY);
+			m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTKEY);
 			break;
 		}
 	}
@@ -109,7 +108,7 @@ void InputSystem::Update()
 		{
 		case state_Game:
 			Logger::LogMessage(LOGGER_SYSTEM, "P2 POWERUP");
-			m_EventManager->EmitEvent(Ev_PLAYER2GAME_LEFTSHIFTKEY);
+			m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_LEFTSHIFTKEY);
 			break;
 		}
 	}

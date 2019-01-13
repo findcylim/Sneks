@@ -12,9 +12,7 @@ enum LogNum
 
 class Logger
 {
-
 public:
-	
 	/*
 
 		Takes in a message and logs it into the log.txt file.
@@ -29,17 +27,15 @@ public:
 		LOGGER_EDITOR
 
 	*/
-	static void LogMessage(LogNum LogNumber, const char * Message, ...);
-	static void DeleteLogger();
+	void LogMessage(LogNum lognum, const char * message, ...);
+	Logger(const char * filename);
+	~Logger();
 private:
 	//Variables
-	static std::ofstream LogFile;
-	static Logger* instance;
-	Logger();
-	~Logger();
+	std::ofstream LogFile;
 	bool LogOpen;
 	char buffer[26];
-	static struct tm buf;
+	struct tm buf;
 };
 
 #endif

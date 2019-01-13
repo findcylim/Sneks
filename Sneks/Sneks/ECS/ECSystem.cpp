@@ -7,9 +7,9 @@
 
 ECSystem::ECSystem()
 {
-	m_EventManager	= new EventManager();
-	m_SystemManager = new SystemManager();
-	EngineStatus	= false;
+	m_o_EventManager = new EventManager();
+	m_o_SystemManager = new SystemManager();
+	m_b_EngineStatus	= false;
 }
 
 
@@ -32,44 +32,39 @@ Function: InitializeEngine
 void ECSystem::InitializeEngine()
 {
 	//TODO change this state to splash screen/mainmenu in the future
-	GameStateManager::GameStateInit(state_Game);
+	
 
-	m_EventManager->Initialize();
+	m_o_EventManager->Initialize();
 	/*
 		Create and add Events here
 	*/
 	Logger::LogMessage(LOGGER_SYSTEM, "TEST %f", 232.034f);
 
 
-	m_SystemManager->Initialize();
+	m_o_SystemManager->Initialize();
 	/*
 		Create and add Systems here
 	*/
-	m_SystemManager->AddSystem(new InputSystem(m_EventManager, 0, "InputSystem"));
+	m_o_SystemManager->AddSystem(new InputSystem(m_o_EventManager, 0, "InputSystem",m_o_GameStateManager));
 
 
 	//PlayerSystem TEST SYSTEM
-	PlayerSystem* PlayerS = new PlayerSystem(m_EventManager);
+	PlayerSystem* PlayerS = new PlayerSystem(m_o_EventManager);
 	PlayerS->SetID(1);
 	PlayerS->SetName("PlayerSystem");
-	m_SystemManager->AddSystem(PlayerS);
+	m_o_SystemManager->AddSystem(PlayerS);
 
-	EngineStatus = true;
+	m_b_EngineStatus = true;
 }
 
 bool ECSystem::IsEngineOn()
 {
-	return EngineStatus;
+	return m_b_EngineStatus;
 }
-
 
 void ECSystem::Update()
 {
-	m_EventManager->Update();
-	m_SystemManager->Update();
+	m_o_EventManager->Update();
+	m_o_SystemManager->Update();
 }
-
-
-
-
 
