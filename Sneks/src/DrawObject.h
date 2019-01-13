@@ -4,19 +4,23 @@
 
 #include "AEEngine.h"
 
-
 class DrawObject {
 protected:
-	float		      m_f_Rotation = 0;
-	float			  m_f_Velocity = 0;
-	float			  m_f_PositionX;
-	float			  m_f_PositionY;
-	float			  m_f_SizeX;
-	float			  m_f_SizeY;
-	AEGfxTexture*	  m_px_Texture;	
-	AEGfxVertexList*  m_px_Obj;
+	float		               m_f_Rotation = 0;
+	float			            m_f_Velocity = 0;
+	float			            m_f_PositionX;
+	float			            m_f_PositionY;
+	float			            m_f_SizeX;
+	float			            m_f_SizeY;
+	int							m_f_RgbaColor = 9999;
+	AEGfxTexture*	         m_px_Texture;
+	AEGfxVertexList*        m_px_Obj;
+	AEMtx33*				      m_po_RotationMatrix;
+	AEMtx33*		            m_po_TranslationMatrix;
+	AEMtx33*                m_po_GlobalMatrix;
 
 public:
+	void SetColor(int rgba);
 	void SetTexture(AEGfxTexture * tex);
 	void SetRotation(float f);
 	void SetVelocity(float f);
@@ -36,7 +40,6 @@ public:
 	float GetRotatedOffsetXy() const;
 	float GetRotatedOffsetYx() const;
 	float GetRotatedOffsetYy() const;
-
 };
 
 #endif	//DRAW_OBJECT_H
