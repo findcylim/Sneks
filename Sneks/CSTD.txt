@@ -317,7 +317,7 @@ Reference:
    refer to variables whose value are set at compile time. Use prefix k for constants, then 
    UpperCamelCase
    e.g.
-      constexpr float kEventCount 5;
+      constexpr float kEventCount = 5;
    
 --------------------------------------------------------------------------------------------------
 XXX Other Good Practices

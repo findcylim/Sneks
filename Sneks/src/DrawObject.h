@@ -7,14 +7,14 @@
 
 class DrawObject {
 protected:
-	float		      m_fRotation = 0;
-	float			  m_fVelocity = 0;
-	float			  m_fPositionX;
-	float			  m_fPositionY;
-	float			  m_fSizeX;
-	float			  m_fSizeY;
-	AEGfxTexture*	  m_pTex;	
-	AEGfxVertexList*  m_pObj;
+	float		      m_f_Rotation = 0;
+	float			  m_f_Velocity = 0;
+	float			  m_f_PositionX;
+	float			  m_f_PositionY;
+	float			  m_f_SizeX;
+	float			  m_f_SizeY;
+	AEGfxTexture*	  m_px_Texture;	
+	AEGfxVertexList*  m_px_Obj;
 
 public:
 	void SetTexture(AEGfxTexture * tex);
@@ -22,19 +22,20 @@ public:
 	void SetVelocity(float f);
 	void SetPositionX(float f);
 	void SetPositionY(float f);
-	float GetRotation();
-	float GetVelocity();
-	float GetPositionX();
-	float GetPositionY();
+	float GetRotation() const;
+	float GetVelocity() const;
+	float GetPositionX() const;
+	float GetPositionY() const;
+	float GetSizeX()	 const;
+	float GetSizeY()	 const;
 	DrawObject(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);
 	~DrawObject(void);
-	virtual void Draw();
+	void Draw();
 	void Update();
-	float GetRotatedOffsetXX();
-	float GetRotatedOffsetXY();
-	float GetRotatedOffsetYX();
-	float GetRotatedOffsetYY();
-	//void SetScale(float x, float y);
+	float GetRotatedOffsetXx() const;
+	float GetRotatedOffsetXy() const;
+	float GetRotatedOffsetYx() const;
+	float GetRotatedOffsetYy() const;
 
 };
 

@@ -1,20 +1,23 @@
+#ifndef SNEK_HEAD_H
+#define SNEK_HEAD_H
 #pragma once
 #include "DrawObject.h"
 #include <Windows.h>
 
 class SnekHead: public DrawObject {
 private:
-	AEGfxTexture* m_pSnekHed;
-	AEGfxTexture* m_pSnekHedL;
-	AEGfxTexture* m_pSnekHedR;
-	AEGfxTexture* m_pSnekHedBoost;
-	AEGfxTexture* m_pSnekHedSmoke;
-	DrawObject* m_pParticles;
+	AEGfxTexture* m_px_SnekHed;
+	AEGfxTexture* m_px_SnekHedL;
+	AEGfxTexture* m_px_SnekHedR;
+	AEGfxTexture* m_px_SnekHedBoost;
+	AEGfxTexture* m_px_SnekHedSmoke;
+	DrawObject*   m_px_Particles;
 
 public:
 	void Update();
+	SnekHead(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);
 	SnekHead(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex, AEGfxTexture * snekHedL, AEGfxTexture * snekHedR);
 	void SetParticles(AEGfxTexture*, AEGfxTexture*);
-	void DrawParticles();
-	void Draw();
+	void DrawParticles() const;
 };
+#endif //SNEK_HEAD_H

@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="Snek.cpp" />
     <ClCompile Include="SnekBody.cpp" />
     <ClCompile Include="SnekHead.cpp" />
   </ItemGroup>
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawObject.h" />
+    <ClInclude Include="Snek.h" />
     <ClInclude Include="SnekBody.h" />
     <ClInclude Include="SnekHead.h" />
   </ItemGroup>

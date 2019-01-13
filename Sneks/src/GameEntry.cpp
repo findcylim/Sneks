@@ -5,14 +5,15 @@
 #include "DrawObject.h"
 #include "SnekHead.h"
 #include "SnekBody.h"
+#include "Snek.h"
 
 
 #include "AEEngine.h"
 
 #include <Windows.h>
+#include <vector>
 
-
-
+constexpr int kNumBodyParts = 20;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
@@ -23,32 +24,43 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 0);
 
-	auto snake_head_texture =		 AEGfxTextureLoad("../Resources/snek_hed.jpg");
-	auto snake_head_l_texture =		 AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
-	auto snake_head_r_texture =		 AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
-	auto snake_body_texture =		 AEGfxTextureLoad("../Resources/snake-body.png");
-	auto rocket_texture =			 AEGfxTextureLoad("../Resources/rocket_booster.jpg");
-	auto smoke_texture =			 AEGfxTextureLoad("../Resources/smoke.jpg");
+	auto snakeHeadTexture  = AEGfxTextureLoad("../Resources/snake-head.png");
+	auto snakeHeadLTexture = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
+	auto snakeHeadRTexture = AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
+	auto snakeBodyTexture  = AEGfxTextureLoad("../Resources/snake-body.png");
+	auto rocketTexture     = AEGfxTextureLoad("../Resources/rocket_booster.jpg");
+	auto smokeTexture      = AEGfxTextureLoad("../Resources/smoke.jpg");
 
-	auto snek_head_test = static_cast<SnekHead*>(new SnekHead(-150, 0, 200, 100, snake_head_texture, snake_head_l_texture, snake_head_r_texture));
-	snek_head_test->SetParticles(smoke_texture, rocket_texture);
+	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snakeHeadTexture));
+	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
 
-	auto snek_body_test  = static_cast<SnekBody*>(new DrawObject( 100, 0, 61, 80, snake_body_texture));
-	snek_body_test->refHead = snek_head_test;
-	auto snek_body_test2 = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 80, snake_body_texture));
-	snek_body_test2->refHead = snek_body_test;
+	auto snek = static_cast<Snek*>(new Snek(snekHeadTest));
 
+	for (int iBodyParts = 0; iBodyParts < kNumBodyParts; iBodyParts++) {
+		auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 80, snakeBodyTexture));
+		snek->AddBodyPart(snekBodyTest);
+	}
+
+	int prevMouseX = 0, prevMouseY = 0;
 	while (true) {
 		AESysFrameStart();
+		AEInputUpdate();
 
-		//printf("X: %f Y: %f\n", testObj->GetPositionX(), testObj->GetPositionY());
-		snek_head_test->Update();
-		snek_body_test->Update();
-		//snek_body_test2->Update();
-		snek_head_test->Draw();
-		snek_body_test->Draw();
-		//snek_body_test2->Draw();
-		
+		/* mouse position debugger
+		if (AEInputCheckCurr(AEVK_A)) {
+			int mouseX, mouseY;
+			AEInputGetCursorPosition(&mouseX, &mouseY);
+
+			if ( (abs(mouseX - prevMouseX) > 2) && (abs(mouseY - prevMouseY) > 2)) {
+				printf("mouseX: %d, mouseY: %d\n", mouseX, mouseY);
+				prevMouseX = mouseX;
+				prevMouseY = mouseY;
+			}
+		}*/
+
+		snek->Update();
+		snek->Draw();
+
 		AESysFrameEnd();
 	}
 
