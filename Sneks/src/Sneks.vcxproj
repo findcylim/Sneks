@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Aabb.cpp" />
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Snek.cpp" />
@@ -151,6 +152,7 @@
     <Image Include="..\Resources\snek_hed.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Aabb.h" />
     <ClInclude Include="DrawObject.h" />
     <ClInclude Include="Snek.h" />
     <ClInclude Include="SnekBody.h" />

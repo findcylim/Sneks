@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snakeHeadTexture));
 	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
-	srand(time(nullptr));
+	srand(static_cast<unsigned int>(time(nullptr)));
 
 	snekHeadTest2->SetColor(rand() % 1000 * 10 + 9);
 

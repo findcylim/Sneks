@@ -12,11 +12,12 @@ private:
 	AEGfxTexture*  m_px_SnekHedBoost;
 	AEGfxTexture*  m_px_SnekHedSmoke;
 	DrawObject*	   m_px_Particles;
-	unsigned short m_i_PlayerNumber   = 0;
-	unsigned int   m_i_AccelerationKey       = VK_UP;
-	unsigned int   m_i_BrakeKey       = VK_DOWN;
-	unsigned int   m_i_LeftKey        = VK_LEFT;
-	unsigned int   m_i_RightKey       = VK_RIGHT;
+	unsigned short m_i_PlayerNumber        = 0;
+	unsigned int   m_i_AccelerationKey     = VK_UP;
+	unsigned int   m_i_BrakeKey            = VK_DOWN;
+	unsigned int   m_i_LeftKey             = VK_LEFT;
+	unsigned int   m_i_RightKey            = VK_RIGHT;
+	unsigned int   m_i_BoostKey            = AEVK_RCTRL;
 public:
 	void Update();
 	SnekHead(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);
