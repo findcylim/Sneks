@@ -7,15 +7,20 @@
 
 ECSystem::ECSystem()
 {
-	m_o_EventManager = new EventManager();
-	m_o_SystemManager = new SystemManager();
-	m_b_EngineStatus	= false;
+	m_o_Logger				= new Logger("log.txt");
+	m_o_EventManager		= new EventManager(m_o_Logger);
+	m_o_SystemManager		= new SystemManager(m_o_Logger);
+	m_o_GameStateManager	= new GameStateManager(state_Game);
+	m_b_EngineStatus		= false;
 }
 
 
 ECSystem::~ECSystem()
 {
 	//TODO Call logger destroy function here later on
+	delete(m_o_Logger);
+	delete(m_o_EventManager);
+	delete(m_o_SystemManager);
 }
 
 
@@ -38,21 +43,21 @@ void ECSystem::InitializeEngine()
 	/*
 		Create and add Events here
 	*/
-	Logger::LogMessage(LOGGER_SYSTEM, "TEST %f", 232.034f);
+	m_o_Logger->LogMessage(LOGGER_SYSTEM, "TEST %f", 232.034f);
 
 
 	m_o_SystemManager->Initialize();
 	/*
 		Create and add Systems here
 	*/
-	m_o_SystemManager->AddSystem(new InputSystem(m_o_EventManager, 0, "InputSystem",m_o_GameStateManager));
+	m_o_SystemManager->AddSystem(new InputSystem(m_o_EventManager, 0, "InputSystem",m_o_GameStateManager,m_o_Logger));
 
 
 	//PlayerSystem TEST SYSTEM
-	PlayerSystem* PlayerS = new PlayerSystem(m_o_EventManager);
-	PlayerS->SetID(1);
-	PlayerS->SetName("PlayerSystem");
-	m_o_SystemManager->AddSystem(PlayerS);
+	PlayerSystem* playerSystem = new PlayerSystem(m_o_EventManager);
+	playerSystem->SetID(1);
+	playerSystem->SetName("PlayerSystem");
+	m_o_SystemManager->AddSystem(playerSystem);
 
 	m_b_EngineStatus = true;
 }

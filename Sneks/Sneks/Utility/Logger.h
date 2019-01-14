@@ -4,7 +4,7 @@
 #include <fstream>
 #include <ctime>
 
-enum LogNum
+enum kLogNum
 {
 	LOGGER_SYSTEM,
 	LOGGER_EDITOR
@@ -27,7 +27,7 @@ public:
 		LOGGER_EDITOR
 
 	*/
-	void LogMessage(LogNum lognum, const char * message, ...);
+	void LogMessage(kLogNum lognum, const char * message, ...);
 	Logger(const char * filename);
 	~Logger();
 private:

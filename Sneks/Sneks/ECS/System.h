@@ -9,9 +9,9 @@
 class System
 {
 protected:
-	short SystemID;
-	const char* SystemName;
-	bool isActive;
+	short		m_s_SystemID;
+	const char* m_c_SystemName;
+	bool		m_b_isActive;
 public:
 	virtual void Update();
 	short GetID();

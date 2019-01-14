@@ -22,7 +22,7 @@ Logger::Logger(const char * filename)
 }
 
 
-void Logger::LogMessage(LogNum LogNumber,const char * Message, ...)
+void Logger::LogMessage(kLogNum LogNumber,const char * Message, ...)
 {
 	std::string MessageBuffer;
 
@@ -31,22 +31,9 @@ void Logger::LogMessage(LogNum LogNumber,const char * Message, ...)
 	const char * FirstMessage = Message;
 	va_start(args,Message);
 
-	std::ofstream *LoggerFile;
+	std::ofstream *LoggerFile = &LogFile;;
 
 	localtime_s(&buf, &l_LogTime);
-
-	switch (LogNumber)
-	{
-		case LOGGER_SYSTEM:
-			LoggerFile = &LogFile;
-			break;
-		case LOGGER_EDITOR:
-			LoggerFile = &LogFile; //TODO Change this to an editor log file once we start developing an editor.
-			break;
-		default:
-			LoggerFile = &LogFile;
-			break;
-	}
 
 	MessageBuffer += '[' + std::to_string(buf.tm_mday) + '/' + std::to_string((buf.tm_mon + 1)) + '/' + std::to_string((buf.tm_year + 1900)) + ' ';
 	std::setfill('0'); 
@@ -90,9 +77,8 @@ void Logger::LogMessage(LogNum LogNumber,const char * Message, ...)
 					std::fixed;
 					break;
 				}
-				Message++;
 			}
-
+			Message++;
 		}
 		if (*Message != 0)
 			MessageBuffer += *Message;

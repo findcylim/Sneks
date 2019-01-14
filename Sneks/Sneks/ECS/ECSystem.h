@@ -13,10 +13,11 @@
 class ECSystem
 {
 private:
-	GameStateManager* m_o_GameStateManager;
-	EventManager* m_o_EventManager;
-	SystemManager* m_o_SystemManager;
-	bool m_b_EngineStatus;
+	GameStateManager*	 m_o_GameStateManager;
+	Logger*				 m_o_Logger;
+	EventManager*		 m_o_EventManager;
+	SystemManager*		 m_o_SystemManager;
+	bool				 m_b_EngineStatus;
 public:
 	ECSystem();
 	~ECSystem();

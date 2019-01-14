@@ -334,7 +334,5 @@ ASALocalRun/
 .localhistory/
 
 # Log Files
-*Log.txt
-*log.txt
-Log*.txt
-log*.txt
+**/Log.txt
+**/log.txt

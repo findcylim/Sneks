@@ -1,14 +1,14 @@
 #include "EventManager.h"
-#include "../Utility/Logger.h"
 
 //Constructor
-EventManager::EventManager()
+EventManager::EventManager(Logger* logger)
 {
+	m_o_Logger = logger;
 	//TODO EDIT THIS TO THE REAL NUMBER OF MAX EVENTS WE HAVE IN ENUM
 	for (char i = 0; i < 100; i++)
 	{
-		std::vector<CallbackP> vcbp;
-		m_EventCallBackList.push_back(vcbp);
+		std::vector<CallbackP> v_CallbackP;
+		m_EventCallBackList.push_back(v_CallbackP);
 	}
 }
 
@@ -27,55 +27,55 @@ void EventManager::Update()
 
 void EventManager::ProcessEvents()
 {
-	for (std::list<Event*>::iterator it = EventQueue.begin(); it != EventQueue.end(); it++)
+	for (std::list<Event*>::iterator i_l_EventIterator = EventQueue.begin(); i_l_EventIterator != EventQueue.end(); i_l_EventIterator++)
 	{
-		for (std::vector<CallbackP>::iterator vit = m_EventCallBackList[(*it)->EventId].begin();
-			vit != m_EventCallBackList[(*it)->EventId].end(); vit++)
+		for (std::vector<CallbackP>::iterator i_v_EventCallbackIterator = m_EventCallBackList[(*i_l_EventIterator)->EventId].begin();
+											  i_v_EventCallbackIterator != m_EventCallBackList[(*i_l_EventIterator)->EventId].end();
+											  i_v_EventCallbackIterator++)
 		{
-			(*vit)->m_function((*it)->Data,(*vit)->m_CalleePtr);
+			(*i_v_EventCallbackIterator)->m_function((*i_l_EventIterator)->Data,(*i_v_EventCallbackIterator)->m_CalleePtr);
 		}
 		//TODO change this to our own memory allocator later
-		free((*it)->Data);
+		free((*i_l_EventIterator)->Data);
 	}
 	EventQueue.clear();
 }
 
 bool EventManager::hasEvent(short EventId)
 {
-	if (m_EventCallBackList.size() > EventId)
+	if (static_cast<short>(m_EventCallBackList.size()) > EventId)
 	{
 		return true;
 	}
 	return false;
 }
 
-bool EventManager::AddCallback(short EventID, FunctionP fp,void* callee)
+bool EventManager::AddCallback(short eventID, FunctionP functionPointer,void* callee)
 {
-	if (hasEvent(EventID))
+	if (hasEvent(eventID))
 	{
-		CallbackP cbp = new CallbackT;
-		cbp->m_EventId = EventID;
-		cbp->m_function = fp;
-		cbp->m_CalleePtr = callee;
-		EventManager::m_EventCallBackList[EventID].push_back(cbp);
+		CallbackP cbp		= new CallbackT;
+		cbp->m_EventId		= eventID;
+		cbp->m_function		= functionPointer;
+		cbp->m_CalleePtr	= callee;
+		EventManager::m_EventCallBackList[eventID].push_back(cbp);
 		return true;
 	}
 	else
 	{
-		Logger::LogMessage(LOGGER_SYSTEM,"Error 1000 : Cannot add callback %s as event does not exist(EventManger.cpp)",typeid(fp).name());
+		m_o_Logger->LogMessage(LOGGER_SYSTEM,"Error 1000 : Cannot add callback %s as event does not exist(EventManger.cpp)",typeid(functionPointer).name());
 		return false;
 	}
 }
 
-bool EventManager::EmitEvent(short EventID,void* data)
+bool EventManager::EmitEvent(short eventID,void* data)
 {
 	//Add check if eventid is legit
-	if (EventID <= m_EventCallBackList.size())
+	if (eventID <= static_cast<short>(m_EventCallBackList.size()))
 	{
-		Event* newEvent = new Event;
-		newEvent->EventId = EventID;
-		newEvent->Data = data;
-
+		Event* newEvent		 = new Event;
+		newEvent->EventId	 = eventID;
+		newEvent->Data		 = data;
 		EventQueue.push_back(newEvent);
 		return true;
 	}
@@ -84,26 +84,28 @@ bool EventManager::EmitEvent(short EventID,void* data)
 /*
 	TODO
 	REMOVE CALLBACKS FROM DEAD MEMBERS
+	Call this in destructors of objects that add callbacks
 */
-bool EventManager::RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void* callee)
+bool EventManager::RemoveCallbackFromEvent(short eventID, FunctionP functionPointer, void* callee)
 {
-	for (std::vector<CallbackP>::iterator vit = m_EventCallBackList[EventID].begin();
-		vit != m_EventCallBackList[EventID].end(); vit++)
+	for (std::vector<CallbackP>::iterator i_v_EventCallbackIterator = m_EventCallBackList[eventID].begin();
+										  i_v_EventCallbackIterator != m_EventCallBackList[eventID].end();
+										  i_v_EventCallbackIterator++)
 	{
 		try
 		{
-			if ((**vit).m_function == FPRef)
+			if ((*i_v_EventCallbackIterator)->m_function == functionPointer)
 			{
-				if ((**vit).m_CalleePtr == callee)
+				if ((*i_v_EventCallbackIterator)->m_CalleePtr == callee)
 				{
-					delete(*vit);
-					m_EventCallBackList[EventID].erase(vit);
+					delete(*i_v_EventCallbackIterator);
+					m_EventCallBackList[eventID].erase(i_v_EventCallbackIterator);
 				}
 			}
 		}
 		catch(...)
 		{
-			Logger::LogMessage(LOGGER_SYSTEM,"Error 1004 : Exception caught at %s EventManager::RemoveCallback","RemoveCallbackFromEvent");
+			m_o_Logger->LogMessage(LOGGER_SYSTEM,"Error 1004 : Exception caught at %s EventManager::RemoveCallback","RemoveCallbackFromEvent");
 			return false;
 		}
 	}
@@ -112,26 +114,28 @@ bool EventManager::RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void*
 
 bool EventManager::RemoveCallback(FunctionP FPRef, void* callee)
 {
-	for (std::vector<std::vector<CallbackP>>::iterator it = m_EventCallBackList.begin();
-		it != m_EventCallBackList.end(); it++)
+	for (std::vector<std::vector<CallbackP>>::iterator i_l_EventIterator = m_EventCallBackList.begin();
+													   i_l_EventIterator != m_EventCallBackList.end(); 
+													   i_l_EventIterator++)
 	{
-		for (std::vector<CallbackP>::iterator vit = (*it).begin();
-			vit != (*it).end(); vit++)
+		for (std::vector<CallbackP>::iterator i_v_EventCallbackIterator = (*i_l_EventIterator).begin();
+											  i_v_EventCallbackIterator != (*i_l_EventIterator).end(); 
+											  i_v_EventCallbackIterator++)
 		{
 			try
 			{
-				if ((**vit).m_function == FPRef)
+				if ((**i_v_EventCallbackIterator).m_function == FPRef)
 				{
-					if ((**vit).m_CalleePtr == callee)
+					if ((**i_v_EventCallbackIterator).m_CalleePtr == callee)
 					{
-						delete(*vit);
-						(*it).erase(vit);
+						delete(*i_v_EventCallbackIterator);
+						(*i_l_EventIterator).erase(i_v_EventCallbackIterator);
 					}
 				}
 			}
 			catch (...)
 			{
-				Logger::LogMessage(LOGGER_SYSTEM, "Error 1004 : Exception caught at %s EventManager::RemoveCallback", "RemoveCallback");
+				m_o_Logger->LogMessage(LOGGER_SYSTEM, "Error 1004 : Exception caught at %s EventManager::RemoveCallback", "RemoveCallback");
 				return false;
 			}
 		}
@@ -139,16 +143,10 @@ bool EventManager::RemoveCallback(FunctionP FPRef, void* callee)
 	return true;
 }
 
-
-
 void EventManager::ResetInstance()
 {
 	
 }
-
-
-
-
 
 void EventManager::Initialize()
 {

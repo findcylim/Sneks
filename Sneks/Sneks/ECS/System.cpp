@@ -10,17 +10,17 @@ void System::Update()
 
 short System::GetID()
 {
-	return SystemID;
+	return m_s_SystemID;
 }
 const char * System::GetName()
 {
-	return SystemName;
+	return m_c_SystemName;
 }
-void System::SetID(short id)
+void System::SetID(short iD)
 {
-	SystemID = id;
+	m_s_SystemID = iD;
 }
 void System::SetName(const char* name)
 {
-	SystemName = name;
+	m_c_SystemName = name;
 }

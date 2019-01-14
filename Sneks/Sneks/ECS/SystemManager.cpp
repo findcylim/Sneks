@@ -1,12 +1,12 @@
-#include "../Utility/Logger.h"
+
 #include "SystemManager.h"
 #include <iostream>
 
 //Errors > 2000
 
-SystemManager::SystemManager()
+SystemManager::SystemManager(Logger* logger)
 {
-
+	m_o_Logger = logger;
 }
 
 SystemManager::~SystemManager()
@@ -27,7 +27,7 @@ void SystemManager::AddSystem(System* NewSystem)
 	}
 	else
 	{
-		Logger::LogMessage(LOGGER_SYSTEM, "Error 2002 : System %s has not been initialised", NewSystem->GetName());
+		m_o_Logger->LogMessage(LOGGER_SYSTEM, "Error 2002 : System %s has not been initialised", NewSystem->GetName());
 	}
 }
 
@@ -44,7 +44,7 @@ void SystemManager::RemoveSystem(System* RemSystem)
 			}
 			catch (...)
 			{
-				Logger::LogMessage(LOGGER_SYSTEM, "Error 2003 : Error removing System %s", typeid(RemSystem).name());
+				m_o_Logger->LogMessage(LOGGER_SYSTEM, "Error 2003 : Error removing System %s", typeid(RemSystem).name());
 			}
 		}
 		else

@@ -4,8 +4,9 @@
 
 #include <list>
 #include <vector>
+#include "../Utility/Logger.h"
 
-enum EventList
+enum kEventList
 {
 	Ev_PLAYER1GAME_LEFTKEY,
 	Ev_PLAYER1GAME_RIGHTKEY,
@@ -53,10 +54,11 @@ public:
 	bool EmitEvent(short EventID, void* data = 0);
 	void ResetInstance();
 	void Initialize();
-	EventManager();
+	EventManager(Logger* logger);
 	virtual ~EventManager();
 private:
 	bool hasEvent(short EventId);
+	Logger* m_o_Logger;
 	std::vector<std::vector<CallbackP>> m_EventCallBackList;
 };
 
