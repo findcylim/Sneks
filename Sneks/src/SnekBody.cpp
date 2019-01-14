@@ -7,8 +7,8 @@ SnekBody::SnekBody(float posX, float posY, float sizeX, float sizeY, AEGfxTextur
 	m_o_Reference = reference;
 	//Set the position to behind the reference, after rotation
 
-	//SetPositionX(GetRotatedOffsetXx() + GetPositionX());
-	//SetPositionY(GetRotatedOffsetXy() + GetPositionY());
+	//SetPositionX(GetRotatedOffsetXx() + GetPosition().x());
+	//SetPositionY(GetRotatedOffsetXy() + GetPosition().y());
 	//SetPositionX(100.0f);
 
 	//FaceReference();
@@ -19,8 +19,8 @@ void SnekBody::Update() {
 	AEVec2 directionVector;
 	AEVec2FromAngle(&directionVector, m_f_Rotation);
 
-	m_f_PositionX += directionVector.x * m_f_Velocity;
-	m_f_PositionY += directionVector.y * m_f_Velocity;
+	m_x_Position.x += directionVector.x * m_f_Velocity;
+	m_x_Position.y += directionVector.y * m_f_Velocity;
 
 	float distanceX, distanceY;
 	FaceReference(&distanceX, &distanceY);
@@ -44,11 +44,11 @@ void SnekBody::FaceReference()
 
 void SnekBody::FaceReference(float* retDistanceX, float* retDistanceY)
 {
-	float referenceEdgeX = (m_o_Reference->GetPositionX());// +refHead->GetRotatedOffsetXx());
-	float referenceEdgeY = (m_o_Reference->GetPositionY());// +refHead->GetRotatedOffsetXy());
+	float referenceEdgeX = (m_o_Reference->GetPosition().x);// +refHead->GetRotatedOffsetXx());
+	float referenceEdgeY = (m_o_Reference->GetPosition().y);// +refHead->GetRotatedOffsetXy());
 
-	float distanceX = GetPositionX() - referenceEdgeX;
-	float distanceY = GetPositionY() - referenceEdgeY;
+	float distanceX = GetPosition().x- referenceEdgeX;
+	float distanceY = GetPosition().y- referenceEdgeY;
 
 	auto newRot = static_cast<float>(atan2(distanceY, distanceX));
 	// make sure rotation is between 0 and 2Pi
@@ -59,8 +59,8 @@ void SnekBody::FaceReference(float* retDistanceX, float* retDistanceY)
 
 	SetRotation(newRot);
 
-	*retDistanceX = GetPositionX() - referenceEdgeX;
-	*retDistanceY = GetPositionY() - referenceEdgeY;
+	*retDistanceX = GetPosition().x- referenceEdgeX;
+	*retDistanceY = GetPosition().y- referenceEdgeY;
 }
 
 SnekBody::~SnekBody()

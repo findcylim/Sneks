@@ -30,6 +30,12 @@
     <ClCompile Include="Snek.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Aabb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\red_snake.jpg">
@@ -53,6 +59,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Snek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aabb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

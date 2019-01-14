@@ -7,6 +7,7 @@
 #include "SnekBody.h"
 #include "Snek.h"
 #include "AEEngine.h"
+#include "Aabb.h"
 
 #include <Windows.h>
 #include <vector>
@@ -32,10 +33,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(500, 0, 108, 78, snakeHeadTexture));
 	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
 	snekHeadTest->SetColor(9999);
+	snekHeadTest->SetRotation(PI);
 
 	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 108, 78, snakeHeadTexture));
 	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
-	srand(time(nullptr));
+	srand(static_cast<unsigned int>(time(nullptr)));
 
 	snekHeadTest2->SetColor(rand() % 1000 * 10 + 9);
 
@@ -56,8 +58,72 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEInputUpdate();
 
 		snek->Update();
-		snek->Draw();
 		snek2->Update();
+
+		//Collision check with AABBs (Hardcoded)
+		Aabb snekHeadAabb = {};
+		snekHeadAabb.min = snek->m_po_Head->GetMin();
+		snekHeadAabb.max = snek->m_po_Head->GetMax();
+		Aabb snekHeadAabb2 ={};
+		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
+		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
+
+		//auto font = AEGfxCreateFont("Arial", 10, false, false);
+		//s8* chars = "";
+		//AEGfxPrint(font, "", -300, -500, 1, 1, 1);
+
+		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
+		{
+			if (snek->m_v_BodyParts.empty())  {
+				MessageBox(nullptr, "PLAYER WINS", "ENDGAME", MB_OK);
+				return 0;
+			}
+			else if (snek2->m_v_BodyParts.empty())
+			{
+				MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
+				return 0;
+			}
+			snek2->m_v_BodyParts.pop_back();
+			snek->m_v_BodyParts.pop_back();
+			snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
+			snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
+		}
+		else {// collision check each head with the other snakes' body
+			auto i_BodyParts = snek2->m_v_BodyParts.begin();
+			for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
+			{
+				Aabb bodyPartAabb ={};
+				bodyPartAabb.min = (*i_BodyParts)->GetMin();
+				bodyPartAabb.max = (*i_BodyParts)->GetMax();
+				if (CheckAabbIntersect(&bodyPartAabb, &snekHeadAabb))
+				{
+					//snek->m_po_Head->SetColor(rand() % 10000);
+					snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
+					snek2->m_v_BodyParts.erase(i_BodyParts, snek2->m_v_BodyParts.end());
+					break;
+				}
+			}
+
+
+			auto i_BodyParts2 = snek->m_v_BodyParts.begin();
+			for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
+			{
+				Aabb bodyPartAabb2 ={};
+				bodyPartAabb2.min = (*i_BodyParts2)->GetMin();
+				bodyPartAabb2.max = (*i_BodyParts2)->GetMax();
+				if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb2))
+				{
+					//snek2->m_po_Head->SetColor(rand() % 10000);
+					snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
+					snek->m_v_BodyParts.erase(i_BodyParts2, snek->m_v_BodyParts.end());
+					break;
+				}
+			}
+		}
+
+		//Collision check end
+
+		snek->Draw();
 		snek2->Draw();
 		AESysFrameEnd();
 	}

@@ -29,6 +29,7 @@ void Snek::Update()
 	{
 		(*i_BodyParts)->Update();
 	}
+	m_po_Head->SetBoostGainRate( 1 / (m_v_BodyParts.size()+1) * 0.5f);
 }
 
 void Snek::Draw()
