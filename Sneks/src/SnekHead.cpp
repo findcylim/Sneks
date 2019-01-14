@@ -55,6 +55,7 @@ void SnekHead::Update()
 	}
 	//end removal
 
+
 	//limit max velocity
 	if (m_f_Velocity >= kMaxVelocity)
 			m_f_Velocity = kMaxVelocity;
