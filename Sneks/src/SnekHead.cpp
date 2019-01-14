@@ -1,21 +1,35 @@
 #include "SnekHead.h"
 
-constexpr float kMaxVelocity       = 4.0f;
-constexpr float kAccelerationForce = 0.03f;
-constexpr float kBrakeForce        = 0.03f;
-constexpr float kTurnSpeed         = 0.01f;
+constexpr float kMaxVelocity       = 2.0f;
+constexpr float kAccelerationForce = 0.02f;
+constexpr float kBrakeForce        = 0.02f;
+constexpr float kTurnSpeed         = 0.02f;
 constexpr float kFriction          = 0.005f;	   //natural slowdown
 constexpr float kTurnMinSpeed      = 0.2f;        //need to be moving at this speed to turn
 constexpr float kMinSpeed          = 1.0f;	   //if speed lower than this then clamp to 0
 constexpr float kIdleSpeed         = 1.0f;		   //default move speed
 
 
+float SnekHead::GetBoost()
+{
+	return m_f_Boost;
+}
+
+void SnekHead::SetBoostGainRate(float boostGainRate)
+{
+	m_f_BoostGainRate = boostGainRate;
+}
+
 void SnekHead::Update()
 {	
+	m_f_Boost += m_f_BoostGainRate;
+	if (m_f_Boost >= 100)
+		m_f_Boost = 100;
 	// for removal
 	if (GetAsyncKeyState(m_i_BoostKey))
 	{
 		SetVelocity(GetVelocity() - kAccelerationForce * 5);
+		m_f_Boost -= 0.5f;
 	}
 	else if (GetAsyncKeyState(m_i_AccelerationKey)) {
 		SetVelocity(GetVelocity() - kAccelerationForce);
@@ -49,31 +63,18 @@ void SnekHead::Update()
 
 	if (GetAsyncKeyState(m_i_BoostKey))
 		m_f_Velocity *= 1.5f;
-	/*
-	//if out of screen, pop to the other side of screen X
-	if (m_x_Position.x > AEGfxGetWinMaxX() + m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMinX() - m_f_SizeX / 2;
-	else if (m_x_Position.x < AEGfxGetWinMinX() - m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMaxX() + m_f_SizeX / 2;
-
-	//if out of screen, pop to the other side of screen Y
-	if (m_x_Position.y > AEGfxGetWinMaxY() + m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMinY() - m_f_SizeY / 2;
-	else if (m_x_Position.y < AEGfxGetWinMinY() - m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMaxY() + m_f_SizeY / 2;
-		*/
-
-		//if out of screen, clamp movement
-	if (m_x_Position.x > AEGfxGetWinMaxX() + m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMaxX() + m_f_SizeX / 2;
-	else if (m_x_Position.x < AEGfxGetWinMinX() - m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMinX() - m_f_SizeX / 2;
 
 	//if out of screen, clamp movement
-	if (m_x_Position.y > AEGfxGetWinMaxY() + m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMaxY() + m_f_SizeY / 2;
-	else if (m_x_Position.y < AEGfxGetWinMinY() - m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMinY() - m_f_SizeY / 2;
+	if (m_x_Position.x > AEGfxGetWinMaxX())// + m_f_SizeX / 2)
+		m_x_Position.x = AEGfxGetWinMaxX(); // +m_f_SizeX / 2;
+	else if (m_x_Position.x < AEGfxGetWinMinX())// - m_f_SizeX / 2)
+		m_x_Position.x = AEGfxGetWinMinX();// -m_f_SizeX / 2;
+
+	//if out of screen, clamp movement
+	if (m_x_Position.y > AEGfxGetWinMaxY())// + m_f_SizeY / 2)
+		m_x_Position.y = AEGfxGetWinMaxY();// +m_f_SizeY / 2;
+	else if (m_x_Position.y < AEGfxGetWinMinY())// - m_f_SizeY / 2)
+		m_x_Position.y = AEGfxGetWinMinY();// -m_f_SizeY / 2;
 
 	/*clamp low velocity to 0 so its not jittery*/
 	if (m_f_Velocity >= -kMinSpeed && m_f_Velocity <= kMinSpeed)

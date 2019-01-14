@@ -68,6 +68,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
 		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
 
+		//auto font = AEGfxCreateFont("Arial", 10, false, false);
+		//s8* chars = "";
+		//AEGfxPrint(font, "", -300, -500, 1, 1, 1);
+
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
 			if (snek->m_v_BodyParts.empty())  {
