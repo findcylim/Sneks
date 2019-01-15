@@ -84,6 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -120,6 +121,9 @@
     <ClCompile Include="ECS\EventManager.cpp" />
     <ClCompile Include="ECS\System.cpp" />
     <ClCompile Include="ECS\SystemManager.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="EntityList.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\PlayerSystem.cpp" />
@@ -136,6 +140,15 @@
     <ClInclude Include="Systems\PlayerSystem.h" />
     <ClInclude Include="Utility\GameStateManager.h" />
     <ClInclude Include="Utility\Logger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentList.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityList.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="misc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
