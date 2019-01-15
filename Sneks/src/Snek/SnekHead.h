@@ -1,7 +1,7 @@
 #ifndef SNEK_HEAD_H
 #define SNEK_HEAD_H
 #pragma once
-#include "DrawObject.h"
+#include "../Graphics/DrawObject.h"
 #include <Windows.h>
 
 class SnekHead : public DrawObject {

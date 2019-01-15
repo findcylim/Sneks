@@ -7,20 +7,22 @@
 
 ECSystem::ECSystem()
 {
-	m_o_Logger				= new Logger("log.txt");
-	m_o_EventManager		= new EventManager(m_o_Logger);
-	m_o_SystemManager		= new SystemManager(m_o_Logger);
-	m_o_GameStateManager	= new GameStateManager(state_Game);
-	m_b_EngineStatus		= false;
+	m_o_Logger					= new Logger("log.txt");
+	m_o_EventManager			= new EventManager(m_o_Logger);
+	m_o_SystemManager			= new SystemManager(m_o_Logger);
+	m_o_GameStateManager		= new GameStateManager(state_Game);
+	m_o_EntityComponentManager	= new EntityManager();
+	m_b_EngineStatus			= false;
 }
 
 
 ECSystem::~ECSystem()
 {
-	//TODO Call logger destroy function here later on
 	delete(m_o_Logger);
 	delete(m_o_EventManager);
 	delete(m_o_SystemManager);
+	delete(m_o_GameStateManager);
+	delete(m_o_EntityComponentManager);
 }
 
 

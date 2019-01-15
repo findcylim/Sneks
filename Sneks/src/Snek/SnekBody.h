@@ -2,7 +2,7 @@
 #define SNEK_BODY_H
 #pragma once
 
-#include "DrawObject.h"
+#include "../Graphics/DrawObject.h"
 #include "SnekHead.h"
 
 class SnekBody : public DrawObject {

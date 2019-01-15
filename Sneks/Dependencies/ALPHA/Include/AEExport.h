@@ -2,17 +2,17 @@
 /*!
 \par        Project: Alpha Engine
 \file       AEExport.h
-
-\author     Antoine Abi Chacra
-\date       March 21, 2013
-
 \brief      Header file for the library settings.
 
 \copyright  Copyright (C) 2013 DigiPen Institute of Technology. Reproduction 
             or disclosure of this file or its contents without the prior 
             written consent of DigiPen Institute of Technology is prohibited.
 */
-/******************************************************************************/
+/***************************************************************************
+
+\author     Antoine Abi Chacra
+\date       March 21, 2013
+***/
 
 #ifndef AE_EXPORT_H
 #define AE_EXPORT_H

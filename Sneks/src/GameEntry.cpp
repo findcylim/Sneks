@@ -2,12 +2,12 @@
 #include <cmath>
 #include <cstdlib>
 #include <time.h>
-#include "DrawObject.h"
-#include "SnekHead.h"
-#include "SnekBody.h"
-#include "Snek.h"
+#include "Graphics/DrawObject.h"
+#include "Snek/SnekHead.h"
+#include "Snek/SnekBody.h"
+#include "Snek/Snek.h"
 #include "AEEngine.h"
-#include "Aabb.h"
+#include "Math/Aabb.h"
 
 #include <Windows.h>
 #include <vector>

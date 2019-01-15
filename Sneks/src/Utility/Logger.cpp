@@ -74,7 +74,6 @@ void Logger::LogMessage(kLogNum LogNumber,const char * Message, ...)
 
 					std::setprecision(6 + temp);
 					MessageBuffer += std::to_string(d);
-					std::fixed;
 					break;
 				}
 			}

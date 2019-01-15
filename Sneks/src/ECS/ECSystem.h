@@ -7,6 +7,7 @@
 #include "SystemManager.h"
 #include "../Utility/GameStateManager.h"
 #include "../Utility/Logger.h"
+#include "EntityManager.h"
 
 
 
@@ -17,6 +18,7 @@ private:
 	Logger*				 m_o_Logger;
 	EventManager*		 m_o_EventManager;
 	SystemManager*		 m_o_SystemManager;
+	EntityManager*		 m_o_EntityComponentManager;
 	bool				 m_b_EngineStatus;
 public:
 	ECSystem();

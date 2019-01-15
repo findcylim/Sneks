@@ -18,11 +18,54 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ECS\ComponentManager.cpp" />
+    <ClCompile Include="ECS\ECSystem.cpp" />
+    <ClCompile Include="ECS\EntityList.cpp" />
+    <ClCompile Include="ECS\EntityManager.cpp" />
+    <ClCompile Include="ECS\EventManager.cpp" />
+    <ClCompile Include="ECS\System.cpp" />
+    <ClCompile Include="ECS\SystemManager.cpp" />
+    <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="Graphics\DrawObject.cpp" />
+    <ClCompile Include="Math\Aabb.cpp" />
+    <ClCompile Include="Snek\Snek.cpp" />
+    <ClCompile Include="Snek\SnekBody.cpp" />
+    <ClCompile Include="Snek\SnekHead.cpp" />
+    <ClCompile Include="Systems\InputSystem.cpp" />
+    <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Systems\PlayerSystem.cpp" />
+    <ClCompile Include="Utility\GameStateManager.cpp" />
+    <ClCompile Include="Utility\Logger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECS\Component.h" />
+    <ClInclude Include="ECS\ComponentList.h" />
+    <ClInclude Include="ECS\ComponentManager.h" />
+    <ClInclude Include="ECS\ECSystem.h" />
+    <ClInclude Include="ECS\Entity.h" />
+    <ClInclude Include="ECS\EntityList.h" />
+    <ClInclude Include="ECS\EntityManager.h" />
+    <ClInclude Include="ECS\EventManager.h" />
+    <ClInclude Include="ECS\System.h" />
+    <ClInclude Include="ECS\SystemManager.h" />
+    <ClInclude Include="Graphics\DrawObject.h" />
+    <ClInclude Include="Math\Aabb.h" />
+    <ClInclude Include="Snek\Snek.h" />
+    <ClInclude Include="Snek\SnekBody.h" />
+    <ClInclude Include="Snek\SnekHead.h" />
+    <ClInclude Include="Systems\InputSystem.h" />
+    <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="Systems\PlayerSystem.h" />
+    <ClInclude Include="Utility\GameStateManager.h" />
+    <ClInclude Include="Utility\Logger.h" />
+    <ClInclude Include="Utility\misc.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4359AF02-5A98-4EEB-9589-A43E8B7B7F89}</ProjectGuid>
     <RootNamespace>Sneks</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -35,7 +78,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -110,6 +153,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -118,6 +162,9 @@
       <AdditionalDependencies>Alpha_Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -138,43 +185,6 @@
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Aabb.cpp" />
-    <ClCompile Include="DrawObject.cpp" />
-    <ClCompile Include="BulletSystem.cpp" />
-    <ClCompile Include="ECS\ECSystem.cpp" />
-    <ClCompile Include="ECS\EventManager.cpp" />
-    <ClCompile Include="ECS\System.cpp" />
-    <ClCompile Include="ECS\SystemManager.cpp" />
-    <ClCompile Include="ComponentManager.cpp" />
-    <ClCompile Include="EntityList.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
-    <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="Systems\InputSystem.cpp" />
-    <ClCompile Include="Systems\PlayerSystem.cpp" />
-    <ClCompile Include="Utility\GameStateManager.cpp" />
-    <ClCompile Include="Utility\Logger.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BulletSystem.h" />
-    <ClInclude Include="ECS\ECSystem.h" />
-    <ClInclude Include="ECS\EventManager.h" />
-    <ClInclude Include="ECS\System.h" />
-    <ClInclude Include="ECS\SystemManager.h" />
-    <ClInclude Include="Systems\InputSystem.h" />
-    <ClInclude Include="Systems\PlayerSystem.h" />
-    <ClInclude Include="Utility\GameStateManager.h" />
-    <ClInclude Include="Utility\Logger.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentList.h" />
-    <ClInclude Include="ComponentManager.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityList.h" />
-    <ClInclude Include="EntityManager.h" />
-    <ClInclude Include="misc.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
