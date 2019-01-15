@@ -7,7 +7,7 @@
 
 ComponentManager::ComponentManager()
 {
-	for (int i_iter = 0; i_iter < Component::kComponentEnd; i_iter++)
+	for (unsigned char i_iter = 0; i_iter < Component::kComponentEnd; i_iter++)
 		m_v_ComponentPool.push_back(nullptr);
 }
 
@@ -61,7 +61,7 @@ void ComponentManager::DeleteComponent(BaseEntity* entityPointer, Component comp
 {
 	if (entityPointer)
 	{
-		for (int i_vectorIndex = 0; i_vectorIndex < entityPointer->m_v_AttachedComponentsList.size(); i_vectorIndex++)
+		for (unsigned i_vectorIndex = 0; i_vectorIndex < entityPointer->m_v_AttachedComponentsList.size(); i_vectorIndex++)
 		{
 			if (entityPointer->m_v_AttachedComponentsList[i_vectorIndex]->m_x_ComponentID == componentType)
 				DeleteComponent(entityPointer->m_v_AttachedComponentsList[i_vectorIndex]);
@@ -90,7 +90,7 @@ void ComponentManager::DeleteComponent(BaseComponent* componentPointer)
 		else if (!prevComponent && !nextComponent)
 			m_v_ComponentPool[componentPointer->m_x_ComponentID] = nullptr;
 
-		int i_vectorIndex;
+		unsigned i_vectorIndex;
 		for (i_vectorIndex = 0; componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList[i_vectorIndex] != componentPointer; i_vectorIndex++);
 
 		componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.erase(componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.begin() + i_vectorIndex);

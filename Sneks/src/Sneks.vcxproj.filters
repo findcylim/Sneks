@@ -21,50 +21,93 @@
     <ClCompile Include="DrawObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SnekHead.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SnekBody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Snek.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Aabb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Physics.cpp">
+    <ClCompile Include="BulletSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\ECSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\SystemManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\InputSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\PlayerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\GameStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\red_snake.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\Resources\snake-graphics.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\Resources\snek_hed.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="DrawObject.h">
+    <ClInclude Include="BulletSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SnekBody.h">
+    <ClInclude Include="ECS\ECSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SnekHead.h">
+    <ClInclude Include="ECS\EventManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Snek.h">
+    <ClInclude Include="ECS\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Aabb.h">
+    <ClInclude Include="ECS\SystemManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Physics.h">
+    <ClInclude Include="Systems\InputSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\PlayerSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\GameStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
