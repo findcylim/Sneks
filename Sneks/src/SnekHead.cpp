@@ -1,13 +1,13 @@
 #include "SnekHead.h"
 
-constexpr float kMaxVelocity       = 2.0f;
+constexpr float kMaxVelocity       = 3.0f;
 constexpr float kAccelerationForce = 0.02f;
 constexpr float kBrakeForce        = 0.02f;
 constexpr float kTurnSpeed         = 0.02f;
 constexpr float kFriction          = 0.005f;	   //natural slowdown
 constexpr float kTurnMinSpeed      = 0.2f;        //need to be moving at this speed to turn
 constexpr float kMinSpeed          = 1.0f;	   //if speed lower than this then clamp to 0
-constexpr float kIdleSpeed         = 1.0f;		   //default move speed
+constexpr float kIdleSpeed         = 1.5f;		   //default move speed
 
 
 float SnekHead::GetBoost()
@@ -54,7 +54,12 @@ void SnekHead::Update()
 		m_px_Texture = m_px_SnekHed;
 	}
 	//end removal
-
+	if (GetAsyncKeyState(AEVK_0))
+	{
+		m_f_Scale -= 0.001f;
+	}
+	else if (GetAsyncKeyState(AEVK_1))
+		m_f_Scale += 0.001f;
 
 	//limit max velocity
 	if (m_f_Velocity >= kMaxVelocity)
@@ -97,6 +102,7 @@ SnekHead::SnekHead(const float posX, const float posY, const float sizeX, const 
 	: DrawObject(posX, posY, sizeX, sizeY, tex)
 {
 	m_px_SnekHed = tex;
+	SetScale(0.635f);
 }
 
 SnekHead::SnekHead(const float posX, const float posY, const float sizeX, const float sizeY, AEGfxTexture* tex, AEGfxTexture * snekHedL, AEGfxTexture * snekHedR)
@@ -105,6 +111,7 @@ SnekHead::SnekHead(const float posX, const float posY, const float sizeX, const 
 	m_px_SnekHed = tex;
 	m_px_SnekHedL = snekHedL;
 	m_px_SnekHedR = snekHedR;
+	SetScale(0.635f);
 }
 
 void SnekHead::SetParticles(AEGfxTexture *smoke, AEGfxTexture *boost)

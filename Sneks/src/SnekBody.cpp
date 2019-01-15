@@ -30,10 +30,11 @@ void SnekBody::Update() {
 	//cap max distance for speed calculations at 500
 	if (distanceXySquared > 300 * 300)
 		distanceXySquared = 300 * 300;
-	if (distanceXySquared < (m_o_Reference->GetSizeX() / 2) * (m_o_Reference->GetSizeX() / 2))
+	if (distanceXySquared < (m_o_Reference->GetSizeX() * m_o_Reference->GetScale() / 2) * (m_o_Reference->GetSizeX() * m_o_Reference->GetScale()/ 2))
 		SetVelocity(0);
 	else //move towards the reference
 		SetVelocity(-fabsf(-3.0f - ((distanceXySquared / (300 * 300) * 50.0f))));
+	m_f_Scale = m_o_Reference->GetScale();
 }
 
 void SnekBody::FaceReference()

@@ -20,8 +20,11 @@ protected:
 	AEMtx33*				      m_po_RotationMatrix;
 	AEMtx33*		            m_po_TranslationMatrix;
 	AEMtx33*                m_po_GlobalMatrix;
+	float							m_f_Scale = 1.0f;
 
 public:
+	float GetScale();
+	void SetScale(float f);
 	void SetColor(int rgba);
 	void SetTexture(AEGfxTexture * tex);
 	void SetRotation(float f);

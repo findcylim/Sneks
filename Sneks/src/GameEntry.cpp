@@ -20,6 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 	AESysInit(hInstance, nCmdShow, 1500, 900, 1, 300, false, nullptr);
 	AESysSetWindowTitle("TEST");
+	AEToogleFullScreen(false);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 0);
 
@@ -43,6 +44,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	auto snek = static_cast<Snek*>(new Snek(snekHeadTest));
 	auto snek2 = static_cast<Snek*>(new Snek(snekHeadTest2));
+	float f, ff;
+	AEGfxGetCamPosition(&f, &ff);
 	snek2->SetPlayer(1);
 	for (int iBodyParts = 0; iBodyParts < kNumBodyParts; iBodyParts++) {
 		auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 80, snakeBodyTexture));

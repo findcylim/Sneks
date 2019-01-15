@@ -142,6 +142,7 @@
     <ClCompile Include="Aabb.cpp" />
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="MemoryAllocator.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Snek.cpp" />
     <ClCompile Include="SnekBody.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
     <ClInclude Include="DrawObject.h" />
+    <ClInclude Include="MemoryAllocator.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Snek.h" />
     <ClInclude Include="SnekBody.h" />

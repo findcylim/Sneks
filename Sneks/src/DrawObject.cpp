@@ -4,6 +4,16 @@
 #include "AEVec2.h"
 #include "AEGraphics.h"
 
+
+float DrawObject::GetScale()
+{
+	return m_f_Scale;
+}
+
+void DrawObject::SetScale(float f)
+{
+	m_f_Scale = f;
+}
 void DrawObject::SetColor(int rgba)
 {
 	m_f_RgbaColor = rgba;
@@ -99,7 +109,9 @@ DrawObject::~DrawObject(void)
 }
 
 void DrawObject::Draw() {
+	
 	AEMtx33Rot(m_po_RotationMatrix, m_f_Rotation);
+	AEMtx33ScaleApply(m_po_RotationMatrix, m_po_RotationMatrix, m_f_Scale, m_f_Scale);
 	AEMtx33Trans(m_po_TranslationMatrix, m_x_Position.x, m_x_Position.y);
 	/*generate global matrix from rot and trans*/
 	AEMtx33Concat(m_po_GlobalMatrix, m_po_TranslationMatrix, m_po_RotationMatrix);
