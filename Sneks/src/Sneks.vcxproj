@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4359AF02-5A98-4EEB-9589-A43E8B7B7F89}</ProjectGuid>
     <RootNamespace>Sneks</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -141,24 +141,39 @@
   <ItemGroup>
     <ClCompile Include="Aabb.cpp" />
     <ClCompile Include="DrawObject.cpp" />
+    <ClCompile Include="BulletSystem.cpp" />
+    <ClCompile Include="ECS\ECSystem.cpp" />
+    <ClCompile Include="ECS\EventManager.cpp" />
+    <ClCompile Include="ECS\System.cpp" />
+    <ClCompile Include="ECS\SystemManager.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="EntityList.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="Physics.cpp" />
-    <ClCompile Include="Snek.cpp" />
-    <ClCompile Include="SnekBody.cpp" />
-    <ClCompile Include="SnekHead.cpp" />
+    <ClCompile Include="Systems\InputSystem.cpp" />
+    <ClCompile Include="Systems\PlayerSystem.cpp" />
+    <ClCompile Include="Utility\GameStateManager.cpp" />
+    <ClCompile Include="Utility\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\red_snake.jpg" />
-    <Image Include="..\Resources\snake-graphics.png" />
-    <Image Include="..\Resources\snek_hed.jpg" />
+    <ClInclude Include="BulletSystem.h" />
+    <ClInclude Include="ECS\ECSystem.h" />
+    <ClInclude Include="ECS\EventManager.h" />
+    <ClInclude Include="ECS\System.h" />
+    <ClInclude Include="ECS\SystemManager.h" />
+    <ClInclude Include="Systems\InputSystem.h" />
+    <ClInclude Include="Systems\PlayerSystem.h" />
+    <ClInclude Include="Utility\GameStateManager.h" />
+    <ClInclude Include="Utility\Logger.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aabb.h" />
-    <ClInclude Include="DrawObject.h" />
-    <ClInclude Include="Physics.h" />
-    <ClInclude Include="Snek.h" />
-    <ClInclude Include="SnekBody.h" />
-    <ClInclude Include="SnekHead.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentList.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityList.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="misc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
