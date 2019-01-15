@@ -24,9 +24,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AEGfxSetBackgroundColor(1, 1, 0);
 
 	auto snakeHeadTexture  = AEGfxTextureLoad("../Resources/head.png");
+	auto snakeHeadTexture2 = AEGfxTextureLoad("../Resources/head2.png");
 	auto snakeHeadLTexture = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
 	auto snakeHeadRTexture = AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
-	auto snakeBodyTexture  = AEGfxTextureLoad("../Resources/body.png");
+	auto snakeBodyTexture  = AEGfxTextureLoad("../Resources/snake-body.png");
+	auto snakeBodyTexture2 = AEGfxTextureLoad("../Resources/snake-body2.png");
 	auto rocketTexture     = AEGfxTextureLoad("../Resources/rocket_booster.jpg");
 	auto smokeTexture      = AEGfxTextureLoad("../Resources/smoke.jpg");
 
@@ -35,11 +37,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	snekHeadTest->SetColor(9999);
 	snekHeadTest->SetRotation(PI);
 
-	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 108, 78, snakeHeadTexture));
+	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 108, 78, snakeHeadTexture2));
 	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
-	srand(static_cast<unsigned int>(time(nullptr)));
-
-	snekHeadTest2->SetColor(rand() % 1000 * 10 + 9);
+	snekHeadTest2->SetColor(9999);
+	snekHeadTest2->SetRotation(PI);
 
 	auto snek = static_cast<Snek*>(new Snek(snekHeadTest));
 	auto snek2 = static_cast<Snek*>(new Snek(snekHeadTest2));
@@ -47,8 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	for (int iBodyParts = 0; iBodyParts < kNumBodyParts; iBodyParts++) {
 		auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 84, snakeBodyTexture));
 		snek->AddBodyPart(snekBodyTest);
-		auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 84, snakeBodyTexture));
-		snekBodyTest2->SetColor(rand() % 10000);
+		auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 84, snakeBodyTexture2));
 		snek2->AddBodyPart(snekBodyTest2);
 	}
 
