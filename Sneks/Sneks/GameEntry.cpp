@@ -5,7 +5,7 @@
 #include"ComponentManager.h"
 #include "EntityManager.h"
 
-void printC(Components com)
+void printC(Component com)
 {
 	if (com)
 		std::cout << "Sample" << std::endl;
@@ -13,7 +13,7 @@ void printC(Components com)
 		std::cout << "Base" << std::endl;
 }
 
-void printE(Entities ent)
+void printE(Entity ent)
 {
 	if (ent)
 		std::cout << "Sample" << std::endl;
@@ -26,21 +26,22 @@ int main() {
 
 	EntityManager* enMan = new EntityManager;
 
-	BaseEntity* eptr1 = enMan->newEntity(Entities::BaseE);
-	BaseEntity* eptr2 = enMan->newEntity(Entities::SampleE);
-	BaseEntity* eptr3 = enMan->newEntity(Entities::EndE);
+	BaseEntity* eptr1 = enMan->NewEntity(Entity::kEntityBase, "eptr1");
+	BaseEntity* eptr2 = enMan->NewEntity(Entity::kEntitySample, "eptr2");
+	BaseEntity* eptr3 = enMan->NewEntity(Entity::kEntityEnd, "eptr3");
+	BaseEntity* eptr4 = enMan->NewEntity(Entity::kEntitySample, "eptr2");
 
 	if (eptr1)
 	{
 		std::cout << "Entity 1: ";
-		printE(eptr1->entityID);
+		printE(eptr1->m_x_EntityID);
 
-		enMan->comMan->newComponent(eptr1, Components::SampleC);
+		enMan->m_po_ComponentManagerInstance->NewComponent(eptr1, Component::kComponentSample);
 
-		if (eptr1->coe.size())
+		if (eptr1->m_v_AttachedComponentsList.size())
 		{
 			std::cout << "Entity 1's components: ";
-			printC(eptr1->coe[0]->componentID);
+			printC(eptr1->m_v_AttachedComponentsList[0]->m_x_ComponentID);
 		}
 		else
 			std::cout << "Entity 1 does not have any components." << std::endl;
@@ -53,14 +54,14 @@ int main() {
 	if (eptr2)
 	{
 		std::cout << "Entity 2: ";
-		printE(eptr2->entityID);
+		printE(eptr2->m_x_EntityID);
 
-		enMan->comMan->deleteComponent(eptr2->coe[0]);
+		enMan->m_po_ComponentManagerInstance->DeleteComponent(eptr2->m_v_AttachedComponentsList[0]);
 
-		if (eptr2->coe.size())
+		if (eptr2->m_v_AttachedComponentsList.size())
 		{
 			std::cout << "Entity 2's components: ";
-			printC(eptr2->coe[0]->componentID);
+			printC(eptr2->m_v_AttachedComponentsList[0]->m_x_ComponentID);
 		}
 		else
 			std::cout << "Entity 2 does not have any components." << std::endl;
@@ -73,12 +74,12 @@ int main() {
 	if (eptr3)
 	{
 		std::cout << "Entity 3: ";
-		printE(eptr3->entityID);
+		printE(eptr3->m_x_EntityID);
 
-		if (eptr3->coe.size())
+		if (eptr3->m_v_AttachedComponentsList.size())
 		{
 			std::cout << "Entity 3's components: ";
-			printC(eptr3->coe[0]->componentID);
+			printC(eptr3->m_v_AttachedComponentsList[0]->m_x_ComponentID);
 		}
 		else
 			std::cout << "Entity 3 does not have any components." << std::endl;
@@ -88,9 +89,32 @@ int main() {
 
 	std::cout << std::endl;
 
-	enMan->deleteEntity(eptr1);
-	enMan->deleteEntity(eptr2);
-	enMan->deleteEntity(eptr3);
+	if (eptr4)
+	{
+		std::cout << "Entity 4: ";
+		std::cout << eptr4->m_pc_EntityName << std::endl;
+
+		for (int i = 0; i < Component::kComponentEnd; i++)
+		{
+			std::cout << "Entity 4 ";
+			if (enMan->m_po_ComponentManagerInstance->GetSpecificComponentInstance(eptr1, (Component)i))
+				std::cout << "has ";
+			else
+				std::cout << "does not have ";
+
+			printC((Component)i);
+		}
+
+	}
+	else
+		std::cout << "Entity 4 does not exist." << std::endl;
+
+	std::cout << std::endl;
+
+	enMan->DeleteEntity(eptr1);
+	enMan->DeleteEntity(eptr2);
+	enMan->DeleteEntity(eptr3);
+	enMan->DeleteEntity(eptr4);
 
 	getchar();
 

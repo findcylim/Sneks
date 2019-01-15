@@ -7,93 +7,113 @@
 
 ComponentManager::ComponentManager()
 {
-	for (int i = 0; i < Components::EndC; i++)
-		componentpool.push_back(NULL);
+	for (int i_iter = 0; i_iter < Component::kComponentEnd; i_iter++)
+		m_v_ComponentPool.push_back(nullptr);
 }
 
-BaseComponent* ComponentManager::newComponent(BaseEntity* ent, Components com)
+BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Component componentType)
 {
-	BaseComponent* cptr = NULL;
+	BaseComponent* componentPointer = nullptr;
 
-	if (ent)
+	if (entityPointer)
 	{
-		switch (com)
+		switch (componentType)
 		{
-		case Components::BaseC:
-			cptr = new BaseComponent;
+		case Component::kComponentBase:
+			componentPointer = new BaseComponent;
 			break;
-		case Components::SampleC:
-			cptr = (BaseComponent*)new sampleComponent;
+		case Component::kComponentSample:
+			componentPointer = (BaseComponent*)new SampleComponent;
 			break;
 		}
 
-		if (cptr)
+		if (componentPointer)
 		{
-			cptr->componentID = com;
-			cptr->ownerEntity = ent;
-			ent->coe.push_back(cptr);
+			componentPointer->m_x_ComponentID = componentType;
+			componentPointer->m_po_OwnerEntity = entityPointer;
+			entityPointer->m_v_AttachedComponentsList.push_back(componentPointer);
 		}
 	}
 
-	return cptr;
+	return componentPointer;
 }
 
-void ComponentManager::addComponent(BaseComponent* cptr, Components com)
+void ComponentManager::AddComponent(BaseComponent* componentPointer, Component componentType)
 {
-	if (cptr)
+	if (componentPointer)
 	{
-		BaseComponent* vptr = componentpool[com];
+		BaseComponent* prevComponent = m_v_ComponentPool[componentType];
 
-		if (vptr)
+		if (prevComponent)
 		{
-			while (vptr->next)
-				vptr = vptr->next;
+			while (prevComponent->m_po_NextComponent)
+				prevComponent = prevComponent->m_po_NextComponent;
 
-			vptr->next = cptr;
-			cptr->prev = vptr;
+			prevComponent->m_po_NextComponent = componentPointer;
+			componentPointer->m_po_PrevComponent = prevComponent;
 		}
 		else
-			componentpool[com] = cptr;
+			m_v_ComponentPool[componentType] = componentPointer;
 	}
 }
 
-void ComponentManager::deleteComponent(BaseEntity* ent, Components com)
+void ComponentManager::DeleteComponent(BaseEntity* entityPointer, Component componentType)
 {
-	if (ent)
+	if (entityPointer)
 	{
-		for (int i = 0; i < ent->coe.size(); i++)
+		for (int i_vectorIndex = 0; i_vectorIndex < entityPointer->m_v_AttachedComponentsList.size(); i_vectorIndex++)
 		{
-			if (ent->coe[i]->componentID == com)
-				deleteComponent(ent->coe[i]);
+			if (entityPointer->m_v_AttachedComponentsList[i_vectorIndex]->m_x_ComponentID == componentType)
+				DeleteComponent(entityPointer->m_v_AttachedComponentsList[i_vectorIndex]);
 		}
 	}
 }
 
-void ComponentManager::deleteComponent(BaseComponent* com)
+void ComponentManager::DeleteComponent(BaseComponent* componentPointer)
 {
-	if (com)
+	if (componentPointer)
 	{
-		BaseComponent *pptr = com->prev, *nptr = com->next;
-		int i;
+		BaseComponent *prevComponent = componentPointer->m_po_PrevComponent, *nextComponent = componentPointer->m_po_NextComponent;
 
-		if (pptr && nptr)
+		if (prevComponent && nextComponent)
 		{
-			pptr->next = nptr;
-			nptr->prev = pptr;
+			prevComponent->m_po_NextComponent = nextComponent;
+			nextComponent->m_po_PrevComponent = prevComponent;
 		}
-		else if (nptr && !pptr)
+		else if (nextComponent && !prevComponent)
 		{
-			componentpool[com->componentID] = nptr;
-			nptr->prev = NULL;
+			m_v_ComponentPool[componentPointer->m_x_ComponentID] = nextComponent;
+			nextComponent->m_po_PrevComponent = nullptr;
 		}
-		else if (pptr && !nptr)
-			pptr->next = NULL;
-		else if (!pptr && !nptr)
-			componentpool[com->componentID] = NULL;
+		else if (prevComponent && !nextComponent)
+			prevComponent->m_po_NextComponent = nullptr;
+		else if (!prevComponent && !nextComponent)
+			m_v_ComponentPool[componentPointer->m_x_ComponentID] = nullptr;
 
-		for (i = 0; com->ownerEntity->coe[i] != com; i++);
-		com->ownerEntity->coe.erase(com->ownerEntity->coe.begin() + i);
+		int i_vectorIndex;
+		for (i_vectorIndex = 0; componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList[i_vectorIndex] != componentPointer; i_vectorIndex++);
 
-		delete com;
+		componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.erase(componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.begin() + i_vectorIndex);
+
+		delete componentPointer;
 	}
+}
+
+BaseComponent* ComponentManager::GetFirstComponentInstance(Component componentType)
+{
+	return m_v_ComponentPool[componentType];
+}
+
+BaseComponent* ComponentManager::GetSpecificComponentInstance(BaseEntity* entityPointer, Component componentType)
+{
+	for (unsigned i = 0; i < entityPointer->m_v_AttachedComponentsList.size(); i++)
+		if (entityPointer->m_v_AttachedComponentsList[i]->m_x_ComponentID == componentType)
+			return entityPointer->m_v_AttachedComponentsList[i];
+
+	return nullptr;
+}
+
+BaseComponent* ComponentManager::GetSpecificComponentInstance(BaseComponent* componentPointer, Component componentType)
+{
+	return GetSpecificComponentInstance(componentPointer->m_po_OwnerEntity, componentType);
 }

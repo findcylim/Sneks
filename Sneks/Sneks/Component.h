@@ -3,11 +3,11 @@
 #define COMPONENT_H
 
 
-enum Components : unsigned char
+enum Component : unsigned char
 {
-	BaseC,
-	SampleC,
-	EndC
+	kComponentBase,
+	kComponentSample,
+	kComponentEnd
 };
 
 class BaseComponent;

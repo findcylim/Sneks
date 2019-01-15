@@ -10,13 +10,13 @@
 class BaseComponent
 {
 	public:
-		Components componentID = Components::BaseC;
-		bool active = true;
-		BaseEntity* ownerEntity = NULL;
-		BaseComponent* prev = NULL, *next = NULL;
+		Component m_x_ComponentID = Component::kComponentBase;
+		bool m_b_IsActive = true;
+		BaseEntity* m_po_OwnerEntity = nullptr;
+		BaseComponent* m_po_PrevComponent = nullptr, *m_po_NextComponent = nullptr;
 };
 
-class sampleComponent : BaseComponent
+class SampleComponent : BaseComponent
 {
 	public:
 };

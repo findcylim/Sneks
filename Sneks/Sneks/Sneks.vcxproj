@@ -116,7 +116,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ComponentList.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="EntityList.cpp" />
     <ClCompile Include="EntityManager.cpp" />

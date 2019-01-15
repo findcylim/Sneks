@@ -11,14 +11,17 @@
 
 class ComponentManager
 {
-	std::vector<BaseComponent*> componentpool;
-	void addComponent(BaseComponent* cptr, Components com);
+	std::vector<BaseComponent*> m_v_ComponentPool;
+	void AddComponent(BaseComponent* componentPointer, Component componentType);
 
 	public:
 		ComponentManager();
-		BaseComponent* newComponent(BaseEntity* ent, Components com);
-		void deleteComponent(BaseEntity* ent, Components com);
-		void deleteComponent(BaseComponent* com);
+		BaseComponent* NewComponent(BaseEntity* entityPointer, Component componentType);
+		void DeleteComponent(BaseEntity* entityPointer, Component componentType);
+		void DeleteComponent(BaseComponent* componentPointer);
+		BaseComponent* GetFirstComponentInstance(Component componentType);
+		BaseComponent* GetSpecificComponentInstance(BaseEntity* entityPointer, Component componentType);
+		BaseComponent* GetSpecificComponentInstance(BaseComponent* componentPointer, Component componentType);
 };
 
 #endif

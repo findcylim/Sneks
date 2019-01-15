@@ -1,111 +1,175 @@
 
 #include <vector>
+#include <string>
+#include <iostream>
 
 #include "EntityManager.h"
 
-EntityManager::EntityManager()
+void checkName(BaseEntity* entityPointerSource, BaseEntity* entityPointerUntouched)
 {
-	for (int i = 0; i < Entities::EndE; i++)
-		entitypool.push_back(NULL);
-}
-
-void EntityManager::addEntity(BaseEntity* eptr, Entities ent)
-{
-	if (eptr)
+	char *charPointerUntouched = entityPointerUntouched->m_pc_EntityName, *charPointerSource = entityPointerSource->m_pc_EntityName;
+	while (*charPointerUntouched == *charPointerSource)
 	{
-		BaseEntity* vptr = entitypool[ent];
-
-		if (vptr)
+		if (!(*charPointerUntouched))
 		{
-			while (vptr->next)
-				vptr = vptr->next;
+			free(entityPointerSource->m_pc_EntityName);
+			entityPointerSource->m_pc_EntityName = (char*)malloc(strlen(entityPointerUntouched->m_pc_EntityName) + 4);
 
-			vptr->next = eptr;
-			eptr->prev = vptr;
+			charPointerUntouched = entityPointerUntouched->m_pc_EntityName, charPointerSource = entityPointerSource->m_pc_EntityName;
+			while (*charPointerUntouched)
+			{
+				*charPointerSource = *charPointerUntouched;
+				charPointerSource++, charPointerUntouched++;
+			}
+			*charPointerSource = '(';
+			charPointerSource++;
+			*charPointerSource = '1';
+			charPointerSource++;
+			*charPointerSource = ')';
+			charPointerSource++;
+			*charPointerSource = 0;
 		}
-		else
-			entitypool[ent] = eptr;
 
-		attachAllComponents(eptr, ent);
+		charPointerSource++, charPointerUntouched++;
 	}
 }
 
-void EntityManager::attachAllComponents(BaseEntity* eptr, Entities ent)
+EntityManager::EntityManager()
 {
-	if (eptr)
+	for (int i_iter = 0; i_iter < Entity::kEntityEnd; i_iter++)
+		m_v_EntityPool.push_back(nullptr);
+}
+
+void EntityManager::AddEntity(BaseEntity* entityPointer, Entity entityType)
+{
+	if (entityPointer)
 	{
-		Components* cptr = NULL;
-		switch (ent)
+		BaseEntity* prevEntity = m_v_EntityPool[entityType];
+
+		if (prevEntity)
 		{
-		case Entities::SampleE:
-			cptr = ((sampleEntity*)eptr)->basicComponents;
+			while (prevEntity->m_po_NextEntity)
+			{
+				checkName(entityPointer, prevEntity);
+				prevEntity = prevEntity->m_po_NextEntity;
+			}
+
+			checkName(entityPointer, prevEntity);
+
+			prevEntity->m_po_NextEntity = entityPointer;
+			entityPointer->m_po_PrevEntiy = prevEntity;
+		}
+		else
+			m_v_EntityPool[entityType] = entityPointer;
+
+		AttachAllComponents(entityPointer, entityType);
+	}
+}
+
+void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entityType)
+{
+	if (entityPointer)
+	{
+		Component* componentPointer = nullptr;
+		switch (entityType)
+		{
+		case Entity::kEntitySample:
+			componentPointer = ((SampleEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
 		}
 
-		if (cptr)
+		if (componentPointer)
 		{
-			while (*cptr != Components::EndC)
+			while (*componentPointer != Component::kComponentEnd)
 			{
-				comMan->newComponent(eptr, *cptr);
-				cptr++;
+				m_po_ComponentManagerInstance->NewComponent(entityPointer, *componentPointer);
+				componentPointer++;
 			}
 		}
 	}
 }
 
-BaseEntity* EntityManager::newEntity(Entities ent)
+BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 {
-	BaseEntity* eptr = NULL;
-	switch (ent)
+	BaseEntity* entityPointer = nullptr;
+	switch (entityType)
 	{
-		case Entities::BaseE:
-			eptr = new BaseEntity;
+		case Entity::kEntityBase:
+			entityPointer = new BaseEntity(entityName);
 			break;
 
-		case Entities::SampleE:
-			eptr = (BaseEntity*)new sampleEntity;
+		case Entity::kEntitySample:
+			entityPointer = (BaseEntity*)new SampleEntity(entityName);
 			break;
 	}
 
-	if (eptr)
+	if (entityPointer)
 	{
-		eptr->entityID = ent;
-		addEntity(eptr, ent);
+		entityPointer->m_x_EntityID = entityType;
+		AddEntity(entityPointer, entityType);
 	}
 
-	return eptr;
+	return entityPointer;
 }
 
-void EntityManager::deleteEntity(BaseComponent* com)
+void EntityManager::DeleteEntity(BaseComponent* componentPointer)
 {
-	if(com)
-		deleteEntity(com->ownerEntity);
+	if(componentPointer)
+		DeleteEntity(componentPointer->m_po_OwnerEntity);
 }
 
-void EntityManager::deleteEntity(BaseEntity* ent)
+void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 {
-	if (ent)
+	if (entityPointer)
 	{
-		BaseEntity *pptr = ent->prev, *nptr = ent->next;
+		BaseEntity *prevEntity = entityPointer->m_po_PrevEntiy, *nextEntity = entityPointer->m_po_NextEntity;
 
-		while (ent->coe.size() > 0)
-			comMan->deleteComponent(ent->coe[0]);
+		while (entityPointer->m_v_AttachedComponentsList.size() > 0)
+			m_po_ComponentManagerInstance->DeleteComponent(entityPointer->m_v_AttachedComponentsList[0]);
 
-		if (pptr && nptr)
+		if (prevEntity && nextEntity)
 		{
-			pptr->next = nptr;
-			nptr->prev = pptr;
+			prevEntity->m_po_NextEntity = nextEntity;
+			nextEntity->m_po_PrevEntiy = prevEntity;
 		}
-		else if (nptr && !pptr)
+		else if (nextEntity && !prevEntity)
 		{
-			entitypool[ent->entityID] = nptr;
-			nptr->prev = NULL;
+			m_v_EntityPool[entityPointer->m_x_EntityID] = nextEntity;
+			nextEntity->m_po_PrevEntiy = nullptr;
 		}
-		else if (pptr && !nptr)
-			pptr->next = NULL;
-		else if (!pptr && !nptr)
-			entitypool[ent->entityID] = NULL;
+		else if (prevEntity && !nextEntity)
+			prevEntity->m_po_NextEntity = nullptr;
+		else if (!prevEntity && !nextEntity)
+			m_v_EntityPool[entityPointer->m_x_EntityID] = nullptr;
 
-		delete ent;
+		if (entityPointer->m_pc_EntityName)
+			free(entityPointer->m_pc_EntityName);
+
+		delete entityPointer;
 	}
+}
+
+BaseEntity* EntityManager::GetFirstEntityInstance(Entity entityType)
+{
+	return m_v_EntityPool[entityType];
+}
+
+BaseEntity* EntityManager::GetSpecificEntityInstance(Entity entityType, const char* entityName)
+{
+	BaseEntity* entityPointer = m_v_EntityPool[entityType];
+
+	while (entityPointer)
+	{
+		if (entityPointer->m_pc_EntityName == entityName)
+			break;
+
+		entityPointer = entityPointer->m_po_NextEntity;
+	}
+
+	return entityPointer;
+}
+
+BaseEntity* EntityManager::GetSpecificEntityInstance(BaseComponent* componentPointer)
+{
+	return componentPointer->m_po_OwnerEntity;
 }

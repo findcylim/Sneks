@@ -21,16 +21,21 @@
 class BaseEntity
 {
 	public:
-		Entities entityID = Entities::BaseE;
-		bool active = true;
-		std::vector<BaseComponent*> coe;
-		BaseEntity* prev = NULL, *next = NULL;
+		Entity m_x_EntityID = Entity::kEntityBase;
+		char* m_pc_EntityName = nullptr;
+		bool m_b_IsActive = true;
+		std::vector<BaseComponent*> m_v_AttachedComponentsList;
+		BaseEntity* m_po_PrevEntiy = nullptr, *m_po_NextEntity = nullptr;
+
+		BaseEntity(const char* entityName);
 };
 
-class sampleEntity : BaseEntity
+class SampleEntity : BaseEntity
 {
 	public:
-		Components basicComponents[2] = { Components::SampleC , Components::EndC };
+		Component m_ax_InitialComponents[2] = { Component::kComponentSample , Component::kComponentEnd };
+
+		SampleEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
 #endif

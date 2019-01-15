@@ -3,11 +3,11 @@
 #define ENTITY_H
 
 
-enum Entities : unsigned char
+enum Entity : unsigned char
 {
-	BaseE,
-	SampleE,
-	EndE
+	kEntityBase,
+	kEntitySample,
+	kEntityEnd
 };
 
 class BaseEntity;
