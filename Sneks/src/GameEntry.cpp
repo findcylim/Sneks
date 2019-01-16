@@ -9,6 +9,9 @@
 #include "AEEngine.h"
 #include "Aabb.h"
 
+#include <gl/glew.h>
+
+
 #include <Windows.h>
 #include <vector>
 
@@ -54,6 +57,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snekBodyTest2->SetColor(rand() % 10000);
 		snek2->AddBodyPart(snekBodyTest2);
 	}
+	
 
 	int prevMouseX = 0, prevMouseY = 0;
 	while (true) {

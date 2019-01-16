@@ -124,7 +124,7 @@ void SnekHead::SetParticles(AEGfxTexture *smoke, AEGfxTexture *boost)
 }
 
 void SnekHead::DrawParticles() const
-{
+{	
 	m_px_Particles->SetPositionX(GetPosition().x + GetRotatedOffsetXx());
 	m_px_Particles->SetPositionY(GetPosition().y + GetRotatedOffsetXy());
 	m_px_Particles->SetRotation(GetRotation());

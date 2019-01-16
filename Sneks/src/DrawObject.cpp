@@ -38,16 +38,16 @@ void DrawObject::SetPositionY(const float f) {
 Vector2 DrawObject::GetMin()
 {
 	Vector2 min = {};
-	min.x = m_x_Position.x - m_f_SizeX / 2;
-	min.y = m_x_Position.y - m_f_SizeY / 2;
+	min.x = m_x_Position.x - m_f_SizeX * m_f_Scale / 2;
+	min.y = m_x_Position.y - m_f_SizeY * m_f_Scale / 2;
 	return min;
 }
 
 Vector2 DrawObject::GetMax()
 {
 	Vector2 max = {};
-	max.x = m_x_Position.x + m_f_SizeX / 2;
-	max.y = m_x_Position.y + m_f_SizeY / 2;
+	max.x = m_x_Position.x + m_f_SizeX * m_f_Scale / 2;
+	max.y = m_x_Position.y + m_f_SizeY * m_f_Scale / 2;
 	return max;
 }
 
