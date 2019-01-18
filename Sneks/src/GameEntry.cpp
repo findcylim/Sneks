@@ -9,7 +9,8 @@
 #include "AEEngine.h"
 #include "Aabb.h"
 
-#include <gl/glew.h>
+
+#include <GL/glew.h>
 
 
 #include <Windows.h>
@@ -23,16 +24,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 	AESysInit(hInstance, nCmdShow, 1500, 900, 1, 300, false, nullptr);
 	AESysSetWindowTitle("TEST");
-	AEToogleFullScreen(false);
+	//AEToogleFullScreen(false);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 0);
-
+	
 	auto snakeHeadTexture  = AEGfxTextureLoad("../Resources/snake-head.png");
 	auto snakeHeadLTexture = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
 	auto snakeHeadRTexture = AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
 	auto snakeBodyTexture  = AEGfxTextureLoad("../Resources/snake-body.png");
 	auto rocketTexture     = AEGfxTextureLoad("../Resources/rocket_booster.jpg");
 	auto smokeTexture      = AEGfxTextureLoad("../Resources/smoke.jpg");
+	auto cityTexture		  = AEGfxTextureLoad("../Resources/city.jpg");
+
+	auto bg = new DrawObject(0, 0,
+									 AEGfxGetWinMaxX() - AEGfxGetWinMinX(),
+									 AEGfxGetWinMaxY() - AEGfxGetWinMinY(), cityTexture);
 
 	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(500, 0, 105, 77, snakeHeadTexture));
 	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
@@ -58,15 +64,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snek2->AddBodyPart(snekBodyTest2);
 	}
 	
-
-	int prevMouseX = 0, prevMouseY = 0;
 	while (true) {
 		AESysFrameStart();
 		AEInputUpdate();
 
 		snek->Update();
 		snek2->Update();
-
+		
 		//Collision check with AABBs (Hardcoded)
 		Aabb snekHeadAabb = {};
 		snekHeadAabb.min = snek->m_po_Head->GetMin();
@@ -78,7 +82,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//auto font = AEGfxCreateFont("Arial", 10, false, false);
 		//s8* chars = "";
 		//AEGfxPrint(font, "", -300, -500, 1, 1, 1);
-
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
 			if (snek->m_v_BodyParts.empty())  {
@@ -130,8 +133,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		//Collision check end
 
+		bg->Draw();
 		snek->Draw();
 		snek2->Draw();
+
+		glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 200);
 		AESysFrameEnd();
 	}
 	delete snek;

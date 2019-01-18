@@ -83,11 +83,9 @@ DrawObject::DrawObject(const float posX, const float posY, const float sizeX, co
 	m_px_Texture  = tex;
 	m_f_SizeX     = sizeX;
 	m_f_SizeY     = sizeY;
-	AEGfxMeshStart();
-	AEGfxTriAdd(-(sizeX/2), -(sizeY/2), 0x00FFFFFF, 0, 1,
+	AEGfxMeshStart();	AEGfxTriAdd(-(sizeX/2), -(sizeY/2), 0x00FFFFFF, 0, 1,
 		sizeX / 2, -(sizeY/2), 0x0000FFFF, 1, 1,
 		-(sizeX / 2), sizeY / 2, 0x00FFFF00, 0, 0);
-
 	AEGfxTriAdd(
 		sizeX / 2, sizeY / 2, 0x00FFFFFF, 1, 0,
 		-(sizeX / 2), sizeY / 2, 0x00FFFFFF, 0, 0,
@@ -97,7 +95,7 @@ DrawObject::DrawObject(const float posX, const float posY, const float sizeX, co
 	m_po_GlobalMatrix      = new AEMtx33();
 	m_po_RotationMatrix    = new AEMtx33();
 	m_po_TranslationMatrix = new AEMtx33();
-
+	
 }
 
 DrawObject::~DrawObject(void)

@@ -41,7 +41,6 @@ public:
 	DrawObject(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);
 	~DrawObject(void);
 	void Draw();
-	void Update();
 	float GetRotatedOffsetXx() const;
 	float GetRotatedOffsetXy() const;
 	float GetRotatedOffsetYx() const;
