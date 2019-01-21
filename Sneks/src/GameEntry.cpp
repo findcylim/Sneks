@@ -119,8 +119,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		Aabb snekHeadAabb2 ={};
 		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
 		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
-
+		if (GetAsyncKeyState(AEVK_F1))
+		{
+			snek->m_po_Head->SetInvulnerable(10.0f);
+		}
 		if (GetAsyncKeyState(AEVK_F2))
+		{
+			snek2->m_po_Head->SetInvulnerable(10.0f);
+		}
+		if (GetAsyncKeyState(AEVK_F3))
 		{
 			if (built.size() >= maxBuildingsX * maxBuildingsY)
 			{
@@ -145,7 +152,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				buildingsVec.push_back(building);
 			}
 		}
-		if (GetAsyncKeyState(AEVK_F3))
+		if (GetAsyncKeyState(AEVK_F4))
 		{
 			buildingsVec.clear();
 			built.clear();
