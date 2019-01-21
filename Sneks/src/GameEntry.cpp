@@ -23,7 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 300, false, nullptr);
 	AESysSetWindowTitle("TEST");
-	AEToogleFullScreen(false);
+	AEToogleFullScreen(true);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 1);
 	
@@ -120,6 +120,36 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
 		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
 
+		if (GetAsyncKeyState(AEVK_F2))
+		{
+			if (built.size() >= maxBuildingsX * maxBuildingsY)
+			{
+				
+			}
+			else {
+				AEVec2 randIndex = AEVec2();
+				bool uniqueIndex = false;
+				while (!uniqueIndex) {
+					uniqueIndex = true;
+					randIndex.x = static_cast<f32>(rand() % maxBuildingsX);
+					randIndex.y = static_cast<f32>(rand() % maxBuildingsY);
+					for (auto& i_Built : built) {
+						if (i_Built.x == randIndex.x && i_Built.y == randIndex.y)
+						{
+							uniqueIndex = false;
+						}
+					}
+				}
+				built.push_back(randIndex);
+				DrawObject* building = new DrawObject(firstBuildingX + randIndex.x * buildingsDistX, firstBuildingY + randIndex.y * buildingsDistY, 71, 42, buildingTexture);
+				buildingsVec.push_back(building);
+			}
+		}
+		if (GetAsyncKeyState(AEVK_F3))
+		{
+			buildingsVec.clear();
+			built.clear();
+		}
 
 		//Head on head action
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))

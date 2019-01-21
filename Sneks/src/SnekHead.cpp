@@ -83,6 +83,10 @@ void SnekHead::Update(float dt)
 	}
 	else if (GetAsyncKeyState(AEVK_1))
 		m_f_Scale += 0.001f;
+	if (GetAsyncKeyState(AEVK_F1))
+	{
+		m_f_Invulnerable=10.0f;
+	}
 
 	//limit max velocity
 	if (m_f_Velocity >= kMaxVelocity)
