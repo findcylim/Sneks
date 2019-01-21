@@ -94,6 +94,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto snek2 = static_cast<Snek*>(new Snek(snekHeadTest2));
 
 	auto font = AEGfxCreateFont("Segoe UI", 20, false, false);
+	auto winFont = AEGfxCreateFont("Segoe UI", 500, 1, 0);
 
 	float f, ff;
 	AEGfxGetCamPosition(&f, &ff);
@@ -105,8 +106,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//snekBodyTest2->SetColor(rand() % 10000);
 		snek2->AddBodyPart(snekBodyTest2);
 	}
-	
-	while (true) {
+	int winner = 0;
+	while (!winner) {
 		AESysFrameStart();
 		AEInputUpdate();
 		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
@@ -119,6 +120,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		Aabb snekHeadAabb2 ={};
 		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
 		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
+
+		// Debug Controls
 		if (GetAsyncKeyState(AEVK_F1))
 		{
 			snek->m_po_Head->SetInvulnerable(10.0f);
@@ -157,7 +160,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			buildingsVec.clear();
 			built.clear();
 		}
-
+		
+		//COLLISIONS START
 		//Head on head action
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
@@ -165,13 +169,30 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
 			else {
 				if (snek->m_v_BodyParts.empty()) {
-					MessageBox(nullptr, "PLAYER WINS", "ENDGAME", MB_OK);
-					return 0;
+					auto chars = new s8[100];
+					sprintf_s(chars, 100, "PLAYER 1 WINS");
+
+					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+
+					AEGfxPrint(winFont, chars, 0, 0, 0, 0, 1);
+					MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
+					return 1;
+					winner = 1;
 				}
 				else if (snek2->m_v_BodyParts.empty())
 				{
+					auto chars = new s8[100];
+					sprintf_s(chars, 100, "PLAYER 2 WINS");
+
+					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+
+					AEGfxPrint(winFont, chars, 0, 0, 1, 0, 0);
 					MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
-					return 0;
+					return 1;
+					winner = 2;
+
 				}
 				snek2->m_v_BodyParts.pop_back();
 				snek->m_v_BodyParts.pop_back();
@@ -276,15 +297,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 		}
-
 		//Collision check end
 
+		//DRAW STARTS
 		bg->Draw();
 		for (auto& i_Building : buildingsVec) {
 			i_Building->Draw();
 		}
-
-
 		//horRoad->Draw();
 		//verRoad->Draw();
 		snek->Draw();
@@ -311,6 +330,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	}
 	delete snek;
 	AESysExit();
-
+	if (winner == 1)
+		MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
+	else 
+		MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
 	return 0;
 }
