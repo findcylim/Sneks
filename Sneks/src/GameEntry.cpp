@@ -23,7 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 300, false, nullptr);
 	AESysSetWindowTitle("TEST");
-	AEToogleFullScreen(true);
+	AEToogleFullScreen(false);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 1);
 	
@@ -54,8 +54,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	constexpr int buildingsDistY = 51;
 	int maxBuildingsX = 1920 / 80;
 	int maxBuildingsY = 1080 / 51;
-	int firstBuildingX = -35.5f - buildingsDistX * 11;
-	int firstBuildingY = -buildingsDistY * 10;
+	float firstBuildingX = -35.5f - buildingsDistX * 11;
+	float firstBuildingY = -buildingsDistY * 10;
 
 	for (int iBuildings = 0; iBuildings < 50; iBuildings++) {
 
@@ -63,8 +63,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		bool uniqueIndex = false;
 		while (!uniqueIndex) {
 			uniqueIndex = true;
-			randIndex.x = rand() % maxBuildingsX;
-			randIndex.y = rand() % maxBuildingsY;
+			randIndex.x = static_cast<f32>(rand() % maxBuildingsX);
+			randIndex.y = static_cast<f32>(rand() % maxBuildingsY);
 			for (auto& i_Built : built) {
 				if (i_Built.x == randIndex.x && i_Built.y == randIndex.y)
 				{
@@ -143,7 +143,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 		}
 		else {// collision check each head with the other snakes' body
-			if (snek->m_po_Head->GetInvulnerable() > 0) {}
+			if (snek2->m_po_Head->GetInvulnerable() > 0)
+			{
+				;
+			}
 			else {
 				auto i_BodyParts = snek2->m_v_BodyParts.begin();
 				for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
@@ -162,7 +165,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 			}
 			// collision check head 2 with snake 1 body
-			if (snek2->m_po_Head->GetInvulnerable() > 0) {}
+			if (snek->m_po_Head->GetInvulnerable() > 0)
+			{
+				;
+			}
 			else {
 				auto i_BodyParts2 = snek->m_v_BodyParts.begin();
 				for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
@@ -194,16 +200,38 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				buildingAabb.max = (*i_Buildings)->GetMax();
 				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb))
 				{
-					snek->m_v_BodyParts.back()->GetPosition().x;
 					(*i_Buildings)->SetColor(9009);
-					auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(snek->m_v_BodyParts.back()->GetPosition().x, snek->m_v_BodyParts.back()->GetPosition().y, 61, 80, snakeBodyTexture));
+					float bodySpawnX;
+					float bodySpawnY;
+					if (!snek->m_v_BodyParts.empty()) {
+						bodySpawnX = snek->m_v_BodyParts.back()->GetPosition().x;
+						bodySpawnY = snek->m_v_BodyParts.back()->GetPosition().y;
+					}else
+					{
+						bodySpawnX = snek->m_po_Head->GetPosition().x;
+						bodySpawnY = snek->m_po_Head->GetPosition().y;
+					}
+					auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
+																						  61, 80, snakeBodyTexture));
 					snek->AddBodyPart(snekBodyTest);
 					break;
 				}
 				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb2))
 				{
 					(*i_Buildings)->SetColor(9009);
-					auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(snek2->m_v_BodyParts.back()->GetPosition().x, snek2->m_v_BodyParts.back()->GetPosition().y, 61, 80, snake2BodyTexture));
+					float bodySpawnX;
+					float bodySpawnY;
+					if (!snek2->m_v_BodyParts.empty()) {
+						bodySpawnX = snek2->m_v_BodyParts.back()->GetPosition().x;
+						bodySpawnY = snek2->m_v_BodyParts.back()->GetPosition().y;
+					}
+					else
+					{
+						bodySpawnX = snek2->m_po_Head->GetPosition().x;
+						bodySpawnY = snek2->m_po_Head->GetPosition().y;
+					}
+					auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
+																						  61, 80, snake2BodyTexture));
 					snek2->AddBodyPart(snekBodyTest2);
 					break;
 				}
