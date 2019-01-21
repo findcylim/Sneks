@@ -13,11 +13,11 @@ private:
 public:
 	std::vector<SnekBody*> m_v_BodyParts;
 	SnekHead*              m_po_Head;
-	int        m_i_Player;
+	int						  m_i_Player;
 	Snek(SnekHead*);
 	~Snek();
 	void AddBodyPart(SnekBody*);
-	void Update();
+	void Update(float dt);
 	void Draw();
 	void SetPlayer(int i);
 

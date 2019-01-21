@@ -5,6 +5,11 @@
 #include "AEGraphics.h"
 
 
+int DrawObject::GetColor()
+{
+	return m_f_RgbaColor;
+}
+
 float DrawObject::GetScale()
 {
 	return m_f_Scale;

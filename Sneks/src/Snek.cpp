@@ -21,15 +21,22 @@ void Snek::AddBodyPart(SnekBody* snekBody)
 	m_v_BodyParts.push_back(snekBody);
 }
 
-void Snek::Update()
+void Snek::Update(float dt)
 {
-	m_po_Head->Update();
+	m_po_Head->Update(dt);
 	auto i_BodyParts = m_v_BodyParts.begin();
 	for (; i_BodyParts != m_v_BodyParts.end(); ++i_BodyParts)
 	{
+		if(m_po_Head->GetInvulnerable() > 0)
+		{
+			(*i_BodyParts)->SetColor(9993);
+		}else
+		{
+			(*i_BodyParts)->SetColor(9999);
+		}
 		(*i_BodyParts)->Update();
 	}
-	m_po_Head->SetBoostGainRate( 1 / (m_v_BodyParts.size()+1) * 0.5f);
+	m_po_Head->SetBoostGainRate( 1 / (m_v_BodyParts.size()+1) * 1 + 1 );
 }
 
 void Snek::Draw()

@@ -10,6 +10,16 @@ constexpr float kMinSpeed          = 1.0f;	   //if speed lower than this then cl
 constexpr float kIdleSpeed         = 1.5f;		   //default move speed
 
 
+float SnekHead::GetInvulnerable()
+{
+	return m_f_Invulnerable;
+}
+
+void SnekHead::SetInvulnerable(float invul)
+{
+	m_f_Invulnerable = invul;
+}
+
 float SnekHead::GetBoost()
 {
 	return m_f_Boost;
@@ -20,34 +30,47 @@ void SnekHead::SetBoostGainRate(float boostGainRate)
 	m_f_BoostGainRate = boostGainRate;
 }
 
-void SnekHead::Update()
+void SnekHead::Update(float dt)
 {	
-	m_f_Boost += m_f_BoostGainRate;
-	if (m_f_Boost >= 100)
-		m_f_Boost = 100;
+	if (GetInvulnerable() > 0)
+	{
+		SetColor(9993);
+		m_f_Invulnerable -= dt;
+	}else
+	{
+		SetColor(9999);
+	}
+
+	m_f_Boost += m_f_BoostGainRate * dt * 10;
+
+	if (m_f_Boost >= 100.0f)
+		m_f_Boost = 100.0f;
+	if (m_f_Boost < 0.0f)
+		m_f_Boost = 0.0f;
 	// for removal
-	if (GetAsyncKeyState(m_i_BoostKey))
+	if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
 	{
 		SetVelocity(GetVelocity() - kAccelerationForce * 5);
-		m_f_Boost -= 0.5f;
+		m_f_Boost -= 35 * dt;
 	}
-	else if (GetAsyncKeyState(m_i_AccelerationKey)) {
+
+	if (GetAsyncKeyState(m_i_AccelerationKey)) {
 		SetVelocity(GetVelocity() - kAccelerationForce);
-		m_px_Particles->SetTexture(m_px_SnekHedBoost);
-		DrawParticles();
+		//m_px_Particles->SetTexture(m_px_SnekHedBoost);
+		//DrawParticles();
 	}
 	if (GetAsyncKeyState(m_i_BrakeKey) && (GetVelocity() < 0)) {
 		SetVelocity(GetVelocity() + kBrakeForce);
-		m_px_Particles->SetTexture(m_px_SnekHedSmoke);
-		DrawParticles();
+		//m_px_Particles->SetTexture(m_px_SnekHedSmoke);
+		//DrawParticles();
 	}
 
 	if (GetAsyncKeyState(m_i_LeftKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-		SetRotation(GetRotation() + kTurnSpeed);
+		SetRotation(GetRotation() + kTurnSpeed *300 *dt);
 		//m_px_Texture = m_px_SnekHedL;
 	}
 	else if (GetAsyncKeyState(m_i_RightKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-		SetRotation(GetRotation() - kTurnSpeed);
+		SetRotation(GetRotation() - kTurnSpeed *300 *dt);
 		//m_px_Texture = m_px_SnekHedR;
 	}
 	else {
@@ -67,7 +90,7 @@ void SnekHead::Update()
 	else if (m_f_Velocity <= -kMaxVelocity)
 		m_f_Velocity = -kMaxVelocity;
 
-	if (GetAsyncKeyState(m_i_BoostKey))
+	if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
 		m_f_Velocity *= 1.5f;
 
 	//if out of screen, clamp movement
@@ -94,8 +117,8 @@ void SnekHead::Update()
 	AEVec2 testPos;
 	AEVec2FromAngle(&testPos, m_f_Rotation);
 
-	m_x_Position.x += testPos.x * m_f_Velocity;
-	m_x_Position.y += testPos.y * m_f_Velocity;
+	m_x_Position.x += testPos.x * m_f_Velocity *300 * dt;
+	m_x_Position.y += testPos.y * m_f_Velocity *300 * dt;
 }
 
 SnekHead::SnekHead(const float posX, const float posY, const float sizeX, const float sizeY, AEGfxTexture* tex)
@@ -125,10 +148,10 @@ void SnekHead::SetParticles(AEGfxTexture *smoke, AEGfxTexture *boost)
 
 void SnekHead::DrawParticles() const
 {	
-	m_px_Particles->SetPositionX(GetPosition().x + GetRotatedOffsetXx());
-	m_px_Particles->SetPositionY(GetPosition().y + GetRotatedOffsetXy());
-	m_px_Particles->SetRotation(GetRotation());
-	m_px_Particles->Draw();
+	//m_px_Particles->SetPositionX(GetPosition().x + GetRotatedOffsetXx());
+	//m_px_Particles->SetPositionY(GetPosition().y + GetRotatedOffsetXy());
+	//m_px_Particles->SetRotation(GetRotation());
+	//m_px_Particles->Draw();
 }
 
 void SnekHead::SetPlayer(int num)

@@ -23,6 +23,7 @@ protected:
 	float							m_f_Scale = 1.0f;
 
 public:
+	int GetColor();
 	float GetScale();
 	void SetScale(float f);
 	void SetColor(int rgba);
