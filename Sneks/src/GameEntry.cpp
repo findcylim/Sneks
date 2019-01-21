@@ -10,7 +10,6 @@
 #include "Aabb.h"
 
 
-#include <GL/glew.h>
 
 
 #include <Windows.h>
@@ -24,7 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 	AESysInit(hInstance, nCmdShow, 1500, 900, 1, 300, false, nullptr);
 	AESysSetWindowTitle("TEST");
-	//AEToogleFullScreen(false);
+	AEToogleFullScreen(true);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 0);
 	
@@ -34,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto snakeBodyTexture  = AEGfxTextureLoad("../Resources/snake-body.png");
 	auto rocketTexture     = AEGfxTextureLoad("../Resources/rocket_booster.jpg");
 	auto smokeTexture      = AEGfxTextureLoad("../Resources/smoke.jpg");
-	auto cityTexture		  = AEGfxTextureLoad("../Resources/city.jpg");
+	auto cityTexture		  = AEGfxTextureLoad("../Resources/map.png");
 
 	auto bg = new DrawObject(0, 0,
 									 AEGfxGetWinMaxX() - AEGfxGetWinMinX(),
@@ -137,7 +136,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snek->Draw();
 		snek2->Draw();
 
-		glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 200);
 		AESysFrameEnd();
 	}
 	delete snek;

@@ -96,7 +96,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32s.lib;Alpha_EngineD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Alpha_EngineD.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\ALPHA\Lib\x64;$(SolutionDir)Dependencies\glew\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
