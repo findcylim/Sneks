@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 
-	MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
+	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 300, false, nullptr);
 	AESysSetWindowTitle("TEST");
 	AEToogleFullScreen(true);
@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	int firstBuildingX = -35.5f - buildingsDistX * 11;
 	int firstBuildingY = -buildingsDistY * 10;
 
-	for (int iBuildings = 0; iBuildings < 20; iBuildings++) {
+	for (int iBuildings = 0; iBuildings < 50; iBuildings++) {
 
 		AEVec2 randIndex = AEVec2();
 		bool uniqueIndex = false;
@@ -194,14 +194,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				buildingAabb.max = (*i_Buildings)->GetMax();
 				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb))
 				{
+					snek->m_v_BodyParts.back()->GetPosition().x;
 					(*i_Buildings)->SetColor(9009);
-					//snek->m_po_Head->SetColor(rand() % 10000);
+					auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(snek->m_v_BodyParts.back()->GetPosition().x, snek->m_v_BodyParts.back()->GetPosition().y, 61, 80, snakeBodyTexture));
+					snek->AddBodyPart(snekBodyTest);
 					break;
 				}
 				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb2))
 				{
 					(*i_Buildings)->SetColor(9009);
-					//snek->m_po_Head->SetColor(rand() % 10000);
+					auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(snek2->m_v_BodyParts.back()->GetPosition().x, snek2->m_v_BodyParts.back()->GetPosition().y, 61, 80, snake2BodyTexture));
+					snek2->AddBodyPart(snekBodyTest2);
 					break;
 				}
 			}
