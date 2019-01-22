@@ -93,8 +93,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto snek = static_cast<Snek*>(new Snek(snekHeadTest));
 	auto snek2 = static_cast<Snek*>(new Snek(snekHeadTest2));
 
-	auto font = AEGfxCreateFont("Segoe UI", 20, false, false);
-	auto winFont = AEGfxCreateFont("Segoe UI", 500, 1, 0);
+	auto font = AEGfxCreateFont("Arial", 20, false, false);
+	auto winFont = AEGfxCreateFont("Arial", 500, 1, 0);
 
 	float f, ff;
 	AEGfxGetCamPosition(&f, &ff);
@@ -320,10 +320,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-		AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+		AEGfxSetBlendMode(AE_GFX_BM_NONE);
 
 		AEGfxPrint(font, chars, -900, 450, 0, 0, 1);
 		AEGfxPrint(font, chars2, -900, 420, 1, 0, 0);
+		AEGfxPrint(font, chars, 0, 0, 0, 0, 1);
+		AEGfxPrint(font, chars2, 0, 0, 1, 0, 0);
+
+		chars[7] = '3';
+		chars2[7] = '3';
+ 		AEGfxPrint(font, chars, 0.5, 0.5, 0, 0, 1);
+		AEGfxPrint(font, chars2, 0.5, 0.5, 1, 0, 0);
 
 		
 		AESysFrameEnd();

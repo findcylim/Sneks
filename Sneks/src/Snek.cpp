@@ -34,7 +34,7 @@ void Snek::Update(float dt)
 		{
 			(*i_BodyParts)->SetColor(9999);
 		}
-		(*i_BodyParts)->Update();
+		(*i_BodyParts)->Update(dt);
 	}
 	m_po_Head->SetBoostGainRate( 1.0f / (m_v_BodyParts.size()+1) * 1.0f + 1.0f );
 }

@@ -14,13 +14,13 @@ SnekBody::SnekBody(float posX, float posY, float sizeX, float sizeY, AEGfxTextur
 	//FaceReference();
 }
 
-void SnekBody::Update() {
+void SnekBody::Update(float dt) {
 	//apply the velocity
 	AEVec2 directionVector;
 	AEVec2FromAngle(&directionVector, m_f_Rotation);
 
-	m_x_Position.x += directionVector.x * m_f_Velocity;
-	m_x_Position.y += directionVector.y * m_f_Velocity;
+	m_x_Position.x += directionVector.x * m_f_Velocity * 300 * dt;
+	m_x_Position.y += directionVector.y * m_f_Velocity * 300 * dt;
 
 	float distanceX, distanceY;
 	FaceReference(&distanceX, &distanceY);
