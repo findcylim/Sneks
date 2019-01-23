@@ -239,10 +239,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//Head on head action
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
-			cameraShake->AddShake(20.0f);
 			//check iframes
 			if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
 			else {
+				cameraShake->AddShake(20.0f);
+				snek->m_po_Head->SetInvulnerable(1.0f);
+				snek2->m_po_Head->SetInvulnerable(1.0f);
 				if (snek->m_v_BodyParts.empty()) {
 					auto chars = new s8[100];
 					sprintf_s(chars, 100, "PLAYER 1 WINS");
@@ -276,10 +278,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 		}
 		else {// collision check each head with the other snakes' body
-			if (snek2->m_po_Head->GetInvulnerable() > 0)
-			{
-				;
-			}
+			if (snek2->m_po_Head->GetInvulnerable() > 0){}
 			else {
 				auto i_BodyParts = snek2->m_v_BodyParts.begin();
 				for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
@@ -301,10 +300,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 			}
 			// collision check head 2 with snake 1 body
-			if (snek->m_po_Head->GetInvulnerable() > 0)
-			{
-				;
-			}
+			if (snek->m_po_Head->GetInvulnerable() > 0){}
 			else {
 				auto i_BodyParts2 = snek->m_v_BodyParts.begin();
 				for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
