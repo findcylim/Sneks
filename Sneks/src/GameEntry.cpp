@@ -14,6 +14,8 @@
 #include <vector>
 
 constexpr int kNumBodyParts = 20;
+float DrawObject::m_f_GlobalScale = 1.0f;
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
@@ -24,6 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AEToogleFullScreen(true);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 1);
+
 	auto cameraShake = new CameraShake();
 	
 	auto snakeHeadTexture           = AEGfxTextureLoad("../Resources/snake-head.png");
@@ -123,7 +126,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
 		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
 
-
+		if (GetAsyncKeyState(AEVK_Z))
+		{
+			cameraShake->AddShake(5.0f);
+		}
+		if (GetAsyncKeyState(AEVK_3))
+		{
+			DrawObject::m_f_GlobalScale += 0.001f;
+		}
+		if (GetAsyncKeyState(AEVK_4))
+		{
+			DrawObject::m_f_GlobalScale -= 0.001f;
+		}
 		// Debug Controls
 		if (GetAsyncKeyState(AEVK_F1))
 		{

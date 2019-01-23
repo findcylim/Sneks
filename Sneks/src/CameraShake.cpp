@@ -41,11 +41,6 @@ void CameraShake::Update(float dt)
 			AEGfxSetCamPosition(m_x_ScreenCentre.x, m_x_ScreenCentre.y);
 		}
 	}
-
-	if (GetAsyncKeyState(AEVK_Z))
-	{
-		m_f_CurrentShakeMagnitude += 5.0f;
-	}
 }
 
 

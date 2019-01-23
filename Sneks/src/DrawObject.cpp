@@ -5,12 +5,12 @@
 #include "AEGraphics.h"
 
 
-int DrawObject::GetColor()
+int DrawObject::GetColor() const
 {
 	return m_f_RgbaColor;
 }
 
-float DrawObject::GetScale()
+float DrawObject::GetScale() const
 {
 	return m_f_Scale;
 }
@@ -40,7 +40,7 @@ void DrawObject::SetPositionY(const float f) {
 	m_x_Position.y = f;
 }
 
-Vector2 DrawObject::GetMin()
+Vector2 DrawObject::GetMin() const
 {
 	Vector2 min = {};
 	min.x = m_x_Position.x - m_f_SizeX * m_f_Scale / 2;
@@ -48,7 +48,7 @@ Vector2 DrawObject::GetMin()
 	return min;
 }
 
-Vector2 DrawObject::GetMax()
+Vector2 DrawObject::GetMax() const
 {
 	Vector2 max = {};
 	max.x = m_x_Position.x + m_f_SizeX * m_f_Scale / 2;
@@ -83,8 +83,7 @@ float DrawObject::GetSizeY() const
 
 DrawObject::DrawObject(const float posX, const float posY, const float sizeX, const float sizeY, AEGfxTexture* tex)
 {
-	SetPositionX(posX);
-	SetPositionY(posY);
+	m_x_Position={ posX,posY };
 	m_px_Texture  = tex;
 	m_f_SizeX     = sizeX;
 	m_f_SizeY     = sizeY;
@@ -113,13 +112,16 @@ DrawObject::~DrawObject(void)
 
 void DrawObject::Draw() {
 	
+
 	AEMtx33Rot(m_po_RotationMatrix, m_f_Rotation);
 	AEMtx33ScaleApply(m_po_RotationMatrix, m_po_RotationMatrix, m_f_Scale, m_f_Scale);
 	AEMtx33Trans(m_po_TranslationMatrix, m_x_Position.x, m_x_Position.y);
 	/*generate global matrix from rot and trans*/
 	AEMtx33Concat(m_po_GlobalMatrix, m_po_TranslationMatrix, m_po_RotationMatrix);
+	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalScale, m_f_GlobalScale);
 
-	//allow transparency to work !!must be first
+
+	//allow transparency to work !! must be first
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 

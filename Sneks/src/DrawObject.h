@@ -23,8 +23,9 @@ protected:
 	float							m_f_Scale = 1.0f;
 
 public:
-	int GetColor();
-	float GetScale();
+	static float				m_f_GlobalScale;
+	int GetColor() const;
+	float GetScale() const;
 	void SetScale(float f);
 	void SetColor(int rgba);
 	void SetTexture(AEGfxTexture * tex);
@@ -32,8 +33,8 @@ public:
 	void SetVelocity(float f);
 	void SetPositionX(float f);
 	void SetPositionY(float f);
-	Vector2 GetMin(void);
-	Vector2 GetMax(void);
+	Vector2 GetMin(void) const;
+	Vector2 GetMax(void) const;
 	float GetRotation() const;
 	float GetVelocity() const;
 	Vector2 GetPosition() const;
