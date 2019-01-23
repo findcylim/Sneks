@@ -8,9 +8,7 @@
 #include "Snek.h"
 #include "AEEngine.h"
 #include "Aabb.h"
-
-
-
+#include "CameraShake.h"
 
 #include <Windows.h>
 #include <vector>
@@ -26,6 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AEToogleFullScreen(true);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 1);
+	auto cameraShake = new CameraShake();
 	
 	auto snakeHeadTexture           = AEGfxTextureLoad("../Resources/snake-head.png");
 	auto snakeHeadLTexture          = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
@@ -107,9 +106,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snek2->AddBodyPart(snekBodyTest2);
 	}
 	int winner = 0;
+
 	while (!winner) {
 		AESysFrameStart();
 		AEInputUpdate();
+		
+		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		
@@ -120,6 +122,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		Aabb snekHeadAabb2 ={};
 		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
 		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
+
 
 		// Debug Controls
 		if (GetAsyncKeyState(AEVK_F1))
@@ -165,6 +168,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//Head on head action
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
+			cameraShake->AddShake(20.0f);
 			//check iframes
 			if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
 			else {
@@ -209,11 +213,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				auto i_BodyParts = snek2->m_v_BodyParts.begin();
 				for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
 				{
+					if (snek2->m_po_Head->GetInvulnerable() > 0)
+						break;
 					Aabb bodyPartAabb ={};
 					bodyPartAabb.min = (*i_BodyParts)->GetMin();
 					bodyPartAabb.max = (*i_BodyParts)->GetMax();
 					if (CheckAabbIntersect(&bodyPartAabb, &snekHeadAabb))
 					{
+						cameraShake->AddShake(20.0f);
 						//snek->m_po_Head->SetColor(rand() % 10000);
 						snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
 						snek2->m_v_BodyParts.erase(i_BodyParts, snek2->m_v_BodyParts.end());
@@ -231,11 +238,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				auto i_BodyParts2 = snek->m_v_BodyParts.begin();
 				for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
 				{
+					if (snek->m_po_Head->GetInvulnerable() > 0)
+						break;
 					Aabb bodyPartAabb2 ={};
 					bodyPartAabb2.min = (*i_BodyParts2)->GetMin();
 					bodyPartAabb2.max = (*i_BodyParts2)->GetMax();
 					if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb2))
 					{
+						cameraShake->AddShake(20.0f);
 						//snek2->m_po_Head->SetColor(rand() % 10000);
 						snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
 						snek->m_v_BodyParts.erase(i_BodyParts2, snek->m_v_BodyParts.end());
@@ -258,6 +268,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				buildingAabb.max = (*i_Buildings)->GetMax();
 				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb))
 				{
+					//cameraShake->AddShake(1.0f);
+
 					(*i_Buildings)->SetColor(9009);
 					float bodySpawnX;
 					float bodySpawnY;
@@ -276,6 +288,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb2))
 				{
+					//cameraShake->AddShake(1.0f);
 					(*i_Buildings)->SetColor(9009);
 					float bodySpawnX;
 					float bodySpawnY;
@@ -309,30 +322,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snek->Draw();
 		snek2->Draw();
 
-		auto chars = new s8[100];
-		auto chars2 = new s8[100];
+		s8 chars[100] = {};
+		s8 chars2[100]= {};
+		s8 chars3[100]={};
 
-		auto fps = static_cast<float>(snek->m_po_Head->GetBoost());
-		auto fps2 = static_cast<float>(snek2->m_po_Head->GetBoost());
+		auto boostLevel  = static_cast<float>(snek->m_po_Head->GetBoost());
+		auto boostLevel2 = static_cast<float>(snek2->m_po_Head->GetBoost());
+		auto shakeMagnitude  = static_cast<float>(cameraShake->AddShake(0));
 
-		sprintf_s(chars, 100, "Player 1 Boost: %.1f", fps);
-		sprintf_s(chars2, 100, "Player 2 Boost: %.1f", fps2);
 
+		sprintf_s(chars, 100, "Player 1 Boost: %.1f", boostLevel);
+		sprintf_s(chars2, 100, "Player 2 Boost: %.1f", boostLevel2);
+		sprintf_s(chars3, 100, "Shake Magnitude: %.3f", shakeMagnitude);
 
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEGfxSetBlendMode(AE_GFX_BM_NONE);
 
 		AEGfxPrint(font, chars, -900, 450, 0, 0, 1);
 		AEGfxPrint(font, chars2, -900, 420, 1, 0, 0);
-		AEGfxPrint(font, chars, 0, 0, 0, 0, 1);
-		AEGfxPrint(font, chars2, 0, 0, 1, 0, 0);
+		AEGfxPrint(font, chars3, -900, 390, 0, 1, 0);
 
-		chars[7] = '3';
-		chars2[7] = '3';
- 		AEGfxPrint(font, chars, 0.5, 0.5, 0, 0, 1);
-		AEGfxPrint(font, chars2, 0.5, 0.5, 1, 0, 0);
 
-		
 		AESysFrameEnd();
 	}
 	delete snek;

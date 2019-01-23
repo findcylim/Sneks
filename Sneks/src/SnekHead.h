@@ -6,7 +6,7 @@
 
 class SnekHead : public DrawObject {
 private:
-	float				m_f_Boost = 0;
+	float				m_f_Boost               = 0;
 	float				m_f_BoostGainRate;
 	AEGfxTexture*  m_px_SnekHed;
 	AEGfxTexture*  m_px_SnekHedL;

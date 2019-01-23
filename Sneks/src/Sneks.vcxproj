@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Aabb.cpp" />
+    <ClCompile Include="CameraShake.cpp" />
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="MemoryAllocator.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
+    <ClInclude Include="CameraShake.h" />
     <ClInclude Include="DrawObject.h" />
     <ClInclude Include="MemoryAllocator.h" />
     <ClInclude Include="Particles.h" />
