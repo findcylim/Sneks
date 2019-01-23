@@ -95,16 +95,16 @@ void SnekHead::Update(float dt)
 		m_f_Velocity *= 1.5f;
 
 	//if out of screen, clamp movement
-	if (m_x_Position.x > AEGfxGetWinMaxX())// + m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMaxX(); // +m_f_SizeX / 2;
-	else if (m_x_Position.x < AEGfxGetWinMinX())// - m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMinX();// -m_f_SizeX / 2;
+	if (m_x_Position.x > AEGfxGetWinMaxX() + 5* 1920)// + m_f_SizeX / 2)
+		m_x_Position.x = AEGfxGetWinMaxX() + 5 * 1920; // +m_f_SizeX / 2;
+	else if (m_x_Position.x < AEGfxGetWinMinX() - 5 * 1920)// - m_f_SizeX / 2)
+		m_x_Position.x = AEGfxGetWinMinX() - 5 * 1920;// -m_f_SizeX / 2;
 
 	//if out of screen, clamp movement
-	if (m_x_Position.y > AEGfxGetWinMaxY())// + m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMaxY();// +m_f_SizeY / 2;
-	else if (m_x_Position.y < AEGfxGetWinMinY())// - m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMinY();// -m_f_SizeY / 2;
+	if (m_x_Position.y > AEGfxGetWinMaxY() + 5 * 1080)// + m_f_SizeY / 2)
+		m_x_Position.y = AEGfxGetWinMaxY() + 5 * 1080;// +m_f_SizeY / 2;
+	else if (m_x_Position.y < AEGfxGetWinMinY() - 5 * 1080)// - m_f_SizeY / 2)
+		m_x_Position.y = AEGfxGetWinMinY() - 5 * 1080;// -m_f_SizeY / 2;
 
 	/*clamp low velocity to 0 so its not jittery*/
 	if (m_f_Velocity >= -kMinSpeed && m_f_Velocity <= kMinSpeed)

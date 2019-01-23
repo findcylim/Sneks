@@ -44,9 +44,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	auto bg = new DrawObject(0, 0,
-									 AEGfxGetWinMaxX() - AEGfxGetWinMinX(),
-									 AEGfxGetWinMaxY() - AEGfxGetWinMinY(), cityTexture);
+	std::vector<DrawObject*> background = {};
+	float ScreenSizeX = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
+	float ScreenSizeY = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
+	for (int i_Background = -5; i_Background <= 5; i_Background++) {
+		for (int i_BackgroundY = -5; i_BackgroundY <= 5; i_BackgroundY++) {
+			auto bg = new DrawObject(i_Background * ScreenSizeX, i_BackgroundY * ScreenSizeY, ScreenSizeX, ScreenSizeY, cityTexture);
+			background.push_back(bg);
+		}
+	}
+
 	auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture);
 	auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture);
 
@@ -113,19 +120,62 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	while (!winner) {
 		AESysFrameStart();
 		AEInputUpdate();
-		
+		float currentViewDistanceX = ScreenSizeX / DrawObject::m_f_GlobalScale;
+		float currentViewDistanceY = ScreenSizeY / DrawObject::m_f_GlobalScale;
+
 		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
-		
-		//Collision check with AABBs (Hardcoded)
-		Aabb snekHeadAabb = {};
-		snekHeadAabb.min = snek->m_po_Head->GetMin();
-		snekHeadAabb.max = snek->m_po_Head->GetMax();
-		Aabb snekHeadAabb2 ={};
-		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
-		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
 
+		float distHedFromScreenEdgeX = fabsf(snek->m_po_Head->GetPosition().x) - currentViewDistanceX / 2;
+		float distHedFromScreenEdgeY = fabsf(snek->m_po_Head->GetPosition().y) - currentViewDistanceY / 2;
+
+		//CAMERA ZOOM CHECKS FOR ZOOM OUT ///////////////////////////////////////////////////////////////////////
+		if (distHedFromScreenEdgeX + 50  > 0)
+		{
+			DrawObject::m_f_GlobalScale -= (distHedFromScreenEdgeX + 50) / ScreenSizeX;
+		}
+		else if (distHedFromScreenEdgeY + 50  > 0)
+		{
+			DrawObject::m_f_GlobalScale -= (distHedFromScreenEdgeY + 50) / ScreenSizeY;
+		}
+
+		float distHed2FromScreenEdgeX = fabsf(snek2->m_po_Head->GetPosition().x) - currentViewDistanceX / 2;
+		float distHed2FromScreenEdgeY = fabsf(snek2->m_po_Head->GetPosition().y) - currentViewDistanceY / 2;
+
+		//CAMERA ZOOM CHECKS FOR HED 2
+		if (distHed2FromScreenEdgeX + 50 > 0)
+		{
+			DrawObject::m_f_GlobalScale -= (distHed2FromScreenEdgeX + 50) / ScreenSizeX;
+		}
+		else if (distHed2FromScreenEdgeY + 50 > 0)
+		{
+			DrawObject::m_f_GlobalScale -= (distHed2FromScreenEdgeY + 50) / ScreenSizeY;
+		}
+		//CHECK FOR ZOOM IN
+		else if (DrawObject::m_f_GlobalScale < 1.0f) {
+
+			if (-distHedFromScreenEdgeX > 100 && -distHed2FromScreenEdgeX > 100 &&
+				-distHedFromScreenEdgeY > 100 && -distHed2FromScreenEdgeY > 100 &&
+				DrawObject::m_f_GlobalScale > 0.75f)
+			{
+				DrawObject::m_f_GlobalScale += 0.0005f;
+			}
+			else if (-distHedFromScreenEdgeX > 400 && -distHed2FromScreenEdgeX > 400 &&
+				-distHedFromScreenEdgeY > 400 && -distHed2FromScreenEdgeY > 400)
+			{
+				DrawObject::m_f_GlobalScale += 0.001f;
+				//ScreenSizeX / ((currentViewDistanceX - distHedFromScreenEdgeX) / 2) - DrawObject::m_f_GlobalScale;// (-distHedFromScreenEdgeY - 300 / DrawObject::m_f_GlobalScale) / ScreenSizeX;
+			}
+		}
+			//if (-distHedFromScreenEdgeY > 1000)
+			//{
+			//	DrawObject::m_f_GlobalScale += 0.001f;// (-distHedFromScreenEdgeY - 300 / DrawObject::m_f_GlobalScale) / ScreenSizeX;
+			//}
+		//}
+		//CAMERA ZOOM CHECKS FOR ZOOM END///////////////////////////////////////////////////////////////////////
+
+		// Debug Controls////////////////////////////////////////////////////////////////////////////////////
 		if (GetAsyncKeyState(AEVK_Z))
 		{
 			cameraShake->AddShake(5.0f);
@@ -138,7 +188,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			DrawObject::m_f_GlobalScale -= 0.001f;
 		}
-		// Debug Controls
 		if (GetAsyncKeyState(AEVK_F1))
 		{
 			snek->m_po_Head->SetInvulnerable(10.0f);
@@ -168,7 +217,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					}
 				}
 				built.push_back(randIndex);
-				DrawObject* building = new DrawObject(firstBuildingX + randIndex.x * buildingsDistX, firstBuildingY + randIndex.y * buildingsDistY, 71, 42, buildingTexture);
+				DrawObject* building = new DrawObject(firstBuildingX + randIndex.x * buildingsDistX,
+					firstBuildingY + randIndex.y * buildingsDistY, 71, 42, buildingTexture);
 				buildingsVec.push_back(building);
 			}
 		}
@@ -177,8 +227,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			buildingsVec.clear();
 			built.clear();
 		}
-		
-		//COLLISIONS START
+		//END DEBUG CONTROLS////////////////////////////////////////////////////////////////////////////////////
+
+		//Collision check with AABBs (Hardcoded)////////////////////////////////////////////////////////////////
+		Aabb snekHeadAabb ={};
+		snekHeadAabb.min = snek->m_po_Head->GetMin();
+		snekHeadAabb.max = snek->m_po_Head->GetMax();
+		Aabb snekHeadAabb2 ={};
+		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
+		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
 		//Head on head action
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
@@ -324,10 +381,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 		}
-		//Collision check end
+		//Collision check end////////////////////////////////////////////////////////////////////////////////////
 
-		//DRAW STARTS
-		bg->Draw();
+		//DRAW STARTS////////////////////////////////////////////////////////////////////////////////////
+		for (auto& i_Backgrounds : background) {
+			i_Backgrounds->Draw();
+		}		
 		for (auto& i_Building : buildingsVec) {
 			i_Building->Draw();
 		}
@@ -355,7 +414,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEGfxPrint(font, chars, -900, 450, 0, 0, 1);
 		AEGfxPrint(font, chars2, -900, 420, 1, 0, 0);
 		AEGfxPrint(font, chars3, -900, 390, 0, 1, 0);
-
+		//DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 
 		AESysFrameEnd();
 	}
