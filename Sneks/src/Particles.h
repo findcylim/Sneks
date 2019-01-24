@@ -1,3 +1,5 @@
+#ifndef PARTICLES_H
+#define PARTICLES_H
 #pragma once
 class Particles
 {
@@ -6,3 +8,4 @@ public:
 	~Particles();
 };
 
+#endif //PARTICLES_H

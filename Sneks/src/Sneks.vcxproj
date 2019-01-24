@@ -141,11 +141,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Aabb.cpp" />
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraShake.cpp" />
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="MemoryAllocator.cpp" />
     <ClCompile Include="Particles.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Snek.cpp" />
     <ClCompile Include="SnekBody.cpp" />
@@ -158,10 +161,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="DrawObject.h" />
     <ClInclude Include="MemoryAllocator.h" />
     <ClInclude Include="Particles.h" />
+    <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Snek.h" />
     <ClInclude Include="SnekBody.h" />

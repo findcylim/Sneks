@@ -9,12 +9,26 @@
 #include "AEEngine.h"
 #include "Aabb.h"
 #include "CameraShake.h"
+#include "PerlinNoise.h"
 
 #include <Windows.h>
 #include <vector>
+#include <iostream>
+#include "Background.h"
+#include "Camera.h"
+
 
 constexpr int kNumBodyParts = 20;
 float DrawObject::m_f_GlobalScale = 1.0f;
+AEVec2 m_ScreenSize;
+float GetScreenSizeX()
+{
+	return m_ScreenSize.x;
+}
+float GetScreenSizeY()
+{
+	return m_ScreenSize.y;
+}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
@@ -22,13 +36,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 300, true, nullptr);
+	m_ScreenSize.x = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
+	m_ScreenSize.y = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
+
 	AESysSetWindowTitle("TEST");
-	AEToogleFullScreen(true);
+	AEToogleFullScreen(false);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 1);
-
+	auto camera		  = new Camera(&m_ScreenSize);
 	auto cameraShake = new CameraShake();
-	
+	auto perlinNoise = new PerlinNoise();
+
 	auto snakeHeadTexture           = AEGfxTextureLoad("../Resources/snake-head.png");
 	auto snakeHeadLTexture          = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
 	auto snakeHeadRTexture          = AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
@@ -42,20 +60,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto horizontalRoadTexture		  = AEGfxTextureLoad("../Resources/horz-road.png");
 	auto buildingTexture    		  = AEGfxTextureLoad("../Resources/building.png");
 
+	auto bgInstances = new Background(5, 5, cityTexture);
+
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	std::vector<DrawObject*> background = {};
-	float ScreenSizeX = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
-	float ScreenSizeY = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
-	for (int i_Background = -5; i_Background <= 5; i_Background++) {
-		for (int i_BackgroundY = -5; i_BackgroundY <= 5; i_BackgroundY++) {
-			auto bg = new DrawObject(i_Background * ScreenSizeX, i_BackgroundY * ScreenSizeY, ScreenSizeX, ScreenSizeY, cityTexture);
-			background.push_back(bg);
-		}
-	}
+	//auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture);
+	//auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture);
 
-	auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture);
-	auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture);
+
 
 	std::vector<DrawObject*> buildingsVec ={};
 	std::vector<AEVec2> built ={};
@@ -86,16 +98,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		buildingsVec.push_back(building);
 	}
 
-	horRoad->SetScale(2.0f);
-	verRoad->SetScale(2.0f);
+//	horRoad->SetScale(2.0f);
+//	verRoad->SetScale(2.0f);
 
 	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(500, 0, 105, 77, snakeHeadTexture));
 	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
 	//snekHeadTest->SetColor(9999);
 	snekHeadTest->SetRotation(PI);
+	camera->AddToTrack(snekHeadTest);
+
 
 	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snake2HeadTexture));
 	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
+	//camera->AddToTrack(snekHeadTest2);
 
 	//snekHeadTest2->SetColor(rand() % 1000 * 10 + 9);
 
@@ -109,74 +124,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AEGfxGetCamPosition(&f, &ff);
 	snek2->SetPlayer(1);
 	for (int iBodyParts = 0; iBodyParts < kNumBodyParts; iBodyParts++) {
-		auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 80, snakeBodyTexture));
+		auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(snekHeadTest->GetPosition().x, snekHeadTest->GetPosition().y, 61, 80, snakeBodyTexture));
 		snek->AddBodyPart(snekBodyTest);
-		auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(100, 0, 61, 80, snake2BodyTexture));
+		auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(snekHeadTest2->GetPosition().x, snekHeadTest2->GetPosition().y, 61, 80, snake2BodyTexture));
 		//snekBodyTest2->SetColor(rand() % 10000);
 		snek2->AddBodyPart(snekBodyTest2);
 	}
 	int winner = 0;
 
+
 	while (!winner) {
 		AESysFrameStart();
 		AEInputUpdate();
-		float currentViewDistanceX = ScreenSizeX / DrawObject::m_f_GlobalScale;
-		float currentViewDistanceY = ScreenSizeY / DrawObject::m_f_GlobalScale;
 
+		camera->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+		perlinNoise->Update();
 		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 
-		float distHedFromScreenEdgeX = fabsf(snek->m_po_Head->GetPosition().x) - currentViewDistanceX / 2;
-		float distHedFromScreenEdgeY = fabsf(snek->m_po_Head->GetPosition().y) - currentViewDistanceY / 2;
+		
 
-		//CAMERA ZOOM CHECKS FOR ZOOM OUT ///////////////////////////////////////////////////////////////////////
-		if (distHedFromScreenEdgeX + 50  > 0)
-		{
-			DrawObject::m_f_GlobalScale -= (distHedFromScreenEdgeX + 50) / ScreenSizeX;
-		}
-		else if (distHedFromScreenEdgeY + 50  > 0)
-		{
-			DrawObject::m_f_GlobalScale -= (distHedFromScreenEdgeY + 50) / ScreenSizeY;
-		}
-
-		float distHed2FromScreenEdgeX = fabsf(snek2->m_po_Head->GetPosition().x) - currentViewDistanceX / 2;
-		float distHed2FromScreenEdgeY = fabsf(snek2->m_po_Head->GetPosition().y) - currentViewDistanceY / 2;
-
-		//CAMERA ZOOM CHECKS FOR HED 2
-		if (distHed2FromScreenEdgeX + 50 > 0)
-		{
-			DrawObject::m_f_GlobalScale -= (distHed2FromScreenEdgeX + 50) / ScreenSizeX;
-		}
-		else if (distHed2FromScreenEdgeY + 50 > 0)
-		{
-			DrawObject::m_f_GlobalScale -= (distHed2FromScreenEdgeY + 50) / ScreenSizeY;
-		}
-		//CHECK FOR ZOOM IN
-		else if (DrawObject::m_f_GlobalScale < 1.0f) {
-
-			if (-distHedFromScreenEdgeX > 100 && -distHed2FromScreenEdgeX > 100 &&
-				-distHedFromScreenEdgeY > 100 && -distHed2FromScreenEdgeY > 100 &&
-				DrawObject::m_f_GlobalScale > 0.75f)
-			{
-				DrawObject::m_f_GlobalScale += 0.0005f;
-			}
-			else if (-distHedFromScreenEdgeX > 400 && -distHed2FromScreenEdgeX > 400 &&
-				-distHedFromScreenEdgeY > 400 && -distHed2FromScreenEdgeY > 400)
-			{
-				DrawObject::m_f_GlobalScale += 0.001f;
-				//ScreenSizeX / ((currentViewDistanceX - distHedFromScreenEdgeX) / 2) - DrawObject::m_f_GlobalScale;// (-distHedFromScreenEdgeY - 300 / DrawObject::m_f_GlobalScale) / ScreenSizeX;
-			}
-		}
-			//if (-distHedFromScreenEdgeY > 1000)
-			//{
-			//	DrawObject::m_f_GlobalScale += 0.001f;// (-distHedFromScreenEdgeY - 300 / DrawObject::m_f_GlobalScale) / ScreenSizeX;
-			//}
 		//}
 		//CAMERA ZOOM CHECKS FOR ZOOM END///////////////////////////////////////////////////////////////////////
 
 		// Debug Controls////////////////////////////////////////////////////////////////////////////////////
-		if (GetAsyncKeyState(AEVK_Z))
+		if (AEInputCheckReleased(AEVK_Z))
 		{
 			cameraShake->AddShake(5.0f);
 		}
@@ -380,12 +353,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//Collision check end////////////////////////////////////////////////////////////////////////////////////
 
 		//DRAW STARTS////////////////////////////////////////////////////////////////////////////////////
-		for (auto& i_Backgrounds : background) {
-			i_Backgrounds->Draw();
-		}		
+		bgInstances->Draw();
+
 		for (auto& i_Building : buildingsVec) {
 			i_Building->Draw();
 		}
+
 		//horRoad->Draw();
 		//verRoad->Draw();
 		snek->Draw();

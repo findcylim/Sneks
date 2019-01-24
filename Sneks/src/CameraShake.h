@@ -1,3 +1,5 @@
+#ifndef CAMERA_SHAKE_H
+#define CAMERA_SHAKE_H
 #pragma once
 #include <AEVec2.h>
 
@@ -25,3 +27,4 @@ public:
 
 };
 
+#endif //CAMERA_SHAKE_H
