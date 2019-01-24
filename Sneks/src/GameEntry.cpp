@@ -21,7 +21,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 
 	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
-	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 300, false, nullptr);
+	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 300, true, nullptr);
 	AESysSetWindowTitle("TEST");
 	AEToogleFullScreen(true);
 	AESysReset();
