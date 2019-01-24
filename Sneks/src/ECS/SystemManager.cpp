@@ -11,7 +11,13 @@ SystemManager::SystemManager(Logger* logger)
 
 SystemManager::~SystemManager()
 {
-
+	for (std::vector<BaseSystem*>::iterator sys = SystemList.begin(); sys != SystemList.end();)
+	{
+		delete(*sys);
+		SystemList.erase(sys);
+		if (SystemList.size() == 0)
+			break;
+	}
 }
 
 void SystemManager::Initialize()
@@ -19,7 +25,7 @@ void SystemManager::Initialize()
 	
 }
 
-void SystemManager::AddSystem(System* NewSystem)
+void SystemManager::AddSystem(BaseSystem* NewSystem)
 {
 	if (NewSystem != 0)
 	{
@@ -32,14 +38,15 @@ void SystemManager::AddSystem(System* NewSystem)
 }
 
 //Needs to be tested. May just erase all systems
-void SystemManager::RemoveSystem(System* RemSystem)
+void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 {
-	for (std::vector<System*>::iterator sys = SystemList.begin();sys != SystemList.end();)
+	for (std::vector<BaseSystem*>::iterator sys = SystemList.begin();sys != SystemList.end();)
 	{
 		if (typeid(*sys) == typeid(*RemSystem))
 		{
 			try
 			{
+				delete(*sys);
 				SystemList.erase(sys);
 			}
 			catch (...)
@@ -56,7 +63,7 @@ void SystemManager::RemoveSystem(System* RemSystem)
 
 void SystemManager::Update()
 {
-	for (System* currSystem : SystemList)
+	for (BaseSystem* currSystem : SystemList)
 	{
 		currSystem->Update();
 	}

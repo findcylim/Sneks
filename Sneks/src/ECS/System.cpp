@@ -2,25 +2,25 @@
 #include <iostream>
 
 
-void System::Update()
+void BaseSystem::Update()
 {
 	std::cout << "Error 2001 : Updating a non overriden system" << std::endl;
 }
 
 
-short System::GetID()
+short BaseSystem::GetID()
 {
 	return m_s_SystemID;
 }
-const char * System::GetName()
+const char * BaseSystem::GetName()
 {
 	return m_c_SystemName;
 }
-void System::SetID(short iD)
+void BaseSystem::SetID(short iD)
 {
 	m_s_SystemID = iD;
 }
-void System::SetName(const char* name)
+void BaseSystem::SetName(const char* name)
 {
 	m_c_SystemName = name;
 }

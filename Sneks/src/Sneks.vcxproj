@@ -34,7 +34,6 @@
     <ClCompile Include="Snek\SnekHead.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
-    <ClCompile Include="Systems\PlayerSystem.cpp" />
     <ClCompile Include="Utility\GameStateManager.cpp" />
     <ClCompile Include="Utility\Logger.cpp" />
   </ItemGroup>
@@ -46,6 +45,7 @@
     <ClInclude Include="ECS\Entity.h" />
     <ClInclude Include="ECS\EntityList.h" />
     <ClInclude Include="ECS\EntityManager.h" />
+    <ClInclude Include="ECS\EventListener.h" />
     <ClInclude Include="ECS\EventManager.h" />
     <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\SystemManager.h" />
@@ -56,7 +56,6 @@
     <ClInclude Include="Snek\SnekHead.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
-    <ClInclude Include="Systems\PlayerSystem.h" />
     <ClInclude Include="Utility\GameStateManager.h" />
     <ClInclude Include="Utility\Logger.h" />
     <ClInclude Include="Utility\misc.h" />
@@ -127,7 +126,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\ALPHA\Lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Alpha_EngineD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

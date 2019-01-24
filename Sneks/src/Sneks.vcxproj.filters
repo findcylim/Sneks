@@ -73,9 +73,6 @@
     <ClCompile Include="Systems\PhysicsSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\PlayerSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
     <ClCompile Include="GameEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,8 +136,8 @@
     <ClInclude Include="Systems\PhysicsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\PlayerSystem.h">
-      <Filter>Systems</Filter>
+    <ClInclude Include="ECS\EventListener.h">
+      <Filter>ECSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

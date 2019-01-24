@@ -13,11 +13,11 @@
 class SystemManager
 {
 private:
-	std::vector<System*> SystemList;
+	std::vector<BaseSystem*> SystemList;
 	Logger* m_o_Logger;
 public:
-	void AddSystem(System* NewSystem);
-	void RemoveSystem(System* RemSystem);
+	void AddSystem(BaseSystem* NewSystem);
+	void RemoveSystem(BaseSystem* RemSystem);
 	void Update();
 	void Initialize();
 	SystemManager(Logger* logger);

@@ -7,6 +7,7 @@
 #include "../ECS/EventManager.h"
 #include "../Utility/Logger.h"
 #include "../Utility/GameStateManager.h"
+#include "../ECS/EventListener.h"
 
 enum ButtonNames
 {
@@ -19,12 +20,12 @@ enum ButtonNames
 	kEscape,
 };
 
-class InputSystem : public System
+class InputSystem : public BaseSystem
 {
 public:
 	InputSystem(EventManager* eventManager,short ID,const char * name,GameStateManager* gameStateManager,Logger* logger);
 	~InputSystem();
-	void Update();
+	//void Update();
 
 	static void Printspeed(void * data, void * callee); //TEst
 private:

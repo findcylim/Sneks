@@ -1,10 +1,11 @@
 
 #include "ECSystem.h"
-#include "../Systems/PlayerSystem.h"
 #include "../Utility/GameStateManager.h"
 #include "../Systems/InputSystem.h"
+#include "../Systems/PhysicsSystem.h"
 
 
+#include <Windows.h>
 ECSystem::ECSystem()
 {
 	m_o_Logger					= new Logger("log.txt");
@@ -19,14 +20,11 @@ ECSystem::ECSystem()
 ECSystem::~ECSystem()
 {
 	delete(m_o_Logger);
-	delete(m_o_EventManager);
 	delete(m_o_SystemManager);
+	delete(m_o_EventManager);
 	delete(m_o_GameStateManager);
 	delete(m_o_EntityComponentManager);
 }
-
-
-
 
 /*******************************************************
 Function: InitializeEngine
@@ -52,14 +50,8 @@ void ECSystem::InitializeEngine()
 	/*
 		Create and add Systems here
 	*/
-	m_o_SystemManager->AddSystem(new InputSystem(m_o_EventManager, 0, "InputSystem",m_o_GameStateManager,m_o_Logger));
+	m_o_SystemManager->AddSystem(new PhysicsSystem(m_o_EventManager,m_o_GameStateManager));
 
-
-	//PlayerSystem TEST SYSTEM
-	PlayerSystem* playerSystem = new PlayerSystem(m_o_EventManager);
-	playerSystem->SetID(1);
-	playerSystem->SetName("PlayerSystem");
-	m_o_SystemManager->AddSystem(playerSystem);
 
 	m_b_EngineStatus = true;
 }
@@ -73,5 +65,10 @@ void ECSystem::Update()
 {
 	m_o_EventManager->Update();
 	m_o_SystemManager->Update();
+
+	if (GetAsyncKeyState(VK_LSHIFT) < 0)
+	{
+		m_b_EngineStatus = false;
+	}
 }
 
