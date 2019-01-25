@@ -29,10 +29,10 @@ void Snek::Update(float dt)
 	{
 		if(m_po_Head->GetInvulnerable() > 0)
 		{
-			(*i_BodyParts)->SetColor(9993);
+			(*i_BodyParts)->SetAlpha(0.33f);
 		}else
 		{
-			(*i_BodyParts)->SetColor(9999);
+			(*i_BodyParts)->SetAlpha(1.0f);
 		}
 		(*i_BodyParts)->Update(dt);
 	}

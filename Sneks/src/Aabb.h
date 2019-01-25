@@ -1,15 +1,11 @@
 #ifndef AABB_H
 #define AABB_H
 #pragma once
+#include "Vector2.h"
 
 typedef struct {
-	float x;
-	float y;
-} Vector2;
-
-typedef struct {
-	Vector2 min;
-	Vector2 max;
+	HTVector2 min;
+	HTVector2 max;
 } Aabb;
 
 bool CheckAabbIntersect(Aabb*, Aabb*);

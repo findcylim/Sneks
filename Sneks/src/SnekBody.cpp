@@ -64,7 +64,4 @@ void SnekBody::FaceReference(float* retDistanceX, float* retDistanceY)
 	*retDistanceY = GetPosition().y- referenceEdgeY;
 }
 
-SnekBody::~SnekBody()
-{
-	delete this;
-}
+SnekBody::~SnekBody() = default;

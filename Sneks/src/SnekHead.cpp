@@ -1,13 +1,14 @@
 #include "SnekHead.h"
+#include "Vector2.h"
 
-constexpr float kMaxVelocity       = 3.0f;
-constexpr float kAccelerationForce = 0.02f;
-constexpr float kBrakeForce        = 0.02f;
-constexpr float kTurnSpeed         = 0.02f;
-constexpr float kFriction          = 0.005f;	   //natural slowdown
-constexpr float kTurnMinSpeed      = 0.2f;        //need to be moving at this speed to turn
-constexpr float kMinSpeed          = 1.0f;	   //if speed lower than this then clamp to 0
-constexpr float kIdleSpeed         = 1.5f;		   //default move speed
+constexpr float kMaxVelocity       = 900;
+constexpr float kAccelerationForce = 6;
+constexpr float kBrakeForce        = 6;
+constexpr float kTurnSpeed         = 6;
+constexpr float kFriction          = 1.5f;	   //natural slowdown
+constexpr float kTurnMinSpeed      = 60;        //need to be moving at this speed to turn
+constexpr float kMinSpeed          = 300;	   //if speed lower than this then clamp to 0
+constexpr float kIdleSpeed         = 450;		   //default move speed
 
 
 float SnekHead::GetInvulnerable()
@@ -34,11 +35,11 @@ void SnekHead::Update(float dt)
 {	
 	if (GetInvulnerable() > 0)
 	{
-		SetColor(9993);
+		SetAlpha(0.33f);
 		m_f_Invulnerable -= dt;
 	}else
 	{
-		SetColor(9999);
+		SetAlpha(1.0f);
 	}
 
 	m_f_Boost += m_f_BoostGainRate * dt * 10;
@@ -66,11 +67,11 @@ void SnekHead::Update(float dt)
 	}
 
 	if (GetAsyncKeyState(m_i_LeftKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-		SetRotation(GetRotation() + kTurnSpeed *300 *dt);
+		SetRotation(GetRotation() + kTurnSpeed *dt);
 		//m_px_Texture = m_px_SnekHedL;
 	}
 	else if (GetAsyncKeyState(m_i_RightKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-		SetRotation(GetRotation() - kTurnSpeed *300 *dt);
+		SetRotation(GetRotation() - kTurnSpeed *dt);
 		//m_px_Texture = m_px_SnekHedR;
 	}
 	else {
@@ -114,12 +115,7 @@ void SnekHead::Update(float dt)
 	else if (m_f_Velocity > 0)
 		m_f_Velocity -= kFriction;
 
-	//apply the velocity
-	AEVec2 testPos;
-	AEVec2FromAngle(&testPos, m_f_Rotation);
-
-	m_x_Position.x += testPos.x * m_f_Velocity *300 * dt;
-	m_x_Position.y += testPos.y * m_f_Velocity *300 * dt;
+	ApplyVelocity(dt);
 }
 
 SnekHead::SnekHead(const float posX, const float posY, const float sizeX, const float sizeY, AEGfxTexture* tex)

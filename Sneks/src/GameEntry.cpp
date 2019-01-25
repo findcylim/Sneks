@@ -40,7 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	m_ScreenSize.y = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
 
 	AESysSetWindowTitle("TEST");
-	AEToogleFullScreen(false);
+	AEToogleFullScreen(true);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 1);
 	auto camera		  = new Camera(&m_ScreenSize);
@@ -110,7 +110,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snake2HeadTexture));
 	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
-	//camera->AddToTrack(snekHeadTest2);
+	camera->AddToTrack(snekHeadTest2);
 
 	//snekHeadTest2->SetColor(rand() % 1000 * 10 + 9);
 
@@ -299,7 +299,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			auto i_Buildings = buildingsVec.begin();
 			for (; i_Buildings != buildingsVec.end(); ++i_Buildings)
 			{
-				if ((*i_Buildings)->GetColor() == 9009)
+				if ((*i_Buildings)->GetColor().red == 1.0f && (*i_Buildings)->GetColor().blue == 0)
 				{
 					continue;
 				}
@@ -310,7 +310,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				{
 					//cameraShake->AddShake(1.0f);
 
-					(*i_Buildings)->SetColor(9009);
+					(*i_Buildings)->SetColor(1.0f,0,0,0.5f);
 					float bodySpawnX;
 					float bodySpawnY;
 					if (!snek->m_v_BodyParts.empty()) {
@@ -329,7 +329,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb2))
 				{
 					//cameraShake->AddShake(1.0f);
-					(*i_Buildings)->SetColor(9009);
+					(*i_Buildings)->SetColor(1.0f, 0, 0, 0.5f);
 					float bodySpawnX;
 					float bodySpawnY;
 					if (!snek2->m_v_BodyParts.empty()) {
