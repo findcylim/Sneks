@@ -17,6 +17,7 @@
 #include "Background.h"
 #include "Camera.h"
 #include "Buildings.h"
+#include "DebugPrintToScreen.h"
 
 
 constexpr int kNumBodyParts = 20;
@@ -47,6 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto camera		  = new Camera(&m_ScreenSize);
 	auto cameraShake = new CameraShake();
 	auto perlinNoise = new PerlinNoise();
+	auto debugPrint = new DebugPrintToScreen("Segoe UI", 20);
 
 	auto snakeHeadTexture           = AEGfxTextureLoad("../Resources/snake-head.png");
 	auto snakeHeadLTexture          = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
@@ -65,36 +67,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto buildingInstances = new Buildings(0, 0, buildingTexture);
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-
-	auto font = AEGfxCreateFont("Arial", 20, false, false);
-	auto winFont = AEGfxCreateFont("Arial", 500, 1, 0);
+	//auto font = AEGfxCreateFont("Arial", 20, false, false);
+	//auto winFont = AEGfxCreateFont("Arial", 500, 1, 0);
 
 	auto snek  = new Snek(kNumBodyParts, 500, 0, snakeHeadTexture, snakeBodyTexture);
 	auto snek2 = new Snek(kNumBodyParts, -150, 0, snake2HeadTexture, snake2BodyTexture);
 	camera->AddToTrack(snek->m_po_Head);
 	camera->AddToTrack(snek2->m_po_Head);
 	snek2->SetPlayer(1);
-	/*
-	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snake2HeadTexture));
-	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
-	camera->AddToTrack(snekHeadTest2);
-	auto snek2 = static_cast<Snek*>(new Snek(snekHeadTest2));
-	snek2->SetPlayer(1);
 
-	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(500, 0, 105, 77, snakeHeadTexture));
-	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
-	snekHeadTest->SetRotation(PI);
-	camera->AddToTrack(snekHeadTest);
-	auto snek = static_cast<Snek*>(new Snek(snekHeadTest));
-	for (int iBodyParts = 0; iBodyParts < kNumBodyParts; iBodyParts++) {
-		auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(snekHeadTest->GetPosition().x, snekHeadTest->GetPosition().y, 61, 80, snakeBodyTexture));
-		snek->AddBodyPart(snekBodyTest);
-		auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(snekHeadTest2->GetPosition().x, snekHeadTest2->GetPosition().y, 61, 80, snake2BodyTexture));
-		snek2->AddBodyPart(snekBodyTest2);
-	}
-	*/
 	int winner = 0;
 
+	s8 player1Boost[100] ={};
+	s8 player2Boost[100]={};
+	s8 currentShakeMag[100]={};
+	debugPrint->AddToPrintList(player1Boost);
+	debugPrint->AddToPrintList(player2Boost);
+	debugPrint->AddToPrintList(currentShakeMag);
 
 	while (!winner) {
 		AESysFrameStart();
@@ -165,7 +154,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
-					AEGfxPrint(winFont, chars, 0, 0, 0, 0, 1);
+					//AEGfxPrint(winFont, chars, 0, 0, 0, 0, 1);
 					MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
 					return 1;
 					winner = 1;
@@ -178,7 +167,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
-					AEGfxPrint(winFont, chars, 0, 0, 1, 0, 0);
+					//AEGfxPrint(winFont, chars, 0, 0, 1, 0, 0);
 					MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
 					return 1;
 					winner = 2;
@@ -300,24 +289,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		snek->Draw();
 		snek2->Draw();
 
-		s8 chars[100] = {};
-		s8 chars2[100]= {};
-		s8 chars3[100]={};
+
 
 		auto boostLevel  = static_cast<float>(snek->m_po_Head->GetBoost());
 		auto boostLevel2 = static_cast<float>(snek2->m_po_Head->GetBoost());
 		auto shakeMagnitude  = static_cast<float>(cameraShake->AddShake(0));
 
-		sprintf_s(chars, 100, "Player 1 Boost: %.1f", boostLevel);
-		sprintf_s(chars2, 100, "Player 2 Boost: %.1f", boostLevel2);
-		sprintf_s(chars3, 100, "Shake Magnitude: %.3f", shakeMagnitude);
+		sprintf_s(player1Boost, 100, "Player 1 Boost: %.1f", boostLevel);
+		sprintf_s(player2Boost, 100, "Player 2 Boost: %.1f", boostLevel2);
+		sprintf_s(currentShakeMag, 100, "Shake Magnitude: %.3f", shakeMagnitude);
 
-		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-		AEGfxSetBlendMode(AE_GFX_BM_NONE);
-
-		AEGfxPrint(font, chars, -900, 450, 0, 0, 1);
-		AEGfxPrint(font, chars2, -900, 420, 1, 0, 0);
-		AEGfxPrint(font, chars3, -900, 390, 0, 1, 0);
+		
+		debugPrint->Draw();
 		//DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 
 		AESysFrameEnd();

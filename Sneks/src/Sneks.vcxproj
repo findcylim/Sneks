@@ -145,6 +145,7 @@
     <ClCompile Include="Buildings.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraShake.cpp" />
+    <ClCompile Include="DebugPrintToScreen.cpp" />
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="MemoryAllocator.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="DebugPrintToScreen.h" />
     <ClInclude Include="DrawObject.h" />
     <ClInclude Include="MemoryAllocator.h" />
     <ClInclude Include="Particles.h" />

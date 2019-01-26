@@ -12,8 +12,9 @@ private:
 	std::vector<DrawObject*> m_v_ObjectsToTrack;
 	AEVec2				  m_x_CurrentViewDistance;
 	AEVec2*				  m_px_ScreenSize;
-	AEVec2              m_f_DistanceOutTolerance ={100,100};
+	AEVec2              m_f_DistanceOutTolerance ={50,50};
 	AEVec2              m_f_DistanceInTolerance = {400,400};
+	float					  m_f_ZoomOutVelocity;
 
 public:
 	Camera() = delete;
