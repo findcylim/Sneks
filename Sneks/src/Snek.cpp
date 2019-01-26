@@ -1,15 +1,32 @@
 #include "Snek.h"
 
-Snek::Snek(SnekHead* snekHead)
+Snek::Snek(SnekHead* snekHead, SnekBody* snekBody)
 {
 	m_po_Head = snekHead;
+	m_i_Player = 0;
+}
+
+Snek::Snek(const int numBodyParts, float posX, float posY, AEGfxTexture* snakeHeadTexture, AEGfxTexture* snakeBodyTexture)
+{
+	//Create head mesh based on Texture
+	m_po_Head = static_cast<SnekHead*>(new SnekHead(posX, posY, 105, 77, snakeHeadTexture));
+	m_po_Head->SetRotation(PI);
+
+	//camera->AddToTrack(snekHeadTest);
+	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++) {
+		//TODO: SET SIZEx AND SIZEy to auto detected TEXTURE SIZE values
+		//Create a new body part to add to the vector
+		auto snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture));
+		AddBodyPart(snekBodyPart);
+	}
 	m_i_Player = 0;
 }
 
 Snek::~Snek()
 {
 	m_v_BodyParts.clear();	//calls the destructor for each body part
-	delete m_po_Head;		//destroys the head
+	//TODO: DELETE BODY PARTS PROPERLY
+	delete m_po_Head;			//destroys the head
 }
 
 void Snek::AddBodyPart(SnekBody* snekBody)
@@ -49,7 +66,7 @@ void Snek::Draw()
 	m_po_Head->Draw();
 }
 
-void Snek::SetPlayer(int i)
+void Snek::SetPlayer(int i) const
 {
 	m_po_Head->SetPlayer(i);
 }

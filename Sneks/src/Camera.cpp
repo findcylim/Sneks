@@ -33,13 +33,13 @@ void Camera::Update(float dt)
 		float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y) - m_x_CurrentViewDistance.y / 2;
 
 		//CAMERA ZOOM CHECKS FOR ZOOM OUT ///////////////////////////////////////////////////////////////////////
-		if (distFromScreenEdgeX + m_f_DistanceOutTolerance.x > 0)
+		if (distFromScreenEdgeX + m_f_DistanceOutTolerance.x / DrawObject::m_f_GlobalScale > 0)
 		{
-			DrawObject::m_f_GlobalScale -= (distFromScreenEdgeX + m_f_DistanceOutTolerance.x) / m_px_ScreenSize->x;
+			DrawObject::m_f_GlobalScale -= 0.004f;// (distFromScreenEdgeX + m_f_DistanceOutTolerance.x) / m_px_ScreenSize->x * dt * 50;
 		}
-		else if (distFromScreenEdgeY + m_f_DistanceOutTolerance.y > 0)
+		else if (distFromScreenEdgeY + m_f_DistanceOutTolerance.y / DrawObject::m_f_GlobalScale > 0)
 		{
-			DrawObject::m_f_GlobalScale -= (distFromScreenEdgeY + m_f_DistanceOutTolerance.y) / m_px_ScreenSize->y;
+			DrawObject::m_f_GlobalScale -= 0.004f;// (distFromScreenEdgeY + m_f_DistanceOutTolerance.y) / m_px_ScreenSize->y * dt * 50;
 		}
 
 		if (-distFromScreenEdgeX > highestDistanceFromScreenEdgeX)

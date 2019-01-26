@@ -7,6 +7,8 @@ class Background
 {
 private:
 	std::vector<DrawObject*> m_BgInstances ={};
+	int		                m_i_NumInstancesX;
+	int		                m_i_NumInstancesY;
 
 public:
 	Background(int instancesX, int instancesY, AEGfxTexture* bgTexture);

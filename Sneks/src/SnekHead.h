@@ -13,7 +13,7 @@ private:
 	AEGfxTexture*  m_px_SnekHedR;
 	AEGfxTexture*  m_px_SnekHedBoost;
 	AEGfxTexture*  m_px_SnekHedSmoke;
-	DrawObject*	   m_px_Particles;
+	//DrawObject*	   m_px_Particles;
 	unsigned short m_i_PlayerNumber        = 0;
 	unsigned int   m_i_AccelerationKey     = VK_UP;
 	unsigned int   m_i_BrakeKey            = VK_DOWN;
@@ -29,8 +29,8 @@ public:
 	void Update(float dt);
 	SnekHead(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);
 	SnekHead(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex, AEGfxTexture * snekHedL, AEGfxTexture * snekHedR);
-	void SetParticles(AEGfxTexture*, AEGfxTexture*);
-	void DrawParticles() const;
+	//void SetParticles(AEGfxTexture*, AEGfxTexture*);
+	//void DrawParticles() const;
 	void SetPlayer(int);
 };
 #endif //SNEK_HEAD_H

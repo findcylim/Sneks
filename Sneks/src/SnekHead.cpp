@@ -96,16 +96,16 @@ void SnekHead::Update(float dt)
 		m_f_Velocity *= 1.5f;
 
 	//if out of screen, clamp movement
-	if (m_x_Position.x > AEGfxGetWinMaxX() + 5* 1920)// + m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMaxX() + 5 * 1920; // +m_f_SizeX / 2;
-	else if (m_x_Position.x < AEGfxGetWinMinX() - 5 * 1920)// - m_f_SizeX / 2)
-		m_x_Position.x = AEGfxGetWinMinX() - 5 * 1920;// -m_f_SizeX / 2;
+	if (m_x_Position.x > AEGfxGetWinMaxX() + 2* 1920)// + m_f_SizeX / 2)
+		m_x_Position.x = AEGfxGetWinMaxX() + 2 * 1920; // +m_f_SizeX / 2;
+	else if (m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920)// - m_f_SizeX / 2)
+		m_x_Position.x = AEGfxGetWinMinX() - 2 * 1920;// -m_f_SizeX / 2;
 
 	//if out of screen, clamp movement
-	if (m_x_Position.y > AEGfxGetWinMaxY() + 5 * 1080)// + m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMaxY() + 5 * 1080;// +m_f_SizeY / 2;
-	else if (m_x_Position.y < AEGfxGetWinMinY() - 5 * 1080)// - m_f_SizeY / 2)
-		m_x_Position.y = AEGfxGetWinMinY() - 5 * 1080;// -m_f_SizeY / 2;
+	if (m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080)// + m_f_SizeY / 2)
+		m_x_Position.y = AEGfxGetWinMaxY() + 2 * 1080;// +m_f_SizeY / 2;
+	else if (m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080)// - m_f_SizeY / 2)
+		m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;// -m_f_SizeY / 2;
 
 	/*clamp low velocity to 0 so its not jittery*/
 	if (m_f_Velocity >= -kMinSpeed && m_f_Velocity <= kMinSpeed)
@@ -134,6 +134,7 @@ SnekHead::SnekHead(const float posX, const float posY, const float sizeX, const 
 	SetScale(0.635f);
 }
 
+/*
 void SnekHead::SetParticles(AEGfxTexture *smoke, AEGfxTexture *boost)
 {
 	m_px_Particles = new DrawObject(m_x_Position.x, m_x_Position.y, 20, 40, NULL);
@@ -149,7 +150,7 @@ void SnekHead::DrawParticles() const
 	//m_px_Particles->SetPositionY(GetPosition().y + GetRotatedOffsetXy());
 	//m_px_Particles->SetRotation(GetRotation());
 	//m_px_Particles->Draw();
-}
+}*/
 
 void SnekHead::SetPlayer(int num)
 {

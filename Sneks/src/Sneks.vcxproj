@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="Aabb.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Buildings.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraShake.cpp" />
     <ClCompile Include="DrawObject.cpp" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Buildings.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraShake.h" />
     <ClInclude Include="Color.h" />

@@ -4,6 +4,8 @@
 
 Background::Background(int instancesX, int instancesY, AEGfxTexture* bgTexture)
 {
+	m_i_NumInstancesX = instancesX;
+	m_i_NumInstancesY = instancesY;
 	float screenSizeX = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
 	float screenSizeY = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
 

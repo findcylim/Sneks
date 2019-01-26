@@ -16,6 +16,7 @@
 #include <iostream>
 #include "Background.h"
 #include "Camera.h"
+#include "Buildings.h"
 
 
 constexpr int kNumBodyParts = 20;
@@ -60,76 +61,38 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto horizontalRoadTexture		  = AEGfxTextureLoad("../Resources/horz-road.png");
 	auto buildingTexture    		  = AEGfxTextureLoad("../Resources/building.png");
 
-	auto bgInstances = new Background(5, 5, cityTexture);
-
+	auto bgInstances = new Background(2, 2, cityTexture);
+	auto buildingInstances = new Buildings(0, 0, buildingTexture);
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	//auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture);
-	//auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture);
-
-
-
-	std::vector<DrawObject*> buildingsVec ={};
-	std::vector<AEVec2> built ={};
-	constexpr int buildingsDistX = 80;
-	constexpr int buildingsDistY = 51;
-	int maxBuildingsX = 1920 / 80;
-	int maxBuildingsY = 1080 / 51;
-	float firstBuildingX = -35.5f - buildingsDistX * 11;
-	float firstBuildingY = -buildingsDistY * 10;
-
-	for (int iBuildings = 0; iBuildings < 50; iBuildings++) {
-
-		AEVec2 randIndex = AEVec2();
-		bool uniqueIndex = false;
-		while (!uniqueIndex) {
-			uniqueIndex = true;
-			randIndex.x = static_cast<f32>(rand() % maxBuildingsX);
-			randIndex.y = static_cast<f32>(rand() % maxBuildingsY);
-			for (auto& i_Built : built) {
-				if (i_Built.x == randIndex.x && i_Built.y == randIndex.y)
-				{
-					uniqueIndex = false;
-				}
-			}
-		}
-		built.push_back(randIndex);
-		DrawObject* building = new DrawObject(firstBuildingX + randIndex.x * buildingsDistX, firstBuildingY + randIndex.y * buildingsDistY, 71, 42, buildingTexture);
-		buildingsVec.push_back(building);
-	}
-
-//	horRoad->SetScale(2.0f);
-//	verRoad->SetScale(2.0f);
-
-	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(500, 0, 105, 77, snakeHeadTexture));
-	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
-	//snekHeadTest->SetColor(9999);
-	snekHeadTest->SetRotation(PI);
-	camera->AddToTrack(snekHeadTest);
-
-
-	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snake2HeadTexture));
-	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
-	camera->AddToTrack(snekHeadTest2);
-
-	//snekHeadTest2->SetColor(rand() % 1000 * 10 + 9);
-
-	auto snek = static_cast<Snek*>(new Snek(snekHeadTest));
-	auto snek2 = static_cast<Snek*>(new Snek(snekHeadTest2));
 
 	auto font = AEGfxCreateFont("Arial", 20, false, false);
 	auto winFont = AEGfxCreateFont("Arial", 500, 1, 0);
 
-	float f, ff;
-	AEGfxGetCamPosition(&f, &ff);
+	auto snek  = new Snek(kNumBodyParts, 500, 0, snakeHeadTexture, snakeBodyTexture);
+	auto snek2 = new Snek(kNumBodyParts, -150, 0, snake2HeadTexture, snake2BodyTexture);
+	camera->AddToTrack(snek->m_po_Head);
+	camera->AddToTrack(snek2->m_po_Head);
 	snek2->SetPlayer(1);
+	/*
+	auto snekHeadTest2 = static_cast<SnekHead*>(new SnekHead(-150, 0, 105, 77, snake2HeadTexture));
+	snekHeadTest2->SetParticles(smokeTexture, rocketTexture);
+	camera->AddToTrack(snekHeadTest2);
+	auto snek2 = static_cast<Snek*>(new Snek(snekHeadTest2));
+	snek2->SetPlayer(1);
+
+	auto snekHeadTest = static_cast<SnekHead*>(new SnekHead(500, 0, 105, 77, snakeHeadTexture));
+	snekHeadTest->SetParticles(smokeTexture, rocketTexture);
+	snekHeadTest->SetRotation(PI);
+	camera->AddToTrack(snekHeadTest);
+	auto snek = static_cast<Snek*>(new Snek(snekHeadTest));
 	for (int iBodyParts = 0; iBodyParts < kNumBodyParts; iBodyParts++) {
 		auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(snekHeadTest->GetPosition().x, snekHeadTest->GetPosition().y, 61, 80, snakeBodyTexture));
 		snek->AddBodyPart(snekBodyTest);
 		auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(snekHeadTest2->GetPosition().x, snekHeadTest2->GetPosition().y, 61, 80, snake2BodyTexture));
-		//snekBodyTest2->SetColor(rand() % 10000);
 		snek2->AddBodyPart(snekBodyTest2);
 	}
+	*/
 	int winner = 0;
 
 
@@ -171,34 +134,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		if (GetAsyncKeyState(AEVK_F3))
 		{
-			if (built.size() >= maxBuildingsX * maxBuildingsY)
-			{
-				
-			}
-			else {
-				AEVec2 randIndex = AEVec2();
-				bool uniqueIndex = false;
-				while (!uniqueIndex) {
-					uniqueIndex = true;
-					randIndex.x = static_cast<f32>(rand() % maxBuildingsX);
-					randIndex.y = static_cast<f32>(rand() % maxBuildingsY);
-					for (auto& i_Built : built) {
-						if (i_Built.x == randIndex.x && i_Built.y == randIndex.y)
-						{
-							uniqueIndex = false;
-						}
-					}
-				}
-				built.push_back(randIndex);
-				DrawObject* building = new DrawObject(firstBuildingX + randIndex.x * buildingsDistX,
-					firstBuildingY + randIndex.y * buildingsDistY, 71, 42, buildingTexture);
-				buildingsVec.push_back(building);
-			}
+			buildingInstances->GenerateNewBuildings(20);
 		}
 		if (GetAsyncKeyState(AEVK_F4))
 		{
-			buildingsVec.clear();
-			built.clear();
+			buildingInstances->RemoveBuildings();
 		}
 		//END DEBUG CONTROLS////////////////////////////////////////////////////////////////////////////////////
 
@@ -295,6 +235,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 			}
 
+			/*
 			// collision check heads with buildings
 			auto i_Buildings = buildingsVec.begin();
 			for (; i_Buildings != buildingsVec.end(); ++i_Buildings)
@@ -346,7 +287,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					snek2->AddBodyPart(snekBodyTest2);
 					break;
 				}
-			}
+			}*/
 
 
 		}
@@ -354,13 +295,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		//DRAW STARTS////////////////////////////////////////////////////////////////////////////////////
 		bgInstances->Draw();
+		buildingInstances->Draw();
 
-		for (auto& i_Building : buildingsVec) {
-			i_Building->Draw();
-		}
-
-		//horRoad->Draw();
-		//verRoad->Draw();
 		snek->Draw();
 		snek2->Draw();
 
@@ -371,7 +307,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		auto boostLevel  = static_cast<float>(snek->m_po_Head->GetBoost());
 		auto boostLevel2 = static_cast<float>(snek2->m_po_Head->GetBoost());
 		auto shakeMagnitude  = static_cast<float>(cameraShake->AddShake(0));
-
 
 		sprintf_s(chars, 100, "Player 1 Boost: %.1f", boostLevel);
 		sprintf_s(chars2, 100, "Player 2 Boost: %.1f", boostLevel2);
