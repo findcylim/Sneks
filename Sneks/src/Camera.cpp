@@ -25,8 +25,8 @@ void Camera::Update(float dt)
 	m_x_CurrentViewDistance.x = m_px_ScreenSize->x / DrawObject::m_f_GlobalScale;
 	m_x_CurrentViewDistance.y = m_px_ScreenSize->y / DrawObject::m_f_GlobalScale;
 
-	float highestDistanceFromScreenEdgeX = 0;
-	float highestDistanceFromScreenEdgeY = 0;
+	float lowestDistanceFromScreenEdgeX = -1000;
+	float lowestDistanceFromScreenEdgeY = -1000;
 	
 	for (auto i_Object : m_v_ObjectsToTrack) {
 		float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x) - m_x_CurrentViewDistance.x / 2;
@@ -45,25 +45,27 @@ void Camera::Update(float dt)
 			// (distFromScreenEdgeY + m_f_DistanceOutTolerance.y) / m_px_ScreenSize->y * dt * 50;
 		}
 
-		if (-distFromScreenEdgeX > highestDistanceFromScreenEdgeX)
-			highestDistanceFromScreenEdgeX = distFromScreenEdgeX;
+		//if i_object is within the screen
+		if (distFromScreenEdgeX < 0 && distFromScreenEdgeY < 0) {
+			if (distFromScreenEdgeX > lowestDistanceFromScreenEdgeX)
+				lowestDistanceFromScreenEdgeX = distFromScreenEdgeX;
 
-		if (-distFromScreenEdgeY > highestDistanceFromScreenEdgeY)
-			highestDistanceFromScreenEdgeY = distFromScreenEdgeY;
-		
+			if (distFromScreenEdgeY > lowestDistanceFromScreenEdgeY)
+				lowestDistanceFromScreenEdgeY = distFromScreenEdgeY;
+		}
 	}
 
 	if (DrawObject::m_f_GlobalScale < 1.0f && m_f_ZoomOutVelocity >= 0)
 	{
 
-		if (-highestDistanceFromScreenEdgeX >= m_f_DistanceInTolerance.x / DrawObject::m_f_GlobalScale &&
-			-highestDistanceFromScreenEdgeY >= m_f_DistanceInTolerance.y / DrawObject::m_f_GlobalScale) {
+		if (-lowestDistanceFromScreenEdgeX >= m_f_DistanceInTolerance.x / DrawObject::m_f_GlobalScale &&
+			-lowestDistanceFromScreenEdgeY >= m_f_DistanceInTolerance.y / DrawObject::m_f_GlobalScale) {
 			m_f_ZoomOutVelocity += 0.05f;
 
 			//DrawObject::m_f_GlobalScale += 0.0008f;
 		}
-		else if (-highestDistanceFromScreenEdgeX >= 100 / DrawObject::m_f_GlobalScale &&
-			-highestDistanceFromScreenEdgeY >= 100 / DrawObject::m_f_GlobalScale)
+		else if (-lowestDistanceFromScreenEdgeX >= 100 / DrawObject::m_f_GlobalScale &&
+			-lowestDistanceFromScreenEdgeY >= 100 / DrawObject::m_f_GlobalScale)
 		{
 			m_f_ZoomOutVelocity += 0.05f;
 
