@@ -337,3 +337,4 @@ ASALocalRun/
 # Log Files
 **/Log.txt
 **/log.txt
+*.chm
