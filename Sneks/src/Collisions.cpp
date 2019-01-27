@@ -64,16 +64,16 @@ void Collisions::Update(float dt)
 	//Update Aabb positions
 	for (auto i_CollisionGroup : m_vx_CollisionGroups)
 	{
-		i_CollisionGroup.UpdateHitboxes();
+		i_CollisionGroup.UpdateHitBoxes();
 	}
 
 	//Check collisions between all objects in one group
 	// and another
 	for (auto i_CollisionPair : m_vx_CollisionsPairings)
 	{
-		for (auto i_ObjectGroupA : i_CollisionPair.groupA->objectsHitboxes)
+		for (auto i_ObjectGroupA : i_CollisionPair.groupA->objectsHitBoxes)
 		{
-			for (auto i_ObjectGroupB : i_CollisionPair.groupB->objectsHitboxes)
+			for (auto i_ObjectGroupB : i_CollisionPair.groupB->objectsHitBoxes)
 			{
 				//Don't check collision with self
 				if (i_ObjectGroupB != i_ObjectGroupA) {

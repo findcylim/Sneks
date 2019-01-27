@@ -121,13 +121,13 @@
     <ClInclude Include="Collisions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionGroup.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="HTVector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HTColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

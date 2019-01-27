@@ -14,7 +14,8 @@ SnekBody::SnekBody(float posX, float posY, float sizeX, float sizeY, AEGfxTextur
 	//FaceReference();
 }
 
-void SnekBody::Update(float dt) {
+void SnekBody::Update(float dt) 
+{
 	//apply the velocity
 	AEVec2 directionVector;
 	AEVec2FromAngle(&directionVector, m_f_Rotation);
