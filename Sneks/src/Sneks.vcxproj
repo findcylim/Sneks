@@ -145,6 +145,7 @@
     <ClCompile Include="Buildings.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraShake.cpp" />
+    <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="DebugPrintToScreen.cpp" />
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="GameEntry.cpp" />
@@ -167,7 +168,9 @@
     <ClInclude Include="Buildings.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraShake.h" />
-    <ClInclude Include="Color.h" />
+    <ClInclude Include="CollisionGroup.h" />
+    <ClInclude Include="Collisions.h" />
+    <ClInclude Include="HTColor.h" />
     <ClInclude Include="DebugPrintToScreen.h" />
     <ClInclude Include="DrawObject.h" />
     <ClInclude Include="MemoryAllocator.h" />
@@ -177,7 +180,7 @@
     <ClInclude Include="Snek.h" />
     <ClInclude Include="SnekBody.h" />
     <ClInclude Include="SnekHead.h" />
-    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="HTVector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,8 +4,8 @@
 
 #include "Aabb.h"
 #include "AEEngine.h"
-#include "Vector2.h"
-#include "Color.h"
+#include "HTVector2.h"
+#include "HTColor.h"
 
 class DrawObject {
 protected:

@@ -18,6 +18,7 @@
 #include "Camera.h"
 #include "Buildings.h"
 #include "DebugPrintToScreen.h"
+#include "Collisions.h"
 
 
 constexpr int kNumBodyParts = 20;
@@ -45,9 +46,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AEToogleFullScreen(true);
 	AESysReset();
 	AEGfxSetBackgroundColor(1, 1, 1);
+
 	auto camera		  = new Camera(&m_ScreenSize);
 	auto cameraShake = new CameraShake();
 	auto perlinNoise = new PerlinNoise();
+	auto collisionManager = new Collisions();
+	
 	auto debugPrint = new DebugPrintToScreen("Segoe UI", 20);
 
 	auto snakeHeadTexture           = AEGfxTextureLoad("../Resources/snake-head.png");
@@ -66,9 +70,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto bgInstances = new Background(2, 2, cityTexture);
 	auto buildingInstances = new Buildings(0, 0, buildingTexture);
 	srand(static_cast<unsigned int>(time(nullptr)));
-
-	//auto font = AEGfxCreateFont("Arial", 20, false, false);
-	//auto winFont = AEGfxCreateFont("Arial", 500, 1, 0);
 
 	auto snek  = new Snek(kNumBodyParts, 500, 0, snakeHeadTexture, snakeBodyTexture);
 	auto snek2 = new Snek(kNumBodyParts, -150, 0, snake2HeadTexture, snake2BodyTexture);
@@ -130,7 +131,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			buildingInstances->RemoveBuildings();
 		}
 		//END DEBUG CONTROLS////////////////////////////////////////////////////////////////////////////////////
-
+		
+		/*
 		//Collision check with AABBs (Hardcoded)////////////////////////////////////////////////////////////////
 		Aabb snekHeadAabb ={};
 		snekHeadAabb.min = snek->m_po_Head->GetMin();
@@ -138,6 +140,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		Aabb snekHeadAabb2 ={};
 		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
 		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
+		
 		//Head on head action
 		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
 		{
@@ -224,7 +227,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 			}
 
-			/*
+			
 			// collision check heads with buildings
 			auto i_Buildings = buildingsVec.begin();
 			for (; i_Buildings != buildingsVec.end(); ++i_Buildings)
@@ -276,10 +279,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					snek2->AddBodyPart(snekBodyTest2);
 					break;
 				}
-			}*/
+			}
 
 
-		}
+		}*/
+
 		//Collision check end////////////////////////////////////////////////////////////////////////////////////
 
 		//DRAW STARTS////////////////////////////////////////////////////////////////////////////////////

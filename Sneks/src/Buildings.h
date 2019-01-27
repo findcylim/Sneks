@@ -3,6 +3,8 @@
 #pragma once
 #include "DrawObject.h"
 #include <vector>
+#include "HTVector2.h"
+
 class Buildings
 {
 private:
