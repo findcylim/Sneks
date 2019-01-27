@@ -9,7 +9,7 @@ class SnekBody : public DrawObject {
 public:
 	SnekBody(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex, DrawObject* reference);
 	DrawObject* m_o_Reference; // the DrawObject that this body is following
-	void Update();
+	void Update(float);
 	// change the rotation to face the reference object
 	void FaceReference();
 	// change the rotation to face the reference object, returns the diff in distance

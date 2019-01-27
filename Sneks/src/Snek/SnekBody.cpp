@@ -14,13 +14,14 @@ SnekBody::SnekBody(float posX, float posY, float sizeX, float sizeY, AEGfxTextur
 	//FaceReference();
 }
 
-void SnekBody::Update() {
+void SnekBody::Update(float dt) 
+{
 	//apply the velocity
 	AEVec2 directionVector;
 	AEVec2FromAngle(&directionVector, m_f_Rotation);
 
-	m_x_Position.x += directionVector.x * m_f_Velocity;
-	m_x_Position.y += directionVector.y * m_f_Velocity;
+	m_x_Position.x += directionVector.x * m_f_Velocity * 300 * dt;
+	m_x_Position.y += directionVector.y * m_f_Velocity * 300 * dt;
 
 	float distanceX, distanceY;
 	FaceReference(&distanceX, &distanceY);
@@ -30,10 +31,11 @@ void SnekBody::Update() {
 	//cap max distance for speed calculations at 500
 	if (distanceXySquared > 300 * 300)
 		distanceXySquared = 300 * 300;
-	if (distanceXySquared < (m_o_Reference->GetSizeX() / 2) * (m_o_Reference->GetSizeX() / 2))
+	if (distanceXySquared < (m_o_Reference->GetSizeX() * m_o_Reference->GetScale() / 2) * (m_o_Reference->GetSizeX() * m_o_Reference->GetScale()/ 2))
 		SetVelocity(0);
 	else //move towards the reference
 		SetVelocity(-fabsf(-3.0f - ((distanceXySquared / (300 * 300) * 50.0f))));
+	m_f_Scale = m_o_Reference->GetScale();
 }
 
 void SnekBody::FaceReference()
@@ -63,7 +65,4 @@ void SnekBody::FaceReference(float* retDistanceX, float* retDistanceY)
 	*retDistanceY = GetPosition().y- referenceEdgeY;
 }
 
-SnekBody::~SnekBody()
-{
-	delete this;
-}
+SnekBody::~SnekBody() = default;

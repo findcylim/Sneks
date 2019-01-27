@@ -1,143 +1,134 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ECSystem">
-      <UniqueIdentifier>{2dae4ec9-d7f1-40e1-b32c-f5f171eb44f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics">
-      <UniqueIdentifier>{9a72f7b1-d17f-415d-83c5-bfbc27cedecc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems">
-      <UniqueIdentifier>{56f3dfa6-ca15-40f6-9302-e497ac1a3032}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{53a98c99-b7e4-4a1b-833d-384da71142bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{93fee7eb-6cb9-46be-9758-fe89ea837071}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Snek">
-      <UniqueIdentifier>{80666e54-b1b9-4521-82bc-0eeec9a4665d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ECS\ComponentManager.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="GameEntry.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\ECSystem.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="DrawObject.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\EntityList.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="SnekHead.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\EntityManager.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="SnekBody.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\EventManager.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="Snek.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\System.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="Aabb.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\SystemManager.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\DrawObject.cpp">
-      <Filter>Graphics</Filter>
+    <ClCompile Include="MemoryAllocator.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Aabb.cpp">
-      <Filter>Math</Filter>
+    <ClCompile Include="Particles.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Snek\Snek.cpp">
-      <Filter>Snek</Filter>
+    <ClCompile Include="CameraShake.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Snek\SnekBody.cpp">
-      <Filter>Snek</Filter>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Snek\SnekHead.cpp">
-      <Filter>Snek</Filter>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\GameStateManager.cpp">
-      <Filter>Utility</Filter>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Logger.cpp">
-      <Filter>Utility</Filter>
+    <ClCompile Include="Buildings.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\InputSystem.cpp">
-      <Filter>Systems</Filter>
+    <ClCompile Include="DebugPrintToScreen.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\PhysicsSystem.cpp">
-      <Filter>Systems</Filter>
+    <ClCompile Include="Collisions.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\Component.h">
-      <Filter>ECSystem</Filter>
+    <Image Include="..\Resources\red_snake.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\snake-graphics.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\snek_hed.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DrawObject.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\ComponentList.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="SnekBody.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\ComponentManager.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="SnekHead.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\ECSystem.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="Snek.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\Entity.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="Aabb.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\EntityList.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="Physics.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\EntityManager.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="MemoryAllocator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\EventManager.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="Particles.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\System.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="CameraShake.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\SystemManager.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="PerlinNoise.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\DrawObject.h">
-      <Filter>Graphics</Filter>
+    <ClInclude Include="Background.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Aabb.h">
-      <Filter>Math</Filter>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Snek\SnekHead.h">
-      <Filter>Snek</Filter>
+    <ClInclude Include="Buildings.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Snek\Snek.h">
-      <Filter>Snek</Filter>
+    <ClInclude Include="DebugPrintToScreen.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Snek\SnekBody.h">
-      <Filter>Snek</Filter>
+    <ClInclude Include="Collisions.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\misc.h">
-      <Filter>Utility</Filter>
+    <ClInclude Include="HTVector2.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\GameStateManager.h">
-      <Filter>Utility</Filter>
+    <ClInclude Include="HTColor.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Logger.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\InputSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\PhysicsSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EventListener.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="CollisionGroup.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
