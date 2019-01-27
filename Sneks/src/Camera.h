@@ -12,8 +12,8 @@ private:
 	std::vector<DrawObject*> m_v_ObjectsToTrack;
 	AEVec2				  m_x_CurrentViewDistance;
 	AEVec2*				  m_px_ScreenSize;
-	AEVec2              m_f_DistanceOutTolerance ={50,50};
-	AEVec2              m_f_DistanceInTolerance = {400,400};
+	AEVec2              m_f_DistanceOutTolerance ={0.1f,0.1f};
+	AEVec2              m_f_DistanceInTolerance = {0.2f,0.2f};
 	float					  m_f_ZoomOutVelocity;
 
 public:

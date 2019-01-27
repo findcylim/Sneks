@@ -93,8 +93,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		camera->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		perlinNoise->Update();
-		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
-		snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+		//snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+		//snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 
 		
 
@@ -104,7 +104,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// Debug Controls////////////////////////////////////////////////////////////////////////////////////
 		if (AEInputCheckReleased(AEVK_Z))
 		{
-			cameraShake->AddShake(5.0f);
+			//cameraShake->AddShake(5.0f);
 		}
 		if (GetAsyncKeyState(AEVK_3))
 		{
