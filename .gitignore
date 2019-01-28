@@ -338,3 +338,4 @@ ASALocalRun/
 **/Log.txt
 **/log.txt
 *.chm
+/Level Editor/Resources

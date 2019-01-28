@@ -134,6 +134,36 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 		}
 
+		float xMouseRealPos = static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x);
+		float yMouseRealPos = -static_cast<float>((currentCamPosY - ScreenSizeY) + currentMousePos.y);
+		float xDiff=0.0f, yDiff= 0.0f;
+
+		char count = 0;
+		for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin(); iter < PrefabVector.end(); ++iter, ++count)
+		{
+			if (count == ObjCounter)
+			{
+				xDiff = (*iter)->GetSizeX()/2;
+				yDiff = (*iter)->GetSizeY()/2;
+				break;
+			}
+		}
+
+		if (GetAsyncKeyState(VK_LSHIFT) < 0)
+		{
+			if (static_cast<int>(xMouseRealPos) % 100 < 50)
+			{
+				xMouseRealPos -= static_cast<int>(xMouseRealPos) % 100;
+				xMouseRealPos += xDiff;
+			}
+			else
+			{
+				xMouseRealPos -= static_cast<int>(xMouseRealPos) % 100;
+				xMouseRealPos += 100;
+				xMouseRealPos += xDiff;
+			}
+		}
+
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
 			if (!isTabPressed)
@@ -150,13 +180,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		else 
 		{
 			isTabPressed = false;
-			char count = 0;
+			count = 0;
 			for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin();iter<PrefabVector.end();++iter,++count)
 			{
 				if (count == ObjCounter)
 				{
-					(*iter)->SetPositionX(static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x));
-					(*iter)->SetPositionY(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y));
+					(*iter)->SetPositionX(xMouseRealPos);
+					(*iter)->SetPositionY(yMouseRealPos);
 					(*iter)->Draw();
 					break;
 				}
@@ -447,19 +477,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		s8 chars[100] = {};
 		s8 chars2[100]= {};
 		s8 chars3[100]= {};
+		s8 chars4[100]= {};
 
 		
 
 		sprintf_s(chars, 100, "CamPos: %.2f,%.2f", currentCamPosX,currentCamPosY);
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
 		sprintf_s(chars3, 100, "+");
+		count = 0;
+		for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin(); iter < PrefabVector.end(); ++iter, ++count)
+		{
+			if (count == ObjCounter)
+			{
+				sprintf_s(chars4, 100, "%s", (*iter)->GetName());
+				break;
+			}
+		}
 
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEGfxSetBlendMode(AE_GFX_BM_NONE);
 
 		AEGfxPrint(font, chars, currentCamPosX- ScreenSizeX, currentCamPosY+(ScreenSizeY/10)*9, 0, 0, 1);
 		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY/10)*9  -30, 1, 0, 0);
-		AEGfxPrint(font, chars3, -3, -9, 0, 0, 0);/*
+		AEGfxPrint(font, chars3, -3, -9, 0, 0, 0);
+		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9-60, 0, 0, 1);
+		/*
 		*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 
 		AESysFrameEnd();
