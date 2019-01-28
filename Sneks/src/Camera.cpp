@@ -20,7 +20,7 @@ void Camera::AddToTrack(DrawObject* pDrawObject)
 {
 	m_v_ObjectsToTrack.push_back(pDrawObject);
 }
-
+bool tracking = 0;
 int mode = 1;
 void Camera::Update(float dt)
 {
@@ -97,23 +97,19 @@ void Camera::Update(float dt)
 		m_f_ZoomVelocity = 0;
 
 
-	//averagePosition.x /= m_v_ObjectsToTrack.size();
-	//averagePosition.y /= m_v_ObjectsToTrack.size();
-	std::cout << averagePosition.x << " X " << averagePosition.y << " Y avg" << std::endl;
 
-
-	if (GetAsyncKeyState(AEVK_V))
-		AEGfxSetCamPosition(averagePosition.x, averagePosition.y);
-
+	if (AEInputCheckReleased(AEVK_V)) {
+		tracking = !tracking;
+	}
 	if (GetAsyncKeyState(AEVK_Z))
 		mode = 1;
 	if (GetAsyncKeyState(AEVK_X))
 		mode = 0;
 
 
-	if (GetAsyncKeyState(AEVK_C))
-	{
-
+	if (tracking) {
+		DrawObject::m_f_GlobalTransX = -averagePosition.x;
+		DrawObject::m_f_GlobalTransY = -averagePosition.y;
 	}
 
 	if (mode) //multiply 
