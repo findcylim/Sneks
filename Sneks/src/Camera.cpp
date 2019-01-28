@@ -20,6 +20,7 @@ void Camera::AddToTrack(DrawObject* pDrawObject)
 	m_v_ObjectsToTrack.push_back(pDrawObject);
 }
 
+int mode = 0;
 void Camera::Update(float dt)
 {
 	m_x_CurrentViewDistance.x = m_px_ScreenSize->x / DrawObject::m_f_GlobalScale;
@@ -98,23 +99,22 @@ void Camera::Update(float dt)
 
 	if (GetAsyncKeyState(AEVK_V))
 		DrawObject::m_f_GlobalScale = 1;
-	//if (GetAsyncKeyState(AEVK_C))
-	//	speed--;
+
 
 	if (GetAsyncKeyState(AEVK_Z))
 	{
-		DrawObject::m_f_GlobalScale*= 0.999f;
-		//DrawObject::m_f_GlobalScale += speed * 0.1f * dt;
+		mode = 1;
 	}
 	else if (GetAsyncKeyState(AEVK_X))
 	{
-		//DrawObject::m_f_GlobalScale*= 0.998f;
-		DrawObject::m_f_GlobalScale -= 0.1f * dt;
-		//DrawObject::m_f_GlobalScale -= speed * 0.1f * dt;
-		
+		mode = 0;
 	}
+	
+	if (mode) //multiply 
+		DrawObject::m_f_GlobalScale *= 1 + m_f_ZoomOutVelocity *1.4f * dt;
 	else
-		;// DrawObject::m_f_GlobalScale += m_f_ZoomOutVelocity * dt;
+		DrawObject::m_f_GlobalScale += m_f_ZoomOutVelocity *1.4f * dt;
+
 	m_f_ZoomOutVelocity *= 0.9f;
 
 
