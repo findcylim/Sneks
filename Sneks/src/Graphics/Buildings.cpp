@@ -13,8 +13,8 @@ Buildings::Buildings(const int bgInstancesX, const int bgInstancesY, AEGfxTextur
 	m_i_MaxBuildingsY = 1080 / 51 * (bgInstancesY * 2 + 1);
 
 	//The coordinates of the building at the origin
-	m_i_FirstBuildingCoords.x = -1920 * bgInstancesX -35.5f -buildingsDistX * 11;
-	m_i_FirstBuildingCoords.y = -1080 * bgInstancesY -buildingsDistY * 10;
+	m_i_FirstBuildingCoords.x = -1920.0f * bgInstancesX -35.5f -buildingsDistX * 11.0f;
+	m_i_FirstBuildingCoords.y = -1080.0f * bgInstancesY -buildingsDistY * 10.0f;
 
 	LoadPossibleLocations();
 	GenerateNewBuildings(50);
@@ -36,27 +36,6 @@ void Buildings::Update(float dt)
 
 void Buildings::GenerateNewBuildings(int num)
 {
-	/*
-	if (m_BuildingCoordsCurrent.size() < m_BuildingCoordsPossible.size())
-	{
-		HTVector2 randIndex = HTVector2();
-		bool uniqueIndex = false;
-		while (!uniqueIndex) {
-			uniqueIndex = true;
-			randIndex.x = static_cast<f32>(rand() % m_i_MaxBuildingsX);
-			randIndex.y = static_cast<f32>(rand() % m_i_MaxBuildingsY);
-			for (auto& i_Built : m_BuildingCoordsCurrent {
-				if (i_Built.x == randIndex.x && i_Built.y == randIndex.y)
-				{
-					uniqueIndex = false;
-				}
-			}
-		}
-		m_BuildingCoordsCurrent.push_back(randIndex);
-		DrawObject* building = new DrawObject(m_i_FirstBuildingCoords.x + randIndex.x * buildingsDistX,
-			m_i_FirstBuildingCoords.y + randIndex.y * buildingsDistY, 71, 42, m_BuildingsTexture);
-		m_BuildingInstances.push_back(building);
-	}*/
 	for (int i = 0; i < num; i++) {
 		auto newPosition = GetNewUniqueBuildingPosition();
 		if (!newPosition)
@@ -97,7 +76,7 @@ HTVector2* Buildings::GetNewUniqueBuildingPosition()
 		while (!uniqueIndex) {
 			uniqueIndex = true;
 			//Get a random index at possible buildings
-			randIndex = static_cast<f32>(rand() % m_BuildingCoordsPossible.size());
+			randIndex = static_cast<int>(rand() % m_BuildingCoordsPossible.size());
 			currentBuildingCoords = &m_BuildingCoordsPossible.at(randIndex);
 			for (auto& i_Built : m_BuildingCoordsCurrent) {
 				//Check for any current buildings with the same coordinates
@@ -107,8 +86,6 @@ HTVector2* Buildings::GetNewUniqueBuildingPosition()
 				}
 			}
 		}
-
-		//m_BuildingCoordsCurrent.push_back(*currentBuildingCoords);
 		return currentBuildingCoords;
 	}
 	return nullptr;

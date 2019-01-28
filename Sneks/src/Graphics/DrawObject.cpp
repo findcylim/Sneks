@@ -124,15 +124,17 @@ DrawObject::~DrawObject(void)
 }
 
 void DrawObject::Draw() {
-	
+
 
 	AEMtx33Rot(m_po_RotationMatrix, m_f_Rotation);
 	AEMtx33ScaleApply(m_po_RotationMatrix, m_po_RotationMatrix, m_f_Scale, m_f_Scale);
 	AEMtx33Trans(m_po_TranslationMatrix, m_x_Position.x, m_x_Position.y);
 	/*generate global matrix from rot and trans*/
 	AEMtx33Concat(m_po_GlobalMatrix, m_po_TranslationMatrix, m_po_RotationMatrix);
-	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalScale, m_f_GlobalScale);
 
+	AEMtx33TransApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalCameraOffsetX, m_f_GlobalCameraOffsetY);
+
+	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalScale, m_f_GlobalScale);
 
 	//allow transparency to work !! must be first
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);

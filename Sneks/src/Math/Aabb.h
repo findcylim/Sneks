@@ -1,7 +1,7 @@
 #ifndef AABB_H
 #define AABB_H
 #pragma once
-#include "HTVector2.h"
+#include "../Math/HTVector2.h"
 
 typedef struct {
 	HTVector2 min;

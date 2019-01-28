@@ -4,8 +4,8 @@
 
 #include "../Math/Aabb.h"
 #include "AEEngine.h"
-#include "HTVector2.h"
-#include "HTColor.h"
+#include "../Math/HTVector2.h"
+#include "../Math/HTColor.h"
 
 class DrawObject {
 protected:
@@ -32,6 +32,9 @@ protected:
 
 public:
 	static float				m_f_GlobalScale;
+	static float				m_f_GlobalCameraOffsetX;
+	static float				m_f_GlobalCameraOffsetY;
+
 	HTColor GetColor() const;
 	float GetScale() const;
 	void SetScale(float f);

@@ -1,28 +1,36 @@
+#include "ECS/EventManager.h"
+#include "Utility/Logger.h"
+#include "ECS/ECSystem.h"
+#include <iostream>
+
 #include <cstdio>
 #include <cmath>
 #include <cstdlib>
 #include <time.h>
-#include "DrawObject.h"
-#include "SnekHead.h"
-#include "SnekBody.h"
-#include "Snek.h"
+#include "Graphics/DrawObject.h"
+#include "Snek/SnekHead.h"
+#include "Snek/SnekBody.h"
+#include "Snek/Snek.h"
 #include "AEEngine.h"
-#include "Aabb.h"
-#include "CameraShake.h"
-#include "PerlinNoise.h"
+#include "Math/Aabb.h"
+#include "Graphics/CameraShake.h"
+#include "Math/PerlinNoise.h"
 
 #include <Windows.h>
 #include <vector>
 #include <iostream>
-#include "Background.h"
-#include "Camera.h"
-#include "Buildings.h"
-#include "DebugPrintToScreen.h"
-#include "Collisions.h"
+#include "Graphics/Background.h"
+#include "Graphics/Camera.h"
+#include "Graphics/Buildings.h"
+#include "Utility/DebugPrintToScreen.h"
+#include "Math/Collisions.h"
 
 
 constexpr int kNumBodyParts = 20;
 float DrawObject::m_f_GlobalScale = 1.0f;
+float DrawObject::m_f_GlobalCameraOffsetX = 0.0f;
+float DrawObject::m_f_GlobalCameraOffsetY = 0.0f;
+
 AEVec2 m_ScreenSize;
 float GetScreenSizeX()
 {
@@ -31,6 +39,12 @@ float GetScreenSizeX()
 float GetScreenSizeY()
 {
 	return m_ScreenSize.y;
+}
+
+void SetCameraRelative(float x, float y)
+{
+	DrawObject::m_f_GlobalCameraOffsetX = x;
+	DrawObject::m_f_GlobalCameraOffsetY = y;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -86,6 +100,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	debugPrint->AddToPrintList(player2Boost);
 	debugPrint->AddToPrintList(currentShakeMag);
 
+	bool movement = true;
 	while (!winner) {
 		AESysFrameStart();
 		AEInputUpdate();
@@ -93,10 +108,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		camera->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		perlinNoise->Update();
-		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
-		snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 
-		
+		if (AEInputCheckReleased(AEVK_F5))
+		{
+			movement = !movement;
+		}
+
+		if (movement) {
+			snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+			snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+		}
 
 		//}
 		//CAMERA ZOOM CHECKS FOR ZOOM END///////////////////////////////////////////////////////////////////////
@@ -315,5 +336,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
 	else 
 		MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
+
+
+/*
+
+int main() {
+	//game goes here
+	int lol;
+	ECSystem* Engine = new ECSystem;
+	Engine->InitializeEngine();
+
+	std::cout << "What" << std::endl;
+	while (Engine->IsEngineOn())
+	{
+		Engine->Update();
+	}
+
+	delete(Engine);
+
+	std::cin >> lol;
+
+*/
 	return 0;
+
 }
