@@ -93,8 +93,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		camera->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		perlinNoise->Update();
-		//snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
-		//snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+		snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 
 		
 
