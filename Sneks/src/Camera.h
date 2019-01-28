@@ -16,7 +16,7 @@ enum CameraState
 struct CameraAttributes
 {
 	float					  zoomInBaseSpeed    = 0.02f;
-	float					  zoomOutBaseSpeed   = 0.01f;
+	float					  zoomOutBaseSpeed   = 0.015f;
 	float					  zoomInMaxSpeed     = 0.25f;
 	float					  zoomOutMaxSpeed    = 1.0f;
 	float					  numStages          = 2;
@@ -30,10 +30,11 @@ private:
 	std::vector<DrawObject*> m_v_ObjectsToTrack;
 	AEVec2				  m_x_CurrentViewDistance;
 	AEVec2*				  m_px_ScreenSize;
-	AEVec2              m_f_DistanceOutTolerance = {0.05f,0.05f};
+	AEVec2              m_f_DistanceOutTolerance = {0.05f,0.042f};
 	AEVec2              m_f_DistanceInTolerance  = {0.2f,0.2f};
 	float					  m_f_ZoomVelocity;
 	int					  m_i_CurrentStage	      = 0;
+	bool					  m_b_TrackObjects         = true;
 	CameraAttributes    m_x_CameraAttributes;
 
 public:

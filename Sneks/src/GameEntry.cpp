@@ -23,8 +23,8 @@
 
 constexpr int kNumBodyParts = 20;
 float DrawObject::m_f_GlobalScale = 1.0f;
-float DrawObject::m_f_GlobalTransX = 0.0f;
-float DrawObject::m_f_GlobalTransY = 0.0f;
+float DrawObject::m_f_GlobalCameraOffsetX = 0.0f;
+float DrawObject::m_f_GlobalCameraOffsetY = 0.0f;
 
 AEVec2 m_ScreenSize;
 float GetScreenSizeX()
@@ -38,8 +38,8 @@ float GetScreenSizeY()
 
 void SetCameraRelative(float x, float y)
 {
-	DrawObject::m_f_GlobalTransX = x;
-	DrawObject::m_f_GlobalTransY = y;
+	DrawObject::m_f_GlobalCameraOffsetX = x;
+	DrawObject::m_f_GlobalCameraOffsetY = y;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,

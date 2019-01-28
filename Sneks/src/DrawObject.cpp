@@ -132,7 +132,7 @@ void DrawObject::Draw() {
 	/*generate global matrix from rot and trans*/
 	AEMtx33Concat(m_po_GlobalMatrix, m_po_TranslationMatrix, m_po_RotationMatrix);
 
-	AEMtx33TransApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalTransX, m_f_GlobalTransY);
+	AEMtx33TransApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalCameraOffsetX, m_f_GlobalCameraOffsetY);
 
 	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalScale, m_f_GlobalScale);
 
