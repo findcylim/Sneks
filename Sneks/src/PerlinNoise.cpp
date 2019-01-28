@@ -25,7 +25,7 @@ PerlinNoise::~PerlinNoise() = default;
 
 void PerlinNoise::PerlinNoise1D(int nCount, float *fSeed, int nOctaves, float fBias, float *fOutput)
 {
-	std::cout << std::endl << std::endl << "NUM_OCTAVES: " << nOctaves << std::endl;
+	//std::cout << std::endl << std::endl << "NUM_OCTAVES: " << nOctaves << std::endl;
 
 	// Used 1D Perlin Noise
 	for (int i_ArrayCount = 0; i_ArrayCount < nCount; i_ArrayCount++)
@@ -105,7 +105,7 @@ void PerlinNoise::Update()
 		PerlinNoise1D(m_i_OutputSize, m_pf_NoiseSeed1D, m_i_OctaveCount, m_f_ScalingBias, m_pf_PerlinNoise1D);
 		for (int i_ArraySize = 0; i_ArraySize < m_i_OutputSize; i_ArraySize++)
 		{
-			std::cout << m_pf_PerlinNoise1D[i_ArraySize] << " ";
+			//std::cout << m_pf_PerlinNoise1D[i_ArraySize] << " ";
 		}
 	}
 	

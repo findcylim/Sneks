@@ -20,7 +20,7 @@ void Camera::AddToTrack(DrawObject* pDrawObject)
 {
 	m_v_ObjectsToTrack.push_back(pDrawObject);
 }
-bool tracking = 0;
+bool tracking = 1;
 int mode = 1;
 void Camera::Update(float dt)
 {
@@ -47,7 +47,7 @@ void Camera::Update(float dt)
 		//averagePosition.x += i_Object->GetPosition().x;
 		//averagePosition.y += i_Object->GetPosition().y;
 
-		std::cout << i_Object->GetPosition().x << " X " << i_Object->GetPosition().y << " Y Obj" << std::endl;
+		//std::cout << i_Object->GetPosition().x << " X " << i_Object->GetPosition().y << " Y Obj" << std::endl;
 
 		float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x) - m_x_CurrentViewDistance.x / 2;
 		float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y) - m_x_CurrentViewDistance.y / 2;
