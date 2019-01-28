@@ -13,8 +13,8 @@ Buildings::Buildings(const int bgInstancesX, const int bgInstancesY, AEGfxTextur
 	m_i_MaxBuildingsY = 1080 / 51 * (bgInstancesY * 2 + 1);
 
 	//The coordinates of the building at the origin
-	m_i_FirstBuildingCoords.x = -1920 * bgInstancesX -35.5f -buildingsDistX * 11;
-	m_i_FirstBuildingCoords.y = -1080 * bgInstancesY -buildingsDistY * 10;
+	m_i_FirstBuildingCoords.x = -1920.0f * bgInstancesX -35.5f -buildingsDistX * 11.0f;
+	m_i_FirstBuildingCoords.y = -1080.0f * bgInstancesY -buildingsDistY * 10.0f;
 
 	LoadPossibleLocations();
 	GenerateNewBuildings(50);

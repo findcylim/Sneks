@@ -23,6 +23,9 @@
 
 constexpr int kNumBodyParts = 20;
 float DrawObject::m_f_GlobalScale = 1.0f;
+float DrawObject::m_f_GlobalTransX = 0.0f;
+float DrawObject::m_f_GlobalTransY = 0.0f;
+
 AEVec2 m_ScreenSize;
 float GetScreenSizeX()
 {
@@ -31,6 +34,12 @@ float GetScreenSizeX()
 float GetScreenSizeY()
 {
 	return m_ScreenSize.y;
+}
+
+void SetCameraRelative(float x, float y)
+{
+	DrawObject::m_f_GlobalTransX = x;
+	DrawObject::m_f_GlobalTransY = y;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -86,6 +95,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	debugPrint->AddToPrintList(player2Boost);
 	debugPrint->AddToPrintList(currentShakeMag);
 
+	bool movement = true;
 	while (!winner) {
 		AESysFrameStart();
 		AEInputUpdate();
@@ -93,10 +103,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		camera->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		perlinNoise->Update();
-		snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
-		snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 
-		
+		if (AEInputCheckReleased(AEVK_F5))
+		{
+			movement = !movement;
+		}
+
+		if (movement) {
+			snek->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+			snek2->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
+		}
 
 		//}
 		//CAMERA ZOOM CHECKS FOR ZOOM END///////////////////////////////////////////////////////////////////////

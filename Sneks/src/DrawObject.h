@@ -32,6 +32,9 @@ protected:
 
 public:
 	static float				m_f_GlobalScale;
+	static float				m_f_GlobalTransX;
+	static float				m_f_GlobalTransY;
+
 	HTColor GetColor() const;
 	float GetScale() const;
 	void SetScale(float f);
