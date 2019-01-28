@@ -333,3 +333,7 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# Log Files
+**/Log.txt
+**/log.txt

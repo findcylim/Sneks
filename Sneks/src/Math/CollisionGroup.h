@@ -2,7 +2,7 @@
 #define COLLISION_GROUP_H
 #pragma once
 #include <vector>
-#include "DrawObject.h"
+#include "../Graphics/DrawObject.h"
 
 struct CollisionGroup final
 {

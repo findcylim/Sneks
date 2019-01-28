@@ -1,5 +1,5 @@
 #include "SnekHead.h"
-#include "HTVector2.h"
+#include "../Math/HTVector2.h"
 
 constexpr float kMaxVelocity       = 900;
 constexpr float kAccelerationForce = 6;
