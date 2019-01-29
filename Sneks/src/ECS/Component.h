@@ -10,6 +10,7 @@ enum Component : unsigned char
 	kComponentTransform,
 	kComponentDraw,
 	kComponentPhysics,
+	kComponentCamera,
 	kComponentEnd
 };
 
