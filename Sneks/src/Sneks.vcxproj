@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\DrawComponent.cpp" />
+    <ClCompile Include="Components\PhysicsComponent.cpp" />
+    <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />
     <ClCompile Include="ECS\EntityList.cpp" />
@@ -47,6 +50,9 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\DrawComponent.h" />
+    <ClInclude Include="Components\PhysicsComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />
     <ClInclude Include="ECS\ComponentManager.h" />

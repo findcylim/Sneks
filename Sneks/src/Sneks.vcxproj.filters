@@ -23,6 +23,9 @@
     <Filter Include="Snek">
       <UniqueIdentifier>{80666e54-b1b9-4521-82bc-0eeec9a4665d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{6933e68f-8b22-457d-826e-1b129e51416a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ECS\ComponentManager.cpp">
@@ -100,6 +103,15 @@
     </ClCompile>
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\DrawComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PhysicsComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\TransformComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +213,15 @@
     </ClInclude>
     <ClInclude Include="Utility\MemoryAllocator.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\DrawComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhysicsComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\TransformComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

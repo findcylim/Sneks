@@ -5,6 +5,7 @@
 
 #include "ComponentManager.h"
 
+
 ComponentManager::ComponentManager()
 {
 	for (unsigned char i_iter = 0; i_iter < Component::kComponentEnd; i_iter++)
@@ -24,6 +25,15 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			break;
 		case Component::kComponentSample:
 			componentPointer = (BaseComponent*)new SampleComponent;
+			break;
+		case Component::kComponentTransform:
+			componentPointer = (BaseComponent*)new TransformComponent;
+			break;
+		case Component::kComponentDraw:
+			componentPointer = (BaseComponent*)new DrawComponent;
+			break;
+		case Component::kComponentPhysics:
+			componentPointer = (BaseComponent*)new PhysicsComponent;
 			break;
 		}
 
