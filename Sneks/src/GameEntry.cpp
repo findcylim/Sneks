@@ -72,8 +72,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto snakeHeadLTexture          = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
 	auto snakeHeadRTexture          = AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
 	auto snake2HeadTexture          = AEGfxTextureLoad("../Resources/head2.png");
-	auto snakeBodyTexture           = AEGfxTextureLoad("../Resources/snake-body.png");
-	auto snake2BodyTexture          = AEGfxTextureLoad("../Resources/snake-body2.png");
+	auto snakeBodyTexture           = AEGfxTextureLoad("../Resources/bodytest.png");
+	auto snake2BodyTexture          = AEGfxTextureLoad("../Resources/bodytest2.png");
 	auto rocketTexture              = AEGfxTextureLoad("../Resources/rocket_booster.jpg");
 	auto smokeTexture               = AEGfxTextureLoad("../Resources/smoke.jpg");
 	auto cityTexture		           = AEGfxTextureLoad("../Resources/map.png");
