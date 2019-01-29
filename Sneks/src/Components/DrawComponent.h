@@ -1,4 +1,8 @@
+#ifndef DRAWCOMPONENT_H
+#define DRAWCOMPONENT_H
+
 #pragma once
+
 
 #include "AEEngine.h"
 #include "../Math/HTVector2.h"
@@ -29,3 +33,5 @@ public:
 	float GetSizeX()	 const;
 	float GetSizeY()	 const;
 };
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef PHYSICSCOMPONENT_H
+#define PHYSICSCOMPONENT_H
 #pragma once
 
 #include "../ECS/ComponentList.h"
@@ -11,3 +13,5 @@ public:
 	float GetVelocity()		const;
 	void SetVelocity(const float);
 };
+
+#endif

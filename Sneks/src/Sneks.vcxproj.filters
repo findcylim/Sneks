@@ -113,6 +113,12 @@
     <ClCompile Include="Components\TransformComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Components\CameraComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\CollisionSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -222,6 +228,12 @@
     </ClInclude>
     <ClInclude Include="Components\TransformComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CameraComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\CollisionSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,6 +29,9 @@ void PhysicsSystem::Initialize(EventManager* eventManager,GameStateManager* game
 	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER2GAME_RIGHTKEY>(this);
 }
 
+//Currently Debug Messages only
+//Change this to your physics velocity
+//Probably fill in the Event Data with pointers to snek entities
 void PhysicsSystem::receive(const Events::Ev_PLAYER1GAME_LEFTKEY& eventData) 
 {
 	std::cout << "You pressed A!" << std::endl;

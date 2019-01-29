@@ -1,4 +1,11 @@
+
+#ifndef  TRANSFORMCOMPONENT_H
+#define  TRANSFORMCOMPONENT_H
+
+
 #pragma once
+
+
 
 #include "../Math/HTVector2.h"
 #include "../ECS/ComponentList.h"
@@ -19,3 +26,4 @@ public:
 	HTVector2	GetMax(void) const;
 };
 
+#endif
