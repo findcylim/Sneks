@@ -29,7 +29,7 @@ struct CameraAttributes
 class CameraComponent : public BaseComponent
 {
 private:
-	std::vector<DrawComponent*> m_v_ObjectsToTrack;
+	std::vector<Entity*> m_v_EntitiesToTrack;
 	AEVec2				  m_x_CurrentViewDistance;
 	AEVec2*				  m_px_ScreenSize;
 	AEVec2              m_f_DistanceOutTolerance = { 0.05f,0.042f };
@@ -41,6 +41,7 @@ private:
 
 public:
 	void AddToTrack(DrawComponent* pDrawObject);
+	void Update(float dt);
 	CameraComponent() = delete;
 	CameraComponent(AEVec2* screenSizePtr);
 	~CameraComponent();
