@@ -15,6 +15,7 @@ private:
 	int m_i_MaxBuildingsY;
 	HTVector2 m_i_FirstBuildingCoords;
 	AEGfxTexture* m_BuildingsTexture;
+	AEGfxVertexList* m_px_BuildingMesh;
 
 public:
 	Buildings(int instancesX, int instancesY, AEGfxTexture* bgTexture);

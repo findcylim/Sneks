@@ -11,12 +11,21 @@ Snek::Snek(const int numBodyParts, float posX, float posY, AEGfxTexture* snakeHe
 	//Create head mesh based on Texture
 	m_po_Head = static_cast<SnekHead*>(new SnekHead(posX, posY, 105, 77, snakeHeadTexture));
 	m_po_Head->SetRotation(PI);
+	m_px_BodyMesh = nullptr;
 
 	//camera->AddToTrack(snekHeadTest);
 	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++) {
 		//TODO: SET SIZEx AND SIZEy to auto detected TEXTURE SIZE values
 		//Create a new body part to add to the vector
-		auto snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture));
+		SnekBody* snekBodyPart;
+		if (m_px_BodyMesh == nullptr)
+		{
+			snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture));
+			m_px_BodyMesh = snekBodyPart->GetMesh();
+		}else
+		{
+			snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture, m_px_BodyMesh));
+		}
 		AddBodyPart(snekBodyPart);
 	}
 	m_i_Player = 0;

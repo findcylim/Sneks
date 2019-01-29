@@ -5,6 +5,11 @@
 #include "AEGraphics.h"
 
 
+AEGfxVertexList* DrawObject::GetMesh() const
+{
+	return m_px_Obj;
+}
+
 HTColor DrawObject::GetColor() const
 {
 	return m_f_RgbaColor;
@@ -113,6 +118,18 @@ DrawObject::DrawObject(const float posX, const float posY, const float sizeX, co
 	m_po_RotationMatrix    = new AEMtx33();
 	m_po_TranslationMatrix = new AEMtx33();
 	
+}
+
+DrawObject::DrawObject(const float posX, const float posY, const float sizeX, const float sizeY, AEGfxTexture* tex, AEGfxVertexList* mesh)
+{
+	m_x_Position={ posX,posY };
+	m_px_Texture  = tex;
+	m_x_Size.x     = sizeX;
+	m_x_Size.y     = sizeY;
+	m_px_Obj = mesh;
+	m_po_GlobalMatrix      = new AEMtx33();
+	m_po_RotationMatrix    = new AEMtx33();
+	m_po_TranslationMatrix = new AEMtx33();
 }
 
 DrawObject::~DrawObject(void)

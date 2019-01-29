@@ -52,7 +52,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 
 	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
-	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 300, true, nullptr);
+	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 0, false, nullptr);
 	m_ScreenSize.x = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
 	m_ScreenSize.y = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
 
@@ -151,159 +151,163 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			buildingInstances->RemoveBuildings();
 		}
+		if (GetAsyncKeyState(AEVK_F5))
+		{
+			//AEToogleFullScreen(false);
+		}
 		//END DEBUG CONTROLS////////////////////////////////////////////////////////////////////////////////////
 		
-		/*
-		//Collision check with AABBs (Hardcoded)////////////////////////////////////////////////////////////////
-		Aabb snekHeadAabb ={};
-		snekHeadAabb.min = snek->m_po_Head->GetMin();
-		snekHeadAabb.max = snek->m_po_Head->GetMax();
-		Aabb snekHeadAabb2 ={};
-		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
-		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
-		
-		//Head on head action
-		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
-		{
-			//check iframes
-			if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
-			else {
-				cameraShake->AddShake(20.0f);
-				snek->m_po_Head->SetInvulnerable(1.0f);
-				snek2->m_po_Head->SetInvulnerable(1.0f);
-				if (snek->m_v_BodyParts.empty()) {
-					auto chars = new s8[100];
-					sprintf_s(chars, 100, "PLAYER 1 WINS");
+		//
+		////Collision check with AABBs (Hardcoded)////////////////////////////////////////////////////////////////
+		//Aabb snekHeadAabb ={};
+		//snekHeadAabb.min = snek->m_po_Head->GetMin();
+		//snekHeadAabb.max = snek->m_po_Head->GetMax();
+		//Aabb snekHeadAabb2 ={};
+		//snekHeadAabb2.min = snek2->m_po_Head->GetMin();
+		//snekHeadAabb2.max = snek2->m_po_Head->GetMax();
+		//
+		////Head on head action
+		//if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
+		//{
+		//	//check iframes
+		//	if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
+		//	else {
+		//		cameraShake->AddShake(20.0f);
+		//		snek->m_po_Head->SetInvulnerable(1.0f);
+		//		snek2->m_po_Head->SetInvulnerable(1.0f);
+		//		if (snek->m_v_BodyParts.empty()) {
+		//			auto chars = new s8[100];
+		//			sprintf_s(chars, 100, "PLAYER 1 WINS");
 
-					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+		//			AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+		//			AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
-					//AEGfxPrint(winFont, chars, 0, 0, 0, 0, 1);
-					MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
-					return 1;
-					winner = 1;
-				}
-				else if (snek2->m_v_BodyParts.empty())
-				{
-					auto chars = new s8[100];
-					sprintf_s(chars, 100, "PLAYER 2 WINS");
+		//			//AEGfxPrint(winFont, chars, 0, 0, 0, 0, 1);
+		//			MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
+		//			return 1;
+		//			winner = 1;
+		//		}
+		//		else if (snek2->m_v_BodyParts.empty())
+		//		{
+		//			auto chars = new s8[100];
+		//			sprintf_s(chars, 100, "PLAYER 2 WINS");
 
-					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+		//			AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+		//			AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
-					//AEGfxPrint(winFont, chars, 0, 0, 1, 0, 0);
-					MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
-					return 1;
-					winner = 2;
+		//			//AEGfxPrint(winFont, chars, 0, 0, 1, 0, 0);
+		//			MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
+		//			return 1;
+		//			winner = 2;
 
-				}
-				snek2->m_v_BodyParts.pop_back();
-				snek->m_v_BodyParts.pop_back();
-				snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
-				snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
-			}
-		}
-		else {// collision check each head with the other snakes' body
-			if (snek2->m_po_Head->GetInvulnerable() > 0){}
-			else {
-				auto i_BodyParts = snek2->m_v_BodyParts.begin();
-				for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
-				{
-					if (snek2->m_po_Head->GetInvulnerable() > 0)
-						break;
-					Aabb bodyPartAabb ={};
-					bodyPartAabb.min = (*i_BodyParts)->GetMin();
-					bodyPartAabb.max = (*i_BodyParts)->GetMax();
-					if (CheckAabbIntersect(&bodyPartAabb, &snekHeadAabb))
-					{
-						cameraShake->AddShake(20.0f);
-						//snek->m_po_Head->SetColor(rand() % 10000);
-						snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
-						snek2->m_v_BodyParts.erase(i_BodyParts, snek2->m_v_BodyParts.end());
-						snek2->m_po_Head->SetInvulnerable(2.0f);
-						break;
-					}
-				}
-			}
-			// collision check head 2 with snake 1 body
-			if (snek->m_po_Head->GetInvulnerable() > 0){}
-			else {
-				auto i_BodyParts2 = snek->m_v_BodyParts.begin();
-				for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
-				{
-					if (snek->m_po_Head->GetInvulnerable() > 0)
-						break;
-					Aabb bodyPartAabb2 ={};
-					bodyPartAabb2.min = (*i_BodyParts2)->GetMin();
-					bodyPartAabb2.max = (*i_BodyParts2)->GetMax();
-					if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb2))
-					{
-						cameraShake->AddShake(20.0f);
-						//snek2->m_po_Head->SetColor(rand() % 10000);
-						snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
-						snek->m_v_BodyParts.erase(i_BodyParts2, snek->m_v_BodyParts.end());
-						snek->m_po_Head->SetInvulnerable(2.0f);
-						break;
-					}
-				}
-			}
+		//		}
+		//		snek2->m_v_BodyParts.pop_back();
+		//		snek->m_v_BodyParts.pop_back();
+		//		snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
+		//		snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
+		//	}
+		//}
+		//else {// collision check each head with the other snakes' body
+		//	if (snek2->m_po_Head->GetInvulnerable() > 0){}
+		//	else {
+		//		auto i_BodyParts = snek2->m_v_BodyParts.begin();
+		//		for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
+		//		{
+		//			if (snek2->m_po_Head->GetInvulnerable() > 0)
+		//				break;
+		//			Aabb bodyPartAabb ={};
+		//			bodyPartAabb.min = (*i_BodyParts)->GetMin();
+		//			bodyPartAabb.max = (*i_BodyParts)->GetMax();
+		//			if (CheckAabbIntersect(&bodyPartAabb, &snekHeadAabb))
+		//			{
+		//				cameraShake->AddShake(20.0f);
+		//				//snek->m_po_Head->SetColor(rand() % 10000);
+		//				snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
+		//				snek2->m_v_BodyParts.erase(i_BodyParts, snek2->m_v_BodyParts.end());
+		//				snek2->m_po_Head->SetInvulnerable(2.0f);
+		//				break;
+		//			}
+		//		}
+		//	}
+		//	// collision check head 2 with snake 1 body
+		//	if (snek->m_po_Head->GetInvulnerable() > 0){}
+		//	else {
+		//		auto i_BodyParts2 = snek->m_v_BodyParts.begin();
+		//		for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
+		//		{
+		//			if (snek->m_po_Head->GetInvulnerable() > 0)
+		//				break;
+		//			Aabb bodyPartAabb2 ={};
+		//			bodyPartAabb2.min = (*i_BodyParts2)->GetMin();
+		//			bodyPartAabb2.max = (*i_BodyParts2)->GetMax();
+		//			if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb2))
+		//			{
+		//				cameraShake->AddShake(20.0f);
+		//				//snek2->m_po_Head->SetColor(rand() % 10000);
+		//				snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
+		//				snek->m_v_BodyParts.erase(i_BodyParts2, snek->m_v_BodyParts.end());
+		//				snek->m_po_Head->SetInvulnerable(2.0f);
+		//				break;
+		//			}
+		//		}
+		//	}
 
-			
-			// collision check heads with buildings
-			auto i_Buildings = buildingsVec.begin();
-			for (; i_Buildings != buildingsVec.end(); ++i_Buildings)
-			{
-				if ((*i_Buildings)->GetColor().red == 1.0f && (*i_Buildings)->GetColor().blue == 0)
-				{
-					continue;
-				}
-				Aabb buildingAabb ={};
-				buildingAabb.min = (*i_Buildings)->GetMin();
-				buildingAabb.max = (*i_Buildings)->GetMax();
-				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb))
-				{
-					//cameraShake->AddShake(1.0f);
+		//	
+		//	// collision check heads with buildings
+		//	auto i_Buildings = buildingsVec.begin();
+		//	for (; i_Buildings != buildingsVec.end(); ++i_Buildings)
+		//	{
+		//		if ((*i_Buildings)->GetColor().red == 1.0f && (*i_Buildings)->GetColor().blue == 0)
+		//		{
+		//			continue;
+		//		}
+		//		Aabb buildingAabb ={};
+		//		buildingAabb.min = (*i_Buildings)->GetMin();
+		//		buildingAabb.max = (*i_Buildings)->GetMax();
+		//		if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb))
+		//		{
+		//			//cameraShake->AddShake(1.0f);
 
-					(*i_Buildings)->SetColor(1.0f,0,0,0.5f);
-					float bodySpawnX;
-					float bodySpawnY;
-					if (!snek->m_v_BodyParts.empty()) {
-						bodySpawnX = snek->m_v_BodyParts.back()->GetPosition().x;
-						bodySpawnY = snek->m_v_BodyParts.back()->GetPosition().y;
-					}else
-					{
-						bodySpawnX = snek->m_po_Head->GetPosition().x;
-						bodySpawnY = snek->m_po_Head->GetPosition().y;
-					}
-					auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
-																						  61, 80, snakeBodyTexture));
-					snek->AddBodyPart(snekBodyTest);
-					break;
-				}
-				if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb2))
-				{
-					//cameraShake->AddShake(1.0f);
-					(*i_Buildings)->SetColor(1.0f, 0, 0, 0.5f);
-					float bodySpawnX;
-					float bodySpawnY;
-					if (!snek2->m_v_BodyParts.empty()) {
-						bodySpawnX = snek2->m_v_BodyParts.back()->GetPosition().x;
-						bodySpawnY = snek2->m_v_BodyParts.back()->GetPosition().y;
-					}
-					else
-					{
-						bodySpawnX = snek2->m_po_Head->GetPosition().x;
-						bodySpawnY = snek2->m_po_Head->GetPosition().y;
-					}
-					auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
-																						  61, 80, snake2BodyTexture));
-					snek2->AddBodyPart(snekBodyTest2);
-					break;
-				}
-			}
+		//			(*i_Buildings)->SetColor(1.0f,0,0,0.5f);
+		//			float bodySpawnX;
+		//			float bodySpawnY;
+		//			if (!snek->m_v_BodyParts.empty()) {
+		//				bodySpawnX = snek->m_v_BodyParts.back()->GetPosition().x;
+		//				bodySpawnY = snek->m_v_BodyParts.back()->GetPosition().y;
+		//			}else
+		//			{
+		//				bodySpawnX = snek->m_po_Head->GetPosition().x;
+		//				bodySpawnY = snek->m_po_Head->GetPosition().y;
+		//			}
+		//			auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
+		//																				  61, 80, snakeBodyTexture));
+		//			snek->AddBodyPart(snekBodyTest);
+		//			break;
+		//		}
+		//		if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb2))
+		//		{
+		//			//cameraShake->AddShake(1.0f);
+		//			(*i_Buildings)->SetColor(1.0f, 0, 0, 0.5f);
+		//			float bodySpawnX;
+		//			float bodySpawnY;
+		//			if (!snek2->m_v_BodyParts.empty()) {
+		//				bodySpawnX = snek2->m_v_BodyParts.back()->GetPosition().x;
+		//				bodySpawnY = snek2->m_v_BodyParts.back()->GetPosition().y;
+		//			}
+		//			else
+		//			{
+		//				bodySpawnX = snek2->m_po_Head->GetPosition().x;
+		//				bodySpawnY = snek2->m_po_Head->GetPosition().y;
+		//			}
+		//			auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
+		//																				  61, 80, snake2BodyTexture));
+		//			snek2->AddBodyPart(snekBodyTest2);
+		//			break;
+		//		}
+		//	}
 
 
-		}*/
+		//}
 
 		//Collision check end////////////////////////////////////////////////////////////////////////////////////
 
@@ -339,8 +343,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 /*
-
-int main() {
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine, int nCmdShow)
+{
 	//game goes here
 	int lol;
 	ECSystem* Engine = new ECSystem;
@@ -356,7 +361,7 @@ int main() {
 
 	std::cin >> lol;
 
-*/
-	return 0;
 
+	return 0;
+	*/
 }

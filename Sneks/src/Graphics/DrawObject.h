@@ -35,6 +35,7 @@ public:
 	static float				m_f_GlobalCameraOffsetX;
 	static float				m_f_GlobalCameraOffsetY;
 
+	AEGfxVertexList* GetMesh() const;
 	HTColor GetColor() const;
 	float GetScale() const;
 	void SetScale(float f);
@@ -54,6 +55,7 @@ public:
 	float GetSizeX()	 const;
 	float GetSizeY()	 const;
 	DrawObject(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex);
+	DrawObject(float posX, float posY, float sizeX, float sizeY, AEGfxTexture* tex, AEGfxVertexList* mesh);
 	~DrawObject(void);
 	void Draw();
 	float GetRotatedOffsetXx() const;

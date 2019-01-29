@@ -8,6 +8,7 @@ constexpr int buildingsDistY = 51;
 Buildings::Buildings(const int bgInstancesX, const int bgInstancesY, AEGfxTexture* buildingTexture)
 {
 	m_BuildingsTexture = buildingTexture;
+	m_px_BuildingMesh = nullptr;
 
 	m_i_MaxBuildingsX = 1920 / 80 * (bgInstancesX * 2 + 1);
 	m_i_MaxBuildingsY = 1080 / 51 * (bgInstancesY * 2 + 1);
@@ -16,8 +17,11 @@ Buildings::Buildings(const int bgInstancesX, const int bgInstancesY, AEGfxTextur
 	m_i_FirstBuildingCoords.x = -1920.0f * bgInstancesX -35.5f -buildingsDistX * 11.0f;
 	m_i_FirstBuildingCoords.y = -1080.0f * bgInstancesY -buildingsDistY * 10.0f;
 
+	m_BuildingInstances.clear();
+	m_BuildingCoordsCurrent.clear();
+
 	LoadPossibleLocations();
-	GenerateNewBuildings(50);
+	GenerateNewBuildings(100);
 }
 
 
@@ -41,7 +45,14 @@ void Buildings::GenerateNewBuildings(int num)
 		if (!newPosition)
 			return;
 		m_BuildingCoordsCurrent.push_back(*newPosition);
-		DrawObject* building = new DrawObject(newPosition->x, newPosition->y, 71, 42, m_BuildingsTexture);
+		DrawObject* building;
+		if (m_px_BuildingMesh == nullptr) {
+			building = new DrawObject(newPosition->x, newPosition->y, 71, 42, m_BuildingsTexture);
+			m_px_BuildingMesh = building->GetMesh();
+		}else
+		{
+			building = new DrawObject(newPosition->x, newPosition->y, 71, 42, m_BuildingsTexture,m_px_BuildingMesh);
+		}
 		m_BuildingInstances.push_back(building);
 		//ELSE: ALL BUILDINGS BUILT
 	}

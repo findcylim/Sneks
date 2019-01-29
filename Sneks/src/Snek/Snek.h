@@ -14,6 +14,8 @@ public:
 	std::vector<SnekBody*> m_v_BodyParts;
 	SnekHead*              m_po_Head;
 	int						  m_i_Player;
+	AEGfxVertexList*		  m_px_BodyMesh;
+
 	Snek(SnekHead*, SnekBody* snekBody);
 	Snek(const int numBodyParts, float posX, float posY, AEGfxTexture* snakeHeadTexture, AEGfxTexture* snakeBodyTexture);
 	~Snek();
