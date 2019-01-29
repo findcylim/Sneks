@@ -51,12 +51,6 @@ void DrawObject::SetPosition(const float positionX, const float positionY) {
 	m_x_Position.x = positionX;
 	m_x_Position.y = positionY;
 }
-//void DrawObject::SetPositionX(const float f) {
-//	m_x_Position.x = f;
-//}
-//void DrawObject::SetPositionY(const float f) {
-//	m_x_Position.y = f;
-//}
 
 HTVector2 DrawObject::GetMin() const
 {
@@ -101,6 +95,12 @@ float DrawObject::GetSizeY() const
 
 DrawObject::DrawObject(const float posX, const float posY, const float sizeX, const float sizeY, AEGfxTexture* tex)
 {
+	m_f_Rotation = 0;
+	m_f_Velocity = 0;
+	m_x_Acceleration = {};
+	m_f_RgbaColor  ={ 1,1,1,1 };
+	m_f_Scale = 1.0f;
+
 	m_x_Position={ posX,posY };
 	m_px_Texture  = tex;
 	m_x_Size.x     = sizeX;
@@ -140,18 +140,17 @@ DrawObject::~DrawObject(void)
 
 }
 
-void DrawObject::Draw() {
-
-
+void DrawObject::Draw(Camera* cam) const
+{
 	AEMtx33Rot(m_po_RotationMatrix, m_f_Rotation);
 	AEMtx33ScaleApply(m_po_RotationMatrix, m_po_RotationMatrix, m_f_Scale, m_f_Scale);
 	AEMtx33Trans(m_po_TranslationMatrix, m_x_Position.x, m_x_Position.y);
 	/*generate global matrix from rot and trans*/
 	AEMtx33Concat(m_po_GlobalMatrix, m_po_TranslationMatrix, m_po_RotationMatrix);
 
-	AEMtx33TransApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalCameraOffsetX, m_f_GlobalCameraOffsetY);
+	AEMtx33TransApply(m_po_GlobalMatrix, m_po_GlobalMatrix, cam->GetVirtualOffsetX(), cam->GetVirtualOffsetY());
 
-	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalScale, m_f_GlobalScale);
+	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, cam->GetVirtualScale(), cam->GetVirtualScale());
 
 	//allow transparency to work !! must be first
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
@@ -193,7 +192,7 @@ HTVector2 DrawObject::ApplyVelocity(float dt)
 	return forwardVelocity;
 }
 
-HTVector2 DrawObject::GetForwardVelocity()
+HTVector2 DrawObject::GetForwardVelocity() const
 {
 	//apply the velocity
 	AEVec2 forwardVector;

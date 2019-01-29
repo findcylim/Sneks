@@ -2,6 +2,22 @@
 #include <iostream>
 
 
+float Camera::GetVirtualScale() const
+{
+	return m_f_VirtualScale;
+}
+
+float Camera::GetVirtualOffsetX() const
+{
+	return m_f_VirtualOffsetX;
+}
+
+float Camera::GetVirtualOffsetY() const
+{
+	return m_f_VirtualOffsetY;
+}
+
+
 Camera::Camera(AEVec2* screenSizePtr)
 {
 	m_px_ScreenSize = screenSizePtr;

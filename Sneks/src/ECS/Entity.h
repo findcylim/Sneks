@@ -7,6 +7,11 @@ enum Entity : unsigned char
 {
 	kEntityBase,
 	kEntitySample,
+	kEntitySnekHead,
+	kEntitySnekBody,
+	kEntityStaticObject,
+	kEntityBackground,
+	kEntityCamera,
 	kEntityEnd
 };
 

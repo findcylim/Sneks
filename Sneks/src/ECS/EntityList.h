@@ -38,4 +38,46 @@ class SampleEntity : BaseEntity
 		SampleEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
+class SnekHeadEntity : BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+
+	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class SnekBodyEntity : BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+
+	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class StaticObjectEntity : BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+
+	StaticObjectEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class BackgroundEntity : BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+
+	BackgroundEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class CameraEntity : BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+
+	CameraEntity(const char* entityName) : BaseEntity(entityName) {};
+	
+};
+
+
 #endif

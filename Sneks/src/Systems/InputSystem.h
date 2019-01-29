@@ -25,11 +25,9 @@ class InputSystem : public BaseSystem
 public:
 	InputSystem(EventManager* eventManager,short ID,const char * name,GameStateManager* gameStateManager,Logger* logger);
 	~InputSystem();
-	//void Update();
+	void Update();
 
-	static void Printspeed(void * data, void * callee); //TEst
 private:
-	int speed = 10;//Test
 	std::map<unsigned char, ButtonNames> m_m_KeyBinds;
 	EventManager*		m_o_EventManager;
 	GameStateManager*	m_o_GameStateManager;

@@ -26,39 +26,17 @@
 
 
 constexpr int kNumBodyParts = 20;
-float DrawObject::m_f_GlobalScale = 1.0f;
-float DrawObject::m_f_GlobalCameraOffsetX = 0.0f;
-float DrawObject::m_f_GlobalCameraOffsetY = 0.0f;
 
-AEVec2 m_ScreenSize;
-float GetScreenSizeX()
-{
-	return m_ScreenSize.x;
-}
-float GetScreenSizeY()
-{
-	return m_ScreenSize.y;
-}
-
-void SetCameraRelative(float x, float y)
-{
-	DrawObject::m_f_GlobalCameraOffsetX = x;
-	DrawObject::m_f_GlobalCameraOffsetY = y;
-}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 
-	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
-	AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 0, false, nullptr);
-	m_ScreenSize.x = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
-	m_ScreenSize.y = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
+	ECSystem* Engine = new ECSystem;
+	Engine->InitializeEngine(hInstance, nCmdShow);
 
-	AESysSetWindowTitle("TEST");
-	AEToogleFullScreen(true);
-	AESysReset();
-	AEGfxSetBackgroundColor(1, 1, 1);
+	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
+
 
 	auto camera		  = new Camera(&m_ScreenSize);
 	auto cameraShake = new CameraShake();
@@ -67,18 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	
 	auto debugPrint = new DebugPrintToScreen("Segoe UI", 20);
 
-	auto snakeHeadTexture           = AEGfxTextureLoad("../Resources/snake-head.png");
-	auto snakeHeadLTexture          = AEGfxTextureLoad("../Resources/snek_hed_l.jpg");
-	auto snakeHeadRTexture          = AEGfxTextureLoad("../Resources/snek_hed_r.jpg");
-	auto snake2HeadTexture          = AEGfxTextureLoad("../Resources/head2.png");
-	auto snakeBodyTexture           = AEGfxTextureLoad("../Resources/snake-body.png");
-	auto snake2BodyTexture          = AEGfxTextureLoad("../Resources/snake-body2.png");
-	auto rocketTexture              = AEGfxTextureLoad("../Resources/rocket_booster.jpg");
-	auto smokeTexture               = AEGfxTextureLoad("../Resources/smoke.jpg");
-	auto cityTexture		           = AEGfxTextureLoad("../Resources/map.png");
-	auto verticalRoadTexture		  = AEGfxTextureLoad("../Resources/vert-road.png");
-	auto horizontalRoadTexture		  = AEGfxTextureLoad("../Resources/horz-road.png");
-	auto buildingTexture    		  = AEGfxTextureLoad("../Resources/building.png");
+	
 
 	auto bgInstances = new Background(2, 2, cityTexture);
 	auto buildingInstances = new Buildings(0, 0, buildingTexture);
@@ -86,6 +53,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	auto snek  = new Snek(kNumBodyParts, 500, 0, snakeHeadTexture, snakeBodyTexture);
 	auto snek2 = new Snek(kNumBodyParts, -150, 0, snake2HeadTexture, snake2BodyTexture);
+
 	camera->AddToTrack(snek->m_po_Head);
 	camera->AddToTrack(snek2->m_po_Head);
 	snek2->SetPlayer(1);
@@ -102,7 +70,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	bool movement = true;
 	while (!winner) {
 		AESysFrameStart();
-		AEInputUpdate();
 
 		camera->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
 		cameraShake->Update(static_cast<float>(AEFrameRateControllerGetFrameTime()));
@@ -121,41 +88,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//}
 		//CAMERA ZOOM CHECKS FOR ZOOM END///////////////////////////////////////////////////////////////////////
 
-		// Debug Controls////////////////////////////////////////////////////////////////////////////////////
-		if (AEInputCheckReleased(AEVK_Z))
-		{
-			//cameraShake->AddShake(5.0f);
-		}
-		if (GetAsyncKeyState(AEVK_3))
-		{
-			DrawObject::m_f_GlobalScale += 0.001f;
-		}
-		if (GetAsyncKeyState(AEVK_4))
-		{
-			DrawObject::m_f_GlobalScale -= 0.001f;
-		}
-		if (GetAsyncKeyState(AEVK_F1))
-		{
-			snek->m_po_Head->SetInvulnerable(10.0f);
-		}
-		if (GetAsyncKeyState(AEVK_F2))
-		{
-			snek2->m_po_Head->SetInvulnerable(10.0f);
-		}
-		if (GetAsyncKeyState(AEVK_F3))
-		{
-			buildingInstances->GenerateNewBuildings(20);
-		}
-		if (GetAsyncKeyState(AEVK_F4))
-		{
-			buildingInstances->RemoveBuildings();
-		}
-		if (GetAsyncKeyState(AEVK_F5))
-		{
-			//AEToogleFullScreen(false);
-		}
-		//END DEBUG CONTROLS////////////////////////////////////////////////////////////////////////////////////
-		
 		//
 		////Collision check with AABBs (Hardcoded)////////////////////////////////////////////////////////////////
 		//Aabb snekHeadAabb ={};
@@ -313,7 +245,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		//DRAW STARTS////////////////////////////////////////////////////////////////////////////////////
 		bgInstances->Draw();
 		buildingInstances->Draw();
-
 		snek->Draw();
 		snek2->Draw();
 
@@ -335,10 +266,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	}
 	delete snek;
 	AESysExit();
-	if (winner == 1)
-		MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
-	else 
-		MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
+
 
 
 /*

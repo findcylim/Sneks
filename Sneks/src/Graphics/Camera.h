@@ -2,6 +2,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 #pragma once
+
 #include "DrawObject.h"
 #include <vector>
 #include "AEVec2.h"
@@ -36,13 +37,19 @@ private:
 	int					  m_i_CurrentStage	      = 0;
 	bool					  m_b_TrackObjects         = true;
 	CameraAttributes    m_x_CameraAttributes;
+	float		           m_f_VirtualScale;
+	float		           m_f_VirtualOffsetX;
+	float		           m_f_VirtualOffsetY;
+
 
 public:
+	float GetVirtualScale() const;
+	float GetVirtualOffsetX() const;
+	float GetVirtualOffsetY() const;
 	Camera() = delete;
 	Camera(AEVec2* screenSizePtr);
 	~Camera();
 	void AddToTrack(DrawObject* pDrawObject);
-	void AutoScroll();
 	void Update(float dt);
 };
 #endif // CAMERA_H

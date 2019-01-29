@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AlphaEngineHelper.cpp" />
+    <ClCompile Include="Components\CameraComponent.cpp" />
+    <ClCompile Include="Components\DrawComponent.cpp" />
+    <ClCompile Include="Components\PhysicsComponent.cpp" />
+    <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />
     <ClCompile Include="ECS\EntityList.cpp" />
@@ -41,6 +45,7 @@
     <ClCompile Include="Snek\Snek.cpp" />
     <ClCompile Include="Snek\SnekBody.cpp" />
     <ClCompile Include="Snek\SnekHead.cpp" />
+    <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Utility\DebugPrintToScreen.cpp" />
@@ -50,6 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlphaEngineHelper.h" />
+    <ClInclude Include="Components\CameraComponent.h" />
+    <ClInclude Include="Components\DrawComponent.h" />
+    <ClInclude Include="Components\PhysicsComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />
     <ClInclude Include="ECS\ComponentManager.h" />
@@ -78,6 +87,7 @@
     <ClInclude Include="Snek\Snek.h" />
     <ClInclude Include="Snek\SnekBody.h" />
     <ClInclude Include="Snek\SnekHead.h" />
+    <ClInclude Include="Systems\CollisionSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
     <ClInclude Include="Utility\DebugPrintToScreen.h" />

@@ -6,7 +6,6 @@
 
 #include "Component.h"
 #include "Entity.h"
-
 class BaseComponent
 {
 	public:
