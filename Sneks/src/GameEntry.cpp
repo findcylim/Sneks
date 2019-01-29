@@ -6,7 +6,6 @@
 #include <cstdio>
 #include <cmath>
 #include <cstdlib>
-#include <time.h>
 #include "Graphics/DrawObject.h"
 #include "Snek/SnekHead.h"
 #include "Snek/SnekBody.h"
