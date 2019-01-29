@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------------------
 Code naming conventions/Good practice for GAM150
 --------------------------------------------------------------------------------------------------
-Reference:
+Reference:a
    http://google.github.io/styleguide/cppguide.html
    other sites/forums/users opinions
    My opinion
