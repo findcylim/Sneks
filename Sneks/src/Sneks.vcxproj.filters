@@ -101,6 +101,12 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="AlphaEngineHelper.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -201,6 +207,15 @@
     </ClInclude>
     <ClInclude Include="Utility\MemoryAllocator.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaEngineHelper.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
