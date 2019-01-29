@@ -19,11 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AlphaEngineHelper.cpp" />
-    <ClCompile Include="Components\CameraComponent.cpp" />
-    <ClCompile Include="Components\DrawComponent.cpp" />
-    <ClCompile Include="Components\PhysicsComponent.cpp" />
-    <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />
     <ClCompile Include="ECS\EntityList.cpp" />
@@ -32,7 +27,6 @@
     <ClCompile Include="ECS\System.cpp" />
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="Graphics\Background.cpp" />
     <ClCompile Include="Graphics\Buildings.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
@@ -54,11 +48,6 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AlphaEngineHelper.h" />
-    <ClInclude Include="Components\CameraComponent.h" />
-    <ClInclude Include="Components\DrawComponent.h" />
-    <ClInclude Include="Components\PhysicsComponent.h" />
-    <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />
     <ClInclude Include="ECS\ComponentManager.h" />
@@ -70,8 +59,6 @@
     <ClInclude Include="ECS\EventManager.h" />
     <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\SystemManager.h" />
-    <ClInclude Include="FileIO.h" />
-    <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="Graphics\Background.h" />
     <ClInclude Include="Graphics\Buildings.h" />
     <ClInclude Include="Graphics\Camera.h" />

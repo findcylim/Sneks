@@ -104,25 +104,6 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="AlphaEngineHelper.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsSystem.cpp">
-    <ClCompile Include="Components\DrawComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\PhysicsComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\TransformComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\CameraComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\CollisionSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -223,28 +204,6 @@
     </ClInclude>
     <ClInclude Include="Utility\MemoryAllocator.h">
       <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="AlphaEngineHelper.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="FileIO.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsSystem.h">
-    <ClInclude Include="Components\DrawComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\PhysicsComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\TransformComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\CameraComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\CollisionSystem.h">
-      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
