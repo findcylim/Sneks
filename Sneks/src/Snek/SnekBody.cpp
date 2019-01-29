@@ -34,7 +34,7 @@ void SnekBody::Update(float dt)
 	if (distanceXySquared < (m_o_Reference->GetSizeX() * m_o_Reference->GetScale() / 2) * (m_o_Reference->GetSizeX() * m_o_Reference->GetScale()/ 2))
 		SetVelocity(0);
 	else //move towards the reference
-		SetVelocity(-fabsf(-3.0f - ((distanceXySquared / (300 * 300) * 50.0f))));
+		SetVelocity(-fabsf(-0.0f - ((distanceXySquared / (m_o_Reference->GetSizeX() * m_o_Reference->GetScale() / 2) * (m_o_Reference->GetSizeX() * m_o_Reference->GetScale() / 2) * 0.001f))));
 	m_f_Scale = m_o_Reference->GetScale();
 }
 
