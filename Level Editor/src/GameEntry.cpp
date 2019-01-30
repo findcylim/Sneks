@@ -114,7 +114,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEGfxSetBlendMode(AE_GFX_BM_NONE);
-
+		char count;
 		for (auto& i_Backgrounds : background) {
 			i_Backgrounds->Draw();
 		}
@@ -338,17 +338,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		s8 chars[100] = {};
 		s8 chars2[100]= {};
+		s8 chars4[100]= {};
+
 		
 
 		sprintf_s(chars, 100, "CamPos: %.2f,%.2f", currentCamPosX,currentCamPosY);
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
-		
+		sprintf_s(chars3, 100, "+");
+		count = 0;
+		for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin(); iter < PrefabVector.end(); ++iter, ++count)
+		{
+			if (count == ObjCounter)
+			{
+				sprintf_s(chars4, 100, "%s", (*iter)->GetName());
+				break;
+			}
+		}
+
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEGfxSetBlendMode(AE_GFX_BM_NONE);
 
 		AEGfxPrint(font, chars, currentCamPosX- ScreenSizeX, currentCamPosY+(ScreenSizeY/10)*9, 0, 0, 1);
 		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY/10)*9  -30, 1, 0, 0);
-		//*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
+		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9-60, 0, 0, 1);
+		/*
+		*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 
 		AESysFrameEnd();
 	}
