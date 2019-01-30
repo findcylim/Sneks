@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "../Utility/AlphaEngineHelper.h"
 #include <iostream>
 
 

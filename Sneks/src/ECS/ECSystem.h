@@ -24,7 +24,7 @@ private:
 public:
 	ECSystem();
 	~ECSystem();
-	void InitializeEngine(HINSTANCE hInstance, int nCmdShow);
+	void InitializeEngine();
 	bool IsEngineOn();
 	void Update();
 };

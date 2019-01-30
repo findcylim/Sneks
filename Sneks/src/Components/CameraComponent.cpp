@@ -1,11 +1,12 @@
 #include "CameraComponent.h"
+#include "../Utility/AlphaEngineHelper.h"
 
-
-CameraComponent::CameraComponent(AEVec2* screenSizePtr)
+CameraComponent::CameraComponent()
 {
-	m_px_ScreenSize = screenSizePtr;
-	m_x_CurrentViewDistance.x = m_px_ScreenSize->x;
-	m_x_CurrentViewDistance.y = m_px_ScreenSize->y;
+	AlphaEngineHelper::GetScreenSize(&m_px_ScreenSize.x, &m_px_ScreenSize.y);
+
+	m_x_CurrentViewDistance.x = m_px_ScreenSize.x;
+	m_x_CurrentViewDistance.y = m_px_ScreenSize.y;
 	m_x_CameraAttributes = CameraAttributes();
 
 }
@@ -14,7 +15,7 @@ CameraComponent::~CameraComponent()
 
 }
 
-void CameraComponent::AddToTrack(Entity* pDrawObject)
+void CameraComponent::AddToTrack(TransformComponent* pDrawObject)
 {
 	m_v_EntitiesToTrack.push_back(pDrawObject);
 }
@@ -22,8 +23,8 @@ void CameraComponent::AddToTrack(Entity* pDrawObject)
 
 void CameraComponent::Update(float dt)
 {
-	m_x_CurrentViewDistance.x = m_px_ScreenSize->x / DrawObject::m_f_GlobalScale;
-	m_x_CurrentViewDistance.y = m_px_ScreenSize->y / DrawObject::m_f_GlobalScale;
+	m_x_CurrentViewDistance.x = m_px_ScreenSize.x / m_f_VirtualScale;
+	m_x_CurrentViewDistance.y = m_px_ScreenSize.y / m_f_VirtualScale;
 
 	float lowestDistanceFromScreenEdgeX = -m_x_CurrentViewDistance.x;
 	float lowestDistanceFromScreenEdgeY = -m_x_CurrentViewDistance.y;
@@ -70,7 +71,7 @@ void CameraComponent::Update(float dt)
 
 
 	//ZOOM IN CHECKS
-	if (DrawObject::m_f_GlobalScale < 1.0f && m_f_ZoomVelocity >= 0)
+	if (m_f_VirtualScale < 1.0f && m_f_ZoomVelocity >= 0)
 	{
 		if (-lowestDistanceFromScreenEdgeX >= m_f_DistanceInTolerance.x * m_x_CurrentViewDistance.x &&
 			-lowestDistanceFromScreenEdgeY >= m_f_DistanceInTolerance.y * m_x_CurrentViewDistance.y) {
@@ -114,11 +115,11 @@ void CameraComponent::Update(float dt)
 		/ 2,
 	(m_v_EntitiesToTrack.front()->GetPosition().y + m_v_EntitiesToTrack.back()->GetPosition().y)
 		/ 2 };
-		DrawObject::m_f_GlobalCameraOffsetX = -averagePosition.x;
-		DrawObject::m_f_GlobalCameraOffsetY = -averagePosition.y;
+		m_f_VirtualOffsetX = -averagePosition.x;
+		m_f_VirtualOffsetY = -averagePosition.y;
 	}
 
-	DrawObject::m_f_GlobalScale *= 1 + m_f_ZoomVelocity * 1.4f * dt;
+	m_f_VirtualScale *= 1 + m_f_ZoomVelocity * 1.4f * dt;
 
 	m_f_ZoomVelocity *= m_x_CameraAttributes.speedDecay;
 }

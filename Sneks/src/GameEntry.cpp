@@ -23,6 +23,7 @@
 #include "Graphics/Buildings.h"
 #include "Utility/DebugPrintToScreen.h"
 #include "Math/Collisions.h"
+#include "Utility/AlphaEngineHelper.h"
 
 
 constexpr int kNumBodyParts = 20;
@@ -31,9 +32,9 @@ constexpr int kNumBodyParts = 20;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
-
+	AlphaEngineHelper::AlphaInitialize(hInstance, nCmdShow);
 	ECSystem* Engine = new ECSystem;
-	Engine->InitializeEngine(hInstance, nCmdShow);
+	Engine->InitializeEngine();
 
 	//MessageBox(nullptr, "CONTROLS ARE UP DOWN LEFT RIGHT", "NOOB", MB_OK);
 

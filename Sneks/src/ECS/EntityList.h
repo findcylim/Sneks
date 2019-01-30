@@ -13,6 +13,7 @@
 //otherwise the node system for it might not be needed
 
 #include <cstdlib>
+#include <cstring> //memcpy
 #include <vector>
 
 #include "Entity.h"

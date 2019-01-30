@@ -34,7 +34,7 @@ Function: InitializeEngine
 	Place all initialization functions here.
 
 ********************************************************/
-void ECSystem::InitializeEngine(HINSTANCE hInstance, int nCmdShow)
+void ECSystem::InitializeEngine()
 {
 	//TODO change this state to splash screen/main menu in the future
 	

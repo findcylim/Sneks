@@ -7,6 +7,7 @@
 #include "../Components/DrawComponent.h"
 #include "AEEngine.h"
 #include <vector>
+#include "TransformComponent.h"
 
 enum CameraState
 {
@@ -29,21 +30,26 @@ struct CameraAttributes
 class CameraComponent : public BaseComponent
 {
 private:
-	std::vector<Entity*> m_v_EntitiesToTrack;
+	std::vector<TransformComponent*> m_v_EntitiesToTrack;
 	AEVec2				  m_x_CurrentViewDistance;
-	AEVec2*				  m_px_ScreenSize;
+	AEVec2				  m_px_ScreenSize;
 	AEVec2              m_f_DistanceOutTolerance = { 0.05f,0.042f };
 	AEVec2              m_f_DistanceInTolerance = { 0.2f,0.2f };
 	float					  m_f_ZoomVelocity;
 	int					  m_i_CurrentStage = 0;
 	bool					  m_b_TrackObjects = true;
 	CameraAttributes    m_x_CameraAttributes;
+	float		           m_f_VirtualScale;
+	float		           m_f_VirtualOffsetX;
+	float		           m_f_VirtualOffsetY;
 
 public:
-	void AddToTrack(DrawComponent* pDrawObject);
+	void AddToTrack(TransformComponent* pDrawObject);
 	void Update(float dt);
-	CameraComponent() = delete;
-	CameraComponent(AEVec2* screenSizePtr);
+	float GetVirtualScale() const;
+	float GetVirtualOffsetX() const;
+	float GetVirtualOffsetY() const;
+	CameraComponent();
 	~CameraComponent();
 };
 
