@@ -33,6 +33,11 @@ bool isfileExists(const std::string& file)
 	return false;
 }
 
+float Distance(Vector2 lhs, Vector2 rhs)
+{
+	return (abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
@@ -69,6 +74,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 
+	HWND windowHandle = AESysGetWindowHandle();
+	RECT windowRect; 
 	auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture,"Horizontal Road","horz-road.png");
 	auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture, "Vertical Road","vert-road.png");
 	auto buildingObj = new DrawObject(0, 0, 71, 42, buildingTexture,"Building1","building.png");
@@ -81,9 +88,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PrefabVector.push_back(buildingObj);
 	PrefabVector.push_back(verRoad);
 	PrefabVector.push_back(horRoad);
-
+/*
 	horRoad->SetScale(2.0f);
-	verRoad->SetScale(2.0f);
+	verRoad->SetScale(2.0f);*/
 
 	
 
@@ -104,12 +111,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	while (!winner) {
 		AESysFrameStart();
 		AEInputUpdate();
-		
+
+		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+		AEGfxSetBlendMode(AE_GFX_BM_NONE);
+
 		for (auto& i_Backgrounds : background) {
 			i_Backgrounds->Draw();
 		}
+		s8 chars3[100] = {};
+		sprintf_s(chars3, 100, "+");
+		AEGfxPrint(font, chars3, -3, -9, 0, 0, 0);
+
+		GetWindowRect(windowHandle, &windowRect);
 
 		GetCursorPos(&currentMousePos);
+
 		if (GetAsyncKeyState(4) < 0)
 		{
 			if (isMiddleMouseClicked == false)
@@ -133,7 +149,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				defaultCamPosY = currentCamPosY;
 			}
 		}
-
+		
+		
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
 			if (!isTabPressed)
@@ -151,12 +168,44 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			isTabPressed = false;
 			char count = 0;
+
 			for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin();iter<PrefabVector.end();++iter,++count)
 			{
 				if (count == ObjCounter)
 				{
-					(*iter)->SetPositionX(static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x));
-					(*iter)->SetPositionY(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y));
+					Vector2 DrawPosition{ static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x) - windowRect.left
+										 ,static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y) + windowRect.top };
+					if (GetAsyncKeyState(VK_LSHIFT) < 0)
+					{
+						if (GetAsyncKeyState(VK_LCONTROL) < 0)
+						{
+							DrawPosition.y = (DrawPosition.y - (static_cast<int>(DrawPosition.y) % 50)) + ((*iter)->GetSizeY() / 2);
+						}
+						else
+						{
+							if (DrawPosition.x < 0)
+							{
+								DrawPosition.x = (DrawPosition.x - (50+ (static_cast<int>(DrawPosition.x) % 50) )) + ((*iter)->GetSizeX() / 2);
+							}
+							else
+							{
+								DrawPosition.x = (DrawPosition.x - (static_cast<int>(DrawPosition.x) % 50)) + ((*iter)->GetSizeX() / 2);
+							}
+						}
+					}
+					else if (GetAsyncKeyState(VK_LCONTROL) < 0)
+					{
+						for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
+						{
+							for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end(); ++innerIter)
+							{
+
+							}
+						}
+					}
+
+					(*iter)->SetPositionX(DrawPosition.x);
+					(*iter)->SetPositionY(DrawPosition.y);
 					(*iter)->Draw();
 					break;
 				}
@@ -287,180 +336,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 
 
-
-
-		////Collision check with AABBs (Hardcoded)////////////////////////////////////////////////////////////////
-		//Aabb snekHeadAabb ={};
-		//snekHeadAabb.min = snek->m_po_Head->GetMin();
-		//snekHeadAabb.max = snek->m_po_Head->GetMax();
-		//Aabb snekHeadAabb2 ={};
-		//snekHeadAabb2.min = snek2->m_po_Head->GetMin();
-		//snekHeadAabb2.max = snek2->m_po_Head->GetMax();
-		////Head on head action
-		//if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
-		//{
-		//	//check iframes
-		//	if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
-		//	else {
-		//		cameraShake->AddShake(20.0f);
-		//		snek->m_po_Head->SetInvulnerable(1.0f);
-		//		snek2->m_po_Head->SetInvulnerable(1.0f);
-		//		if (snek->m_v_BodyParts.empty()) {
-		//			auto chars = new s8[100];
-		//			sprintf_s(chars, 100, "PLAYER 1 WINS");
-
-		//			AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-		//			AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-
-		//			AEGfxPrint(winFont, chars, 0, 0, 0, 0, 1);
-		//			MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
-		//			return 1;
-		//			winner = 1;
-		//		}
-		//		else if (snek2->m_v_BodyParts.empty())
-		//		{
-		//			auto chars = new s8[100];
-		//			sprintf_s(chars, 100, "PLAYER 2 WINS");
-
-		//			AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-		//			AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-
-		//			AEGfxPrint(winFont, chars, 0, 0, 1, 0, 0);
-		//			MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
-		//			return 1;
-		//			winner = 2;
-
-		//		}
-		//		snek2->m_v_BodyParts.pop_back();
-		//		snek->m_v_BodyParts.pop_back();
-		//		snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
-		//		snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
-		//	}
-		//}
-		//else {// collision check each head with the other snakes' body
-		//	if (snek2->m_po_Head->GetInvulnerable() > 0){}
-		//	else {
-		//		auto i_BodyParts = snek2->m_v_BodyParts.begin();
-		//		for (; i_BodyParts != snek2->m_v_BodyParts.end(); ++i_BodyParts)
-		//		{
-		//			if (snek2->m_po_Head->GetInvulnerable() > 0)
-		//				break;
-		//			Aabb bodyPartAabb ={};
-		//			bodyPartAabb.min = (*i_BodyParts)->GetMin();
-		//			bodyPartAabb.max = (*i_BodyParts)->GetMax();
-		//			if (CheckAabbIntersect(&bodyPartAabb, &snekHeadAabb))
-		//			{
-		//				cameraShake->AddShake(20.0f);
-		//				//snek->m_po_Head->SetColor(rand() % 10000);
-		//				snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
-		//				snek2->m_v_BodyParts.erase(i_BodyParts, snek2->m_v_BodyParts.end());
-		//				snek2->m_po_Head->SetInvulnerable(2.0f);
-		//				break;
-		//			}
-		//		}
-		//	}
-		//	// collision check head 2 with snake 1 body
-		//	if (snek->m_po_Head->GetInvulnerable() > 0){}
-		//	else {
-		//		auto i_BodyParts2 = snek->m_v_BodyParts.begin();
-		//		for (; i_BodyParts2 != snek->m_v_BodyParts.end(); ++i_BodyParts2)
-		//		{
-		//			if (snek->m_po_Head->GetInvulnerable() > 0)
-		//				break;
-		//			Aabb bodyPartAabb2 ={};
-		//			bodyPartAabb2.min = (*i_BodyParts2)->GetMin();
-		//			bodyPartAabb2.max = (*i_BodyParts2)->GetMax();
-		//			if (CheckAabbIntersect(&bodyPartAabb2, &snekHeadAabb2))
-		//			{
-		//				cameraShake->AddShake(20.0f);
-		//				//snek2->m_po_Head->SetColor(rand() % 10000);
-		//				snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
-		//				snek->m_v_BodyParts.erase(i_BodyParts2, snek->m_v_BodyParts.end());
-		//				snek->m_po_Head->SetInvulnerable(2.0f);
-		//				break;
-		//			}
-		//		}
-		//	}
-
-		//	// collision check heads with buildings
-		//	auto i_Buildings = buildingsVec.begin();
-		//	for (; i_Buildings != buildingsVec.end(); ++i_Buildings)
-		//	{
-		//		if ((*i_Buildings)->GetColor() == 9009)
-		//		{
-		//			continue;
-		//		}
-		//		Aabb buildingAabb ={};
-		//		buildingAabb.min = (*i_Buildings)->GetMin();
-		//		buildingAabb.max = (*i_Buildings)->GetMax();
-		//		if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb))
-		//		{
-		//			//cameraShake->AddShake(1.0f);
-
-		//			(*i_Buildings)->SetColor(9009);
-		//			float bodySpawnX;
-		//			float bodySpawnY;
-		//			if (!snek->m_v_BodyParts.empty()) {
-		//				bodySpawnX = snek->m_v_BodyParts.back()->GetPosition().x;
-		//				bodySpawnY = snek->m_v_BodyParts.back()->GetPosition().y;
-		//			}else
-		//			{
-		//				bodySpawnX = snek->m_po_Head->GetPosition().x;
-		//				bodySpawnY = snek->m_po_Head->GetPosition().y;
-		//			}
-		//			auto snekBodyTest = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
-		//																				  61, 80, snakeBodyTexture));
-		//			snek->AddBodyPart(snekBodyTest);
-		//			break;
-		//		}
-		//		if (CheckAabbIntersect(&buildingAabb, &snekHeadAabb2))
-		//		{
-		//			//cameraShake->AddShake(1.0f);
-		//			(*i_Buildings)->SetColor(9009);
-		//			float bodySpawnX;
-		//			float bodySpawnY;
-		//			if (!snek2->m_v_BodyParts.empty()) {
-		//				bodySpawnX = snek2->m_v_BodyParts.back()->GetPosition().x;
-		//				bodySpawnY = snek2->m_v_BodyParts.back()->GetPosition().y;
-		//			}
-		//			else
-		//			{
-		//				bodySpawnX = snek2->m_po_Head->GetPosition().x;
-		//				bodySpawnY = snek2->m_po_Head->GetPosition().y;
-		//			}
-		//			auto snekBodyTest2 = static_cast<SnekBody*>(new DrawObject(bodySpawnX, bodySpawnY,
-		//																				  61, 80, snake2BodyTexture));
-		//			snek2->AddBodyPart(snekBodyTest2);
-		//			break;
-		//		}
-		//	}
-		//}
-		//Collision check end////////////////////////////////////////////////////////////////////////////////////
-
-		//DRAW STARTS////////////////////////////////////////////////////////////////////////////////////
-		/*		
-		for (auto& i_Building : buildingsVec) {
-			i_Building->Draw();
-		}
-		*/
-
 		s8 chars[100] = {};
 		s8 chars2[100]= {};
-		s8 chars3[100]= {};
-
 		
 
 		sprintf_s(chars, 100, "CamPos: %.2f,%.2f", currentCamPosX,currentCamPosY);
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
-		sprintf_s(chars3, 100, "+");
-
+		
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEGfxSetBlendMode(AE_GFX_BM_NONE);
 
 		AEGfxPrint(font, chars, currentCamPosX- ScreenSizeX, currentCamPosY+(ScreenSizeY/10)*9, 0, 0, 1);
 		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY/10)*9  -30, 1, 0, 0);
-		AEGfxPrint(font, chars3, -3, -9, 0, 0, 0);/*
-		*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
+		//*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 
 		AESysFrameEnd();
 	}

@@ -10,6 +10,5 @@ BaseEntity::BaseEntity(const char* entityName)
 		*charPointer = *entityName;
 		charPointer++, entityName++;
 	}
-
 	*charPointer = 0;
 }
