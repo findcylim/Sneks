@@ -1,0 +1,350 @@
+--------------------------------------------------------------------------------------------------
+Code naming conventions/Good practice for GAM150
+--------------------------------------------------------------------------------------------------
+Reference:
+   http://google.github.io/styleguide/cppguide.html
+   other sites/forums/users opinions
+   My opinion
+
+   Let me know if you violently disagree with any of the conventions, or have your own ideas.
+   If you have a good idea, we can stick to your idea instead.
+   
+--------------------------------------------------------------------------------------------------
+1 Variable prefixes:
+   Using prefixes attempts to make your code more readable, stay consistent, and optimized
+   for the reader. Yes. Optimised for the reader, not the writer. 
+   
+   (primary)-(prefixes)
+   m_    > member of a class
+   s_    > singleton/static
+   g_    > global
+   i_    > index/iterator
+   e.g.
+      for (int i_Company = 0; i_Company < numCompanies; i_Company++)
+         for (int i_User = 0; i_User < numUsers; iUser++)
+             companyList[i_Company].score += userList[i_User].score;
+   
+   (secondary)-(datatype)
+   i_     > int
+   f_     > float
+   b_     > boolean
+   p_     > pointer
+   pp_    > pointer to pointer
+   o_     > object
+   v_     > vector
+   x_     > custom type
+   ...
+   
+   e.g.
+      class DrawObject {
+         protected:
+            float             m_f_Rotation;
+            int               m_i_Velocity;
+            AEVec2            m_x_Position;
+            double            m_d_SizeX;
+            float*            m_pf_TestFloat;
+            AEGfxTexture*     m_po_Tex; 
+            AEGfxVertexList*  m_po_Obj;
+				AEGfxVertexList** m_ppo_Obj;
+            vector<char>      m_v_Buffer;
+      }
+ 
+--------------------------------------------------------------------------------------------------
+2 Names
+   a. Formatting
+      Function/Class 
+         UpperCamelCase for classes,
+         UpperCamelCase for functions.
+         
+         e.g. 
+            class DrawObject{
+               void SetTexture();
+               void Draw();
+            }
+      
+      File Names
+         UpperCamelCase for files, no spaces
+            e.g. Sneks\src\Systems\GameStateManager.cpp
+      
+      
+      Variable Names
+         lowerCamelCase
+      
+   b. Naming Rules
+      Names should be descriptive, avoid abbreviation.
+   
+      Give as descriptive a name as possible, within reason. Do not worry about saving horizontal
+      space as it is far more important to make your code immediately understandable by a new 
+      reader. Do not abbreviate by deleting letters within a word. Abbreviations that would 
+      be familiar to someone outside your project with relevant domain knowledge are OK. 
+      As a rule of thumb, an abbreviation is probably OK if it's listed in Wikipedia.
+      i.e.
+      GOOD:
+      
+      int priceCountReader;     // No abbreviation.
+      int numErrors;            // "num" is a widespread convention.
+      int numDnsConnections;    // Most people know what "DNS" stands for.
+      
+      BAD:
+   
+      int n;                    // Meaningless.
+      int nerr;                 // Ambiguous abbreviation.
+      int nCompConns;           // Ambiguous abbreviation.
+      int wgcConnections;       // Only your group knows what this stands for.
+      int pcReader;             // Lots of things can be abbreviated "pc".
+      int cstmrId;              // Deletes internal letters.
+      FooBarRequestInfo fbri;   // Not even a word.
+      
+      Whenever abbreviations or acronyms appear, only capitalise the first letter.
+      i.e. 
+         StartGsm() , rather than StartGSM()
+      
+      
+   c. Enums
+      Append a lowercase k at the beginning of enums, prefix class Name as well.
+		e.g.
+      enum Event{
+         kEventPlayerAttack,
+         kEventPlayerMove,
+         kEventEnemyMove,
+         ...
+      };
+--------------------------------------------------------------------------------------------------
+2 Header Guards
+   All header files should have #define guards to prevent multiple inclusion. 
+   For our case, we use both header guards and then #pragma once.
+   
+   Name Format: <PATH>_<FILE>_H_
+   
+   To guarantee uniqueness, they should be based on the file name in a project's source tree. 
+   For example, the file Sneks/src/DrawObject.h should have the following guard:
+
+   #ifndef DRAW_OBJECT_H
+   #define DRAW_OBJECT_H
+   #pragma once
+   
+   //code here
+
+   #endif  //DRAW_OBJECT_H
+
+--------------------------------------------------------------------------------------------------
+3 Getters/Setters:
+   Avoid having public class fields. Use getters/setters where you need access to fields. 
+   Do not blanket create getters/setters for everything, only when needed.
+   
+--------------------------------------------------------------------------------------------------
+4 Avoiding Memory Leaks
+   a. The new/delete operators will be globally overloaded so you can just keep using new
+      and delete. The new[] and delete[] operators will also be handled properly.
+   
+   b. Make sure you are using the custom defined new/delete instead of the default one.
+   
+   c. The file which created an object should be the one to delete it.
+   
+   e.g.
+      Game.cpp - 
+      Game::GameInit(){ //Called once when object is created
+         new CameraController();
+         ...
+      }
+      
+      ~Game(){ //destructor or shutdown function
+         delete CameraController();
+         ...
+      }
+
+--------------------------------------------------------------------------------------------------
+5 Namespace
+   Optional, use freely, try to think of them as "folders" for your code.
+   Format: all small caps eg namespace physics{ ... }
+
+   DO NOT USE "using" directive e.g. using namespace std, it pollutes the namespace.
+
+   If there are too many "std::" polluting the code, consider using typedefs.
+   e.g.  
+      typedef std::vector<int> IntVec;  
+      ...
+      IntVec v;
+         
+--------------------------------------------------------------------------------------------------
+6 Typedef   
+   Use typedef wherever it simplifies your code, especially if there is a good chance you will be
+   using both object and object pointers a lot.
+   e.g. 
+      typedef Callback* CallbackP
+      
+   Or, when the type is long and messy.
+   e.g.
+      typedef std::vector<int> vecInt
+   
+--------------------------------------------------------------------------------------------------
+7 Structs vs Classes
+   Use struct only for objects that carry data but lack any functionality other than access/setting 
+   the data members
+
+   If in doubt, use classes.
+   
+--------------------------------------------------------------------------------------------------
+8 auto
+   "auto" declares an object whose type is deducible from its initializer. Use auto to avoid 
+   type names that are noisy, obvious, or unimportant - cases where the type doesn't aid in 
+   clarity for the reader.
+   e.g.
+      auto mySquare= new Square();
+      auto exampleVector = static_cast<vector<int>>(getVector());
+      
+--------------------------------------------------------------------------------------------------
+9 Passing by reference
+   Learning this soon, learn to use it well. This can save a lot of new/delete calls.
+
+--------------------------------------------------------------------------------------------------
+10 Indentation
+
+	Horizontal Indentation
+		When declaring or defining a large number of variables at once, it can be helpful to align 
+		them to allow a better looking template, or just look more professional.
+		e.g.
+			Game::Game()
+			{
+				m_hInst           = 0;
+				m_pRootState      = 0;
+
+				m_pRoot           = 0;
+				m_pCamera         = 0;
+				m_pRenderWindow   = 0;
+				m_pSceneManager   = 0;
+
+				m_pSceneManager1  = 0;
+				m_pSceneManager2  = 0;
+				m_pCamera1        = 0;
+				m_pCamera2        = 0;
+				m_nLevelLoaded    = -1;
+
+				m_pInputManager   = 0;
+				m_pEMS            = 0;
+				m_bConsole        = False;
+				m_pSound          = 0;
+				m_pNx             = 0;
+				m_pBspLevel       = 0;
+				m_pMenu           = 0;
+				m_pHUD            = 0;
+				m_bPlaying        = False;
+				m_pProfiler       = 0;
+				m_bProfiler       = False;
+
+				m_fElap           = 0;
+				m_pObjManager     = 0;
+			}
+		
+		Pointers and References
+			No spaces around period or arrow. Pointer operators do not have trailing spaces.	No 
+			unnecessary spaces around the period or arrow when accessing a member.
+			Pointer operators have no space after the * or &.
+
+			e.g.
+			GOOD
+				x = *p;
+				p = &x;
+				x = r.y;
+				x = r->y;
+			
+			BAD
+				int x, *y;  // Disallowed - no & or * in multiple declaration
+				char * c;  // Bad - spaces on both sides of *
+				const string & str;  // Bad - spaces on both sides of &
+
+
+		
+	Vertical Indentation
+		If/Else
+			When you have a boolean expression that is longer than the standard line length, be 
+			consistent in how you break up the lines.
+
+			In this example, the logical AND operator is always at the end of the lines:
+			e.g.
+				if (this_one_thing > this_other_thing &&
+				 a_third_thing == a_fourth_thing &&
+				 yet_another && last_one) {
+				...
+				}
+			
+
+			If one part of an if-else statement uses curly braces, the other part must too:
+			i.e.
+				// Not allowed - curly on IF but not ELSE
+				if (condition) {
+				  foo;
+				} else
+				  bar;
+
+				// Not allowed - curly on ELSE but not IF
+				if (condition)
+				  foo;
+				else {
+				  bar;
+				}
+	
+--------------------------------------------------------------------------------------------------
+11 Typecasts
+   Use C++ style casts like static_cast<float>(double_value). Do not use C style casts like
+   int y = (int)x; 
+   Reason: The problem with C casts is the ambiguity of the operation; sometimes you are doing
+         a conversion (e.g., (int)3.5) and sometimes you are doing a cast (e.g., (int)"hello").
+   
+--------------------------------------------------------------------------------------------------
+12 0/nullptr/NULL
+   Use 0 for integers, 0.0 for floating point, nullptr for pointers (don't use NULL), and
+   '\0' for chars.
+
+--------------------------------------------------------------------------------------------------
+13 Line Length, Tabs/Spaces
+   You are encouraged to stay within 80 line length as that is the industry standard.
+   Tabs/Spaces use at your own discretion, but do keep indentation consistent between files.
+   
+--------------------------------------------------------------------------------------------------
+14 Use of const
+   You are encouraged to use the const keyword wherever it makes sense.
+   i.e.
+   Declare methods to be const whenever possible. Accessors should almost always be const. 
+   Other methods should be const if they do not modify any data members, do not call any 
+   non-const methods, and do not return a non-const pointer or non-const 
+   reference to a data member.
+   
+--------------------------------------------------------------------------------------------------
+15 C++ constexpr
+   We are used to using #define to define a true constant, but C++ constexpr is far more robust
+   and allows types rather than using raw literals. Use constexpr for "true constants", which
+   refer to variables whose value are set at compile time. Use prefix k for constants, then 
+   UpperCamelCase
+   e.g.
+      constexpr float kEventCount = 5;
+   
+--------------------------------------------------------------------------------------------------
+XXX Other Good Practices
+   a. You are encouraged to declare variables in local scope if possible and try to declare as 
+      close to first usage as possible. (declare and use variable right away)
+      This makes it easier for the reader to find the declaration and see what type the variable 
+      is and what it was initialized to do. 
+
+   b. Get Keyboard input
+      Use GetAsyncKeyState and check the most significant bit (0x8000) using bitwise operator (&) to 
+      see if the key is currently down.
+      There will be a macro for this. 
+      #define KEYDOWN(vKey) ((GetAsyncKeyState(vKey) & 0x8000) ? true : false)
+
+   c. sizeof
+      Prefer sizeof(varName) to sizeof(type). sizeof(varname) will update appropriately if 
+      someone changes the variable type either now or later.
+		
+	d. Treat all warnings as errors.
+		Use at least level 4 or higher warning, and treat all warnings as errors.
+		
+	e. Empty loop bodies should use either an empty pair of braces or continue with no braces, 
+		rather than a single semicolon.
+		i.e.
+		GOOD
+			while (condition){}
+		BAD
+			while (condition);
+			
+

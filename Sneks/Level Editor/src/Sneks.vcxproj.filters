@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ECSystem">
+      <UniqueIdentifier>{2dae4ec9-d7f1-40e1-b32c-f5f171eb44f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{9a72f7b1-d17f-415d-83c5-bfbc27cedecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{56f3dfa6-ca15-40f6-9302-e497ac1a3032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{53a98c99-b7e4-4a1b-833d-384da71142bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{93fee7eb-6cb9-46be-9758-fe89ea837071}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ECS\ComponentManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\ECSystem.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EntityList.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EntityManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EventManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\System.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\SystemManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\DrawObject.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Aabb.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\GameStateManager.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Logger.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\InputSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\PhysicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntry.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECS\Component.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentList.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ECSystem.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Entity.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EntityList.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EntityManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EventManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\System.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\SystemManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\DrawObject.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Aabb.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\misc.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\GameStateManager.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Logger.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\InputSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\PhysicsSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EventListener.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
