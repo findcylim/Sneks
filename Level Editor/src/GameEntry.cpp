@@ -33,6 +33,19 @@ bool isfileExists(const std::string& file)
 	return false;
 }
 
+char CalculateOrientation(Aabb& main, Aabb& orientationTo)
+{
+	if (main.min.x > orientationTo.max.x)
+		return 1; // Left
+	if (main.min.y > orientationTo.max.y)
+		return 2; //Top
+	if (orientationTo.min.x > main.max.x)
+		return 3; //Right
+	if (orientationTo.min.y > main.max.y)
+		return 4; //Bottom
+	return -1;
+}
+
 float Distance(Vector2 lhs, Vector2 rhs)
 {
 	return (abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
@@ -88,10 +101,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PrefabVector.push_back(buildingObj);
 	PrefabVector.push_back(verRoad);
 	PrefabVector.push_back(horRoad);
-/*
-	horRoad->SetScale(2.0f);
-	verRoad->SetScale(2.0f);*/
-
 	
 
 	auto font = AEGfxCreateFont("Arial", 20, false, false);
@@ -101,12 +110,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	bool isMiddleMouseClicked	= false;
 	bool isLeftMouseClicked		= false;
 	bool isSaved				= false;
+	bool isLeftControl = false;
 	POINT initialMousePos,currentMousePos;
 	float ScreenSizeX = (AEGfxGetWinMaxX() - AEGfxGetWinMinX())/2;
 	float ScreenSizeY = (AEGfxGetWinMaxY() - AEGfxGetWinMinY())/2;
 	AEGfxGetCamPosition(&currentCamPosX, &currentCamPosY);
 	AEGfxGetCamPosition(&defaultCamPosX, &defaultCamPosY);
 	int winner = 0;
+
+	char orientationCheck = -1;
+
 
 	while (!winner) {
 		AESysFrameStart();
@@ -149,8 +162,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				defaultCamPosY = currentCamPosY;
 			}
 		}
-		
-		
+		Vector2 DrawPosition{ static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x) - windowRect.left
+										 ,static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y) + windowRect.top };
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
 			if (!isTabPressed)
@@ -173,8 +186,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			{
 				if (count == ObjCounter)
 				{
-					Vector2 DrawPosition{ static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x) - windowRect.left
-										 ,static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y) + windowRect.top };
+					
 					if (GetAsyncKeyState(VK_LSHIFT) < 0)
 					{
 						if (GetAsyncKeyState(VK_LCONTROL) < 0)
@@ -195,13 +207,82 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					}
 					else if (GetAsyncKeyState(VK_LCONTROL) < 0)
 					{
-						for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
+						Aabb currentSelectionAabb ={};
+						currentSelectionAabb.min = (*iter)->GetMin();
+						currentSelectionAabb.max = (*iter)->GetMax();
+						float shortestDist = -1;
+						float xDiffClose, yDiffClose;
+						DrawObject* closestObj = nullptr;
+						for (auto iterator = ToSavePrefabMap.begin(); iterator != ToSavePrefabMap.end(); ++iterator)
 						{
-							for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end(); ++innerIter)
+							for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
 							{
+								float dist = Distance(DrawPosition, (*innerIter)->GetPosition());
+								if (shortestDist < 0 ||dist >= 0 && dist < shortestDist)
+								{
+									shortestDist = dist;
+									closestObj = *innerIter;
+								}
+								else
+								{
+									continue;
+								}
 
 							}
 						}
+						if (closestObj)
+						{
+							shortestDist = sqrtf(shortestDist); // ouch there must be a better way
+							Aabb currentIter = {};
+							currentIter.min = closestObj->GetMin();
+							currentIter.max = closestObj->GetMax();
+
+							short offset = 50;
+							if (isLeftControl == false)
+							{
+								isLeftControl = true;
+								char check = CalculateOrientation(currentSelectionAabb, currentIter);
+								if (check != -1)
+									if (check != orientationCheck)
+										orientationCheck = check;
+
+							}
+							switch (orientationCheck)
+							{
+							case 1:
+								//Left
+								if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
+								{
+									DrawPosition.x += shortestDist - xDiffClose;
+								}
+								break;
+							case 2:
+								//Top
+								if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
+								{
+									DrawPosition.y -= shortestDist - yDiffClose;
+								}
+								break;
+							case 3:
+								//Right
+								if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
+								{
+									DrawPosition.x -= shortestDist - xDiffClose;
+								}
+								break;
+							case 4:
+								//Bottom
+								if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
+								{
+									DrawPosition.y += shortestDist - yDiffClose;
+								}
+								break;
+							}
+						}
+					}
+					else
+					{
+						isLeftControl = false;
 					}
 
 					(*iter)->SetPositionX(DrawPosition.x);
@@ -342,7 +423,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		
 
-		sprintf_s(chars, 100, "CamPos: %.2f,%.2f", currentCamPosX,currentCamPosY);
+		sprintf_s(chars, 100, "DrawObject Pos: %.2f,%.2f", DrawPosition.x, DrawPosition.y);
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
 		sprintf_s(chars3, 100, "+");
 		count = 0;
