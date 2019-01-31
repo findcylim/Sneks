@@ -27,7 +27,8 @@ public:
 	static float				m_f_GlobalScale;
 	static float				m_f_GlobalCameraOffsetX;
 	static float				m_f_GlobalCameraOffsetY;
-	DrawComponent(TransformComponent*);
+	DrawComponent() = delete;
+	DrawComponent(BaseComponent* transformComponent);
 	AEGfxVertexList* GetMesh() const;
 	HTColor GetColor() const;
 	void SetColor(float red, float green, float blue, float alpha);

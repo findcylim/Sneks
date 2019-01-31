@@ -1,6 +1,13 @@
 #include "DrawComponent.h"
 
 
+DrawComponent::DrawComponent(BaseComponent* transformComponent) :
+	m_po_TransformComponent{ static_cast<TransformComponent*>(transformComponent) }
+{
+	assert(m_po_TransformComponent != nullptr);
+	assert(m_po_TransformComponent->m_x_ComponentID == kComponentTransform);
+}
+
 AEGfxVertexList* DrawComponent::GetMesh() const
 {
 	return m_px_Obj;

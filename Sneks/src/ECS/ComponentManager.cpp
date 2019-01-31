@@ -24,20 +24,23 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer = new BaseComponent;
 			break;
 		case Component::kComponentSample:
-			componentPointer = (BaseComponent*)new SampleComponent;
+			componentPointer = static_cast<BaseComponent*>(new SampleComponent);
 			break;
 		case Component::kComponentTransform:
-			componentPointer = (BaseComponent*)new TransformComponent;
+			componentPointer = static_cast<BaseComponent*>(new TransformComponent);
 			break;
 		case Component::kComponentDraw:
-			auto tranformComponent = GetSpecificComponentInstance(
+			const auto transformComponent = GetSpecificComponentInstance(
 				entityPointer, kComponentTransform
 			);
-			componentPointer = (BaseComponent*)new DrawComponent;
+			componentPointer = static_cast<BaseComponent*>(new DrawComponent(transformComponent));
 			break;
 		case Component::kComponentPhysics:
-			componentPointer = (BaseComponent*)new PhysicsComponent;
+			componentPointer = static_cast<BaseComponent*>(new PhysicsComponent);
 			break;
+		case kComponentCamera: break;
+		case kComponentEnd: break;
+		default: ;
 		}
 
 		if (componentPointer)
