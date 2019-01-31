@@ -5,24 +5,24 @@
 
 typedef enum State
 {
-	state_SplashScreen,
-	state_MainMenu,
-	state_CharacterSelection,
-	state_Options,
-	state_Credits,
-	state_Game,
-	state_PauseMenu,
-	state_Exit = -1,
-	state_Transition = -2,
-	state_ErrorState = -99999
+	kStateSplashScreen,
+	kStateMainMenu,
+	kStateCharacterSelection,
+	kStateOptions,
+	kStateCredits,
+	kStateGame,
+	kStatePauseMenu,
+	kStateExit = -1,
+	kStateTransition = -2,
+	kStateErrorState = -99999
 }State;
 
 class GameStateManager
 {
 private:
-	State	current;	/* Index of the current game state. */
-	State	previous;	/* Index of the previous game state. */
-	State	next;		/* Index of the next game state. */
+	State	m_x_Current;	/* Index of the m_x_Current game state. */
+	State	m_x_Previous;	/* Index of the m_x_Previous game state. */
+	State	m_x_Next;		/* Index of the m_x_Next game state. */
 public:
 	State	ReturnCurrentState();
 	State	ReturnNextState();

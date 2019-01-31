@@ -14,10 +14,10 @@ GraphicsSystem::~GraphicsSystem()
 	}
 }
 
-void GraphicsSystem::Initialize(Camera* camera)
+void GraphicsSystem::Initialize(EntityManager* entityManager)
 {
-	m_px_Camera = camera;
-
+	m_po_EntityManager = entityManager;
+	m_po_ComponentManager = entityManager->GetComponentManager();
 }
 
 AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)
@@ -49,5 +49,7 @@ void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureN
 
 void GraphicsSystem::Draw(float dt)
 {
+	//Look for DrawComponents
+	auto drawComponent = m_po_ComponentManager->GetFirstComponentInstance(kComponentDraw);
 
 }

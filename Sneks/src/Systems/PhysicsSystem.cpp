@@ -69,7 +69,7 @@ void PhysicsSystem::Update()
 	{
 		switch (currentState)
 		{
-		case state_Game:
+		case kStateGame:
 			//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN LEFT");
 			Events::Ev_PLAYER1GAME_LEFTKEY temp;
 			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER1GAME_LEFTKEY>(temp);
@@ -81,7 +81,7 @@ void PhysicsSystem::Update()
 	{
 		switch (currentState)
 		{
-		case state_Game:
+		case kStateGame:
 			//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN RIGHT");
 			Events::Ev_PLAYER1GAME_RIGHTKEY temp;
 			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER1GAME_RIGHTKEY>(temp);
@@ -93,7 +93,7 @@ void PhysicsSystem::Update()
 	{
 		switch (currentState)
 		{
-		case state_Game:
+		case kStateGame:
 			//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 POWERUP");
 			Events::Ev_PLAYER1GAME_LEFTSHIFTKEY temp;
 			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER1GAME_LEFTSHIFTKEY>(temp);
@@ -107,7 +107,7 @@ void PhysicsSystem::Update()
 	{
 		switch (currentState)
 		{
-		case state_Game:
+		case kStateGame:
 			//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN LEFT");
 			Events::Ev_PLAYER2GAME_LEFTKEY temp;
 			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER2GAME_LEFTKEY>(temp);
@@ -120,7 +120,7 @@ void PhysicsSystem::Update()
 	{
 		switch (currentState)
 		{
-		case state_Game:
+		case kStateGame:
 			//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN RIGHT");
 			Events::Ev_PLAYER2GAME_RIGHTKEY temp;
 			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER2GAME_RIGHTKEY>(temp);
@@ -132,7 +132,7 @@ void PhysicsSystem::Update()
 	{
 		switch (currentState)
 		{
-		case state_Game:
+		case kStateGame:
 			//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 POWERUP");
 			Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY temp;
 			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY>(temp);

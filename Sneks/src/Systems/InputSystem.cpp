@@ -51,7 +51,7 @@ void InputSystem::Update()
 	{
 		switch (currentState)
 		{
-			case state_Game:
+			case kStateGame:
 				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN LEFT");
 				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTKEY);
 				break;
@@ -63,7 +63,7 @@ void InputSystem::Update()
 	{
 		switch (currentState)
 		{
-			case state_Game:
+			case kStateGame:
 				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN RIGHT");
 				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_RIGHTKEY);
 				break;
@@ -75,7 +75,7 @@ void InputSystem::Update()
 	{
 		switch (currentState)
 		{
-			case state_Game:
+			case kStateGame:
 				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 POWERUP");
 				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTSHIFTKEY);
 				break;
@@ -88,7 +88,7 @@ void InputSystem::Update()
 	{
 		switch (currentState)
 		{
-			case state_Game:
+			case kStateGame:
 				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN LEFT");
 				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_LEFTKEY);
 				break;
@@ -101,7 +101,7 @@ void InputSystem::Update()
 	{
 		switch (currentState)
 			{
-			case state_Game:
+			case kStateGame:
 				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN RIGHT");
 				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTKEY);
 				break;
@@ -113,7 +113,7 @@ void InputSystem::Update()
 	{
 		switch (currentState)
 		{
-			case state_Game:
+			case kStateGame:
 				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTSHIFTKEY);
 				break;
 			}

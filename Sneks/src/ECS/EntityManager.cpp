@@ -40,6 +40,11 @@ EntityManager::EntityManager()
 		m_v_EntityPool.push_back(nullptr);
 }
 
+ComponentManager* EntityManager::GetComponentManager() const
+{
+	return m_po_ComponentManagerInstance;
+}
+
 void EntityManager::AddEntity(BaseEntity* entityPointer, Entity entityType)
 {
 	if (entityPointer)

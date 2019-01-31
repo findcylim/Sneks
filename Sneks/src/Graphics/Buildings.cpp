@@ -90,7 +90,7 @@ HTVector2* Buildings::GetNewUniqueBuildingPosition()
 			randIndex = static_cast<int>(rand() % m_BuildingCoordsPossible.size());
 			currentBuildingCoords = &m_BuildingCoordsPossible.at(randIndex);
 			for (auto& i_Built : m_BuildingCoordsCurrent) {
-				//Check for any current buildings with the same coordinates
+				//Check for any m_x_Current buildings with the same coordinates
 				if (i_Built.x == currentBuildingCoords->x && i_Built.y == currentBuildingCoords->y)
 				{
 					uniqueIndex = false;

@@ -15,16 +15,19 @@ class EntityManager
 	std::vector<BaseEntity*> m_v_EntityPool;
 	void AddEntity(BaseEntity* entityPointer, Entity entityType);
 	void AttachAllComponents(BaseEntity* entityPointer, Entity entityType);
+	ComponentManager *m_po_ComponentManagerInstance = new ComponentManager;
 
-	public:
-		EntityManager();
-		ComponentManager *m_po_ComponentManagerInstance = new ComponentManager;
-		BaseEntity* NewEntity(Entity entityType, const char* entityName);
-		void DeleteEntity(BaseComponent* componentPointer);
-		void DeleteEntity(BaseEntity* entityPointer);
-		BaseEntity* GetFirstEntityInstance(Entity entityType);
-		BaseEntity* GetSpecificEntityInstance(Entity entityType, const char* entityName);
-		BaseEntity* GetSpecificEntityInstance(BaseComponent* componentPointer);
+
+public:
+	
+	EntityManager();
+	ComponentManager* GetComponentManager() const;
+	BaseEntity* NewEntity(Entity entityType, const char* entityName);
+	void DeleteEntity(BaseComponent* componentPointer);
+	void DeleteEntity(BaseEntity* entityPointer);
+	BaseEntity* GetFirstEntityInstance(Entity entityType);
+	BaseEntity* GetSpecificEntityInstance(Entity entityType, const char* entityName);
+	BaseEntity* GetSpecificEntityInstance(BaseComponent* componentPointer);
 };
 
 #endif

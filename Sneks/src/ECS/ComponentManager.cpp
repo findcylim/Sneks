@@ -30,6 +30,9 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer = (BaseComponent*)new TransformComponent;
 			break;
 		case Component::kComponentDraw:
+			auto tranformComponent = GetSpecificComponentInstance(
+				entityPointer, kComponentTransform
+			);
 			componentPointer = (BaseComponent*)new DrawComponent;
 			break;
 		case Component::kComponentPhysics:
