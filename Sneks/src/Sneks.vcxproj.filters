@@ -111,9 +111,6 @@
     <ClCompile Include="Components\DrawComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Components\PhysicsComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="Utility\AlphaEngineHelper.cpp">
       <Filter>Utility</Filter>
     </ClCompile>

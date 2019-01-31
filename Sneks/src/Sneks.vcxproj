@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\DrawComponent.cpp" />
-    <ClCompile Include="Components\PhysicsComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />

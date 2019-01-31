@@ -140,3 +140,37 @@ void PhysicsSystem::Update()
 		}
 	}
 }
+
+
+HTVector2 GetMin() const
+{
+	HTVector2 min ={};
+	min.x = m_x_Position.x - m_x_Size.x * m_f_Scale / 2;
+	min.y = m_x_Position.y - m_x_Size.y * m_f_Scale / 2;
+	return min;
+}
+
+HTVector2 GetMax() const
+{
+	HTVector2 max ={};
+	max.x = m_x_Position.x + m_x_Size.x * m_f_Scale / 2;
+	max.y = m_x_Position.y + m_x_Size.y * m_f_Scale / 2;
+	return max;
+}
+
+HTVector2 DrawObject::ApplyVelocity(float dt)
+{
+	auto forwardVelocity = GetForwardVelocity();
+	m_x_Position.x += forwardVelocity.x * dt;
+	m_x_Position.y += forwardVelocity.y * dt;
+	return forwardVelocity;
+}
+
+HTVector2 DrawObject::GetForwardVelocity() const
+{
+	//apply the velocity
+	AEVec2 forwardVector;
+	AEVec2FromAngle(&forwardVector, m_f_Rotation);
+	HTVector2 forwardVelocity ={ forwardVector.x * m_f_Velocity, forwardVector.y * m_f_Velocity };
+	return forwardVelocity;
+}

@@ -7,11 +7,9 @@
 
 class PhysicsComponent : public BaseComponent
 {
-	float	m_f_Velocity;
-	HTVector2 m_x_Acceleration;
 public:
-	float GetVelocity()		const;
-	void SetVelocity(const float);
+	float		 m_f_Velocity;
+	HTVector2 m_x_Acceleration;
 };
 
 #endif
