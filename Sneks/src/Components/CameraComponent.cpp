@@ -8,20 +8,24 @@ CameraComponent::CameraComponent()
 	m_x_CurrentViewDistance.x = m_px_ScreenSize.x;
 	m_x_CurrentViewDistance.y = m_px_ScreenSize.y;
 	m_x_CameraAttributes = CameraAttributes();
-
+	m_f_VirtualOffsetX = 0;
+	m_f_VirtualOffsetY = 0;
+	m_f_VirtualScale = 1.0f;
+	m_f_ZoomVelocity = 0;
+	m_i_CurrentStage = 0;
+	m_b_TrackObjects = false;
 }
 CameraComponent::~CameraComponent()
-{
-
-}
+= default;
 
 void CameraComponent::AddToTrack(TransformComponent* pDrawObject)
 {
+	m_b_TrackObjects = true;
 	m_v_EntitiesToTrack.push_back(pDrawObject);
 }
 
 
-void CameraComponent::Update(float dt)
+void CameraComponent::Update(const float dt)
 {
 	m_x_CurrentViewDistance.x = m_px_ScreenSize.x / m_f_VirtualScale;
 	m_x_CurrentViewDistance.y = m_px_ScreenSize.y / m_f_VirtualScale;
@@ -80,7 +84,7 @@ void CameraComponent::Update(float dt)
 		}
 
 	}
-	/*
+	/*TODO:: Stage based camera zoom (if further then zoom slower)
 	if (m_i_CurrentStage == -1)
 		m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
 		//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30 * m_x_CameraAttributes.perStageMultiplier;
