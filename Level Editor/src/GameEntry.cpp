@@ -20,6 +20,7 @@ enum Objects
 	kBuildingObj,
 	kVerticalRoadObj,
 	kHorizontalRoadObj,
+	kBlankState,
 	kNumberOfObjects
 };
 
@@ -36,19 +37,30 @@ bool isfileExists(const std::string& file)
 char CalculateOrientation(Aabb& main, Aabb& orientationTo)
 {
 	if (main.min.x > orientationTo.max.x)
-		return 1; // Left
+		return 3; // Right
 	if (main.min.y > orientationTo.max.y)
 		return 2; //Top
 	if (orientationTo.min.x > main.max.x)
-		return 3; //Right
+		return 1; // Left
 	if (orientationTo.min.y > main.max.y)
 		return 4; //Bottom
 	return -1;
 }
 
+
 float Distance(Vector2 lhs, Vector2 rhs)
 {
 	return (abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
+}
+
+float DistanceX(Vector2 lhs, Vector2 rhs)
+{
+	return abs(lhs.x - rhs.x);
+}
+
+float DistanceY(Vector2 lhs, Vector2 rhs)
+{
+	return abs(lhs.y - rhs.y);
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -117,6 +129,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	AEGfxGetCamPosition(&currentCamPosX, &currentCamPosY);
 	AEGfxGetCamPosition(&defaultCamPosX, &defaultCamPosY);
 	int winner = 0;
+	DrawObject* SelectedObject = nullptr;
 
 	char orientationCheck = -1;
 
@@ -152,6 +165,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			currentCamPosX = defaultCamPosX + diffX;
 			currentCamPosY = defaultCamPosY - diffY;
 			AEGfxSetCamPosition(currentCamPosX, currentCamPosY);
+
 		}
 		else
 		{
@@ -164,18 +178,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		Vector2 DrawPosition{ static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x) - windowRect.left
 										 ,static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y) + windowRect.top };
+		
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
 			if (!isTabPressed)
 			{
-				isTabPressed = true; 
+				isTabPressed = true;
 				ObjCounter++;
 				if (ObjCounter >= kNumberOfObjects)
 				{
 					ObjCounter = 0;
 				}
-				
+
 			}
+
 		}
 		else 
 		{
@@ -186,10 +202,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			{
 				if (count == ObjCounter)
 				{
-					
-					if (GetAsyncKeyState(VK_LSHIFT) < 0)
+					if (ObjCounter == kBlankState)
+						break;
+					if (GetAsyncKeyState(VK_LCONTROL) < 0)
 					{
-						if (GetAsyncKeyState(VK_LCONTROL) < 0)
+						if (GetAsyncKeyState(VK_LSHIFT) < 0)
 						{
 							DrawPosition.y = (DrawPosition.y - (static_cast<int>(DrawPosition.y) % 50)) + ((*iter)->GetSizeY() / 2);
 						}
@@ -205,7 +222,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 							}
 						}
 					}
-					else if (GetAsyncKeyState(VK_LCONTROL) < 0)
+					else if (GetAsyncKeyState(VK_LSHIFT) < 0)
 					{
 						Aabb currentSelectionAabb ={};
 						currentSelectionAabb.min = (*iter)->GetMin();
@@ -232,7 +249,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						}
 						if (closestObj)
 						{
-							shortestDist = sqrtf(shortestDist); // ouch there must be a better way
 							Aabb currentIter = {};
 							currentIter.min = closestObj->GetMin();
 							currentIter.max = closestObj->GetMax();
@@ -251,6 +267,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 							{
 							case 1:
 								//Left
+								shortestDist = DistanceX(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
 								if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
 								{
 									DrawPosition.x += shortestDist - xDiffClose;
@@ -258,6 +275,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 								break;
 							case 2:
 								//Top
+								shortestDist = DistanceY(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
 								if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
 								{
 									DrawPosition.y -= shortestDist - yDiffClose;
@@ -265,6 +283,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 								break;
 							case 3:
 								//Right
+								shortestDist = DistanceX(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
 								if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
 								{
 									DrawPosition.x -= shortestDist - xDiffClose;
@@ -272,6 +291,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 								break;
 							case 4:
 								//Bottom
+								shortestDist = DistanceY(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
 								if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
 								{
 									DrawPosition.y += shortestDist - yDiffClose;
@@ -292,75 +312,120 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 			}
 		}
-		
 		if (GetAsyncKeyState(1) < 0)
 		{
+
 			if (!isLeftMouseClicked)
 			{
 				isLeftMouseClicked = true;
-				switch (ObjCounter)
+				bool found = false;
+				if (ObjCounter == kBlankState)
 				{
-				case kBuildingObj:
-				{
-					auto newObject = new DrawObject(*buildingObj);
-					auto iter = ToSavePrefabMap.find(kBuildingObj);
-					if (iter != ToSavePrefabMap.end())
+
+					Aabb mouse = {};
+					mouse.min = DrawPosition;
+					mouse.max = DrawPosition;
+					for (auto iterator = ToSavePrefabMap.begin(); iterator != ToSavePrefabMap.end(); ++iterator)
 					{
-						iter->second.push_back(newObject);
+						for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
+						{
+							Aabb currentSelectionAabb = {};
+							currentSelectionAabb.min = (*innerIter)->GetMin();
+							currentSelectionAabb.max = (*innerIter)->GetMax();
+							if (CheckAabbIntersect(&currentSelectionAabb,&mouse))
+							{
+								SelectedObject = (*innerIter);
+								found = true;
+							}
+						}
 					}
-					else
-					{
-						std::vector<DrawObject*> v_newDrawObject;
-						v_newDrawObject.push_back(newObject);
-						ToSavePrefabMap.insert({ kBuildingObj,v_newDrawObject });
-					}
-					break;
+					if (!found)
+						SelectedObject = nullptr;
 				}
-				case kVerticalRoadObj: 
+				else
 				{
-					auto newObject = new DrawObject(*verRoad);
-					auto iter = ToSavePrefabMap.find(kVerticalRoadObj);
-					if (iter != ToSavePrefabMap.end())
+					switch (ObjCounter)
 					{
-						iter->second.push_back(newObject);
+						case kBuildingObj:
+						{
+							auto newObject = new DrawObject(*buildingObj);
+							auto iter = ToSavePrefabMap.find(kBuildingObj);
+							if (iter != ToSavePrefabMap.end())
+							{
+								iter->second.push_back(newObject);
+							}
+							else
+							{
+								std::vector<DrawObject*> v_newDrawObject;
+								v_newDrawObject.push_back(newObject);
+								ToSavePrefabMap.insert({ kBuildingObj,v_newDrawObject });
+							}
+							break;
+						}
+						case kVerticalRoadObj:
+						{
+							auto newObject = new DrawObject(*verRoad);
+							auto iter = ToSavePrefabMap.find(kVerticalRoadObj);
+							if (iter != ToSavePrefabMap.end())
+							{
+								iter->second.push_back(newObject);
+							}
+							else
+							{
+								std::vector<DrawObject*> v_newDrawObject;
+								v_newDrawObject.push_back(newObject);
+								ToSavePrefabMap.insert({ kVerticalRoadObj,v_newDrawObject });
+							}
+							break;
+						}
+						case kHorizontalRoadObj:
+						{
+							auto newObject = new DrawObject(*horRoad);
+							auto iter = ToSavePrefabMap.find(kHorizontalRoadObj);
+							if (iter != ToSavePrefabMap.end())
+							{
+								iter->second.push_back(newObject);
+							}
+							else
+							{
+								std::vector<DrawObject*> v_newDrawObject;
+								v_newDrawObject.push_back(newObject);
+								ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
+							}
+							break;
+						}
 					}
-					else
-					{
-						std::vector<DrawObject*> v_newDrawObject;
-						v_newDrawObject.push_back(newObject);
-						ToSavePrefabMap.insert({ kVerticalRoadObj,v_newDrawObject });
-					}
-					break;
-				}
-				case kHorizontalRoadObj:
-				{
-					auto newObject = new DrawObject(*horRoad);
-					auto iter = ToSavePrefabMap.find(kHorizontalRoadObj);
-					if (iter != ToSavePrefabMap.end())
-					{
-						iter->second.push_back(newObject);
-					}
-					else
-					{
-						std::vector<DrawObject*> v_newDrawObject;
-						v_newDrawObject.push_back(newObject);
-						ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
-					}
-					break;
-				}
 				}
 			}
 		}
 		else
 		{
-			isLeftMouseClicked = false;
+			isLeftMouseClicked = false; //Potential Bug
 		}
 		
 		for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
 		{
-			for (auto innerIter = (*iter).second.begin();innerIter != (*iter).second.end() ;++innerIter)
+			for (auto innerIter = (*iter).second.begin();innerIter != (*iter).second.end() ;)
 			{
 				(*innerIter)->Draw();
+
+				if (SelectedObject == (*innerIter))
+				{
+					if (GetAsyncKeyState(VK_DELETE) < 0)
+					{
+						delete(SelectedObject);
+						(*iter).second.erase(innerIter);
+						SelectedObject = nullptr;
+						if ((*iter).second.size() == 0)
+							break;
+					}
+					else
+						++innerIter;
+				}
+				else
+				{
+					++innerIter;
+				}
 			}
 		}
 
@@ -415,17 +480,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				isSaved = false;
 			}
 		}
-
+		
 
 		s8 chars[100] = {};
 		s8 chars2[100]= {};
 		s8 chars4[100]= {};
-
+		s8 chars5[100]= {};
 		
 
 		sprintf_s(chars, 100, "DrawObject Pos: %.2f,%.2f", DrawPosition.x, DrawPosition.y);
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
 		sprintf_s(chars3, 100, "+");
+		sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->GetName() : "---");
 		count = 0;
 		for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin(); iter < PrefabVector.end(); ++iter, ++count)
 		{
@@ -442,6 +508,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEGfxPrint(font, chars, currentCamPosX- ScreenSizeX, currentCamPosY+(ScreenSizeY/10)*9, 0, 0, 1);
 		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY/10)*9  -30, 1, 0, 0);
 		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9-60, 0, 0, 1);
+		AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 0, 0, 1);
 		/*
 		*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 
