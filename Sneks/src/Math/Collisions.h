@@ -13,8 +13,6 @@ private:
 public:
 	Collisions();
 	~Collisions();
-	void Update(float dt);
-	void AddObjectToCollisionGroup(DrawObject*, unsigned int collisionGroup);
 
 };
 

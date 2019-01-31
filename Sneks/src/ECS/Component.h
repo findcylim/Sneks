@@ -11,6 +11,7 @@ enum Component : unsigned char
 	kComponentDraw,
 	kComponentPhysics,
 	kComponentCamera,
+	kComponentCollision,
 	kComponentEnd
 };
 

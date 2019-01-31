@@ -8,9 +8,6 @@
     <Filter Include="ECSystem">
       <UniqueIdentifier>{2dae4ec9-d7f1-40e1-b32c-f5f171eb44f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics">
-      <UniqueIdentifier>{9a72f7b1-d17f-415d-83c5-bfbc27cedecc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Systems">
       <UniqueIdentifier>{56f3dfa6-ca15-40f6-9302-e497ac1a3032}</UniqueIdentifier>
     </Filter>
@@ -25,6 +22,9 @@
     </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{6933e68f-8b22-457d-826e-1b129e51416a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Relics of the Past">
+      <UniqueIdentifier>{9a72f7b1-d17f-415d-83c5-bfbc27cedecc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -50,7 +50,7 @@
       <Filter>ECSystem</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\DrawObject.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClCompile>
     <ClCompile Include="Math\Aabb.cpp">
       <Filter>Math</Filter>
@@ -78,7 +78,7 @@
     </ClCompile>
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Graphics\Background.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClCompile>
     <ClCompile Include="Utility\DebugPrintToScreen.cpp">
       <Filter>Utility</Filter>
@@ -90,18 +90,17 @@
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Buildings.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\CameraShake.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Particles.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClCompile>
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -116,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="Systems\GraphicsSystem.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\CollisionSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CollisionComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +155,7 @@
       <Filter>ECSystem</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\DrawObject.h">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClInclude>
     <ClInclude Include="Math\Aabb.h">
       <Filter>Math</Filter>
@@ -183,7 +188,7 @@
       <Filter>ECSystem</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Background.h">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClInclude>
     <ClInclude Include="Utility\DebugPrintToScreen.h">
       <Filter>Utility</Filter>
@@ -204,18 +209,17 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Buildings.h">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\CameraShake.h">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Particles.h">
-      <Filter>Graphics</Filter>
+      <Filter>Relics of the Past</Filter>
     </ClInclude>
     <ClInclude Include="Utility\MemoryAllocator.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\CollisionSystem.h" />
     <ClInclude Include="Components\TransformComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -236,6 +240,12 @@
     </ClInclude>
     <ClInclude Include="FileIO.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\CollisionSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CollisionComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

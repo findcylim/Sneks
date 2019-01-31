@@ -1,13 +1,6 @@
 #include "DrawComponent.h"
 
 
-DrawComponent::DrawComponent(BaseComponent* transformComponent) :
-	m_po_TransformComponent{ static_cast<TransformComponent*>(transformComponent) }
-{
-	assert(m_po_TransformComponent != nullptr);
-	assert(m_po_TransformComponent->m_x_ComponentID == kComponentTransform);
-}
-
 void DrawComponent::SetColor(float red, float green, float blue, float alpha)
 {
 	m_f_RgbaColor.red = red;

@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "ComponentManager.h"
+#include "../Components/CollisionComponent.h"
 
 
 ComponentManager::ComponentManager()
@@ -29,16 +30,37 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer = static_cast<BaseComponent*>(new TransformComponent);
 			break;
 		case Component::kComponentDraw:
-			const auto transformComponent = GetSpecificComponentInstance(
+			{
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
 				entityPointer, kComponentTransform
-			);
-			componentPointer = static_cast<BaseComponent*>(new DrawComponent(transformComponent));
+			));
+			auto drawComponent = new DrawComponent();
+			drawComponent->m_po_TransformComponent = transformComponent;
+			componentPointer = static_cast<BaseComponent*>(drawComponent);
+			}
 			break;
 		case Component::kComponentPhysics:
-			componentPointer = static_cast<BaseComponent*>(new PhysicsComponent);
+		{
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
+				entityPointer, kComponentTransform
+			));
+			auto physicsComponent = new PhysicsComponent();
+			physicsComponent->m_po_TransformComponent = transformComponent;
+			componentPointer = static_cast<BaseComponent*>(physicsComponent);
+		}
 			break;
 		case kComponentCamera: break;
 		case kComponentEnd: break;
+		case kComponentCollision: 
+			{
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
+				entityPointer, kComponentTransform
+			));
+			auto collisionComponent = new CollisionComponent();
+			collisionComponent->m_po_TransformComponent = transformComponent;
+			componentPointer = static_cast<BaseComponent*>(collisionComponent);
+			break;
+			}
 		default: ;
 		}
 

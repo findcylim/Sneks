@@ -25,9 +25,6 @@ public:
 	AEMtx33*                m_po_GlobalMatrix;
 
 
-	DrawComponent() = delete;
-	DrawComponent(BaseComponent* transformComponent);
-
 	void SetColor(float red, float green, float blue, float alpha);
 	float GetSizeX()	 const;
 	float GetSizeY()	 const;
