@@ -24,7 +24,6 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer = new BaseComponent;
 			break;
 		case Component::kComponentSample:
-			componentPointer = static_cast<BaseComponent*>(new SampleComponent);
 			break;
 		case Component::kComponentTransform:
 			componentPointer = static_cast<BaseComponent*>(new TransformComponent);

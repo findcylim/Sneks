@@ -12,10 +12,13 @@
 
 class TransformComponent : public BaseComponent
 {
+public:
+
 	HTVector2					m_x_Position;
 	float		                m_f_Rotation = 0;
 	float						m_f_Scale = 1.0f;
-public:
+
+
 	float		GetScale() const;
 	void		SetScale(float f);
 	void		SetRotation(float f);

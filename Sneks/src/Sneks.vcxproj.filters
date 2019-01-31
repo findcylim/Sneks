@@ -92,9 +92,6 @@
     <ClCompile Include="Graphics\Buildings.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Camera.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\CameraShake.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -210,9 +207,6 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Buildings.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Camera.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\CameraShake.h">

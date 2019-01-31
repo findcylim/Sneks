@@ -29,7 +29,7 @@ struct CameraAttributes
 
 class CameraComponent : public BaseComponent
 {
-private:
+public:
 	std::vector<TransformComponent*> m_v_EntitiesToTrack;
 	AEVec2				  m_x_CurrentViewDistance;
 	AEVec2				  m_px_ScreenSize;
@@ -43,7 +43,6 @@ private:
 	float		           m_f_VirtualOffsetX;
 	float		           m_f_VirtualOffsetY;
 
-public:
 	void AddToTrack(TransformComponent* pDrawObject);
 	void Update(float dt);
 	float GetVirtualScale() const;

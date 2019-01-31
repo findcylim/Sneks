@@ -8,9 +8,9 @@
 class GraphicsSystem : public BaseSystem
 {
 public:
-	std::multimap<const char*, AEGfxTexture*> m_x_textureMap;
-	EntityManager*		m_po_EntityManager;
-	ComponentManager* m_po_ComponentManager;
+	std::multimap<const char*, AEGfxTexture*> m_x_TextureMap;
+	EntityManager*		                        m_po_EntityManager;
+	ComponentManager*                         m_po_ComponentManager;
 
 	GraphicsSystem();
 	GraphicsSystem(GraphicsSystem&) = delete;
@@ -19,5 +19,6 @@ public:
 	AEGfxTexture* FetchTexture(const char* textureName);
 	void PreLoadTextures();
 	void LoadTextureToMap(const char* fileName, const char* textureName);
-	void Draw(float dt);
+	void Draw(float dt) const;
+	void UpdateMatrices(CameraComponent*) const;
 };

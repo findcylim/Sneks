@@ -33,7 +33,6 @@
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Graphics\Background.cpp" />
     <ClCompile Include="Graphics\Buildings.cpp" />
-    <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\CameraShake.cpp" />
     <ClCompile Include="Graphics\DrawObject.cpp" />
     <ClCompile Include="Graphics\Particles.cpp" />
@@ -72,7 +71,6 @@
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Graphics\Background.h" />
     <ClInclude Include="Graphics\Buildings.h" />
-    <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\CameraShake.h" />
     <ClInclude Include="Graphics\DrawObject.h" />
     <ClInclude Include="Graphics\Particles.h" />

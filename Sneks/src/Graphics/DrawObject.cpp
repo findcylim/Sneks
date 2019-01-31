@@ -142,28 +142,9 @@ DrawObject::~DrawObject(void)
 
 void DrawObject::Draw(Camera* cam) const
 {
-	AEMtx33Rot(m_po_RotationMatrix, m_f_Rotation);
-	AEMtx33ScaleApply(m_po_RotationMatrix, m_po_RotationMatrix, m_f_Scale, m_f_Scale);
-	AEMtx33Trans(m_po_TranslationMatrix, m_x_Position.x, m_x_Position.y);
-	/*generate global matrix from rot and trans*/
-	AEMtx33Concat(m_po_GlobalMatrix, m_po_TranslationMatrix, m_po_RotationMatrix);
 
-	AEMtx33TransApply(m_po_GlobalMatrix, m_po_GlobalMatrix, cam->GetVirtualOffsetX(), cam->GetVirtualOffsetY());
-
-	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, cam->GetVirtualScale(), cam->GetVirtualScale());
-
-	//allow transparency to work !! must be first
-	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
-
-	AEGfxSetTintColor(m_f_RgbaColor.red, m_f_RgbaColor.green, m_f_RgbaColor.blue, m_f_RgbaColor.alpha);
-	AEGfxTextureSet(m_px_Texture, 0, 0);
-	AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
-	AEGfxSetTransparency(1);
-	AEGfxSetPosition(m_x_Position.x, m_x_Position.y);
-	AEGfxSetTransform(m_po_GlobalMatrix->m);
-	AEGfxMeshDraw(m_px_Obj, AE_GFX_MDM_TRIANGLES);
 }
+
 
 float DrawObject::GetRotatedOffsetXx() const
 {
