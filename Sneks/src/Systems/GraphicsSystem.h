@@ -11,10 +11,8 @@ class GraphicsSystem : public BaseSystem
 {
 public:
 	std::multimap<const char*, AEGfxTexture*> m_x_TextureMap;
-	EntityManager*		                        m_po_EntityManager;
-	ComponentManager*                         m_po_ComponentManager;
 
-	GraphicsSystem();
+	GraphicsSystem(EntityManager* entityManagerPtr);
 	GraphicsSystem(GraphicsSystem&) = delete;
 	~GraphicsSystem();
 	void Initialize(EntityManager* entityManager);

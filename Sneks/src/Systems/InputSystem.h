@@ -23,7 +23,7 @@ enum ButtonNames
 class InputSystem : public BaseSystem
 {
 public:
-	InputSystem(EventManager* eventManager,short ID,const char * name,GameStateManager* gameStateManager,Logger* logger);
+	InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager,short ID,const char * name,GameStateManager* gameStateManager,Logger* logger);
 	~InputSystem();
 	void Update();
 

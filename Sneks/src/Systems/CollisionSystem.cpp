@@ -3,6 +3,12 @@
 #include "../Components/DrawComponent.h"
 
 
+CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
+BaseSystem(entityManagerPtr)
+{
+
+}
+
 void CollisionSystem::Update(float dt)
 {
 	/*Aabb snekHeadAabb ={};

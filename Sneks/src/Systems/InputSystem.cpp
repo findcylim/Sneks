@@ -15,7 +15,8 @@
 
 ***************************************************/
 
-InputSystem::InputSystem(EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager,Logger* logger)
+InputSystem::InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager,Logger* logger):
+BaseSystem(entityManagerPtr)
 {
 	m_o_Logger				= logger;
 	m_o_EventManager		= eventManager;
@@ -33,8 +34,8 @@ InputSystem::~InputSystem()
 void InputSystem::SetKeyBinds()
 {
 	for (std::map<unsigned char, ButtonNames>::iterator i_KeyBind = m_m_KeyBinds.begin();
-														i_KeyBind != m_m_KeyBinds.end();
-														i_KeyBind++)
+				i_KeyBind != m_m_KeyBinds.end();
+				++i_KeyBind)
 	{
 
 	}

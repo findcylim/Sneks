@@ -71,4 +71,15 @@ void SystemManager::Update(float dt)
 
 
 
+BaseSystem* SystemManager::GetSystem(int ID)
+{
+	for (BaseSystem* currSystem : SystemList)
+	{
+		if (currSystem->GetID() == ID)
+		{
+			return currSystem;
+		}
+	}
+	return nullptr;
+}
 

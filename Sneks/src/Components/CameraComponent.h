@@ -29,10 +29,9 @@ struct CameraAttributes
 
 class CameraComponent : public BaseComponent
 {
-private:
+public:
 	std::vector<TransformComponent*> m_v_EntitiesToTrack;
 
-public:
 	AEVec2				  m_x_CurrentViewDistance;
 	AEVec2				  m_px_ScreenSize;
 	float					  m_f_ZoomVelocity;

@@ -10,14 +10,12 @@
 class CollisionSystem final : public BaseSystem // Add event listeners here
 {
 private:
-	EntityManager*		                        m_po_EntityManager;
-	ComponentManager*                         m_po_ComponentManager;
 	std::vector<CollisionGroup>					m_xo_ComponentsPerGroup;
 	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings;
 
 
 public:
-	CollisionSystem() = default;
+	CollisionSystem(EntityManager* entityManagerPtr);
 	~CollisionSystem() = default;
 	void Update(float dt) override;
 	void Initialize();

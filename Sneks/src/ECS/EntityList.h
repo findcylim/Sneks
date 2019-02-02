@@ -33,16 +33,16 @@ class BaseEntity
 
 class SampleEntity : BaseEntity
 {
-	public:
-		Component m_ax_InitialComponents[2] = { Component::kComponentSample , Component::kComponentEnd };
+public:
+	Component m_ax_InitialComponents[2] = { Component::kComponentSample , Component::kComponentEnd };
 
-		SampleEntity(const char* entityName) : BaseEntity(entityName) {};
+	SampleEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
 class SnekHeadEntity : BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -50,7 +50,7 @@ public:
 class SnekBodyEntity : BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision };
 
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -58,7 +58,7 @@ public:
 class StaticObjectEntity : BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform, Component::kComponentDraw , Component::kComponentCollision };
 
 	StaticObjectEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -66,7 +66,7 @@ public:
 class BackgroundEntity : BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+	Component m_ax_InitialComponents[2] ={ Component::kComponentTransform, Component::kComponentDraw };
 
 	BackgroundEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -74,7 +74,7 @@ public:
 class CameraEntity : BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[2] ={ Component::kComponentSample , Component::kComponentEnd };
+	Component m_ax_InitialComponents[2] ={ Component::kComponentTransform , Component::kComponentCamera };
 
 	CameraEntity(const char* entityName) : BaseEntity(entityName) {};
 	

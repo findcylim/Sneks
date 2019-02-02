@@ -7,6 +7,7 @@
 #include "../Systems/GraphicsSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Utility/AlphaEngineHelper.h"
+#include "../CameraSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -52,9 +53,21 @@ void ECSystem::InitializeEngine()
 	/*
 		Create and add Systems here
 	*/
-	m_o_SystemManager->AddSystem(new GraphicsSystem());
-	m_o_SystemManager->AddSystem(new PhysicsSystem(m_o_EventManager,m_o_GameStateManager));
-	m_o_SystemManager->AddSystem(new CollisionSystem());
+	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
+	graphics->SetID(0);
+	m_o_SystemManager->AddSystem(graphics);
+
+	auto physics = new PhysicsSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager);
+	physics->SetID(1);
+	m_o_SystemManager->AddSystem(physics);
+
+	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
+	collisions->SetID(2);
+	m_o_SystemManager->AddSystem(collisions);
+
+	auto camera = new CameraSystem(m_o_EntityComponentManager);
+	camera->SetID(3);
+	m_o_SystemManager->AddSystem(camera);
 
 	m_b_EngineStatus = true;
 }

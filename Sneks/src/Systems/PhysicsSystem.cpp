@@ -1,7 +1,8 @@
 #include "PhysicsSystem.h"
 #include <iostream>
 
-PhysicsSystem::PhysicsSystem(EventManager* eventManager, GameStateManager* gameStateManager)
+PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GameStateManager* gameStateManager):
+BaseSystem(entityManagerPtr)
 {
 	Initialize(eventManager, gameStateManager);
 }
@@ -61,6 +62,8 @@ void PhysicsSystem::receive(const Events::Ev_PLAYER2GAME_RIGHTKEY& eventData)
 void PhysicsSystem::Update(float dt)
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
+
+
 
 	//Player 1 Controls
 	//'A' Key (Turn Left)
@@ -143,7 +146,7 @@ void PhysicsSystem::Update(float dt)
 
 
 
-HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float dt)
+HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const
 {
 	auto forwardVelocity = GetForwardVelocity(physicsComponent);
 	physicsComponent->m_po_TransformComponent->m_x_Position.x += forwardVelocity.x * dt;

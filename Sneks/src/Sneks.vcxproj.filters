@@ -95,6 +95,10 @@
     <ClCompile Include="Math\CollisionGroup.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="SnekSystem.cpp" />
+    <ClCompile Include="CameraSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -192,6 +196,10 @@
     </ClInclude>
     <ClInclude Include="Components\CollisionComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SnekSystem.h" />
+    <ClInclude Include="CameraSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,9 +11,7 @@ private:
 	AEGfxTexture*  m_px_SnekHed;
 	AEGfxTexture*  m_px_SnekHedL;
 	AEGfxTexture*  m_px_SnekHedR;
-	AEGfxTexture*  m_px_SnekHedBoost;
-	AEGfxTexture*  m_px_SnekHedSmoke;
-	//DrawObject*	   m_px_Particles;
+		//DrawObject*	   m_px_Particles;
 	unsigned short m_i_PlayerNumber        = 0;
 	unsigned int   m_i_AccelerationKey     = VK_UP;
 	unsigned int   m_i_BrakeKey            = VK_DOWN;

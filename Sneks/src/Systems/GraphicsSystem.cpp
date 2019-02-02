@@ -1,9 +1,6 @@
 #include "GraphicsSystem.h"
 
-GraphicsSystem::GraphicsSystem()
-{
-	
-};
+GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr){};
 
 
 GraphicsSystem::~GraphicsSystem()
@@ -18,6 +15,7 @@ void GraphicsSystem::Initialize(EntityManager* entityManager)
 {
 	m_po_EntityManager = entityManager;
 	m_po_ComponentManager = entityManager->GetComponentManager();
+	PreLoadTextures();
 }
 
 AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)

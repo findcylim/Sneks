@@ -19,6 +19,7 @@ public:
 	void AddSystem(BaseSystem* NewSystem);
 	void RemoveSystem(BaseSystem* RemSystem);
 	void Update(float dt);
+	BaseSystem* GetSystem(int ID);
 	void Initialize();
 	SystemManager(Logger* logger);
 	~SystemManager();
