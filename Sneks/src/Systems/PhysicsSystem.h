@@ -1,3 +1,5 @@
+#ifndef PHYSICS_SYSTEM_H
+#define PHYSICS_SYSTEM_H
 #pragma once
 
 #include "../ECS/System.h"
@@ -30,3 +32,4 @@ public:
 	virtual void receive(const Events::Ev_PLAYER2GAME_RIGHTKEY& eventData) override;
 	void Update() override;
 };
+#endif

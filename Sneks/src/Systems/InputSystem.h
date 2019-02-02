@@ -1,5 +1,5 @@
-#ifndef INPUTSYSTEM_H
-#define INPUTSYSTEM_H
+#ifndef INPUT_SYSTEM_H
+#define INPUT_SYSTEM_H
 
 #pragma once
 #include <map>
@@ -13,10 +13,10 @@ enum ButtonNames
 {
 	kInputPlayer1TurnLeft,
 	kInputPlayer1TurnRight,
-	kInputPlayer1Powerup,
+	kInputPlayer1PowerUp,
 	kInputPlayer2TurnLeft,
 	kInputPlayer2TurnRight,
-	kInputPlayer2Powerup,
+	kInputPlayer2PowerUp,
 	kEscape,
 };
 

@@ -56,7 +56,7 @@ void GraphicsSystem::Draw(float dt) const
 	while (i_DrawComponent)
 	{
 		//Check if there is transform component
-		if (auto i_TransformComponent = i_DrawComponent->GetTransformComponent()) {
+		if (auto i_TransformComponent = i_DrawComponent->m_po_TransformComponent) {
 
 			//allow transparency to work !! must be first
 			AEGfxSetBlendMode(AE_GFX_BM_BLEND);
@@ -81,9 +81,9 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 	while (i_DrawComponent)
 	{
 		//Check if there is transform component
-		if (auto i_TransformComponent = i_DrawComponent->GetTransformComponent()) {
+		if (auto i_TransformComponent = i_DrawComponent->m_po_TransformComponent) {
 
-			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->m_f_Rotation);
+			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
 			AEMtx33ScaleApply(
 				i_DrawComponent->m_po_RotationMatrix, i_DrawComponent->m_po_RotationMatrix, 
 				i_TransformComponent->m_f_Scale, i_TransformComponent->m_f_Scale
@@ -99,11 +99,11 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 				);
 
 			AEMtx33TransApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->GetVirtualOffsetX(), cameraComponent->GetVirtualOffsetY()
+				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
 				);
 
 			AEMtx33ScaleApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->GetVirtualScale(), cameraComponent->GetVirtualScale()
+				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
 				);
 
 			i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);

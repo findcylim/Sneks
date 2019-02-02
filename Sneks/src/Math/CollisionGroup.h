@@ -4,11 +4,13 @@
 #include <vector>
 #include "../Graphics/DrawObject.h"
 #include "../Math/Aabb.h"
+#include "../Components/CollisionComponent.h"
+#include "../Systems/CollisionSystem.h"
 
 struct CollisionGroup final
 {
-	std::vector<DrawObject*> objects;
-	std::vector<Aabb*>		 objectsHitBoxes;
+	std::vector<CollisionComponent*> objects;
+	std::vector<Aabb*>					objectsHitBoxes;
 
 	void UpdateHitBoxes()
 	{
@@ -16,8 +18,8 @@ struct CollisionGroup final
 		{
 			for (int i_Objects = 0; i_Objects < objects.size(); i_Objects++)
 			{
-				objectsHitBoxes.at(i_Objects)->min = objects.at(i_Objects)->GetMin();
-				objectsHitBoxes.at(i_Objects)->max = objects.at(i_Objects)->GetMax();
+				objectsHitBoxes.at(i_Objects)->min = CollisionSystem::GetMin(objects.at(i_Objects)->m_po_DrawComponent);
+				objectsHitBoxes.at(i_Objects)->max = CollisionSystem::GetMax(objects.at(i_Objects)->m_po_DrawComponent);
 			}
 		}
 	}

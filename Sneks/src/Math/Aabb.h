@@ -8,6 +8,10 @@ typedef struct {
 	HTVector2 max;
 } Aabb;
 
-bool CheckAabbIntersect(Aabb*, Aabb*);
+namespace AabbHelper {
+	bool CheckAabbIntersect(Aabb*, Aabb*);
+	HTVector2 GetMin(const HTVector2 position, const HTVector2 size, const float scale);
+	HTVector2 GetMax(const HTVector2 position, const HTVector2 size, const float scale);
 
+}
 #endif //AABB_H

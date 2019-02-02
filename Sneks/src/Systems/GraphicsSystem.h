@@ -1,3 +1,5 @@
+#ifndef GRAPHICS_SYSTEM_H
+#define GRAPHICS_SYSTEM_H
 #pragma once
 #include <map>
 #include <AEEngine.h>
@@ -22,3 +24,4 @@ public:
 	void Draw(float dt) const;
 	void UpdateMatrices(CameraComponent*) const;
 };
+#endif
