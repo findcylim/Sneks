@@ -48,6 +48,8 @@
     <ClInclude Include="ECS\SystemManager.h" />
     <ClInclude Include="Graphics\DrawObject.h" />
     <ClInclude Include="Math\Aabb.h" />
+    <ClInclude Include="Math\HTColor.h" />
+    <ClInclude Include="Math\HTVector2.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
     <ClInclude Include="Utility\GameStateManager.h" />

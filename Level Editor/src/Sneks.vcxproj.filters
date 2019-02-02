@@ -118,5 +118,11 @@
     <ClInclude Include="ECS\EventListener.h">
       <Filter>ECSystem</Filter>
     </ClInclude>
+    <ClInclude Include="Math\HTVector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\HTColor.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

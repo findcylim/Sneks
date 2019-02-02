@@ -61,6 +61,18 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 	}
 }
 
+BaseSystem* SystemManager::GetSystem(int ID)
+{
+	for (BaseSystem* currSystem : SystemList)
+	{
+		if (currSystem->GetID() == ID)
+		{
+			return currSystem;
+		}
+	}
+	return nullptr;
+}
+
 void SystemManager::Update()
 {
 	for (BaseSystem* currSystem : SystemList)

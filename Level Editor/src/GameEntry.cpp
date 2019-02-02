@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include "Graphics/DrawObject.h"
+#include "Math/HTVector2.h"
 #include "AEEngine.h"
 #include "Math/Aabb.h"
 #include <sys/stat.h>
@@ -15,6 +16,9 @@
 
 constexpr int kNumBodyParts = 20;
 
+float DrawObject::m_f_GlobalScale = 1.0f;
+float DrawObject::m_f_GlobalCameraOffsetX = 0.0f;
+float DrawObject::m_f_GlobalCameraOffsetY = 0.0f;
 enum Objects
 {
 	kBuildingObj,
@@ -22,6 +26,16 @@ enum Objects
 	kHorizontalRoadObj,
 	kBlankState,
 	kNumberOfObjects
+};
+
+enum SnappingState
+{
+	kSnapXGrid,
+	kSnapYGrid,
+	kSnapBothAxis,
+	kSnapXObject,
+	kSnapYObject,
+	kSnapNone,
 };
 
 bool isfileExists(const std::string& file)
@@ -48,17 +62,19 @@ char CalculateOrientation(Aabb& main, Aabb& orientationTo)
 }
 
 
-float Distance(Vector2 lhs, Vector2 rhs)
+
+
+float Distance(HTVector2 lhs, HTVector2 rhs)
 {
 	return (abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
 }
 
-float DistanceX(Vector2 lhs, Vector2 rhs)
+float DistanceX(HTVector2 lhs, HTVector2 rhs)
 {
 	return abs(lhs.x - rhs.x);
 }
 
-float DistanceY(Vector2 lhs, Vector2 rhs)
+float DistanceY(HTVector2 lhs, HTVector2 rhs)
 {
 	return abs(lhs.y - rhs.y);
 }
@@ -106,6 +122,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto buildingObj = new DrawObject(0, 0, 71, 42, buildingTexture,"Building1","building.png");
 	bool isTabPressed = false;
 	char ObjCounter = kBuildingObj;
+	SnappingState SnapState = kSnapNone;
 
 	std::vector<DrawObject*> PrefabVector;
 	std::map<Objects, std::vector<DrawObject*>> ToSavePrefabMap;
@@ -115,6 +132,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PrefabVector.push_back(horRoad);
 	
 
+	float zoomLimitMin = 0.8f, zoomLimitMax = 1.2f;
+
 	auto font = AEGfxCreateFont("Arial", 20, false, false);
 	auto winFont = AEGfxCreateFont("Arial", 500, 1, 0);
 
@@ -122,7 +141,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	bool isMiddleMouseClicked	= false;
 	bool isLeftMouseClicked		= false;
 	bool isSaved				= false;
-	bool isLeftControl = false;
+	bool isLeftShift = false;
+	bool isCapsLock = false;
+	bool isGridLock = false;
+	bool isLeft = false, isRight = false, isUp = false, isDown = false;
 	POINT initialMousePos,currentMousePos;
 	float ScreenSizeX = (AEGfxGetWinMaxX() - AEGfxGetWinMinX())/2;
 	float ScreenSizeY = (AEGfxGetWinMaxY() - AEGfxGetWinMinY())/2;
@@ -176,8 +198,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				defaultCamPosY = currentCamPosY;
 			}
 		}
-		Vector2 DrawPosition{ static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x) - windowRect.left
-										 ,static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y) + windowRect.top };
+		if (GetAsyncKeyState(VK_ESCAPE) < 0)
+		{
+			ObjCounter = kBlankState;
+		}
+		if (GetAsyncKeyState(AEVK_CAPSLOCK) < 0)
+		{
+			if (!isCapsLock)
+			{
+				isGridLock = !isGridLock;
+			}
+			isCapsLock = true;
+			
+		}
+		else
+		{
+			isCapsLock = false;
+		}
+
+
+
+
+
+
+		HTVector2 DrawPosition{ static_cast<float>((currentCamPosX - ScreenSizeX) + (currentMousePos.x * DrawObject::m_f_GlobalScale) ) - windowRect.left
+										 ,static_cast<float>((currentCamPosY + ScreenSizeY) - (currentMousePos.y * DrawObject::m_f_GlobalScale)) + windowRect.top };
 		
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
@@ -209,6 +254,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						if (GetAsyncKeyState(VK_LSHIFT) < 0)
 						{
 							DrawPosition.y = (DrawPosition.y - (static_cast<int>(DrawPosition.y) % 50)) + ((*iter)->GetSizeY() / 2);
+							SnapState = kSnapYGrid;
 						}
 						else
 						{
@@ -220,6 +266,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 							{
 								DrawPosition.x = (DrawPosition.x - (static_cast<int>(DrawPosition.x) % 50)) + ((*iter)->GetSizeX() / 2);
 							}
+							SnapState = kSnapXGrid;
 						}
 					}
 					else if (GetAsyncKeyState(VK_LSHIFT) < 0)
@@ -254,9 +301,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 							currentIter.max = closestObj->GetMax();
 
 							short offset = 50;
-							if (isLeftControl == false)
+							if (isLeftShift == false)
 							{
-								isLeftControl = true;
+								isLeftShift = true;
 								char check = CalculateOrientation(currentSelectionAabb, currentIter);
 								if (check != -1)
 									if (check != orientationCheck)
@@ -267,34 +314,77 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 							{
 							case 1:
 								//Left
-								shortestDist = DistanceX(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
-								if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
+
+								if (isGridLock)
 								{
-									DrawPosition.x += shortestDist - xDiffClose;
+									DrawPosition.y = closestObj->GetPosition().y;
+									DrawPosition.x = closestObj->GetPosition().x - closestObj->GetSizeX() / 2 - (*iter)->GetSizeX() / 2;
+									SnapState = kSnapBothAxis;
+								}
+								else
+								{
+									shortestDist = DistanceX(DrawPosition, closestObj->GetPosition());
+									if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
+									{
+										DrawPosition.x += shortestDist - xDiffClose;
+										SnapState = kSnapXObject;
+									}
 								}
 								break;
 							case 2:
 								//Top
-								shortestDist = DistanceY(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
-								if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
+								if (isGridLock)
 								{
-									DrawPosition.y -= shortestDist - yDiffClose;
+									DrawPosition.x = closestObj->GetPosition().x;
+									DrawPosition.y = closestObj->GetPosition().y + (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2;
+									SnapState = kSnapBothAxis;
+								}
+								else
+								{
+									shortestDist = DistanceY(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
+									if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
+									{
+										SnapState = kSnapYObject;
+										DrawPosition.y -= shortestDist - yDiffClose;
+									}
 								}
 								break;
 							case 3:
 								//Right
-								shortestDist = DistanceX(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
-								if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
+
+								if (isGridLock)
 								{
-									DrawPosition.x -= shortestDist - xDiffClose;
+									DrawPosition.y = closestObj->GetPosition().y;
+									DrawPosition.x = closestObj->GetPosition().x + closestObj->GetSizeX() / 2 + (*iter)->GetSizeX() / 2;
+									SnapState = kSnapBothAxis;
+								}
+								else
+								{
+									shortestDist = DistanceX(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
+									if (shortestDist < ((xDiffClose = (*iter)->GetSizeX() / 2 + closestObj->GetSizeX() / 2) + offset))
+									{
+										SnapState = kSnapXObject;
+										DrawPosition.x -= shortestDist - xDiffClose;
+									}
 								}
 								break;
 							case 4:
 								//Bottom
-								shortestDist = DistanceY(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
-								if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
+
+								if (isGridLock)
 								{
-									DrawPosition.y += shortestDist - yDiffClose;
+									DrawPosition.x = closestObj->GetPosition().x;
+									DrawPosition.y = closestObj->GetPosition().y - (*iter)->GetSizeY() / 2 - closestObj->GetSizeY() / 2;
+									SnapState = kSnapBothAxis;
+								}
+								else
+								{
+									shortestDist = DistanceY(DrawPosition, closestObj->GetPosition()); // ouch there must be a better way
+									if (shortestDist < ((yDiffClose = (*iter)->GetSizeY() / 2 + closestObj->GetSizeY() / 2) + offset))
+									{
+										SnapState = kSnapYObject;
+										DrawPosition.y += shortestDist - yDiffClose;
+									}
 								}
 								break;
 							}
@@ -302,16 +392,61 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					}
 					else
 					{
-						isLeftControl = false;
+						isLeftShift = false;
+						SnapState = kSnapNone;
 					}
 
-					(*iter)->SetPositionX(DrawPosition.x);
-					(*iter)->SetPositionY(DrawPosition.y);
+					(*iter)->SetPosition(DrawPosition.x,DrawPosition.y);
 					(*iter)->Draw();
 					break;
 				}
 			}
 		}
+
+		if (GetAsyncKeyState(AEVK_MINUS) < 0)
+		{
+			if (DrawObject::m_f_GlobalScale >= zoomLimitMin)
+			{
+				DrawObject::m_f_GlobalScale -= 1 * AEFrameRateControllerGetFrameTime();
+			}
+			else
+			{
+				DrawObject::m_f_GlobalScale = zoomLimitMin;
+			}
+		}
+		else if (GetAsyncKeyState(AEVK_EQUAL) < 0)
+		{
+			if (DrawObject::m_f_GlobalScale <= zoomLimitMax)
+			{
+				DrawObject::m_f_GlobalScale += 1 * AEFrameRateControllerGetFrameTime();
+			}
+			else
+			{
+				DrawObject::m_f_GlobalScale = zoomLimitMax;
+			}
+		}
+
+		if (SelectedObject)
+		{
+			SelectedObject->SetColor(0.5,1.0f,0.5f,1.0f);
+			if (GetAsyncKeyState(VK_LEFT) < 0)
+			{
+				SelectedObject->SetPositionX(SelectedObject->GetPosition().x - 1);
+			}
+			if (GetAsyncKeyState(VK_RIGHT) < 0)
+			{
+				SelectedObject->SetPositionX(SelectedObject->GetPosition().x + 1);
+			}
+			if (GetAsyncKeyState(VK_UP) < 0)
+			{
+				SelectedObject->SetPositionY(SelectedObject->GetPosition().y + 1);
+			}
+			if (GetAsyncKeyState(VK_DOWN) < 0)
+			{
+				SelectedObject->SetPositionY(SelectedObject->GetPosition().y - 1);
+			}
+		}
+
 		if (GetAsyncKeyState(1) < 0)
 		{
 
@@ -340,7 +475,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						}
 					}
 					if (!found)
+					{
+						if (SelectedObject)
+						{
+							SelectedObject->SetColor(1.0f,1.0f,1.0f,1.0f);
+						}
 						SelectedObject = nullptr;
+					}
 				}
 				else
 				{
@@ -414,10 +555,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					if (GetAsyncKeyState(VK_DELETE) < 0)
 					{
 						delete(SelectedObject);
-						(*iter).second.erase(innerIter);
+						innerIter = (*iter).second.erase(innerIter);
 						SelectedObject = nullptr;
-						if ((*iter).second.size() == 0)
-							break;
 					}
 					else
 						++innerIter;
@@ -486,12 +625,36 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		s8 chars2[100]= {};
 		s8 chars4[100]= {};
 		s8 chars5[100]= {};
+		s8 chars6[100] = "Snapping: ";
+		switch (SnapState)
+		{
+		case kSnapXObject:
+			strcat_s<100>(chars6, "Object X-Axis");
+			break;
+		case kSnapYObject:
+			strcat_s<100>(chars6, "Object Y-Axis");
+			break;
+		case kSnapNone:
+			strcat_s<100>(chars6, "NIL");
+			break;
+		case kSnapBothAxis:
+			strcat_s<100>(chars6, "XY-Axis");
+			break;
+		case kSnapXGrid:
+			strcat_s<100>(chars6, "X-Axis");
+			break;
+		case kSnapYGrid:
+			strcat_s<100>(chars6, "Y-Axis");
+			break;
+		}
+		
 		
 
 		sprintf_s(chars, 100, "DrawObject Pos: %.2f,%.2f", DrawPosition.x, DrawPosition.y);
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
 		sprintf_s(chars3, 100, "+");
 		sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->GetName() : "---");
+		
 		count = 0;
 		for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin(); iter < PrefabVector.end(); ++iter, ++count)
 		{
@@ -509,6 +672,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY/10)*9  -30, 1, 0, 0);
 		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9-60, 0, 0, 1);
 		AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 0, 0, 1);
+		AEGfxPrint(font, chars6, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9 - 120, 0, 0, 1);
 		/*
 		*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 

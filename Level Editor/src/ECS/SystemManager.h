@@ -8,8 +8,6 @@
 #include "../Utility/Logger.h"
 
 
-
-
 class SystemManager
 {
 private:
@@ -18,6 +16,7 @@ private:
 public:
 	void AddSystem(BaseSystem* NewSystem);
 	void RemoveSystem(BaseSystem* RemSystem);
+	BaseSystem* GetSystem(int id);
 	void Update();
 	void Initialize();
 	SystemManager(Logger* logger);
