@@ -18,7 +18,7 @@ private:
 public:
 	void AddSystem(BaseSystem* NewSystem);
 	void RemoveSystem(BaseSystem* RemSystem);
-	void Update();
+	void Update(float dt);
 	void Initialize();
 	SystemManager(Logger* logger);
 	~SystemManager();

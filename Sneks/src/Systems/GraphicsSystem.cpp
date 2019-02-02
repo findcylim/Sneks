@@ -47,6 +47,10 @@ void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureN
 	m_x_TextureMap.insert(std::pair<const char*, AEGfxTexture*>(textureName,texture));
 }
 
+void GraphicsSystem::Update(float dt)
+{
+}
+
 void GraphicsSystem::Draw(float dt) const
 {
 	//Look for DrawComponents
@@ -70,6 +74,7 @@ void GraphicsSystem::Draw(float dt) const
 			AEGfxSetTransform(i_DrawComponent->m_po_GlobalMatrix->m);
 			AEGfxMeshDraw(i_DrawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
 		}
+		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
 }
 
@@ -106,7 +111,8 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
 				);
 
-			i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 		}
+
+		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
 }

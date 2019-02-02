@@ -49,20 +49,8 @@
     <ClCompile Include="ECS\SystemManager.cpp">
       <Filter>ECSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\DrawObject.cpp">
-      <Filter>Relics of the Past</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Aabb.cpp">
       <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Snek\Snek.cpp">
-      <Filter>Snek</Filter>
-    </ClCompile>
-    <ClCompile Include="Snek\SnekBody.cpp">
-      <Filter>Snek</Filter>
-    </ClCompile>
-    <ClCompile Include="Snek\SnekHead.cpp">
-      <Filter>Snek</Filter>
     </ClCompile>
     <ClCompile Include="Utility\GameStateManager.cpp">
       <Filter>Utility</Filter>
@@ -77,26 +65,11 @@
       <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="Graphics\Background.cpp">
-      <Filter>Relics of the Past</Filter>
-    </ClCompile>
     <ClCompile Include="Utility\DebugPrintToScreen.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Collisions.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="Math\PerlinNoise.cpp">
       <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Buildings.cpp">
-      <Filter>Relics of the Past</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\CameraShake.cpp">
-      <Filter>Relics of the Past</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Particles.cpp">
-      <Filter>Relics of the Past</Filter>
     </ClCompile>
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
@@ -119,8 +92,8 @@
     <ClCompile Include="Systems\CollisionSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Components\CollisionComponent.cpp">
-      <Filter>Components</Filter>
+    <ClCompile Include="Math\CollisionGroup.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,20 +127,8 @@
     <ClInclude Include="ECS\SystemManager.h">
       <Filter>ECSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\DrawObject.h">
-      <Filter>Relics of the Past</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Aabb.h">
       <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Snek\SnekHead.h">
-      <Filter>Snek</Filter>
-    </ClInclude>
-    <ClInclude Include="Snek\Snek.h">
-      <Filter>Snek</Filter>
-    </ClInclude>
-    <ClInclude Include="Snek\SnekBody.h">
-      <Filter>Snek</Filter>
     </ClInclude>
     <ClInclude Include="Utility\misc.h">
       <Filter>Utility</Filter>
@@ -187,16 +148,10 @@
     <ClInclude Include="ECS\EventListener.h">
       <Filter>ECSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Background.h">
-      <Filter>Relics of the Past</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\DebugPrintToScreen.h">
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Math\CollisionGroup.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Collisions.h">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\HTColor.h">
@@ -207,15 +162,6 @@
     </ClInclude>
     <ClInclude Include="Math\PerlinNoise.h">
       <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Buildings.h">
-      <Filter>Relics of the Past</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\CameraShake.h">
-      <Filter>Relics of the Past</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Particles.h">
-      <Filter>Relics of the Past</Filter>
     </ClInclude>
     <ClInclude Include="Utility\MemoryAllocator.h">
       <Filter>Utility</Filter>

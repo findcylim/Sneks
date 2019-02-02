@@ -27,7 +27,7 @@ void SystemManager::Initialize()
 
 void SystemManager::AddSystem(BaseSystem* NewSystem)
 {
-	if (NewSystem != 0)
+	if (NewSystem != nullptr)
 	{
 		SystemList.push_back(NewSystem);
 	}
@@ -61,11 +61,11 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 	}
 }
 
-void SystemManager::Update()
+void SystemManager::Update(float dt)
 {
 	for (BaseSystem* currSystem : SystemList)
 	{
-		currSystem->Update();
+		currSystem->Update(dt);
 	}
 }
 

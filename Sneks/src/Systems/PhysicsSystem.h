@@ -6,6 +6,9 @@
 #include "../ECS/EventListener.h"
 #include "../ECS/EventManager.h"
 #include "../Utility/GameStateManager.h"
+#include "../Math/HTVector2.h"
+#include "../Components/DrawComponent.h"
+#include "../Components/PhysicsComponent.h"
 
 
 class PhysicsSystem : public BaseSystem,
@@ -30,6 +33,8 @@ public:
 	virtual void receive(const Events::Ev_PLAYER2GAME_LEFTKEY& eventData) override;
 	virtual void receive(const Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY& eventData) override;
 	virtual void receive(const Events::Ev_PLAYER2GAME_RIGHTKEY& eventData) override;
-	void Update() override;
+	void Update(float dt) override;
+	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt);
+	HTVector2 GetForwardVelocity(PhysicsComponent* physicsComponent) const;
 };
 #endif

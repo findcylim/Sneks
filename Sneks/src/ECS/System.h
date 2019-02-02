@@ -17,7 +17,7 @@ protected:
 	bool		     m_b_isActive;
 public:
 	virtual void Update(float dt) = 0;
-	virtual void Update() = 0;
+	//virtual void Update();
 	void SetID(short id);
 	void SetName(const char* name);
 	virtual ~BaseSystem() {}

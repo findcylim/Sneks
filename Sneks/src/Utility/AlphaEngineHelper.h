@@ -1,5 +1,7 @@
+#ifndef ALPHA_ENGINE_HELPER_H
+#define ALPHA_ENGINE_HELPER_H
 #pragma once
-#include <minwindef.h> //HINSTANCE typdef
+#include <windows.h>
 
 namespace AlphaEngineHelper
 {
@@ -8,3 +10,4 @@ namespace AlphaEngineHelper
 
 };
 
+#endif

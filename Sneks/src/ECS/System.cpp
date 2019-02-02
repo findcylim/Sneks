@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-void BaseSystem::Update()
+void BaseSystem::Update(float dt)
 {
 	std::cout << "Error 2001 : Updating a non overriden system" << std::endl;
 }

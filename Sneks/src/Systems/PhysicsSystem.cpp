@@ -1,6 +1,5 @@
 #include "PhysicsSystem.h"
 #include <iostream>
-#include <Windows.h>
 
 PhysicsSystem::PhysicsSystem(EventManager* eventManager, GameStateManager* gameStateManager)
 {
@@ -59,7 +58,7 @@ void PhysicsSystem::receive(const Events::Ev_PLAYER2GAME_RIGHTKEY& eventData)
 }
 
 
-void PhysicsSystem::Update()
+void PhysicsSystem::Update(float dt)
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
@@ -144,19 +143,19 @@ void PhysicsSystem::Update()
 
 
 
-HTVector2 DrawObject::ApplyVelocity(float dt)
+HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float dt)
 {
-	auto forwardVelocity = GetForwardVelocity();
-	m_x_Position.x += forwardVelocity.x * dt;
-	m_x_Position.y += forwardVelocity.y * dt;
+	auto forwardVelocity = GetForwardVelocity(physicsComponent);
+	physicsComponent->m_po_TransformComponent->m_x_Position.x += forwardVelocity.x * dt;
+	physicsComponent->m_po_TransformComponent->m_x_Position.y += forwardVelocity.y * dt;
 	return forwardVelocity;
 }
 
-HTVector2 DrawObject::GetForwardVelocity() const
+HTVector2 PhysicsSystem::GetForwardVelocity(PhysicsComponent* physicsComponent) const
 {
 	//apply the velocity
 	AEVec2 forwardVector;
-	AEVec2FromAngle(&forwardVector, m_f_Rotation);
-	HTVector2 forwardVelocity ={ forwardVector.x * m_f_Velocity, forwardVector.y * m_f_Velocity };
+	AEVec2FromAngle(&forwardVector, physicsComponent->m_po_TransformComponent->GetRotation());
+	HTVector2 forwardVelocity ={ forwardVector.x * physicsComponent->m_f_Velocity, forwardVector.y * physicsComponent->m_f_Velocity };
 	return forwardVelocity;
 }

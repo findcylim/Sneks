@@ -3,18 +3,6 @@
 #include "../Components/DrawComponent.h"
 
 
-CollisionSystem::CollisionSystem()
-{
-
-}
-
-CollisionSystem::~CollisionSystem()
-{
-
-}
-
-
-
 void CollisionSystem::Update(float dt)
 {
 	/*Aabb snekHeadAabb ={};
@@ -83,7 +71,7 @@ void CollisionSystem::Update(float dt)
 				if (i_ObjectGroupB != i_ObjectGroupA) {
 					if (AabbHelper::CheckAabbIntersect(i_ObjectGroupA, i_ObjectGroupB))
 					{
-						//DO SOMETHING?
+						//TODO:: FIRE OFF COLLISION EVENT
 					}
 				}
 			}

@@ -5,9 +5,9 @@
 #include "../Math/CollisionGroup.h"
 #include "../ECS/EntityManager.h"
 #include "../Components/CollisionComponent.h"
-#include <set>
+#include <vector>
 
-class CollisionSystem : public BaseSystem // Add event listeners here
+class CollisionSystem final : public BaseSystem // Add event listeners here
 {
 private:
 	EntityManager*		                        m_po_EntityManager;
@@ -17,8 +17,8 @@ private:
 
 
 public:
-	CollisionSystem();
-	~CollisionSystem();
+	CollisionSystem() = default;
+	~CollisionSystem() = default;
 	void Update(float dt) override;
 	void Initialize();
 	void AddComponentToCollisionGroup(CollisionComponent* collisionComponent, unsigned collisionGroup);

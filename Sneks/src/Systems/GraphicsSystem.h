@@ -21,6 +21,7 @@ public:
 	AEGfxTexture* FetchTexture(const char* textureName);
 	void PreLoadTextures();
 	void LoadTextureToMap(const char* fileName, const char* textureName);
+	void Update(float dt) override;
 	void Draw(float dt) const;
 	void UpdateMatrices(CameraComponent*) const;
 };

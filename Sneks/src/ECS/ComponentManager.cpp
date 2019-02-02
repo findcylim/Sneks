@@ -57,7 +57,7 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 				entityPointer, kComponentTransform
 			));
 			auto collisionComponent = new CollisionComponent();
-			collisionComponent->m_po_TransformComponent = transformComponent;
+			collisionComponent->m_po_DrawComponent->m_po_TransformComponent = transformComponent;
 			componentPointer = static_cast<BaseComponent*>(collisionComponent);
 			break;
 			}

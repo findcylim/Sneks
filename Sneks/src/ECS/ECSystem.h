@@ -25,7 +25,7 @@ public:
 	ECSystem();
 	~ECSystem();
 	void InitializeEngine();
-	bool IsEngineOn();
+	bool IsEngineOn() const;
 	void Update();
 };
 
