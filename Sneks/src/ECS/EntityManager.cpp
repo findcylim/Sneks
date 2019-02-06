@@ -81,6 +81,12 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntitySample:
 			componentPointer = ((SampleEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityStaticObject:
+			componentPointer = ((StaticObjectEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityBackground:
+			componentPointer = ((BackgroundEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -105,6 +111,14 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 
 		case Entity::kEntitySample:
 			entityPointer = (BaseEntity*)new SampleEntity(entityName);
+			break;
+
+		case Entity::kEntityStaticObject:
+			entityPointer = (BaseEntity*)new StaticObjectEntity(entityName);
+			break;
+
+		case Entity::kEntityBackground:
+			entityPointer = (BaseEntity*)new BackgroundEntity(entityName);
 			break;
 	}
 

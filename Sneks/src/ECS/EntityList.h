@@ -31,7 +31,7 @@ class BaseEntity
 		BaseEntity(const char* entityName);
 };
 
-class SampleEntity : BaseEntity
+class SampleEntity : public BaseEntity
 {
 public:
 	Component m_ax_InitialComponents[2] = { Component::kComponentSample , Component::kComponentEnd };
@@ -39,7 +39,7 @@ public:
 	SampleEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
-class SnekHeadEntity : BaseEntity
+class SnekHeadEntity : public BaseEntity
 {
 public:
 	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision };
@@ -47,7 +47,7 @@ public:
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
-class SnekBodyEntity : BaseEntity
+class SnekBodyEntity : public BaseEntity
 {
 public:
 	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision };
@@ -55,7 +55,7 @@ public:
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
-class StaticObjectEntity : BaseEntity
+class StaticObjectEntity : public BaseEntity
 {
 public:
 	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform, Component::kComponentDraw , Component::kComponentCollision };
@@ -63,7 +63,7 @@ public:
 	StaticObjectEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
-class BackgroundEntity : BaseEntity
+class BackgroundEntity : public BaseEntity
 {
 public:
 	Component m_ax_InitialComponents[2] ={ Component::kComponentTransform, Component::kComponentDraw };
@@ -71,7 +71,7 @@ public:
 	BackgroundEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
-class CameraEntity : BaseEntity
+class CameraEntity : public BaseEntity
 {
 public:
 	Component m_ax_InitialComponents[2] ={ Component::kComponentTransform , Component::kComponentCamera };

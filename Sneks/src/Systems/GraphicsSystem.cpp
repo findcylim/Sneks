@@ -47,6 +47,7 @@ void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureN
 
 void GraphicsSystem::Update(float dt)
 {
+	Draw(dt);
 }
 
 void GraphicsSystem::Draw(float dt) const

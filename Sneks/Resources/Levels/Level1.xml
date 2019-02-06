@@ -1,0 +1,72 @@
+<Entity>
+	<EntityType=StaticObject>
+	<Name=Building1>
+		<Pos X=-299 Y=21>
+		<Rotation=0>
+		<Size X=71 Y=42>
+		<TextureName=building.png>
+</Entity>
+<Entity>
+	<EntityType=StaticObject>
+	<Name=Building1>
+		<Pos X=-392 Y=194>
+		<Rotation=0>
+		<Size X=71 Y=42>
+		<TextureName=building.png>
+</Entity>
+<Entity>
+	<EntityType=StaticObject>
+	<Name=Building1>
+		<Pos X=-20 Y=-112>
+		<Rotation=0>
+		<Size X=71 Y=42>
+		<TextureName=building.png>
+</Entity>
+<Entity>
+	<EntityType=Background>
+	<Name=Vertical Road>
+		<Pos X=-148 Y=-15>
+		<Rotation=0>
+		<Size X=9 Y=42>
+		<TextureName=vert-road.png>
+</Entity>
+<Entity>
+	<EntityType=Background>
+	<Name=Vertical Road>
+		<Pos X=-152 Y=171>
+		<Rotation=0>
+		<Size X=9 Y=42>
+		<TextureName=vert-road.png>
+</Entity>
+<Entity>
+	<EntityType=Background>
+	<Name=Horizontal Road>
+		<Pos X=-252 Y=-187>
+		<Rotation=0>
+		<Size X=71 Y=9>
+		<TextureName=horz-road.png>
+</Entity>
+<Entity>
+	<EntityType=Background>
+	<Name=Horizontal Road>
+		<Pos X=-492 Y=-195>
+		<Rotation=0>
+		<Size X=71 Y=9>
+		<TextureName=horz-road.png>
+</Entity>
+<Entity>
+	<EntityType=Background>
+	<Name=Horizontal Road>
+		<Pos X=-534 Y=-116>
+		<Rotation=0>
+		<Size X=71 Y=9>
+		<TextureName=horz-road.png>
+</Entity>
+<Entity>
+	<EntityType=Background>
+	<Name=Horizontal Road>
+		<Pos X=69 Y=-187>
+		<Rotation=0>
+		<Size X=71 Y=9>
+		<TextureName=horz-road.png>
+</Entity>

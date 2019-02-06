@@ -3,7 +3,7 @@
 #include "../Utility/GameStateManager.h"
 #include "../Systems/InputSystem.h"
 #include "../Systems/PhysicsSystem.h"
-
+#include "../Systems/LevelLoaderSystem.h"
 #include "../Systems/GraphicsSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Utility/AlphaEngineHelper.h"
@@ -68,6 +68,11 @@ void ECSystem::InitializeEngine()
 	auto camera = new CameraSystem(m_o_EntityComponentManager);
 	camera->SetID(3);
 	m_o_SystemManager->AddSystem(camera);
+
+	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager);
+	levelLoader->SetID(4);
+	m_o_SystemManager->AddSystem(levelLoader);
+	levelLoader->LoadLevel(kLevel1);
 
 	m_b_EngineStatus = true;
 }
