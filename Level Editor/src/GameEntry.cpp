@@ -221,8 +221,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 
-		HTVector2 DrawPosition{ static_cast<float>((currentCamPosX - ScreenSizeX) + (currentMousePos.x * DrawObject::m_f_GlobalScale) ) - windowRect.left
-										 ,static_cast<float>((currentCamPosY + ScreenSizeY) - (currentMousePos.y * DrawObject::m_f_GlobalScale)) + windowRect.top };
+		HTVector2 DrawPosition{ (static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x  ) - windowRect.left )* DrawObject::m_f_GlobalScale
+										 ,(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y + windowRect.top )* DrawObject::m_f_GlobalScale )};
 		
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
@@ -596,16 +596,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					
 					outFile.open(ofn.lpstrFile);
 
-					outFile << "<" << ofn.lpstrFile << ">" << std::endl;
 					for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
 					{
 						for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end(); ++innerIter)
 						{
 							outFile << "<Entity>" << std::endl;
+							outFile << "\t<EntityType=" << ((strcmp((*innerIter)->GetName(), "Building1") == 0) ? "StaticObject" : "Background") << ">" << std::endl;
 							outFile << "\t<Name=" << (*innerIter)->GetName() << ">" << std::endl;
 							outFile << "\t\t<Pos X=" << (*innerIter)->GetPosition().x << " Y=" << (*innerIter)->GetPosition().y << ">" << std::endl;
-							outFile << "\t\t<Size X=" << (*innerIter)->GetSizeX() << " Y=" << (*innerIter)->GetSizeY() << ">" << std::endl;
 							outFile << "\t\t<Rotation=" << (*innerIter)->GetRotation() << ">" << std::endl;
+							outFile << "\t\t<Size X=" << (*innerIter)->GetSizeX() << " Y=" << (*innerIter)->GetSizeY() << ">" << std::endl;
 							outFile << "\t\t<TextureName=" << (*innerIter)->GetTexName() << ">" << std::endl;
 							outFile << "</Entity>" << std::endl;
 
