@@ -42,7 +42,7 @@ public:
 class SnekHeadEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision };
+	Component m_ax_InitialComponents[5] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision  , Component::kComponentEnd };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -50,7 +50,7 @@ public:
 class SnekBodyEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision };
+	Component m_ax_InitialComponents[5] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision , Component::kComponentEnd };
 
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -58,7 +58,7 @@ public:
 class StaticObjectEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform, Component::kComponentDraw , Component::kComponentCollision };
+	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw , Component::kComponentCollision , Component::kComponentEnd };
 
 	StaticObjectEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -66,7 +66,7 @@ public:
 class BackgroundEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[2] ={ Component::kComponentTransform, Component::kComponentDraw };
+	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform, Component::kComponentDraw  , Component::kComponentEnd };
 
 	BackgroundEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -74,7 +74,7 @@ public:
 class CameraEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[2] ={ Component::kComponentTransform , Component::kComponentCamera };
+	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform , Component::kComponentCamera , Component::kComponentEnd };
 
 	CameraEntity(const char* entityName) : BaseEntity(entityName) {};
 	

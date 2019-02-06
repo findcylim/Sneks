@@ -49,14 +49,20 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer = static_cast<BaseComponent*>(physicsComponent);
 		}
 			break;
-		case kComponentCamera: break;
+		case kComponentCamera: 
+			componentPointer = static_cast<BaseComponent*>(new CameraComponent);
+			break;
 		case kComponentEnd: break;
 		case kComponentCollision: 
 			{
 			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
 				entityPointer, kComponentTransform
 			));
+			auto drawComponent = static_cast<DrawComponent*>(GetSpecificComponentInstance(
+				entityPointer, kComponentDraw
+			));
 			auto collisionComponent = new CollisionComponent();
+			collisionComponent->m_po_DrawComponent = drawComponent;
 			collisionComponent->m_po_DrawComponent->m_po_TransformComponent = transformComponent;
 			componentPointer = static_cast<BaseComponent*>(collisionComponent);
 			break;
@@ -69,6 +75,7 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer->m_x_ComponentID = componentType;
 			componentPointer->m_po_OwnerEntity = entityPointer;
 			entityPointer->m_v_AttachedComponentsList.push_back(componentPointer);
+			AddComponent(componentPointer, componentType);
 		}
 	}
 
@@ -144,8 +151,12 @@ BaseComponent* ComponentManager::GetFirstComponentInstance(Component componentTy
 BaseComponent* ComponentManager::GetSpecificComponentInstance(BaseEntity* entityPointer, Component componentType)
 {
 	for (unsigned i = 0; i < entityPointer->m_v_AttachedComponentsList.size(); i++)
+	{
 		if (entityPointer->m_v_AttachedComponentsList[i]->m_x_ComponentID == componentType)
+		{
 			return entityPointer->m_v_AttachedComponentsList[i];
+		}
+	}
 
 	return nullptr;
 }

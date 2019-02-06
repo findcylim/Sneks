@@ -1,6 +1,7 @@
 #pragma once
 #include "../ECS/System.h"
 #include "../Utility/GameStateManager.h"
+#include "GraphicsSystem.h"
 
 enum LevelID
 {
@@ -11,8 +12,9 @@ enum LevelID
 class LevelLoaderSystem :
 	public BaseSystem
 {
+	GraphicsSystem* m_o_GraphicsSystem;
 public:
-	LevelLoaderSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GameStateManager* gameStateManager);
+	LevelLoaderSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GameStateManager* gameStateManager,GraphicsSystem* graphicsSystem);
 	~LevelLoaderSystem();
 	bool LoadLevel(LevelID levelID);
 	void Update(float dt) override;

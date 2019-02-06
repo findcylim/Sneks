@@ -8,14 +8,14 @@ namespace AlphaEngineHelper {
 	{
 		AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, nullptr);
 		AESysSetWindowTitle("S.N.E.K.S.");
-		AEToogleFullScreen(true);
+		AEToogleFullScreen(false);
 		AESysReset();
 		AEGfxSetBackgroundColor(1, 1, 1);
 	}
 
 	void GetScreenSize(float* retWidth, float* retHeight)
 	{
-		assert(!retWidth || !retHeight);
+		//assert(!retWidth || !retHeight);
 		*retWidth = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
 		*retHeight = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
 	}

@@ -55,11 +55,11 @@ void EntityManager::AddEntity(BaseEntity* entityPointer, Entity entityType)
 		{
 			while (prevEntity->m_po_NextEntity)
 			{
-				checkName(entityPointer, prevEntity);
+				//checkName(entityPointer, prevEntity); //NEEDS TO BE FIXED TODO
 				prevEntity = prevEntity->m_po_NextEntity;
 			}
 
-			checkName(entityPointer, prevEntity);
+			//checkName(entityPointer, prevEntity);
 
 			prevEntity->m_po_NextEntity = entityPointer;
 			entityPointer->m_po_PrevEntiy = prevEntity;
@@ -86,6 +86,15 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 			break;
 		case Entity::kEntityBackground:
 			componentPointer = ((BackgroundEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityCamera:
+			componentPointer = ((CameraEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntitySnekHead:
+			componentPointer = ((SnekHeadEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntitySnekBody:
+			componentPointer = ((SnekBodyEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
 		}
 
@@ -119,6 +128,10 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 
 		case Entity::kEntityBackground:
 			entityPointer = (BaseEntity*)new BackgroundEntity(entityName);
+			break;
+
+		case Entity::kEntityCamera:
+			entityPointer = (BaseEntity*)new CameraEntity(entityName);
 			break;
 	}
 
