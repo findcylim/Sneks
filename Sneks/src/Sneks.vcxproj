@@ -53,6 +53,7 @@
     <ClInclude Include="Components\DrawComponent.h" />
     <ClInclude Include="Components\InvulnerableComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
+    <ClInclude Include="Components\SnekHeadComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />
@@ -72,7 +73,6 @@
     <ClInclude Include="Math\HTVector2.h" />
     <ClInclude Include="Math\PerlinNoise.h" />
     <ClInclude Include="Snek\Snek.h" />
-    <ClInclude Include="Snek\SnekBody.h" />
     <ClInclude Include="Snek\SnekHead.h" />
     <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CollisionSystem.h" />

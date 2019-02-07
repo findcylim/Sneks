@@ -18,6 +18,7 @@ private:
 	unsigned int   m_i_LeftKey             = VK_LEFT;
 	unsigned int   m_i_RightKey            = VK_RIGHT;
 	unsigned int   m_i_BoostKey            = AEVK_RCTRL;
+
 	float				m_f_Invulnerable		   = 0;
 public:
 	float GetInvulnerable();

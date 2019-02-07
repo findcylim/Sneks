@@ -13,16 +13,16 @@
 class DrawComponent : public BaseComponent
 {
 public:
-	AEGfxTexture*	           m_px_Texture;
-	AEGfxVertexList*		   m_px_Mesh;
-	HTVector2				   m_x_MeshSize;
-	HTColor					   m_f_RgbaColor ={ 1,1,1,1 };
+	AEGfxTexture*	            m_px_Texture;
+	AEGfxVertexList*		      m_px_Mesh;
+	HTVector2				      m_x_MeshSize;
+	HTColor					      m_f_RgbaColor ={ 1,1,1,1 };
 
 	TransformComponent*		   m_po_TransformComponent;
 
-	AEMtx33*				   m_po_RotationMatrix;
-	AEMtx33*		           m_po_TranslationMatrix;
-	AEMtx33*				   m_po_GlobalMatrix;
+	AEMtx33*				         m_po_RotationMatrix;
+	AEMtx33*		               m_po_TranslationMatrix;
+	AEMtx33*				         m_po_GlobalMatrix;
 
 
 	void SetColor(float red, float green, float blue, float alpha);

@@ -9,6 +9,7 @@
 #include "../Math/HTVector2.h"
 #include "../Components/DrawComponent.h"
 #include "../Components/PhysicsComponent.h"
+#include "../Components/SnekHeadComponent.h"
 
 
 class PhysicsSystem : public BaseSystem,
@@ -36,5 +37,6 @@ public:
 	void Update(float dt) override;
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
 	HTVector2 GetForwardVelocity(PhysicsComponent* physicsComponent) const;
+	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent snekHeadComponent) const;
 };
 #endif

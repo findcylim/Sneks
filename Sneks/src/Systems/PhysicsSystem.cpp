@@ -162,3 +162,14 @@ HTVector2 PhysicsSystem::GetForwardVelocity(PhysicsComponent* physicsComponent) 
 	HTVector2 forwardVelocity ={ forwardVector.x * physicsComponent->m_f_Velocity, forwardVector.y * physicsComponent->m_f_Velocity };
 	return forwardVelocity;
 }
+
+void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, const SnekHeadComponent snekHeadComponent) const
+{
+	if (physicsComponent->m_f_Velocity >= -snekHeadComponent.m_f_MinSpeed &&
+			physicsComponent->m_f_Velocity <= snekHeadComponent.m_f_MinSpeed)
+		physicsComponent->m_f_Velocity = -snekHeadComponent.m_f_IdleSpeed;
+	else if (physicsComponent->m_f_Velocity < 0)
+		physicsComponent->m_f_Velocity += snekHeadComponent.m_f_Friction;
+	else if (physicsComponent->m_f_Velocity > 0)
+		physicsComponent->m_f_Velocity -= snekHeadComponent.m_f_Friction;
+}

@@ -5,7 +5,12 @@
 
 #include "ComponentManager.h"
 #include "../Components/CollisionComponent.h"
-
+#include "../Components/InvulnerableComponent.h"
+#include "../Components/SnekHeadComponent.h"
+#include "../Components/TransformComponent.h"
+#include "../Components/DrawComponent.h"
+#include "../Components/PhysicsComponent.h"
+#include "../Components/CameraComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -67,7 +72,12 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer = static_cast<BaseComponent*>(collisionComponent);
 			break;
 			}
-		default: ;
+		case KComponentInvulnerable:
+			componentPointer = static_cast<BaseComponent*>(new InvulnerableComponent);
+			break;
+		case kComponentSnekHead: 
+			componentPointer = static_cast<BaseComponent*>(new SnekHeadComponent);
+			break;
 		}
 
 		if (componentPointer)

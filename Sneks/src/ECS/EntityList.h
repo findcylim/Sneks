@@ -42,7 +42,8 @@ public:
 class SnekHeadEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision  , Component::kComponentEnd };
+	Component m_ax_InitialComponents[7] ={ Component::kComponentTransform, Component::kComponentDraw,
+		Component::kComponentPhysics , Component::kComponentSnekHead, Component::KComponentInvulnerable, Component::kComponentCollision  , Component::kComponentEnd };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -50,7 +51,8 @@ public:
 class SnekBodyEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentCollision , Component::kComponentEnd };
+	Component m_ax_InitialComponents[6] ={ Component::kComponentTransform, Component::kComponentDraw,
+		Component::kComponentPhysics , Component::KComponentInvulnerable, Component::kComponentCollision , Component::kComponentEnd };
 
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };

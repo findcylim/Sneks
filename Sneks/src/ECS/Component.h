@@ -13,6 +13,7 @@ enum Component : unsigned char
 	kComponentCamera,
 	kComponentCollision,
 	KComponentInvulnerable,
+	kComponentSnekHead,
 	kComponentEnd
 };
 
