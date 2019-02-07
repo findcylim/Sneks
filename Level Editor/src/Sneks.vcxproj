@@ -28,6 +28,7 @@
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Graphics\DrawObject.cpp" />
+    <ClCompile Include="Graphics\SimpleDraw.cpp" />
     <ClCompile Include="Math\Aabb.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\SystemManager.h" />
     <ClInclude Include="Graphics\DrawObject.h" />
+    <ClInclude Include="Graphics\SimpleDraw.h" />
     <ClInclude Include="Math\Aabb.h" />
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />

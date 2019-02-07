@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include "Graphics/DrawObject.h"
+#include "Graphics/SimpleDraw.h"
 #include "Math/HTVector2.h"
 #include "AEEngine.h"
 #include "Math/Aabb.h"
@@ -120,6 +121,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture,"Horizontal Road","horz-road.png");
 	auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture, "Vertical Road","vert-road.png");
 	auto buildingObj = new DrawObject(0, 0, 71, 42, buildingTexture,"Building1","building.png");
+	auto selectionSquare = new SimpleDraw(0, 0, 1, 1, "Selection Square");
+	HTVector2 lastClickPosition = { 0,0 };
 	bool isTabPressed = false;
 	char ObjCounter = kBuildingObj;
 	SnappingState SnapState = kSnapNone;
@@ -144,6 +147,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	bool isLeftShift = false;
 	bool isCapsLock = false;
 	bool isGridLock = false;
+	bool isDrawSelection = false;
 	bool isLeft = false, isRight = false, isUp = false, isDown = false;
 	POINT initialMousePos,currentMousePos;
 	float ScreenSizeX = (AEGfxGetWinMaxX() - AEGfxGetWinMinX())/2;
@@ -222,7 +226,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 		HTVector2 DrawPosition{ (static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x  ) - windowRect.left )* DrawObject::m_f_GlobalScale
-										 ,(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y + windowRect.top )* DrawObject::m_f_GlobalScale )};
+										 ,(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y+28 + windowRect.top )* DrawObject::m_f_GlobalScale )};
 		
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
@@ -234,9 +238,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				{
 					ObjCounter = 0;
 				}
-
 			}
-
 		}
 		else 
 		{
@@ -460,6 +462,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					Aabb mouse = {};
 					mouse.min = DrawPosition;
 					mouse.max = DrawPosition;
+					lastClickPosition.x = DrawPosition.x;
+					lastClickPosition.y = DrawPosition.y;
 					for (auto iterator = ToSavePrefabMap.begin(); iterator != ToSavePrefabMap.end(); ++iterator)
 					{
 						for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
@@ -469,6 +473,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 							currentSelectionAabb.max = (*innerIter)->GetMax();
 							if (CheckAabbIntersect(&currentSelectionAabb,&mouse))
 							{
+								if (SelectedObject)
+									SelectedObject->SetColor(1, 1, 1, 1);
 								SelectedObject = (*innerIter);
 								found = true;
 							}
@@ -481,6 +487,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 							SelectedObject->SetColor(1.0f,1.0f,1.0f,1.0f);
 						}
 						SelectedObject = nullptr;
+
+						isDrawSelection = true;
 					}
 				}
 				else
@@ -542,8 +550,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		else
 		{
 			isLeftMouseClicked = false; //Potential Bug
+			//do stufff
+			isDrawSelection = false;
 		}
-		
+
+		if (isDrawSelection)
+		{
+
+		}
+
 		for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
 		{
 			for (auto innerIter = (*iter).second.begin();innerIter != (*iter).second.end() ;)
