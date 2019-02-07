@@ -1,5 +1,5 @@
 #pragma once
-#include "ECS/System.h"
+#include "../ECS/System.h"
 
 class CameraSystem :
 	public BaseSystem

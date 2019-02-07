@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraSystem.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\DrawComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
@@ -31,14 +30,19 @@
     <ClCompile Include="ECS\System.cpp" />
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Math\Aabb.cpp" />
     <ClCompile Include="Math\CollisionGroup.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
-    <ClCompile Include="SnekSystem.cpp" />
+    <ClCompile Include="Snek\Snek.cpp" />
+    <ClCompile Include="Snek\SnekBody.cpp" />
+    <ClCompile Include="Snek\SnekHead.cpp" />
+    <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Systems\SnekSystem.cpp" />
     <ClCompile Include="Utility\AlphaEngineHelper.cpp" />
     <ClCompile Include="Utility\DebugPrintToScreen.cpp" />
     <ClCompile Include="Utility\GameStateManager.cpp" />
@@ -46,10 +50,10 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\CollisionComponent.h" />
     <ClInclude Include="Components\DrawComponent.h" />
+    <ClInclude Include="Components\InvulnerableComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
@@ -69,11 +73,15 @@
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />
     <ClInclude Include="Math\PerlinNoise.h" />
-    <ClInclude Include="SnekSystem.h" />
+    <ClInclude Include="Snek\Snek.h" />
+    <ClInclude Include="Snek\SnekBody.h" />
+    <ClInclude Include="Snek\SnekHead.h" />
+    <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CollisionSystem.h" />
     <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="Systems\SnekSystem.h" />
     <ClInclude Include="Utility\AlphaEngineHelper.h" />
     <ClInclude Include="Utility\DebugPrintToScreen.h" />
     <ClInclude Include="Utility\GameStateManager.h" />

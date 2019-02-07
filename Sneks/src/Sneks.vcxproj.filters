@@ -95,9 +95,21 @@
     <ClCompile Include="Math\CollisionGroup.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="SnekSystem.cpp" />
-    <ClCompile Include="CameraSystem.cpp">
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Systems\CameraSystem.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\SnekSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Snek\SnekHead.cpp">
+      <Filter>Snek</Filter>
+    </ClCompile>
+    <ClCompile Include="Snek\Snek.cpp">
+      <Filter>Snek</Filter>
+    </ClCompile>
+    <ClCompile Include="Snek\SnekBody.cpp">
+      <Filter>Snek</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,9 +209,23 @@
     <ClInclude Include="Components\CollisionComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="SnekSystem.h" />
-    <ClInclude Include="CameraSystem.h">
+    <ClInclude Include="Systems\SnekSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\CameraSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Snek\SnekBody.h">
+      <Filter>Snek</Filter>
+    </ClInclude>
+    <ClInclude Include="Snek\SnekHead.h">
+      <Filter>Snek</Filter>
+    </ClInclude>
+    <ClInclude Include="Snek\Snek.h">
+      <Filter>Snek</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\InvulnerableComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

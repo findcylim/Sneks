@@ -47,10 +47,13 @@ void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureN
 
 void GraphicsSystem::Update(float dt)
 {
+	Draw(dt);
 }
 
 void GraphicsSystem::Draw(float dt) const
 {
+	UpdateMatrices(static_cast<CameraComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentCamera)));
 	//Look for DrawComponents
 	auto i_DrawComponent = static_cast<DrawComponent*>(m_po_ComponentManager
 		->GetFirstComponentInstance(kComponentDraw));

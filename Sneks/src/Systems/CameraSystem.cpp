@@ -1,5 +1,5 @@
 #include "CameraSystem.h"
-#include "Components/CameraComponent.h"
+#include "../Components/CameraComponent.h"
 
 
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr):
