@@ -34,9 +34,6 @@
     <ClCompile Include="Math\Aabb.cpp" />
     <ClCompile Include="Math\CollisionGroup.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
-    <ClCompile Include="Snek\Snek.cpp" />
-    <ClCompile Include="Snek\SnekBody.cpp" />
-    <ClCompile Include="Snek\SnekHead.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\GraphicsSystem.cpp" />

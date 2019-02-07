@@ -102,15 +102,7 @@
     <ClCompile Include="Systems\SnekSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Snek\SnekHead.cpp">
-      <Filter>Snek</Filter>
-    </ClCompile>
-    <ClCompile Include="Snek\Snek.cpp">
-      <Filter>Snek</Filter>
-    </ClCompile>
-    <ClCompile Include="Snek\SnekBody.cpp">
-      <Filter>Snek</Filter>
-    </ClCompile>
+    <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -215,5 +207,10 @@
     <ClInclude Include="Systems\CameraSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="Components\InvulnerableComponent.h" />
+    <ClInclude Include="Snek\Snek.h" />
+    <ClInclude Include="Snek\SnekBody.h" />
+    <ClInclude Include="Snek\SnekHead.h" />
+    <ClInclude Include="Systems\LevelLoaderSystem.h" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 #include "../Systems/GraphicsSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Utility/AlphaEngineHelper.h"
-#include "../CameraSystem.h"
+#include "../Systems/CameraSystem.h"
 
 ECSystem::ECSystem()
 {
