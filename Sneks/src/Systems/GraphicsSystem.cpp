@@ -20,22 +20,32 @@ void GraphicsSystem::Initialize(EntityManager* entityManager)
 
 AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)
 {
-	AEGfxTexture* retTexture = m_x_TextureMap.find(textureName)->second;
-	assert(retTexture != nullptr);
-	return retTexture;
+	for (auto pairing : m_x_TextureMap)
+	{
+		if (strcmp(textureName, pairing.first) == 0)
+		{
+			return pairing.second;
+		}
+	}
+	return nullptr;
 }
 
 void GraphicsSystem::PreLoadTextures()
 {
 	//TODO: MAKE FILE PARSER RESOURCES NEEDED PER LEVEL?
-	LoadTextureToMap("../Resources/snake-head.png"    , "Snek01_Head");
-	LoadTextureToMap("../Resources/head2.png"			 , "Snek02_Head");
-	LoadTextureToMap("../Resources/snake-body.png"		 , "Snek01_Body");
-	LoadTextureToMap("../Resources/snake-body2.png"	 , "Snek02_Body");
-	LoadTextureToMap("../Resources/rocket_booster.jpg", "Particles01_Rocket");
-	LoadTextureToMap("../Resources/smoke.jpg"			 , "Particles02_Smoke");
-	LoadTextureToMap("../Resources/map.png"				 , "Map01");
-	LoadTextureToMap("../Resources/building.png"		 , "Building01");
+	//SET NAMES TO BE FILE NAMES
+	//ENFORCE FILE NAMES TO BE UNIQUE
+	LoadTextureToMap("../Resources/snake-head.png"    , "snake-head.png");
+	LoadTextureToMap("../Resources/head2.png"			 , "head2.png");
+	LoadTextureToMap("../Resources/snake-body.png"		 , "snake-body.png");
+	LoadTextureToMap("../Resources/snake-body2.png"	 , "snake-body2.png");
+	LoadTextureToMap("../Resources/rocket_booster.jpg"	 , "rocket_booster.jpg");
+	LoadTextureToMap("../Resources/smoke.jpg"			 , "smoke.jpg");
+	LoadTextureToMap("../Resources/map.png"				 , "map.png");
+	LoadTextureToMap("../Resources/building.png"		 , "building.png"); 
+	LoadTextureToMap("../Resources/horz-road.png", "horz-road.png");
+	LoadTextureToMap("../Resources/junction.png", "junction.png");
+	LoadTextureToMap("../Resources/vert-road.png", "vert-road.png");
 
 }
 

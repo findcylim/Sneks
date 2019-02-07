@@ -215,17 +215,5 @@
     <ClInclude Include="Systems\CameraSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Snek\SnekBody.h">
-      <Filter>Snek</Filter>
-    </ClInclude>
-    <ClInclude Include="Snek\SnekHead.h">
-      <Filter>Snek</Filter>
-    </ClInclude>
-    <ClInclude Include="Snek\Snek.h">
-      <Filter>Snek</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\InvulnerableComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

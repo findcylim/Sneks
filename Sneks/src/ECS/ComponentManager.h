@@ -11,6 +11,7 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/DrawComponent.h"
 #include "../Components/PhysicsComponent.h"
+#include "../Components/CameraComponent.h"
 
 class ComponentManager
 {
