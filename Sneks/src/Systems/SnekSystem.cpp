@@ -1,98 +1,104 @@
 #include "SnekSystem.h"
 #include "../Components/SnekHeadComponent.h"
+#include "../Components/InvulnerableComponent.h"
 
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr) {};
 
 
 void SnekSystem::Update(float dt)
 {
-	auto firstSnekHead = static_cast<SnekHeadComponent*>(
+	auto i_SnekHead = static_cast<SnekHeadComponent*>(
 		m_po_ComponentManager->GetFirstComponentInstance(kComponentSnekHead));
-	while ()
-	if (GetInvulnerable() > 0)
-	{
-		SetAlpha(0.33f);
-		m_f_Invulnerable -= dt;
+
+	while (i_SnekHead) {
+		auto i_InvulComponent = static_cast<InvulnerableComponent*>(
+			m_po_ComponentManager->GetSpecificComponentInstance(
+				(i_SnekHead), KComponentInvulnerable
+			));
+
+		auto i_DrawComponent = static_cast<DrawComponent*>(
+			m_po_ComponentManager->GetSpecificComponentInstance(
+				(i_SnekHead), KComponentInvulnerable
+			));
+
+		if (i_InvulComponent->m_f_InvulnerableTime > 0)
+		{
+			i_DrawComponent->SetAlpha(0.33f);
+			i_InvulComponent->m_f_InvulnerableTime -= dt;
+		}
+		else if (i_DrawComponent->m_f_RgbaColor.alpha != 1.0f)
+		{
+			i_DrawComponent->SetAlpha(1.0f);
+		}
+
+		/*m_f_Boost += m_f_BoostGainRate * dt * 10;
+
+		if (m_f_Boost >= 100.0f)
+			m_f_Boost = 100.0f;
+		if (m_f_Boost < 0.0f)
+			m_f_Boost = 0.0f;*/
+		/*
+		// for removal
+		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
+		{
+			SetVelocity(GetVelocity() - kAccelerationForce * 5);
+			m_f_Boost -= 35 * dt;
+		}
+
+		if (GetAsyncKeyState(m_i_AccelerationKey)) {
+			SetVelocity(GetVelocity() - kAccelerationForce);
+			//m_px_Particles->SetTexture(m_px_SnekHedBoost);
+			//DrawParticles();
+		}
+		if (GetAsyncKeyState(m_i_BrakeKey) && (GetVelocity() < 0)) {
+			SetVelocity(GetVelocity() + kBrakeForce);
+			//m_px_Particles->SetTexture(m_px_SnekHedSmoke);
+			//DrawParticles();
+		}
+
+		if (GetAsyncKeyState(m_i_LeftKey) && (GetVelocity() <= -kTurnMinSpeed)) {
+			SetRotation(GetRotation() + kTurnSpeed * dt);
+			//m_px_Texture = m_px_SnekHedL;
+		}
+		else if (GetAsyncKeyState(m_i_RightKey) && (GetVelocity() <= -kTurnMinSpeed)) {
+			SetRotation(GetRotation() - kTurnSpeed * dt);
+			//m_px_Texture = m_px_SnekHedR;
+		}
+		else {
+			m_px_Texture = m_px_SnekHed;
+		}
+		//end removal
+		if (GetAsyncKeyState(AEVK_0))
+		{
+			m_f_Scale -= 0.001f;
+		}
+		else if (GetAsyncKeyState(AEVK_1))
+			m_f_Scale += 0.001f;
+
+			
+		//limit max velocity
+		if (m_f_Speed >= kMaxVelocity)
+			m_f_Speed = kMaxVelocity;
+		else if (m_f_Speed <= -kMaxVelocity)
+			m_f_Speed = -kMaxVelocity;
+
+		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
+			m_f_Speed *= 1.5f;
+			*/
+
+
+		/*clamp low velocity to 0 so its not jittery*/
+		/*if (m_f_Velocity >= -kMinSpeed && m_f_Velocity <= kMinSpeed)
+			m_f_Velocity = -kIdleSpeed;
+		else if (m_f_Velocity < 0)
+			m_f_Velocity += kFriction;
+		else if (m_f_Velocity > 0)
+			m_f_Velocity -= kFriction;
+
+		ApplyVelocity(dt);*/
+
+		i_SnekHead = static_cast<SnekHeadComponent*>(i_SnekHead->m_po_NextComponent);
 	}
-	else
-	{
-		SetAlpha(1.0f);
-	}
-
-	m_f_Boost += m_f_BoostGainRate * dt * 10;
-
-	if (m_f_Boost >= 100.0f)
-		m_f_Boost = 100.0f;
-	if (m_f_Boost < 0.0f)
-		m_f_Boost = 0.0f;
-	// for removal
-	if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
-	{
-		SetVelocity(GetVelocity() - kAccelerationForce * 5);
-		m_f_Boost -= 35 * dt;
-	}
-
-	if (GetAsyncKeyState(m_i_AccelerationKey)) {
-		SetVelocity(GetVelocity() - kAccelerationForce);
-		//m_px_Particles->SetTexture(m_px_SnekHedBoost);
-		//DrawParticles();
-	}
-	if (GetAsyncKeyState(m_i_BrakeKey) && (GetVelocity() < 0)) {
-		SetVelocity(GetVelocity() + kBrakeForce);
-		//m_px_Particles->SetTexture(m_px_SnekHedSmoke);
-		//DrawParticles();
-	}
-
-	if (GetAsyncKeyState(m_i_LeftKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-		SetRotation(GetRotation() + kTurnSpeed * dt);
-		//m_px_Texture = m_px_SnekHedL;
-	}
-	else if (GetAsyncKeyState(m_i_RightKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-		SetRotation(GetRotation() - kTurnSpeed * dt);
-		//m_px_Texture = m_px_SnekHedR;
-	}
-	else {
-		m_px_Texture = m_px_SnekHed;
-	}
-	//end removal
-	if (GetAsyncKeyState(AEVK_0))
-	{
-		m_f_Scale -= 0.001f;
-	}
-	else if (GetAsyncKeyState(AEVK_1))
-		m_f_Scale += 0.001f;
-
-
-	//limit max velocity
-	if (m_f_Velocity >= kMaxVelocity)
-		m_f_Velocity = kMaxVelocity;
-	else if (m_f_Velocity <= -kMaxVelocity)
-		m_f_Velocity = -kMaxVelocity;
-
-	if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
-		m_f_Velocity *= 1.5f;
-
-	////if out of screen, clamp movement
-	//if (m_x_Position.x > AEGfxGetWinMaxX() + 2* 1920)// + m_f_SizeX / 2)
-	//	m_x_Position.x = AEGfxGetWinMaxX() + 2 * 1920; // +m_f_SizeX / 2;
-	//else if (m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920)// - m_f_SizeX / 2)
-	//	m_x_Position.x = AEGfxGetWinMinX() - 2 * 1920;// -m_f_SizeX / 2;
-
-	////if out of screen, clamp movement
-	//if (m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080)// + m_f_SizeY / 2)
-	//	m_x_Position.y = AEGfxGetWinMaxY() + 2 * 1080;// +m_f_SizeY / 2;
-	//else if (m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080)// - m_f_SizeY / 2)
-	//	m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;// -m_f_SizeY / 2;
-
-	/*clamp low velocity to 0 so its not jittery*/
-	if (m_f_Velocity >= -kMinSpeed && m_f_Velocity <= kMinSpeed)
-		m_f_Velocity = -kIdleSpeed;
-	else if (m_f_Velocity < 0)
-		m_f_Velocity += kFriction;
-	else if (m_f_Velocity > 0)
-		m_f_Velocity -= kFriction;
-
-	ApplyVelocity(dt);
 }
 
 void SnekSystem::Initialize()
@@ -185,8 +191,8 @@ void SnekSystem::MoveTowardsReference(const DrawComponent* reference, DrawCompon
 	/*AEVec2 directionVector;
 	AEVec2FromAngle(&directionVector, m_f_Rotation);
 
-	m_x_Position.x += directionVector.x * m_f_Velocity * 300 * dt;
-	m_x_Position.y += directionVector.y * m_f_Velocity * 300 * dt;*/
+	m_x_Position.x += directionVector.x * m_f_Speed * 300 * dt;
+	m_x_Position.y += directionVector.y * m_f_Speed * 300 * dt;*/
 }
 
 void SnekSystem::CheckOutOfBounds(TransformComponent* transformComponent) const

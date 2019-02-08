@@ -1,5 +1,5 @@
-#ifndef PHYSICSCOMPONENT_H
-#define PHYSICSCOMPONENT_H
+#ifndef PHYSICS_COMPONENT_H
+#define PHYSICS_COMPONENT_H
 #pragma once
 
 #include "../ECS/ComponentList.h"
@@ -10,8 +10,10 @@
 class PhysicsComponent : public BaseComponent
 {
 public:
-	float		 m_f_Velocity;
-	HTVector2 m_x_Acceleration;
+	float		               m_f_Speed;
+	float		               m_f_MaxSpeed;
+
+	HTVector2               m_x_Acceleration;
 
 	TransformComponent*		m_po_TransformComponent;
 };

@@ -148,28 +148,33 @@ void PhysicsSystem::Update(float dt)
 
 HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const
 {
-	auto forwardVelocity = GetForwardVelocity(physicsComponent);
+	auto forwardVelocity = CalculateVelocity(physicsComponent);
 	physicsComponent->m_po_TransformComponent->m_x_Position.x += forwardVelocity.x * dt;
 	physicsComponent->m_po_TransformComponent->m_x_Position.y += forwardVelocity.y * dt;
 	return forwardVelocity;
 }
 
-HTVector2 PhysicsSystem::GetForwardVelocity(PhysicsComponent* physicsComponent) const
+HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) const
 {
 	//apply the velocity
 	AEVec2 forwardVector;
 	AEVec2FromAngle(&forwardVector, physicsComponent->m_po_TransformComponent->GetRotation());
-	HTVector2 forwardVelocity ={ forwardVector.x * physicsComponent->m_f_Velocity, forwardVector.y * physicsComponent->m_f_Velocity };
+	HTVector2 forwardVelocity ={ forwardVector.x * physicsComponent->m_f_Speed, forwardVector.y * physicsComponent->m_f_Speed };
 	return forwardVelocity;
 }
 
 void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, const SnekHeadComponent snekHeadComponent) const
 {
-	if (physicsComponent->m_f_Velocity >= -snekHeadComponent.m_f_MinSpeed &&
-			physicsComponent->m_f_Velocity <= snekHeadComponent.m_f_MinSpeed)
-		physicsComponent->m_f_Velocity = -snekHeadComponent.m_f_IdleSpeed;
-	else if (physicsComponent->m_f_Velocity < 0)
-		physicsComponent->m_f_Velocity += snekHeadComponent.m_f_Friction;
-	else if (physicsComponent->m_f_Velocity > 0)
-		physicsComponent->m_f_Velocity -= snekHeadComponent.m_f_Friction;
+	if (physicsComponent->m_f_Speed >= -snekHeadComponent.m_f_MinSpeed &&
+			physicsComponent->m_f_Speed <= snekHeadComponent.m_f_MinSpeed)
+		physicsComponent->m_f_Speed = -snekHeadComponent.m_f_IdleSpeed;
+	else if (physicsComponent->m_f_Speed < 0)
+		physicsComponent->m_f_Speed += snekHeadComponent.m_f_Friction;
+	else if (physicsComponent->m_f_Speed > 0)
+		physicsComponent->m_f_Speed -= snekHeadComponent.m_f_Friction;
+}
+
+void PhysicsSystem::ApplyFriction(PhysicsComponent* physicsComponent, float dt, float maxSpeed) const
+{
+	
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "../ECS/EntityManager.h"
 #include <vector>
+#include "DrawComponent.h"
 
 class CollisionComponent : public BaseComponent
 {

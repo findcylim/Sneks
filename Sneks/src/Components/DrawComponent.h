@@ -1,5 +1,5 @@
-#ifndef DRAWCOMPONENT_H
-#define DRAWCOMPONENT_H
+#ifndef DRAW_COMPONENT_H
+#define DRAW_COMPONENT_H
 
 #pragma once
 
@@ -25,6 +25,7 @@ public:
 	AEMtx33*				         m_po_GlobalMatrix;
 
 
+	void SetAlpha(float alpha);
 	void SetColor(float red, float green, float blue, float alpha);
 	float GetSizeX()	 const;
 	float GetSizeY()	 const;

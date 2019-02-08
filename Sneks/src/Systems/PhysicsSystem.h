@@ -36,7 +36,8 @@ public:
 	virtual void receive(const Events::Ev_PLAYER2GAME_RIGHTKEY& eventData) override;
 	void Update(float dt) override;
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
-	HTVector2 GetForwardVelocity(PhysicsComponent* physicsComponent) const;
+	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;
 	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent snekHeadComponent) const;
+	void ApplyFriction(PhysicsComponent* physicsComponent, float dt, float maxSpeed) const;
 };
 #endif
