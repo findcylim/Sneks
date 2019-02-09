@@ -62,7 +62,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				int nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer,nameLen - 1);
-				newEntity = (StaticObjectEntity*)m_po_EntityManager->NewEntity(kEntityStaticObject, tempName);
+				newEntity = static_cast<StaticObjectEntity*>(m_po_EntityManager->NewEntity(kEntityStaticObject, tempName));
 			}
 			else
 			{
@@ -72,7 +72,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				int nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer, nameLen - 1);
-				newEntity = (BackgroundEntity*)m_po_EntityManager->NewEntity(kEntityBackground, tempName);
+				newEntity = static_cast<BackgroundEntity*>(m_po_EntityManager->NewEntity(kEntityBackground, tempName));
 			}
 			
 
@@ -115,7 +115,9 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 					strncpy_s(texName, len, cPointer, len - 1);
 					//Change this to texture pool later TODO;
 
-					static_cast<DrawComponent*>(comp)->Initialize(m_o_GraphicsSystem->FetchTexture(texName), x, y, { 1,1,1,1 });
+					static_cast<DrawComponent*>(comp)->Initialize(m_o_GraphicsSystem->FetchTexture(texName), 
+						x, y, { 1,1,1,1 }
+					);
 
 					break;
 				}

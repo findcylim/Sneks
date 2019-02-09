@@ -24,6 +24,8 @@ public:
 	unsigned int   m_i_RightKey            = AEVK_RIGHT;
 	unsigned int   m_i_BoostKey            = AEVK_RCTRL;
 
+	std::vector<SnekBodyEntity*> m_x_BodyParts = {};
+
 };
 
 #endif

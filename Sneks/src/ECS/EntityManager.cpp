@@ -133,6 +133,12 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 		case Entity::kEntityCamera:
 			entityPointer = (BaseEntity*)new CameraEntity(entityName);
 			break;
+		case kEntitySnekHead: 
+			entityPointer = (BaseEntity*)new SnekHeadEntity(entityName);
+			break;
+		case kEntitySnekBody: 
+			entityPointer = (BaseEntity*)new SnekBodyEntity(entityName);
+			break;
 	}
 
 	if (entityPointer)

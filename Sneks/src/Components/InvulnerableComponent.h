@@ -7,7 +7,7 @@
 class InvulnerableComponent : public BaseComponent
 {
 public:
-	int m_f_InvulnerableTime;
+	float m_f_InvulnerableTime = 0;
 };
 
 #endif //INVULNERABLE_COMPONENT_H

@@ -8,6 +8,7 @@
 #include "../Systems/CollisionSystem.h"
 #include "../Utility/AlphaEngineHelper.h"
 #include "../Systems/CameraSystem.h"
+#include "../Systems/SnekSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -74,6 +75,10 @@ void ECSystem::InitializeEngine()
 	levelLoader->SetID(4);
 	m_o_SystemManager->AddSystem(levelLoader);
 	levelLoader->LoadLevel(kLevel1);
+
+	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
+	snek->CreateSnek(0, 0, PI, 5, "snake-head.png");
+	m_o_SystemManager->AddSystem(snek);
 
 	m_b_EngineStatus = true;
 }

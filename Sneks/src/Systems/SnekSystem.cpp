@@ -1,8 +1,14 @@
 #include "SnekSystem.h"
 #include "../Components/SnekHeadComponent.h"
 #include "../Components/InvulnerableComponent.h"
+#include "../Components/PhysicsComponent.h"
+#include "../Components/CollisionComponent.h"
 
-SnekSystem::SnekSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr) {};
+SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
+: BaseSystem(entityManagerPtr)
+{
+	m_o_GraphicsSystem = graphics;
+};
 
 
 void SnekSystem::Update(float dt)
@@ -30,7 +36,7 @@ void SnekSystem::Update(float dt)
 		{
 			i_DrawComponent->SetAlpha(1.0f);
 		}
-
+		//TODO
 		/*m_f_Boost += m_f_BoostGainRate * dt * 10;
 
 		if (m_f_Boost >= 100.0f)
@@ -108,17 +114,140 @@ void SnekSystem::Initialize()
 //HEAD SIZE : 105, 77
 //BODY SIZE:  61,  80
 //SCALE : 0.635f
-void SnekSystem::CreateSnek(SnekHeadEntity* snekHeadEntity,const int numBodyParts)
+void SnekSystem::CreateSnek(float posX, float posY, float rotation,
+	const int numBodyParts, const char* textureName) const
 {
-	auto transformComponent = static_cast<TransformComponent*>(
-		m_po_ComponentManager->GetSpecificComponentInstance(
-			snekHeadEntity, kComponentTransform
-		));
+
+	auto newSnekHeadEntity = static_cast<SnekHeadEntity*>(
+		m_po_EntityManager->NewEntity(kEntitySnekHead, "Head"));
+
+	for (auto i_Component : newSnekHeadEntity->m_v_AttachedComponentsList)
+	{
+		if (i_Component->m_x_ComponentID == kComponentTransform)
+		{
+			static_cast<TransformComponent*>(i_Component)->SetPosition(posX, posY);
+			static_cast<TransformComponent*>(i_Component)->SetRotation(rotation);
+
+			auto cameraComponent = static_cast<CameraComponent*>(
+				m_po_ComponentManager->GetFirstComponentInstance(
+					kComponentCamera
+				));
+			cameraComponent->AddToTrack(static_cast<TransformComponent*>(i_Component));
+			static_cast<TransformComponent*>(i_Component)->m_f_Scale = 0.635f;
+
+		}
+		else if(i_Component->m_x_ComponentID == kComponentDraw)
+		{
+			static_cast<DrawComponent*>(i_Component)->Initialize(
+				m_o_GraphicsSystem->FetchTexture(textureName),
+				105, 77, HTColor{ 1,1,1,1 }
+			);
+		}
+		else if (i_Component->m_x_ComponentID == kComponentPhysics)
+		{
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+		}
+		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
+		{
+			//TODO :: LOTS OF SHIT
+			//((SnekHeadComponent*)i_Component)->
+		}
+		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
+		{
+			static_cast<InvulnerableComponent*>(i_Component)->m_f_InvulnerableTime = 0;
+
+		}
+		else if (i_Component->m_x_ComponentID == kComponentCollision)
+		{
+			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
+				(1);
+		}
+	}
 
 	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++) {
-		//Create a new body part to add to the vector
-		//TODO AddBodyPart(snekBodyPart);
+		CreateSnekBody(newSnekHeadEntity, "snake-body.png");
 	}
+	/*
+	(const int numBodyParts, float posX, float posY, AEGfxTexture* snakeHeadTexture, AEGfxTexture* snakeBodyTexture)
+	{
+		//Create head mesh based on Texture
+		m_po_Head = static_cast<SnekHead*>(new SnekHead(posX, posY, 105, 77, snakeHeadTexture));
+		m_po_Head->SetRotation(PI);
+		m_px_BodyMesh = nullptr;
+
+		//camera->AddToTrack(snekHeadTest);
+		for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++) {
+			//TODO: SET SIZEx AND SIZEy to auto detected TEXTURE SIZE values
+			//Create a new body part to add to the vector
+			SnekBody* snekBodyPart;
+			if (m_px_BodyMesh == nullptr)
+			{
+				snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture));
+				m_px_BodyMesh = snekBodyPart->GetMesh();
+			}
+			else
+			{
+				snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture, m_px_BodyMesh));
+			}
+			AddBodyPart(snekBodyPart);
+		}
+		m_i_Player = 0;
+	}*/
+}
+
+void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName) const 
+{
+	//TODO:: MESH INSTANCING
+	//Create a new body part to add to the vector
+	auto newSnekBodyEntity = static_cast<SnekBodyEntity*>(
+		m_po_EntityManager->NewEntity(kEntitySnekBody, "Body"));
+
+	auto ownerTransform = static_cast<TransformComponent*>(
+		m_po_ComponentManager->GetSpecificComponentInstance(
+		owner, kComponentTransform));
+
+	for (auto i_Component : newSnekBodyEntity->m_v_AttachedComponentsList)
+	{
+		if (i_Component->m_x_ComponentID == kComponentTransform)
+		{
+			static_cast<TransformComponent*>(i_Component)->SetPosition(
+				ownerTransform->m_x_Position.x, ownerTransform->m_x_Position.y);
+
+			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
+			//TODO: REMOVE HARCCODE
+			static_cast<TransformComponent*>(i_Component)->m_f_Scale = 0.635f;
+
+		}
+		else if (i_Component->m_x_ComponentID == kComponentDraw)
+		{
+			static_cast<DrawComponent*>(i_Component)->Initialize(
+				m_o_GraphicsSystem->FetchTexture(textureName),
+				61, 80, HTColor{ 1,1,1,1 }
+			);
+			
+		}
+		else if (i_Component->m_x_ComponentID == kComponentPhysics)
+		{
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+		}
+		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
+		{
+			static_cast<InvulnerableComponent*>(i_Component)->m_f_InvulnerableTime = 0;
+
+		}
+		else if (i_Component->m_x_ComponentID == kComponentCollision)
+		{
+			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
+			(2);
+		}
+	}
+
+	auto ownerHeadComponent = static_cast<SnekHeadComponent*>(
+		m_po_ComponentManager->GetSpecificComponentInstance(
+		owner, kComponentSnekHead));
+
+	ownerHeadComponent->m_x_BodyParts.push_back(newSnekBodyEntity);
+
 }
 
 void SnekSystem::FaceReference(const TransformComponent* reference, TransformComponent* toChange) const

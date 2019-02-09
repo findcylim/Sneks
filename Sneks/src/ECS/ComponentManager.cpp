@@ -57,7 +57,6 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 		case kComponentCamera: 
 			componentPointer = static_cast<BaseComponent*>(new CameraComponent);
 			break;
-		case kComponentEnd: break;
 		case kComponentCollision: 
 			{
 			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(

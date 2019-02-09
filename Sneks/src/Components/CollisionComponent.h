@@ -7,6 +7,6 @@ class CollisionComponent : public BaseComponent
 {
 public:
 	std::vector<unsigned int> m_i_CollisionGroupVec;
-	DrawComponent*		  m_po_DrawComponent;
+	DrawComponent*			     m_po_DrawComponent;
 
 };
