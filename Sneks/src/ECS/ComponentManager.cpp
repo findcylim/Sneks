@@ -11,6 +11,7 @@
 #include "../Components/DrawComponent.h"
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CameraComponent.h"
+#include "../Components/FollowComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -77,6 +78,10 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 		case kComponentSnekHead: 
 			componentPointer = static_cast<BaseComponent*>(new SnekHeadComponent);
 			break;
+		case kComponentFollow:
+			componentPointer = static_cast<BaseComponent*>(new FollowComponent);
+			break;
+		default: ;
 		}
 
 		if (componentPointer)

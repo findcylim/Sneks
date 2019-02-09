@@ -68,8 +68,18 @@ void PhysicsSystem::Update(float dt)
 
 	while (i_PhysicsComponent)
 	{
+		// Snek checks
+		for (auto component : i_PhysicsComponent->m_po_OwnerEntity->m_v_AttachedComponentsList) {
+			//only if its a head
+			if (component->m_x_ComponentID == kComponentSnekHead) {
+				CheckOutOfBounds(i_PhysicsComponent->m_po_TransformComponent);
+				ClampVelocity(i_PhysicsComponent, static_cast<SnekHeadComponent*>(component));
+			}
+		}
+
 		ApplyAcceleration(i_PhysicsComponent, dt);
 		ApplyVelocity(i_PhysicsComponent, dt);
+
 		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
 	}
 	/*
@@ -171,25 +181,44 @@ HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) c
 	return forwardVelocity;
 }
 
-void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, const SnekHeadComponent snekHeadComponent) const
+void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const
 {
-	if (physicsComponent->m_f_Speed >= -snekHeadComponent.m_f_MinSpeed &&
-			physicsComponent->m_f_Speed <= snekHeadComponent.m_f_MinSpeed)
-		physicsComponent->m_f_Speed = -snekHeadComponent.m_f_IdleSpeed;
-	else if (physicsComponent->m_f_Speed < 0)
-		physicsComponent->m_f_Speed += snekHeadComponent.m_f_Friction;
-	else if (physicsComponent->m_f_Speed > 0)
-		physicsComponent->m_f_Speed -= snekHeadComponent.m_f_Friction;
+	//std::cout << "Accel: " << physicsComponent->m_f_Acceleration << ", " << physicsComponent->m_f_Speed << std::endl;
+	if (physicsComponent->m_f_Acceleration == 0) {
+		if (physicsComponent->m_f_Speed < snekHeadComponent->m_f_IdleSpeed)
+			physicsComponent->m_f_Speed = snekHeadComponent->m_f_IdleSpeed;		
+		else if (physicsComponent->m_f_Speed < 0)
+			physicsComponent->m_f_Speed += snekHeadComponent->m_f_Friction;
+		else if (physicsComponent->m_f_Speed > 0)
+			physicsComponent->m_f_Speed -= snekHeadComponent->m_f_Friction;
+	}
 }
 
 void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const
 {
 	//Clamp percentage higher when speed is higher, so less acceleration when speed high
-	float accelClamp = 1.0f - physicsComponent->m_f_Speed / physicsComponent->m_f_MaxSpeed;
+	float accelClamp = 1.0f - fabsf(physicsComponent->m_f_Speed / physicsComponent->m_f_MaxSpeed);
+	
 	if (accelClamp < 0)
 		accelClamp = 0;
 	else if (accelClamp > 1.0f)
 		accelClamp = 1.0f;
-	physicsComponent->m_x_Acceleration *= accelClamp;
-	physicsComponent->m_f_Speed += physicsComponent->m_x_Acceleration * dt;
+
+	auto clampedAccel = physicsComponent->m_f_Acceleration * accelClamp;
+	physicsComponent->m_f_Speed += clampedAccel * dt;
+}
+
+void PhysicsSystem::CheckOutOfBounds(TransformComponent* transformComponent) const
+{
+	//if out of screen, clamp movement
+	if (transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920)// + m_f_SizeX / 2)
+		transformComponent->m_x_Position.x = AEGfxGetWinMaxX() + 2 * 1920; // +m_f_SizeX / 2;
+	else if (transformComponent->m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920)// - m_f_SizeX / 2)
+		transformComponent->m_x_Position.x = AEGfxGetWinMinX() - 2 * 1920;// -m_f_SizeX / 2;
+
+	//if out of screen, clamp movement
+	if (transformComponent->m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080)// + m_f_SizeY / 2)
+		transformComponent->m_x_Position.y = AEGfxGetWinMaxY() + 2 * 1080;// +m_f_SizeY / 2;
+	else if (transformComponent->m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080)// - m_f_SizeY / 2)
+		transformComponent->m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;// -m_f_SizeY / 2;
 }

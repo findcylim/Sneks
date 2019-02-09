@@ -51,6 +51,7 @@
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\CollisionComponent.h" />
     <ClInclude Include="Components\DrawComponent.h" />
+    <ClInclude Include="Components\FollowComponent.h" />
     <ClInclude Include="Components\InvulnerableComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\SnekHeadComponent.h" />

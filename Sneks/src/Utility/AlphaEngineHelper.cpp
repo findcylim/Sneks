@@ -10,7 +10,7 @@ namespace AlphaEngineHelper {
 		AESysSetWindowTitle("S.N.E.K.S.");
 		AEToogleFullScreen(false);
 		AESysReset();
-		AEGfxSetBackgroundColor(1, 1, 1);
+		AEGfxSetBackgroundColor(1, 1, 0);
 	}
 
 	void GetScreenSize(float* retWidth, float* retHeight)

@@ -37,7 +37,8 @@ public:
 	void Update(float dt) override;
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
 	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;
-	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent snekHeadComponent) const;
+	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const;
 	void ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const;
+	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 };
 #endif

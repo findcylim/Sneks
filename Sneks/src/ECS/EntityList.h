@@ -51,8 +51,8 @@ public:
 class SnekBodyEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[6] ={ Component::kComponentTransform, Component::kComponentDraw,
-		Component::kComponentPhysics , Component::KComponentInvulnerable, Component::kComponentCollision , Component::kComponentEnd };
+	Component m_ax_InitialComponents[7] ={ Component::kComponentTransform, Component::kComponentDraw,
+		Component::kComponentPhysics , Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentFollow, Component::kComponentEnd };
 
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };

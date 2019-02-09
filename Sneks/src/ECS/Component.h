@@ -14,6 +14,7 @@ enum Component : unsigned char
 	kComponentCollision,
 	KComponentInvulnerable,
 	kComponentSnekHead,
+	kComponentFollow,
 	kComponentEnd
 };
 

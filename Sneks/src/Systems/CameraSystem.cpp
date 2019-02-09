@@ -117,4 +117,5 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 void CameraSystem::Update(float dt)
 {
+	UpdateCamera(dt);
 }

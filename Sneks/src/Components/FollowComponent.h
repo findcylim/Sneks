@@ -3,11 +3,10 @@
 #pragma once
 
 #include "../ECS/ComponentList.h"
-#include "../Math/HTVector2.h"
 #include "TransformComponent.h"
 
 
-class PhysicsComponent : public BaseComponent
+class FollowComponent : public BaseComponent
 {
 public:
 	TransformComponent*		m_po_TransformComponent;

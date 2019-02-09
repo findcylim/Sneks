@@ -77,7 +77,7 @@ void ECSystem::InitializeEngine()
 	levelLoader->LoadLevel(kLevel1);
 
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
-	snek->CreateSnek(0, 0, PI, 5, "snake-head.png");
+	snek->CreateSnek(0, 0, PI, 1, "snake-head.png");
 	m_o_SystemManager->AddSystem(snek);
 
 	m_b_EngineStatus = true;

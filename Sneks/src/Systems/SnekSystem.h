@@ -20,7 +20,7 @@ public:
 	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName) const;
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName) const;
 	void FaceReference(const TransformComponent* reference, TransformComponent* toChange) const;
-	void MoveTowardsReference(const DrawComponent* reference, DrawComponent* toChange) const;
+	void MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 };
 #endif
