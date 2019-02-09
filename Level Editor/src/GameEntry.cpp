@@ -24,6 +24,8 @@ enum Objects
 	kBuildingObj,
 	kVerticalRoadObj,
 	kHorizontalRoadObj,
+	kJunctionObj,
+	kParkObj,
 	kBlankState,
 	kNumberOfObjects
 };
@@ -104,6 +106,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto horizontalRoadTexture		= AEGfxTextureLoad("../../Resources/horz-road.png");
 	auto buildingTexture    		= AEGfxTextureLoad("../../Resources/building.png");
 	auto editorScale				= AEGfxTextureLoad("../../Resources/EditorScale.png");
+	auto junctionTexture			= AEGfxTextureLoad("../../Resources/junction.png");
+	auto parkTexture			    = AEGfxTextureLoad("../../Resources/park.png");
 
 	srand(static_cast<unsigned int>(time(nullptr)));
 
@@ -120,6 +124,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture,"Horizontal Road","horz-road.png");
 	auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture, "Vertical Road","vert-road.png");
 	auto buildingObj = new DrawObject(0, 0, 71, 42, buildingTexture,"Building1","building.png");
+	auto junctionObj = new DrawObject(0, 0, 9, 9, buildingTexture, "Junction", "junction.png");
+	auto parkObj = new DrawObject(0, 0, 71, 42, parkTexture, "Park", "park.png");
 	bool isTabPressed = false;
 	char ObjCounter = kBuildingObj;
 	SnappingState SnapState = kSnapNone;
@@ -130,7 +136,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PrefabVector.push_back(buildingObj);
 	PrefabVector.push_back(verRoad);
 	PrefabVector.push_back(horRoad);
-	
+	PrefabVector.push_back(junctionObj);
+	PrefabVector.push_back(parkObj);
+
 
 	float zoomLimitMin = 0.8f, zoomLimitMax = 1.2f;
 
@@ -532,6 +540,38 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 								std::vector<DrawObject*> v_newDrawObject;
 								v_newDrawObject.push_back(newObject);
 								ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
+							}
+							break;
+						}
+						case kJunctionObj:
+						{
+							auto newObject = new DrawObject(*junctionObj);
+							auto iter = ToSavePrefabMap.find(kJunctionObj);
+							if (iter != ToSavePrefabMap.end())
+							{
+								iter->second.push_back(newObject);
+							}
+							else
+							{
+								std::vector<DrawObject*> v_newDrawObject;
+								v_newDrawObject.push_back(newObject);
+								ToSavePrefabMap.insert({ kJunctionObj,v_newDrawObject });
+							}
+							break;
+						}
+						case kParkObj:
+						{
+							auto newObject = new DrawObject(*parkObj);
+							auto iter = ToSavePrefabMap.find(kParkObj);
+							if (iter != ToSavePrefabMap.end())
+							{
+								iter->second.push_back(newObject);
+							}
+							else
+							{
+								std::vector<DrawObject*> v_newDrawObject;
+								v_newDrawObject.push_back(newObject);
+								ToSavePrefabMap.insert({ kParkObj,v_newDrawObject });
 							}
 							break;
 						}
