@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <Windows.h>
 #include <vector>
+#include <list>
 #include <commdlg.h>
 
 constexpr int kNumBodyParts = 20;
@@ -113,6 +114,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto editorScale				= AEGfxTextureLoad("../../Resources/EditorScale.png");
 	auto junctionTexture			= AEGfxTextureLoad("../../Resources/junction.png");
 	auto parkTexture			    = AEGfxTextureLoad("../../Resources/park.png");
+	auto selectionSquareTexture		= AEGfxTextureLoad("../../Resources/SelectionSquare.png");
 
 	srand(static_cast<unsigned int>(time(nullptr)));
 
@@ -130,13 +132,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture, "Vertical Road","vert-road.png");
 	auto buildingObj = new DrawObject(0, 0, 71, 42, buildingTexture,"Building1","building.png");
 
-	auto selectionSquare = new SimpleDraw(0, 0, 1, 1, "Selection Square");
+	auto selectionSquare = new DrawObject(0, 0, 1, 1,selectionSquareTexture, "Selection Square","SelectionSquare.png");
 	HTVector2 lastClickPosition = { 0,0 };
+	HTVector2 copiedPosition = { 0,0 };
 
-	auto junctionObj = new DrawObject(0, 0, 9, 9, buildingTexture, "Junction", "junction.png");
+	auto junctionObj = new DrawObject(0, 0, 9, 9, junctionTexture, "Junction", "junction.png");
 	auto parkObj = new DrawObject(0, 0, 71, 42, parkTexture, "Park", "park.png");
+	std::list<DrawObject*> selectedList, copiedList;
 	bool isTabPressed = false;
 	char ObjCounter = kBuildingObj;
+	
 	SnappingState SnapState = kSnapNone;
 
 	std::vector<DrawObject*> PrefabVector;
@@ -163,6 +168,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	bool isGridLock = false;
 	bool isDrawSelection = false;
 	bool isLeft = false, isRight = false, isUp = false, isDown = false;
+	bool isCopied = false;
+	bool isCopying = false;
 	POINT initialMousePos,currentMousePos;
 	float ScreenSizeX = (AEGfxGetWinMaxX() - AEGfxGetWinMinX())/2;
 	float ScreenSizeY = (AEGfxGetWinMaxY() - AEGfxGetWinMinY())/2;
@@ -219,6 +226,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		if (GetAsyncKeyState(VK_ESCAPE) < 0)
 		{
 			ObjCounter = kBlankState;
+			for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
+			{
+				(*iter)->SetColor(1, 1, 1, 1);
+			}
+			selectedList.clear();
 		}
 		if (GetAsyncKeyState(AEVK_CAPSLOCK) < 0)
 		{
@@ -463,11 +475,43 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 		}
 
+		if (selectedList.size() != 0)
+		{
+			if (GetAsyncKeyState(VK_LEFT) < 0)
+			{
+				for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
+				{
+					(*iter)->SetPositionX((*iter)->GetPosition().x - 100 * AEFrameRateControllerGetFrameTime());
+				}
+			}
+			if (GetAsyncKeyState(VK_RIGHT) < 0)
+			{
+				for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
+				{
+					(*iter)->SetPositionX((*iter)->GetPosition().x + 100 * AEFrameRateControllerGetFrameTime());
+				}
+			}
+			if (GetAsyncKeyState(VK_UP) < 0)
+			{
+				for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
+				{
+					(*iter)->SetPositionY((*iter)->GetPosition().y + 100 * AEFrameRateControllerGetFrameTime());
+				}
+			}
+			if (GetAsyncKeyState(VK_DOWN) < 0)
+			{
+				for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
+				{
+					(*iter)->SetPositionY((*iter)->GetPosition().y - 100 * AEFrameRateControllerGetFrameTime());
+				}
+			}
+		}
+
 		if (GetAsyncKeyState(1) < 0)
 		{
-
 			if (!isLeftMouseClicked)
 			{
+
 				isLeftMouseClicked = true;
 				bool found = false;
 				if (ObjCounter == kBlankState)
@@ -594,22 +638,69 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						}
 					}
 				}
+
+
+
 			}
 		}
 		else
 		{
 			isLeftMouseClicked = false; //Potential Bug
 			//do stufff
+			if (isDrawSelection)
+			{
+				Aabb selectionBounds = {};
+				selectionBounds.min = selectionSquare->GetMin();
+				selectionBounds.max = selectionSquare->GetMax();
+				for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
+				{
+					(*iter)->SetColor(1, 1, 1, 1);
+				}
+				selectedList.clear();
+				for (auto iterator = ToSavePrefabMap.begin(); iterator != ToSavePrefabMap.end(); ++iterator)
+				{
+					for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
+					{
+						Aabb checkBox = { (*innerIter)->GetMin(),(*innerIter)->GetMax() };
+						if (CheckAabbIntersect(&selectionBounds, &checkBox))
+						{
+							(*innerIter)->SetColor(0.5, 1.0f, 0.5f, 1.0f);
+							selectedList.push_back((*innerIter));
+
+						}
+					}
+				}
+			}
 			isDrawSelection = false;
 		}
-
-		
 
 		for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
 		{
 			for (auto innerIter = (*iter).second.begin();innerIter != (*iter).second.end() ;)
 			{
 				(*innerIter)->Draw();
+
+				if (GetAsyncKeyState(VK_DELETE) < 0)
+				{
+					if (selectedList.size() != 0)
+					{
+						for (auto iterer = selectedList.begin(); iterer != selectedList.end(); )
+						{
+							if ((*innerIter) == (*iterer))
+							{
+								delete *iterer;
+								selectedList.erase(iterer);
+								innerIter = (*iter).second.erase(innerIter);
+								break;
+							}
+							else
+							{
+								++iterer;
+							}
+						}
+						continue;
+					}
+				}
 
 				if (SelectedObject == (*innerIter))
 				{
@@ -631,7 +722,121 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		if (GetAsyncKeyState(VK_LCONTROL) < 0)
 		{
-			if (GetAsyncKeyState(0x53) < 0)
+			if (GetAsyncKeyState(AEVK_C) < 0)
+			{
+				if (!isCopying)
+				{
+					isCopying = true;
+					copiedList = static_cast<const std::list <DrawObject*>>(selectedList);
+					for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
+					{
+						(*iter)->SetColor(1, 1, 1, 1);
+					}
+					selectedList.clear();
+					copiedPosition.x = DrawPosition.x;
+					copiedPosition.y = DrawPosition.y;
+				}
+			}
+			else if (GetAsyncKeyState(AEVK_V) < 0)
+			{
+				if (copiedList.size() != 0)
+				{
+					if (!isCopied)
+					{
+						float diffX, diffY;
+						diffX = DrawPosition.x - copiedPosition.x;
+						diffY = DrawPosition.y - copiedPosition.y;
+						isCopied = true;
+						for (auto iter = copiedList.begin(); iter != copiedList.end(); iter++)
+						{
+							if (*iter)
+							{
+								if (strcmp((*iter)->GetName(), "Horizontal Road") == 0)
+								{
+									auto newObject = new DrawObject(*(*iter));
+									auto iter = ToSavePrefabMap.find(kHorizontalRoadObj);
+									if (iter != ToSavePrefabMap.end())
+									{
+										iter->second.push_back(newObject);
+									}
+									else
+									{
+										std::vector<DrawObject*> v_newDrawObject;
+										v_newDrawObject.push_back(newObject);
+										ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
+									}
+									newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								}
+								else if (strcmp((*iter)->GetName(), "Vertical Road") == 0)
+								{
+									auto newObject = new DrawObject(*(*iter));
+									auto iter = ToSavePrefabMap.find(kVerticalRoadObj);
+									if (iter != ToSavePrefabMap.end())
+									{
+										iter->second.push_back(newObject);
+									}
+									else
+									{
+										std::vector<DrawObject*> v_newDrawObject;
+										v_newDrawObject.push_back(newObject);
+										ToSavePrefabMap.insert({ kVerticalRoadObj,v_newDrawObject });
+									}
+									newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								}
+								else if (strcmp((*iter)->GetName(), "Building1") == 0)
+								{
+									auto newObject = new DrawObject(*(*iter));
+									auto iter = ToSavePrefabMap.find(kBuildingObj);
+									if (iter != ToSavePrefabMap.end())
+									{
+										iter->second.push_back(newObject);
+									}
+									else
+									{
+										std::vector<DrawObject*> v_newDrawObject;
+										v_newDrawObject.push_back(newObject);
+										ToSavePrefabMap.insert({ kBuildingObj,v_newDrawObject });
+									}
+									newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								}
+								else if (strcmp((*iter)->GetName(), "Junction") == 0)
+								{
+									auto newObject = new DrawObject(*(*iter));
+									auto iter = ToSavePrefabMap.find(kJunctionObj);
+									if (iter != ToSavePrefabMap.end())
+									{
+										iter->second.push_back(newObject);
+									}
+									else
+									{
+										std::vector<DrawObject*> v_newDrawObject;
+										v_newDrawObject.push_back(newObject);
+										ToSavePrefabMap.insert({ kJunctionObj,v_newDrawObject });
+									}
+									newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								}
+								else if (strcmp((*iter)->GetName(), "Park") == 0)
+								{
+									auto newObject = new DrawObject(*(*iter));
+									auto iter = ToSavePrefabMap.find(kParkObj);
+									if (iter != ToSavePrefabMap.end())
+									{
+										iter->second.push_back(newObject);
+									}
+									else
+									{
+										std::vector<DrawObject*> v_newDrawObject;
+										v_newDrawObject.push_back(newObject);
+										ToSavePrefabMap.insert({ kParkObj,v_newDrawObject });
+									}
+									newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								}
+							}
+						}
+					}
+				}
+			}
+			else if (GetAsyncKeyState(0x53) < 0)
 			{
 				if (!isSaved)
 				{
@@ -678,6 +883,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			else
 			{
 				isSaved = false;
+				isCopying = false;
+				isCopied = false;
 			}
 		}
 		
@@ -687,6 +894,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		s8 chars4[100]= {};
 		s8 chars5[100]= {};
 		s8 chars6[100] = "Snapping: ";
+		
 		switch (SnapState)
 		{
 		case kSnapXObject:
@@ -711,9 +919,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		
 		if (isDrawSelection)
 		{
-			selectionSquare->SetSizeX(-(lastClickPosition.x - DrawPosition.x));
-			selectionSquare->SetSizeY(lastClickPosition.y - DrawPosition.y);
-			selectionSquare->SetScale(selectionSquare->GetSizeX(), selectionSquare->GetSizeY());
+			selectionSquare->SetScale(-(lastClickPosition.x - DrawPosition.x), lastClickPosition.y - DrawPosition.y);
+			selectionSquare->SetPositionX(lastClickPosition.x + selectionSquare->GetScaleX() / 2);
+			selectionSquare->SetPositionY(lastClickPosition.y - selectionSquare->GetScaleY() / 2);
 			selectionSquare->Draw();
 		}
 
@@ -740,6 +948,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9-60, 0, 0, 1);
 		AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 0, 0, 1);
 		AEGfxPrint(font, chars6, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9 - 120, 0, 0, 1);
+
 		/*
 		*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////
 

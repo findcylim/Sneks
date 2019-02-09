@@ -21,7 +21,8 @@ protected:
 	AEMtx33*				      m_po_RotationMatrix;
 	AEMtx33*		            m_po_TranslationMatrix;
 	AEMtx33*                m_po_GlobalMatrix;
-	float							m_f_Scale = 1.0f;
+	float							m_f_ScaleX = 1.0f;
+	float							m_f_ScaleY = 1.0f;
 	char*					m_c_Name;
 	char*					m_c_TextureName;
 public:
@@ -30,8 +31,10 @@ public:
 	static float				m_f_GlobalCameraOffsetY;
 
 	HTColor GetColor() const;
-	float GetScale() const;
+	float GetScaleX() const;
+	float GetScaleY() const;
 	void SetScale(float f);
+	void SetScale(float x,float y);
 	void SetColor(float red, float green, float blue, float alpha);
 	void SetAlpha(float alpha);
 	void SetTexture(AEGfxTexture * tex);
@@ -40,6 +43,8 @@ public:
 	void SetPosition(float,float);
 	void SetPositionX(float f);
 	void SetPositionY(float f);
+	void SetSizeX(float f);
+	void SetSizeY(float f);
 	HTVector2 GetMin(void) const;
 	HTVector2 GetMax(void) const;
 	float GetRotation() const;

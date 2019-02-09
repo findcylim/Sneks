@@ -10,14 +10,21 @@ HTColor DrawObject::GetColor() const
 	return m_f_RgbaColor;
 }
 
-float DrawObject::GetScale() const
+float DrawObject::GetScaleX() const
 {
-	return m_f_Scale;
+	return m_f_ScaleX;
 }
+
+float DrawObject::GetScaleY() const
+{
+	return m_f_ScaleY;
+}
+
 
 void DrawObject::SetScale(float f)
 {
-	m_f_Scale = f;
+	m_f_ScaleX = f;
+	m_f_ScaleY = f;
 }
 void DrawObject::SetColor(float red, float green,float blue, float alpha)
 {
@@ -56,16 +63,16 @@ void DrawObject::SetPosition(const float positionX, const float positionY) {
 HTVector2 DrawObject::GetMin() const
 {
 	HTVector2 min = {};
-	min.x = m_x_Position.x - m_x_Size.x * m_f_Scale / 2;
-	min.y = m_x_Position.y - m_x_Size.y * m_f_Scale / 2;
+	min.x = m_x_Position.x - m_x_Size.x * abs(m_f_ScaleX) / 2;
+	min.y = m_x_Position.y - m_x_Size.y * abs(m_f_ScaleY) / 2;
 	return min;
 }
 
 HTVector2 DrawObject::GetMax() const
 {
 	HTVector2 max = {};
-	max.x = m_x_Position.x + m_x_Size.x * m_f_Scale / 2;
-	max.y = m_x_Position.y + m_x_Size.y * m_f_Scale / 2;
+	max.x = m_x_Position.x + m_x_Size.x * abs(m_f_ScaleX) / 2;
+	max.y = m_x_Position.y + m_x_Size.y * abs(m_f_ScaleY) / 2;
 	return max;
 }
 
@@ -108,6 +115,23 @@ void DrawObject::SetPositionX(const float f) {
 }
 void DrawObject::SetPositionY(const float f) {
 	m_x_Position.y = f;
+}
+
+void DrawObject::SetSizeX(float f)
+{
+	m_x_Size.x = f;
+}
+
+void DrawObject::SetSizeY(float f)
+{
+	m_x_Size.y = f;
+}
+
+
+void DrawObject::SetScale(float x, float y)
+{
+	m_f_ScaleX = x;
+	m_f_ScaleY = y;
 }
 
 DrawObject::DrawObject(const float posX, const float posY, const float sizeX, const float sizeY, AEGfxTexture* tex, const char * name, const char* texName)
@@ -179,7 +203,7 @@ void DrawObject::Draw() {
 
 
 	AEMtx33Rot(m_po_RotationMatrix, m_f_Rotation);
-	AEMtx33ScaleApply(m_po_RotationMatrix, m_po_RotationMatrix, m_f_Scale, m_f_Scale);
+	AEMtx33ScaleApply(m_po_RotationMatrix, m_po_RotationMatrix, m_f_ScaleX, m_f_ScaleY);
 	AEMtx33Trans(m_po_TranslationMatrix, m_x_Position.x, m_x_Position.y);
 	/*generate global matrix from rot and trans*/
 	AEMtx33Concat(m_po_GlobalMatrix, m_po_TranslationMatrix, m_po_RotationMatrix);
