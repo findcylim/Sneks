@@ -38,6 +38,6 @@ public:
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
 	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;
 	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent snekHeadComponent) const;
-	void ApplyFriction(PhysicsComponent* physicsComponent, float dt, float maxSpeed) const;
+	void ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const;
 };
 #endif

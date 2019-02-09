@@ -12,10 +12,8 @@ class PhysicsComponent : public BaseComponent
 public:
 	float		               m_f_Speed;
 	float		               m_f_MaxSpeed;
-
-	HTVector2               m_x_Acceleration;
+	float							m_x_Acceleration;
 
 	TransformComponent*		m_po_TransformComponent;
 };
-
 #endif

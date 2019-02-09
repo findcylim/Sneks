@@ -63,8 +63,16 @@ void PhysicsSystem::Update(float dt)
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
+	auto i_PhysicsComponent = static_cast<PhysicsComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentPhysics));
 
-
+	while (i_PhysicsComponent)
+	{
+		ApplyAcceleration(i_PhysicsComponent, dt);
+		ApplyVelocity(i_PhysicsComponent, dt);
+		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
+	}
+	/*
 	//Player 1 Controls
 	//'A' Key (Turn Left)
 	if (GetAsyncKeyState(65) < 0 || GetAsyncKeyState(97) < 0)
@@ -140,7 +148,7 @@ void PhysicsSystem::Update(float dt)
 			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY>(temp);
 			break;
 		}
-	}
+	}*/
 }
 
 
@@ -174,7 +182,14 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, const Snek
 		physicsComponent->m_f_Speed -= snekHeadComponent.m_f_Friction;
 }
 
-void PhysicsSystem::ApplyFriction(PhysicsComponent* physicsComponent, float dt, float maxSpeed) const
+void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const
 {
-	
+	//Clamp percentage higher when speed is higher, so less acceleration when speed high
+	float accelClamp = 1.0f - physicsComponent->m_f_Speed / physicsComponent->m_f_MaxSpeed;
+	if (accelClamp < 0)
+		accelClamp = 0;
+	else if (accelClamp > 1.0f)
+		accelClamp = 1.0f;
+	physicsComponent->m_x_Acceleration *= accelClamp;
+	physicsComponent->m_f_Speed += physicsComponent->m_x_Acceleration * dt;
 }
