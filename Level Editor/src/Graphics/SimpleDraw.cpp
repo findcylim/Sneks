@@ -44,6 +44,17 @@ void SimpleDraw::SetPosition(const float positionX, const float positionY) {
 	m_x_Position.x = positionX;
 	m_x_Position.y = positionY;
 }
+
+void SimpleDraw::SetSizeX(float f)
+{
+	m_x_Size.x = f;
+}
+
+void SimpleDraw::SetSizeY(float f)
+{
+	m_x_Size.y = f;
+}
+
 //void SimpleDraw::SetPositionX(const float f) {
 //	m_x_Position.x = f;
 //}
@@ -172,11 +183,12 @@ void SimpleDraw::Draw()
 	AEMtx33ScaleApply(m_po_GlobalMatrix, m_po_GlobalMatrix, m_f_GlobalScale, m_f_GlobalScale);
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-
+	AEGfxTextureSet(NULL, 0, 0);
 	AEGfxSetTintColor(m_f_RgbaColor.red, m_f_RgbaColor.green, m_f_RgbaColor.blue, m_f_RgbaColor.alpha);
-	AEGfxSetTransparency(m_f_RgbaColor.alpha);
 	AEGfxSetPosition(m_x_Position.x, m_x_Position.y);
+	// Set the current object instance's transform matrix using "AEGfxSetTransform"
 	AEGfxSetTransform(m_po_GlobalMatrix->m);
+	// Draw the shape used by the current object instance using "AEGfxMeshDraw"
 	AEGfxMeshDraw(m_px_Obj, AE_GFX_MDM_TRIANGLES);
 }
 

@@ -20,6 +20,10 @@ constexpr int kNumBodyParts = 20;
 float DrawObject::m_f_GlobalScale = 1.0f;
 float DrawObject::m_f_GlobalCameraOffsetX = 0.0f;
 float DrawObject::m_f_GlobalCameraOffsetY = 0.0f;
+
+float SimpleDraw::m_f_GlobalScale = 1.0f;
+float SimpleDraw::m_f_GlobalCameraOffsetX = 0.0f;
+float SimpleDraw::m_f_GlobalCameraOffsetY = 0.0f;
 enum Objects
 {
 	kBuildingObj,
@@ -125,8 +129,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto horRoad = new DrawObject(0, 0, 71, 9, horizontalRoadTexture,"Horizontal Road","horz-road.png");
 	auto verRoad = new DrawObject(100, 100, 9, 42, verticalRoadTexture, "Vertical Road","vert-road.png");
 	auto buildingObj = new DrawObject(0, 0, 71, 42, buildingTexture,"Building1","building.png");
+
 	auto selectionSquare = new SimpleDraw(0, 0, 1, 1, "Selection Square");
 	HTVector2 lastClickPosition = { 0,0 };
+
 	auto junctionObj = new DrawObject(0, 0, 9, 9, buildingTexture, "Junction", "junction.png");
 	auto parkObj = new DrawObject(0, 0, 71, 42, parkTexture, "Park", "park.png");
 	bool isTabPressed = false;
@@ -497,6 +503,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						SelectedObject = nullptr;
 
 						isDrawSelection = true;
+						lastClickPosition.x = DrawPosition.x;
+						lastClickPosition.y = DrawPosition.y;
+						selectionSquare->SetPosition(DrawPosition.x, DrawPosition.y);
 					}
 				}
 				else
@@ -594,10 +603,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			isDrawSelection = false;
 		}
 
-		if (isDrawSelection)
-		{
-
-		}
+		
 
 		for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
 		{
@@ -703,9 +709,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			break;
 		}
 		
-		
+		if (isDrawSelection)
+		{
+			selectionSquare->SetSizeX(-(lastClickPosition.x - DrawPosition.x));
+			selectionSquare->SetSizeY(lastClickPosition.y - DrawPosition.y);
+			selectionSquare->SetScale(selectionSquare->GetSizeX(), selectionSquare->GetSizeY());
+			selectionSquare->Draw();
+		}
 
-		sprintf_s(chars, 100, "DrawObject Pos: %.2f,%.2f", DrawPosition.x, DrawPosition.y);
+		sprintf_s(chars, 100, "DrawObject Pos: %.2f,%.2f", selectionSquare->GetPosition().x, selectionSquare->GetPosition().y);
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
 		sprintf_s(chars3, 100, "+");
 		sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->GetName() : "---");

@@ -37,6 +37,8 @@ public:
 	void SetPosition(float,float);
 	void SetPositionX(float f);
 	void SetPositionY(float f);
+	void SetSizeX(float f);
+	void SetSizeY(float f);
 	HTVector2 GetMin(void) const;
 	HTVector2 GetMax(void) const;
 	float GetRotation() const;
