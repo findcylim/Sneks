@@ -69,9 +69,7 @@ void ECSystem::InitializeEngine()
 	physics->SetID(1);
 	m_o_SystemManager->AddSystem(physics);
 
-	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
-	collisions->SetID(2);
-	m_o_SystemManager->AddSystem(collisions);
+
 
 	auto camera = new CameraSystem(m_o_EntityComponentManager);
 	camera->SetID(3);
@@ -85,14 +83,21 @@ void ECSystem::InitializeEngine()
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	snek->CreateSnek(50, 0, PI, 20, "SnekHead01",0);
 	snek->CreateSnek(100, 0, 0, 20, "SnekHead02",1);
+	m_o_SystemManager->AddSystem(snek);
 
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
 	background->CreateInstancedBackgrounds(2, 2, "Background01");
+	m_o_SystemManager->AddSystem(background);
 
 	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
 	buildings->Initialize();
+	m_o_SystemManager->AddSystem(buildings);
 
-	m_o_SystemManager->AddSystem(snek);
+	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
+	collisions->Initialize();
+	m_o_SystemManager->AddSystem(collisions);
+
+
 
 	m_b_EngineStatus = true;
 }

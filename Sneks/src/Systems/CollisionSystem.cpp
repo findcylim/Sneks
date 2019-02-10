@@ -1,6 +1,7 @@
 
 #include "CollisionSystem.h"
 #include "../Components/DrawComponent.h"
+#include <iostream>
 
 
 CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
@@ -11,6 +12,7 @@ BaseSystem(entityManagerPtr)
 
 void CollisionSystem::Update(float dt)
 {
+
 	/*Aabb snekHeadAabb ={};
 		snekHeadAabb.min = snek->m_po_Head->GetMin();
 		snekHeadAabb.max = snek->m_po_Head->GetMax();
@@ -62,7 +64,7 @@ void CollisionSystem::Update(float dt)
 		//Update Aabb positions
 	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
 	{
-		i_CollisionGroup.UpdateHitBoxes();
+		UpdateHitBoxes(i_CollisionGroup);
 	}
 
 	//Check collisions between all objects in one group
@@ -77,6 +79,7 @@ void CollisionSystem::Update(float dt)
 				if (i_ObjectGroupB != i_ObjectGroupA) {
 					if (AabbHelper::CheckAabbIntersect(i_ObjectGroupA, i_ObjectGroupB))
 					{
+						std::cout << "COLLIDED" << std::endl;
 						//TODO:: FIRE OFF COLLISION EVENT
 					}
 				}
@@ -88,15 +91,20 @@ void CollisionSystem::Update(float dt)
 void CollisionSystem::Initialize()
 {
 	UpdateComponentsPerGroup();
+	auto newPairing = CollisionGroupPairing();
+	newPairing.groupA = m_xo_ComponentsPerGroup[1];
+	newPairing.groupB = m_xo_ComponentsPerGroup[2];
+
+	m_vx_CollisionsPairings.push_back(newPairing);
 }
 
 void CollisionSystem::AddComponentToCollisionGroup(CollisionComponent* collisionComponent, unsigned int collisionGroup)
 {
-	while (m_xo_ComponentsPerGroup.size() - 1 < collisionGroup)
+	while (m_xo_ComponentsPerGroup.size() < collisionGroup + 1)
 	{
-		m_xo_ComponentsPerGroup.emplace_back();
+		m_xo_ComponentsPerGroup.push_back(new CollisionGroup);
 	}
-	m_xo_ComponentsPerGroup[collisionGroup].objects.push_back(collisionComponent);
+	m_xo_ComponentsPerGroup[collisionGroup]->objects.push_back(collisionComponent);
 }
 
 void CollisionSystem::UpdateComponentsPerGroup()
@@ -128,4 +136,20 @@ HTVector2 CollisionSystem::GetMax(DrawComponent* drawComponent)
 {
 	return AabbHelper::GetMax(drawComponent->m_po_TransformComponent->m_x_Position,
 		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
+}
+
+void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup)
+{
+	while (collisionGroup->objects.size() > collisionGroup->objectsHitBoxes.size())
+	{
+		collisionGroup->objectsHitBoxes.push_back(new Aabb);
+	}
+	if (collisionGroup->objects.size() == collisionGroup->objectsHitBoxes.size())
+	{
+		for (int i_Objects = 0; i_Objects < collisionGroup->objects.size(); i_Objects++)
+		{
+			collisionGroup->objectsHitBoxes.at(i_Objects)->min = CollisionSystem::GetMin(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);
+			collisionGroup->objectsHitBoxes.at(i_Objects)->max = CollisionSystem::GetMax(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);
+		}
+	}
 }

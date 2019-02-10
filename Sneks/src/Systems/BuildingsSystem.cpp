@@ -33,7 +33,7 @@ void BuildingsSystem::Initialize()
 	m_BuildingCoordsCurrent.clear();
 
 	LoadPossibleLocations();
-	GenerateNewBuildings(100);
+	GenerateNewBuildings(1);
 
 }
 
