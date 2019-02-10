@@ -64,7 +64,10 @@ void SnekSystem::Update(float dt)
 				i_SnekHead->m_f_TurnSpeed * dt
 			);
 		}
-
+		for (size_t i_Body = 0; i_Body < i_SnekHead->m_x_BodyParts.size(); i_Body++)
+		{
+			
+		}
 		for (auto i_Body : i_SnekHead->m_x_BodyParts)
 		{
 			auto bodyDraw = static_cast<DrawComponent*>(
@@ -79,11 +82,11 @@ void SnekSystem::Update(float dt)
 
 			auto followDrawComponent = static_cast<DrawComponent*>(
 				m_po_ComponentManager->GetSpecificComponentInstance(
-					followComponent->m_po_OwnerEntity, kComponentDraw
+					followComponent->m_po_TransformComponent->m_po_OwnerEntity, kComponentDraw
 				));
 			
 			FaceReference(followComponent->m_po_TransformComponent, bodyDraw->m_po_TransformComponent);
-			MoveTowardsReference(followDrawComponent, bodyDraw);
+			MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
 		/*
 		else if (GetAsyncKeyState(i_SnekHead->m_i_BrakeKey) && (GetVelocity() < 0)) {
@@ -180,7 +183,7 @@ void SnekSystem::Initialize()
 //BODY SIZE:  61,  80
 //SCALE : 0.635f
 void SnekSystem::CreateSnek(float posX, float posY, float rotation,
-	const int numBodyParts, const char* textureName) const
+	const int numBodyParts, const char* textureName, int controlScheme) const
 {
 
 	auto newSnekHeadEntity = static_cast<SnekHeadEntity*>(
@@ -214,6 +217,16 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
+			if (controlScheme == 0)
+			{
+				
+			}else
+			{
+				((SnekHeadComponent*)i_Component)->m_i_AccelerationKey = AEVK_W;
+				((SnekHeadComponent*)i_Component)->m_i_BrakeKey = AEVK_S;
+				((SnekHeadComponent*)i_Component)->m_i_LeftKey = AEVK_A;
+				((SnekHeadComponent*)i_Component)->m_i_RightKey = AEVK_D;
+			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
 		}
@@ -351,7 +364,7 @@ void SnekSystem::FaceReference(const TransformComponent* reference, TransformCom
 
 }
 
-void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange) const
+void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
 {
 	//FaceReference(reference->m_po_TransformComponent, toChange->m_po_TransformComponent);
 
@@ -363,12 +376,14 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 	float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
 
 	//TODO
-	if (fabsf(distanceX) > reference->GetSizeX() * toChange->m_po_TransformComponent->m_f_Scale / 2) {
-		toChange->m_po_TransformComponent->m_x_Position.x = 
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX * 0.7f;
+	if (fabsf(distanceX) > reference->GetSizeX() * toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
+		toChange->m_po_TransformComponent->m_x_Position.x =
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX
+			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
 
-		toChange->m_po_TransformComponent->m_x_Position.y = 
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY * 0.7f;
+		toChange->m_po_TransformComponent->m_x_Position.y =
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY
+			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
 
 	}
 

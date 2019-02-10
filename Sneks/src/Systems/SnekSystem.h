@@ -7,6 +7,7 @@
 #include "../Components/DrawComponent.h"
 #include "GraphicsSystem.h"
 #include <vector>
+#include "../Components/PhysicsComponent.h"
 
 class SnekSystem final : public BaseSystem // Add event listeners here
 {
@@ -17,10 +18,10 @@ public:
 	~SnekSystem() = default;
 	void Update(float dt) override;
 	void Initialize();
-	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName) const;
+	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName, int controlScheme) const;
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName) const;
 	void FaceReference(const TransformComponent* reference, TransformComponent* toChange) const;
-	void MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange) const;
+	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 };
 #endif
