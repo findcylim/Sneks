@@ -119,28 +119,6 @@ void SnekSystem::Update(float dt)
 			m_f_Boost -= 35 * dt;
 		}
 
-		if (GetAsyncKeyState(m_i_AccelerationKey)) {
-			SetVelocity(GetVelocity() - kAccelerationForce);
-			//m_px_Particles->SetTexture(m_px_SnekHedBoost);
-			//DrawParticles();
-		}
-		if (GetAsyncKeyState(m_i_BrakeKey) && (GetVelocity() < 0)) {
-			SetVelocity(GetVelocity() + kBrakeForce);
-			//m_px_Particles->SetTexture(m_px_SnekHedSmoke);
-			//DrawParticles();
-		}
-
-		if (GetAsyncKeyState(m_i_LeftKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-			SetRotation(GetRotation() + kTurnSpeed * dt);
-			//m_px_Texture = m_px_SnekHedL;
-		}
-		else if (GetAsyncKeyState(m_i_RightKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-			SetRotation(GetRotation() - kTurnSpeed * dt);
-			//m_px_Texture = m_px_SnekHedR;
-		}
-		else {
-			m_px_Texture = m_px_SnekHed;
-		}
 		//end removal
 		if (GetAsyncKeyState(AEVK_0))
 		{
@@ -242,40 +220,15 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 	}
 
+	auto bodyTexture = "snake-body.png";
+	if (!strcmp(textureName, "head2.png"))
+	{
+		bodyTexture = "snake-body2.png";
+	}
+
 	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++){
-		auto bodyTexture = "snake-body.png";
-		if (!strcmp(textureName,"head2.png"))
-		{
-			bodyTexture = "snake-body2.png";
-		}
 		CreateSnekBody(newSnekHeadEntity, bodyTexture);
 	}
-	/*
-	(const int numBodyParts, float posX, float posY, AEGfxTexture* snakeHeadTexture, AEGfxTexture* snakeBodyTexture)
-	{
-		//Create head mesh based on Texture
-		m_po_Head = static_cast<SnekHead*>(new SnekHead(posX, posY, 105, 77, snakeHeadTexture));
-		m_po_Head->SetRotation(PI);
-		m_px_BodyMesh = nullptr;
-
-		//camera->AddToTrack(snekHeadTest);
-		for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++) {
-			//TODO: SET SIZEx AND SIZEy to auto detected TEXTURE SIZE values
-			//Create a new body part to add to the vector
-			SnekBody* snekBodyPart;
-			if (m_px_BodyMesh == nullptr)
-			{
-				snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture));
-				m_px_BodyMesh = snekBodyPart->GetMesh();
-			}
-			else
-			{
-				snekBodyPart = static_cast<SnekBody*>(new DrawObject(posX, posY, 61, 80, snakeBodyTexture, m_px_BodyMesh));
-			}
-			AddBodyPart(snekBodyPart);
-		}
-		m_i_Player = 0;
-	}*/
 }
 
 void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName) const 
@@ -371,7 +324,6 @@ void SnekSystem::FaceReference(const TransformComponent* reference, TransformCom
 
 void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
 {
-	//FaceReference(reference->m_po_TransformComponent, toChange->m_po_TransformComponent);
 
 	float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
 		 reference->m_po_TransformComponent->m_x_Position.x;
@@ -392,52 +344,5 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 
 	}
 
-	//TODO CHANGE SCALE
-	/*float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
-
-	//cap max distance for speed calculations at 500
-	if (distanceXySquared > 60 * 60)
-		distanceXySquared = 60 * 60;
-	if (referenceHalfSizeSquared== 0)
-		float referenceHalfSizeSquared = (m_o_Reference->GetSizeX() * m_o_Reference->GetScale() / 2) *
-													(m_o_Reference->GetSizeX() * m_o_Reference->GetScale() / 2);
-
-
-	if (distanceXySquared < 30*30)
-	{
-		SetVelocity(GetVelocity()*0.5f);
-	}
-	if (distanceXySquared < referenceHalfSizeSquared) {
-		SetVelocity(0);
-		SetPosition();
-	}
-	else //move towards the reference
-		SetVelocity(-fabsf(-0.0f - ((distanceXySquared - referenceHalfSizeSquared * 0.8f) * 0.002f)));
-
-	*/
-
-	//apply the velocity
-	//ApplyVelocity(dt);
-	/*AEVec2 directionVector;
-	AEVec2FromAngle(&directionVector, m_f_Rotation);
-
-	m_x_Position.x += directionVector.x * m_f_Speed * 300 * dt;
-	m_x_Position.y += directionVector.y * m_f_Speed * 300 * dt;*/
 }
 
-/* THIS HAS BEEN MOVED TO PHYSICS
-void SnekSystem::CheckOutOfBounds(TransformComponent* transformComponent) const
-{
-	//if out of screen, clamp movement
-	if (transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920)// + m_f_SizeX / 2)
-		transformComponent->m_x_Position.x = AEGfxGetWinMaxX() + 2 * 1920; // +m_f_SizeX / 2;
-	else if (transformComponent->m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920)// - m_f_SizeX / 2)
-		transformComponent->m_x_Position.x = AEGfxGetWinMinX() - 2 * 1920;// -m_f_SizeX / 2;
-
-	//if out of screen, clamp movement
-	if (transformComponent->m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080)// + m_f_SizeY / 2)
-		transformComponent->m_x_Position.y = AEGfxGetWinMaxY() + 2 * 1080;// +m_f_SizeY / 2;
-	else if (transformComponent->m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080)// - m_f_SizeY / 2)
-		transformComponent->m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;// -m_f_SizeY / 2;
-}
-*/

@@ -20,9 +20,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 		//ZOOM OUT CHECKS
 		for (auto i_Object : cameraComponent->m_v_EntitiesToTrack)
 		{
-			float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x)
+			float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualOffsetX)
 				- cameraComponent->m_x_CurrentViewDistance.x / 2;
-			float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y)
+			float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualOffsetY)
 				- cameraComponent->m_x_CurrentViewDistance.y / 2;
 
 			if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
