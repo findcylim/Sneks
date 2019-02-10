@@ -548,7 +548,27 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 
 	tailFollowComponent->m_po_TransformComponent = bodyTransformComponent;
 
+	if (numBodyParts%2)
 	for (int i_BodyPartsFront = 0, i_BodyPartsBack = (numBodyParts - 1); i_BodyPartsFront == i_BodyPartsBack; i_BodyPartsFront++, i_BodyPartsBack--) {
+
+		auto frontTransformComponent = static_cast<TransformComponent*>(
+			m_po_ComponentManager->GetSpecificComponentInstance(
+				snekHeadComponent->m_x_BodyParts[i_BodyPartsFront], kComponentTransform
+			));
+
+		auto backTransformComponent = static_cast<TransformComponent*>(
+			m_po_ComponentManager->GetSpecificComponentInstance(
+				snekHeadComponent->m_x_BodyParts[i_BodyPartsBack], kComponentTransform
+			));
+
+		auto tempX = frontTransformComponent->GetPositionX();
+		auto tempY = frontTransformComponent->GetPositionY();
+		frontTransformComponent->SetPosition(backTransformComponent->GetPositionX(), backTransformComponent->GetPositionY());
+		backTransformComponent->SetPosition(tempX, tempY);
+	}
+
+	else
+	for (int i_BodyPartsFront = 0, i_BodyPartsBack = (numBodyParts - 1); i_BodyPartsFront == i_BodyPartsBack - 1; i_BodyPartsFront++, i_BodyPartsBack--) {
 
 		auto frontTransformComponent = static_cast<TransformComponent*>(
 			m_po_ComponentManager->GetSpecificComponentInstance(
