@@ -108,6 +108,9 @@
     <ClCompile Include="Systems\LevelLoaderSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\BuildingsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -227,6 +230,9 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Systems\LevelLoaderSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\BuildingsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

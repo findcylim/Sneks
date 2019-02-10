@@ -10,6 +10,7 @@
 #include "../Systems/CameraSystem.h"
 #include "../Systems/SnekSystem.h"
 #include "../Systems/BackgroundSystem.h"
+#include "../Systems/BuildingsSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -88,6 +89,8 @@ void ECSystem::InitializeEngine()
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
 	background->CreateInstancedBackgrounds(2, 2, "Background01");
 
+	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
+	buildings->Initialize();
 
 	m_o_SystemManager->AddSystem(snek);
 
