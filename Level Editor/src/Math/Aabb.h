@@ -11,5 +11,5 @@ typedef struct {
 } Aabb;
 
 bool CheckAabbIntersect(Aabb*, Aabb*);
-
+bool CheckPointAabbIntersect(Aabb* a, HTVector2& pos);
 #endif //AABB_H

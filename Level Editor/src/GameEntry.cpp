@@ -113,10 +113,14 @@ void RenderObjects(std::vector<DrawObject*> objs)
 
 DrawObject* CheckNearestSnap(std::map<Objects,std::vector<DrawObject*>>& AllObjects,Aabb& boundsCheck)
 {
+	DrawObject* closestObjX = nullptr;
+	DrawObject* closestObjY = nullptr;
 	DrawObject* closestObj = nullptr;
+	float shortestDistX = -1;
+	float shortestDistY = -1;
 	float shortestDist = -1;
-	HTVector2 boundOrigin = { boundsCheck.min.x + (boundsCheck.max.x - boundsCheck.min.x),
-							  boundsCheck.min.y + (boundsCheck.max.y - boundsCheck.min.y) };
+	HTVector2 boundOrigin = { boundsCheck.min.x + (boundsCheck.max.x - boundsCheck.min.x)/2,
+							  boundsCheck.min.y + (boundsCheck.max.y - boundsCheck.min.y)/2 };
 	for (auto iterator = AllObjects.begin(); iterator != AllObjects.end(); ++iterator)
 	{
 		for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
@@ -124,22 +128,63 @@ DrawObject* CheckNearestSnap(std::map<Objects,std::vector<DrawObject*>>& AllObje
 			Aabb iterCheck = { (*innerIter)->GetMin(),(*innerIter)->GetMax() };
 			if (CheckAabbIntersect(&boundsCheck, &iterCheck))
 			{
-				continue;
+				//continue;
 			}
 
-			float dist = DistanceX(boundOrigin, (*innerIter)->GetPosition());
-			if (shortestDist < 0 || dist >= 0 && dist < shortestDist)
+			float distX = DistanceX(boundOrigin, (*innerIter)->GetPosition());
+			float distY = DistanceY(boundOrigin, (*innerIter)->GetPosition());
+			float Dist = Distance(boundOrigin, (*innerIter)->GetPosition());
+			if (shortestDist < 0)
 			{
-				shortestDist = dist;
-				closestObj = *innerIter;
+				shortestDistX = distX;
+				shortestDistY = distY;
+				closestObjY = closestObj = closestObjX = *innerIter;
+				shortestDist = Dist;
 			}
-			else
+			else if (Dist < shortestDist)
 			{
-				continue;
+				shortestDist = Dist;
+				closestObj = *innerIter;
+				if ((shortestDistX < 0 && shortestDistY < 0) || distX >= 0 && distY >= 0)
+				{
+					if (distX < shortestDistX)
+					{
+						if (distY == shortestDistY)
+						{
+							closestObjY = *innerIter;
+						}
+						shortestDistX = distX;
+						closestObjX = *innerIter;
+					}
+					if (distY < shortestDistY)
+					{
+						if (distX == shortestDistX)
+						{
+							closestObjX = *innerIter;
+						}
+						shortestDistY = distY;
+						closestObjY = *innerIter;
+					}
+					if (shortestDistX < 0 && shortestDistY < 0)
+					{
+						shortestDistX = distX;
+						shortestDistY = distY;
+						closestObjX = *innerIter;
+						closestObjY = *innerIter;
+					}
+				}
 			}
 		}
 	}
-	return closestObj;
+
+	if (closestObjX == closestObjY && closestObjY == closestObj)
+		return closestObjX;
+
+	if ((DistanceX(boundOrigin, closestObjY->GetPosition()) - (closestObjY->GetSizeY() / 2 + (boundOrigin.y - boundsCheck.min.y))) >
+		(DistanceY(boundOrigin, closestObjX->GetPosition()) - (closestObjX->GetSizeX() / 2 + (boundOrigin.x - boundsCheck.min.x))))
+		return closestObjX;
+	else
+		return closestObjY;
 }
 
 void SnapToOrientation(char orientationCheck,bool hardSnap,HTVector2& positionToSnap,SnappingState& snapState,DrawObject* closestObj,float sizeX,float sizeY)
@@ -227,7 +272,51 @@ void SnapToOrientation(char orientationCheck,bool hardSnap,HTVector2& positionTo
 }
 
 
+DrawObject* CheckPointCollideWithAnything(std::map<Objects, std::vector<DrawObject*>>& AllObjects, HTVector2 pos)
+{
+	for (auto iterator = AllObjects.begin(); iterator != AllObjects.end(); ++iterator)
+	{
+		for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
+		{
+			Aabb currentSelectionAabb = {};
+			currentSelectionAabb.min = (*innerIter)->GetMin();
+			currentSelectionAabb.max = (*innerIter)->GetMax();
 
+			if (CheckPointAabbIntersect(&currentSelectionAabb, pos))
+			{
+				return *innerIter;
+			}
+		}
+	}
+	return nullptr;
+}
+
+void ClearSelected(std::list<DrawObject*>& SelectedList)
+{
+	for (auto iter = SelectedList.begin(); iter != SelectedList.end(); iter++)
+	{
+		(*iter)->SetColor(1, 1, 1, 1);
+	}
+	SelectedList.clear();
+}
+
+void AddToSelected(std::list<DrawObject*>& SelectedList, DrawObject* object)
+{
+	object->SetColor(0.5f, 1, 0.5f, 1);
+	SelectedList.push_back(object);
+}
+
+bool Listfind(std::list<DrawObject*>& SelectedList, DrawObject* object)
+{
+	for (auto Object : SelectedList)
+	{
+		if (Object == object)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
@@ -394,7 +483,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 
 		HTVector2 DrawPosition{ (static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x  ) - windowRect.left )* DrawObject::m_f_GlobalScale
-										 ,(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y+28 + windowRect.top )* DrawObject::m_f_GlobalScale )};
+							   ,(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y+14 + windowRect.top )* DrawObject::m_f_GlobalScale )};
 		
 		if (GetAsyncKeyState(VK_TAB) < 0)
 		{
@@ -429,21 +518,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						else
 						{
 							if (DrawPosition.x < 0)
-							{
 								DrawPosition.x = (DrawPosition.x - (50+ (static_cast<int>(DrawPosition.x) % 50) )) + ((*iter)->GetSizeX() / 2);
-							}
 							else
-							{
 								DrawPosition.x = (DrawPosition.x - (static_cast<int>(DrawPosition.x) % 50)) + ((*iter)->GetSizeX() / 2);
-							}
+
 							SnapState = kSnapXGrid;
 						}
 					}
 					else if (GetAsyncKeyState(VK_LSHIFT) < 0)
 					{
-						Aabb currentSelectionAabb ={};
-						currentSelectionAabb.min = (*iter)->GetMin();
-						currentSelectionAabb.max = (*iter)->GetMax();
+						Aabb currentSelectionAabb ={ (*iter)->GetMin(),(*iter)->GetMax() };
 
 						float shortestDist = -1;
 						float xDiffClose, yDiffClose;
@@ -453,8 +537,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						if (closestObj)
 						{
 							Aabb closestIter = { closestObj->GetMin() ,closestObj->GetMax() };
-
-							short offset = 50;
 							if (isLeftShift == false)
 							{
 								//First Time Pressing Shift
@@ -464,7 +546,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 								if (check != -1)
 									if (check != orientationCheck)
 										orientationCheck = check;
-
 							}
 							SnapToOrientation(orientationCheck, isGridLock, DrawPosition, SnapState, closestObj, (*iter)->GetSizeX(), (*iter)->GetSizeY());
 						}
@@ -481,7 +562,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 			}
 		}
-
+		/**********************************************************************************/
+		// Zooming in and Out
+		// Still doesnt scale properly yet TODO
+		/**********************************************************************************/
 		if (GetAsyncKeyState(AEVK_MINUS) < 0)
 		{
 			if (DrawObject::m_f_GlobalScale >= zoomLimitMin)
@@ -504,7 +588,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				DrawObject::m_f_GlobalScale = zoomLimitMax;
 			}
 		}
+		/**********************************************************************************/
 
+		/**********************************************************************************/
+		// Move individual objects
+		/**********************************************************************************/
 		if (SelectedObject)
 		{
 			SelectedObject->SetColor(0.5,1.0f,0.5f,1.0f);
@@ -525,7 +613,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				SelectedObject->SetPositionY(SelectedObject->GetPosition().y - 1);
 			}
 		}
+		/**********************************************************************************/
 
+		/**********************************************************************************/
+		//	Move groups of objects
+		/**********************************************************************************/
 		if (selectedList.size() != 0)
 		{
 			if (GetAsyncKeyState(VK_LEFT) < 0)
@@ -562,32 +654,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			if (!isLeftMouseClicked)
 			{
+				lastClickPosition.x = DrawPosition.x;
+				lastClickPosition.y = DrawPosition.y;
 
 				isLeftMouseClicked = true;
 				bool found = false;
+
 				if (ObjCounter == kBlankState)
 				{
+					DrawObject* collideObject = CheckPointCollideWithAnything(ToSavePrefabMap, DrawPosition);
 
-					Aabb mouse = {};
-					mouse.min = DrawPosition;
-					mouse.max = DrawPosition;
-					lastClickPosition.x = DrawPosition.x;
-					lastClickPosition.y = DrawPosition.y;
-					for (auto iterator = ToSavePrefabMap.begin(); iterator != ToSavePrefabMap.end(); ++iterator)
+
+					if (collideObject)
 					{
-						for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
+						if (GetAsyncKeyState(VK_LCONTROL) < 0)
 						{
-							Aabb currentSelectionAabb = {};
-							currentSelectionAabb.min = (*innerIter)->GetMin();
-							currentSelectionAabb.max = (*innerIter)->GetMax();
-							if (CheckAabbIntersect(&currentSelectionAabb,&mouse))
+							if (!Listfind(selectedList, collideObject))
 							{
-								if (SelectedObject)
-									SelectedObject->SetColor(1, 1, 1, 1);
-								SelectedObject = (*innerIter);
-								found = true;
+								AddToSelected(selectedList, collideObject);
 							}
 						}
+						else
+						{
+							ClearSelected(selectedList);
+							AddToSelected(selectedList, collideObject);
+						}
+						found = true;
 					}
 					if (!found)
 					{
@@ -598,8 +690,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						SelectedObject = nullptr;
 
 						isDrawSelection = true;
-						lastClickPosition.x = DrawPosition.x;
-						lastClickPosition.y = DrawPosition.y;
 						selectionSquare->SetPosition(DrawPosition.x, DrawPosition.y);
 					}
 				}
@@ -689,9 +779,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						}
 					}
 				}
-
-
-
+			}
+			else
+			{
+				
 			}
 		}
 		else
@@ -703,11 +794,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				Aabb selectionBounds = {};
 				selectionBounds.min = selectionSquare->GetMin();
 				selectionBounds.max = selectionSquare->GetMax();
-				for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
-				{
-					(*iter)->SetColor(1, 1, 1, 1);
-				}
-				selectedList.clear();
+
+				ClearSelected(selectedList);
+
 				for (auto iterator = ToSavePrefabMap.begin(); iterator != ToSavePrefabMap.end(); ++iterator)
 				{
 					for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
@@ -724,6 +813,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 			isDrawSelection = false;
 		}
+
+
+
 
 		for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
 		{
@@ -781,11 +873,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				{
 					isCopying = true;
 					copiedList = static_cast<const std::list <DrawObject*>>(selectedList);
-					for (auto iter = selectedList.begin(); iter != selectedList.end(); iter++)
-					{
-						(*iter)->SetColor(1, 1, 1, 1);
-					}
-					selectedList.clear();
+					ClearSelected(selectedList);
 					copiedPosition.x = DrawPosition.x;
 					copiedPosition.y = DrawPosition.y;
 				}
@@ -947,7 +1035,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		s8 chars4[100]= {};
 		s8 chars5[100]= {};
 		s8 chars6[100] = "Snapping: ";
-		
+		s8 chars7[100] = {};
+
 		switch (SnapState)
 		{
 		case kSnapXObject:
@@ -982,7 +1071,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
 		sprintf_s(chars3, 100, "+");
 		sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->GetName() : "---");
-		
+		sprintf_s(chars7, 100, "GridLock: %s", isGridLock? "On" : "Off");
+
 		count = 0;
 		for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin(); iter < PrefabVector.end(); ++iter, ++count)
 		{
@@ -996,11 +1086,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEGfxSetBlendMode(AE_GFX_BM_NONE);
 
-		AEGfxPrint(font, chars, currentCamPosX- ScreenSizeX, currentCamPosY+(ScreenSizeY/10)*9, 0, 0, 1);
-		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY/10)*9  -30, 1, 0, 0);
-		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9-60, 0, 0, 1);
-		AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 0, 0, 1);
-		AEGfxPrint(font, chars6, currentCamPosX - ScreenSizeX, currentCamPosY + (ScreenSizeY / 10) * 9 - 120, 0, 0, 1);
+		AEGfxPrint(font, chars,  currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9, 0, 0, 1);
+		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 30, 1, 0, 0);
+		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 60, 0, 0, 1);
+		AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 0, 0, 1);
+		AEGfxPrint(font, chars6, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 120, 0, 0, 1);
+		AEGfxPrint(font, chars7, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 150, 0, 0, 1);
 
 		/*
 		*///DRAW ENDS////////////////////////////////////////////////////////////////////////////////////

@@ -39,7 +39,7 @@ void InputSystem::SetKeyBinds()
 
 	}
 }
-
+//
 //
 //void InputSystem::Update()
 //{
@@ -53,7 +53,8 @@ void InputSystem::SetKeyBinds()
 //		{
 //			case state_Game:
 //				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN LEFT");
-//				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTKEY);
+//				auto test = new Events::Ev_PLAYER1GAME_LEFTKEY;
+//				m_o_EventManager->EmitEvent(test);
 //				break;
 //		}
 //	}
