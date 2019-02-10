@@ -10,6 +10,7 @@ enum Entity : unsigned char
 	kEntitySnekHead,
 	kEntitySnekBody,
 	kEntitySnekTail,
+	kEntityMoon,
 	kEntityStaticObject,
 	kEntityBackground,
 	kEntityCamera,
