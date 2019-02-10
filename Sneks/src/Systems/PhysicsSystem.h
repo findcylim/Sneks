@@ -18,15 +18,17 @@ class PhysicsSystem : public BaseSystem,
 	public EventListener<Events::Ev_PLAYER1GAME_RIGHTKEY>,
 	public EventListener<Events::Ev_PLAYER2GAME_LEFTKEY>,
 	public EventListener<Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY>,
-	public EventListener<Events::Ev_PLAYER2GAME_RIGHTKEY>
+	public EventListener<Events::Ev_PLAYER2GAME_RIGHTKEY>,
+	public EventListener<Events::Ev_PLAYER_MOVEMENTKEY>
 {
 private:
 	GameStateManager* m_o_GameStateManager;
 public:
 	~PhysicsSystem();
-	PhysicsSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GameStateManager* gameStateManager);
+	PhysicsSystem(EntityManager* entityManagerPtr);
 
-	void Initialize(EventManager* eventManager,GameStateManager* gameStateManager);
+	void Initialize(GameStateManager* gameStateManager);
+	void receive(const Events::Ev_PLAYER_MOVEMENTKEY& eventData);
 
 	virtual void receive(const Events::Ev_PLAYER1GAME_LEFTKEY& eventData) override;
 	virtual void receive(const Events::Ev_PLAYER1GAME_LEFTSHIFTKEY& eventData) override;

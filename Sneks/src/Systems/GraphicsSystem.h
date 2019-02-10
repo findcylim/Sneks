@@ -25,7 +25,7 @@ public:
 	void UpdateMatrices(CameraComponent*) const;
 
 private:
-	std::vector<DrawComponent*> m_v_DrawOrder ={};
+	std::vector<std::vector<DrawComponent*>> m_x_DrawOrder ={};
 
 };
 #endif

@@ -17,14 +17,8 @@
     <Filter Include="Math">
       <UniqueIdentifier>{93fee7eb-6cb9-46be-9758-fe89ea837071}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Snek">
-      <UniqueIdentifier>{80666e54-b1b9-4521-82bc-0eeec9a4665d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{6933e68f-8b22-457d-826e-1b129e51416a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Relics of the Past">
-      <UniqueIdentifier>{9a72f7b1-d17f-415d-83c5-bfbc27cedecc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="Systems\BuildingsSystem.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\CameraShake.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="Systems\BuildingsSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\CameraShake.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

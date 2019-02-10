@@ -17,15 +17,21 @@ public:
 
 struct CollisionGroupPairing final
 {
-	CollisionGroup* groupA;
-	CollisionGroup* groupB;
+	int groupA;
+	int groupB;
 };
 
 class CollisionSystem final : public BaseSystem // Add event listeners here
 {
 private:
 	std::vector<CollisionGroup*>					m_xo_ComponentsPerGroup;
-	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings;
+	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings = 
+	{{0,2}, //Snek Head and Other Head
+	 {0,3}, //Snek Head and Other Body
+	 {2,1},
+	 {0,10},
+	 {2,10}
+	};
 
 
 public:

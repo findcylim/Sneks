@@ -2,14 +2,35 @@
 #include "../Components/CameraComponent.h"
 
 
+void CameraSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
+{
+	SetShake(2.0f);
+}
+
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)
 {
-	
+	m_po_CamShake = new CameraShake();
+	SetShake(0);
+
 }
+
+CameraSystem::~CameraSystem()
+{
+	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER_COLLISION>(this);
+}
+
+void CameraSystem::Initialize()
+{
+	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+}
+
 void CameraSystem::UpdateCamera(const float dt) const
 {
 	auto cameraComponent = static_cast<CameraComponent*>(m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
+
+	m_po_CamShake->Update(dt);
+
 	while (cameraComponent) {
 		cameraComponent->m_x_CurrentViewDistance.x = cameraComponent->m_px_ScreenSize.x / cameraComponent->m_f_VirtualScale;
 		cameraComponent->m_x_CurrentViewDistance.y = cameraComponent->m_px_ScreenSize.y / cameraComponent->m_f_VirtualScale;
@@ -119,3 +140,15 @@ void CameraSystem::Update(float dt)
 {
 	UpdateCamera(dt);
 }
+
+float CameraSystem::AddShake(float magnitude)
+{
+	return m_po_CamShake->AddShake(magnitude);
+}
+
+void CameraSystem::SetShake(float magnitude)
+{
+	m_po_CamShake->AddShake(magnitude);
+}
+
+

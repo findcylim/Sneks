@@ -20,15 +20,19 @@ SystemManager::~SystemManager()
 	}
 }
 
-void SystemManager::Initialize()
+void SystemManager::Initialize(EventManager* eventManager, EntityManager* entManager)
 {
-	
+	m_o_EventManager = eventManager;
+	m_o_EntityComponentManager = entManager;
 }
 
 void SystemManager::AddSystem(BaseSystem* NewSystem)
 {
 	if (NewSystem != nullptr)
 	{
+		NewSystem->m_o_EventManagerPtr = m_o_EventManager;
+		NewSystem->m_po_EntityManager = m_o_EntityComponentManager;
+		NewSystem->m_po_ComponentManager = m_o_EntityComponentManager->GetComponentManager();
 		SystemList.push_back(NewSystem);
 	}
 	else

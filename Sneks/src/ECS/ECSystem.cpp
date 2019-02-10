@@ -52,7 +52,7 @@ void ECSystem::InitializeEngine()
 	m_o_Logger->LogMessage(LOGGER_SYSTEM, "TEST %f", 232.034f);
 
 
-	m_o_SystemManager->Initialize();
+	m_o_SystemManager->Initialize(m_o_EventManager, m_o_EntityComponentManager);
 	/*
 		Create and add Systems here
 	*/
@@ -61,41 +61,42 @@ void ECSystem::InitializeEngine()
 		m_o_EntityComponentManager->NewEntity(kEntityCamera, "Camera"));
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
-	graphics->SetID(0);
 	m_o_SystemManager->AddSystem(graphics);
+	graphics->SetID(0);
 	graphics->PreLoadTextures();
 
-	auto physics = new PhysicsSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager);
-	physics->SetID(1);
+	auto physics = new PhysicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(physics);
-
-
+	physics->Initialize(m_o_GameStateManager);
+	physics->SetID(1);
 
 	auto camera = new CameraSystem(m_o_EntityComponentManager);
-	camera->SetID(3);
 	m_o_SystemManager->AddSystem(camera);
+	camera->Initialize();
+	camera->SetID(3);
 
 	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
-	levelLoader->SetID(4);
 	m_o_SystemManager->AddSystem(levelLoader);
+	levelLoader->SetID(4);
 	//levelLoader->LoadLevel(kLevel1);
 
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
-	snek->CreateSnek(50, 0, PI, 20, "SnekHead01",0);
-	snek->CreateSnek(100, 0, 0, 20, "SnekHead02",1);
 	m_o_SystemManager->AddSystem(snek);
+	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
+	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
+	snek->Initialize();
 
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
-	background->CreateInstancedBackgrounds(2, 2, "Background01");
 	m_o_SystemManager->AddSystem(background);
+	background->CreateInstancedBackgrounds(2, 2, "Background01");
 
 	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
-	buildings->Initialize();
 	m_o_SystemManager->AddSystem(buildings);
+	buildings->Initialize();
 
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
-	collisions->Initialize();
 	m_o_SystemManager->AddSystem(collisions);
+	collisions->Initialize();
 
 
 

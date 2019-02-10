@@ -48,6 +48,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
+	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
+
 
 }
 
@@ -64,19 +66,24 @@ void GraphicsSystem::Update(float dt)
 
 void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 {
-	m_v_DrawOrder.clear();
+	m_x_DrawOrder.clear();
 
 	auto i_AddDrawComponent = firstDrawComponent;
 	while (i_AddDrawComponent) {
-		m_v_DrawOrder.push_back(i_AddDrawComponent);
+		//m_x_DrawOrder.insert(std::pair<int, DrawComponent*>(i_AddDrawComponent->m_f_DrawPriority, i_AddDrawComponent));
+		while (m_x_DrawOrder.size() <= static_cast<size_t>(i_AddDrawComponent->m_f_DrawPriority))
+		{
+			m_x_DrawOrder.emplace_back();
+		}
+		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
 		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent);
 	}
-
-	std::sort(m_v_DrawOrder.begin(), m_v_DrawOrder.end(),
+	/*
+	std::sort(m_x_DrawOrder.begin(), m_x_DrawOrder.end(),
 		[](const DrawComponent* a, const DrawComponent* b) ->bool
 	{
 		return a->m_f_DrawPriority > b->m_f_DrawPriority;
-	});
+	});*/
 
 }
 
@@ -96,30 +103,33 @@ void GraphicsSystem::Draw(float dt)
 	}
 
 	//TODO:: actually update draw order accordingly
-	if (m_v_DrawOrder.size() != drawCount)
+	if (m_x_DrawOrder.size() != drawCount)
 	{
 		UpdateDrawOrderVector(firstDrawComponent); 
 	}
 
-	for (auto drawComponent : m_v_DrawOrder)
-	{
-		//Check if there is draw component
-		if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
+	
+	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
+		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
+			//Check if there is draw component
+			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
-			//allow transparency to work !! must be first
-			AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-			AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+				//allow transparency to work !! must be first
+				AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+				AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
-			AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
-			AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
-			AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
-			AEGfxSetTransparency(1);
-			AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
-			AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
-			AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+				AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
+				AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
+				AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
+				AEGfxSetTransparency(1);
+				AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
+				AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
+				AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+			}
+			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 		}
-		//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 	}
+	
 }
 
 void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const

@@ -1,10 +1,9 @@
 #include "PhysicsSystem.h"
 #include <iostream>
 
-PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GameStateManager* gameStateManager):
+PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)
 {
-	Initialize(eventManager, gameStateManager);
 }
 
 PhysicsSystem::~PhysicsSystem()
@@ -15,11 +14,12 @@ PhysicsSystem::~PhysicsSystem()
 	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER2GAME_LEFTKEY>(this);
 	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY>(this);
 	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER2GAME_RIGHTKEY>(this);
+	
+	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER_MOVEMENTKEY>(this);
 }
 
-void PhysicsSystem::Initialize(EventManager* eventManager,GameStateManager* gameStateManager)
+void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
 {
-	m_o_EventManagerPtr		= eventManager;
 	m_o_GameStateManager	= gameStateManager;
 	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER1GAME_LEFTKEY>(this);
 	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER1GAME_LEFTSHIFTKEY>(this);
@@ -27,8 +27,38 @@ void PhysicsSystem::Initialize(EventManager* eventManager,GameStateManager* game
 	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER2GAME_LEFTKEY>(this);
 	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY>(this);
 	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER2GAME_RIGHTKEY>(this);
+
+	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_MOVEMENTKEY>(this);
 }
 
+void PhysicsSystem::receive(const Events::Ev_PLAYER_MOVEMENTKEY& eventData)
+{
+	//switch (eventData.key)
+	//{
+	//case 0:
+
+	//}
+	auto dt = AEFrameRateControllerGetFrameTime();
+	auto phyComp = eventData.caller;
+	auto snekHeadComponent = static_cast<SnekHeadComponent*>(m_po_ComponentManager->
+		GetSpecificComponentInstance(phyComp, kComponentSnekHead));
+
+	if (eventData.key == Events::MOVEKEY_UP) {
+		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
+	}
+	else if (eventData.key == Events::MOVEKEY_LEFT) {
+		phyComp->m_po_TransformComponent->SetRotation(
+			phyComp->m_po_TransformComponent->GetRotation() +
+			snekHeadComponent->m_f_TurnSpeed * dt
+		);
+	}
+	else if (eventData.key == Events::MOVEKEY_RIGHT) {
+		phyComp->m_po_TransformComponent->SetRotation(
+			phyComp->m_po_TransformComponent->GetRotation() -
+			snekHeadComponent->m_f_TurnSpeed * dt
+		);
+	}
+}
 //Currently Debug Messages only
 //Change this to your physics velocity
 //Probably fill in the Event Data with pointers to snek entities
@@ -84,6 +114,8 @@ void PhysicsSystem::Update(float dt)
 		ApplyVelocity(i_PhysicsComponent, dt);
 		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
 	}
+
+
 	/*
 	//Player 1 Controls
 	//'A' Key (Turn Left)

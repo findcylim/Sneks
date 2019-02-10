@@ -7,6 +7,8 @@
 #include <map>
 #include "../Utility/Logger.h"
 #include "EventListener.h"
+#include "../Components/PhysicsComponent.h"
+#include "../Components/CollisionComponent.h"
 
 
 enum kEventList
@@ -52,6 +54,26 @@ namespace Events
 	struct Ev_PLAYER2GAME_RIGHTSHIFTKEY
 	{
 
+	};
+
+	enum MoveKey
+	{
+		MOVEKEY_LEFT = 0,
+		MOVEKEY_RIGHT,
+		MOVEKEY_UP,
+		MOVEKEY_DOWN
+	};
+
+	struct Ev_PLAYER_MOVEMENTKEY
+	{
+		PhysicsComponent* caller;
+		MoveKey key;
+	};
+
+	struct Ev_PLAYER_COLLISION
+	{
+		CollisionComponent* object1;
+		CollisionComponent* object2;
 	};
 
 }

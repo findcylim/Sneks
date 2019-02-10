@@ -13,13 +13,13 @@ class BaseSystem
 {
 protected:
 	const char*                m_c_SystemName;
-	EventManager*              m_o_EventManagerPtr;
 	short		                  m_s_SystemID;
 	bool		                  m_b_isActive;
 public:
+	EventManager*              m_o_EventManagerPtr;
 	EntityManager*		         m_po_EntityManager;
 	ComponentManager*          m_po_ComponentManager;
-	BaseSystem() = delete;
+	BaseSystem() = default;
 	BaseSystem(EntityManager*);
 	virtual void Update(float dt) = 0;
 	void SetID(short id);

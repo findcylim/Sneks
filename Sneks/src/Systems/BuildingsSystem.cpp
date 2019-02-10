@@ -33,7 +33,7 @@ void BuildingsSystem::Initialize()
 	m_BuildingCoordsCurrent.clear();
 
 	LoadPossibleLocations();
-	GenerateNewBuildings(1);
+	GenerateNewBuildings(100);
 
 }
 
@@ -61,7 +61,7 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, floa
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-			(2);
+			(10);
 		}
 	}
 	return newBuildingEntity;

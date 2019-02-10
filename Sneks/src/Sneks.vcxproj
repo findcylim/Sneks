@@ -32,6 +32,7 @@
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Math\Aabb.cpp" />
+    <ClCompile Include="Math\CameraShake.cpp" />
     <ClCompile Include="Math\CollisionGroup.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
     <ClCompile Include="Systems\BackgroundSystem.cpp" />
@@ -71,6 +72,7 @@
     <ClInclude Include="ECS\SystemManager.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Math\Aabb.h" />
+    <ClInclude Include="Math\CameraShake.h" />
     <ClInclude Include="Math\CollisionGroup.h" />
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />

@@ -13,6 +13,7 @@ BaseSystem(entityManagerPtr)
 void CollisionSystem::Update(float dt)
 {
 
+
 	/*Aabb snekHeadAabb ={};
 		snekHeadAabb.min = snek->m_po_Head->GetMin();
 		snekHeadAabb.max = snek->m_po_Head->GetMax();
@@ -26,7 +27,6 @@ void CollisionSystem::Update(float dt)
 			//check iframes
 			if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
 			else {
-				cameraShake->AddShake(20.0f);
 				snek->m_po_Head->SetInvulnerable(1.0f);
 				snek2->m_po_Head->SetInvulnerable(1.0f);
 				if (snek->m_v_BodyParts.empty()) {
@@ -71,31 +71,38 @@ void CollisionSystem::Update(float dt)
 	// and another
 	for (auto i_CollisionPair : m_vx_CollisionsPairings)
 	{
-		for (auto i_ObjectGroupA : i_CollisionPair.groupA->objectsHitBoxes)
+		auto objectsInGroupA = m_xo_ComponentsPerGroup[i_CollisionPair.groupA];
+		for (int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
-			for (auto i_ObjectGroupB : i_CollisionPair.groupB->objectsHitBoxes)
+			if (!objectsInGroupA->objects[i_ObjectA]->enabled)
+				continue;
+			auto objectsInGroupB = m_xo_ComponentsPerGroup[i_CollisionPair.groupB];
+			for (int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
 			{
+				if (!objectsInGroupB->objects[i_ObjectB]->enabled)
+					continue;
+				auto hitBoxA = objectsInGroupA->objectsHitBoxes[i_ObjectA];
+				auto hitBoxB = objectsInGroupB->objectsHitBoxes[i_ObjectB];
 				//Don't check collision with self
-				if (i_ObjectGroupB != i_ObjectGroupA) {
-					if (AabbHelper::CheckAabbIntersect(i_ObjectGroupA, i_ObjectGroupB))
+				if (hitBoxB != hitBoxA) {
+					if (AabbHelper::CheckAabbIntersect(hitBoxA, hitBoxB))
 					{
-						std::cout << "COLLIDED" << std::endl;
-						//TODO:: FIRE OFF COLLISION EVENT
+						Events::Ev_PLAYER_COLLISION collEvent { objectsInGroupA->objects[i_ObjectA],
+							objectsInGroupB->objects[i_ObjectB]
+						};
+						m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_COLLISION>(collEvent);
 					}
 				}
 			}
 		}
 	}
+	
 }
 
 void CollisionSystem::Initialize()
 {
 	UpdateComponentsPerGroup();
-	auto newPairing = CollisionGroupPairing();
-	newPairing.groupA = m_xo_ComponentsPerGroup[1];
-	newPairing.groupB = m_xo_ComponentsPerGroup[2];
 
-	m_vx_CollisionsPairings.push_back(newPairing);
 }
 
 void CollisionSystem::AddComponentToCollisionGroup(CollisionComponent* collisionComponent, unsigned int collisionGroup)
