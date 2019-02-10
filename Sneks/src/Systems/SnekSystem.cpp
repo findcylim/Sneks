@@ -242,8 +242,13 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 	}
 
-	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++) {
-		CreateSnekBody(newSnekHeadEntity, "snake-body.png");
+	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++){
+		auto bodyTexture = "snake-body.png";
+		if (!strcmp(textureName,"head2.png"))
+		{
+			bodyTexture = "snake-body2.png";
+		}
+		CreateSnekBody(newSnekHeadEntity, bodyTexture);
 	}
 	/*
 	(const int numBodyParts, float posX, float posY, AEGfxTexture* snakeHeadTexture, AEGfxTexture* snakeBodyTexture)

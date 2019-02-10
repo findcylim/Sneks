@@ -78,7 +78,7 @@ void ECSystem::InitializeEngine()
 
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	snek->CreateSnek(0, 0, PI, 20, "snake-head.png",0);
-	snek->CreateSnek(100, 0, PI, 20, "snake-head.png",1);
+	snek->CreateSnek(100, 0, 0, 20, "head2.png",1);
 
 	m_o_SystemManager->AddSystem(snek);
 
