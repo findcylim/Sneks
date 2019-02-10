@@ -15,9 +15,9 @@ GraphicsSystem::~GraphicsSystem()
 
 void GraphicsSystem::Initialize(EntityManager* entityManager)
 {
-	m_po_EntityManager = entityManager;
-	m_po_ComponentManager = entityManager->GetComponentManager();
-	PreLoadTextures();
+	//m_po_EntityManager = entityManager;
+	//m_po_ComponentManager = entityManager->GetComponentManager();
+	//PreLoadTextures();
 }
 
 AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)
@@ -43,7 +43,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/snake-body2.png"	 , "snake-body2.png");
 	LoadTextureToMap("../Resources/rocket_booster.jpg", "rocket_booster.jpg");
 	LoadTextureToMap("../Resources/smoke.jpg"			 , "smoke.jpg");
-	LoadTextureToMap("../Resources/map.png"				 , "map.png");
+	LoadTextureToMap("../Resources/map.png"				 , "Background01");
 	LoadTextureToMap("../Resources/building.png"		 , "building.png"); 
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
@@ -67,7 +67,7 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 	m_v_DrawOrder.clear();
 
 	auto i_AddDrawComponent = firstDrawComponent;
-	while (i_AddDrawComponent->m_po_NextComponent) {
+	while (i_AddDrawComponent) {
 		m_v_DrawOrder.push_back(i_AddDrawComponent);
 		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent);
 	}
@@ -90,14 +90,15 @@ void GraphicsSystem::Draw(float dt)
 	auto i_DrawComponent = firstDrawComponent;
 	int drawCount = 0;
 
-	while (i_DrawComponent->m_po_NextComponent){
+	while (i_DrawComponent){
 		drawCount++;
 		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
 
+	//TODO:: actually update draw order accordingly
 	if (m_v_DrawOrder.size() != drawCount)
 	{
-		UpdateDrawOrderVector(firstDrawComponent);
+		UpdateDrawOrderVector(firstDrawComponent); 
 	}
 
 	for (auto drawComponent : m_v_DrawOrder)

@@ -9,6 +9,7 @@
 #include "../Utility/AlphaEngineHelper.h"
 #include "../Systems/CameraSystem.h"
 #include "../Systems/SnekSystem.h"
+#include "../Systems/BackgroundSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -54,6 +55,10 @@ void ECSystem::InitializeEngine()
 	/*
 		Create and add Systems here
 	*/
+
+	auto cameraEntity = static_cast<CameraEntity*>(
+		m_o_EntityComponentManager->NewEntity(kEntityCamera, "Camera"));
+
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
 	graphics->SetID(0);
 	m_o_SystemManager->AddSystem(graphics);
@@ -74,11 +79,15 @@ void ECSystem::InitializeEngine()
 	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
 	levelLoader->SetID(4);
 	m_o_SystemManager->AddSystem(levelLoader);
-	levelLoader->LoadLevel(kLevel1);
+	//levelLoader->LoadLevel(kLevel1);
 
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
-	snek->CreateSnek(0, 0, PI, 20, "SnekHead01",0);
+	snek->CreateSnek(50, 0, PI, 20, "SnekHead01",0);
 	snek->CreateSnek(100, 0, 0, 20, "SnekHead02",1);
+
+	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
+	background->CreateInstancedBackgrounds(2, 2, "Background01");
+
 
 	m_o_SystemManager->AddSystem(snek);
 

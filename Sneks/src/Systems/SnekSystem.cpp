@@ -201,10 +201,10 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				
 			}else
 			{//TODO:: REMOVE HARDCODE
-				((SnekHeadComponent*)i_Component)->m_i_AccelerationKey = AEVK_W;
-				((SnekHeadComponent*)i_Component)->m_i_BrakeKey = AEVK_S;
-				((SnekHeadComponent*)i_Component)->m_i_LeftKey = AEVK_A;
-				((SnekHeadComponent*)i_Component)->m_i_RightKey = AEVK_D;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_AccelerationKey = AEVK_W;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_BrakeKey = AEVK_S;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
