@@ -269,7 +269,7 @@ void SnekSystem::CreateMoon(SnekHeadEntity* owner, const char* textureName) cons
 		{
 			static_cast<DrawComponent*>(i_Component)->Initialize(
 				m_o_GraphicsSystem->FetchTexture(textureName),
-				61, 80, HTColor{ 1,1,1,1 }
+				186, 186, HTColor{ 1,1,1,1 }
 			);
 
 		}
@@ -286,7 +286,7 @@ void SnekSystem::CreateMoon(SnekHeadEntity* owner, const char* textureName) cons
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-			(2);
+			(1);
 		}
 	}
 }
