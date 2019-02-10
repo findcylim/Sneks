@@ -18,6 +18,8 @@ public:
 	float		GetRotation() const;
 	void		SetPosition(float, float);
 	HTVector2	GetPosition() const;
+	float       GetPositionX() const;
+	float       GetPositionY() const;
 };
 
 #endif

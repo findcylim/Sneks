@@ -41,6 +41,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
 	LoadTextureToMap("../Resources/snake-body.png"		 , "SnekBody01");
 	LoadTextureToMap("../Resources/snake-body2.png"	 , "snake-body2.png");
+	LoadTextureToMap("../Resources/snake-head.png", "snake-tail.png");
+	LoadTextureToMap("../Resources/snake-head.png", "snake-tail2.png");
 	LoadTextureToMap("../Resources/rocket_booster.jpg", "rocket_booster.jpg");
 	LoadTextureToMap("../Resources/smoke.jpg"			 , "smoke.jpg");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
