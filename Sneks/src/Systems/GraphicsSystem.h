@@ -20,7 +20,12 @@ public:
 	void PreLoadTextures();
 	void LoadTextureToMap(const char* fileName, const char* textureName);
 	void Update(float dt) override;
-	void Draw(float dt) const;
+	void UpdateDrawOrderVector(DrawComponent* firstDrawComponent);
+	void Draw(float dt);
 	void UpdateMatrices(CameraComponent*) const;
+
+private:
+	std::vector<DrawComponent*> m_v_DrawOrder ={};
+
 };
 #endif

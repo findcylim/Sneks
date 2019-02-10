@@ -13,6 +13,7 @@ public:
 	float		               m_f_Speed;
 	float		               m_f_MaxSpeed = 900;
 	float							m_f_Acceleration;
+	HTVector2					m_x_Velocity ={};
 
 	TransformComponent*		m_po_TransformComponent;
 };

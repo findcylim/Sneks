@@ -24,6 +24,7 @@ public:
 	AEMtx33*		               m_po_TranslationMatrix;
 	AEMtx33*				         m_po_GlobalMatrix;
 
+	int							   m_f_DrawPriority = 5;
 
 	void SetAlpha(float alpha);
 	void SetColor(float red, float green, float blue, float alpha);

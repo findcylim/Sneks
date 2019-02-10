@@ -68,18 +68,20 @@ void PhysicsSystem::Update(float dt)
 
 	while (i_PhysicsComponent)
 	{
+		//Calculate the stuff
+		ApplyAcceleration(i_PhysicsComponent, dt);
+		CalculateVelocity(i_PhysicsComponent);
+
 		// Snek checks
 		for (auto component : i_PhysicsComponent->m_po_OwnerEntity->m_v_AttachedComponentsList) {
 			//only if its a head
 			if (component->m_x_ComponentID == kComponentSnekHead) {
-				CheckOutOfBounds(i_PhysicsComponent->m_po_TransformComponent);
+				CheckOutOfBounds(i_PhysicsComponent->m_po_TransformComponent,i_PhysicsComponent);
 				ClampVelocity(i_PhysicsComponent, static_cast<SnekHeadComponent*>(component));
 			}
 		}
-
-		ApplyAcceleration(i_PhysicsComponent, dt);
+		//Move the object
 		ApplyVelocity(i_PhysicsComponent, dt);
-
 		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
 	}
 	/*
@@ -166,10 +168,9 @@ void PhysicsSystem::Update(float dt)
 
 HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const
 {
-	auto forwardVelocity = CalculateVelocity(physicsComponent);
-	physicsComponent->m_po_TransformComponent->m_x_Position.x += forwardVelocity.x * dt;
-	physicsComponent->m_po_TransformComponent->m_x_Position.y += forwardVelocity.y * dt;
-	return forwardVelocity;
+	physicsComponent->m_po_TransformComponent->m_x_Position.x += physicsComponent->m_x_Velocity.x * dt;
+	physicsComponent->m_po_TransformComponent->m_x_Position.y += physicsComponent->m_x_Velocity.y * dt;
+	return physicsComponent->m_x_Velocity;
 }
 
 HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) const
@@ -178,6 +179,7 @@ HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) c
 	AEVec2 forwardVector;
 	AEVec2FromAngle(&forwardVector, physicsComponent->m_po_TransformComponent->GetRotation());
 	HTVector2 forwardVelocity ={ forwardVector.x * physicsComponent->m_f_Speed, forwardVector.y * physicsComponent->m_f_Speed };
+	physicsComponent->m_x_Velocity = forwardVelocity;
 	return forwardVelocity;
 }
 
@@ -208,17 +210,25 @@ void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float 
 	physicsComponent->m_f_Speed += clampedAccel * dt;
 }
 
-void PhysicsSystem::CheckOutOfBounds(TransformComponent* transformComponent) const
+void PhysicsSystem::CheckOutOfBounds(TransformComponent* transformComponent, PhysicsComponent* physicsComponent) const
 {
 	//if out of screen, clamp movement
-	if (transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920)// + m_f_SizeX / 2)
-		transformComponent->m_x_Position.x = AEGfxGetWinMaxX() + 2 * 1920; // +m_f_SizeX / 2;
-	else if (transformComponent->m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920)// - m_f_SizeX / 2)
-		transformComponent->m_x_Position.x = AEGfxGetWinMinX() - 2 * 1920;// -m_f_SizeX / 2;
-
+	if (transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920)
+	{
+		//physicsComponent->m_x_Velocity.x = 0;
+		transformComponent->m_x_Position.x = AEGfxGetWinMaxX() + 2 * 1920;
+	}
+	else if (transformComponent->m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920) {
+		//physicsComponent->m_x_Velocity.x = 0;
+		transformComponent->m_x_Position.x = AEGfxGetWinMinX() - 2 * 1920;
+	}
 	//if out of screen, clamp movement
-	if (transformComponent->m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080)// + m_f_SizeY / 2)
-		transformComponent->m_x_Position.y = AEGfxGetWinMaxY() + 2 * 1080;// +m_f_SizeY / 2;
-	else if (transformComponent->m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080)// - m_f_SizeY / 2)
-		transformComponent->m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;// -m_f_SizeY / 2;
+	if (transformComponent->m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080) {
+		//physicsComponent->m_x_Velocity.y = 0;
+		transformComponent->m_x_Position.y = AEGfxGetWinMaxY() + 2 * 1080;
+	}
+	else if (transformComponent->m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080) {
+		//physicsComponent->m_x_Velocity.y = 0;
+		transformComponent->m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;
+	}
 }

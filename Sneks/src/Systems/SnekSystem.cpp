@@ -188,6 +188,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				m_o_GraphicsSystem->FetchTexture(textureName),
 				105, 77, HTColor{ 1,1,1,1 }
 			);
+			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 4;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
@@ -199,7 +200,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 			{
 				
 			}else
-			{
+			{//TODO:: REMOVE HARDCODE
 				((SnekHeadComponent*)i_Component)->m_i_AccelerationKey = AEVK_W;
 				((SnekHeadComponent*)i_Component)->m_i_BrakeKey = AEVK_S;
 				((SnekHeadComponent*)i_Component)->m_i_LeftKey = AEVK_A;
@@ -220,8 +221,8 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 	}
 
-	auto bodyTexture = "snake-body.png";
-	if (!strcmp(textureName, "head2.png"))
+	auto bodyTexture = "SnekBody01";
+	if (!strcmp(textureName, "SnekHead02"))
 	{
 		bodyTexture = "snake-body2.png";
 	}

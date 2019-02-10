@@ -39,6 +39,6 @@ public:
 	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;
 	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const;
 	void ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const;
-	void CheckOutOfBounds(TransformComponent* transformComponent) const;
+	void CheckOutOfBounds(TransformComponent* transformComponent, PhysicsComponent* physicsComponent) const;
 };
 #endif

@@ -1,4 +1,6 @@
 #include "GraphicsSystem.h"
+#include <algorithm>
+#include <vector>
 
 GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr){};
 
@@ -35,17 +37,17 @@ void GraphicsSystem::PreLoadTextures()
 	//TODO: MAKE FILE PARSER RESOURCES NEEDED PER LEVEL?
 	//SET NAMES TO BE FILE NAMES
 	//ENFORCE FILE NAMES TO BE UNIQUE
-	LoadTextureToMap("../Resources/snake-head.png"    , "snake-head.png");
-	LoadTextureToMap("../Resources/head2.png"			 , "head2.png");
-	LoadTextureToMap("../Resources/snake-body.png"		 , "snake-body.png");
+	LoadTextureToMap("../Resources/snake-head.png"    , "SnekHead01");
+	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
+	LoadTextureToMap("../Resources/snake-body.png"		 , "SnekBody01");
 	LoadTextureToMap("../Resources/snake-body2.png"	 , "snake-body2.png");
-	LoadTextureToMap("../Resources/rocket_booster.jpg"	 , "rocket_booster.jpg");
+	LoadTextureToMap("../Resources/rocket_booster.jpg", "rocket_booster.jpg");
 	LoadTextureToMap("../Resources/smoke.jpg"			 , "smoke.jpg");
 	LoadTextureToMap("../Resources/map.png"				 , "map.png");
 	LoadTextureToMap("../Resources/building.png"		 , "building.png"); 
-	LoadTextureToMap("../Resources/horz-road.png", "horz-road.png");
-	LoadTextureToMap("../Resources/junction.png", "junction.png");
-	LoadTextureToMap("../Resources/vert-road.png", "vert-road.png");
+	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
+	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
+	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 
 }
 
@@ -60,32 +62,62 @@ void GraphicsSystem::Update(float dt)
 	Draw(dt);
 }
 
-void GraphicsSystem::Draw(float dt) const
+void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
+{
+	m_v_DrawOrder.clear();
+
+	auto i_AddDrawComponent = firstDrawComponent;
+	while (i_AddDrawComponent->m_po_NextComponent) {
+		m_v_DrawOrder.push_back(i_AddDrawComponent);
+		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent);
+	}
+
+	std::sort(m_v_DrawOrder.begin(), m_v_DrawOrder.end(),
+		[](const DrawComponent* a, const DrawComponent* b) ->bool
+	{
+		return a->m_f_DrawPriority > b->m_f_DrawPriority;
+	});
+
+}
+
+void GraphicsSystem::Draw(float dt)
 {
 	UpdateMatrices(static_cast<CameraComponent*>(m_po_ComponentManager
 		->GetFirstComponentInstance(kComponentCamera)));
 	//Look for DrawComponents
-	auto i_DrawComponent = static_cast<DrawComponent*>(m_po_ComponentManager
+	auto firstDrawComponent = static_cast<DrawComponent*>(m_po_ComponentManager
 		->GetFirstComponentInstance(kComponentDraw));
+	auto i_DrawComponent = firstDrawComponent;
+	int drawCount = 0;
 
-	while (i_DrawComponent)
+	while (i_DrawComponent->m_po_NextComponent){
+		drawCount++;
+		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
+	}
+
+	if (m_v_DrawOrder.size() != drawCount)
 	{
-		//Check if there is transform component
-		if (auto i_TransformComponent = i_DrawComponent->m_po_TransformComponent) {
+		UpdateDrawOrderVector(firstDrawComponent);
+	}
+
+	for (auto drawComponent : m_v_DrawOrder)
+	{
+		//Check if there is draw component
+		if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
 			//allow transparency to work !! must be first
 			AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 			AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
-			AEGfxSetTintColor(i_DrawComponent->m_f_RgbaColor.red, i_DrawComponent->m_f_RgbaColor.green, i_DrawComponent->m_f_RgbaColor.blue, i_DrawComponent->m_f_RgbaColor.alpha);
-			AEGfxTextureSet(i_DrawComponent->m_px_Texture, 0, 0);
+			AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
+			AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
 			AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
 			AEGfxSetTransparency(1);
 			AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
-			AEGfxSetTransform(i_DrawComponent->m_po_GlobalMatrix->m);
-			AEGfxMeshDraw(i_DrawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+			AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
+			AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
 		}
-		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
+		//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 	}
 }
 
