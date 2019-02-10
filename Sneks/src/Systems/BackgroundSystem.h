@@ -12,7 +12,7 @@ public:
 	BackgroundSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	void Update(float dt);
 	void Initialize();
-	void CreateBackground(float posX, float posY, float sizeX, float sizeY, const char* textureName) const;
+	BackgroundEntity* CreateBackground(float posX, float posY, float sizeX, float sizeY, const char* textureName) const;
 	void CreateInstancedBackgrounds(int instancesX, int instancesY, const char* textureName);
 	~BackgroundSystem() = default;
 

@@ -21,7 +21,7 @@ void BackgroundSystem::Initialize()
 	//CreateInstancedBackgrounds(1, 1, "Background01");
 }
 
-void BackgroundSystem::CreateBackground(float posX, float posY, float sizeX, float sizeY, const char* textureName) const
+BackgroundEntity* BackgroundSystem::CreateBackground(float posX, float posY, float sizeX, float sizeY, const char* textureName) const
 {
 	auto newBackgroundEntity = static_cast<BackgroundEntity*>(
 		m_po_EntityManager->NewEntity(kEntityBackground, "BG"));
@@ -42,6 +42,7 @@ void BackgroundSystem::CreateBackground(float posX, float posY, float sizeX, flo
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 10;
 		}
 	}
+	return newBackgroundEntity;
 }
 
 void BackgroundSystem::CreateInstancedBackgrounds(int instancesX, int instancesY, const char* textureName)

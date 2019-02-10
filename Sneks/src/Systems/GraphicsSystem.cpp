@@ -46,7 +46,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/rocket_booster.jpg", "rocket_booster.jpg");
 	LoadTextureToMap("../Resources/smoke.jpg"			 , "smoke.jpg");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
-	LoadTextureToMap("../Resources/building.png"		 , "building.png"); 
+	LoadTextureToMap("../Resources/building.png"		 , "Building01"); 
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");

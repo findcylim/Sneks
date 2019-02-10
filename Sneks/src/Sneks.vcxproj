@@ -35,6 +35,7 @@
     <ClCompile Include="Math\CollisionGroup.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
     <ClCompile Include="Systems\BackgroundSystem.cpp" />
+    <ClCompile Include="Systems\BuildingsSystem.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="Snek\Snek.h" />
     <ClInclude Include="Snek\SnekHead.h" />
     <ClInclude Include="Systems\BackgroundSystem.h" />
+    <ClInclude Include="Systems\BuildingsSystem.h" />
     <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CollisionSystem.h" />
     <ClInclude Include="Systems\GraphicsSystem.h" />
