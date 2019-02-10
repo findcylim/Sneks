@@ -50,7 +50,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
-	LoadTextureToMap("../Resources/Ball.png", "Moon");
+	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
 }
 
