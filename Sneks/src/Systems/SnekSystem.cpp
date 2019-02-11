@@ -356,10 +356,12 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 //TODO
 void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* snekHead)
 {
+	if (snekHead->m_x_BodyParts.empty())
+		return;
 	std::vector<SnekBodyEntity*>::iterator toDelete;
 	bool found = false;
 	for (auto i_BodyParts = snekHead->m_x_BodyParts.begin();
-		i_BodyParts != snekHead->m_x_BodyParts.end(); ++i_BodyParts)
+		i_BodyParts != snekHead->m_x_BodyParts.end() - 1; ++i_BodyParts)
 	{
 		if (snekBody == *i_BodyParts)
 		{
@@ -372,8 +374,26 @@ void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* sne
 		}
 	}
 	if (found)
-		snekHead->m_x_BodyParts.erase(toDelete, snekHead->m_x_BodyParts.end());
+		snekHead->m_x_BodyParts.erase(toDelete, snekHead->m_x_BodyParts.end() - 1);
 
+
+		
+	auto tailFollowComponent = static_cast<FollowComponent*>(m_po_ComponentManager->
+		GetSpecificComponentInstance(snekHead->m_x_BodyParts.back(), kComponentFollow));
+
+	if (snekHead->m_x_BodyParts.size() <= 1)
+	{
+		auto snekHeadTransform = static_cast<TransformComponent*>(m_po_ComponentManager->
+			GetSpecificComponentInstance(snekHead, kComponentTransform));
+
+		tailFollowComponent->m_po_TransformComponent = snekHeadTransform;
+	}
+	else {
+		auto lastBodyTransformComponent = static_cast<TransformComponent*>(m_po_ComponentManager->
+			GetSpecificComponentInstance(snekHead->m_x_BodyParts.at(snekHead->m_x_BodyParts.size() - 2), kComponentTransform));
+
+		tailFollowComponent->m_po_TransformComponent = lastBodyTransformComponent;
+	}
 }
 
 void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const 
