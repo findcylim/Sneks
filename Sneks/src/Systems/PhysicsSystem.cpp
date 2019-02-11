@@ -88,7 +88,6 @@ void PhysicsSystem::receive(const Events::Ev_PLAYER2GAME_RIGHTKEY& eventData)
 
 }
 
-
 void PhysicsSystem::Update(float dt)
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
@@ -111,7 +110,9 @@ void PhysicsSystem::Update(float dt)
 			}
 		}
 		//Move the object
-		ApplyVelocity(i_PhysicsComponent, dt);
+		if (GetAsyncKeyState(AEVK_0)) {
+			ApplyVelocity(i_PhysicsComponent, dt);
+		}
 		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
 	}
 

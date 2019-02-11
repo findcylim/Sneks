@@ -83,7 +83,7 @@ void ECSystem::InitializeEngine()
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
 	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
-	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
+	//snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
 	snek->Initialize();
 
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
@@ -97,9 +97,6 @@ void ECSystem::InitializeEngine()
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(collisions);
 	collisions->Initialize();
-
-
-
 	m_b_EngineStatus = true;
 }
 
@@ -111,6 +108,8 @@ bool ECSystem::IsEngineOn() const
 void ECSystem::Update()
 {
 	AESysFrameStart();
+
+
 	auto dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 
 	m_o_EventManager->Update();

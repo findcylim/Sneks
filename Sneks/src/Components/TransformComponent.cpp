@@ -20,13 +20,3 @@ HTVector2 TransformComponent::GetPosition() const
 {
 	return m_x_Position;
 }
-
-float TransformComponent::GetPositionX() const
-{
-	return m_x_Position.x;
-}
-
-float TransformComponent::GetPositionY() const
-{
-	return m_x_Position.x;
-}
