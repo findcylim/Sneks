@@ -154,6 +154,7 @@ void SnekSystem::Update(float dt)
 		{
 			headPhysicsComponent->m_f_Acceleration = 0;
 		}
+
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
@@ -186,25 +187,6 @@ void SnekSystem::Update(float dt)
 			if (!GetAsyncKeyState(AEVK_0))
 				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
-
-		//TODO
-		/*m_f_Boost += m_f_BoostGainRate * dt * 10;
-
-		if (m_f_Boost >= 100.0f)
-			m_f_Boost = 100.0f;
-		if (m_f_Boost < 0.0f)
-			m_f_Boost = 0.0f;
-		
-		// for removal
-		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
-		{
-			SetVelocity(GetVelocity() - kAccelerationForce * 5);
-			m_f_Boost -= 35 * dt;
-		}
-
-		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
-			m_f_Speed *= 1.5f;
-			*/
 
 		i_SnekHead = static_cast<SnekHeadComponent*>(i_SnekHead->m_po_NextComponent);
 	}
