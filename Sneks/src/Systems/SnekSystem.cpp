@@ -108,6 +108,7 @@ void SnekSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
 	/*std::cout << "Colliding: " << eventData.object1->m_po_OwnerEntity->m_pc_EntityName << " and " <<
 		eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;*/
 }
+
 bool press = false;
 void SnekSystem::Update(float dt)
 {
@@ -186,21 +187,6 @@ void SnekSystem::Update(float dt)
 			if (!GetAsyncKeyState(AEVK_0))
 				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
-		/*
-		else if (GetAsyncKeyState(i_SnekHead->m_i_BrakeKey) && (GetVelocity() < 0)) {
-			SetVelocity(GetVelocity() + kBrakeForce);
-			//m_px_Particles->SetTexture(m_px_SnekHedSmoke);
-			//DrawParticles();
-		}
-
-		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-			SetRotation(GetRotation() + kTurnSpeed * dt);
-			//m_px_Texture = m_px_SnekHedL;
-		}
-		else if (GetAsyncKeyState(i_SnekHead->m_i_RightKey) && (GetVelocity() <= -kTurnMinSpeed)) {
-			SetRotation(GetRotation() - kTurnSpeed * dt);
-			//m_px_Texture = m_px_SnekHedR;
-		}*/
 
 		//TODO
 		/*m_f_Boost += m_f_BoostGainRate * dt * 10;
@@ -208,8 +194,8 @@ void SnekSystem::Update(float dt)
 		if (m_f_Boost >= 100.0f)
 			m_f_Boost = 100.0f;
 		if (m_f_Boost < 0.0f)
-			m_f_Boost = 0.0f;*/
-		/*
+			m_f_Boost = 0.0f;
+		
 		// for removal
 		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
 		{
@@ -217,35 +203,9 @@ void SnekSystem::Update(float dt)
 			m_f_Boost -= 35 * dt;
 		}
 
-		//end removal
-		if (GetAsyncKeyState(AEVK_0))
-		{
-			m_f_Scale -= 0.001f;
-		}
-		else if (GetAsyncKeyState(AEVK_1))
-			m_f_Scale += 0.001f;
-
-			
-		//limit max velocity
-		if (m_f_Speed >= kMaxVelocity)
-			m_f_Speed = kMaxVelocity;
-		else if (m_f_Speed <= -kMaxVelocity)
-			m_f_Speed = -kMaxVelocity;
-
 		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
 			m_f_Speed *= 1.5f;
 			*/
-
-
-		/*clamp low velocity to 0 so its not jittery*/
-		/*if (m_f_Velocity >= -kMinSpeed && m_f_Velocity <= kMinSpeed)
-			m_f_Velocity = -kIdleSpeed;
-		else if (m_f_Velocity < 0)
-			m_f_Velocity += kFriction;
-		else if (m_f_Velocity > 0)
-			m_f_Velocity -= kFriction;
-
-		ApplyVelocity(dt);*/
 
 		i_SnekHead = static_cast<SnekHeadComponent*>(i_SnekHead->m_po_NextComponent);
 	}

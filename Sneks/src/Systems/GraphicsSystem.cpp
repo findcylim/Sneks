@@ -37,12 +37,12 @@ void GraphicsSystem::PreLoadTextures()
 	//TODO: MAKE FILE PARSER RESOURCES NEEDED PER LEVEL?
 	//SET NAMES TO BE FILE NAMES
 	//ENFORCE FILE NAMES TO BE UNIQUE
-	LoadTextureToMap("../Resources/snake-head.png"    , "SnekHead01");
+	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
 	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
 	LoadTextureToMap("../Resources/snake-body.png"		 , "SnekBody01");
 	LoadTextureToMap("../Resources/snake-body2.png"	 , "SnekBody02");
-	LoadTextureToMap("../Resources/snake-head.png"		 , "SnekTail01");
-	LoadTextureToMap("../Resources/snake-head.png"		 , "SnekTail02");
+	LoadTextureToMap("../Resources/head.png"				 , "SnekTail01");
+	LoadTextureToMap("../Resources/head.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
 	LoadTextureToMap("../Resources/building.png"		 , "Building01"); 
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
@@ -79,13 +79,6 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
 		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent);
 	}
-	/*
-	std::sort(m_x_DrawOrder.begin(), m_x_DrawOrder.end(),
-		[](const DrawComponent* a, const DrawComponent* b) ->bool
-	{
-		return a->m_f_DrawPriority > b->m_f_DrawPriority;
-	});*/
-
 }
 
 void GraphicsSystem::Draw(float dt)
