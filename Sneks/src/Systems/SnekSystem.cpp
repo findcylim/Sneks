@@ -21,12 +21,12 @@ SnekSystem::~SnekSystem()
 
 void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == 11)
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
 	{
 		std::cout << "Moon Collided" << std::endl;
 	}
 	//if its a building
-	if (eventData.object1->m_i_CollisionGroupVec[0] == 10)
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == 10)
 	{
 		eventData.object1->enabled = false;
 		auto objectDrawComp = static_cast<DrawComponent*>(
@@ -35,7 +35,7 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 			));
 		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
 	}
-	if (eventData.object2->m_i_CollisionGroupVec[0] == 10)
+	else if (eventData.object2->m_i_CollisionGroupVec[0] == 10)
 	{
 		eventData.object2->enabled = false;
 		auto objectDrawComp = static_cast<DrawComponent*>(
@@ -46,7 +46,7 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 
 	//body collision destroys the body
-	if (eventData.object1->m_i_CollisionGroupVec[0] == 1 ||
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == 1 ||
 		(eventData.object1->m_i_CollisionGroupVec[0] == 3) )
 	{
 		//Get the parent
@@ -62,8 +62,9 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 		//m_po_EntityManager->DeleteEntity(snekHeadComponent->m_x_BodyParts.back());
 		//TODO REMOVE
-	//	RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object1->m_po_OwnerEntity), snekHeadComponent);
+		RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object1->m_po_OwnerEntity), snekHeadComponent);
 		//snekHeadComponent->m_x_BodyParts.pop_back();
+		m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
 
 		auto snakeHeadInvulComponent = static_cast<InvulnerableComponent*>(
@@ -74,7 +75,7 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
 		
 	}
-	if (eventData.object2->m_i_CollisionGroupVec[0] == 1 ||
+	else if (eventData.object2->m_i_CollisionGroupVec[0] == 1 ||
 		(eventData.object2->m_i_CollisionGroupVec[0] == 3))
 	{
 		//Get the parent
@@ -97,10 +98,11 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		BodyInvulnerableSet(snekHeadComponent);
 
 		//m_po_EntityManager->DeleteEntity(snekHeadComponent->m_x_BodyParts.back());
+
 		//snekHeadComponent->m_x_BodyParts.pop_back();
 		//TODO
-	//	RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity), snekHeadComponent);
-
+		RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity), snekHeadComponent);
+		m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
 
 	}
@@ -365,7 +367,7 @@ void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* sne
 		}
 		if (found)
 		{
-			m_po_EntityManager->DeleteEntity(*i_BodyParts);
+			m_po_EntityManager->AddToDeleteQueue(*i_BodyParts);
 		}
 	}
 	if (found)

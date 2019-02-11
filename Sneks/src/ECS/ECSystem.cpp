@@ -127,7 +127,7 @@ void ECSystem::Update()
 	{
 		m_b_EngineStatus = false;
 	}
-
+	m_o_EntityComponentManager->ResolveDeletes();
 	AESysFrameEnd();
 }
 

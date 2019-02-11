@@ -16,6 +16,9 @@ class EntityManager
 	void AddEntity(BaseEntity* entityPointer, Entity entityType);
 	void AttachAllComponents(BaseEntity* entityPointer, Entity entityType);
 	ComponentManager *m_po_ComponentManagerInstance = new ComponentManager;
+	std::vector<BaseEntity*> m_v_ToDelete;
+	void DeleteEntity(BaseEntity* entityPointer);
+	void DeleteEntity(BaseComponent* componentPointer);
 
 
 public:
@@ -23,8 +26,8 @@ public:
 	EntityManager();
 	ComponentManager* GetComponentManager() const;
 	BaseEntity* NewEntity(Entity entityType, const char* entityName);
-	void DeleteEntity(BaseComponent* componentPointer);
-	void DeleteEntity(BaseEntity* entityPointer);
+	void AddToDeleteQueue(BaseEntity* entityPointer);
+	void ResolveDeletes();
 	BaseEntity* GetFirstEntityInstance(Entity entityType);
 	BaseEntity* GetSpecificEntityInstance(Entity entityType, const char* entityName);
 	BaseEntity* GetSpecificEntityInstance(BaseComponent* componentPointer);

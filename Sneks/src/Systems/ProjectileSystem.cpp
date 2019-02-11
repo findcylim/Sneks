@@ -44,6 +44,7 @@ void ProjectileSystem::Initialize()
 
 void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
+	/*
 	//if its a building
 	if (eventData.object1->m_i_CollisionGroupVec[0] == 10)
 	{
@@ -54,7 +55,7 @@ void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 			));
 		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
 	}
-	if (eventData.object2->m_i_CollisionGroupVec[0] == 10)
+	else if (eventData.object2->m_i_CollisionGroupVec[0] == 10)
 	{
 		eventData.object2->enabled = false;
 		auto objectDrawComp = static_cast<DrawComponent*>(
@@ -64,7 +65,7 @@ void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
 	}
 	//body collision
-	if (eventData.object1->m_i_CollisionGroupVec[0] == 1 ||
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == 1 ||
 		(eventData.object1->m_i_CollisionGroupVec[0] == 3))
 	{
 		//Get the parent
@@ -90,7 +91,7 @@ void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
 
 	}
-	if (eventData.object2->m_i_CollisionGroupVec[0] == 1 ||
+	else if (eventData.object2->m_i_CollisionGroupVec[0] == 1 ||
 		(eventData.object2->m_i_CollisionGroupVec[0] == 3))
 	{
 		//Get the parent
@@ -114,7 +115,7 @@ void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
 		//BodyInvulnerableSet(snekHeadComponent);
-	}
+	}*/
 }
 
 ProjectileSystem::~ProjectileSystem()

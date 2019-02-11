@@ -21,9 +21,9 @@ void CollisionSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 
 void CollisionSystem::Update(float dt)
 {
-//	UpdateComponentsPerGroup();
-	
-	//Update Aabb positions
+	//	UpdateComponentsPerGroup();
+
+		//Update Aabb positions
 	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
 	{
 		UpdateHitBoxes(i_CollisionGroup);
@@ -57,7 +57,7 @@ void CollisionSystem::Update(float dt)
 				if (hitBoxB != hitBoxA) {
 					if (AabbHelper::CheckAabbIntersect(hitBoxA, hitBoxB))
 					{
-						Events::EV_PLAYER_COLLISION collEvent { objectsInGroupA->objects[i_ObjectA],
+						Events::EV_PLAYER_COLLISION collEvent{ objectsInGroupA->objects[i_ObjectA],
 							objectsInGroupB->objects[i_ObjectB]
 						};
 						m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
@@ -66,7 +66,6 @@ void CollisionSystem::Update(float dt)
 			}
 		}
 	}
-	
 }
 
 void CollisionSystem::Initialize()

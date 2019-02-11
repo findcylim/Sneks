@@ -28,15 +28,15 @@ class CollisionSystem final : public BaseSystem // Add event listeners here
 private:
 	std::vector<CollisionGroup*>					m_xo_ComponentsPerGroup;
 	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings = 
-	{{kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
-	 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Body
-	 {kCollGroupSnek2Head,kCollGroupSnek1Body},
-	 {kCollGroupSnek1Head,kCollGroupBuilding},
-	 {kCollGroupSnek2Head,kCollGroupBuilding},
-	 {kCollGroupMoon		 ,kCollGroupSnek2Head}, //Moon and Other Head
-	 {kCollGroupMoon		 ,kCollGroupSnek2Body}, //Moon and Other Body
-	 {kCollGroupMoon		 ,kCollGroupBuilding}   //Moon and Buildings
-	};
+		{{kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
+		 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Body
+		 {kCollGroupSnek2Head,kCollGroupSnek1Body},
+		 {kCollGroupSnek1Head,kCollGroupBuilding },
+		 {kCollGroupSnek2Head,kCollGroupBuilding },
+		 {kCollGroupMoon		 ,kCollGroupSnek2Head}, //Moon and Other Head
+		 {kCollGroupMoon		 ,kCollGroupSnek2Body}, //Moon and Other Body
+		 {kCollGroupMoon		 ,kCollGroupBuilding }  //Moon and Buildings
+		};
 
 
 public:
