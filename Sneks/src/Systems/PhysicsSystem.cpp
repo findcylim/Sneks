@@ -110,7 +110,7 @@ void PhysicsSystem::Update(float dt)
 			}
 		}
 		//Move the object
-		if (GetAsyncKeyState(AEVK_0)) {
+		if (!GetAsyncKeyState(AEVK_0)) {
 			ApplyVelocity(i_PhysicsComponent, dt);
 		}
 		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);

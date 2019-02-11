@@ -12,7 +12,7 @@ BaseSystem(entityManagerPtr)
 
 void CollisionSystem::Update(float dt)
 {
-
+	UpdateComponentsPerGroup();
 
 	/*Aabb snekHeadAabb ={};
 		snekHeadAabb.min = snek->m_po_Head->GetMin();
@@ -71,10 +71,15 @@ void CollisionSystem::Update(float dt)
 	// and another
 	for (auto i_CollisionPair : m_vx_CollisionsPairings)
 	{
+		//TODO add actual size checks
+		if (i_CollisionPair.groupA >= m_xo_ComponentsPerGroup.size())
+			continue;
 		auto objectsInGroupA = m_xo_ComponentsPerGroup[i_CollisionPair.groupA];
 		for (int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
 			if (!objectsInGroupA->objects[i_ObjectA]->enabled)
+				continue;
+			if (i_CollisionPair.groupB >= m_xo_ComponentsPerGroup.size())
 				continue;
 			auto objectsInGroupB = m_xo_ComponentsPerGroup[i_CollisionPair.groupB];
 			for (int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)

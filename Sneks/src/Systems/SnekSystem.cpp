@@ -174,7 +174,7 @@ void SnekSystem::Update(float dt)
 				));
 			
 			FaceReference(followComponent->m_po_TransformComponent, bodyDraw->m_po_TransformComponent);
-			if (GetAsyncKeyState(AEVK_0))
+			if (!GetAsyncKeyState(AEVK_0))
 				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
 		/*
