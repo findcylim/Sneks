@@ -341,6 +341,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto junctionTexture			= AEGfxTextureLoad("../../Resources/junction.png");
 	auto parkTexture			    = AEGfxTextureLoad("../../Resources/park.png");
 	auto selectionSquareTexture		= AEGfxTextureLoad("../../Resources/SelectionSquare.png");
+	auto infoPanelTexture			= AEGfxTextureLoad("../../Resources/EditorInfoPanel.png");
 
 	srand(static_cast<unsigned int>(time(nullptr)));
 
@@ -361,6 +362,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	auto selectionSquare = new DrawObject(0, 0, 1, 1,selectionSquareTexture, "Selection Square","SelectionSquare.png");
 	auto junctionObj = new DrawObject(0, 0, 9, 9, junctionTexture, "Junction", "junction.png");
 	auto parkObj = new DrawObject(0, 0, 71, 42, parkTexture, "Park", "park.png");
+
+	/********************************************************************************************************************/
+	//Editor UI Objects
+
+	auto EditorInfoPanelUI = new DrawObject(0, 0, 1920, 1080, infoPanelTexture, "InfoPanelUI", "EditorInfoPanel.png");
+
+	/********************************************************************************************************************/
 
 	DrawObject* SelectedObject = nullptr;
 
@@ -441,13 +449,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				isMiddleMouseClicked = true;
 				GetCursorPos(&initialMousePos);
 			}
+
 			float diffX = initialMousePos.x - currentMousePos.x;
 			float diffY = initialMousePos.y - currentMousePos.y;
 
 			currentCamPosX = defaultCamPosX + diffX;
 			currentCamPosY = defaultCamPosY - diffY;
-			AEGfxSetCamPosition(currentCamPosX, currentCamPosY);
 
+			AEGfxSetCamPosition(currentCamPosX, currentCamPosY);
 		}
 		else
 		{
@@ -459,6 +468,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 		}
 
+		
 		if (GetAsyncKeyState(VK_ESCAPE) < 0)
 		{
 			ObjCounter = kBlankState;
@@ -562,6 +572,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				}
 			}
 		}
+
 		/**********************************************************************************/
 		// Zooming in and Out
 		// Still doesnt scale properly yet TODO
@@ -814,25 +825,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			isDrawSelection = false;
 		}
 
-
-
-
-		for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
+		if (GetAsyncKeyState(VK_DELETE) < 0)
 		{
-			for (auto innerIter = (*iter).second.begin();innerIter != (*iter).second.end() ;)
+			if (selectedList.size() != 0)
 			{
-				(*innerIter)->Draw();
-
-				if (GetAsyncKeyState(VK_DELETE) < 0)
+				for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
 				{
-					if (selectedList.size() != 0)
+					for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end();)
 					{
-						for (auto iterer = selectedList.begin(); iterer != selectedList.end(); )
+						bool deleted = false;
+						for (auto iterer = selectedList.begin(); iterer != selectedList.end();)
 						{
 							if ((*innerIter) == (*iterer))
 							{
 								delete *iterer;
-								selectedList.erase(iterer);
+								deleted = true;
+								iterer = selectedList.erase(iterer);
 								innerIter = (*iter).second.erase(innerIter);
 								break;
 							}
@@ -841,27 +849,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 								++iterer;
 							}
 						}
-						if(innerIter!= (*iter).second.end())
+						if(!deleted)
 							++innerIter;
-						continue;
 					}
-				}
 
-				if (SelectedObject == (*innerIter))
-				{
-					if (GetAsyncKeyState(VK_DELETE) < 0)
-					{
-						delete(SelectedObject);
-						innerIter = (*iter).second.erase(innerIter);
-						SelectedObject = nullptr;
-					}
-					else
-						++innerIter;
 				}
-				else
-				{
-					++innerIter;
-				}
+			}
+		}
+
+		for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
+		{
+			for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end(); ++innerIter)
+			{
+				(*innerIter)->Draw();
 			}
 		}
 
@@ -1028,7 +1028,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				isCopied = false;
 			}
 		}
-		
+		if (isDrawSelection)
+		{
+			selectionSquare->SetScale(-(lastClickPosition.x - DrawPosition.x), lastClickPosition.y - DrawPosition.y);
+			selectionSquare->SetPositionX(lastClickPosition.x + selectionSquare->GetScaleX() / 2);
+			selectionSquare->SetPositionY(lastClickPosition.y - selectionSquare->GetScaleY() / 2);
+			selectionSquare->Draw();
+		}
+
+		EditorInfoPanelUI->SetPosition(currentCamPosX, currentCamPosY);
+		EditorInfoPanelUI->Draw();
+
+		if (selectedList.size() == 1)
+		{
+			s8 chars[100] = {};
+			sprintf_s(chars, 100, "Name: %s",(*selectedList.begin())->GetName());
+			AEGfxPrint(font, chars, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9, 1, 1, 1);
+			s8 chars2[100] = {};
+			sprintf_s(chars2, 100, "Pos: X: %.3f Y: %.3f ", (*selectedList.begin())->GetPosition().x, (*selectedList.begin())->GetPosition().y);
+			AEGfxPrint(font, chars2, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9-30, 1, 1, 1);
+			s8 chars3[100] = {};
+			sprintf_s(chars3, 100, "Rotation: %.3f ", (*selectedList.begin())->GetRotation());
+			AEGfxPrint(font, chars3, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9 - 60, 1, 1, 1);
+			s8 chars4[100] = {};
+			sprintf_s(chars4, 100, "Scale: X=%.3f Y=%.3f", (*selectedList.begin())->GetScaleX(), (*selectedList.begin())->GetScaleY());
+			AEGfxPrint(font, chars4, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 1, 1, 1);
+		}
 
 		s8 chars[100] = {};
 		s8 chars2[100]= {};
@@ -1059,16 +1084,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			break;
 		}
 		
-		if (isDrawSelection)
-		{
-			selectionSquare->SetScale(-(lastClickPosition.x - DrawPosition.x), lastClickPosition.y - DrawPosition.y);
-			selectionSquare->SetPositionX(lastClickPosition.x + selectionSquare->GetScaleX() / 2);
-			selectionSquare->SetPositionY(lastClickPosition.y - selectionSquare->GetScaleY() / 2);
-			selectionSquare->Draw();
-		}
-
-		sprintf_s(chars, 100, "DrawObject Pos: %.2f,%.2f", selectionSquare->GetPosition().x, selectionSquare->GetPosition().y);
-		sprintf_s(chars2, 100, "MousePos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
+		
+		sprintf_s(chars, 100, "Mouse Game Pos: %.2f,%.2f", selectionSquare->GetPosition().x, selectionSquare->GetPosition().y);
+		sprintf_s(chars2, 100, "Mouse Screen Pos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
 		sprintf_s(chars3, 100, "+");
 		sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->GetName() : "---");
 		sprintf_s(chars7, 100, "GridLock: %s", isGridLock? "On" : "Off");
@@ -1086,11 +1104,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 		AEGfxSetBlendMode(AE_GFX_BM_NONE);
 
-		AEGfxPrint(font, chars,  currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9, 0, 0, 1);
-		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 30, 1, 0, 0);
-		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 60, 0, 0, 1);
-		AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 0, 0, 1);
-		AEGfxPrint(font, chars6, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 120, 0, 0, 1);
+		AEGfxPrint(font, chars,  currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9, 1, 1, 1);
+		AEGfxPrint(font, chars2, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 30, 1, 1, 1);
+		AEGfxPrint(font, chars4, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 60, 1, 1, 1);
+		AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 1, 1, 1);
+		AEGfxPrint(font, chars6, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 120, 1, 1, 1);
 		AEGfxPrint(font, chars7, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 150, 0, 0, 1);
 
 		/*
