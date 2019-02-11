@@ -57,6 +57,24 @@ public:
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
+class SnekTailEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[7] = { Component::kComponentTransform, Component::kComponentDraw,
+		Component::kComponentPhysics , Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentFollow, Component::kComponentEnd };
+
+	SnekTailEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class MoonEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[6] = { Component::kComponentTransform, Component::kComponentDraw,
+		Component::kComponentPhysics , Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentEnd };
+
+	MoonEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
 class StaticObjectEntity : public BaseEntity
 {
 public:

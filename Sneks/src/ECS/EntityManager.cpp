@@ -96,6 +96,12 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntitySnekBody:
 			componentPointer = ((SnekBodyEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntitySnekTail:
+			componentPointer = ((SnekTailEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityMoon:
+			componentPointer = ((MoonEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -138,6 +144,12 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 			break;
 		case kEntitySnekBody: 
 			entityPointer = (BaseEntity*)new SnekBodyEntity(entityName);
+			break;
+		case kEntitySnekTail:
+			entityPointer = (BaseEntity*)new SnekTailEntity(entityName);
+			break;
+		case kEntityMoon:
+			entityPointer = (BaseEntity*)new MoonEntity(entityName);
 			break;
 	}
 
