@@ -30,7 +30,12 @@ private:
 	 {0,3}, //Snek Head and Other Body
 	 {2,1},
 	 {0,10},
-	 {2,10}
+	 {2,10},
+	 {11,0}, //Moon and Current Head
+	 {11,1}, //Moon and Current Body
+	 {11,2}, //Moon and Other Head
+	 {11,3}, //Moon and Other Body
+	 {11,10} //Moon and Buildings
 	};
 
 
