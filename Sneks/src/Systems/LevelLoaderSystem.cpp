@@ -59,7 +59,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				std::getline(inFile, output);
 				cPointer = output.c_str();
 				while (*(cPointer++) != '=') {}
-				int nameLen = strlen(cPointer);
+				auto nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer,nameLen - 1);
 				newEntity = static_cast<StaticObjectEntity*>(m_po_EntityManager->NewEntity(kEntityStaticObject, tempName));
@@ -69,7 +69,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				std::getline(inFile, output);
 				cPointer = output.c_str();
 				while (*(cPointer++) != '=') {}
-				int nameLen = strlen(cPointer);
+				auto nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer, nameLen - 1);
 				newEntity = static_cast<BackgroundEntity*>(m_po_EntityManager->NewEntity(kEntityBackground, tempName));
@@ -83,15 +83,15 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 			{
 				if (comp->m_x_ComponentID == kComponentTransform)
 				{
-					float x = atof(cPointer);
+					float x = static_cast<float>(atof(cPointer));
 					while (*(cPointer++) != '=') {}
-					float y = atof(cPointer);
+					float y = static_cast<float>(atof(cPointer));
 					static_cast<TransformComponent*>(comp)->SetPosition(x,y);
 
 					std::getline(inFile, output);
 					cPointer = output.c_str();
 					while (*(cPointer++) != '=') {}
-					x = atof(cPointer);
+					x = static_cast<float>(atof(cPointer));
 					static_cast<TransformComponent*>(comp)->SetRotation(x);
 					break;
 				}
@@ -103,21 +103,19 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 			{
 				if (comp->m_x_ComponentID == kComponentDraw)
 				{
-					float x = atof(cPointer);
+					auto x = atof(cPointer);
 					while (*(cPointer++) != '=') {}
-					float y = atof(cPointer);
+					auto y = atof(cPointer);
 
 					std::getline(inFile, output);
 					cPointer = output.c_str();
 					while (*(cPointer++) != '=') {}
-					int len = strlen(cPointer);
+					auto len = strlen(cPointer);
 					char texName[100];
 					strncpy_s(texName, len, cPointer, len - 1);
 					//Change this to texture pool later TODO;
 
-					static_cast<DrawComponent*>(comp)->Initialize(m_o_GraphicsSystem->FetchTexture(texName), 
-						x, y, { 1,1,1,1 }
-					);
+					static_cast<DrawComponent*>(comp)->Initialize(m_o_GraphicsSystem->FetchTexture(texName));
 
 					break;
 				}
