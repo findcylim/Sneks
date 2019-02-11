@@ -28,6 +28,7 @@ public:
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const;
 	void CreateSnekTail(SnekHeadEntity* owner, const char* textureName) const;
 	void CreateMoon(SnekHeadEntity* owner, const char* textureName) const;
+	void RemoveSnekBody(SnekBodyEntity*, SnekHeadComponent* snekHead);
 	void FaceReference(const TransformComponent* reference, TransformComponent* toChange) const;
 	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;

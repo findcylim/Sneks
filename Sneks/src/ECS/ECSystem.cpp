@@ -83,7 +83,7 @@ void ECSystem::InitializeEngine()
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
 	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
-	//snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
+	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
 	snek->Initialize();
 
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
