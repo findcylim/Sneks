@@ -24,6 +24,13 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
 	{
 		std::cout << "Moon Collided" << std::endl;
+		if (eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
+		{
+			auto snekHeadFollow = eventData.object2->m_po_OwnerEntity->
+				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
+			RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity),
+				snekHeadFollow);
+		}
 	}
 	//if its a building
 	else if (eventData.object1->m_i_CollisionGroupVec[0] == 10)
@@ -155,7 +162,7 @@ void SnekSystem::Update(float dt)
 				ProjData.velocity = &headPhysicsComponent->m_x_Velocity;
 
 				ProjData.rot = headTransComponent->GetRotation();
-				ProjData.speed = 900.0f;
+				ProjData.speed = 1400.0f;
 				ProjData.scale = headTransComponent->m_f_Scale;
 				ProjData.isCollide = true;
 

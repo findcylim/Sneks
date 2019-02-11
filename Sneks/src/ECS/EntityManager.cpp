@@ -199,6 +199,7 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 
 		if (prevEntity && nextEntity)
 		{
+			//You probably added the same entity more than to delete
 			prevEntity->m_po_NextEntity = nextEntity;
 			nextEntity->m_po_PrevEntiy = prevEntity;
 		}
