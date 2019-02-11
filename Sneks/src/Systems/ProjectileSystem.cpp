@@ -113,7 +113,7 @@ void ProjectileSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
 			));
 
 		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
-		BodyInvulnerableSet(snekHeadComponent);
+		//BodyInvulnerableSet(snekHeadComponent);
 	}
 }
 

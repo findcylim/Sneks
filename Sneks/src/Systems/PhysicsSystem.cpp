@@ -38,7 +38,7 @@ void PhysicsSystem::receive(const Events::Ev_PLAYER_MOVEMENTKEY& eventData)
 	//case 0:
 
 	//}
-	auto dt = AEFrameRateControllerGetFrameTime();
+	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	auto phyComp = eventData.caller;
 	auto snekHeadComponent = static_cast<SnekHeadComponent*>(m_po_ComponentManager->
 		GetSpecificComponentInstance(phyComp, kComponentSnekHead));
