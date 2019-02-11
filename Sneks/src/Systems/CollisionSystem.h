@@ -51,6 +51,7 @@ public:
 
 	static HTVector2 GetMin(DrawComponent* drawComponent);
 	static HTVector2 GetMax(DrawComponent* drawComponent);
+	void UpdateAllHitBoxes();
 	void UpdateHitBoxes(CollisionGroup* collisionGroup) const;
 };
 #endif

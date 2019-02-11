@@ -396,7 +396,7 @@ void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* sne
 		}
 	}
 	if (found)
-		snekHead->m_x_BodyParts.erase(toDelete);
+		snekHead->m_x_BodyParts.erase(toDelete, snekHead->m_x_BodyParts.end());
 
 }
 
