@@ -102,6 +102,9 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityMoon:
 			componentPointer = ((MoonEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityProjectile:
+			componentPointer = ((ProjectileEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -150,6 +153,9 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 			break;
 		case kEntityMoon:
 			entityPointer = (BaseEntity*)new MoonEntity(entityName);
+			break;
+		case kEntityProjectile:
+			entityPointer = (BaseEntity*)new ProjectileEntity(entityName);
 			break;
 	}
 

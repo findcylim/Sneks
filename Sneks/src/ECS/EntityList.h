@@ -31,16 +31,16 @@ class BaseEntity
 		BaseEntity(const char* entityName);
 
 		template<typename T>
-		T& GetComponent()
+		T* GetComponent()
 		{
-			auto type = getTypeIndex<T>();
 			for (auto component : m_v_AttachedComponentsList)
 			{
-				if (std::type_index(typeid(component)) == type)
+				if (T* p = dynamic_cast<T*>(component))
 				{
-					return *static_cast<T*>(component);
+					return static_cast<T*>(component);
 				}
 			}
+			return nullptr;
 		}
 };
 

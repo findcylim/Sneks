@@ -53,6 +53,7 @@ void CollisionSystem::Update(float dt)
 					continue;
 				auto hitBoxA = objectsInGroupA->objectsHitBoxes[i_ObjectA];
 				auto hitBoxB = objectsInGroupB->objectsHitBoxes[i_ObjectB];
+
 				// if hit box is self
 				if (hitBoxB != hitBoxA) {
 					if (AabbHelper::CheckAabbIntersect(hitBoxA, hitBoxB))

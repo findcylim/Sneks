@@ -150,14 +150,16 @@ void SnekSystem::Update(float dt)
 			if (!press) {
 				Events::Ev_CREATE_PROJECTILE ProjData;
 				
-				ProjData.pos = &headTransComponent.m_x_Position;
+				ProjData.pos = &headTransComponent->m_x_Position;
 
-				ProjData.velocity = &headPhysicsComponent.m_x_Velocity;
+				ProjData.velocity = &headPhysicsComponent->m_x_Velocity;
 
-				ProjData.rot = headTransComponent.GetRotation();
-				ProjData.speed = headPhysicsComponent.m_f_Speed;
-				ProjData.scale = headTransComponent.m_f_Scale;
+				ProjData.rot = headTransComponent->GetRotation();
+				ProjData.speed = 900.0f;
+				ProjData.scale = headTransComponent->m_f_Scale;
 				ProjData.isCollide = true;
+
+				ProjData.texName = "Moon";
 
 				m_o_EventManagerPtr->EmitEvent<Events::Ev_CREATE_PROJECTILE>(ProjData);
 				press = true;
@@ -169,21 +171,21 @@ void SnekSystem::Update(float dt)
 		}
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ &headPhysicsComponent, Events::MOVE_KEY_UP};
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
 			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else
 		{
-			headPhysicsComponent.m_f_Acceleration = 0;
+			headPhysicsComponent->m_f_Acceleration = 0;
 		}
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ &headPhysicsComponent, Events::MOVE_KEY_LEFT };
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
 			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else if (GetAsyncKeyState(i_SnekHead->m_i_RightKey))
 		{
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ &headPhysicsComponent,Events::MOVE_KEY_RIGHT };
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
 			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 
@@ -206,7 +208,7 @@ void SnekSystem::Update(float dt)
 			
 			FaceReference(followComponent->m_po_TransformComponent, bodyDraw->m_po_TransformComponent);
 			if (!GetAsyncKeyState(AEVK_0))
-				MoveTowardsReference(followDrawComponent, bodyDraw, &headPhysicsComponent);
+				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
 
 		//TODO
