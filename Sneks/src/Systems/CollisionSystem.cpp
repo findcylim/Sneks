@@ -17,11 +17,12 @@ CollisionSystem::~CollisionSystem()
 void CollisionSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
 	UpdateComponentsPerGroup();
+	UpdateAllHitBoxes();
 }
 
 void CollisionSystem::Update(float dt)
 {
-	//	UpdateComponentsPerGroup();
+	UpdateComponentsPerGroup();
 
 		//Update Aabb positions
 	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
@@ -115,8 +116,18 @@ HTVector2 CollisionSystem::GetMax(DrawComponent* drawComponent)
 		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
 }
 
+void CollisionSystem::UpdateAllHitBoxes()
+{
+	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
+	{
+		UpdateHitBoxes(i_CollisionGroup);
+	}
+}
+
 void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup) const
 {
+	//TODO::FIX MEMORY LEAK
+	collisionGroup->objectsHitBoxes.clear();
 	while (collisionGroup->objects.size() > collisionGroup->objectsHitBoxes.size())
 	{
 		collisionGroup->objectsHitBoxes.push_back(new Aabb);

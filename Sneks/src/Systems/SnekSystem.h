@@ -12,6 +12,30 @@
 #include "../Components/SnekHeadComponent.h"
 #include "ProjectileSystem.h"
 
+struct SnekPreset
+{
+	float startPosX                        = 0;
+	float startPosY                        = 0;
+	float startRot                         = 0; //Radians
+	const int startNumBodyParts            = 20;
+	const char* textureName                = "SnekHead01";
+	const char* bodyTextureName            = "SnekBody01";
+	unsigned m_i_AccelerationKey           = AEVK_W;
+	unsigned m_i_BrakeKey                  = AEVK_S;
+	unsigned m_i_LeftKey                   = AEVK_A;
+	unsigned m_i_RightKey                  = AEVK_D;
+
+	float m_f_MaxVelocity                  = 900;
+	float m_f_AccelerationForce            = 200;
+	float m_f_BrakeForce                   = 6;
+	float m_f_TurnSpeed                    = 6;
+	float m_f_Friction                     = 1.5f;	   //natural slowdown
+	float m_f_TurnMinSpeed                 = 60;       //need to be moving at this speed to turn
+	float m_f_MinSpeed                     = 300;	   //if speed lower than this then clamp to 0
+	float m_f_IdleSpeed                    = 100;		//default move speed
+};
+
+
 class SnekSystem final : public BaseSystem,
 	public EventListener<Events::EV_PLAYER_COLLISION>,
 	public EventListener<Events::Ev_SNEK_INVULNERABLE>

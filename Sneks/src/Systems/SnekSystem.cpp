@@ -178,6 +178,7 @@ void SnekSystem::Update(float dt)
 		{
 			headPhysicsComponent->m_f_Acceleration = 0;
 		}
+
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
@@ -210,25 +211,6 @@ void SnekSystem::Update(float dt)
 			if (!GetAsyncKeyState(AEVK_0))
 				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
-
-		//TODO
-		/*m_f_Boost += m_f_BoostGainRate * dt * 10;
-
-		if (m_f_Boost >= 100.0f)
-			m_f_Boost = 100.0f;
-		if (m_f_Boost < 0.0f)
-			m_f_Boost = 0.0f;
-		
-		// for removal
-		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
-		{
-			SetVelocity(GetVelocity() - kAccelerationForce * 5);
-			m_f_Boost -= 35 * dt;
-		}
-
-		if (GetAsyncKeyState(m_i_BoostKey) && m_f_Boost > 5)
-			m_f_Speed *= 1.5f;
-			*/
 
 		i_SnekHead = static_cast<SnekHeadComponent*>(i_SnekHead->m_po_NextComponent);
 	}
@@ -380,10 +362,12 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 //TODO
 void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* snekHead)
 {
+	if (snekHead->m_x_BodyParts.empty())
+		return;
 	std::vector<SnekBodyEntity*>::iterator toDelete;
 	bool found = false;
 	for (auto i_BodyParts = snekHead->m_x_BodyParts.begin();
-		i_BodyParts != snekHead->m_x_BodyParts.end(); ++i_BodyParts)
+		i_BodyParts != snekHead->m_x_BodyParts.end() - 1; ++i_BodyParts)
 	{
 		if (snekBody == *i_BodyParts)
 		{
@@ -396,8 +380,26 @@ void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* sne
 		}
 	}
 	if (found)
-		snekHead->m_x_BodyParts.erase(toDelete);
+		snekHead->m_x_BodyParts.erase(toDelete, snekHead->m_x_BodyParts.end() - 1);
 
+
+		
+	auto tailFollowComponent = static_cast<FollowComponent*>(m_po_ComponentManager->
+		GetSpecificComponentInstance(snekHead->m_x_BodyParts.back(), kComponentFollow));
+
+	if (snekHead->m_x_BodyParts.size() <= 1)
+	{
+		auto snekHeadTransform = static_cast<TransformComponent*>(m_po_ComponentManager->
+			GetSpecificComponentInstance(snekHead, kComponentTransform));
+
+		tailFollowComponent->m_po_TransformComponent = snekHeadTransform;
+	}
+	else {
+		auto lastBodyTransformComponent = static_cast<TransformComponent*>(m_po_ComponentManager->
+			GetSpecificComponentInstance(snekHead->m_x_BodyParts.at(snekHead->m_x_BodyParts.size() - 2), kComponentTransform));
+
+		tailFollowComponent->m_po_TransformComponent = lastBodyTransformComponent;
+	}
 }
 
 void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const 
