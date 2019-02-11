@@ -40,56 +40,25 @@ void ProjectileSystem::Update(float dt)
 void ProjectileSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::Ev_CREATE_PROJECTILE>(this);
+}
+
+
+void ProjectileSystem::receive(const Events::Ev_CREATE_PROJECTILE& eventData)
+{
+	ProjectileEntity* ent = static_cast<ProjectileEntity*>(m_po_EntityManager->NewEntity(kEntityProjectile, "Moon"));
+	ent->GetComponent<>
 }
 
 void ProjectileSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
 {
 	//if its a building
-	if (eventData.object1->m_i_CollisionGroupVec[0] == 10)
+	if (eventData.object1->m_i_CollisionGroupVec[0] == 11 && eventData.object2->m_i_CollisionGroupVec[0]== 3 ||
+		eventData.object1->m_i_CollisionGroupVec[0] == 3 && eventData.object2->m_i_CollisionGroupVec[0] == 11)
 	{
-		eventData.object1->enabled = false;
-		auto objectDrawComp = static_cast<DrawComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				eventData.object1, kComponentDraw
-			));
-		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
+		
 	}
-	if (eventData.object2->m_i_CollisionGroupVec[0] == 10)
-	{
-		eventData.object2->enabled = false;
-		auto objectDrawComp = static_cast<DrawComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				eventData.object2, kComponentDraw
-			));
-		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
-	}
-	//body collision
-	if (eventData.object1->m_i_CollisionGroupVec[0] == 1 ||
-		(eventData.object1->m_i_CollisionGroupVec[0] == 3))
-	{
-		//Get the parent
-		auto objectFollowComp = static_cast<FollowComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				eventData.object1, kComponentFollow
-			));
 
-		auto snekHeadComponent = static_cast<SnekHeadComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				objectFollowComp->m_po_ParentEntity, kComponentSnekHead
-			));
-
-		//m_po_EntityManager->DeleteEntity(snekHeadComponent->m_x_BodyParts.back());
-		snekHeadComponent->m_x_BodyParts.pop_back();
-
-
-		auto snakeHeadInvulComponent = static_cast<InvulnerableComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				objectFollowComp->m_po_ParentEntity, KComponentInvulnerable
-			));
-
-		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
-
-	}
 	if (eventData.object2->m_i_CollisionGroupVec[0] == 1 ||
 		(eventData.object2->m_i_CollisionGroupVec[0] == 3))
 	{
@@ -113,7 +82,13 @@ void ProjectileSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
 			));
 
 		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
-		BodyInvulnerableSet(snekHeadComponent);
+
+		auto headInvulComponent = static_cast<InvulnerableComponent*>(
+			m_po_ComponentManager->GetSpecificComponentInstance(
+				objectFollowComp->m_po_ParentEntity, KComponentInvulnerable
+			));
+		Events::Ev_SNEK_INVULNERABLE invul = { snekHeadComponent };
+		m_o_EventManagerPtr->EmitEvent(invul);
 	}
 }
 

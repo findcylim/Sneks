@@ -14,6 +14,7 @@ enum Entity : unsigned char
 	kEntityStaticObject,
 	kEntityBackground,
 	kEntityCamera,
+	kEntityProjectile,
 	kEntityEnd
 };
 

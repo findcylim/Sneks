@@ -107,7 +107,6 @@ void CollisionSystem::Update(float dt)
 void CollisionSystem::Initialize()
 {
 	UpdateComponentsPerGroup();
-
 }
 
 void CollisionSystem::AddComponentToCollisionGroup(CollisionComponent* collisionComponent, unsigned int collisionGroup)

@@ -9,6 +9,8 @@
 #include "EventListener.h"
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CollisionComponent.h"
+#include "../Components/SnekHeadComponent.h"
+#include "../Utility/RTTIHelper.h"
 
 
 enum kEventList
@@ -19,6 +21,7 @@ enum kEventList
 	Ev_PLAYER2GAME_LEFTKEY,
 	Ev_PLAYER2GAME_RIGHTKEY,
 	Ev_PLAYER2GAME_RIGHTSHIFTKEY,
+	
 };
 
 
@@ -76,6 +79,18 @@ namespace Events
 		CollisionComponent* object2;
 	};
 
+	struct Ev_SNEK_INVULNERABLE
+	{
+		SnekHeadComponent* snekHead;
+	};
+
+	struct Ev_CREATE_PROJECTILE
+	{
+		bool isCollide;
+		float rot,speed;
+		HTVector2& pos, &scale,&velocity;
+		
+	};
 }
 
 
