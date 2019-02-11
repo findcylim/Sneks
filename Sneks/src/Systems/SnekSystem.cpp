@@ -113,7 +113,7 @@ void SnekSystem::receive(const Events::Ev_SNEK_INVULNERABLE& eventData)
 {
 	BodyInvulnerableSet(eventData.snekHead);
 }
-
+bool press = false;
 void SnekSystem::Update(float dt)
 {
 	auto i_InvulnerableComponent = static_cast<InvulnerableComponent*>(
@@ -133,33 +133,55 @@ void SnekSystem::Update(float dt)
 		m_po_ComponentManager->GetFirstComponentInstance(kComponentSnekHead));
 
 	while (i_SnekHead) {
-		auto headInvulComponent = static_cast<InvulnerableComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				(i_SnekHead->m_po_OwnerEntity), KComponentInvulnerable
-			));
 
-		auto headPhysicsComponent = static_cast<PhysicsComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				i_SnekHead->m_po_OwnerEntity, kComponentPhysics));
+		auto headTransComponent = i_SnekHead->m_po_OwnerEntity->
+			GetComponent<TransformComponent>();
 
-		
-		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
+		auto headInvulComponent = i_SnekHead->m_po_OwnerEntity->
+								GetComponent<InvulnerableComponent>();
+
+		auto headPhysicsComponent = i_SnekHead->m_po_OwnerEntity->
+								GetComponent<PhysicsComponent>();
+
+		if (GetAsyncKeyState(i_SnekHead->m_i_BoostKey))
 		{
-			Events::Ev_PLAYER_MOVEMENTKEY moveKey{ headPhysicsComponent, Events::MOVEKEY_UP};
-			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_MOVEMENTKEY>(moveKey);
+			if (!press) {
+				Events::Ev_CREATE_PROJECTILE ProjData;
+				
+				ProjData.pos = &headTransComponent.m_x_Position;
+
+				ProjData.velocity = &headPhysicsComponent.m_x_Velocity;
+
+				ProjData.rot = headTransComponent.GetRotation();
+				ProjData.speed = headPhysicsComponent.m_f_Speed;
+				ProjData.scale = headTransComponent.m_f_Scale;
+				ProjData.isCollide = true;
+
+				m_o_EventManagerPtr->EmitEvent<Events::Ev_CREATE_PROJECTILE>(ProjData);
+				press = true;
+			}
 		}
 		else
 		{
-			headPhysicsComponent->m_f_Acceleration = 0;
+			press = false;
+		}
+		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
+		{
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ &headPhysicsComponent, Events::MOVE_KEY_UP};
+			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+		}
+		else
+		{
+			headPhysicsComponent.m_f_Acceleration = 0;
 		}
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ &headPhysicsComponent, Events::MOVE_KEY_LEFT };
 			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else if (GetAsyncKeyState(i_SnekHead->m_i_RightKey))
 		{
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ &headPhysicsComponent,Events::MOVE_KEY_RIGHT };
 			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 
@@ -182,7 +204,7 @@ void SnekSystem::Update(float dt)
 			
 			FaceReference(followComponent->m_po_TransformComponent, bodyDraw->m_po_TransformComponent);
 			if (!GetAsyncKeyState(AEVK_0))
-				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
+				MoveTowardsReference(followDrawComponent, bodyDraw, &headPhysicsComponent);
 		}
 
 		//TODO
@@ -261,7 +283,7 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 	m_o_EventManagerPtr->AddListener<Events::Ev_SNEK_INVULNERABLE>(this);
 }
 

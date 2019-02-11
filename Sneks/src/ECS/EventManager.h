@@ -61,9 +61,9 @@ namespace Events
 	struct Ev_CREATE_PROJECTILE
 	{
 		bool isCollide;
-		float rot,speed;
-		HTVector2& pos, &scale,&velocity;
-		
+		float rot,speed, scale;
+		HTVector2* pos,*velocity;
+		const char * texName;
 	};
 }
 

@@ -7,7 +7,7 @@
 CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	
 }
 
 CollisionSystem::~CollisionSystem()
@@ -72,6 +72,7 @@ void CollisionSystem::Update(float dt)
 
 void CollisionSystem::Initialize()
 {
+	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 	UpdateComponentsPerGroup();
 }
 

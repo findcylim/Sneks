@@ -40,7 +40,7 @@ void InputSystem::SetKeyBinds()
 	}
 }
 
-void InputSystem::Update()
+void InputSystem::Update(float dt)
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 

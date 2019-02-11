@@ -29,6 +29,7 @@ class BaseEntity
 		BaseEntity* m_po_PrevEntiy = nullptr, *m_po_NextEntity = nullptr;
 
 		BaseEntity(const char* entityName);
+
 		template<typename T>
 		T& GetComponent()
 		{
@@ -37,7 +38,7 @@ class BaseEntity
 			{
 				if (std::type_index(typeid(component)) == type)
 				{
-					return component;
+					return *static_cast<T*>(component);
 				}
 			}
 		}
