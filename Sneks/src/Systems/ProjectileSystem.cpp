@@ -39,18 +39,18 @@ void ProjectileSystem::Update(float dt)
 
 void ProjectileSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 	m_o_EventManagerPtr->AddListener<Events::Ev_CREATE_PROJECTILE>(this);
 }
 
 
 void ProjectileSystem::receive(const Events::Ev_CREATE_PROJECTILE& eventData)
 {
-	ProjectileEntity* ent = static_cast<ProjectileEntity*>(m_po_EntityManager->NewEntity(kEntityProjectile, "Moon"));
-	ent->GetComponent<>
+	//ProjectileEntity* ent = static_cast<ProjectileEntity*>(m_po_EntityManager->NewEntity(kEntityProjectile, "Moon"));
+	//ent->GetComponent<>
 }
 
-void ProjectileSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
+void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	//if its a building
 	if (eventData.object1->m_i_CollisionGroupVec[0] == 11 && eventData.object2->m_i_CollisionGroupVec[0]== 3 ||

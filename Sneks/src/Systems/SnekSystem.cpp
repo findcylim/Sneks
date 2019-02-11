@@ -147,8 +147,8 @@ void SnekSystem::Update(float dt)
 		
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
-			Events::Ev_PLAYER_MOVEMENTKEY moveKey{ headPhysicsComponent, Events::MOVEKEY_UP};
-			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_MOVEMENTKEY>(moveKey);
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
+			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else
 		{
@@ -263,7 +263,7 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 	m_o_EventManagerPtr->AddListener<Events::Ev_SNEK_INVULNERABLE>(this);
 }
 
