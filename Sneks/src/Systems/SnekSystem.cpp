@@ -25,7 +25,7 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 	//	eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
 	{
-		std::cout << "Moon Collided" << std::endl;
+		//std::cout << "Moon Collided" << std::endl;
 		if (eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
 		{
 			auto snekHeadFollow = eventData.object2->m_po_OwnerEntity->
@@ -33,6 +33,12 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 			RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity),
 				snekHeadFollow);
 		}
+	}
+	else
+	{
+		//body collision destroys the body
+		HeadCollideBodyCheck(eventData.object1, eventData.object2);
+		HeadCollideBodyCheck(eventData.object2, eventData.object1);
 	}
 
 	//If it involves a building
@@ -73,9 +79,7 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		}
 	}
 
-	//body collision destroys the body
-	HeadCollideBodyCheck(eventData.object1, eventData.object2);
-	HeadCollideBodyCheck(eventData.object2, eventData.object1);
+
 }
 
 
@@ -354,6 +358,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BrakeKey = AEVK_S;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
