@@ -10,6 +10,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/InvulnerableComponent.h"
 #include "../Components/SnekHeadComponent.h"
+#include "ProjectileSystem.h"
 
 class SnekSystem final : public BaseSystem,
 	public EventListener<Events::Ev_PLAYER_COLLISION>

@@ -442,7 +442,7 @@ void SnekSystem::CreateMoon(SnekHeadEntity* owner, const char* textureName) cons
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-			(9);
+			(11);
 		}
 	}
 }

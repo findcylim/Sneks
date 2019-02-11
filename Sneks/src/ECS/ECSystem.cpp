@@ -11,6 +11,7 @@
 #include "../Systems/SnekSystem.h"
 #include "../Systems/BackgroundSystem.h"
 #include "../Systems/BuildingsSystem.h"
+#include "../Systems/ProjectileSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -98,6 +99,10 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(collisions);
 	collisions->Initialize();
 	m_b_EngineStatus = true;
+
+	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
+	m_o_SystemManager->AddSystem(projectile);
+	projectile->Initialize();
 }
 
 bool ECSystem::IsEngineOn() const

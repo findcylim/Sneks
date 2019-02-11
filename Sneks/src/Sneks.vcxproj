@@ -43,6 +43,7 @@
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Systems\ProjectileSystem.cpp" />
     <ClCompile Include="Systems\SnekSystem.cpp" />
     <ClCompile Include="Utility\AlphaEngineHelper.cpp" />
     <ClCompile Include="Utility\DebugPrintToScreen.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="Systems\ProjectileSystem.h" />
     <ClInclude Include="Systems\SnekSystem.h" />
     <ClInclude Include="Utility\AlphaEngineHelper.h" />
     <ClInclude Include="Utility\DebugPrintToScreen.h" />
