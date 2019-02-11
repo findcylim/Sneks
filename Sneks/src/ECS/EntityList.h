@@ -15,9 +15,9 @@
 #include <cstdlib>
 #include <cstring> //memcpy
 #include <vector>
-
 #include "Entity.h"
 #include "Component.h"
+#include "../Utility/RTTIHelper.h"
 
 class BaseEntity
 {
@@ -29,6 +29,18 @@ class BaseEntity
 		BaseEntity* m_po_PrevEntiy = nullptr, *m_po_NextEntity = nullptr;
 
 		BaseEntity(const char* entityName);
+		template<typename T>
+		T& GetComponent()
+		{
+			auto type = getTypeIndex<T>();
+			for (auto component : m_v_AttachedComponentsList)
+			{
+				if (std::type_index(typeid(component)) == type)
+				{
+					return component;
+				}
+			}
+		}
 };
 
 class SampleEntity : public BaseEntity
@@ -97,7 +109,16 @@ public:
 	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform , Component::kComponentCamera , Component::kComponentEnd };
 
 	CameraEntity(const char* entityName) : BaseEntity(entityName) {};
-	
+};
+
+class ProjectileEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, 
+											Component::kComponentPhysics,	 Component::kComponentCollision,
+											Component::kComponentEnd };
+
+	ProjectileEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
 

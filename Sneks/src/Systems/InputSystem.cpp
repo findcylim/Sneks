@@ -40,7 +40,6 @@ void InputSystem::SetKeyBinds()
 	}
 }
 
-
 void InputSystem::Update()
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();

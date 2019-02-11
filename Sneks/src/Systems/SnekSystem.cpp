@@ -111,7 +111,11 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;*/
 }
 
-bool press = false;
+void SnekSystem::receive(const Events::Ev_SNEK_INVULNERABLE& eventData)
+{
+	BodyInvulnerableSet(eventData.snekHead);
+}
+
 void SnekSystem::Update(float dt)
 {
 	auto i_InvulnerableComponent = static_cast<InvulnerableComponent*>(
@@ -140,20 +144,13 @@ void SnekSystem::Update(float dt)
 			m_po_ComponentManager->GetSpecificComponentInstance(
 				i_SnekHead->m_po_OwnerEntity, kComponentPhysics));
 
-		if (GetAsyncKeyState(i_SnekHead->m_i_BoostKey ) )
+		
+		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
-			if (!press) {
-				Flip(i_SnekHeadEntity);
-				press = true;
-			}
-		}else
-		{
-			press = false;
+			Events::Ev_PLAYER_MOVEMENTKEY moveKey{ headPhysicsComponent, Events::MOVEKEY_UP};
+			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_MOVEMENTKEY>(moveKey);
 		}
-		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) {
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
-			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
-		}else
+		else
 		{
 			headPhysicsComponent->m_f_Acceleration = 0;
 		}
@@ -261,9 +258,13 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 	}
 }
 
+
+
+
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::Ev_SNEK_INVULNERABLE>(this);
 }
 
 //HEAD SIZE : 105, 77
