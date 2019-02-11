@@ -122,7 +122,7 @@ void SnekSystem::receive(const Events::Ev_SNEK_INVULNERABLE& eventData)
 {
 	BodyInvulnerableSet(eventData.snekHead);
 }
-bool press = false;
+bool press = false,press2 = false; //REMOVE  LATER TODO
 void SnekSystem::Update(float dt)
 {
 	auto i_InvulnerableComponent = static_cast<InvulnerableComponent*>(
@@ -175,6 +175,19 @@ void SnekSystem::Update(float dt)
 		else
 		{
 			press = false;
+		}
+
+		if (GetAsyncKeyState(AEVK_F) < 0)
+		{
+			if (!press2)
+			{
+				press2 = true;
+				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
+			}
+		}
+		else
+		{
+			press2 = false;
 		}
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
