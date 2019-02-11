@@ -10,6 +10,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/InvulnerableComponent.h"
 #include "../Components/SnekHeadComponent.h"
+#include "ProjectileSystem.h"
 
 class SnekSystem final : public BaseSystem,
 	public EventListener<Events::Ev_PLAYER_COLLISION>
@@ -27,7 +28,6 @@ public:
 	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName, int controlScheme) const;
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const;
 	void CreateSnekTail(SnekHeadEntity* owner, const char* textureName) const;
-	void CreateMoon(SnekHeadEntity* owner, const char* textureName) const;
 	void FaceReference(const TransformComponent* reference, TransformComponent* toChange) const;
 	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
