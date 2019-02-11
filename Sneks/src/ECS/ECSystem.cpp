@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "ECSystem.h"
+#include "../Utility/FileIO.h"
 #include "../Utility/GameStateManager.h"
 #include "../Systems/InputSystem.h"
 #include "../Systems/PhysicsSystem.h"
@@ -12,6 +13,7 @@
 #include "../Systems/BackgroundSystem.h"
 #include "../Systems/BuildingsSystem.h"
 #include "../Systems/ProjectileSystem.h"
+#include <iostream>
 
 ECSystem::ECSystem()
 {
@@ -41,6 +43,7 @@ Function: InitializeEngine
 	Place all initialization functions here.
 
 ********************************************************/
+
 void ECSystem::InitializeEngine()
 {
 	//TODO change this state to splash screen/main menu in the future

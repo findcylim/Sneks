@@ -25,55 +25,29 @@ enum kEventList
 namespace Events
 {
 	//Declare all events here
-
-	struct Ev_PLAYER1GAME_LEFTKEY
-	{
-
-	};
-
-	struct Ev_PLAYER1GAME_RIGHTKEY
-	{
-
-	};
-
-	struct Ev_PLAYER1GAME_LEFTSHIFTKEY
-	{
-
-	};
-
-	struct Ev_PLAYER2GAME_LEFTKEY
-	{
-
-	};
-
-	struct Ev_PLAYER2GAME_RIGHTKEY
-	{
-
-	};
-
-	struct Ev_PLAYER2GAME_RIGHTSHIFTKEY
-	{
-
-	};
-
 	enum MoveKey
 	{
-		MOVEKEY_LEFT = 0,
-		MOVEKEY_RIGHT,
-		MOVEKEY_UP,
-		MOVEKEY_DOWN
+		MOVE_KEY_LEFT = 0,
+		MOVE_KEY_RIGHT,
+		MOVE_KEY_UP,
+		MOVE_KEY_DOWN
 	};
 
-	struct Ev_PLAYER_MOVEMENTKEY
+	struct EV_PLAYER_MOVEMENT_KEY final
 	{
 		PhysicsComponent* caller;
 		MoveKey key;
 	};
 
-	struct Ev_PLAYER_COLLISION
+	struct EV_PLAYER_COLLISION final
 	{
 		CollisionComponent* object1;
 		CollisionComponent* object2;
+	};
+
+	struct EV_ENTITY_POOL_CHANGED final
+	{
+		
 	};
 
 }

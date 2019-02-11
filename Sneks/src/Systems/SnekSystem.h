@@ -13,14 +13,14 @@
 #include "ProjectileSystem.h"
 
 class SnekSystem final : public BaseSystem,
-	public EventListener<Events::Ev_PLAYER_COLLISION>
+	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 public:
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	~SnekSystem() ;
-	void receive(const Events::Ev_PLAYER_COLLISION& eventData);
+	void receive(const Events::EV_PLAYER_COLLISION& eventData);
 	void Update(float dt) override;
 	void CheckInvulnerability(BaseComponent* component, float dt) const;
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;

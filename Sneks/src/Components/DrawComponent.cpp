@@ -1,4 +1,5 @@
 #include "DrawComponent.h"
+#include "../Utility/FileIO.h"
 
 
 void DrawComponent::SetAlpha(float alpha)
@@ -45,4 +46,16 @@ void DrawComponent::Initialize(AEGfxTexture* texture, const float sizeX, const f
 	m_po_GlobalMatrix = new AEMtx33();
 	m_po_RotationMatrix = new AEMtx33();
 	m_po_TranslationMatrix = new AEMtx33();
+}
+
+void DrawComponent::Initialize(AEGfxTexture* texture, HTColor color ={ 1,1,1,1 })
+{
+	int sizeX, sizeY;
+	FileIO::ReadPngDimensions(texture->mpName, &sizeX, &sizeY);
+	Initialize(texture, static_cast<float>(sizeX), static_cast<float>(sizeY), color);
+}
+
+void DrawComponent::Initialize(AEGfxTexture* texture)
+{
+	Initialize(texture, { 1,1,1,1 });
 }

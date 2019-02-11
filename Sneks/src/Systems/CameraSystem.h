@@ -3,11 +3,11 @@
 #include "../Math/CameraShake.h"
 
 class CameraSystem : public BaseSystem,
-	public EventListener<Events::Ev_PLAYER_COLLISION>
+	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 private:
 	CameraShake* m_po_CamShake;
-	void receive(const Events::Ev_PLAYER_COLLISION& eventData) override;
+	void receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 public:
 
 	CameraSystem(EntityManager* entityManagerPtr);

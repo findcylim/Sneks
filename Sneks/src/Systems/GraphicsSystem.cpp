@@ -1,6 +1,7 @@
 #include "GraphicsSystem.h"
 #include <algorithm>
 #include <vector>
+#include "../Utility/FileIO.h"
 
 GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr){};
 
@@ -26,6 +27,19 @@ AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)
 	{
 		if (strcmp(textureName, pairing.first) == 0)
 		{
+			return pairing.second;
+		}
+	}
+	return nullptr;
+}
+
+AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName, int* retWidth, int* retHeight)
+{
+	for (auto pairing : m_x_TextureMap)
+	{
+		if (strcmp(textureName, pairing.first) == 0)
+		{
+			FileIO::ReadPngDimensions(pairing.second->mpName, retWidth, retHeight);
 			return pairing.second;
 		}
 	}

@@ -15,11 +15,11 @@ SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics
 
 SnekSystem::~SnekSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 };
 
 
-void SnekSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
+void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	if (eventData.object1->m_i_CollisionGroupVec[0] == 11)
 	{
@@ -149,21 +149,21 @@ void SnekSystem::Update(float dt)
 			press = false;
 		}
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) {
-			Events::Ev_PLAYER_MOVEMENTKEY moveKey{ headPhysicsComponent, Events::MOVEKEY_UP};
-			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_MOVEMENTKEY>(moveKey);
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
+			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}else
 		{
 			headPhysicsComponent->m_f_Acceleration = 0;
 		}
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
-			Events::Ev_PLAYER_MOVEMENTKEY moveKey{ headPhysicsComponent, Events::MOVEKEY_LEFT };
-			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_MOVEMENTKEY>(moveKey);
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
+			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else if (GetAsyncKeyState(i_SnekHead->m_i_RightKey))
 		{
-			Events::Ev_PLAYER_MOVEMENTKEY moveKey{ headPhysicsComponent,Events::MOVEKEY_RIGHT };
-			m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_MOVEMENTKEY>(moveKey);
+			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
+			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 
 		for (auto i_Body : i_SnekHead->m_x_BodyParts)
@@ -259,10 +259,9 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 	}
 }
 
-
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 //HEAD SIZE : 105, 77
@@ -303,10 +302,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if(i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(
-				m_o_GraphicsSystem->FetchTexture(textureName),
-				105, 77, HTColor{ 1,1,1,1 }
-			);
+			static_cast<DrawComponent*>(i_Component)->Initialize(m_o_GraphicsSystem->FetchTexture(textureName));
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 4;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
@@ -336,7 +332,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-				(snekHeadCount * 2);
+				(static_cast<CollisionGroupName>(snekHeadCount * 2));
 		}
 	}
 
@@ -420,7 +416,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-			(playerNumber * 2 + 1);
+			(static_cast<CollisionGroupName>(playerNumber * 2 + 1));
 		}
 	}
 

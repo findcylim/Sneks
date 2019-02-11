@@ -13,7 +13,7 @@
 
 
 class PhysicsSystem : public BaseSystem,
-	public EventListener<Events::Ev_PLAYER_MOVEMENTKEY>
+	public EventListener<Events::EV_PLAYER_MOVEMENT_KEY>
 {
 private:
 	GameStateManager* m_o_GameStateManager;
@@ -22,7 +22,7 @@ public:
 	PhysicsSystem(EntityManager* entityManagerPtr);
 
 	void Initialize(GameStateManager* gameStateManager);
-	void receive(const Events::Ev_PLAYER_MOVEMENTKEY& eventData) override;
+	void receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
 	void Update(float dt) override;
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
 	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;

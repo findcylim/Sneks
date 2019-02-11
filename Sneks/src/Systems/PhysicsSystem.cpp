@@ -8,32 +8,32 @@ BaseSystem(entityManagerPtr)
 
 PhysicsSystem::~PhysicsSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER_MOVEMENTKEY>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
 }
 
 void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
 {
 	m_o_GameStateManager	= gameStateManager;
-	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_MOVEMENTKEY>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
 }
 
-void PhysicsSystem::receive(const Events::Ev_PLAYER_MOVEMENTKEY& eventData)
+void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	auto phyComp = eventData.caller;
 	auto snekHeadComponent = static_cast<SnekHeadComponent*>(m_po_ComponentManager->
 		GetSpecificComponentInstance(phyComp, kComponentSnekHead));
 
-	if (eventData.key == Events::MOVEKEY_UP) {
+	if (eventData.key == Events::MOVE_KEY_UP) {
 		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
 	}
-	else if (eventData.key == Events::MOVEKEY_LEFT) {
+	else if (eventData.key == Events::MOVE_KEY_LEFT) {
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() +
 			snekHeadComponent->m_f_TurnSpeed * dt
 		);
 	}
-	else if (eventData.key == Events::MOVEKEY_RIGHT) {
+	else if (eventData.key == Events::MOVE_KEY_RIGHT) {
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() -
 			snekHeadComponent->m_f_TurnSpeed * dt

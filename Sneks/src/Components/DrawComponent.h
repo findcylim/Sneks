@@ -31,6 +31,8 @@ public:
 	float GetSizeX()	 const;
 	float GetSizeY()	 const;
 	void Initialize(AEGfxTexture* texture, float sizeX, float sizeY, HTColor color);
+	void Initialize(AEGfxTexture* texture, HTColor color);
+	void Initialize(AEGfxTexture* texture);
 };
 
 #endif

@@ -200,9 +200,6 @@
     <ClInclude Include="Systems\GraphicsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="FileIO.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Systems\CollisionSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
@@ -238,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="Systems\ProjectileSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\FileIO.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
