@@ -63,13 +63,13 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 			RemoveSnekBody(snekHed1->m_x_BodyParts.at(0) , snekHed1);
 			RemoveSnekBody(snekHed2->m_x_BodyParts.at(0) , snekHed2);
 
-			if (snekHed1->m_x_BodyParts.size() == 1)
+			/*if (snekHed1->m_x_BodyParts.size() == 1)
 			{
 				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
 				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_po_OwnerEntity);
 				auto i_CameraComponent = static_cast<CameraComponent*>(
 					m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
-				i_CameraComponent->m_v_EntitiesToTrack.erase(i_CameraComponent->m_v_EntitiesToTrack.end() - 1);
+				
 				CreateSnek(0, 0, 0, 20, "SnekHead01", 0);
 				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
@@ -80,11 +80,11 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
 				auto i_CameraComponent = static_cast<CameraComponent*>(
 					m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
-				i_CameraComponent->m_v_EntitiesToTrack.erase(i_CameraComponent->m_v_EntitiesToTrack.begin());
+
 				CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
 				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
-			}
+			}*/
 
 			srand(clock());
 			auto randDirection = rand() % 360;
@@ -386,7 +386,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
-			if (snekHeadCount == 0)
+			if (controlScheme)
 			{
 				
 			}else
@@ -408,7 +408,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-				(static_cast<CollisionGroupName>(snekHeadCount * 2));
+				(static_cast<CollisionGroupName>(controlScheme * 2));
 		}
 	}
 
@@ -419,7 +419,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	}
 
 	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++){
-		CreateSnekBody(newSnekHeadEntity, bodyTexture, snekHeadCount);
+		CreateSnekBody(newSnekHeadEntity, bodyTexture, controlScheme);
 	}
 
 	auto tailTexture = "SnekTail02";
