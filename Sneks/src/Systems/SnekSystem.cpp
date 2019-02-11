@@ -46,23 +46,49 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 
 	//body collision destroys the body
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == 1 ||
-		(eventData.object1->m_i_CollisionGroupVec[0] == 3) )
+	HeadCollideBodyCheck(eventData.object1, eventData.object2);
+	HeadCollideBodyCheck(eventData.object2, eventData.object1);
+
+
+	/*std::cout << "Colliding: " << eventData.object1->m_po_OwnerEntity->m_pc_EntityName << " and " <<
+		eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;*/
+}
+
+void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision)
+{
+	if (victimCollision->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body ||
+		(victimCollision->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body))
 	{
+		auto snekHeadAggressor = static_cast<SnekHeadComponent*>(
+			m_po_ComponentManager->GetSpecificComponentInstance(
+				aggressorCollision, kComponentSnekHead
+			));
+
+
 		//Get the parent
 		auto objectFollowComp = static_cast<FollowComponent*>(
 			m_po_ComponentManager->GetSpecificComponentInstance(
-				eventData.object1, kComponentFollow
+				victimCollision, kComponentFollow
 			));
 
-		auto snekHeadComponent = static_cast<SnekHeadComponent*>(
+		auto snekHeadVictim = static_cast<SnekHeadComponent*>(
 			m_po_ComponentManager->GetSpecificComponentInstance(
 				objectFollowComp->m_po_ParentEntity, kComponentSnekHead
 			));
 
+
+		auto aggPhysics = snekHeadAggressor->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
+		auto victimPhysics = snekHeadVictim->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
+
+		auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity));
+		aggPhysics->SetVelocity(newVel);
+
+
+		//aggressorTransform->SetRotation(victimTransform->GetRotation() - aggressorTransform->GetRotation());
+
 		//m_po_EntityManager->DeleteEntity(snekHeadComponent->m_x_BodyParts.back());
 		//TODO REMOVE
-		RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object1->m_po_OwnerEntity), snekHeadComponent);
+		RemoveSnekBody(static_cast<SnekBodyEntity*>(victimCollision->m_po_OwnerEntity), snekHeadVictim);
 		//snekHeadComponent->m_x_BodyParts.pop_back();
 		m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
@@ -73,8 +99,9 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 			));
 
 		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
-		
+
 	}
+	/*
 	else if (eventData.object2->m_i_CollisionGroupVec[0] == 1 ||
 		(eventData.object2->m_i_CollisionGroupVec[0] == 3))
 	{
@@ -105,19 +132,19 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
 
-	}
-
-	/*std::cout << "Colliding: " << eventData.object1->m_po_OwnerEntity->m_pc_EntityName << " and " <<
-		eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;*/
+	}*/
 }
 
-void SnekSystem::receive(const Events::Ev_SNEK_INVULNERABLE& eventData)
+void SnekSystem::receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 {
 	BodyInvulnerableSet(eventData.snekHead);
 }
+
 bool press = false;
 void SnekSystem::Update(float dt)
 {
+
+
 	auto i_InvulnerableComponent = static_cast<InvulnerableComponent*>(
 		m_po_ComponentManager->GetFirstComponentInstance(KComponentInvulnerable));
 
@@ -147,8 +174,9 @@ void SnekSystem::Update(float dt)
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_BoostKey))
 		{
-			if (!press) {
-				Events::Ev_CREATE_PROJECTILE ProjData;
+			if (!press) 
+			{
+				Events::EV_CREATE_PROJECTILE ProjData;
 				
 				ProjData.pos = &headTransComponent->m_x_Position;
 
@@ -161,7 +189,7 @@ void SnekSystem::Update(float dt)
 
 				ProjData.texName = "Moon";
 
-				m_o_EventManagerPtr->EmitEvent<Events::Ev_CREATE_PROJECTILE>(ProjData);
+				m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(ProjData);
 				press = true;
 			}
 		}
@@ -270,7 +298,7 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 void SnekSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->AddListener<Events::Ev_SNEK_INVULNERABLE>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this);
 }
 
 //HEAD SIZE : 105, 77

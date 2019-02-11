@@ -9,13 +9,13 @@
 
 class ProjectileSystem : public BaseSystem,
 	public EventListener<Events::EV_PLAYER_COLLISION>,
-	public EventListener<Events::Ev_CREATE_PROJECTILE>
+	public EventListener<Events::EV_CREATE_PROJECTILE>
 {
 public:
 	ProjectileSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	~ProjectileSystem();
 	void receive(const Events::EV_PLAYER_COLLISION& eventData);
-	void receive(const Events::Ev_CREATE_PROJECTILE& eventData);
+	void receive(const Events::EV_CREATE_PROJECTILE& eventData);
 	void Update(float dt) override;
 	void Initialize();
 	//void CreateMoon(SnekHeadEntity* owner, const char* textureName) const;

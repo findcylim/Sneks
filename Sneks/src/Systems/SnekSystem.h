@@ -38,7 +38,7 @@ struct SnekPreset
 
 class SnekSystem final : public BaseSystem,
 	public EventListener<Events::EV_PLAYER_COLLISION>,
-	public EventListener<Events::Ev_SNEK_INVULNERABLE>
+	public EventListener<Events::EV_SNEK_INVULNERABLE>
 {
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
@@ -46,7 +46,8 @@ public:
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	~SnekSystem() ;
 	void receive(const Events::EV_PLAYER_COLLISION& eventData);
-	void receive(const Events::Ev_SNEK_INVULNERABLE& eventData);
+	void HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
+	void receive(const Events::EV_SNEK_INVULNERABLE& eventData);
 	void Update(float dt) override;
 	void CheckInvulnerability(BaseComponent* component, float dt) const;
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;

@@ -1,5 +1,6 @@
 #include "PhysicsSystem.h"
 #include <iostream>
+#include "SnekSystem.h"
 
 PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)
@@ -9,12 +10,20 @@ BaseSystem(entityManagerPtr)
 PhysicsSystem::~PhysicsSystem()
 {
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+
 }
 
 void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
 {
 	m_o_GameStateManager	= gameStateManager;
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+
+}
+void PhysicsSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+{
+	//
 }
 
 void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
@@ -41,8 +50,10 @@ void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 	}
 }
 
+
 void PhysicsSystem::Update(float dt)
 {
+
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
 	auto i_PhysicsComponent = static_cast<PhysicsComponent*>(m_po_ComponentManager
