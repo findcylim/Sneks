@@ -12,6 +12,7 @@ GraphicsSystem::~GraphicsSystem()
 	{
 		AEGfxTextureUnload(pairing.second);
 	}
+	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize(EntityManager* entityManager)
@@ -19,6 +20,15 @@ void GraphicsSystem::Initialize(EntityManager* entityManager)
 	//m_po_EntityManager = entityManager;
 	//m_po_ComponentManager = entityManager->GetComponentManager();
 	//PreLoadTextures();
+	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+
+}
+
+void GraphicsSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
+{
+	UpdateDrawOrderVector();
+	UpdateMatrices(static_cast<CameraComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentCamera)));
 }
 
 AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)
@@ -93,6 +103,12 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
 		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent);
 	}
+}
+void GraphicsSystem::UpdateDrawOrderVector()
+{
+	auto firstDrawComponent = static_cast<DrawComponent*>(
+		m_po_ComponentManager->GetFirstComponentInstance(kComponentDraw));
+	UpdateDrawOrderVector(firstDrawComponent);
 }
 
 void GraphicsSystem::Draw(float dt)

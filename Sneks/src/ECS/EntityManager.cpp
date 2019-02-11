@@ -168,6 +168,20 @@ void EntityManager::DeleteEntity(BaseComponent* componentPointer)
 		DeleteEntity(componentPointer->m_po_OwnerEntity);
 }
 
+void EntityManager::AddToDeleteQueue(BaseEntity* entityPointer)
+{
+	m_v_ToDelete.push_back(entityPointer);
+}
+
+void EntityManager::ResolveDeletes()
+{
+	for (auto entity : m_v_ToDelete)
+	{
+		DeleteEntity(entity);
+	}
+	m_v_ToDelete.clear();
+}
+
 void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 {
 	if (entityPointer)

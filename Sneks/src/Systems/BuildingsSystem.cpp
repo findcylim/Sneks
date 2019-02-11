@@ -97,7 +97,7 @@ void BuildingsSystem::RemoveBuildings()
 {
 	for (auto buildingInstance: m_BuildingInstances)
 	{
-		m_po_EntityManager->DeleteEntity(buildingInstance);
+		m_po_EntityManager->AddToDeleteQueue(buildingInstance);
 	}
 	m_BuildingInstances.clear();
 	m_BuildingCoordsCurrent.clear();

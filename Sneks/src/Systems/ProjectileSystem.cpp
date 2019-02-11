@@ -64,7 +64,7 @@ void ProjectileSystem::receive(const Events::Ev_CREATE_PROJECTILE& eventData)
 	G_Comp.Initialize(m_o_GraphicsSystem->FetchTexture(eventData.texName));
 }
 
-void  ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	//if its a building
 	if (eventData.object1->m_i_CollisionGroupVec[0] == 11 && eventData.object2->m_i_CollisionGroupVec[0]== 3 ||
