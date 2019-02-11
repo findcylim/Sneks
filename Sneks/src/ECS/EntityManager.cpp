@@ -105,6 +105,9 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityProjectile:
 			componentPointer = ((ProjectileEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityParticle:
+			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -199,6 +202,7 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 
 		if (prevEntity && nextEntity)
 		{
+			//You probably added the same entity more than to delete
 			prevEntity->m_po_NextEntity = nextEntity;
 			nextEntity->m_po_PrevEntiy = prevEntity;
 		}

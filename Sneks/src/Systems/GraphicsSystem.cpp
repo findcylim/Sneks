@@ -74,6 +74,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
 
+	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
 }
