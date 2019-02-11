@@ -60,6 +60,31 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		if (auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 		{
+			RemoveSnekBody(snekHed1->m_x_BodyParts.at(0) , snekHed1);
+			RemoveSnekBody(snekHed2->m_x_BodyParts.at(0) , snekHed2);
+
+			if (snekHed1->m_x_BodyParts.size() == 1)
+			{
+				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
+				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_po_OwnerEntity);
+				auto i_CameraComponent = static_cast<CameraComponent*>(
+					m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
+				i_CameraComponent->m_v_EntitiesToTrack.erase(i_CameraComponent->m_v_EntitiesToTrack.end() - 1);
+				CreateSnek(0, 0, 0, 20, "SnekHead01", 0);
+				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+
+			}
+			else if (snekHed2->m_x_BodyParts.size() == 1)
+			{
+				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
+				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
+				auto i_CameraComponent = static_cast<CameraComponent*>(
+					m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
+				i_CameraComponent->m_v_EntitiesToTrack.erase(i_CameraComponent->m_v_EntitiesToTrack.begin());
+				CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
+				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+
+			}
 
 			srand(clock());
 			auto randDirection = rand() % 360;
