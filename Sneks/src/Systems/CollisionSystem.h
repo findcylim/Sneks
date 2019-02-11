@@ -21,33 +21,36 @@ struct CollisionGroupPairing final
 	int groupB;
 };
 
+
 class CollisionSystem final : public BaseSystem // Add event listeners here
+, public EventListener<Events::EV_ENTITY_POOL_CHANGED>
 {
 private:
 	std::vector<CollisionGroup*>					m_xo_ComponentsPerGroup;
 	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings = 
-	{{0,2}, //Snek Head and Other Head
-	 {0,3}, //Snek Head and Other Body
-	 {2,1},
-	 {0,10},
-	 {2,10},
-	 {11,2}, //Moon and Other Head
-	 {11,3}, //Moon and Other Body
-	 {11,10} //Moon and Buildings
+	{{kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
+	 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Body
+	 {kCollGroupSnek2Head,kCollGroupSnek1Body},
+	 {kCollGroupSnek1Head,kCollGroupBuilding},
+	 {kCollGroupSnek2Head,kCollGroupBuilding},
+	 {kCollGroupMoon		 ,kCollGroupSnek2Head}, //Moon and Other Head
+	 {kCollGroupMoon		 ,kCollGroupSnek2Body}, //Moon and Other Body
+	 {kCollGroupMoon		 ,kCollGroupBuilding}   //Moon and Buildings
 	};
 
 
 public:
 	CollisionSystem(EntityManager* entityManagerPtr);
-	~CollisionSystem() = default;
+	~CollisionSystem();
+	void receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
 	void Update(float dt) override;
 	void Initialize();
-	void AddComponentToCollisionGroup(CollisionComponent* collisionComponent, unsigned collisionGroup);
+	void AddComponentToCollisionGroup(CollisionComponent* collisionComponent, unsigned int collisionGroup);
 	void UpdateComponentsPerGroup();
 	//void AddObjectToCollisionGroup(DrawObject*, unsigned int collisionGroup);
 
 	static HTVector2 GetMin(DrawComponent* drawComponent);
 	static HTVector2 GetMax(DrawComponent* drawComponent);
-	void UpdateHitBoxes(CollisionGroup* collisionGroup);
+	void UpdateHitBoxes(CollisionGroup* collisionGroup) const;
 };
 #endif

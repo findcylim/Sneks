@@ -2,7 +2,7 @@
 #include "../Components/CameraComponent.h"
 
 
-void CameraSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
+void CameraSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	SetShake(2.0f);
 }
@@ -17,12 +17,12 @@ BaseSystem(entityManagerPtr)
 
 CameraSystem::~CameraSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CameraSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CameraSystem::UpdateCamera(const float dt) const

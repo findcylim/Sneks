@@ -94,7 +94,7 @@ void ProjectileSystem::receive(const Events::Ev_PLAYER_COLLISION& eventData)
 
 ProjectileSystem::~ProjectileSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::Ev_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 };
 
 void ProjectileSystem::CreateMoon(SnekHeadEntity* owner, const char* textureName) const
@@ -141,7 +141,7 @@ void ProjectileSystem::CreateMoon(SnekHeadEntity* owner, const char* textureName
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-			(11);
+			(kCollGroupMoon);
 		}
 	}
 }

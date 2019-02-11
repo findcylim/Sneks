@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "ECSystem.h"
+#include "../Utility/FileIO.h"
 #include "../Utility/GameStateManager.h"
 #include "../Systems/InputSystem.h"
 #include "../Systems/PhysicsSystem.h"
@@ -12,6 +13,7 @@
 #include "../Systems/BackgroundSystem.h"
 #include "../Systems/BuildingsSystem.h"
 #include "../Systems/ProjectileSystem.h"
+#include <iostream>
 
 ECSystem::ECSystem()
 {
@@ -41,6 +43,7 @@ Function: InitializeEngine
 	Place all initialization functions here.
 
 ********************************************************/
+
 void ECSystem::InitializeEngine()
 {
 	//TODO change this state to splash screen/main menu in the future
@@ -84,7 +87,7 @@ void ECSystem::InitializeEngine()
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
 	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
-	//snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
+	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
 	snek->Initialize();
 
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);

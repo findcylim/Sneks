@@ -7,61 +7,24 @@
 CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)
 {
+	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+}
 
+CollisionSystem::~CollisionSystem()
+{
+	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+}
+
+void CollisionSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
+{
+	UpdateComponentsPerGroup();
 }
 
 void CollisionSystem::Update(float dt)
 {
-	UpdateComponentsPerGroup();
-
-	/*Aabb snekHeadAabb ={};
-		snekHeadAabb.min = snek->m_po_Head->GetMin();
-		snekHeadAabb.max = snek->m_po_Head->GetMax();
-		Aabb snekHeadAabb2 ={};
-		snekHeadAabb2.min = snek2->m_po_Head->GetMin();
-		snekHeadAabb2.max = snek2->m_po_Head->GetMax();
-
-		//Head on head action
-		if (CheckAabbIntersect(&snekHeadAabb, &snekHeadAabb2))
-		{
-			//check iframes
-			if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
-			else {
-				snek->m_po_Head->SetInvulnerable(1.0f);
-				snek2->m_po_Head->SetInvulnerable(1.0f);
-				if (snek->m_v_BodyParts.empty()) {
-					auto chars = new s8[100];
-					sprintf_s(chars, 100, "PLAYER 1 WINS");
-
-					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-
-					//AEGfxPrint(winFont, chars, 0, 0, 0, 0, 1);
-					MessageBox(nullptr, "PLAYER 1 WINS", "ENDGAME", MB_OK);
-					return 1;
-					winner = 1;
-				}
-				else if (snek2->m_v_BodyParts.empty())
-				{
-					auto chars = new s8[100];
-					sprintf_s(chars, 100, "PLAYER 2 WINS");
-
-					AEGfxSetRenderMode(AE_GFX_RM_COLOR);
-					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-
-					//AEGfxPrint(winFont, chars, 0, 0, 1, 0, 0);
-					MessageBox(nullptr, "PLAYER 2 WINS", "ENDGAME", MB_OK);
-					return 1;
-					winner = 2;
-
-				}
-				snek2->m_v_BodyParts.pop_back();
-				snek->m_v_BodyParts.pop_back();
-				snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
-				snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
-			}
-		}*/
-		//Update Aabb positions
+//	UpdateComponentsPerGroup();
+	
+	//Update Aabb positions
 	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
 	{
 		UpdateHitBoxes(i_CollisionGroup);
@@ -71,31 +34,34 @@ void CollisionSystem::Update(float dt)
 	// and another
 	for (auto i_CollisionPair : m_vx_CollisionsPairings)
 	{
-		//TODO add actual size checks
+		//if group is empty
 		if (i_CollisionPair.groupA >= m_xo_ComponentsPerGroup.size())
 			continue;
 		auto objectsInGroupA = m_xo_ComponentsPerGroup[i_CollisionPair.groupA];
 		for (int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
+			// if any object has collision disabled
 			if (!objectsInGroupA->objects[i_ObjectA]->enabled)
 				continue;
 			if (i_CollisionPair.groupB >= m_xo_ComponentsPerGroup.size())
 				continue;
+			// if group is empty
 			auto objectsInGroupB = m_xo_ComponentsPerGroup[i_CollisionPair.groupB];
 			for (int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
 			{
+				// if any object has collision disabled
 				if (!objectsInGroupB->objects[i_ObjectB]->enabled)
 					continue;
 				auto hitBoxA = objectsInGroupA->objectsHitBoxes[i_ObjectA];
 				auto hitBoxB = objectsInGroupB->objectsHitBoxes[i_ObjectB];
-				//Don't check collision with self
+				// if hit box is self
 				if (hitBoxB != hitBoxA) {
 					if (AabbHelper::CheckAabbIntersect(hitBoxA, hitBoxB))
 					{
-						Events::Ev_PLAYER_COLLISION collEvent { objectsInGroupA->objects[i_ObjectA],
+						Events::EV_PLAYER_COLLISION collEvent { objectsInGroupA->objects[i_ObjectA],
 							objectsInGroupB->objects[i_ObjectB]
 						};
-						m_o_EventManagerPtr->EmitEvent<Events::Ev_PLAYER_COLLISION>(collEvent);
+						m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
 					}
 				}
 			}
@@ -149,7 +115,7 @@ HTVector2 CollisionSystem::GetMax(DrawComponent* drawComponent)
 		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
 }
 
-void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup)
+void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup) const
 {
 	while (collisionGroup->objects.size() > collisionGroup->objectsHitBoxes.size())
 	{

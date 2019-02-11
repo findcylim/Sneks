@@ -61,7 +61,7 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, floa
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
-			(10);
+			(kCollGroupBuilding);
 		}
 	}
 	return newBuildingEntity;

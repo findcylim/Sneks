@@ -13,13 +13,7 @@
 
 
 class PhysicsSystem : public BaseSystem,
-	public EventListener<Events::Ev_PLAYER1GAME_LEFTKEY>,
-	public EventListener<Events::Ev_PLAYER1GAME_LEFTSHIFTKEY>,
-	public EventListener<Events::Ev_PLAYER1GAME_RIGHTKEY>,
-	public EventListener<Events::Ev_PLAYER2GAME_LEFTKEY>,
-	public EventListener<Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY>,
-	public EventListener<Events::Ev_PLAYER2GAME_RIGHTKEY>,
-	public EventListener<Events::Ev_PLAYER_MOVEMENTKEY>
+	public EventListener<Events::EV_PLAYER_MOVEMENT_KEY>
 {
 private:
 	GameStateManager* m_o_GameStateManager;
@@ -28,14 +22,7 @@ public:
 	PhysicsSystem(EntityManager* entityManagerPtr);
 
 	void Initialize(GameStateManager* gameStateManager);
-	void receive(const Events::Ev_PLAYER_MOVEMENTKEY& eventData);
-
-	virtual void receive(const Events::Ev_PLAYER1GAME_LEFTKEY& eventData) override;
-	virtual void receive(const Events::Ev_PLAYER1GAME_LEFTSHIFTKEY& eventData) override;
-	virtual void receive(const Events::Ev_PLAYER1GAME_RIGHTKEY& eventData) override;
-	virtual void receive(const Events::Ev_PLAYER2GAME_LEFTKEY& eventData) override;
-	virtual void receive(const Events::Ev_PLAYER2GAME_RIGHTSHIFTKEY& eventData) override;
-	virtual void receive(const Events::Ev_PLAYER2GAME_RIGHTKEY& eventData) override;
+	void receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
 	void Update(float dt) override;
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
 	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;

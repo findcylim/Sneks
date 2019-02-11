@@ -1,5 +1,4 @@
 #include "InputSystem.h"
-#include <windows.h>
 
 /**************************************************
 

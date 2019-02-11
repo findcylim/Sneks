@@ -17,6 +17,7 @@ public:
 	~GraphicsSystem();
 	void Initialize(EntityManager* entityManager);
 	AEGfxTexture* FetchTexture(const char* textureName);
+	AEGfxTexture* FetchTexture(const char* textureName, int* retWidth, int* retHeight);
 	void PreLoadTextures();
 	void LoadTextureToMap(const char* fileName, const char* textureName);
 	void Update(float dt) override;

@@ -1,4 +1,3 @@
-#include <windows.h>
 #include <cstdlib>
 
 #include "ECS/EventManager.h"
