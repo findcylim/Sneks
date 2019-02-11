@@ -15,6 +15,8 @@ enum Component : unsigned char
 	KComponentInvulnerable,
 	kComponentSnekHead,
 	kComponentFollow,
+	kComponentParticleEffect,
+	kComponentParticle,
 	kComponentEnd
 };
 
