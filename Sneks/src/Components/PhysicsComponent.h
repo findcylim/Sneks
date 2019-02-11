@@ -21,9 +21,9 @@ public:
 	void SetVelocity(HTVector2 velocity)
 	{
 		float newRot = atan2(velocity.y, velocity.x);
-		float magnitude = sqrt(velocity.x * velocity.x + velocity.y*velocity.y);
+		float magnitude = sqrt(velocity.x * velocity.x + velocity.y*velocity.y) ;
 		m_po_TransformComponent->SetRotation(newRot);
-		m_f_Speed = magnitude;
+		m_f_Speed = magnitude * 1.5f;
 	}
 };
 #endif

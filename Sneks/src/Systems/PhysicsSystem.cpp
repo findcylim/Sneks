@@ -100,6 +100,10 @@ HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) c
 
 void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const
 {
+	if (physicsComponent->m_f_Speed > physicsComponent->m_f_MaxSpeed)
+	{
+		physicsComponent->m_f_Speed *= 0.95f;
+	}
 	//std::cout << "Accel: " << physicsComponent->m_f_Acceleration << ", " << physicsComponent->m_f_Speed << std::endl;
 	if (physicsComponent->m_f_Acceleration == 0) {
 		if (physicsComponent->m_f_Speed < snekHeadComponent->m_f_IdleSpeed)

@@ -46,6 +46,8 @@ public:
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	~SnekSystem() ;
 	void receive(const Events::EV_PLAYER_COLLISION& eventData);
+	void HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim);
+	void HeadInvulnerableSet(float duration, BaseComponent* anyComponent);
 	void HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
 	void receive(const Events::EV_SNEK_INVULNERABLE& eventData);
 	void Update(float dt) override;

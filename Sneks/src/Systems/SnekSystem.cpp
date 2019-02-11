@@ -21,37 +21,72 @@ SnekSystem::~SnekSystem()
 
 void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
+	//std::cout << "Colliding: " << eventData.object1->m_po_OwnerEntity->m_pc_EntityName << " and " <<
+	//	eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;
+
+	//If it involves a building
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ||
+		 eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
 	{
-		std::cout << "Moon Collided" << std::endl;
-	}
-	//if its a building
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == 10)
-	{
-		eventData.object1->enabled = false;
+		auto objectColliding = eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
+			eventData.object1 : eventData.object2;
+		objectColliding->enabled = false;
 		auto objectDrawComp = static_cast<DrawComponent*>(
 			m_po_ComponentManager->GetSpecificComponentInstance(
-				eventData.object1, kComponentDraw
+				objectColliding, kComponentDraw
 			));
 		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
 	}
-	else if (eventData.object2->m_i_CollisionGroupVec[0] == 10)
+
+	//if both have snek heads
+	if (auto snekHed1 = eventData.object1->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 	{
-		eventData.object2->enabled = false;
-		auto objectDrawComp = static_cast<DrawComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				eventData.object2, kComponentDraw
-			));
-		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
+		if (auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
+		{
+
+			srand(clock());
+			auto randDirection = rand() % 360;
+			snekHed1->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(randDirection));
+			snekHed2->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(randDirection + 180));
+			float* snek1Speed = &snekHed1->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
+			float* snek2Speed = &snekHed2->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
+			float newSpeed = (*snek1Speed + *snek2Speed) * 0.75f;
+			*snek1Speed = newSpeed;
+			*snek2Speed = newSpeed;
+
+			//HeadApplyRecoil(snekHed1, snekHed2);
+			//HeadApplyRecoil(snekHed2, snekHed1);
+			HeadInvulnerableSet(1.0f, snekHed1);
+			HeadInvulnerableSet(1.0f, snekHed2);
+
+		}
 	}
 
 	//body collision destroys the body
 	HeadCollideBodyCheck(eventData.object1, eventData.object2);
 	HeadCollideBodyCheck(eventData.object2, eventData.object1);
+}
 
 
-	/*std::cout << "Colliding: " << eventData.object1->m_po_OwnerEntity->m_pc_EntityName << " and " <<
-		eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;*/
+void SnekSystem::HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim)
+{
+	auto aggPhysics = aggressor->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
+	auto victimPhysics = victim->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
+
+	auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity));
+	aggPhysics->SetVelocity(newVel);
+}
+
+void SnekSystem::HeadInvulnerableSet(float duration, BaseComponent* anyComponent)
+{
+	auto snakeHeadInvulComponent = static_cast<InvulnerableComponent*>(
+		m_po_ComponentManager->GetSpecificComponentInstance(
+			anyComponent, KComponentInvulnerable
+		));
+
+	snakeHeadInvulComponent->m_f_InvulnerableTime = duration;
+
+	BodyInvulnerableSet(snakeHeadInvulComponent->m_po_OwnerEntity->GetComponent<SnekHeadComponent>());
 }
 
 void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision)
@@ -76,63 +111,14 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 				objectFollowComp->m_po_ParentEntity, kComponentSnekHead
 			));
 
+		HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
 
-		auto aggPhysics = snekHeadAggressor->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
-		auto victimPhysics = snekHeadVictim->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
-
-		auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity));
-		aggPhysics->SetVelocity(newVel);
-
-
-		//aggressorTransform->SetRotation(victimTransform->GetRotation() - aggressorTransform->GetRotation());
-
-		//m_po_EntityManager->DeleteEntity(snekHeadComponent->m_x_BodyParts.back());
-		//TODO REMOVE
 		RemoveSnekBody(static_cast<SnekBodyEntity*>(victimCollision->m_po_OwnerEntity), snekHeadVictim);
-		//snekHeadComponent->m_x_BodyParts.pop_back();
 		m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
+		HeadInvulnerableSet(3.0f, snekHeadVictim);
 
-		auto snakeHeadInvulComponent = static_cast<InvulnerableComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				objectFollowComp->m_po_ParentEntity, KComponentInvulnerable
-			));
-
-		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
-
-	}
-	/*
-	else if (eventData.object2->m_i_CollisionGroupVec[0] == 1 ||
-		(eventData.object2->m_i_CollisionGroupVec[0] == 3))
-	{
-		//Get the parent
-		auto objectFollowComp = static_cast<FollowComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				eventData.object2, kComponentFollow
-			));
-
-		auto snekHeadComponent = static_cast<SnekHeadComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				objectFollowComp->m_po_ParentEntity, kComponentSnekHead
-			));
-
-		auto snakeHeadInvulComponent = static_cast<InvulnerableComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				objectFollowComp->m_po_ParentEntity, KComponentInvulnerable
-			));
-
-		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
-		BodyInvulnerableSet(snekHeadComponent);
-
-		//m_po_EntityManager->DeleteEntity(snekHeadComponent->m_x_BodyParts.back());
-
-		//snekHeadComponent->m_x_BodyParts.pop_back();
-		//TODO
-		RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity), snekHeadComponent);
-		m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
-
-
-	}*/
+	}	
 }
 
 void SnekSystem::receive(const Events::EV_SNEK_INVULNERABLE& eventData)
