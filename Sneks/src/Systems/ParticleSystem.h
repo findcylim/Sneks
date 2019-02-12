@@ -17,7 +17,10 @@ private:
 	GraphicsSystem* m_o_GraphicsSystem;
 
 	void SpawnParticle(ParticleEffectComponent* pec);
-	void ChangeParticleEffect(SnekHeadEntity* owner, ParticleType type);
+	void SpawnParticleEffect(TransformComponent* spawnTransform, ParticleType type);
+
+	bool CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* spawn1,
+		CollisionGroupName name2, TransformComponent* spawn2, CollisionGroupName namecheck, ParticleType type);
 
 public:
 	ParticleSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics);
@@ -26,8 +29,6 @@ public:
 	void Initialize();
 	void Update(float dt);
 	void receive(const Events::EV_PLAYER_COLLISION& eventData);
-
-	void PlayParticleEffect(SnekHeadEntity* owner, ParticleType type);
 };
 
 #endif // !PARTICLESYSTEM_H

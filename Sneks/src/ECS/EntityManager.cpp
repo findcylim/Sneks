@@ -105,6 +105,9 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityProjectile:
 			componentPointer = ((ProjectileEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityParticleEffect:
+			componentPointer = ((ParticleEffectEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		case Entity::kEntityParticle:
 			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
@@ -159,6 +162,12 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 			break;
 		case kEntityProjectile:
 			entityPointer = (BaseEntity*)new ProjectileEntity(entityName);
+			break;
+		case kEntityParticleEffect:
+			entityPointer = (BaseEntity*)new ParticleEffectEntity(entityName);
+			break;
+		case kEntityParticle:
+			entityPointer = (BaseEntity*)new ParticleEntity(entityName);
 			break;
 	}
 

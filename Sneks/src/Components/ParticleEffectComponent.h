@@ -29,14 +29,16 @@ private:
 	bool m_b_IsParticleEffectOneShot = false;
 	bool m_b_HasParticleEffectFired = false;
 
+	TransformComponent* m_po_SpawnTransform;
+
 	bool HasParticleEffectOneShot();
 
 public:
 	void SetParticleType(ParticleType type, GraphicsSystem* graphics);
 	void UpdateTime(float dt);
-	void Revive();
 	bool IsParticleEffectAlive();
 
+	ParticleType GetParticleType();
 	AEGfxTexture* GetParticleTexture();
 	float GetParticleSizeX();
 	float GetParticleSizeY();
@@ -45,4 +47,7 @@ public:
 	int GetParticleSpawnDensity();
 	float GetParticleSpawnFrequency();
 	bool GetIsParticleEffectOneShot();
+
+	void SetSpawnTransform(TransformComponent* spawnTransform);
+	TransformComponent* GetSpawnTransform();
 };

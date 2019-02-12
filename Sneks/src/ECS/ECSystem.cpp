@@ -13,6 +13,7 @@
 #include "../Systems/BackgroundSystem.h"
 #include "../Systems/BuildingsSystem.h"
 #include "../Systems/ProjectileSystem.h"
+#include "../Systems/ParticleSystem.h"
 #include <iostream>
 
 ECSystem::ECSystem()
@@ -107,6 +108,10 @@ void ECSystem::InitializeEngine()
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->Initialize();
+
+	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
+	m_o_SystemManager->AddSystem(particle);
+	particle->Initialize();
 }
 
 bool ECSystem::IsEngineOn() const

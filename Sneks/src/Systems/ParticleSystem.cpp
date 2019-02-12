@@ -1,6 +1,7 @@
 
 #include "ParticleSystem.h"
 #include <random>
+#include <iostream>
 
 ParticleSystem::ParticleSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics)
 	: BaseSystem(entityManagerPointer)
@@ -61,61 +62,94 @@ void ParticleSystem::Update(float dt)
 
 void ParticleSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == 0 ||
-		(eventData.object1->m_i_CollisionGroupVec[0] == 2))
-	{
-		PlayParticleEffect(static_cast<SnekHeadEntity*>(eventData.object1->m_po_OwnerEntity),
-			ParticleType::kParticleBasicOneShot);
-	}
+	CollisionGroupName cgn1 = eventData.object1->m_i_CollisionGroupVec[0];
+	CollisionGroupName cgn2 = eventData.object2->m_i_CollisionGroupVec[0];
+	CollisionGroupName cgnc;
+	ParticleType type;
 
-	if (eventData.object2->m_i_CollisionGroupVec[0] == 0 ||
-		(eventData.object2->m_i_CollisionGroupVec[0] == 2))
+	TransformComponent* tcp1 = static_cast<TransformComponent*>(
+		m_po_ComponentManager->GetSpecificComponentInstance(
+			eventData.object1, Component::kComponentTransform));
+	TransformComponent* tcp2 = static_cast<TransformComponent*>(
+		m_po_ComponentManager->GetSpecificComponentInstance(
+			eventData.object2, Component::kComponentTransform));
+
+	cgnc = CollisionGroupName::kCollGroupBuilding;
+	type = ParticleType::kParticleBasicOneShot;
+
+	if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
 	{
-		PlayParticleEffect(static_cast<SnekHeadEntity*>(eventData.object2->m_po_OwnerEntity),
-			ParticleType::kParticleBasicOneShot);
+		cgnc = CollisionGroupName::kCollGroupSnek1Body;
+		type = ParticleType::kParticleBasicOneShot;
+	}
+	else if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	{
+		cgnc = CollisionGroupName::kCollGroupSnek2Body;
+		type = ParticleType::kParticleBasicOneShot;
+	}
+	else if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	{
 	}
 }
 
-void ParticleSystem::PlayParticleEffect(SnekHeadEntity* owner, ParticleType type)
+bool ParticleSystem::CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* spawn1,
+	CollisionGroupName name2, TransformComponent* spawn2, CollisionGroupName namecheck, ParticleType type)
 {
-	auto pec = static_cast<ParticleEffectComponent*>(
-		m_po_ComponentManager->GetFirstComponentInstance(Component::kComponentParticleEffect));
-
-	pec->Revive();
-
-	if (!pec->IsParticleEffectAlive())
-		ChangeParticleEffect(owner, type);
+	if (name1 == namecheck)
+	{
+		SpawnParticleEffect(spawn1, type);
+		return true;
+	}
+	else if (name2 == namecheck)
+	{
+		SpawnParticleEffect(spawn2, type);
+		return true;
+	}
+	else
+		return false;
 }
 
-void ParticleSystem::ChangeParticleEffect(SnekHeadEntity* owner, ParticleType type)
+void ParticleSystem::SpawnParticleEffect(TransformComponent* spawnTransform, ParticleType type)
 {
-	auto pec = static_cast<ParticleEffectComponent*>(
-		m_po_ComponentManager->GetFirstComponentInstance(Component::kComponentParticleEffect));
+	if (spawnTransform)
+	{
+		auto pee = static_cast<ParticleEffectEntity*>
+			(m_po_EntityManager->NewEntity(Entity::kEntityParticleEffect, "ParticleEffect"));
 
-	pec->SetParticleType(type, m_o_GraphicsSystem);
+		auto pec = static_cast<ParticleEffectComponent*>(
+			m_po_ComponentManager->GetSpecificComponentInstance(
+				pee, Component::kComponentParticleEffect));
+
+		if (pec)
+		{
+			pec->SetParticleType(type, m_o_GraphicsSystem);
+			pec->SetSpawnTransform(spawnTransform);
+		}
+	}
 }
 
 void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 {
-	auto* pep = static_cast<ParticleEntity*>
+	auto pep = static_cast<ParticleEntity*>
 		(m_po_EntityManager->NewEntity(Entity::kEntityParticle, "Particle"));
 
 	static_cast<ParticleComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
 		pep, Component::kComponentParticle))->SetParticleMaxLifetime(
 			pec->GetParticleMaxLifetime());
 
-	auto* tcp = static_cast<TransformComponent*>(
-		m_po_ComponentManager->GetSpecificComponentInstance(pec, Component::kComponentTransform));
+	auto tcp = pec->GetSpawnTransform();
 
 	static_cast<TransformComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
 		pep, Component::kComponentTransform))->SetPosition(
 			tcp->GetPosition().x, tcp->GetPosition().y);
 
 	static_cast<TransformComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
-		pep, Component::kComponentTransform))->SetRotation(tcp->GetRotation());
+		pep, Component::kComponentTransform))->SetRotation(rand() % 360);
+
+	static_cast<PhysicsComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
+		pep, Component::kComponentPhysics))->m_f_Speed = pec->GetParticleSpeed();
 
 	static_cast<DrawComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
 		pep, Component::kComponentDraw))->Initialize(
-			pec->GetParticleTexture(), pec->GetParticleSizeX(),
-			pec->GetParticleSizeY(), HTColor{ 1,1,1,1 });
+			pec->GetParticleTexture(), pec->GetParticleSizeX(), pec->GetParticleSizeY(), HTColor{ 1,1,1,1 });
 }
