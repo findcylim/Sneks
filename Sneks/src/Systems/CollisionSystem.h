@@ -17,8 +17,8 @@ public:
 
 struct CollisionGroupPairing final
 {
-	int groupA;
-	int groupB;
+	unsigned int groupA;
+	unsigned int groupB;
 };
 
 
@@ -28,7 +28,8 @@ class CollisionSystem final : public BaseSystem // Add event listeners here
 private:
 	std::vector<CollisionGroup*>					m_xo_ComponentsPerGroup;
 	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings = 
-		{{kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
+		{{kCollGroupSnek1Head,kCollGroupSnek2Head},
+		 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
 		 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Body
 		 {kCollGroupSnek2Head,kCollGroupSnek1Body},
 		 {kCollGroupSnek1Head,kCollGroupBuilding },

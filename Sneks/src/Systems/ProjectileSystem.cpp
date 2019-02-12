@@ -15,6 +15,8 @@ ProjectileSystem::ProjectileSystem(EntityManager* entityManagerPtr, GraphicsSyst
 
 void ProjectileSystem::Update(float dt)
 {
+	UNREFERENCED_PARAMETER(dt);
+
 	bool press = false;
 
 	auto i_SnekHead = static_cast<SnekHeadComponent*>(
@@ -40,10 +42,10 @@ void ProjectileSystem::Update(float dt)
 void ProjectileSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->AddListener<Events::Ev_CREATE_PROJECTILE>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_CREATE_PROJECTILE>(this);
 }
 
-void ProjectileSystem::receive(const Events::Ev_CREATE_PROJECTILE& eventData)
+void ProjectileSystem::receive(const Events::EV_CREATE_PROJECTILE& eventData)
 {
 	ProjectileEntity* ent = static_cast<ProjectileEntity*>(m_po_EntityManager->NewEntity(kEntityProjectile, eventData.texName));
 	auto T_Comp = ent->GetComponent<TransformComponent>();

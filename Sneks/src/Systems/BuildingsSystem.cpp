@@ -17,7 +17,7 @@ BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem
 
 void BuildingsSystem::Update(float dt)
 {
-
+	UNREFERENCED_PARAMETER(dt);
 }
 
 void BuildingsSystem::Initialize()

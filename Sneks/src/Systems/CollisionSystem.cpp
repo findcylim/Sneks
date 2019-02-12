@@ -38,7 +38,7 @@ void CollisionSystem::Update(float dt)
 		if (i_CollisionPair.groupA >= m_xo_ComponentsPerGroup.size())
 			continue;
 		auto objectsInGroupA = m_xo_ComponentsPerGroup[i_CollisionPair.groupA];
-		for (int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
+		for (unsigned int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
 			// if any object has collision disabled
 			if (!objectsInGroupA->objects[i_ObjectA]->enabled)
@@ -47,7 +47,7 @@ void CollisionSystem::Update(float dt)
 				continue;
 			// if group is empty
 			auto objectsInGroupB = m_xo_ComponentsPerGroup[i_CollisionPair.groupB];
-			for (int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
+			for (unsigned int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
 			{
 				// if any object has collision disabled
 				if (!objectsInGroupB->objects[i_ObjectB]->enabled)
@@ -134,7 +134,7 @@ void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup) const
 	}
 	if (collisionGroup->objects.size() == collisionGroup->objectsHitBoxes.size())
 	{
-		for (int i_Objects = 0; i_Objects < collisionGroup->objects.size(); i_Objects++)
+		for (unsigned int i_Objects = 0; i_Objects < collisionGroup->objects.size(); i_Objects++)
 		{
 			collisionGroup->objectsHitBoxes.at(i_Objects)->min = CollisionSystem::GetMin(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);
 			collisionGroup->objectsHitBoxes.at(i_Objects)->max = CollisionSystem::GetMax(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);
