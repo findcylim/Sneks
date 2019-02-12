@@ -15,6 +15,8 @@ ProjectileSystem::ProjectileSystem(EntityManager* entityManagerPtr, GraphicsSyst
 
 void ProjectileSystem::Update(float dt)
 {
+	UNREFERENCED_PARAMETER(dt);
+
 	bool press = false;
 
 	auto i_SnekHead = static_cast<SnekHeadComponent*>(

@@ -23,7 +23,7 @@ DebugPrintToScreen::~DebugPrintToScreen()
 
 void DebugPrintToScreen::Draw()
 {
-	for (int i_PrintingList = 0; i_PrintingList < m_x_PrintingList.size(); i_PrintingList++)
+	for (unsigned i_PrintingList = 0; i_PrintingList < m_x_PrintingList.size(); i_PrintingList++)
 	{
 		PrintAtPosition(m_x_PrintingList.at(i_PrintingList), -900, 450 - i_PrintingList * 30);
 	}

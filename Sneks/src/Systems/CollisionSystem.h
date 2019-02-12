@@ -17,8 +17,8 @@ public:
 
 struct CollisionGroupPairing final
 {
-	int groupA;
-	int groupB;
+	unsigned int groupA;
+	unsigned int groupB;
 };
 
 

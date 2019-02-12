@@ -60,9 +60,7 @@ void ECSystem::InitializeEngine()
 	/*
 		Create and add Systems here
 	*/
-
-	auto cameraEntity = static_cast<CameraEntity*>(
-		m_o_EntityComponentManager->NewEntity(kEntityCamera, "Camera"));
+	m_o_EntityComponentManager->NewEntity(kEntityCamera, "Camera");
 
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);

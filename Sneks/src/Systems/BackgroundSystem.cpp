@@ -11,7 +11,7 @@ BackgroundSystem::BackgroundSystem(EntityManager* entityManagerPtr, GraphicsSyst
 
 void BackgroundSystem::Update(float dt)
 {
-	
+	UNREFERENCED_PARAMETER(dt);
 }
 
 void BackgroundSystem::Initialize()

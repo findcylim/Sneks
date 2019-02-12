@@ -88,8 +88,8 @@ void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 			srand(clock());
 			auto randDirection = rand() % 360;
-			snekHed1->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(randDirection));
-			snekHed2->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(randDirection + 180));
+			snekHed1->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(static_cast<float>(randDirection)));
+			snekHed2->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(static_cast<float>(randDirection) + 180.0f));
 			float* snek1Speed = &snekHed1->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
 			float* snek2Speed = &snekHed2->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
 			float newSpeed = (*snek1Speed + *snek2Speed) * 0.75f;
@@ -641,7 +641,7 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 	float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
 		 reference->m_po_TransformComponent->m_x_Position.y;
 
-	float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
+	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
 
 	//TODO
 	if (fabsf(distanceX) > reference->GetSizeX() * toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
@@ -692,7 +692,7 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 	//reverse the body parts vector
 	std::reverse(snekHeadComponent->m_x_BodyParts.begin(), snekHeadComponent->m_x_BodyParts.end() - 1);
 	//Update follow components
-	for (int i_BodyPartsFront = 0; i_BodyPartsFront < snekHeadComponent->m_x_BodyParts.size(); i_BodyPartsFront++)
+	for (unsigned i_BodyPartsFront = 0; i_BodyPartsFront < snekHeadComponent->m_x_BodyParts.size(); i_BodyPartsFront++)
 	{
 		auto bodyFollowComponent = static_cast<FollowComponent*>(
 			m_po_ComponentManager->GetSpecificComponentInstance(
