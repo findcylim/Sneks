@@ -16,9 +16,7 @@ void BackgroundSystem::Update(float dt)
 
 void BackgroundSystem::Initialize()
 {
-	float screenSizeX = AEGfxGetWinMaxX() - AEGfxGetWinMinX();
-	float screenSizeY = AEGfxGetWinMaxY() - AEGfxGetWinMinY();
-	//CreateInstancedBackgrounds(1, 1, "Background01");
+
 }
 
 BackgroundEntity* BackgroundSystem::CreateBackground(float posX, float posY, float sizeX, float sizeY, const char* textureName) const

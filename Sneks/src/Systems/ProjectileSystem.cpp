@@ -17,26 +17,6 @@ void ProjectileSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
 
-	bool press = false;
-
-	auto i_SnekHead = static_cast<SnekHeadComponent*>(
-		m_po_ComponentManager->GetFirstComponentInstance(kComponentSnekHead));
-
-	auto i_SnekHeadEntity = static_cast<SnekHeadEntity*>(
-		m_po_EntityManager->GetFirstEntityInstance(kEntitySnekHead));
-
-	/*if (GetAsyncKeyState(i_SnekHead->m_i_BoostKey))
-	{
-		if (!press) {
-			auto moonTexture = "Moon";
-			CreateMoon(i_SnekHeadEntity, moonTexture);
-			press = true;
-		}
-	}
-	else
-	{
-		press = false;
-	}*/
 }
 
 void ProjectileSystem::Initialize()

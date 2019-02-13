@@ -144,7 +144,7 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 			tcp->GetPosition().x, tcp->GetPosition().y);
 
 	static_cast<TransformComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
-		pep, Component::kComponentTransform))->SetRotation(rand() % 360);
+		pep, Component::kComponentTransform))->SetRotation(static_cast<float>(rand() % 360));
 
 	static_cast<PhysicsComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
 		pep, Component::kComponentPhysics))->m_f_Speed = pec->GetParticleSpeed();

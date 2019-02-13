@@ -15,10 +15,8 @@ GraphicsSystem::~GraphicsSystem()
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
-void GraphicsSystem::Initialize(EntityManager* entityManager)
+void GraphicsSystem::Initialize()
 {
-	//m_po_EntityManager = entityManager;
-	//m_po_ComponentManager = entityManager->GetComponentManager();
 	//PreLoadTextures();
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 
@@ -26,6 +24,7 @@ void GraphicsSystem::Initialize(EntityManager* entityManager)
 
 void GraphicsSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
+	UNREFERENCED_PARAMETER(eventData);
 	UpdateDrawOrderVector();
 	UpdateMatrices(static_cast<CameraComponent*>(m_po_ComponentManager
 		->GetFirstComponentInstance(kComponentCamera)));
@@ -114,6 +113,8 @@ void GraphicsSystem::UpdateDrawOrderVector()
 
 void GraphicsSystem::Draw(float dt)
 {
+	UNREFERENCED_PARAMETER(dt);
+
 	UpdateMatrices(static_cast<CameraComponent*>(m_po_ComponentManager
 		->GetFirstComponentInstance(kComponentCamera)));
 	//Look for DrawComponents

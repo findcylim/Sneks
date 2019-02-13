@@ -180,8 +180,6 @@ void SnekSystem::Update(float dt)
 			i_InvulnerableComponent->m_po_NextComponent
 			);
 	}
-	auto i_SnekHeadEntity = static_cast<SnekHeadEntity*>(
-		m_po_EntityManager->GetFirstEntityInstance(kEntitySnekHead));
 
 	auto i_SnekHead = static_cast<SnekHeadComponent*>(
 		m_po_ComponentManager->GetFirstComponentInstance(kComponentSnekHead));
@@ -190,9 +188,6 @@ void SnekSystem::Update(float dt)
 
 		auto headTransComponent = i_SnekHead->m_po_OwnerEntity->
 			GetComponent<TransformComponent>();
-
-		auto headInvulComponent = i_SnekHead->m_po_OwnerEntity->
-								GetComponent<InvulnerableComponent>();
 
 		auto headPhysicsComponent = i_SnekHead->m_po_OwnerEntity->
 								GetComponent<PhysicsComponent>();

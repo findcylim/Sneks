@@ -16,12 +16,15 @@ CollisionSystem::~CollisionSystem()
 
 void CollisionSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
+	UNREFERENCED_PARAMETER(eventData);
 	UpdateComponentsPerGroup();
 	UpdateAllHitBoxes();
 }
 
 void CollisionSystem::Update(float dt)
 {
+	UNREFERENCED_PARAMETER(dt);
+
 	UpdateComponentsPerGroup();
 
 		//Update Aabb positions

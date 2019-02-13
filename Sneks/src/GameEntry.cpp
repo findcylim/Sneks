@@ -27,8 +27,8 @@
 constexpr int kNumBodyParts = 20;
 
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-	LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
+	LPSTR, int nCmdShow)
 {
 	AlphaEngineHelper::AlphaInitialize(hInstance, nCmdShow);
 	ECSystem* Engine = new ECSystem;

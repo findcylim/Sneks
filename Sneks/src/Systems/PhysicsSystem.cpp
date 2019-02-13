@@ -23,7 +23,7 @@ void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
 }
 void PhysicsSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	//
+	UNREFERENCED_PARAMETER(eventData);
 }
 
 void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
@@ -53,8 +53,9 @@ void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 
 void PhysicsSystem::Update(float dt)
 {
-
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
+
+	UNREFERENCED_PARAMETER(currentState);
 
 	auto i_PhysicsComponent = static_cast<PhysicsComponent*>(m_po_ComponentManager
 		->GetFirstComponentInstance(kComponentPhysics));
@@ -131,6 +132,7 @@ void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float 
 
 void PhysicsSystem::CheckOutOfBounds(TransformComponent* transformComponent, PhysicsComponent* physicsComponent) const
 {
+	UNREFERENCED_PARAMETER(physicsComponent);
 	//if out of screen, clamp movement
 	if (transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920)
 	{
