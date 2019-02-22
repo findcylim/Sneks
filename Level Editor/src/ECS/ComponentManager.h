@@ -9,6 +9,7 @@
 #include "ComponentList.h"
 #include "EntityList.h"
 
+
 class ComponentManager
 {
 	std::vector<BaseComponent*> m_v_ComponentPool;

@@ -11,25 +11,27 @@ SystemManager::SystemManager(Logger* logger)
 
 SystemManager::~SystemManager()
 {
-	for (std::vector<BaseSystem*>::iterator sys = SystemList.begin(); sys != SystemList.end();)
+	while (!m_v_SystemList.empty())
 	{
-		delete(*sys);
-		SystemList.erase(sys);
-		if (SystemList.size() == 0)
-			break;
+		delete(m_v_SystemList.back());
+		m_v_SystemList.pop_back();
 	}
 }
 
-void SystemManager::Initialize()
+void SystemManager::Initialize(EventManager* eventManager, EntityManager* entManager)
 {
-	
+	m_o_EventManager = eventManager;
+	m_o_EntityManager = entManager;
 }
 
 void SystemManager::AddSystem(BaseSystem* NewSystem)
 {
-	if (NewSystem != 0)
+	if (NewSystem != nullptr)
 	{
-		SystemList.push_back(NewSystem);
+		NewSystem->m_o_EventManagerPtr = m_o_EventManager;
+		NewSystem->m_po_EntityManager = m_o_EntityManager;
+		NewSystem->m_po_ComponentManager = m_o_EntityManager->GetComponentManager();
+		m_v_SystemList.push_back(NewSystem);
 	}
 	else
 	{
@@ -40,14 +42,14 @@ void SystemManager::AddSystem(BaseSystem* NewSystem)
 //Needs to be tested. May just erase all systems
 void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 {
-	for (std::vector<BaseSystem*>::iterator sys = SystemList.begin();sys != SystemList.end();)
+	for (std::vector<BaseSystem*>::iterator sys = m_v_SystemList.begin();sys != m_v_SystemList.end();)
 	{
 		if (typeid(*sys) == typeid(*RemSystem))
 		{
 			try
 			{
 				delete(*sys);
-				SystemList.erase(sys);
+				m_v_SystemList.erase(sys);
 			}
 			catch (...)
 			{
@@ -61,9 +63,19 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 	}
 }
 
+void SystemManager::Update(float dt)
+{
+	for (BaseSystem* currSystem : m_v_SystemList)
+	{
+		currSystem->Update(dt);
+	}
+}
+
+
+
 BaseSystem* SystemManager::GetSystem(int ID)
 {
-	for (BaseSystem* currSystem : SystemList)
+	for (BaseSystem* currSystem : m_v_SystemList)
 	{
 		if (currSystem->GetID() == ID)
 		{
@@ -72,15 +84,4 @@ BaseSystem* SystemManager::GetSystem(int ID)
 	}
 	return nullptr;
 }
-
-void SystemManager::Update()
-{
-	for (BaseSystem* currSystem : SystemList)
-	{
-		currSystem->Update();
-	}
-}
-
-
-
 

@@ -4,6 +4,7 @@
 #pragma once
 
 #include "EventManager.h"
+#include "EntityManager.h"
 
 //Virtual System Class
 //To be overriden by actual systems
@@ -11,12 +12,16 @@
 class BaseSystem 
 {
 protected:
-	const char* m_c_SystemName;
-	EventManager* m_o_EventManagerPtr;
-	short		m_s_SystemID;
-	bool		m_b_isActive;
+	const char*                m_c_SystemName;
+	short		                  m_s_SystemID;
+	bool		                  m_b_isActive;
 public:
-	virtual void Update() = 0;
+	EventManager*              m_o_EventManagerPtr;
+	EntityManager*		         m_po_EntityManager;
+	ComponentManager*          m_po_ComponentManager;
+	BaseSystem() = default;
+	BaseSystem(EntityManager*);
+	virtual void Update(float dt) = 0;
 	void SetID(short id);
 	void SetName(const char* name);
 	virtual ~BaseSystem() {}

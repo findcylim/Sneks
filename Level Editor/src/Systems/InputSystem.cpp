@@ -1,5 +1,4 @@
 #include "InputSystem.h"
-#include <Windows.h>
 
 /**************************************************
 
@@ -15,7 +14,8 @@
 
 ***************************************************/
 
-InputSystem::InputSystem(EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager,Logger* logger)
+InputSystem::InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager,Logger* logger):
+BaseSystem(entityManagerPtr)
 {
 	m_o_Logger				= logger;
 	m_o_EventManager		= eventManager;
@@ -33,87 +33,90 @@ InputSystem::~InputSystem()
 void InputSystem::SetKeyBinds()
 {
 	for (std::map<unsigned char, ButtonNames>::iterator i_KeyBind = m_m_KeyBinds.begin();
-														i_KeyBind != m_m_KeyBinds.end();
-														i_KeyBind++)
+				i_KeyBind != m_m_KeyBinds.end();
+				++i_KeyBind)
 	{
 
 	}
 }
-//
-//
-//void InputSystem::Update()
-//{
-//	State currentState = m_o_GameStateManager->ReturnCurrentState();
-//
-//	//Player 1 Controls
-//	//'A' Key (Turn Left)
-//	if (GetAsyncKeyState(65) < 0 || GetAsyncKeyState(97) < 0)
-//	{
-//		switch (currentState)
-//		{
-//			case state_Game:
-//				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN LEFT");
-//				auto test = new Events::Ev_PLAYER1GAME_LEFTKEY;
-//				m_o_EventManager->EmitEvent(test);
-//				break;
-//		}
-//	}
-//	//'D' Key (Turn Right)
-//	if (GetAsyncKeyState(68) < 0 || GetAsyncKeyState(100) < 0)
-//	{
-//		switch (currentState)
-//		{
-//			case state_Game:
-//				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN RIGHT");
-//				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_RIGHTKEY);
-//				break;
-//		}
-//	}
-//	//'Left Shift' Key (Activate Power-up)
-//	if (GetAsyncKeyState(VK_LSHIFT) < 0)
-//	{
-//		switch (currentState)
-//		{
-//			case state_Game:
-//				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 POWERUP");
-//				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTSHIFTKEY);
-//				break;
-//		}
-//	}
-//
-//	//Player 2 Controls
-//	//'Left Arrow' Key (Turn Left)
-//	if (GetAsyncKeyState(VK_LEFT) < 0 )
-//	{
-//		switch (currentState)
-//		{
-//			case state_Game:
-//				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN LEFT");
-//				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_LEFTKEY);
-//				break;
-//		}
-//
-//	}
-//	//'Right Arrow' Key (Turn Right)
-//	if (GetAsyncKeyState(VK_RIGHT) < 0)
-//	{
-//		switch (currentState)
-//			{
-//			case state_Game:
-//				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN RIGHT");
-//				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTKEY);
-//				break;
-//		}
-//	}
-//	//'Right Shift' Key (Activate Power-up)
-//	if (GetAsyncKeyState(VK_RSHIFT) < 0)
-//	{
-//		switch (currentState)
-//		{
-//			case state_Game:
-//				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 POWERUP");
-//				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTSHIFTKEY);
-//				break;
-//			}
-//	}
-//}
+
+void InputSystem::Update(float dt)
+{
+	UNREFERENCED_PARAMETER(dt);
+
+	State currentState = m_o_GameStateManager->ReturnCurrentState();
+
+	//Player 1 Controls
+	//'A' Key (Turn Left)
+	if (GetAsyncKeyState(65) < 0 || GetAsyncKeyState(97) < 0)
+	{
+		switch (currentState)
+		{
+			case kStateGame:
+				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN LEFT");
+				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTKEY);
+				break;
+		}
+	}
+
+	//'D' Key (Turn Right)
+	if (GetAsyncKeyState(68) < 0 || GetAsyncKeyState(100) < 0)
+	{
+		switch (currentState)
+		{
+			case kStateGame:
+				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 TURN RIGHT");
+				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_RIGHTKEY);
+				break;
+		}
+	}
+
+	//'Left Shift' Key (Activate Power-up)
+	if (GetAsyncKeyState(VK_LSHIFT) < 0)
+	{
+		switch (currentState)
+		{
+			case kStateGame:
+				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P1 POWERUP");
+				m_o_EventManager->EmitEvent(Ev_PLAYER1GAME_LEFTSHIFTKEY);
+				break;
+		}
+	}
+
+	//Player 2 Controls
+	//'Left Arrow' Key (Turn Left)
+	if (GetAsyncKeyState(VK_LEFT) < 0 )
+	{
+		switch (currentState)
+		{
+			case kStateGame:
+				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN LEFT");
+				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_LEFTKEY);
+				break;
+		}
+
+	}
+
+	//'Right Arrow' Key (Turn Right)
+	if (GetAsyncKeyState(VK_RIGHT) < 0)
+	{
+		switch (currentState)
+			{
+			case kStateGame:
+				//m_o_Logger->LogMessage(LOGGER_SYSTEM, "P2 TURN RIGHT");
+				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTKEY);
+				break;
+		}
+	}
+
+	//'Right Shift' Key (Activate Power-up)
+	if (GetAsyncKeyState(VK_RSHIFT) < 0)
+	{
+		switch (currentState)
+		{
+			case kStateGame:
+				m_o_EventManager->EmitEvent(Ev_PLAYER2GAME_RIGHTSHIFTKEY);
+				break;
+			}
+	}
+}

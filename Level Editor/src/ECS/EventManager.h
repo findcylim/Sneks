@@ -7,6 +7,10 @@
 #include <map>
 #include "../Utility/Logger.h"
 #include "EventListener.h"
+#include "../Components/PhysicsComponent.h"
+#include "../Components/CollisionComponent.h"
+#include "../Components/SnekHeadComponent.h"
+#include "../Utility/RTTIHelper.h"
 
 
 enum kEventList
@@ -17,43 +21,50 @@ enum kEventList
 	Ev_PLAYER2GAME_LEFTKEY,
 	Ev_PLAYER2GAME_RIGHTKEY,
 	Ev_PLAYER2GAME_RIGHTSHIFTKEY,
+	
 };
 
 
 namespace Events
 {
 	//Declare all events here
-
-	struct Ev_PLAYER1GAME_LEFTKEY
+	enum MoveKey
 	{
-
+		MOVE_KEY_LEFT = 0,
+		MOVE_KEY_RIGHT,
+		MOVE_KEY_UP,
+		MOVE_KEY_DOWN
 	};
 
-	struct Ev_PLAYER1GAME_RIGHTKEY
+	struct EV_PLAYER_MOVEMENT_KEY final
 	{
-
+		PhysicsComponent* caller;
+		MoveKey key;
 	};
 
-	struct Ev_PLAYER1GAME_LEFTSHIFTKEY
+	struct EV_PLAYER_COLLISION final
 	{
-
+		CollisionComponent* object1;
+		CollisionComponent* object2;
 	};
 
-	struct Ev_PLAYER2GAME_LEFTKEY
+	struct EV_ENTITY_POOL_CHANGED final
 	{
-
+		
 	};
 
-	struct Ev_PLAYER2GAME_RIGHTKEY
+	struct EV_SNEK_INVULNERABLE
 	{
-
+		SnekHeadComponent* snekHead;
 	};
 
-	struct Ev_PLAYER2GAME_RIGHTSHIFTKEY
+	struct EV_CREATE_PROJECTILE
 	{
-
+		bool isCollide;
+		float rot,speed, scale;
+		HTVector2* pos,*velocity;
+		const char * texName;
 	};
-
 }
 
 

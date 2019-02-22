@@ -4,6 +4,16 @@
 #include <vector>
 
 #include "ComponentManager.h"
+#include "../Components/CollisionComponent.h"
+#include "../Components/InvulnerableComponent.h"
+#include "../Components/SnekHeadComponent.h"
+#include "../Components/TransformComponent.h"
+#include "../Components/DrawComponent.h"
+#include "../Components/PhysicsComponent.h"
+#include "../Components/CameraComponent.h"
+#include "../Components/FollowComponent.h"
+#include "../Components/ParticleEffectComponent.h"
+#include "../Components/ParticleComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -23,8 +33,63 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer = new BaseComponent;
 			break;
 		case Component::kComponentSample:
-			componentPointer = (BaseComponent*)new SampleComponent;
 			break;
+		case Component::kComponentTransform:
+			componentPointer = static_cast<BaseComponent*>(new TransformComponent);
+			break;
+		case Component::kComponentDraw:
+			{
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
+				entityPointer, kComponentTransform
+			));
+			auto drawComponent = new DrawComponent();
+			drawComponent->m_po_TransformComponent = transformComponent;
+			componentPointer = static_cast<BaseComponent*>(drawComponent);
+			}
+			break;
+		case Component::kComponentPhysics:
+		{
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
+				entityPointer, kComponentTransform
+			));
+			auto physicsComponent = new PhysicsComponent();
+			physicsComponent->m_po_TransformComponent = transformComponent;
+			componentPointer = static_cast<BaseComponent*>(physicsComponent);
+		}
+			break;
+		case kComponentCamera: 
+			componentPointer = static_cast<BaseComponent*>(new CameraComponent);
+			break;
+		case kComponentCollision: 
+			{
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
+				entityPointer, kComponentTransform
+			));
+			auto drawComponent = static_cast<DrawComponent*>(GetSpecificComponentInstance(
+				entityPointer, kComponentDraw
+			));
+			auto collisionComponent = new CollisionComponent();
+			collisionComponent->m_po_DrawComponent = drawComponent;
+			collisionComponent->m_po_DrawComponent->m_po_TransformComponent = transformComponent;
+			componentPointer = static_cast<BaseComponent*>(collisionComponent);
+			break;
+			}
+		case KComponentInvulnerable:
+			componentPointer = static_cast<BaseComponent*>(new InvulnerableComponent);
+			break;
+		case kComponentSnekHead: 
+			componentPointer = static_cast<BaseComponent*>(new SnekHeadComponent);
+			break;
+		case kComponentFollow:
+			componentPointer = static_cast<BaseComponent*>(new FollowComponent);
+			break;
+		case kComponentParticleEffect:
+			componentPointer = static_cast<BaseComponent*>(new ParticleEffectComponent);
+			break;
+		case kComponentParticle:
+			componentPointer = static_cast<BaseComponent*>(new ParticleComponent);
+			break;
+		default: ;
 		}
 
 		if (componentPointer)
@@ -32,6 +97,7 @@ BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Compone
 			componentPointer->m_x_ComponentID = componentType;
 			componentPointer->m_po_OwnerEntity = entityPointer;
 			entityPointer->m_v_AttachedComponentsList.push_back(componentPointer);
+			AddComponent(componentPointer, componentType);
 		}
 	}
 
@@ -107,8 +173,12 @@ BaseComponent* ComponentManager::GetFirstComponentInstance(Component componentTy
 BaseComponent* ComponentManager::GetSpecificComponentInstance(BaseEntity* entityPointer, Component componentType)
 {
 	for (unsigned i = 0; i < entityPointer->m_v_AttachedComponentsList.size(); i++)
+	{
 		if (entityPointer->m_v_AttachedComponentsList[i]->m_x_ComponentID == componentType)
+		{
 			return entityPointer->m_v_AttachedComponentsList[i];
+		}
+	}
 
 	return nullptr;
 }

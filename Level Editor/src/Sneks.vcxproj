@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\CameraComponent.cpp" />
+    <ClCompile Include="Components\DrawComponent.cpp" />
+    <ClCompile Include="Components\ParticleComponent.cpp" />
+    <ClCompile Include="Components\ParticleEffectComponent.cpp" />
+    <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />
     <ClCompile Include="ECS\EntityList.cpp" />
@@ -36,6 +41,16 @@
     <ClCompile Include="Utility\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\CameraComponent.h" />
+    <ClInclude Include="Components\CollisionComponent.h" />
+    <ClInclude Include="Components\DrawComponent.h" />
+    <ClInclude Include="Components\FollowComponent.h" />
+    <ClInclude Include="Components\InvulnerableComponent.h" />
+    <ClInclude Include="Components\ParticleComponent.h" />
+    <ClInclude Include="Components\ParticleEffectComponent.h" />
+    <ClInclude Include="Components\PhysicsComponent.h" />
+    <ClInclude Include="Components\SnekHeadComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />
     <ClInclude Include="ECS\ComponentManager.h" />

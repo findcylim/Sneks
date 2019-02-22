@@ -40,6 +40,11 @@ EntityManager::EntityManager()
 		m_v_EntityPool.push_back(nullptr);
 }
 
+ComponentManager* EntityManager::GetComponentManager() const
+{
+	return m_po_ComponentManagerInstance;
+}
+
 void EntityManager::AddEntity(BaseEntity* entityPointer, Entity entityType)
 {
 	if (entityPointer)
@@ -50,11 +55,11 @@ void EntityManager::AddEntity(BaseEntity* entityPointer, Entity entityType)
 		{
 			while (prevEntity->m_po_NextEntity)
 			{
-				checkName(entityPointer, prevEntity);
+				//checkName(entityPointer, prevEntity); //NEEDS TO BE FIXED TODO
 				prevEntity = prevEntity->m_po_NextEntity;
 			}
 
-			checkName(entityPointer, prevEntity);
+			//checkName(entityPointer, prevEntity);
 
 			prevEntity->m_po_NextEntity = entityPointer;
 			entityPointer->m_po_PrevEntiy = prevEntity;
@@ -75,6 +80,36 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		{
 		case Entity::kEntitySample:
 			componentPointer = ((SampleEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityStaticObject:
+			componentPointer = ((StaticObjectEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityBackground:
+			componentPointer = ((BackgroundEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityCamera:
+			componentPointer = ((CameraEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntitySnekHead:
+			componentPointer = ((SnekHeadEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntitySnekBody:
+			componentPointer = ((SnekBodyEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntitySnekTail:
+			componentPointer = ((SnekTailEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityMoon:
+			componentPointer = ((MoonEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityProjectile:
+			componentPointer = ((ProjectileEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityParticleEffect:
+			componentPointer = ((ParticleEffectEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityParticle:
+			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
 		}
 
@@ -101,6 +136,39 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 		case Entity::kEntitySample:
 			entityPointer = (BaseEntity*)new SampleEntity(entityName);
 			break;
+
+		case Entity::kEntityStaticObject:
+			entityPointer = (BaseEntity*)new StaticObjectEntity(entityName);
+			break;
+
+		case Entity::kEntityBackground:
+			entityPointer = (BaseEntity*)new BackgroundEntity(entityName);
+			break;
+
+		case Entity::kEntityCamera:
+			entityPointer = (BaseEntity*)new CameraEntity(entityName);
+			break;
+		case kEntitySnekHead: 
+			entityPointer = (BaseEntity*)new SnekHeadEntity(entityName);
+			break;
+		case kEntitySnekBody: 
+			entityPointer = (BaseEntity*)new SnekBodyEntity(entityName);
+			break;
+		case kEntitySnekTail:
+			entityPointer = (BaseEntity*)new SnekTailEntity(entityName);
+			break;
+		case kEntityMoon:
+			entityPointer = (BaseEntity*)new MoonEntity(entityName);
+			break;
+		case kEntityProjectile:
+			entityPointer = (BaseEntity*)new ProjectileEntity(entityName);
+			break;
+		case kEntityParticleEffect:
+			entityPointer = (BaseEntity*)new ParticleEffectEntity(entityName);
+			break;
+		case kEntityParticle:
+			entityPointer = (BaseEntity*)new ParticleEntity(entityName);
+			break;
 	}
 
 	if (entityPointer)
@@ -118,6 +186,20 @@ void EntityManager::DeleteEntity(BaseComponent* componentPointer)
 		DeleteEntity(componentPointer->m_po_OwnerEntity);
 }
 
+void EntityManager::AddToDeleteQueue(BaseEntity* entityPointer)
+{
+	m_v_ToDelete.push_back(entityPointer);
+}
+
+void EntityManager::ResolveDeletes()
+{
+	for (auto entity : m_v_ToDelete)
+	{
+		DeleteEntity(entity);
+	}
+	m_v_ToDelete.clear();
+}
+
 void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 {
 	if (entityPointer)
@@ -129,6 +211,7 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 
 		if (prevEntity && nextEntity)
 		{
+			//You probably added the same entity more than to delete
 			prevEntity->m_po_NextEntity = nextEntity;
 			nextEntity->m_po_PrevEntiy = prevEntity;
 		}

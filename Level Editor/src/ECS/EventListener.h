@@ -1,12 +1,8 @@
 #pragma once
+#ifndef EVENT_LISTENER
+#define EVENT_LISTENER
 
-#include <typeindex>
-
-template<typename T>
-std::type_index getTypeIndex()
-{
-	return std::type_index(typeid(T));
-}
+#include "../Utility/RTTIHelper.h"
 
 //This base class is so that we can manage EventListeners without knowing their template types
 class BaseEventListener
@@ -31,3 +27,6 @@ public:
 	virtual void receive(const T& eventData) = 0;
 
 };
+
+
+#endif

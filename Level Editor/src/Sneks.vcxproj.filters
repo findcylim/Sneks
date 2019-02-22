@@ -20,29 +20,11 @@
     <Filter Include="Math">
       <UniqueIdentifier>{93fee7eb-6cb9-46be-9758-fe89ea837071}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{73718c7f-6873-40ce-a009-2f0cbb6a4f06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ECS\ComponentManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\ECSystem.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\EntityList.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\EntityManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\EventManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\System.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\SystemManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\DrawObject.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -65,38 +47,44 @@
     <ClCompile Include="Graphics\SimpleDraw.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\ComponentManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\ECSystem.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EntityList.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EntityManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EventManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\System.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\SystemManager.cpp">
+      <Filter>ECSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CameraComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\DrawComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleEffectComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\TransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\Component.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ComponentList.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ComponentManager.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ECSystem.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Entity.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EntityList.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EntityManager.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EventManager.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\System.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\SystemManager.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\DrawObject.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -118,9 +106,6 @@
     <ClInclude Include="Systems\PhysicsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\EventListener.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Math\HTVector2.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -129,6 +114,69 @@
     </ClInclude>
     <ClInclude Include="Graphics\SimpleDraw.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Component.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentList.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ECSystem.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Entity.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EntityList.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EntityManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EventListener.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EventManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\System.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\SystemManager.h">
+      <Filter>ECSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CameraComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CollisionComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\DrawComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\FollowComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\InvulnerableComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleEffectComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhysicsComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SnekHeadComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\TransformComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

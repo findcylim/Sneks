@@ -1,6 +1,7 @@
 #ifndef ECSYSTEM_H
 #define ECSYSTEM_H
 #pragma once
+#include <minwindef.h> //HINSTANCE typdef
 
 
 #include "EventManager.h"
@@ -19,12 +20,12 @@ private:
 	EventManager*		 m_o_EventManager;
 	SystemManager*		 m_o_SystemManager;
 	EntityManager*		 m_o_EntityComponentManager;
-	bool				 m_b_EngineStatus;
+	bool					 m_b_EngineStatus;
 public:
 	ECSystem();
 	~ECSystem();
 	void InitializeEngine();
-	bool IsEngineOn();
+	bool IsEngineOn() const;
 	void Update();
 };
 

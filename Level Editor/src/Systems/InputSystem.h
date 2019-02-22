@@ -1,5 +1,5 @@
-#ifndef INPUTSYSTEM_H
-#define INPUTSYSTEM_H
+#ifndef INPUT_SYSTEM_H
+#define INPUT_SYSTEM_H
 
 #pragma once
 #include <map>
@@ -13,23 +13,21 @@ enum ButtonNames
 {
 	kInputPlayer1TurnLeft,
 	kInputPlayer1TurnRight,
-	kInputPlayer1Powerup,
+	kInputPlayer1PowerUp,
 	kInputPlayer2TurnLeft,
 	kInputPlayer2TurnRight,
-	kInputPlayer2Powerup,
+	kInputPlayer2PowerUp,
 	kEscape,
 };
 
 class InputSystem : public BaseSystem
 {
 public:
-	InputSystem(EventManager* eventManager,short ID,const char * name,GameStateManager* gameStateManager,Logger* logger);
+	InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager,short ID,const char * name,GameStateManager* gameStateManager,Logger* logger);
 	~InputSystem();
-	//void Update();
+	void Update(float dt) override;
 
-	static void Printspeed(void * data, void * callee); //TEst
 private:
-	int speed = 10;//Test
 	std::map<unsigned char, ButtonNames> m_m_KeyBinds;
 	EventManager*		m_o_EventManager;
 	GameStateManager*	m_o_GameStateManager;
