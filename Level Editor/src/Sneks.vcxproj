@@ -35,10 +35,24 @@
     <ClCompile Include="Graphics\DrawObject.cpp" />
     <ClCompile Include="Graphics\SimpleDraw.cpp" />
     <ClCompile Include="Math\Aabb.cpp" />
+    <ClCompile Include="Math\CameraShake.cpp" />
+    <ClCompile Include="Math\PerlinNoise.cpp" />
+    <ClCompile Include="Systems\BackgroundSystem.cpp" />
+    <ClCompile Include="Systems\BuildingsSystem.cpp" />
+    <ClCompile Include="Systems\CameraSystem.cpp" />
+    <ClCompile Include="Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
+    <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
+    <ClCompile Include="Systems\ParticleSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Systems\ProjectileSystem.cpp" />
+    <ClCompile Include="Systems\SnekSystem.cpp" />
+    <ClCompile Include="Utility\AlphaEngineHelper.cpp" />
+    <ClCompile Include="Utility\DebugPrintToScreen.cpp" />
     <ClCompile Include="Utility\GameStateManager.cpp" />
     <ClCompile Include="Utility\Logger.cpp" />
+    <ClCompile Include="Utility\MemoryAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\CameraComponent.h" />
@@ -65,13 +79,29 @@
     <ClInclude Include="Graphics\DrawObject.h" />
     <ClInclude Include="Graphics\SimpleDraw.h" />
     <ClInclude Include="Math\Aabb.h" />
+    <ClInclude Include="Math\CameraShake.h" />
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />
+    <ClInclude Include="Math\PerlinNoise.h" />
+    <ClInclude Include="Systems\BackgroundSystem.h" />
+    <ClInclude Include="Systems\BuildingsSystem.h" />
+    <ClInclude Include="Systems\CameraSystem.h" />
+    <ClInclude Include="Systems\CollisionSystem.h" />
+    <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
+    <ClInclude Include="Systems\LevelLoaderSystem.h" />
+    <ClInclude Include="Systems\ParticleSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="Systems\ProjectileSystem.h" />
+    <ClInclude Include="Systems\SnekSystem.h" />
+    <ClInclude Include="Utility\AlphaEngineHelper.h" />
+    <ClInclude Include="Utility\DebugPrintToScreen.h" />
+    <ClInclude Include="Utility\FileIO.h" />
     <ClInclude Include="Utility\GameStateManager.h" />
     <ClInclude Include="Utility\Logger.h" />
+    <ClInclude Include="Utility\MemoryAllocator.h" />
     <ClInclude Include="Utility\misc.h" />
+    <ClInclude Include="Utility\RTTIHelper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

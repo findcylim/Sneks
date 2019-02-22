@@ -3,6 +3,7 @@
 #include "../Components/CameraComponent.h"
 #include "../Components/CollisionComponent.h"
 
+
 BackgroundSystem::BackgroundSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics) :
 	BaseSystem(entityManagerPtr)
 {
@@ -50,8 +51,10 @@ void BackgroundSystem::CreateInstancedBackgrounds(int instancesX, int instancesY
 
 	for (int i_Background = -instancesX; i_Background <= instancesX; i_Background++) {
 		for (int i_BackgroundY = -instancesY; i_BackgroundY <= instancesY; i_BackgroundY++) {
-			CreateBackground(i_Background * screenSizeX, i_BackgroundY * screenSizeY,
-				screenSizeX, screenSizeY, textureName);
+			int width, height;
+			m_o_GraphicsSystem->FetchTexture("EditorScale", &width, &height);
+			CreateBackground(i_Background * width, i_BackgroundY * height,
+				width, height, textureName);
 			//m_BgInstances.push_back(bgInstance);
 		}
 	}

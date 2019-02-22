@@ -37,12 +37,6 @@
     <ClCompile Include="Utility\Logger.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\InputSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\PhysicsSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Graphics\SimpleDraw.cpp">
       <Filter>Graphics</Filter>
@@ -83,6 +77,54 @@
     <ClCompile Include="Components\TransformComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Math\PerlinNoise.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\CameraShake.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\DebugPrintToScreen.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\MemoryAllocator.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\AlphaEngineHelper.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\LevelLoaderSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\ParticleSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\PhysicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\ProjectileSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\SnekSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\BackgroundSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\BuildingsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\CameraSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\CollisionSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\GraphicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\InputSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\DrawObject.h">
@@ -99,12 +141,6 @@
     </ClInclude>
     <ClInclude Include="Utility\Logger.h">
       <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\InputSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\PhysicsSystem.h">
-      <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Math\HTVector2.h">
       <Filter>Math</Filter>
@@ -177,6 +213,60 @@
     </ClInclude>
     <ClInclude Include="Components\TransformComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\PerlinNoise.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\CameraShake.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\AlphaEngineHelper.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\DebugPrintToScreen.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\FileIO.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\MemoryAllocator.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\RTTIHelper.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\InputSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\LevelLoaderSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\ParticleSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\PhysicsSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\ProjectileSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\SnekSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\BackgroundSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\BuildingsSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\CameraSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\CollisionSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\GraphicsSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

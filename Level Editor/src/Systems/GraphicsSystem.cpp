@@ -60,6 +60,28 @@ void GraphicsSystem::PreLoadTextures()
 	//TODO: MAKE FILE PARSER RESOURCES NEEDED PER LEVEL?
 	//SET NAMES TO BE FILE NAMES
 	//ENFORCE FILE NAMES TO BE UNIQUE
+
+	/*
+	auto snakeHeadTexture = AEGfxTextureLoad("../../Resources/snake-head.png");
+	auto snakeHeadLTexture = AEGfxTextureLoad("../../Resources/snek_hed_l.jpg");
+	auto snakeHeadRTexture = AEGfxTextureLoad("../../Resources/snek_hed_r.jpg");
+	auto snake2HeadTexture = AEGfxTextureLoad("../../Resources/head2.png");
+	auto snakeBodyTexture = AEGfxTextureLoad("../../Resources/snake-body.png");
+	auto snake2BodyTexture = AEGfxTextureLoad("../../Resources/snake-body2.png");
+	auto rocketTexture = AEGfxTextureLoad("../../Resources/rocket_booster.jpg");
+	auto smokeTexture = AEGfxTextureLoad("../../Resources/smoke.jpg");
+	auto cityTexture = AEGfxTextureLoad("../../Resources/map.png");
+	auto verticalRoadTexture = AEGfxTextureLoad("../../Resources/vert-road.png");
+	auto horizontalRoadTexture = AEGfxTextureLoad("../../Resources/horz-road.png");
+	auto buildingTexture = AEGfxTextureLoad("../../Resources/building.png");
+	auto editorScale = AEGfxTextureLoad("../../Resources/EditorScale.png");
+	auto junctionTexture = AEGfxTextureLoad("../../Resources/junction.png");
+	auto parkTexture = AEGfxTextureLoad("../../Resources/park.png");
+	auto selectionSquareTexture = AEGfxTextureLoad("../../Resources/SelectionSquare.png");
+	auto infoPanelTexture = AEGfxTextureLoad("../../Resources/EditorInfoPanel.png");
+	*/
+
+
 	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
 	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
 	LoadTextureToMap("../Resources/snake-body.png"		 , "SnekBody01");
@@ -72,10 +94,9 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
-
+	LoadTextureToMap("../../Resources/EditorScale.png", "EditorScale");
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
-
 }
 
 void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)

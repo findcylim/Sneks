@@ -10,22 +10,22 @@
 
 State GameStateManager::ReturnCurrentState()
 {
-	return current;
+	return m_x_Current;
 }
 
 State GameStateManager::ReturnNextState()
 {
-	return next;
+	return m_x_Next;
 }
 
 State GameStateManager::ReturnPreviousState()
 {
-	return previous;
+	return m_x_Previous;
 }
 
 bool GameStateManager::IsChanging()
 {
-	return (current != next);
+	return (m_x_Current != m_x_Next);
 }
 
 bool GameStateManager::IsValid(State state)
@@ -35,14 +35,14 @@ bool GameStateManager::IsValid(State state)
 
 void GameStateManager::SetNextState(State state)
 {
-	next = state;
+	m_x_Next = state;
 }
 
 GameStateManager::GameStateManager(State InitialState)
 {
-	current		= InitialState;
-	next		= InitialState;
-	previous	= InitialState;
+	m_x_Current		= InitialState;
+	m_x_Next		= InitialState;
+	m_x_Previous	= InitialState;
 }
 GameStateManager::~GameStateManager()
 {

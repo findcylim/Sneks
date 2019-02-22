@@ -92,7 +92,10 @@ void ECSystem::InitializeEngine()
 
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(background);
-	background->CreateInstancedBackgrounds(2, 2, "Background01");
+	//background->CreateInstancedBackgrounds(2, 2, "Background01");
+	background->CreateInstancedBackgrounds(5, 5, "EditorScale");
+	
+
 
 	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(buildings);
