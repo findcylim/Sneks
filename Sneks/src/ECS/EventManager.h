@@ -65,6 +65,11 @@ namespace Events
 		HTVector2* pos,*velocity;
 		const char * texName;
 	};
+
+	struct EV_PLAY_SOUND
+	{
+
+	};
 }
 
 

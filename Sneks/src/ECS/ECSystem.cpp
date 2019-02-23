@@ -14,6 +14,7 @@
 #include "../Systems/BuildingsSystem.h"
 #include "../Systems/ProjectileSystem.h"
 #include "../Systems/ParticleSystem.h"
+#include "../Systems/AudioSystem.h"
 #include <iostream>
 
 ECSystem::ECSystem()
@@ -22,7 +23,7 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager(m_o_Logger);
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_GameStateManager		   = new GameStateManager(kStateGame);
-	m_o_EntityComponentManager	= new EntityManager();
+	m_o_EntityComponentManager	   = new EntityManager();
 	m_b_EngineStatus			   = false;
 }
 
@@ -110,6 +111,10 @@ void ECSystem::InitializeEngine()
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(particle);
 	particle->Initialize();
+
+	auto audio = new AudioSystem(m_o_EntityComponentManager);
+	m_o_SystemManager->AddSystem(audio);
+	audio->Initialize();
 }
 
 bool ECSystem::IsEngineOn() const
@@ -133,5 +138,6 @@ void ECSystem::Update()
 	}
 	m_o_EntityComponentManager->ResolveDeletes();
 	AESysFrameEnd();
+
 }
 
