@@ -27,7 +27,7 @@ void CameraSystem::Initialize()
 
 void CameraSystem::UpdateCamera(const float dt) const
 {
-	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	auto cameraComponent = static_cast<CameraComponent*>(m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
 
 	m_po_CamShake->Update(dt);
 

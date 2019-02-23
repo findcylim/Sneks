@@ -19,7 +19,7 @@ ComponentManager::ComponentManager()
 		m_v_ComponentPool.push_back(nullptr);
 }
 
-BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, Component componentType)
+BaseComponent* ComponentManager::NewComponent(BaseEntity* entityPointer, Component componentType)
 {
 	BaseComponent* componentPointer = nullptr;
 
@@ -37,9 +37,9 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case Component::kComponentDraw:
 			{
-			auto transformComponent = GetSpecificComponentInstance<TransformComponent>(
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
 				entityPointer, kComponentTransform
-			);
+			));
 			auto drawComponent = new DrawComponent();
 			drawComponent->m_po_TransformComponent = transformComponent;
 			componentPointer = static_cast<BaseComponent*>(drawComponent);
@@ -47,9 +47,9 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case Component::kComponentPhysics:
 		{
-			auto transformComponent = GetSpecificComponentInstance<TransformComponent>(
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
 				entityPointer, kComponentTransform
-			);
+			));
 			auto physicsComponent = new PhysicsComponent();
 			physicsComponent->m_po_TransformComponent = transformComponent;
 			componentPointer = static_cast<BaseComponent*>(physicsComponent);
@@ -60,12 +60,12 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case kComponentCollision: 
 			{
-			auto transformComponent = GetSpecificComponentInstance<TransformComponent>(
+			auto transformComponent = static_cast<TransformComponent*>(GetSpecificComponentInstance(
 				entityPointer, kComponentTransform
-			);
-			auto drawComponent = GetSpecificComponentInstance<DrawComponent>(
+			));
+			auto drawComponent = static_cast<DrawComponent*>(GetSpecificComponentInstance(
 				entityPointer, kComponentDraw
-			);
+			));
 			auto collisionComponent = new CollisionComponent();
 			collisionComponent->m_po_DrawComponent = drawComponent;
 			collisionComponent->m_po_DrawComponent->m_po_TransformComponent = transformComponent;
@@ -157,12 +157,12 @@ void ComponentManager::DeleteComponent(BaseComponent* componentPointer)
 	}
 }
 
-BaseComponent* ComponentManager::GetFirstComponentInstanceReroute(Component componentType)
+BaseComponent* ComponentManager::GetFirstComponentInstance(Component componentType)
 {
 	return m_v_ComponentPool[componentType];
 }
 
-BaseComponent* ComponentManager::GetSpecificComponentInstanceReroute(BaseEntity* entityPointer, Component componentType)
+BaseComponent* ComponentManager::GetSpecificComponentInstance(BaseEntity* entityPointer, Component componentType)
 {
 	for (unsigned i = 0; i < entityPointer->m_v_AttachedComponentsList.size(); i++)
 	{
@@ -175,7 +175,7 @@ BaseComponent* ComponentManager::GetSpecificComponentInstanceReroute(BaseEntity*
 	return nullptr;
 }
 
-BaseComponent* ComponentManager::GetSpecificComponentInstanceReroute(BaseComponent* componentPointer, Component componentType)
+BaseComponent* ComponentManager::GetSpecificComponentInstance(BaseComponent* componentPointer, Component componentType)
 {
-	return GetSpecificComponentInstanceReroute(componentPointer->m_po_OwnerEntity, componentType);
+	return GetSpecificComponentInstance(componentPointer->m_po_OwnerEntity, componentType);
 }

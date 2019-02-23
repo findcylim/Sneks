@@ -21,8 +21,8 @@ void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	auto phyComp = eventData.caller;
-	auto snekHeadComponent = m_po_ComponentManager->
-		GetSpecificComponentInstance<SnekHeadComponent>(phyComp, kComponentSnekHead);
+	auto snekHeadComponent = static_cast<SnekHeadComponent*>(m_po_ComponentManager->
+		GetSpecificComponentInstance(phyComp, kComponentSnekHead));
 
 	if (eventData.key == Events::MOVE_KEY_UP) {
 		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
@@ -45,8 +45,8 @@ void PhysicsSystem::Update(float dt)
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
-	auto i_PhysicsComponent =
-		m_po_ComponentManager->GetFirstComponentInstance<PhysicsComponent>(kComponentPhysics);
+	auto i_PhysicsComponent = static_cast<PhysicsComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentPhysics));
 
 	while (i_PhysicsComponent)
 	{
