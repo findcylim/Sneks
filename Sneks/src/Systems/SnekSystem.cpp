@@ -47,6 +47,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		auto objectColliding = eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
 			eventData.object1 : eventData.object2;
+		auto otherObject = eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
+			eventData.object1 : eventData.object2;
 		objectColliding->enabled = false;
 		auto objectDrawComp = 
 			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
@@ -150,6 +152,7 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
 				objectFollowComp->m_po_ParentEntity, kComponentSnekHead
 			);
+			
 
 		HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
 
@@ -390,7 +393,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BrakeKey = AEVK_S;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
-				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_RCTRL;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
@@ -668,8 +671,11 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 	auto tailTransformComponent = 
 		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 			snekHeadComponent->m_x_BodyParts.back(), kComponentTransform
-		));
-	auto headPhysicsComponent = owner->GetComponent<PhysicsComponent*>();
+		);
+	auto headPhysicsComponent = owner->GetComponent<PhysicsComponent>();
+
+	headPhysicsComponent->m_f_Acceleration = 0;
+	headPhysicsComponent->m_f_Speed = 0;
 
 	auto tempX = headTransformComponent->GetPosition().x;
 	auto tempY = headTransformComponent->GetPosition().y;
