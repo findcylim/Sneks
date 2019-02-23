@@ -56,13 +56,6 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Audio\fmod.h" />
-    <ClInclude Include="Audio\fmod_codec.h" />
-    <ClInclude Include="Audio\fmod_common.h" />
-    <ClInclude Include="Audio\fmod_dsp.h" />
-    <ClInclude Include="Audio\fmod_dsp_effects.h" />
-    <ClInclude Include="Audio\fmod_errors.h" />
-    <ClInclude Include="Audio\fmod_output.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\CollisionComponent.h" />
     <ClInclude Include="Components\DrawComponent.h" />
@@ -201,12 +194,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Alpha_EngineD.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD;$(SolutionDir)Dependencies\ALPHA\Lib\x64;$(SolutionDir)Dependencies\glew\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\ALPHA\Lib\x64;$(SolutionDir)Dependencies\glew\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -240,7 +233,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
@@ -248,7 +241,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Alpha_Engine.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD;$(SolutionDir)Dependencies\ALPHA\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\ALPHA\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>

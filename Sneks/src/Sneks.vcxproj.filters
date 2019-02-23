@@ -20,9 +20,6 @@
     <Filter Include="Components">
       <UniqueIdentifier>{6933e68f-8b22-457d-826e-1b129e51416a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Audio">
-      <UniqueIdentifier>{3dc0a3a9-fae7-4610-b489-dc60b45447fb}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ECS\ComponentManager.cpp">
@@ -262,27 +259,6 @@
     </ClInclude>
     <ClInclude Include="Systems\ParticleSystem.h">
       <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\fmod.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\fmod_codec.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\fmod_common.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\fmod_dsp.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\fmod_dsp_effects.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\fmod_errors.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\fmod_output.h">
-      <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="Systems\AudioSystem.h">
       <Filter>Systems</Filter>

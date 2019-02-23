@@ -6,15 +6,15 @@
 #include <cstdlib>
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
-#include "../Audio/fmod.h"
-#include "../Audio/fmod_errors.h"
+#include <fmod.h>
+#include <fmod_errors.h>
 #include "../Utility/GameStateManager.h"
 
 class Sound
 {
 	FMOD_BOOL	soundOn;		/* is sound on? */
 	FMOD_BOOL	canPlaySound;	/* is it possible to play sound? */
-	char*		currentSound;	/* currently played sound */
+	char*			currentSound;	/* currently played sound */
 
 	/* FMOD-specific stuff */
 	FMOD_RESULT		result;		/* allows error checking for FMOD functions */

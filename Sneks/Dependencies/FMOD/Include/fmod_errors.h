@@ -14,10 +14,10 @@
 #include "fmod.h"
 
 #ifdef __GNUC__ 
-static const char *FMOD_ErrorString(FMOD_RESULT errcode) __attribute__((unused));
+static inline const char *FMOD_ErrorString(FMOD_RESULT errcode) __attribute__((unused));
 #endif
 
-static const char *FMOD_ErrorString(FMOD_RESULT errcode)
+static inline const char *FMOD_ErrorString(FMOD_RESULT errcode)
 {
     switch (errcode)
     {
