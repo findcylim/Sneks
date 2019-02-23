@@ -13,24 +13,48 @@
 class EntityManager
 {
 	std::vector<BaseEntity*> m_v_EntityPool;
-	void AddEntity(BaseEntity* entityPointer, Entity entityType);
-	void AttachAllComponents(BaseEntity* entityPointer, Entity entityType);
 	ComponentManager *m_po_ComponentManagerInstance = new ComponentManager;
 	std::vector<BaseEntity*> m_v_ToDelete;
+
+	void AddEntity(BaseEntity* entityPointer, Entity entityType);
+	void AttachAllComponents(BaseEntity* entityPointer, Entity entityType);
 	void DeleteEntity(BaseEntity* entityPointer);
 	void DeleteEntity(BaseComponent* componentPointer);
 
+	BaseEntity* NewEntityReroute(Entity entityType, const char* entityName);
+	BaseEntity* GetFirstEntityInstanceReroute(Entity entityType);
+	BaseEntity* GetSpecificEntityInstanceReroute(Entity entityType, const char* entityName);
+	BaseEntity* GetSpecificEntityInstanceReroute(BaseComponent* componentPointer);
+
 
 public:
-	
+
 	EntityManager();
+
+	template <class T>
+	T* NewEntity(Entity entityType, const char* entityName)
+	{
+		return static_cast<T*>(static_cast<void*>(NewEntityReroute(entityType, entityName)));
+	}
+	template <class T>
+	T* GetFirstEntityInstance(Entity entityType)
+	{
+		return static_cast<T*>(static_cast<void*>(GetFirstEntityInstanceReroute(entityType)));
+	}
+	template <class T>
+	T* GetSpecificEntityInstance(Entity entityType, const char* entityName)
+	{
+		return static_cast<T*>(static_cast<void*>(GetSpecificEntityInstanceReroute(entityType, entityName)));
+	}
+	template <class T>
+	T* GetSpecificEntityInstance(BaseComponent* componentPointer)
+	{
+		return static_cast<T*>(static_cast<void*>(GetSpecificEntityInstanceReroute(componentPointer)));
+	}
+	
 	ComponentManager* GetComponentManager() const;
-	BaseEntity* NewEntity(Entity entityType, const char* entityName);
 	void AddToDeleteQueue(BaseEntity* entityPointer);
 	void ResolveDeletes();
-	BaseEntity* GetFirstEntityInstance(Entity entityType);
-	BaseEntity* GetSpecificEntityInstance(Entity entityType, const char* entityName);
-	BaseEntity* GetSpecificEntityInstance(BaseComponent* componentPointer);
 };
 
 #endif

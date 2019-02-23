@@ -17,11 +17,11 @@ void ProjectileSystem::Update(float dt)
 {
 	bool press = false;
 
-	auto i_SnekHead = static_cast<SnekHeadComponent*>(
-		m_po_ComponentManager->GetFirstComponentInstance(kComponentSnekHead));
+	auto i_SnekHead =
+		m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
 
-	auto i_SnekHeadEntity = static_cast<SnekHeadEntity*>(
-		m_po_EntityManager->GetFirstEntityInstance(kEntitySnekHead));
+	auto i_SnekHeadEntity =
+		m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
 
 	if (GetAsyncKeyState(i_SnekHead->m_i_BoostKey))
 	{
@@ -63,30 +63,30 @@ void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 		(eventData.object2->m_i_CollisionGroupVec[0] == 3))
 	{
 		//Get the parent
-		auto objectFollowComp = static_cast<FollowComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
+		auto objectFollowComp = 
+			m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(
 				eventData.object2, kComponentFollow
-			));
+			);
 
-		auto snekHeadComponent = static_cast<SnekHeadComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
+		auto snekHeadComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
 				objectFollowComp->m_po_ParentEntity, kComponentSnekHead
-			));
+			);
 
 		//m_po_EntityManager->DeleteEntity(snekHeadComponent->m_x_BodyParts.back());
 		snekHeadComponent->m_x_BodyParts.pop_back();
 
-		auto snakeHeadInvulComponent = static_cast<InvulnerableComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
+		auto snakeHeadInvulComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
 				objectFollowComp->m_po_ParentEntity, KComponentInvulnerable
-			));
+			);
 
 		snakeHeadInvulComponent->m_f_InvulnerableTime = 3.0f;
 
-		auto headInvulComponent = static_cast<InvulnerableComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
+		auto headInvulComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
 				objectFollowComp->m_po_ParentEntity, KComponentInvulnerable
-			));
+			);
 		Events::Ev_SNEK_INVULNERABLE invul = { snekHeadComponent };
 		m_o_EventManagerPtr->EmitEvent(invul);
 	}
@@ -101,12 +101,12 @@ void ProjectileSystem::CreateMoon(SnekHeadEntity* owner, const char* textureName
 {
 	//TODO:: MESH INSTANCING
 	//Create a new body part to add to the vector
-	auto newMoonEntity = static_cast<MoonEntity*>(
-		m_po_EntityManager->NewEntity(kEntityMoon, "Moon"));
+	auto newMoonEntity =
+		m_po_EntityManager->NewEntity<MoonEntity>(kEntityMoon, "Moon");
 
-	auto ownerTransform = static_cast<TransformComponent*>(
-		m_po_ComponentManager->GetSpecificComponentInstance(
-			owner, kComponentTransform));
+	auto ownerTransform =
+		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+			owner, kComponentTransform);
 
 	for (auto i_Component : newMoonEntity->m_v_AttachedComponentsList)
 	{
