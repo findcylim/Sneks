@@ -512,10 +512,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(
-				m_o_GraphicsSystem->FetchTexture(textureName),
-				61, 80, HTColor{ 1,1,1,1 }
-			);
+			static_cast<DrawComponent*>(i_Component)->Initialize(m_o_GraphicsSystem->FetchTexture(textureName));
 			
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
@@ -669,7 +666,7 @@ void SnekSystem::FaceReference(const TransformComponent* reference, TransformCom
 		newRot -= 2 * PI;
 
 	toChange->SetRotation(newRot);
-	toChange->m_f_Scale = reference->m_f_Scale;
+	//toChange->m_f_Scale = reference->m_f_Scale;
 
 }
 
@@ -684,7 +681,7 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
 
 	//TODO
-	if (fabsf(distanceX) > reference->GetSizeX() * toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
+	if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
 		toChange->m_po_TransformComponent->m_x_Position.x =
 			reference->m_po_TransformComponent->m_x_Position.x + distanceX
 			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
