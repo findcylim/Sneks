@@ -62,7 +62,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				auto nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer,nameLen - 1);
-				newEntity = static_cast<StaticObjectEntity*>(m_po_EntityManager->NewEntity(kEntityStaticObject, tempName));
+				newEntity = m_po_EntityManager->NewEntity<StaticObjectEntity>(kEntityStaticObject, tempName);
 			}
 			else
 			{
@@ -72,7 +72,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				auto nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer, nameLen - 1);
-				newEntity = static_cast<BackgroundEntity*>(m_po_EntityManager->NewEntity(kEntityBackground, tempName));
+				newEntity = m_po_EntityManager->NewEntity<BackgroundEntity>(kEntityBackground, tempName);
 			}
 			
 
@@ -127,6 +127,6 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 			std::getline(inFile, output);
 		}
 	}
-	m_po_EntityManager->NewEntity(kEntityCamera, "Camera");
+	m_po_EntityManager->NewEntity<CameraComponent>(kEntityCamera, "Camera");
 	return true;
 }

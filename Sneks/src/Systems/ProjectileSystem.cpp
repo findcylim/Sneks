@@ -27,7 +27,7 @@ void ProjectileSystem::Initialize()
 
 void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 {
-	ProjectileEntity* ent = static_cast<ProjectileEntity*>(m_po_EntityManager->NewEntity(kEntityProjectile, eventData.texName));
+	ProjectileEntity* ent = m_po_EntityManager->NewEntity<ProjectileEntity>(kEntityProjectile, eventData.texName);
 	auto T_Comp = ent->GetComponent<TransformComponent>();
 	T_Comp->SetPosition(eventData.pos->x, eventData.pos->y);
 	T_Comp->SetRotation(eventData.rot);
