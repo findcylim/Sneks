@@ -17,6 +17,7 @@ private:
 	ParticleType m_x_ParticleType = kParticleEmpty;
 	AEGfxTexture* m_px_ParticleTexture = nullptr;
 	int m_i_ParticleSpawnDensity = 0;
+	int m_i_ParticleDrawOrder = 6;
 	float m_f_ParticleSizeMultiplier = 0.0f;
 	float m_f_ParticleSizeX = 0.0f;
 	float m_f_ParticleSizeY = 0.0f;
@@ -47,6 +48,7 @@ public:
 	int GetParticleSpawnDensity();
 	float GetParticleSpawnFrequency();
 	bool GetIsParticleEffectOneShot();
+	int GetParticleDrawOrder();
 
 	void SetSpawnTransform(TransformComponent* spawnTransform);
 	TransformComponent* GetSpawnTransform();

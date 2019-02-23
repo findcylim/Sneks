@@ -34,22 +34,22 @@ public:
 	template <class T>
 	T* NewEntity(Entity entityType, const char* entityName)
 	{
-		return static_cast<T*>(static_cast<void*>(NewEntityReroute(entityType, entityName)));
+		return static_cast<T*>(NewEntityReroute(entityType, entityName));
 	}
 	template <class T>
 	T* GetFirstEntityInstance(Entity entityType)
 	{
-		return static_cast<T*>(static_cast<void*>(GetFirstEntityInstanceReroute(entityType)));
+		return static_cast<T*>(GetFirstEntityInstanceReroute(entityType));
 	}
 	template <class T>
 	T* GetSpecificEntityInstance(Entity entityType, const char* entityName)
 	{
-		return static_cast<T*>(static_cast<void*>(GetSpecificEntityInstanceReroute(entityType, entityName)));
+		return static_cast<T*>(GetSpecificEntityInstanceReroute(entityType, entityName));
 	}
 	template <class T>
 	T* GetSpecificEntityInstance(BaseComponent* componentPointer)
 	{
-		return static_cast<T*>(static_cast<void*>(GetSpecificEntityInstanceReroute(componentPointer)));
+		return static_cast<T*>(GetSpecificEntityInstanceReroute(componentPointer));
 	}
 	
 	ComponentManager* GetComponentManager() const;

@@ -8,12 +8,13 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 	case ParticleType::kParticleBasicOneShot:
 		m_x_ParticleType = type;
 		m_px_ParticleTexture = graphics->FetchTexture("SnekHead01");
+		m_i_ParticleDrawOrder = 6;
 		m_f_ParticleSizeMultiplier = 0.1f;
-		m_f_ParticleSizeX = m_f_ParticleSizeMultiplier * 186.0f;
-		m_f_ParticleSizeY = m_f_ParticleSizeMultiplier * 186.0f;
-		m_f_ParticleSpeed = 15.0f;
+		m_f_ParticleSizeX = m_f_ParticleSizeMultiplier * 108.0f;
+		m_f_ParticleSizeY = m_f_ParticleSizeMultiplier * 78.0f;
+		m_f_ParticleSpeed = 50.0f;
 		m_i_ParticleSpawnDensity = 10;
-		m_f_ParticleMaxLifetime = 10.0f;
+		m_f_ParticleMaxLifetime = 2.5f;
 		m_f_ParticleSpawnFrequency = 0.0f;
 		m_f_ParticleEffectRemainingLifetime = 0.0f;
 		m_f_ParticleEffectMaxLifetime = 0.0f;
@@ -96,6 +97,11 @@ void ParticleEffectComponent::SetSpawnTransform(TransformComponent* spawnTransfo
 TransformComponent* ParticleEffectComponent::GetSpawnTransform()
 {
 	return m_po_SpawnTransform;
+}
+
+int ParticleEffectComponent::GetParticleDrawOrder()
+{
+	return m_i_ParticleDrawOrder;
 }
 
 
