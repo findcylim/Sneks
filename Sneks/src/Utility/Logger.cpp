@@ -7,6 +7,7 @@
 #include <string>
 
 
+
 Logger::Logger(const char * filename)
 {
 	LogFile.open(filename, std::ios::trunc);
@@ -21,12 +22,13 @@ Logger::Logger(const char * filename)
 }
 
 
-void Logger::LogMessage(kLogNum,const char * Message, ...)
+void Logger::LogMessage(kLogNum LogNumber,const char * Message, ...)
 {
 	std::string MessageBuffer;
 
 	time_t l_LogTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 	va_list args;
+	const char * FirstMessage = Message;
 	va_start(args,Message);
 
 	std::ofstream *LoggerFile = &LogFile;;

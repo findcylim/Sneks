@@ -16,16 +16,12 @@ CollisionSystem::~CollisionSystem()
 
 void CollisionSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
-	UNREFERENCED_PARAMETER(eventData);
 	UpdateComponentsPerGroup();
-	UpdateAllHitBoxes();
 }
 
 void CollisionSystem::Update(float dt)
 {
-	UNREFERENCED_PARAMETER(dt);
-
-	UpdateComponentsPerGroup();
+	//	UpdateComponentsPerGroup();
 
 		//Update Aabb positions
 	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
@@ -41,7 +37,7 @@ void CollisionSystem::Update(float dt)
 		if (i_CollisionPair.groupA >= m_xo_ComponentsPerGroup.size())
 			continue;
 		auto objectsInGroupA = m_xo_ComponentsPerGroup[i_CollisionPair.groupA];
-		for (unsigned int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
+		for (int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
 			// if any object has collision disabled
 			if (!objectsInGroupA->objects[i_ObjectA]->enabled)
@@ -50,14 +46,13 @@ void CollisionSystem::Update(float dt)
 				continue;
 			// if group is empty
 			auto objectsInGroupB = m_xo_ComponentsPerGroup[i_CollisionPair.groupB];
-			for (unsigned int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
+			for (int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
 			{
 				// if any object has collision disabled
 				if (!objectsInGroupB->objects[i_ObjectB]->enabled)
 					continue;
 				auto hitBoxA = objectsInGroupA->objectsHitBoxes[i_ObjectA];
 				auto hitBoxB = objectsInGroupB->objectsHitBoxes[i_ObjectB];
-
 				// if hit box is self
 				if (hitBoxB != hitBoxA) {
 					if (AabbHelper::CheckAabbIntersect(hitBoxA, hitBoxB))
@@ -119,25 +114,15 @@ HTVector2 CollisionSystem::GetMax(DrawComponent* drawComponent)
 		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
 }
 
-void CollisionSystem::UpdateAllHitBoxes()
-{
-	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
-	{
-		UpdateHitBoxes(i_CollisionGroup);
-	}
-}
-
 void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup) const
 {
-	//TODO::FIX MEMORY LEAK
-	collisionGroup->objectsHitBoxes.clear();
 	while (collisionGroup->objects.size() > collisionGroup->objectsHitBoxes.size())
 	{
 		collisionGroup->objectsHitBoxes.push_back(new Aabb);
 	}
 	if (collisionGroup->objects.size() == collisionGroup->objectsHitBoxes.size())
 	{
-		for (unsigned int i_Objects = 0; i_Objects < collisionGroup->objects.size(); i_Objects++)
+		for (int i_Objects = 0; i_Objects < collisionGroup->objects.size(); i_Objects++)
 		{
 			collisionGroup->objectsHitBoxes.at(i_Objects)->min = CollisionSystem::GetMin(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);
 			collisionGroup->objectsHitBoxes.at(i_Objects)->max = CollisionSystem::GetMax(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);

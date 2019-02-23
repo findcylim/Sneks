@@ -40,10 +40,8 @@ void InputSystem::SetKeyBinds()
 	}
 }
 
-void InputSystem::Update(float dt)
+void InputSystem::Update()
 {
-	UNREFERENCED_PARAMETER(dt);
-
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
 	//Player 1 Controls

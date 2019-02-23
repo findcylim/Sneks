@@ -12,8 +12,6 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/FollowComponent.h"
-#include "../Components/ParticleEffectComponent.h"
-#include "../Components/ParticleComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -82,12 +80,6 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case kComponentFollow:
 			componentPointer = static_cast<BaseComponent*>(new FollowComponent);
-			break;
-		case kComponentParticleEffect:
-			componentPointer = static_cast<BaseComponent*>(new ParticleEffectComponent);
-			break;
-		case kComponentParticle:
-			componentPointer = static_cast<BaseComponent*>(new ParticleComponent);
 			break;
 		default: ;
 		}

@@ -4,7 +4,6 @@
 
 void BaseSystem::Update(float dt)
 {
-	UNREFERENCED_PARAMETER(dt);
 	std::cout << "Error 2001 : Updating a non overriden system" << std::endl;
 }
 
