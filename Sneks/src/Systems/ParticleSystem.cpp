@@ -21,8 +21,8 @@ void ParticleSystem::Initialize()
 
 void ParticleSystem::Update(float dt)
 {
-	for (auto pec = static_cast<ParticleEffectComponent*>(
-		m_po_ComponentManager->GetFirstComponentInstance(Component::kComponentParticleEffect));
+	for (auto pec = m_po_ComponentManager->GetFirstComponentInstance
+		<ParticleEffectComponent>(Component::kComponentParticleEffect);
 		pec != nullptr;	pec = static_cast<ParticleEffectComponent*>(pec->m_po_NextComponent))
 	{
 		if (pec->IsParticleEffectAlive())
@@ -45,14 +45,14 @@ void ParticleSystem::Update(float dt)
 		}
 	}
 
-	for (auto pc = static_cast<ParticleComponent*>(
-		m_po_ComponentManager->GetFirstComponentInstance(Component::kComponentParticle));
+	for (auto pc = m_po_ComponentManager->GetFirstComponentInstance
+		<ParticleComponent>(Component::kComponentParticle);
 		pc != nullptr;	pc = static_cast<ParticleComponent*>(pc->m_po_NextComponent))
 	{
 		if (pc->IsAlive())
 		{
-			static_cast<DrawComponent*>(m_po_ComponentManager->GetSpecificComponentInstance
-			(pc, Component::kComponentDraw))->SetAlpha(pc->GetAlphaValue());
+			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>
+			(pc, Component::kComponentDraw)->SetAlpha(pc->GetAlphaValue());
 			pc->UpdateTime(dt);
 		}
 		else
@@ -67,12 +67,12 @@ void ParticleSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 	CollisionGroupName cgnc;
 	ParticleType type;
 
-	TransformComponent* tcp1 = static_cast<TransformComponent*>(
-		m_po_ComponentManager->GetSpecificComponentInstance(
-			eventData.object1, Component::kComponentTransform));
-	TransformComponent* tcp2 = static_cast<TransformComponent*>(
-		m_po_ComponentManager->GetSpecificComponentInstance(
-			eventData.object2, Component::kComponentTransform));
+	TransformComponent* tcp1 = 
+		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+			eventData.object1, Component::kComponentTransform);
+	TransformComponent* tcp2 = 
+		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+			eventData.object2, Component::kComponentTransform);
 
 	cgnc = CollisionGroupName::kCollGroupBuilding;
 	type = ParticleType::kParticleBasicOneShot;
@@ -113,12 +113,12 @@ void ParticleSystem::SpawnParticleEffect(TransformComponent* spawnTransform, Par
 {
 	if (spawnTransform)
 	{
-		auto pee = static_cast<ParticleEffectEntity*>
-			(m_po_EntityManager->NewEntity(Entity::kEntityParticleEffect, "ParticleEffect"));
+		auto pee = m_po_EntityManager->NewEntity
+			<ParticleEffectEntity>(Entity::kEntityParticleEffect, "ParticleEffect");
 
-		auto pec = static_cast<ParticleEffectComponent*>(
-			m_po_ComponentManager->GetSpecificComponentInstance(
-				pee, Component::kComponentParticleEffect));
+		auto pec = 
+			m_po_ComponentManager->GetSpecificComponentInstance<ParticleEffectComponent>(
+				pee, Component::kComponentParticleEffect);
 
 		if (pec)
 		{
@@ -130,26 +130,25 @@ void ParticleSystem::SpawnParticleEffect(TransformComponent* spawnTransform, Par
 
 void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 {
-	auto pep = static_cast<ParticleEntity*>
-		(m_po_EntityManager->NewEntity(Entity::kEntityParticle, "Particle"));
+	auto pep = m_po_EntityManager->NewEntity<ParticleEntity>(Entity::kEntityParticle, "Particle");
 
-	static_cast<ParticleComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
-		pep, Component::kComponentParticle))->SetParticleMaxLifetime(
+	m_po_ComponentManager->GetSpecificComponentInstance<ParticleComponent>(
+		pep, Component::kComponentParticle)->SetParticleMaxLifetime(
 			pec->GetParticleMaxLifetime());
 
 	auto tcp = pec->GetSpawnTransform();
 
-	static_cast<TransformComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
-		pep, Component::kComponentTransform))->SetPosition(
+	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+		pep, Component::kComponentTransform)->SetPosition(
 			tcp->GetPosition().x, tcp->GetPosition().y);
 
-	static_cast<TransformComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
-		pep, Component::kComponentTransform))->SetRotation(static_cast<float>(rand() % 360));
+	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+		pep, Component::kComponentTransform)->SetRotation(static_cast<float>(rand() % 360));
 
-	static_cast<PhysicsComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
-		pep, Component::kComponentPhysics))->m_f_Speed = pec->GetParticleSpeed();
+	m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
+		pep, Component::kComponentPhysics)->m_f_Speed = pec->GetParticleSpeed();
 
-	static_cast<DrawComponent*>(m_po_ComponentManager->GetSpecificComponentInstance(
-		pep, Component::kComponentDraw))->Initialize(
+	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
+		pep, Component::kComponentDraw)->Initialize(
 			pec->GetParticleTexture(), pec->GetParticleSizeX(), pec->GetParticleSizeY(), HTColor{ 1,1,1,1 });
 }
