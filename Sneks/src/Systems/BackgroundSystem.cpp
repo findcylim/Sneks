@@ -21,8 +21,7 @@ void BackgroundSystem::Initialize()
 
 BackgroundEntity* BackgroundSystem::CreateBackground(float posX, float posY, float sizeX, float sizeY, const char* textureName) const
 {
-	auto newBackgroundEntity = static_cast<BackgroundEntity*>(
-		m_po_EntityManager->NewEntity(kEntityBackground, "BG"));
+	auto newBackgroundEntity = m_po_EntityManager->NewEntity<BackgroundEntity>(kEntityBackground, "BG");
 
 	for (auto i_Component : newBackgroundEntity->m_v_AttachedComponentsList)
 	{

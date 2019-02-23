@@ -117,14 +117,14 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		{
 			while (*componentPointer != Component::kComponentEnd)
 			{
-				m_po_ComponentManagerInstance->NewComponent(entityPointer, *componentPointer);
+				m_po_ComponentManagerInstance->NewComponent<BaseComponent>(entityPointer, *componentPointer);
 				componentPointer++;
 			}
 		}
 	}
 }
 
-BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
+BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entityName)
 {
 	BaseEntity* entityPointer = nullptr;
 	switch (entityType)
@@ -232,12 +232,12 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 	}
 }
 
-BaseEntity* EntityManager::GetFirstEntityInstance(Entity entityType)
+BaseEntity* EntityManager::GetFirstEntityInstanceReroute(Entity entityType)
 {
 	return m_v_EntityPool[entityType];
 }
 
-BaseEntity* EntityManager::GetSpecificEntityInstance(Entity entityType, const char* entityName)
+BaseEntity* EntityManager::GetSpecificEntityInstanceReroute(Entity entityType, const char* entityName)
 {
 	BaseEntity* entityPointer = m_v_EntityPool[entityType];
 
@@ -252,7 +252,7 @@ BaseEntity* EntityManager::GetSpecificEntityInstance(Entity entityType, const ch
 	return entityPointer;
 }
 
-BaseEntity* EntityManager::GetSpecificEntityInstance(BaseComponent* componentPointer)
+BaseEntity* EntityManager::GetSpecificEntityInstanceReroute(BaseComponent* componentPointer)
 {
 	return componentPointer->m_po_OwnerEntity;
 }

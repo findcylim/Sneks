@@ -91,8 +91,8 @@ void CollisionSystem::AddComponentToCollisionGroup(CollisionComponent* collision
 void CollisionSystem::UpdateComponentsPerGroup()
 {
 	m_xo_ComponentsPerGroup.clear();
-	auto i_CollisionComponent = static_cast<CollisionComponent*>(m_po_ComponentManager
-		->GetFirstComponentInstance(kComponentCollision));
+	auto i_CollisionComponent =
+		m_po_ComponentManager->GetFirstComponentInstance<CollisionComponent>(kComponentCollision);
 
 	while (i_CollisionComponent)
 	{
