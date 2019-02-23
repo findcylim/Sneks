@@ -78,7 +78,7 @@ namespace FileIO
 	inFile.close();*/
 
 
-	bool isfileExists(const std::string& file)
+	inline bool isfileExists(const std::string& file)
 	{
 		struct stat buffer;
 		if (stat(file.c_str(), &buffer) != -1)

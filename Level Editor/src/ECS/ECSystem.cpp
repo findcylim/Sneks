@@ -25,7 +25,7 @@ ECSystem::ECSystem()
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_GameStateManager		   = new GameStateManager(kStateGame);
 	m_o_EntityComponentManager	   = new EntityManager();
-	m_b_EngineStatus			   = false;
+	m_b_EngineStatus			   = true;
 }
 
 

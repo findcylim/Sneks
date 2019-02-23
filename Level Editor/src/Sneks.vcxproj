@@ -32,8 +32,6 @@
     <ClCompile Include="ECS\System.cpp" />
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="Graphics\DrawObject.cpp" />
-    <ClCompile Include="Graphics\SimpleDraw.cpp" />
     <ClCompile Include="Math\Aabb.cpp" />
     <ClCompile Include="Math\CameraShake.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
@@ -72,8 +70,6 @@
     <ClInclude Include="ECS\EventManager.h" />
     <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\SystemManager.h" />
-    <ClInclude Include="Graphics\DrawObject.h" />
-    <ClInclude Include="Graphics\SimpleDraw.h" />
     <ClInclude Include="Math\Aabb.h" />
     <ClInclude Include="Math\CameraShake.h" />
     <ClInclude Include="Math\HTColor.h" />

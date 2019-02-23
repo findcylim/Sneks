@@ -25,9 +25,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Graphics\DrawObject.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Aabb.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -38,9 +35,6 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="Graphics\SimpleDraw.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\ComponentManager.cpp">
       <Filter>ECSystem</Filter>
     </ClCompile>
@@ -115,9 +109,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graphics\DrawObject.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Aabb.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -135,9 +126,6 @@
     </ClInclude>
     <ClInclude Include="Math\HTColor.h">
       <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\SimpleDraw.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Component.h">
       <Filter>ECSystem</Filter>

@@ -71,22 +71,22 @@ inline HTVector2 GetNormal(HTVector2 vector)
 namespace MathHT
 {
 
-	float Abs(float value)
+	inline float Abs(float value)
 	{
 		return value < 0 ? -value : value;
 	}
 
-	float CalculateVector2Distance(HTVector2 lhs, HTVector2 rhs)
+	inline float CalculateVector2Distance(HTVector2 lhs, HTVector2 rhs)
 	{
 		return (Abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + Abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
 	}
 
-	float CalculateDistanceX(HTVector2 lhs, HTVector2 rhs)
+	inline float CalculateDistanceX(HTVector2 lhs, HTVector2 rhs)
 	{
 		return Abs(lhs.x - rhs.x);
 	}
 
-	float CalculateDistanceY(HTVector2 lhs, HTVector2 rhs)
+	inline float CalculateDistanceY(HTVector2 lhs, HTVector2 rhs)
 	{
 		return Abs(lhs.y - rhs.y);
 	}
