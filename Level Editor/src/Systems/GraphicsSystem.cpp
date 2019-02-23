@@ -192,7 +192,7 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
 			AEMtx33ScaleApply(
 				i_DrawComponent->m_po_RotationMatrix, i_DrawComponent->m_po_RotationMatrix, 
-				i_TransformComponent->m_f_Scale, i_TransformComponent->m_f_Scale
+				i_TransformComponent->m_f_Scale.x, i_TransformComponent->m_f_Scale.y
 				);
 			
 			AEMtx33Trans(

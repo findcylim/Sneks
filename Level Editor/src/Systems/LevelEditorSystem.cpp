@@ -1,24 +1,19 @@
 
 #include "LevelEditorSystem.h"
-#include "../ECS/EntityManager.h"
-#include "../ECS/EventManager.h"
-#include "../ECS/System.h"
 
 
 LevelEditorSystem::LevelEditorSystem(EntityManager* entityManagerPtr, Logger* logger,GraphicsSystem* graphics) :
 	BaseSystem(entityManagerPtr)
 {
 	m_o_GraphicsSystem = graphics;
-	
+	m_o_Logger = logger;
 	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 71, 9, "horz-road.png", "Horizontal Road"));
 	m_v_PrefabVector.push_back(CreateNewPrefab(100, 100, 9, 42, "vert-road.png", "Vertical Road"));
 	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 71, 42, "building.png", "Building1"));
-	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 1, 1, "Selection Square", "SelectionSquare.png"));
 	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 9, 9, "junction.png", "Junction"));
 	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 71, 42, "park.png", "Park"));
 
-
-
+	selectionSquare = CreateNewPrefab(0, 0, 1, 1, "Selection Square", "SelectionSquare.png");
 	GetWindowRect(windowHandle, &windowRect);
 }
 LevelEditorSystem::~LevelEditorSystem()
@@ -52,8 +47,8 @@ void LevelEditorSystem::Update(float dt)
 			GetCursorPos(&initialMousePos);
 		}
 
-		float diffX = initialMousePos.x - currentMousePos.x;
-		float diffY = initialMousePos.y - currentMousePos.y;
+		float diffX = static_cast<float>(initialMousePos.x - currentMousePos.x);
+		float diffY = static_cast<float>(initialMousePos.y - currentMousePos.y);
 
 		currentCamPosX = defaultCamPosX + diffX;
 		currentCamPosY = defaultCamPosY - diffY;
@@ -112,7 +107,7 @@ void LevelEditorSystem::Update(float dt)
 	else 
 	{
 		isTabPressed = false;
-		char count = 0;
+		count = 0;
 
 		for (std::vector<StaticObjectEntity*>::iterator iter = m_v_PrefabVector.begin();
 			 iter< m_v_PrefabVector.end();
@@ -173,7 +168,7 @@ void LevelEditorSystem::Update(float dt)
 								if (check != orientationCheck)
 									orientationCheck = check;
 						}
-						SnapToOrientation(orientationCheck, isGridLock, DrawPosition, SnapState, closestObj, d_Comp->GetSizeX(), d_Comp->GetSizeY());
+						SnapToOrientation(isGridLock, DrawPosition, SnapState, closestObj, d_Comp->GetSizeX(), d_Comp->GetSizeY());
 					}
 				}
 				else
@@ -184,6 +179,7 @@ void LevelEditorSystem::Update(float dt)
 
 				t_Comp->SetPosition(DrawPosition.x,DrawPosition.y);
 				d_Comp->m_b_IsActive = true;
+				ChosenObject = *iter;
 				break;
 			}
 		}
@@ -324,92 +320,99 @@ void LevelEditorSystem::Update(float dt)
 					SelectedObject = nullptr;
 
 					isDrawSelection = true;
-					selectionSquare->SetPosition(DrawPosition.x, DrawPosition.y);
+					selectionSquare->GetComponent<TransformComponent>()->SetPosition(DrawPosition.x, DrawPosition.y);
 				}
 			}
 			else
 			{
-				switch (ObjCounter)
-				{
+				if(ChosenObject)
+				{ 
+					auto ct_Comp = ChosenObject->GetComponent<TransformComponent>();
+					auto cd_Comp = ChosenObject->GetComponent<DrawComponent>();
+					switch (ObjCounter)
+					{
 					case kBuildingObj:
 					{
-						auto newObject = new DrawObject(*buildingObj);
-						auto iter = ToSavePrefabMap.find(kBuildingObj);
-						if (iter != ToSavePrefabMap.end())
+						auto newObject = CopyPrefab(*ChosenObject);
+
+						auto iter = m_x_ToSavePrefabMap.find(kBuildingObj);
+						if (iter != m_x_ToSavePrefabMap.end())
 						{
 							iter->second.push_back(newObject);
 						}
 						else
 						{
-							std::vector<DrawObject*> v_newDrawObject;
+							std::vector<StaticObjectEntity*> v_newDrawObject;
 							v_newDrawObject.push_back(newObject);
-							ToSavePrefabMap.insert({ kBuildingObj,v_newDrawObject });
+							m_x_ToSavePrefabMap.insert({ kBuildingObj,v_newDrawObject });
 						}
 						break;
 					}
 					case kVerticalRoadObj:
 					{
-						auto newObject = new DrawObject(*verRoad);
-						auto iter = ToSavePrefabMap.find(kVerticalRoadObj);
-						if (iter != ToSavePrefabMap.end())
+						auto newObject = CopyPrefab(*ChosenObject);
+
+						auto iter = m_x_ToSavePrefabMap.find(kVerticalRoadObj);
+						if (iter != m_x_ToSavePrefabMap.end())
 						{
 							iter->second.push_back(newObject);
 						}
 						else
 						{
-							std::vector<DrawObject*> v_newDrawObject;
+							std::vector<StaticObjectEntity*> v_newDrawObject;
 							v_newDrawObject.push_back(newObject);
-							ToSavePrefabMap.insert({ kVerticalRoadObj,v_newDrawObject });
+							m_x_ToSavePrefabMap.insert({ kVerticalRoadObj,v_newDrawObject });
 						}
 						break;
 					}
 					case kHorizontalRoadObj:
 					{
-						auto newObject = new DrawObject(*horRoad);
-						auto iter = ToSavePrefabMap.find(kHorizontalRoadObj);
-						if (iter != ToSavePrefabMap.end())
+						auto newObject = CopyPrefab(*ChosenObject);
+						auto iter = m_x_ToSavePrefabMap.find(kHorizontalRoadObj);
+						if (iter != m_x_ToSavePrefabMap.end())
 						{
 							iter->second.push_back(newObject);
 						}
 						else
 						{
-							std::vector<DrawObject*> v_newDrawObject;
+							std::vector<StaticObjectEntity*> v_newDrawObject;
 							v_newDrawObject.push_back(newObject);
-							ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
+							m_x_ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
 						}
 						break;
 					}
 					case kJunctionObj:
 					{
-						auto newObject = new DrawObject(*junctionObj);
-						auto iter = ToSavePrefabMap.find(kJunctionObj);
-						if (iter != ToSavePrefabMap.end())
+						auto newObject = CopyPrefab(*ChosenObject);
+						auto iter = m_x_ToSavePrefabMap.find(kJunctionObj);
+						if (iter != m_x_ToSavePrefabMap.end())
 						{
 							iter->second.push_back(newObject);
 						}
 						else
 						{
-							std::vector<DrawObject*> v_newDrawObject;
+							std::vector<StaticObjectEntity*> v_newDrawObject;
 							v_newDrawObject.push_back(newObject);
-							ToSavePrefabMap.insert({ kJunctionObj,v_newDrawObject });
+							m_x_ToSavePrefabMap.insert({ kJunctionObj,v_newDrawObject });
 						}
 						break;
 					}
 					case kParkObj:
 					{
-						auto newObject = new DrawObject(*parkObj);
-						auto iter = ToSavePrefabMap.find(kParkObj);
-						if (iter != ToSavePrefabMap.end())
+						auto newObject = CopyPrefab(*ChosenObject);
+						auto iter = m_x_ToSavePrefabMap.find(kParkObj);
+						if (iter != m_x_ToSavePrefabMap.end())
 						{
 							iter->second.push_back(newObject);
 						}
 						else
 						{
-							std::vector<DrawObject*> v_newDrawObject;
+							std::vector<StaticObjectEntity*> v_newDrawObject;
 							v_newDrawObject.push_back(newObject);
-							ToSavePrefabMap.insert({ kParkObj,v_newDrawObject });
+							m_x_ToSavePrefabMap.insert({ kParkObj,v_newDrawObject });
 						}
 						break;
+					}
 					}
 				}
 			}
@@ -425,25 +428,31 @@ void LevelEditorSystem::Update(float dt)
 		//do stufff
 		if (isDrawSelection)
 		{
-			Aabb selectionBounds = {};
-			selectionBounds.min = selectionSquare->GetMin();
-			selectionBounds.max = selectionSquare->GetMax();
+			auto t_Comp = selectionSquare->GetComponent<TransformComponent>();
+			auto d_Comp = selectionSquare->GetComponent<DrawComponent>();
+			Aabb selectionBounds = AabbHelper::GetAabb(t_Comp->m_x_Position,d_Comp->m_x_MeshSize,t_Comp->m_f_Scale);
 
-			ClearSelected(m_x_SelectedList);
+			ClearSelected();
 
-			for (auto iterator = ToSavePrefabMap.begin(); iterator != ToSavePrefabMap.end(); ++iterator)
+			for (auto iterator = m_x_ToSavePrefabMap.begin(); iterator != m_x_ToSavePrefabMap.end(); ++iterator)
 			{
 				for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
 				{
-					Aabb checkBox = { (*innerIter)->GetMin(),(*innerIter)->GetMax() };
-					if (CheckAabbIntersect(&selectionBounds, &checkBox))
+					auto dt_Comp = (*innerIter)->GetComponent<TransformComponent>();
+					auto dd_Comp = (*innerIter)->GetComponent<DrawComponent>();
+					Aabb checkBox = AabbHelper::GetAabb(dt_Comp->m_x_Position, dd_Comp->m_x_MeshSize, dt_Comp->m_f_Scale);
+					if (AabbHelper::CheckAabbIntersect(&selectionBounds, &checkBox))
 					{
-						(*innerIter)->SetColor(0.5, 1.0f, 0.5f, 1.0f);
+						dd_Comp->SetColor(0.5, 1.0f, 0.5f, 1.0f);
 						m_x_SelectedList.push_back((*innerIter));
 
 					}
 				}
 			}
+		}
+		else
+		{
+			selectionSquare->m_b_IsActive = false;
 		}
 		isDrawSelection = false;
 	}
@@ -452,7 +461,7 @@ void LevelEditorSystem::Update(float dt)
 	{
 		if (m_x_SelectedList.size() != 0)
 		{
-			for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
+			for (auto iter = m_x_ToSavePrefabMap.begin(); iter != m_x_ToSavePrefabMap.end(); ++iter)
 			{
 				for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end();)
 				{
@@ -480,14 +489,6 @@ void LevelEditorSystem::Update(float dt)
 		}
 	}
 
-	for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
-	{
-		for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end(); ++innerIter)
-		{
-			(*innerIter)->Draw();
-		}
-	}
-
 	if (GetAsyncKeyState(VK_LCONTROL) < 0)
 	{
 		if (GetAsyncKeyState(AEVK_C) < 0)
@@ -495,15 +496,15 @@ void LevelEditorSystem::Update(float dt)
 			if (!isCopying)
 			{
 				isCopying = true;
-				copiedList = static_cast<const std::list <DrawObject*>>(m_x_SelectedList);
-				ClearSelected(m_x_SelectedList);
+				m_x_CopiedList = static_cast<const std::list <StaticObjectEntity*>>(m_x_SelectedList);
+				ClearSelected();
 				copiedPosition.x = DrawPosition.x;
 				copiedPosition.y = DrawPosition.y;
 			}
 		}
 		else if (GetAsyncKeyState(AEVK_V) < 0)
 		{
-			if (copiedList.size() != 0)
+			if (m_x_CopiedList.size() != 0)
 			{
 				if (!isCopied)
 				{
@@ -511,89 +512,94 @@ void LevelEditorSystem::Update(float dt)
 					diffX = DrawPosition.x - copiedPosition.x;
 					diffY = DrawPosition.y - copiedPosition.y;
 					isCopied = true;
-					for (auto iter = copiedList.begin(); iter != copiedList.end(); iter++)
+					for (auto iter = m_x_CopiedList.begin(); iter != m_x_CopiedList.end(); iter++)
 					{
 						if (*iter)
 						{
-							if (strcmp((*iter)->GetName(), "Horizontal Road") == 0)
+							if (strcmp((*iter)->m_pc_EntityName, "Horizontal Road") == 0)
 							{
-								auto newObject = new DrawObject(*(*iter));
-								auto iter = ToSavePrefabMap.find(kHorizontalRoadObj);
-								if (iter != ToSavePrefabMap.end())
+								auto newObject = CopyPrefab(*(*iter));
+								auto iter = m_x_ToSavePrefabMap.find(kHorizontalRoadObj);
+								if (iter != m_x_ToSavePrefabMap.end())
 								{
 									iter->second.push_back(newObject);
 								}
 								else
 								{
-									std::vector<DrawObject*> v_newDrawObject;
+									std::vector<StaticObjectEntity*> v_newDrawObject;
 									v_newDrawObject.push_back(newObject);
-									ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
+									m_x_ToSavePrefabMap.insert({ kHorizontalRoadObj,v_newDrawObject });
 								}
-								newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								auto& temp = newObject->GetComponent<TransformComponent>()->m_x_Position;
+								temp = { temp.x + diffX, temp.y + diffY };
 							}
-							else if (strcmp((*iter)->GetName(), "Vertical Road") == 0)
+							else if (strcmp((*iter)->m_pc_EntityName, "Vertical Road") == 0)
 							{
-								auto newObject = new DrawObject(*(*iter));
-								auto iter = ToSavePrefabMap.find(kVerticalRoadObj);
-								if (iter != ToSavePrefabMap.end())
+								auto newObject = CopyPrefab(*(*iter));
+								auto iter = m_x_ToSavePrefabMap.find(kVerticalRoadObj);
+								if (iter != m_x_ToSavePrefabMap.end())
 								{
 									iter->second.push_back(newObject);
 								}
 								else
 								{
-									std::vector<DrawObject*> v_newDrawObject;
+									std::vector<StaticObjectEntity*> v_newDrawObject;
 									v_newDrawObject.push_back(newObject);
-									ToSavePrefabMap.insert({ kVerticalRoadObj,v_newDrawObject });
+									m_x_ToSavePrefabMap.insert({ kVerticalRoadObj,v_newDrawObject });
 								}
-								newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								auto& temp = newObject->GetComponent<TransformComponent>()->m_x_Position;
+								temp = { temp.x + diffX, temp.y + diffY };
 							}
-							else if (strcmp((*iter)->GetName(), "Building1") == 0)
+							else if (strcmp((*iter)->m_pc_EntityName, "Building1") == 0)
 							{
-								auto newObject = new DrawObject(*(*iter));
-								auto iter = ToSavePrefabMap.find(kBuildingObj);
-								if (iter != ToSavePrefabMap.end())
+								auto newObject = CopyPrefab(*(*iter));
+								auto iter = m_x_ToSavePrefabMap.find(kBuildingObj);
+								if (iter != m_x_ToSavePrefabMap.end())
 								{
 									iter->second.push_back(newObject);
 								}
 								else
 								{
-									std::vector<DrawObject*> v_newDrawObject;
+									std::vector<StaticObjectEntity*> v_newDrawObject;
 									v_newDrawObject.push_back(newObject);
-									ToSavePrefabMap.insert({ kBuildingObj,v_newDrawObject });
+									m_x_ToSavePrefabMap.insert({ kBuildingObj,v_newDrawObject });
 								}
-								newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								auto& temp = newObject->GetComponent<TransformComponent>()->m_x_Position;
+								temp = { temp.x + diffX, temp.y + diffY };
 							}
-							else if (strcmp((*iter)->GetName(), "Junction") == 0)
+							else if (strcmp((*iter)->m_pc_EntityName, "Junction") == 0)
 							{
-								auto newObject = new DrawObject(*(*iter));
-								auto iter = ToSavePrefabMap.find(kJunctionObj);
-								if (iter != ToSavePrefabMap.end())
+								auto newObject = CopyPrefab(*(*iter));
+								auto iter = m_x_ToSavePrefabMap.find(kJunctionObj);
+								if (iter != m_x_ToSavePrefabMap.end())
 								{
 									iter->second.push_back(newObject);
 								}
 								else
 								{
-									std::vector<DrawObject*> v_newDrawObject;
+									std::vector<StaticObjectEntity*> v_newDrawObject;
 									v_newDrawObject.push_back(newObject);
-									ToSavePrefabMap.insert({ kJunctionObj,v_newDrawObject });
+									m_x_ToSavePrefabMap.insert({ kJunctionObj,v_newDrawObject });
 								}
-								newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								auto& temp = newObject->GetComponent<TransformComponent>()->m_x_Position;
+								temp = { temp.x + diffX, temp.y + diffY };
 							}
-							else if (strcmp((*iter)->GetName(), "Park") == 0)
+							else if (strcmp((*iter)->m_pc_EntityName, "Park") == 0)
 							{
-								auto newObject = new DrawObject(*(*iter));
-								auto iter = ToSavePrefabMap.find(kParkObj);
-								if (iter != ToSavePrefabMap.end())
+								auto newObject = CopyPrefab(*(*iter));
+								auto iter = m_x_ToSavePrefabMap.find(kParkObj);
+								if (iter != m_x_ToSavePrefabMap.end())
 								{
 									iter->second.push_back(newObject);
 								}
 								else
 								{
-									std::vector<DrawObject*> v_newDrawObject;
+									std::vector<StaticObjectEntity*> v_newDrawObject;
 									v_newDrawObject.push_back(newObject);
-									ToSavePrefabMap.insert({ kParkObj,v_newDrawObject });
+									m_x_ToSavePrefabMap.insert({ kParkObj,v_newDrawObject });
 								}
-								newObject->SetPosition(newObject->GetPosition().x + diffX, newObject->GetPosition().y + diffY);
+								auto& temp = newObject->GetComponent<TransformComponent>()->m_x_Position;
+								temp = { temp.x + diffX, temp.y + diffY };
 							}
 						}
 					}
@@ -626,17 +632,20 @@ void LevelEditorSystem::Update(float dt)
 					
 				outFile.open(ofn.lpstrFile);
 
-				for (auto iter = ToSavePrefabMap.begin(); iter != ToSavePrefabMap.end(); ++iter)
+				for (auto iter = m_x_ToSavePrefabMap.begin(); iter != m_x_ToSavePrefabMap.end(); ++iter)
 				{
 					for (auto innerIter = (*iter).second.begin(); innerIter != (*iter).second.end(); ++innerIter)
 					{
 						outFile << "<Entity>" << std::endl;
-						outFile << "\t<EntityType=" << ((strcmp((*innerIter)->GetName(), "Building1") == 0) ? "StaticObject" : "Background") << ">" << std::endl;
-						outFile << "\t<Name=" << (*innerIter)->GetName() << ">" << std::endl;
-						outFile << "\t\t<Pos X=" << (*innerIter)->GetPosition().x << " Y=" << (*innerIter)->GetPosition().y << ">" << std::endl;
-						outFile << "\t\t<Rotation=" << (*innerIter)->GetRotation() << ">" << std::endl;
-						outFile << "\t\t<Size X=" << (*innerIter)->GetSizeX() << " Y=" << (*innerIter)->GetSizeY() << ">" << std::endl;
-						outFile << "\t\t<TextureName=" << (*innerIter)->GetTexName() << ">" << std::endl;
+						outFile << "\t<EntityType=" << ((strcmp((*innerIter)->m_pc_EntityName, "Building1") == 0) ? "StaticObject" : "Background") << ">" << std::endl;
+						outFile << "\t<Name=" << (*innerIter)->m_pc_EntityName << ">" << std::endl;
+						auto t_Comp = (*innerIter)->GetComponent<TransformComponent>();
+						auto d_Comp = (*innerIter)->GetComponent<DrawComponent>();
+
+						outFile << "\t\t<Pos X=" << t_Comp->m_x_Position.x << " Y=" << t_Comp->m_x_Position.y << ">" << std::endl;
+						outFile << "\t\t<Rotation=" << t_Comp->GetRotation() << ">" << std::endl;
+						outFile << "\t\t<Size X=" << d_Comp->GetSizeX() << " Y=" << d_Comp->GetSizeY() << ">" << std::endl;
+						outFile << "\t\t<TextureName=" << d_Comp->m_px_Texture->mpName << ">" << std::endl;
 						outFile << "</Entity>" << std::endl;
 
 					}
@@ -653,28 +662,33 @@ void LevelEditorSystem::Update(float dt)
 	}
 	if (isDrawSelection)
 	{
-		selectionSquare->SetScale(-(lastClickPosition.x - DrawPosition.x), lastClickPosition.y - DrawPosition.y);
-		selectionSquare->SetPositionX(lastClickPosition.x + selectionSquare->GetScaleX() / 2);
-		selectionSquare->SetPositionY(lastClickPosition.y - selectionSquare->GetScaleY() / 2);
-		selectionSquare->Draw();
+		auto t_Comp = selectionSquare->GetComponent<TransformComponent>();
+		auto d_Comp = selectionSquare->GetComponent<DrawComponent>();
+
+		t_Comp->m_f_Scale = HTVector2{ -(lastClickPosition.x - DrawPosition.x), lastClickPosition.y - DrawPosition.y };
+		t_Comp->m_x_Position.x = (lastClickPosition.x + t_Comp->m_f_Scale.x / 2);
+		t_Comp->m_x_Position.y = (lastClickPosition.y - t_Comp->m_f_Scale.y / 2);
+		selectionSquare->m_b_IsActive = true;
 	}
 
-	EditorInfoPanelUI->SetPosition(currentCamPosX, currentCamPosY);
-	EditorInfoPanelUI->Draw();
+	//EditorInfoPanelUI->SetPosition(currentCamPosX, currentCamPosY);
+	//EditorInfoPanelUI->Draw();
 
 	if (m_x_SelectedList.size() == 1)
 	{
+		auto t_Comp = (*m_x_SelectedList.begin())->GetComponent<TransformComponent>();
+		auto d_Comp = (*m_x_SelectedList.begin())->GetComponent<DrawComponent>();
 		s8 chars[100] = {};
-		sprintf_s(chars, 100, "Name: %s",(*m_x_SelectedList.begin())->GetName());
+		sprintf_s(chars, 100, "Name: %s",(*m_x_SelectedList.begin())->m_pc_EntityName);
 		AEGfxPrint(font, chars, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9, 1, 1, 1);
 		s8 chars2[100] = {};
-		sprintf_s(chars2, 100, "Pos: X: %.3f Y: %.3f ", (*m_x_SelectedList.begin())->GetPosition().x, (*m_x_SelectedList.begin())->GetPosition().y);
+		sprintf_s(chars2, 100, "Pos: X: %.3f Y: %.3f ", t_Comp->GetPosition().x, t_Comp->GetPosition().y);
 		AEGfxPrint(font, chars2, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9-30, 1, 1, 1);
 		s8 chars3[100] = {};
-		sprintf_s(chars3, 100, "Rotation: %.3f ", (*m_x_SelectedList.begin())->GetRotation());
+		sprintf_s(chars3, 100, "Rotation: %.3f ", t_Comp->GetRotation());
 		AEGfxPrint(font, chars3, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9 - 60, 1, 1, 1);
 		s8 chars4[100] = {};
-		sprintf_s(chars4, 100, "Scale: X=%.3f Y=%.3f", (*m_x_SelectedList.begin())->GetScaleX(), (*m_x_SelectedList.begin())->GetScaleY());
+		sprintf_s(chars4, 100, "Scale: X=%.3f Y=%.3f", t_Comp->m_f_Scale.x, t_Comp->m_f_Scale.y);
 		AEGfxPrint(font, chars4, currentCamPosX + ScreenSizeX - 310, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 1, 1, 1);
 	}
 
@@ -708,18 +722,20 @@ void LevelEditorSystem::Update(float dt)
 	}
 		
 		
-	sprintf_s(chars, 100, "Mouse Game Pos: %.2f,%.2f", selectionSquare->GetPosition().x, selectionSquare->GetPosition().y);
+	//sprintf_s(chars, 100, "Mouse Game Pos: %.2f,%.2f", selectionSquare->GetPosition().x, selectionSquare->GetPosition().y);
 	sprintf_s(chars2, 100, "Mouse Screen Pos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
-	sprintf_s(chars3, 100, "+");
-	sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->GetName() : "---");
+	//sprintf_s(chars3, 100, "+");
+	sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->m_pc_EntityName : "---");
 	sprintf_s(chars7, 100, "GridLock: %s", isGridLock? "On" : "Off");
 
 	count = 0;
-	for (std::vector<DrawObject*>::iterator iter = PrefabVector.begin(); iter < PrefabVector.end(); ++iter, ++count)
+	for (std::vector<StaticObjectEntity*>::iterator iter = m_v_PrefabVector.begin();
+		iter < m_v_PrefabVector.end();
+		++iter, ++count)
 	{
 		if (count == ObjCounter)
 		{
-			sprintf_s(chars4, 100, "%s", (*iter)->GetName());
+			sprintf_s(chars4, 100, "%s", (*iter)->m_pc_EntityName);
 			break;
 		}
 	}
@@ -742,11 +758,29 @@ StaticObjectEntity* LevelEditorSystem::CreateNewPrefab(float posX, float posY, f
 	StaticObjectEntity* obj = static_cast<StaticObjectEntity*>(
 		m_po_EntityManager->NewEntity(kEntityStaticObject, objectName));
 
-	obj->GetComponent<TransformComponent>()->SetPosition(posX, posY);
-	obj->GetComponent<TransformComponent>()->SetRotation(0);
+	auto t_Comp = obj->GetComponent<TransformComponent>();
+	t_Comp->SetPosition(posX, posY);
+	t_Comp->SetRotation(0);
 	obj->GetComponent<DrawComponent>()->Initialize(m_o_GraphicsSystem->FetchTexture(textureName),
 		sizeX, sizeY, HTColor{ 1,1,1,1 });
 
+	return obj;
+}
+
+StaticObjectEntity* LevelEditorSystem::CopyPrefab(StaticObjectEntity& rhs)
+{
+	StaticObjectEntity* obj = static_cast<StaticObjectEntity*>(
+		m_po_EntityManager->NewEntity(kEntityStaticObject, rhs.m_pc_EntityName));
+
+	auto t_Comp = obj->GetComponent<TransformComponent>();
+	auto rhst_Comp = rhs.GetComponent<TransformComponent>();
+	auto d_Comp = obj->GetComponent<DrawComponent>();
+	auto rhsd_Comp = rhs.GetComponent<DrawComponent>();
+
+	t_Comp->SetPosition(rhst_Comp->m_x_Position.x, rhst_Comp->m_x_Position.y);
+	t_Comp->SetRotation(rhst_Comp->GetRotation());
+	d_Comp->Initialize(rhsd_Comp->m_px_Texture, rhsd_Comp->m_x_MeshSize.x, rhsd_Comp->m_x_MeshSize.y, rhsd_Comp->m_f_RgbaColor);
+	
 	return obj;
 }
 
@@ -764,9 +798,9 @@ StaticObjectEntity* LevelEditorSystem::CheckNearestSnap(Aabb& boundsCheck)
 	{
 		for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
 		{
-			float distX = CalculateDistanceX(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
-			float distY = CalculateDistanceY(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
-			float Dist = CalculateVector2Distance(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
+			float distX = MathHT::CalculateDistanceX(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
+			float distY = MathHT::CalculateDistanceY(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
+			float Dist = MathHT::CalculateVector2Distance(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
 			if (shortestDist < 0)
 			{
 				shortestDistX = distX;
@@ -813,9 +847,9 @@ StaticObjectEntity* LevelEditorSystem::CheckNearestSnap(Aabb& boundsCheck)
 	if (closestObjX == closestObjY && closestObjY == closestObj)
 		return closestObjX;
 
-	if ((CalculateDistanceX(boundOrigin, closestObjY->GetComponent<TransformComponent>()->GetPosition()) - 
+	if ((MathHT::CalculateDistanceX(boundOrigin, closestObjY->GetComponent<TransformComponent>()->GetPosition()) -
 		(closestObjY->GetComponent<DrawComponent>()->GetSizeY() / 2 + (boundOrigin.y - boundsCheck.min.y))) >
-		(CalculateDistanceY(boundOrigin, closestObjX->GetComponent<TransformComponent>()->GetPosition()) - 
+		(MathHT::CalculateDistanceY(boundOrigin, closestObjX->GetComponent<TransformComponent>()->GetPosition()) -
 		(closestObjX->GetComponent<DrawComponent>()->GetSizeX() / 2 + (boundOrigin.x - boundsCheck.min.x))))
 		return closestObjX;
 	else
@@ -824,7 +858,7 @@ StaticObjectEntity* LevelEditorSystem::CheckNearestSnap(Aabb& boundsCheck)
 
 
 
-void SnapToOrientation(char orientationCheck, bool hardSnap, HTVector2& positionToSnap, SnappingState& snapState,
+void LevelEditorSystem::SnapToOrientation( bool hardSnap, HTVector2& positionToSnap, SnappingState& snapState,
 	StaticObjectEntity* closestObj, float sizeX, float sizeY)
 {
 	float xDiffClose, yDiffClose;
@@ -845,7 +879,7 @@ void SnapToOrientation(char orientationCheck, bool hardSnap, HTVector2& position
 		}
 		else
 		{
-			shortestDist = CalculateDistanceX(positionToSnap, t_Comp->GetPosition());
+			shortestDist = MathHT::CalculateDistanceX(positionToSnap, t_Comp->GetPosition());
 			if (shortestDist < ((xDiffClose = sizeX / 2 + d_Comp->GetSizeX() / 2) + offset))
 			{
 				positionToSnap.x += shortestDist - xDiffClose;
@@ -863,7 +897,7 @@ void SnapToOrientation(char orientationCheck, bool hardSnap, HTVector2& position
 		}
 		else
 		{
-			shortestDist = CalculateDistanceY(positionToSnap, t_Comp->GetPosition()); // ouch there must be a better way
+			shortestDist = MathHT::CalculateDistanceY(positionToSnap, t_Comp->GetPosition()); // ouch there must be a better way
 			if (shortestDist < ((yDiffClose = sizeY / 2 + d_Comp->GetSizeY() / 2) + offset))
 			{
 				snapState = kSnapYObject;
@@ -882,7 +916,7 @@ void SnapToOrientation(char orientationCheck, bool hardSnap, HTVector2& position
 		}
 		else
 		{
-			shortestDist = CalculateDistanceX(positionToSnap, t_Comp->GetPosition()); // ouch there must be a better way
+			shortestDist = MathHT::CalculateDistanceX(positionToSnap, t_Comp->GetPosition()); // ouch there must be a better way
 			if (shortestDist < ((xDiffClose = sizeX / 2 + d_Comp->GetSizeX() / 2) + offset))
 			{
 				snapState = kSnapXObject;
@@ -901,7 +935,7 @@ void SnapToOrientation(char orientationCheck, bool hardSnap, HTVector2& position
 		}
 		else
 		{
-			shortestDist = CalculateDistanceY(positionToSnap, t_Comp->GetPosition()); // ouch there must be a better way
+			shortestDist = MathHT::CalculateDistanceY(positionToSnap, t_Comp->GetPosition()); // ouch there must be a better way
 			if (shortestDist < ((yDiffClose = sizeY / 2 + d_Comp->GetSizeY() / 2) + offset))
 			{
 				snapState = kSnapYObject;

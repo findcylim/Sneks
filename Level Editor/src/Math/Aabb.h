@@ -11,9 +11,9 @@ struct Aabb {
 namespace AabbHelper {
 	bool CheckAabbIntersect(Aabb*, Aabb*);
 	bool CheckPointAabbIntersect(Aabb* a, HTVector2& pos);
-	HTVector2 GetMin(const HTVector2 position, const HTVector2 size, const float scale);
-	HTVector2 GetMax(const HTVector2 position, const HTVector2 size, const float scale);
-	Aabb GetAabb(const HTVector2 position, const HTVector2 size, const float scale);
+	HTVector2 GetMin(const HTVector2 position, const HTVector2 size, const HTVector2 scale);
+	HTVector2 GetMax(const HTVector2 position, const HTVector2 size, const HTVector2 scale);
+	Aabb GetAabb(const HTVector2 position, const HTVector2 size, const HTVector2 scale);
 	char CalculateOrientation(Aabb& main, Aabb& orientationTo);
 }
 #endif //AABB_H

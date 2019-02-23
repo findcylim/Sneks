@@ -204,7 +204,7 @@ void SnekSystem::Update(float dt)
 
 				ProjData.rot = headTransComponent->GetRotation();
 				ProjData.speed = 1400.0f;
-				ProjData.scale = headTransComponent->m_f_Scale;
+				ProjData.scale = headTransComponent->m_f_Scalez;
 				ProjData.isCollide = true;
 
 				ProjData.texName = "Moon";

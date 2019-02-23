@@ -1,3 +1,5 @@
+
+
 #include "CameraComponent.h"
 #include "../Utility/AlphaEngineHelper.h"
 
@@ -23,4 +25,3 @@ void CameraComponent::AddToTrack(TransformComponent* pDrawObject)
 	m_b_TrackObjects = true;
 	m_v_EntitiesToTrack.push_back(pDrawObject);
 }
-

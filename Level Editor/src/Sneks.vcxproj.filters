@@ -95,22 +95,7 @@
     <ClCompile Include="Systems\LevelLoaderSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\ParticleSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\PhysicsSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\ProjectileSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\SnekSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
     <ClCompile Include="Systems\BackgroundSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\BuildingsSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="Systems\CameraSystem.cpp">
@@ -244,22 +229,7 @@
     <ClInclude Include="Systems\LevelLoaderSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\ParticleSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\PhysicsSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\ProjectileSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\SnekSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Systems\BackgroundSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\BuildingsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Systems\CameraSystem.h">
@@ -270,9 +240,6 @@
     </ClInclude>
     <ClInclude Include="Systems\GraphicsSystem.h">
       <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\LevelEditorComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Systems\LevelEditorSystem.h">
       <Filter>Systems</Filter>

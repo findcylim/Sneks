@@ -1,3 +1,5 @@
+#ifndef HTCOLOR
+#define HTCOLOR
 #pragma once
 struct HTColor final
 {
@@ -6,3 +8,5 @@ struct HTColor final
 	float blue  = 1.0f;
 	float alpha = 1.0f;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef HTVECTOR2
+#define HTVECTOR2
+
 #pragma once
 struct HTVector2 final
 {
@@ -47,6 +50,7 @@ struct HTVector2 final
 		return *this;
 	}
 	
+
 };
 
 
@@ -64,24 +68,28 @@ inline HTVector2 GetNormal(HTVector2 vector)
 	result.y = vector.x;
 	return result;
 }
-
-float Abs(float value)
+namespace MathHT
 {
-	return value < 0 ? -value : value;
+
+	float Abs(float value)
+	{
+		return value < 0 ? -value : value;
+	}
+
+	float CalculateVector2Distance(HTVector2 lhs, HTVector2 rhs)
+	{
+		return (Abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + Abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
+	}
+
+	float CalculateDistanceX(HTVector2 lhs, HTVector2 rhs)
+	{
+		return Abs(lhs.x - rhs.x);
+	}
+
+	float CalculateDistanceY(HTVector2 lhs, HTVector2 rhs)
+	{
+		return Abs(lhs.y - rhs.y);
+	}
 }
 
-float CalculateVector2Distance(HTVector2 lhs, HTVector2 rhs)
-{
-	return (Abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + Abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
-}
-
-float CalculateDistanceX(HTVector2 lhs, HTVector2 rhs)
-{
-	return Abs(lhs.x - rhs.x);
-}
-
-float CalculateDistanceY(HTVector2 lhs, HTVector2 rhs)
-{
-	return Abs(lhs.y - rhs.y);
-}
-
+#endif

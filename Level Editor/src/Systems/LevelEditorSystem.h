@@ -6,8 +6,11 @@
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
 #include "../Systems/GraphicsSystem.h"
+#include "../Utility/GameStateManager.h"
+#include "../ECS/EventManager.h"
 #include "../Utility/Logger.h"
 #include "../Math/Aabb.h"
+#include "AEEngine.h"
 #include <Windows.h>
 #include <vector>
 #include <map>
@@ -37,31 +40,35 @@ enum Objects
 class LevelEditorSystem : public BaseSystem
 {
 
-
 public:
 	LevelEditorSystem(EntityManager* entityManagerPtr, Logger* logger, GraphicsSystem* graphics);
 	~LevelEditorSystem();
 	void Update(float dt) override;
 
 private:
-	
 	EventManager*		m_o_EventManager;
 	GameStateManager*	m_o_GameStateManager;
 	Logger*				m_o_Logger;
 	GraphicsSystem*		m_o_GraphicsSystem;
 	std::vector<StaticObjectEntity*> m_v_PrefabVector;
-	std::map<Objects, std::list<StaticObjectEntity*>> m_x_ToSavePrefabMap;
+	std::map<Objects, std::vector<StaticObjectEntity*>> m_x_ToSavePrefabMap;
 	std::list<StaticObjectEntity*> m_x_SelectedList, m_x_CopiedList;
+	StaticObjectEntity* selectionSquare;
 
-	StaticObjectEntity* SelectedObject = nullptr
+	StaticObjectEntity* SelectedObject = nullptr;
+	StaticObjectEntity* ChosenObject = nullptr;
 
 	StaticObjectEntity* CreateNewPrefab(float posX, float posY, 
 										float sizeX, float sizeY, 
 										const char* textureName, 
 										const char * objectName);
+	StaticObjectEntity* CopyPrefab(StaticObjectEntity& rhs);
 
 	StaticObjectEntity* CheckPointCollideWithAnything(HTVector2 pos);
 	StaticObjectEntity* CheckNearestSnap(Aabb& boundsCheck);
+	void SnapToOrientation(bool hardSnap, HTVector2& positionToSnap, SnappingState& snapState,
+		StaticObjectEntity* closestObj, float sizeX, float sizeY);
+
 	void ClearSelected();
 	void AddToSelected(StaticObjectEntity* object);
 	bool Listfind(StaticObjectEntity* object);
@@ -91,24 +98,8 @@ private:
 	HTVector2 copiedPosition = { 0,0 };
 	POINT initialMousePos, currentMousePos;
 
+	int font = AEGfxCreateFont("Arial", 20, false, false);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+};
 
 #endif
