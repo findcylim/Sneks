@@ -56,7 +56,7 @@ public:
 	AudioSystem(EntityManager* entityManagerPtr);
 	~AudioSystem();
 	void Initialize();
-	void receive(const Events::EV_PLAYER_COLLISION& eventData) override;
+	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 	void Update(float dt) override;
 };
 

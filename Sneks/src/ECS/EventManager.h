@@ -172,7 +172,7 @@ public:
 			for (auto* baseListener : i_Listener->second)
 			{
 				auto* Listener = reinterpret_cast<EventListener<T>*>(baseListener);
-				Listener->receive(event);
+				Listener->Receive(event);
 			}
 			return true;
 		}

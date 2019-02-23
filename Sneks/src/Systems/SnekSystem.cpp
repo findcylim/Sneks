@@ -19,7 +19,7 @@ SnekSystem::~SnekSystem()
 };
 
 
-void SnekSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	//std::cout << "Colliding: " << eventData.object1->m_po_OwnerEntity->m_pc_EntityName << " and " <<
 	//	eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;
@@ -161,7 +161,7 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 	}	
 }
 
-void SnekSystem::receive(const Events::EV_SNEK_INVULNERABLE& eventData)
+void SnekSystem::Receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 {
 	BodyInvulnerableSet(eventData.snekHead);
 }
@@ -196,20 +196,20 @@ void SnekSystem::Update(float dt)
 		{
 			if (!press) 
 			{
-				Events::EV_CREATE_PROJECTILE ProjData;
+				Events::EV_CREATE_PROJECTILE projData;
 				
-				ProjData.pos = &headTransComponent->m_x_Position;
+				projData.pos = &headTransComponent->m_x_Position;
 
-				ProjData.velocity = &headPhysicsComponent->m_x_Velocity;
+				projData.velocity = &headPhysicsComponent->m_x_Velocity;
 
-				ProjData.rot = headTransComponent->GetRotation();
-				ProjData.speed = 1400.0f;
-				ProjData.scale = headTransComponent->m_f_Scale;
-				ProjData.isCollide = true;
+				projData.rot = headTransComponent->GetRotation();
+				projData.speed = 1400.0f;
+				projData.scale = headTransComponent->m_f_Scale;
+				projData.isCollide = true;
 
-				ProjData.texName = "Moon";
+				projData.texName = "Moon";
 
-				m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(ProjData);
+				m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 				press = true;
 			}
 		}
@@ -669,6 +669,7 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 		m_po_ComponentManager->GetSpecificComponentInstance(
 			snekHeadComponent->m_x_BodyParts.back(), kComponentTransform
 		));
+	auto headPhysicsComponent = owner->GetComponent<PhysicsComponent*>();
 
 	auto tempX = headTransformComponent->GetPosition().x;
 	auto tempY = headTransformComponent->GetPosition().y;

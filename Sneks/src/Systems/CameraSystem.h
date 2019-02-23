@@ -7,7 +7,7 @@ class CameraSystem : public BaseSystem,
 {
 private:
 	CameraShake* m_po_CamShake;
-	void receive(const Events::EV_PLAYER_COLLISION& eventData) override;
+	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 public:
 
 	CameraSystem(EntityManager* entityManagerPtr);

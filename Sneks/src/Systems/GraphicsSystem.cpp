@@ -22,7 +22,7 @@ void GraphicsSystem::Initialize()
 
 }
 
-void GraphicsSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
+void GraphicsSystem::Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 	UpdateDrawOrderVector();

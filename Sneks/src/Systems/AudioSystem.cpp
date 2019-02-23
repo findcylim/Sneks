@@ -121,7 +121,7 @@ void AudioSystem::Initialize()
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
-void AudioSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 	SFX.play();
