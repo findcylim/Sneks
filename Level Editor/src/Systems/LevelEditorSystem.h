@@ -10,6 +10,12 @@
 #include "../ECS/EventManager.h"
 #include "../Utility/Logger.h"
 #include "../Math/Aabb.h"
+
+#include "../../Dependencies/glew/include/GL/glew.h"
+#include "../../Dependencies/imgui-1.68/imgui.h"
+#include "../../Dependencies/imgui-1.68/imgui_impl_opengl3.h"
+#include "../../Dependencies/imgui-1.68/imgui_internal.h"
+
 #include "AEEngine.h"
 #include <Windows.h>
 #include <vector>
@@ -93,12 +99,16 @@ private:
 	HWND windowHandle;
 	RECT windowRect; 
 
-
+	HTVector2 lastMousePosition = { 0,0 };
 	HTVector2 lastClickPosition = { 0,0 };
 	HTVector2 copiedPosition = { 0,0 };
 	POINT initialMousePos, currentMousePos;
 
 	int font = AEGfxCreateFont("Arial", 20, false, false);
+	////imGui Stuff
+	//HGLRC   g_GLRenderContext;
+	//HDC     g_HDCDeviceContext;
+	//ImVec4 clear_color = ImVec4(0.000F, 1.000F, 1.000F, 1.0F);
 
 };
 

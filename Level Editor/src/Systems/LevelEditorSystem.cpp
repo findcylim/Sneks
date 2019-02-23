@@ -1,7 +1,7 @@
 
 #include "LevelEditorSystem.h"
 
-
+#include "../../Dependencies/imgui-1.68/imgui_impl_win32.h"
 LevelEditorSystem::LevelEditorSystem(EntityManager* entityManagerPtr, Logger* logger,GraphicsSystem* graphics) :
 	BaseSystem(entityManagerPtr)
 {
@@ -12,9 +12,23 @@ LevelEditorSystem::LevelEditorSystem(EntityManager* entityManagerPtr, Logger* lo
 	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 71, 42, "building.png", "Building1"));
 	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 9, 9, "junction.png", "Junction"));
 	m_v_PrefabVector.push_back(CreateNewPrefab(0, 0, 71, 42, "park.png", "Park"));
+	for (auto prefab : m_v_PrefabVector)
+	{
+		prefab->GetComponent<DrawComponent>()->m_b_IsActive = false;
+	}
 
-	selectionSquare = CreateNewPrefab(0, 0, 1, 1, "Selection Square", "SelectionSquare.png");
+	selectionSquare = CreateNewPrefab(0, 0, 1, 1, "SelectionSquare", "SelectionSquare.png");
+	selectionSquare->GetComponent<DrawComponent>()->m_b_IsActive = false;
 	GetWindowRect(windowHandle, &windowRect);
+
+	//IMGUI_CHECKVERSION();
+	//ImGui::CreateContext();
+	//ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//ImGui_ImplWin32_Init(windowHandle);
+	//const char* glsl_version = "#version 130";
+	//ImGui_ImplOpenGL3_Init(glsl_version);
+
+	//ImGui::StyleColorsDark();
 }
 LevelEditorSystem::~LevelEditorSystem()
 {
@@ -32,9 +46,9 @@ void LevelEditorSystem::Update(float dt)
 	char count;
 
 
-	//s8 chars3[100] = {};
-	//sprintf_s(chars3, 100, "+");
-	//AEGfxPrint(font, chars3, -3, -9, 0, 0, 0);
+	s8 chars3[100] = {};
+	sprintf_s(chars3, 100, "+");
+	AEGfxPrint(font, chars3, -3, -9, 0, 0, 0);
 
 
 	GetCursorPos(&currentMousePos);
@@ -88,7 +102,7 @@ void LevelEditorSystem::Update(float dt)
 	{
 		isCapsLock = false;
 	}
-
+	
 	HTVector2 DrawPosition{ (static_cast<float>((currentCamPosX - ScreenSizeX) + currentMousePos.x) - windowRect.left)
 							,(static_cast<float>((currentCamPosY + ScreenSizeY) - currentMousePos.y + 14 + windowRect.top)) };
 		
@@ -98,6 +112,7 @@ void LevelEditorSystem::Update(float dt)
 		{
 			isTabPressed = true;
 			ObjCounter++;
+			ChosenObject->GetComponent<DrawComponent>()->m_b_IsActive = false;
 			if (ObjCounter >= kNumberOfObjects)
 			{
 				ObjCounter = 0;
@@ -111,7 +126,8 @@ void LevelEditorSystem::Update(float dt)
 
 		for (std::vector<StaticObjectEntity*>::iterator iter = m_v_PrefabVector.begin();
 			 iter< m_v_PrefabVector.end();
-			 ++iter,++count)
+			++iter, ++count
+			 )
 		{
 			auto d_Comp = (*iter)->GetComponent<DrawComponent>();
 			d_Comp->m_b_IsActive = false;
@@ -155,20 +171,24 @@ void LevelEditorSystem::Update(float dt)
 						
 					if (closestObj)
 					{
-						Aabb closestIter = AabbHelper::GetAabb(t_Comp->GetPosition(),
-															   d_Comp->m_x_MeshSize,
-															   t_Comp->m_f_Scale);
 						if (isLeftShift == false)
 						{
 							//First Time Pressing Shift
 							isLeftShift = true;
-
-							char check = AabbHelper::CalculateOrientation(currentSelectionAabb, closestIter);
+							auto pos = t_Comp->GetPosition();
+							char check = AabbHelper::CalculateOrientation(pos,
+								closestObj->GetComponent<TransformComponent>()->GetPosition());
 							if (check != -1)
 								if (check != orientationCheck)
 									orientationCheck = check;
+
+
 						}
 						SnapToOrientation(isGridLock, DrawPosition, SnapState, closestObj, d_Comp->GetSizeX(), d_Comp->GetSizeY());
+					}
+					else
+					{
+						DrawPosition = lastMousePosition;
 					}
 				}
 				else
@@ -313,13 +333,15 @@ void LevelEditorSystem::Update(float dt)
 				}
 				if (!found)
 				{
+					auto d_Comp = selectionSquare->GetComponent<DrawComponent>();
 					if (SelectedObject)
 					{
-						SelectedObject->GetComponent<DrawComponent>()->SetColor(1.0f,1.0f,1.0f,1.0f);
+						d_Comp->SetColor(1.0f,1.0f,1.0f,1.0f);
 					}
 					SelectedObject = nullptr;
 
 					isDrawSelection = true;
+					d_Comp->m_b_IsActive = true;
 					selectionSquare->GetComponent<TransformComponent>()->SetPosition(DrawPosition.x, DrawPosition.y);
 				}
 			}
@@ -433,6 +455,7 @@ void LevelEditorSystem::Update(float dt)
 			Aabb selectionBounds = AabbHelper::GetAabb(t_Comp->m_x_Position,d_Comp->m_x_MeshSize,t_Comp->m_f_Scale);
 
 			ClearSelected();
+			d_Comp->m_b_IsActive = true;
 
 			for (auto iterator = m_x_ToSavePrefabMap.begin(); iterator != m_x_ToSavePrefabMap.end(); ++iterator)
 			{
@@ -452,7 +475,8 @@ void LevelEditorSystem::Update(float dt)
 		}
 		else
 		{
-			selectionSquare->m_b_IsActive = false;
+
+			selectionSquare->GetComponent<DrawComponent>()->m_b_IsActive = false;
 		}
 		isDrawSelection = false;
 	}
@@ -470,7 +494,7 @@ void LevelEditorSystem::Update(float dt)
 					{
 						if ((*innerIter) == (*iterer))
 						{
-							delete *iterer;
+							m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(*iterer));
 							deleted = true;
 							iterer = m_x_SelectedList.erase(iterer);
 							innerIter = (*iter).second.erase(innerIter);
@@ -724,7 +748,7 @@ void LevelEditorSystem::Update(float dt)
 		
 	//sprintf_s(chars, 100, "Mouse Game Pos: %.2f,%.2f", selectionSquare->GetPosition().x, selectionSquare->GetPosition().y);
 	sprintf_s(chars2, 100, "Mouse Screen Pos: %.2f,%.2f", static_cast<float>(currentMousePos.x),static_cast<float>(currentMousePos.y));
-	//sprintf_s(chars3, 100, "+");
+	sprintf_s(chars3, 100, "+");
 	sprintf_s(chars5, 100, "SelectedObj: %s", SelectedObject != nullptr ? SelectedObject->m_pc_EntityName : "---");
 	sprintf_s(chars7, 100, "GridLock: %s", isGridLock? "On" : "Off");
 
@@ -749,7 +773,45 @@ void LevelEditorSystem::Update(float dt)
 	AEGfxPrint(font, chars5, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 90, 1, 1, 1);
 	AEGfxPrint(font, chars6, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 120, 1, 1, 1);
 	AEGfxPrint(font, chars7, currentCamPosX - ScreenSizeX + 10, currentCamPosY + (ScreenSizeY / 10) * 9 - 150, 0, 0, 1);
+	
 
+	lastMousePosition = DrawPosition;
+	/*
+	// Start the Dear ImGui frame
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+
+	//show Main Window
+	ImGui::ShowDemoWindow();
+	// 1. Show a simple window.
+			// Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets automatically appears in a window called "Debug".
+	{
+		static float f = 0.0f;
+		static int counter = 0;
+		ImGui::Text("Hello, world!");                           // Display some text (you can use a format string too)
+		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
+		ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+		//ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our windows open/close state
+		//ImGui::Checkbox("Another Window", &show_another_window);
+
+		if (ImGui::Button("Button"))                            // Buttons return true when clicked (NB: most widgets return true when edited/activated)
+			counter++;
+		ImGui::SameLine();
+		ImGui::Text("counter = %d", counter);
+
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	}
+	// Rendering
+	ImGui::Render();
+	//glViewport(0, 0, AEGetWindowWidth(), AEGetWindowHeight());                 
+	//Display Size got from Resize Command
+	//glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	//SwapBuffers(g_HDCDeviceContext);
+	*/
 }
 
 StaticObjectEntity* LevelEditorSystem::CreateNewPrefab(float posX, float posY, float sizeX, 
@@ -786,9 +848,11 @@ StaticObjectEntity* LevelEditorSystem::CopyPrefab(StaticObjectEntity& rhs)
 
 StaticObjectEntity* LevelEditorSystem::CheckNearestSnap(Aabb& boundsCheck)
 {
+	if (m_x_ToSavePrefabMap.size() == 0)
+		return nullptr;
+	
 	StaticObjectEntity* closestObjX = nullptr;
 	StaticObjectEntity* closestObjY = nullptr;
-	StaticObjectEntity* closestObj = nullptr;
 	float shortestDistX = -1;
 	float shortestDistY = -1;
 	float shortestDist = -1;
@@ -798,59 +862,78 @@ StaticObjectEntity* LevelEditorSystem::CheckNearestSnap(Aabb& boundsCheck)
 	{
 		for (auto innerIter = (*iterator).second.begin(); innerIter != (*iterator).second.end(); ++innerIter)
 		{
-			float distX = MathHT::CalculateDistanceX(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
-			float distY = MathHT::CalculateDistanceY(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
-			float Dist = MathHT::CalculateVector2Distance(boundOrigin, (*innerIter)->GetComponent<TransformComponent>()->GetPosition());
-			if (shortestDist < 0)
+			auto t_Comp = (*innerIter)->GetComponent<TransformComponent>();
+			auto d_Comp = (*innerIter)->GetComponent<DrawComponent>();
+			Aabb inBounds = AabbHelper::GetAabb(t_Comp->GetPosition(), d_Comp->m_x_MeshSize, t_Comp->m_f_Scale);
+			char orientation = AabbHelper::CalculateOrientation(HTVector2{boundsCheck.max.x- boundsCheck.min.x ,
+				boundsCheck.max.y - boundsCheck.min.y }, t_Comp->GetPosition());
+			
+
+			switch (orientation)
 			{
-				shortestDistX = distX;
-				shortestDistY = distY;
-				closestObjY = closestObj = closestObjX = *innerIter;
-				shortestDist = Dist;
-			}
-			else if (Dist < shortestDist)
-			{
-				shortestDist = Dist;
-				closestObj = *innerIter;
-				if ((shortestDistX < 0 && shortestDistY < 0) || distX >= 0 && distY >= 0)
+				case 3:
+				case 1:
 				{
-					if (distX < shortestDistX)
+					float distX = MathHT::CalculateDistanceX(boundOrigin, t_Comp->GetPosition())
+					- ((boundsCheck.max.x - boundsCheck.min.x) / 2)
+					- (d_Comp->m_x_MeshSize.x / 2);
+				if (distX < shortestDistX || shortestDistX < 0)
+				{
+					shortestDistX = distX;
+					closestObjX = *innerIter;
+				}
+				else if (distX == shortestDistX)
+				{
+					float distY = MathHT::CalculateDistanceY(boundOrigin, t_Comp->GetPosition())
+						- ((boundsCheck.max.y - boundsCheck.min.y) / 2)
+						- (d_Comp->m_x_MeshSize.y / 2);
+					if (distY <= shortestDistY || shortestDistY < 0)
 					{
-						if (distY == shortestDistY)
-						{
-							closestObjY = *innerIter;
-						}
-						shortestDistX = distX;
-						closestObjX = *innerIter;
-					}
-					if (distY < shortestDistY)
-					{
-						if (distX == shortestDistX)
-						{
-							closestObjX = *innerIter;
-						}
 						shortestDistY = distY;
-						closestObjY = *innerIter;
-					}
-					if (shortestDistX < 0 && shortestDistY < 0)
-					{
-						shortestDistX = distX;
-						shortestDistY = distY;
-						closestObjX = *innerIter;
 						closestObjY = *innerIter;
 					}
 				}
+				break;
+				}
+				case 2:
+				case 4:
+				{
+					float distY = MathHT::CalculateDistanceY(boundOrigin, t_Comp->GetPosition())
+						- ((boundsCheck.max.y - boundsCheck.min.y) / 2)
+						- (d_Comp->m_x_MeshSize.y / 2);
+					if (distY <= shortestDistY || shortestDistY < 0)
+					{
+						shortestDistY = distY;
+						closestObjY = *innerIter;
+					}
+					else if (distY == shortestDistY)
+					{
+						float distX = MathHT::CalculateDistanceX(boundOrigin, t_Comp->GetPosition())
+							- ((boundsCheck.max.x - boundsCheck.min.x) / 2)
+							- (d_Comp->m_x_MeshSize.x / 2);
+						if (distX < shortestDistX || shortestDistX < 0)
+						{
+
+							shortestDistX = distX;
+							closestObjX = *innerIter;
+						}
+					}
+					break;
+				}
 			}
+
 		}
 	}
 
-	if (closestObjX == closestObjY && closestObjY == closestObj)
+	if (closestObjX == closestObjY )
+		return closestObjX;
+	if (!closestObjX && closestObjY)
+		return closestObjY;
+	if (!closestObjY && closestObjX)
 		return closestObjX;
 
-	if ((MathHT::CalculateDistanceX(boundOrigin, closestObjY->GetComponent<TransformComponent>()->GetPosition()) -
-		(closestObjY->GetComponent<DrawComponent>()->GetSizeY() / 2 + (boundOrigin.y - boundsCheck.min.y))) >
-		(MathHT::CalculateDistanceY(boundOrigin, closestObjX->GetComponent<TransformComponent>()->GetPosition()) -
-		(closestObjX->GetComponent<DrawComponent>()->GetSizeX() / 2 + (boundOrigin.x - boundsCheck.min.x))))
+		
+	if(shortestDistX < shortestDistY)
 		return closestObjX;
 	else
 		return closestObjY;

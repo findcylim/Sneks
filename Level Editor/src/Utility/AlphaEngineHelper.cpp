@@ -6,7 +6,7 @@ namespace AlphaEngineHelper {
 
 	void AlphaInitialize(HINSTANCE hInstance, int nCmdShow)
 	{
-		AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, nullptr);
+		AESysInit(hInstance, nCmdShow, 1366, 768, 1, 60, true, nullptr);
 		AESysSetWindowTitle("S.N.E.K.S.");
 		AEToogleFullScreen(false);
 		AESysReset();

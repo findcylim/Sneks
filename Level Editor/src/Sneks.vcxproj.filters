@@ -23,6 +23,9 @@
     <Filter Include="Components">
       <UniqueIdentifier>{73718c7f-6873-40ce-a009-2f0cbb6a4f06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imGui">
+      <UniqueIdentifier>{262d3dc0-0b53-4f1c-9002-c137cd5d4168}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\Aabb.cpp">
@@ -106,6 +109,24 @@
     </ClCompile>
     <ClCompile Include="Systems\LevelEditorSystem.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\imgui-1.68\imgui_demo.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\imgui-1.68\imgui_draw.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\imgui-1.68\imgui_impl_opengl3.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\imgui-1.68\imgui_widgets.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\imgui-1.68\imgui.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\imgui-1.68\imgui_impl_win32.cpp">
+      <Filter>imGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +252,30 @@
     </ClInclude>
     <ClInclude Include="Systems\LevelEditorSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imgui_impl_opengl3.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imgui_internal.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imstb_rectpack.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imstb_textedit.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imstb_truetype.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imconfig.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imgui.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dependencies\imgui-1.68\imgui_impl_win32.h">
+      <Filter>imGui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

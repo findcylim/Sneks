@@ -77,6 +77,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/EditorScale.png", "EditorScale");
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
+	LoadTextureToMap("../Resources/SelectionSquare.png", "SelectionSquare");
 }
 
 void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
@@ -140,7 +141,8 @@ void GraphicsSystem::Draw(float dt)
 		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
 			//Check if there is draw component
 			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
-
+				if (!drawComponent->m_b_IsActive)
+					continue;
 				//allow transparency to work !! must be first
 				AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 				AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);

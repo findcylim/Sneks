@@ -54,17 +54,46 @@ namespace AabbHelper {
 		3- Right
 		4- Bottom
 	*/
-	char CalculateOrientation(Aabb& main, Aabb& orientationTo)
+	char CalculateOrientation(HTVector2 main, HTVector2 orientationTo)
 	{
-		if (main.min.x > orientationTo.max.x)
-			return 3; // Right
-		if (main.min.y > orientationTo.max.y)
-			return 2; //Top
-		if (orientationTo.min.x > main.max.x)
-			return 1; // Left
-		if (orientationTo.min.y > main.max.y)
-			return 4; //Bottom
-		return -1;
+		float xDiff = main.x - orientationTo.x;
+		float yDiff = main.y - orientationTo.y;
+		
+		if (xDiff < 0)
+		{
+			if (yDiff > 0)
+				if (MathHT::Abs(xDiff) > yDiff)
+					return 1;
+				else
+					return 2;
+			if (yDiff < 0)
+				if (yDiff < xDiff)
+					return 4;
+				else
+					return 1;
+			return 1;
+		}
+		else if (xDiff > 0)
+		{
+			if (yDiff > 0)
+				if (xDiff > yDiff)
+					return 3;
+				else
+					return 2;
+			if (yDiff < 0)
+				if (MathHT::Abs(yDiff) > xDiff)
+					return 4;
+				else
+					return 3;
+			return 3;
+		}
+		else
+		{
+			if (yDiff > 0)
+				return 2;
+			else
+				return 4;
+		}
 	}
 
 }

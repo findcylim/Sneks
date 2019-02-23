@@ -107,10 +107,10 @@ void ECSystem::Update()
 	m_o_EventManager->Update();
 	m_o_SystemManager->Update(dt);
 
-	if (GetAsyncKeyState(AEVK_ESCAPE))
+	/*if (GetAsyncKeyState(AEVK_ESCAPE))
 	{
 		m_b_EngineStatus = false;
-	}
+	}*/
 	m_o_EntityComponentManager->ResolveDeletes();
 	AESysFrameEnd();
 }
