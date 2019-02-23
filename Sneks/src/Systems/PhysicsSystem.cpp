@@ -1,5 +1,6 @@
 #include "PhysicsSystem.h"
 #include <iostream>
+#include "SnekSystem.h"
 
 PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)
@@ -9,20 +10,28 @@ BaseSystem(entityManagerPtr)
 PhysicsSystem::~PhysicsSystem()
 {
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+
 }
 
 void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
 {
 	m_o_GameStateManager	= gameStateManager;
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+
+}
+void PhysicsSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+{
+	UNREFERENCED_PARAMETER(eventData);
 }
 
 void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	auto phyComp = eventData.caller;
-	auto snekHeadComponent = m_po_ComponentManager->
-		GetSpecificComponentInstance<SnekHeadComponent>(phyComp, kComponentSnekHead);
+	auto snekHeadComponent = static_cast<SnekHeadComponent*>(m_po_ComponentManager->
+		GetSpecificComponentInstance(phyComp, kComponentSnekHead));
 
 	if (eventData.key == Events::MOVE_KEY_UP) {
 		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
@@ -41,12 +50,15 @@ void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 	}
 }
 
+
 void PhysicsSystem::Update(float dt)
 {
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
-	auto i_PhysicsComponent =
-		m_po_ComponentManager->GetFirstComponentInstance<PhysicsComponent>(kComponentPhysics);
+	UNREFERENCED_PARAMETER(currentState);
+
+	auto i_PhysicsComponent = static_cast<PhysicsComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentPhysics));
 
 	while (i_PhysicsComponent)
 	{
@@ -89,6 +101,10 @@ HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) c
 
 void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const
 {
+	if (physicsComponent->m_f_Speed > physicsComponent->m_f_MaxSpeed)
+	{
+		physicsComponent->m_f_Speed *= 0.95f;
+	}
 	//std::cout << "Accel: " << physicsComponent->m_f_Acceleration << ", " << physicsComponent->m_f_Speed << std::endl;
 	if (physicsComponent->m_f_Acceleration == 0) {
 		if (physicsComponent->m_f_Speed < snekHeadComponent->m_f_IdleSpeed)
@@ -116,6 +132,7 @@ void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float 
 
 void PhysicsSystem::CheckOutOfBounds(TransformComponent* transformComponent, PhysicsComponent* physicsComponent) const
 {
+	UNREFERENCED_PARAMETER(physicsComponent);
 	//if out of screen, clamp movement
 	if (transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920)
 	{

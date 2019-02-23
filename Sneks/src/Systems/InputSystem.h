@@ -25,7 +25,7 @@ class InputSystem : public BaseSystem
 public:
 	InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager,short ID,const char * name,GameStateManager* gameStateManager,Logger* logger);
 	~InputSystem();
-	void Update();
+	void Update(float dt) override;
 
 private:
 	std::map<unsigned char, ButtonNames> m_m_KeyBinds;

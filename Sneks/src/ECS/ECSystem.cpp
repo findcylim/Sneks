@@ -13,6 +13,7 @@
 #include "../Systems/BackgroundSystem.h"
 #include "../Systems/BuildingsSystem.h"
 #include "../Systems/ProjectileSystem.h"
+#include "../Systems/ParticleSystem.h"
 #include <iostream>
 
 ECSystem::ECSystem()
@@ -60,8 +61,8 @@ void ECSystem::InitializeEngine()
 	/*
 		Create and add Systems here
 	*/
+	m_o_EntityComponentManager->NewEntity(kEntityCamera, "Camera");
 
-	auto cameraEntity = m_o_EntityComponentManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(graphics);
@@ -105,6 +106,10 @@ void ECSystem::InitializeEngine()
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->Initialize();
+
+	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
+	m_o_SystemManager->AddSystem(particle);
+	particle->Initialize();
 }
 
 bool ECSystem::IsEngineOn() const

@@ -15,10 +15,8 @@ GraphicsSystem::~GraphicsSystem()
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
-void GraphicsSystem::Initialize(EntityManager* entityManager)
+void GraphicsSystem::Initialize()
 {
-	//m_po_EntityManager = entityManager;
-	//m_po_ComponentManager = entityManager->GetComponentManager();
 	//PreLoadTextures();
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 
@@ -26,8 +24,10 @@ void GraphicsSystem::Initialize(EntityManager* entityManager)
 
 void GraphicsSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
+	UNREFERENCED_PARAMETER(eventData);
 	UpdateDrawOrderVector();
-	UpdateMatrices(m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera));
+	UpdateMatrices(static_cast<CameraComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentCamera)));
 }
 
 AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)
@@ -73,6 +73,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
 
+	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
 }
@@ -105,16 +106,20 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 }
 void GraphicsSystem::UpdateDrawOrderVector()
 {
-	auto firstDrawComponent = m_po_ComponentManager->GetFirstComponentInstance<DrawComponent>(kComponentDraw);
+	auto firstDrawComponent = static_cast<DrawComponent*>(
+		m_po_ComponentManager->GetFirstComponentInstance(kComponentDraw));
 	UpdateDrawOrderVector(firstDrawComponent);
 }
 
 void GraphicsSystem::Draw(float dt)
 {
-	UpdateMatrices(m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera));
+	UNREFERENCED_PARAMETER(dt);
+
+	UpdateMatrices(static_cast<CameraComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentCamera)));
 	//Look for DrawComponents
-	auto firstDrawComponent =
-		m_po_ComponentManager->GetFirstComponentInstance<DrawComponent>(kComponentDraw);
+	auto firstDrawComponent = static_cast<DrawComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentDraw));
 	auto i_DrawComponent = firstDrawComponent;
 	int drawCount = 0;
 
@@ -155,7 +160,8 @@ void GraphicsSystem::Draw(float dt)
 
 void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 {
-	auto i_DrawComponent = m_po_ComponentManager->GetFirstComponentInstance<DrawComponent>(kComponentDraw);
+	auto i_DrawComponent = static_cast<DrawComponent*>(m_po_ComponentManager
+		->GetFirstComponentInstance(kComponentDraw));
 
 	while (i_DrawComponent)
 	{

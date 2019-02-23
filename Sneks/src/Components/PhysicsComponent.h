@@ -14,7 +14,16 @@ public:
 	float		               m_f_MaxSpeed = 900;
 	float							m_f_Acceleration;
 	HTVector2					m_x_Velocity ={};
+	float						   m_f_Mass = 10;
 
 	TransformComponent*		m_po_TransformComponent;
+
+	void SetVelocity(HTVector2 velocity)
+	{
+		float newRot = atan2(velocity.y, velocity.x);
+		float magnitude = sqrt(velocity.x * velocity.x + velocity.y*velocity.y) ;
+		m_po_TransformComponent->SetRotation(newRot);
+		m_f_Speed = magnitude * 1.5f;
+	}
 };
 #endif

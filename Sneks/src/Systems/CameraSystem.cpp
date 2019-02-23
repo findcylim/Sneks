@@ -4,7 +4,14 @@
 
 void CameraSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	SetShake(2.0f);
+	if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
+		SetShake(0.4f);
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
+	{
+
+	}
+	else
+		SetShake(2.0f);
 }
 
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr):
@@ -12,7 +19,6 @@ BaseSystem(entityManagerPtr)
 {
 	m_po_CamShake = new CameraShake();
 	SetShake(0);
-
 }
 
 CameraSystem::~CameraSystem()
