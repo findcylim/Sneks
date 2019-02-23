@@ -173,7 +173,7 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 
 	if (entityPointer)
 	{
-		entityPointer->m_x_EntityID = entityType;
+		entityPointer->SetEntityID(entityType);
 		AddEntity(entityPointer, entityType);
 	}
 
@@ -217,13 +217,13 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 		}
 		else if (nextEntity && !prevEntity)
 		{
-			m_v_EntityPool[entityPointer->m_x_EntityID] = nextEntity;
+			m_v_EntityPool[entityPointer->GetEntityID()] = nextEntity;
 			nextEntity->m_po_PrevEntiy = nullptr;
 		}
 		else if (prevEntity && !nextEntity)
 			prevEntity->m_po_NextEntity = nullptr;
 		else if (!prevEntity && !nextEntity)
-			m_v_EntityPool[entityPointer->m_x_EntityID] = nullptr;
+			m_v_EntityPool[entityPointer->GetEntityID()] = nullptr;
 
 		if (entityPointer->m_pc_EntityName)
 			free(entityPointer->m_pc_EntityName);

@@ -21,8 +21,9 @@
 
 class BaseEntity
 {
-	public:
 		Entity m_x_EntityID = Entity::kEntityBase;
+
+	public:
 		char* m_pc_EntityName = nullptr;
 		bool m_b_IsActive = true;
 		std::vector<BaseComponent*> m_v_AttachedComponentsList;
@@ -42,6 +43,9 @@ class BaseEntity
 			}
 			return nullptr;
 		}
+
+		Entity GetEntityID();
+		void SetEntityID(Entity type);
 };
 
 class SampleEntity : public BaseEntity
