@@ -13,9 +13,9 @@
 class SystemManager
 {
 private:
-	std::vector<BaseSystem*> SystemList;
+	std::vector<BaseSystem*> m_v_SystemList;
 	EventManager* m_o_EventManager;
-	EntityManager* m_o_EntityComponentManager;
+	EntityManager* m_o_EntityManager;
 	Logger* m_o_Logger;
 public:
 	void AddSystem(BaseSystem* NewSystem);

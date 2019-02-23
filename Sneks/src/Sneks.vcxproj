@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\DrawComponent.cpp" />
+    <ClCompile Include="Components\ParticleComponent.cpp" />
+    <ClCompile Include="Components\ParticleEffectComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />
@@ -42,6 +44,7 @@
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
+    <ClCompile Include="Systems\ParticleSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Systems\ProjectileSystem.cpp" />
     <ClCompile Include="Systems\SnekSystem.cpp" />
@@ -57,6 +60,8 @@
     <ClInclude Include="Components\DrawComponent.h" />
     <ClInclude Include="Components\FollowComponent.h" />
     <ClInclude Include="Components\InvulnerableComponent.h" />
+    <ClInclude Include="Components\ParticleComponent.h" />
+    <ClInclude Include="Components\ParticleEffectComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\SnekHeadComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
@@ -84,6 +89,7 @@
     <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
+    <ClInclude Include="Systems\ParticleSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
     <ClInclude Include="Systems\ProjectileSystem.h" />
     <ClInclude Include="Systems\SnekSystem.h" />
@@ -148,7 +154,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -209,7 +215,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

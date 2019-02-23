@@ -102,6 +102,15 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityMoon:
 			componentPointer = ((MoonEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityProjectile:
+			componentPointer = ((ProjectileEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityParticleEffect:
+			componentPointer = ((ParticleEffectEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityParticle:
+			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -151,6 +160,15 @@ BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 		case kEntityMoon:
 			entityPointer = (BaseEntity*)new MoonEntity(entityName);
 			break;
+		case kEntityProjectile:
+			entityPointer = (BaseEntity*)new ProjectileEntity(entityName);
+			break;
+		case kEntityParticleEffect:
+			entityPointer = (BaseEntity*)new ParticleEffectEntity(entityName);
+			break;
+		case kEntityParticle:
+			entityPointer = (BaseEntity*)new ParticleEntity(entityName);
+			break;
 	}
 
 	if (entityPointer)
@@ -193,6 +211,7 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 
 		if (prevEntity && nextEntity)
 		{
+			//You probably added the same entity more than to delete
 			prevEntity->m_po_NextEntity = nextEntity;
 			nextEntity->m_po_PrevEntiy = prevEntity;
 		}
