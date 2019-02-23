@@ -43,4 +43,28 @@ namespace AabbHelper {
 		return max;
 	}
 
+	Aabb GetAabb(const HTVector2 position, const HTVector2 size, const float scale)
+	{
+		return { GetMin(position,size,scale),GetMax(position,size,scale) };
+	}
+
+	/*
+		1- Left
+		2- Top
+		3- Right
+		4- Bottom
+	*/
+	char CalculateOrientation(Aabb& main, Aabb& orientationTo)
+	{
+		if (main.min.x > orientationTo.max.x)
+			return 3; // Right
+		if (main.min.y > orientationTo.max.y)
+			return 2; //Top
+		if (orientationTo.min.x > main.max.x)
+			return 1; // Left
+		if (orientationTo.min.y > main.max.y)
+			return 4; //Bottom
+		return -1;
+	}
+
 }

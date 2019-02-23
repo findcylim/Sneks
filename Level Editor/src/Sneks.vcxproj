@@ -43,6 +43,7 @@
     <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
+    <ClCompile Include="Systems\LevelEditorSystem.cpp" />
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
     <ClCompile Include="Systems\ParticleSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Components\DrawComponent.h" />
     <ClInclude Include="Components\FollowComponent.h" />
     <ClInclude Include="Components\InvulnerableComponent.h" />
+    <ClInclude Include="Components\LevelEditorComponent.h" />
     <ClInclude Include="Components\ParticleComponent.h" />
     <ClInclude Include="Components\ParticleEffectComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
@@ -89,6 +91,7 @@
     <ClInclude Include="Systems\CollisionSystem.h" />
     <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
+    <ClInclude Include="Systems\LevelEditorSystem.h" />
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
     <ClInclude Include="Systems\ParticleSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />

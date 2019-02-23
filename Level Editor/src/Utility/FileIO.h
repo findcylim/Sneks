@@ -76,6 +76,17 @@ namespace FileIO
 		*retHeight = (buf[20] << 24) + (buf[21] << 16) + (buf[22] << 8) + (buf[23] << 0);
 	}
 	inFile.close();*/
+
+
+	bool isfileExists(const std::string& file)
+	{
+		struct stat buffer;
+		if (stat(file.c_str(), &buffer) != -1)
+		{
+			return true;
+		}
+		return false;
+	}
 }
 
 
