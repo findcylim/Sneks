@@ -102,29 +102,20 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityMoon:
 			componentPointer = ((MoonEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
-		case Entity::kEntityProjectile:
-			componentPointer = ((ProjectileEntity*)entityPointer)->m_ax_InitialComponents;
-			break;
-		case Entity::kEntityParticleEffect:
-			componentPointer = ((ParticleEffectEntity*)entityPointer)->m_ax_InitialComponents;
-			break;
-		case Entity::kEntityParticle:
-			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
-			break;
 		}
 
 		if (componentPointer)
 		{
 			while (*componentPointer != Component::kComponentEnd)
 			{
-				m_po_ComponentManagerInstance->NewComponent<BaseComponent>(entityPointer, *componentPointer);
+				m_po_ComponentManagerInstance->NewComponent(entityPointer, *componentPointer);
 				componentPointer++;
 			}
 		}
 	}
 }
 
-BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entityName)
+BaseEntity* EntityManager::NewEntity(Entity entityType, const char* entityName)
 {
 	BaseEntity* entityPointer = nullptr;
 	switch (entityType)
@@ -159,15 +150,6 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 			break;
 		case kEntityMoon:
 			entityPointer = (BaseEntity*)new MoonEntity(entityName);
-			break;
-		case kEntityProjectile:
-			entityPointer = (BaseEntity*)new ProjectileEntity(entityName);
-			break;
-		case kEntityParticleEffect:
-			entityPointer = (BaseEntity*)new ParticleEffectEntity(entityName);
-			break;
-		case kEntityParticle:
-			entityPointer = (BaseEntity*)new ParticleEntity(entityName);
 			break;
 	}
 
@@ -211,7 +193,6 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 
 		if (prevEntity && nextEntity)
 		{
-			//You probably added the same entity more than to delete
 			prevEntity->m_po_NextEntity = nextEntity;
 			nextEntity->m_po_PrevEntiy = prevEntity;
 		}
@@ -232,12 +213,12 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 	}
 }
 
-BaseEntity* EntityManager::GetFirstEntityInstanceReroute(Entity entityType)
+BaseEntity* EntityManager::GetFirstEntityInstance(Entity entityType)
 {
 	return m_v_EntityPool[entityType];
 }
 
-BaseEntity* EntityManager::GetSpecificEntityInstanceReroute(Entity entityType, const char* entityName)
+BaseEntity* EntityManager::GetSpecificEntityInstance(Entity entityType, const char* entityName)
 {
 	BaseEntity* entityPointer = m_v_EntityPool[entityType];
 
@@ -252,7 +233,7 @@ BaseEntity* EntityManager::GetSpecificEntityInstanceReroute(Entity entityType, c
 	return entityPointer;
 }
 
-BaseEntity* EntityManager::GetSpecificEntityInstanceReroute(BaseComponent* componentPointer)
+BaseEntity* EntityManager::GetSpecificEntityInstance(BaseComponent* componentPointer)
 {
 	return componentPointer->m_po_OwnerEntity;
 }

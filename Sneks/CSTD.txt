@@ -304,11 +304,11 @@ Reference:
 --------------------------------------------------------------------------------------------------
 14 Use of const
    You are encouraged to use the const keyword wherever it makes sense.
-		i.e.
-		Declare methods to be const whenever possible. Accessors should almost always be const. 
-		Other methods should be const if they do not modify any data members, do not call any 
-		non-const methods, and do not return a non-const pointer or non-const 
-		reference to a data member.
+   i.e.
+   Declare methods to be const whenever possible. Accessors should almost always be const. 
+   Other methods should be const if they do not modify any data members, do not call any 
+   non-const methods, and do not return a non-const pointer or non-const 
+   reference to a data member.
    
 --------------------------------------------------------------------------------------------------
 15 C++ constexpr
@@ -316,13 +316,9 @@ Reference:
    and allows types rather than using raw literals. Use constexpr for "true constants", which
    refer to variables whose value are set at compile time. Use prefix k for constants, then 
    UpperCamelCase
-		e.g.
-			constexpr float kEventCount = 5;
+   e.g.
+      constexpr float kEventCount = 5;
    
---------------------------------------------------------------------------------------------------
-16 Warnings as Errors
-	Treat all warnings as errors. Prefer /W4 in Microsoft Compiler in Visual Studio.
-
 --------------------------------------------------------------------------------------------------
 XXX Other Good Practices
    a. You are encouraged to declare variables in local scope if possible and try to declare as 
@@ -345,16 +341,10 @@ XXX Other Good Practices
 		
 	e. Empty loop bodies should use either an empty pair of braces or continue with no braces, 
 		rather than a single semicolon.
-			i.e.
-			GOOD
-				while (condition){}
-			BAD
-				while (condition);
-		
---------------------------------------------------------------------------------------------------		
-XXX-b GAM150 specifics
-	Git: 
-		master branch only for stable version 
-			-Compiles cleanly on Release and Debug x64
-			-Does not need additional files to be downloaded (Fresh pc pull, build and run immediately)
-				-Test by downloading files directly from git and creating a new VS project
+		i.e.
+		GOOD
+			while (condition){}
+		BAD
+			while (condition);
+			
+

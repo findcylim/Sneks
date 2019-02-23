@@ -53,17 +53,17 @@ namespace Events
 		
 	};
 
-	struct EV_SNEK_INVULNERABLE
+	struct Ev_SNEK_INVULNERABLE
 	{
 		SnekHeadComponent* snekHead;
 	};
 
-	struct EV_CREATE_PROJECTILE
+	struct Ev_CREATE_PROJECTILE
 	{
 		bool isCollide;
-		float rot,speed, scale;
-		HTVector2* pos,*velocity;
-		const char * texName;
+		float rot,speed;
+		HTVector2& pos, &scale,&velocity;
+		
 	};
 }
 

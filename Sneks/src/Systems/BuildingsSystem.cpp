@@ -17,7 +17,7 @@ BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem
 
 void BuildingsSystem::Update(float dt)
 {
-	UNREFERENCED_PARAMETER(dt);
+
 }
 
 void BuildingsSystem::Initialize()
@@ -40,8 +40,8 @@ void BuildingsSystem::Initialize()
 StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, float sizeX, float sizeY,
                                                     const char* textureName) const
 {
-	auto newBuildingEntity =
-		m_po_EntityManager->NewEntity<StaticObjectEntity>(kEntityStaticObject, "Building");
+	auto newBuildingEntity = static_cast<StaticObjectEntity*>(
+		m_po_EntityManager->NewEntity(kEntityStaticObject, "Building"));
 
 	for (auto i_Component : newBuildingEntity->m_v_AttachedComponentsList)
 	{

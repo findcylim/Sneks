@@ -15,8 +15,6 @@ enum Entity : unsigned char
 	kEntityBackground,
 	kEntityCamera,
 	kEntityProjectile,
-	kEntityParticleEffect,
-	kEntityParticle,
 	kEntityEnd
 };
 

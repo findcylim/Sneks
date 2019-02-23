@@ -29,18 +29,17 @@ class BaseEntity
 		BaseEntity* m_po_PrevEntiy = nullptr, *m_po_NextEntity = nullptr;
 
 		BaseEntity(const char* entityName);
-
 		template<typename T>
-		T* GetComponent()
+		T& GetComponent()
 		{
+			auto type = getTypeIndex<T>();
 			for (auto component : m_v_AttachedComponentsList)
 			{
-				if (T* p = dynamic_cast<T*>(component))
+				if (std::type_index(typeid(component)) == type)
 				{
-					return static_cast<T*>(component);
+					return component;
 				}
 			}
-			return nullptr;
 		}
 };
 
@@ -55,8 +54,8 @@ public:
 class SnekHeadEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[7] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentSnekHead,
-		Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentEnd };
+	Component m_ax_InitialComponents[7] ={ Component::kComponentTransform, Component::kComponentDraw,
+		Component::kComponentPhysics , Component::kComponentSnekHead, Component::KComponentInvulnerable, Component::kComponentCollision  , Component::kComponentEnd };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -64,8 +63,8 @@ public:
 class SnekBodyEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[7] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::KComponentInvulnerable,
-		Component::kComponentCollision, Component::kComponentFollow, Component::kComponentEnd };
+	Component m_ax_InitialComponents[7] ={ Component::kComponentTransform, Component::kComponentDraw,
+		Component::kComponentPhysics , Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentFollow, Component::kComponentEnd };
 
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -91,8 +90,7 @@ public:
 class StaticObjectEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentCollision,
-		Component::kComponentEnd };
+	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw , Component::kComponentCollision , Component::kComponentEnd };
 
 	StaticObjectEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -121,23 +119,6 @@ public:
 											Component::kComponentEnd };
 
 	ProjectileEntity(const char* entityName) : BaseEntity(entityName) {};
-};
-
-class ParticleEffectEntity : public BaseEntity
-{
-public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentParticleEffect, Component::kComponentEnd };
-
-	ParticleEffectEntity(const char* entityName) : BaseEntity(entityName) {};
-};
-
-class ParticleEntity : public BaseEntity
-{
-public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
-											Component::kComponentParticle, Component::kComponentEnd };
-
-	ParticleEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
 

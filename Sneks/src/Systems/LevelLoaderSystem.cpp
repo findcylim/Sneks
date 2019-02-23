@@ -25,7 +25,7 @@ LevelLoaderSystem::~LevelLoaderSystem()
 
 void LevelLoaderSystem::Update(float dt)
 {
-	UNREFERENCED_PARAMETER(dt);
+
 }
 
 bool LevelLoaderSystem::LoadLevel(LevelID levelID)
@@ -62,7 +62,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				auto nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer,nameLen - 1);
-				newEntity = m_po_EntityManager->NewEntity<StaticObjectEntity>(kEntityStaticObject, tempName);
+				newEntity = static_cast<StaticObjectEntity*>(m_po_EntityManager->NewEntity(kEntityStaticObject, tempName));
 			}
 			else
 			{
@@ -72,7 +72,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 				auto nameLen = strlen(cPointer);
 				char tempName[100];
 				strncpy_s(tempName, nameLen, cPointer, nameLen - 1);
-				newEntity = m_po_EntityManager->NewEntity<BackgroundEntity>(kEntityBackground, tempName);
+				newEntity = static_cast<BackgroundEntity*>(m_po_EntityManager->NewEntity(kEntityBackground, tempName));
 			}
 			
 
@@ -103,12 +103,9 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 			{
 				if (comp->m_x_ComponentID == kComponentDraw)
 				{
-					//TODO REMOVE SIZE FROM FILE INFO (IT IS NOW AUTO GENERATED)
 					auto x = atof(cPointer);
 					while (*(cPointer++) != '=') {}
 					auto y = atof(cPointer);
-					UNREFERENCED_PARAMETER(x);
-					UNREFERENCED_PARAMETER(y);
 
 					std::getline(inFile, output);
 					cPointer = output.c_str();
@@ -127,6 +124,6 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 			std::getline(inFile, output);
 		}
 	}
-	m_po_EntityManager->NewEntity<CameraComponent>(kEntityCamera, "Camera");
+	m_po_EntityManager->NewEntity(kEntityCamera, "Camera");
 	return true;
 }

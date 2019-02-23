@@ -11,17 +11,19 @@ SystemManager::SystemManager(Logger* logger)
 
 SystemManager::~SystemManager()
 {
-	while (!m_v_SystemList.empty())
+	for (std::vector<BaseSystem*>::iterator sys = SystemList.begin(); sys != SystemList.end();)
 	{
-		delete(m_v_SystemList.back());
-		m_v_SystemList.pop_back();
+		delete(*sys);
+		SystemList.erase(sys);
+		if (SystemList.size() == 0)
+			break;
 	}
 }
 
 void SystemManager::Initialize(EventManager* eventManager, EntityManager* entManager)
 {
 	m_o_EventManager = eventManager;
-	m_o_EntityManager = entManager;
+	m_o_EntityComponentManager = entManager;
 }
 
 void SystemManager::AddSystem(BaseSystem* NewSystem)
@@ -29,9 +31,9 @@ void SystemManager::AddSystem(BaseSystem* NewSystem)
 	if (NewSystem != nullptr)
 	{
 		NewSystem->m_o_EventManagerPtr = m_o_EventManager;
-		NewSystem->m_po_EntityManager = m_o_EntityManager;
-		NewSystem->m_po_ComponentManager = m_o_EntityManager->GetComponentManager();
-		m_v_SystemList.push_back(NewSystem);
+		NewSystem->m_po_EntityManager = m_o_EntityComponentManager;
+		NewSystem->m_po_ComponentManager = m_o_EntityComponentManager->GetComponentManager();
+		SystemList.push_back(NewSystem);
 	}
 	else
 	{
@@ -42,14 +44,14 @@ void SystemManager::AddSystem(BaseSystem* NewSystem)
 //Needs to be tested. May just erase all systems
 void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 {
-	for (std::vector<BaseSystem*>::iterator sys = m_v_SystemList.begin();sys != m_v_SystemList.end();)
+	for (std::vector<BaseSystem*>::iterator sys = SystemList.begin();sys != SystemList.end();)
 	{
 		if (typeid(*sys) == typeid(*RemSystem))
 		{
 			try
 			{
 				delete(*sys);
-				m_v_SystemList.erase(sys);
+				SystemList.erase(sys);
 			}
 			catch (...)
 			{
@@ -65,7 +67,7 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 
 void SystemManager::Update(float dt)
 {
-	for (BaseSystem* currSystem : m_v_SystemList)
+	for (BaseSystem* currSystem : SystemList)
 	{
 		currSystem->Update(dt);
 	}
@@ -75,7 +77,7 @@ void SystemManager::Update(float dt)
 
 BaseSystem* SystemManager::GetSystem(int ID)
 {
-	for (BaseSystem* currSystem : m_v_SystemList)
+	for (BaseSystem* currSystem : SystemList)
 	{
 		if (currSystem->GetID() == ID)
 		{

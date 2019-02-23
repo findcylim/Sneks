@@ -14,37 +14,15 @@ class ComponentManager
 {
 	std::vector<BaseComponent*> m_v_ComponentPool;
 	void AddComponent(BaseComponent* componentPointer, Component componentType);
-	BaseComponent* NewComponentReroute(BaseEntity* entityPointer, Component componentType);
-	BaseComponent* GetFirstComponentInstanceReroute(Component componentType);
-	BaseComponent* GetSpecificComponentInstanceReroute(BaseEntity* entityPointer, Component componentType);
-	BaseComponent* GetSpecificComponentInstanceReroute(BaseComponent* componentPointer, Component componentType);
 
-public:
-	ComponentManager();
-
-	template <class T>
-	T* NewComponent(BaseEntity* entityPointer, Component componentType)
-	{
-		return static_cast<T*>(NewComponentReroute(entityPointer, componentType));
-	}
-	template <class T>
-	T* GetFirstComponentInstance(Component componentType)
-	{
-		return static_cast<T*>(GetFirstComponentInstanceReroute(componentType));
-	}
-	template <class T>
-	T* GetSpecificComponentInstance(BaseEntity* entityPointer, Component componentType)
-	{
-		return static_cast<T*>(GetSpecificComponentInstanceReroute(entityPointer, componentType));
-	}
-	template <class T>
-	T* GetSpecificComponentInstance(BaseComponent* componentPointer, Component componentType)
-	{
-		return static_cast<T*>(GetSpecificComponentInstanceReroute(componentPointer, componentType));
-	}
-
-	void DeleteComponent(BaseEntity* entityPointer, Component componentType);
-	void DeleteComponent(BaseComponent* componentPointer);
+	public:
+		ComponentManager();
+		BaseComponent* NewComponent(BaseEntity* entityPointer, Component componentType);
+		void DeleteComponent(BaseEntity* entityPointer, Component componentType);
+		void DeleteComponent(BaseComponent* componentPointer);
+		BaseComponent* GetFirstComponentInstance(Component componentType);
+		BaseComponent* GetSpecificComponentInstance(BaseEntity* entityPointer, Component componentType);
+		BaseComponent* GetSpecificComponentInstance(BaseComponent* componentPointer, Component componentType);
 };
 
 #endif

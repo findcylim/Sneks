@@ -27,8 +27,8 @@
 constexpr int kNumBodyParts = 20;
 
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
-	LPSTR, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine, int nCmdShow)
 {
 	AlphaEngineHelper::AlphaInitialize(hInstance, nCmdShow);
 	ECSystem* Engine = new ECSystem;
@@ -111,8 +111,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 //		//	if (snek->m_po_Head->GetInvulnerable() > 0 || snek2->m_po_Head->GetInvulnerable() > 0){}
 //		//	else {
 //		//		cameraShake->AddShake(20.0f);
-//		//		snek->m_po_Head->HeadInvulnerableSet(1.0f);
-//		//		snek2->m_po_Head->HeadInvulnerableSet(1.0f);
+//		//		snek->m_po_Head->SetInvulnerable(1.0f);
+//		//		snek2->m_po_Head->SetInvulnerable(1.0f);
 //		//		if (snek->m_v_BodyParts.empty()) {
 //		//			auto chars = new s8[100];
 //		//			sprintf_s(chars, 100, "PLAYER 1 WINS");
@@ -162,7 +162,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 //		//				//snek->m_po_Head->SetColor(rand() % 10000);
 //		//				snek->m_po_Head->SetRotation(snek->m_po_Head->GetRotation() + PI);
 //		//				snek2->m_v_BodyParts.erase(i_BodyParts, snek2->m_v_BodyParts.end());
-//		//				snek2->m_po_Head->HeadInvulnerableSet(2.0f);
+//		//				snek2->m_po_Head->SetInvulnerable(2.0f);
 //		//				break;
 //		//			}
 //		//		}
@@ -184,7 +184,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 //		//				//snek2->m_po_Head->SetColor(rand() % 10000);
 //		//				snek2->m_po_Head->SetRotation(snek2->m_po_Head->GetRotation() + PI);
 //		//				snek->m_v_BodyParts.erase(i_BodyParts2, snek->m_v_BodyParts.end());
-//		//				snek->m_po_Head->HeadInvulnerableSet(2.0f);
+//		//				snek->m_po_Head->SetInvulnerable(2.0f);
 //		//				break;
 //		//			}
 //		//		}

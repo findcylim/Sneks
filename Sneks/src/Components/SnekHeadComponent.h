@@ -8,7 +8,7 @@
 class SnekHeadComponent : public BaseComponent
 {
 public:
-	float m_f_MaxVelocity                  = 700;
+	float m_f_MaxVelocity                  = 900;
 	float m_f_AccelerationForce            = 200;
 	float m_f_BrakeForce                   = 6;
 	float m_f_TurnSpeed                    = 6;

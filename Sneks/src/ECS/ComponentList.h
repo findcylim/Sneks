@@ -8,7 +8,6 @@
 #include "Entity.h"
 class BaseComponent
 {
-	virtual BaseComponent* _G() { return this; };
 	public:
 		Component m_x_ComponentID = Component::kComponentBase;
 		bool m_b_IsActive = true;
