@@ -1,5 +1,4 @@
 //memory sort via vector and list, name check
-
 bool namecmp(char* first, char* second)
 {
 	while (first == second)

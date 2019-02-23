@@ -27,6 +27,8 @@ public:
 	~ParticleSystem();
 
 	void Initialize();
+	void UpdateMouseParticles();
+	void CreateMouseParticles();
 	void Update(float dt);
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData);
 };

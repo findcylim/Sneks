@@ -19,6 +19,16 @@ void ParticleSystem::Initialize()
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
+void ParticleSystem::UpdateMouseParticles()
+{
+	
+}
+
+void ParticleSystem::CreateMouseParticles()
+{
+	
+}
+
 void ParticleSystem::Update(float dt)
 {
 	for (auto pec = m_po_ComponentManager->GetFirstComponentInstance

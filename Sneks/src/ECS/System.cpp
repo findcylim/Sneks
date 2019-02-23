@@ -31,3 +31,4 @@ BaseSystem::BaseSystem(EntityManager* entityManager)
 	m_po_EntityManager = entityManager;
 	m_po_ComponentManager = entityManager->GetComponentManager();
 }
+
