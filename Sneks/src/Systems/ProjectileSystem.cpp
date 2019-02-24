@@ -43,7 +43,7 @@ void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 	C_Comp->m_i_CollisionGroupVec.push_back(kCollGroupMoon);
 
 	auto G_Comp = ent->GetComponent<DrawComponent>();
-	G_Comp->Initialize(m_o_GraphicsSystem->FetchTexture(eventData.texName));
+	m_o_GraphicsSystem->InitializeDrawComponent(G_Comp, eventData.texName);
 }
 
 void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)

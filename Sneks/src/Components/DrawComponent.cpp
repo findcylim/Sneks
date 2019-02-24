@@ -24,8 +24,8 @@ float DrawComponent::GetSizeY() const
 {
 	return m_x_MeshSize.y;
 }
-
-void DrawComponent::Initialize(AEGfxTexture* texture, const float sizeX, const float sizeY, HTColor color = {1,1,1,1} )
+/*
+void DrawComponent::Initialize(AEGfxTexture* texture, const float sizeX, const float sizeY, HTColor color )
 {
 	m_px_Texture  = texture;
 	auto largerDimension = max(sizeX, sizeY);
@@ -35,6 +35,7 @@ void DrawComponent::Initialize(AEGfxTexture* texture, const float sizeX, const f
 
 	m_x_MeshSize  ={ normalizedX, normalizedY };
 
+	//check if mesh exists
 	AEGfxMeshStart();
 	AEGfxTriAdd(-(normalizedX / 2), -(normalizedY / 2), 0x00FFFFFF, 0, 1,
 		normalizedX / 2, -(normalizedY / 2), 0x0000FFFF, 1, 1,
@@ -55,14 +56,10 @@ void DrawComponent::Initialize(AEGfxTexture* texture, const float sizeX, const f
 	m_po_TranslationMatrix = new AEMtx33();
 }
 
-void DrawComponent::Initialize(AEGfxTexture* texture, HTColor color ={ 1,1,1,1 })
+void DrawComponent::Initialize(AEGfxTexture* texture, HTColor color)
 {
 	int sizeX, sizeY;
 	FileIO::ReadPngDimensions(texture->mpName, &sizeX, &sizeY);
 	Initialize(texture, static_cast<float>(sizeX), static_cast<float>(sizeY), color);
 }
-
-void DrawComponent::Initialize(AEGfxTexture* texture)
-{
-	Initialize(texture, { 1,1,1,1 });
-}
+*/

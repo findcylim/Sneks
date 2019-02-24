@@ -217,7 +217,7 @@ void SnekSystem::Update(float dt)
 
 				projData.rot = headTransComponent->GetRotation();
 				projData.speed = 1400.0f;
-				projData.scale = headTransComponent->m_f_Scale;
+				projData.scale = 0.1f;
 				projData.isCollide = true;
 
 				projData.texName = "Moon";
@@ -385,7 +385,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if(i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(m_o_GraphicsSystem->FetchTexture(textureName));
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 4;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
@@ -512,7 +512,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(m_o_GraphicsSystem->FetchTexture(textureName));
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
 			
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
@@ -605,11 +605,7 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(
-				m_o_GraphicsSystem->FetchTexture(textureName),
-				105, 77, HTColor{ 1,1,1,1 }
-			);
-
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{

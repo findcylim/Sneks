@@ -52,7 +52,7 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(m_o_GraphicsSystem->FetchTexture(textureName));
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 9;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentCollision)

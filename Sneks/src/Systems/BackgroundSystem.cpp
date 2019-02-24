@@ -32,10 +32,8 @@ BackgroundEntity* BackgroundSystem::CreateBackground(float posX, float posY, flo
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(
-				m_o_GraphicsSystem->FetchTexture(textureName),
-				sizeX, sizeY, HTColor{ 1,1,1,1 }
-			);
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component),
+				textureName, sizeX, sizeY);
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 10;
 		}
 	}
