@@ -4,6 +4,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CollisionComponent.h"
 #include "../Components/FollowComponent.h"
+#include "../Components/ParticleEffectComponent.h"
 #include <iostream>
 #include <algorithm>
 
@@ -405,6 +406,13 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
 				(static_cast<CollisionGroupName>(controlScheme * 2));
 		}
+		else if (i_Component->m_x_ComponentID == kComponentParticleEffect)
+		{
+			static_cast<ParticleEffectComponent*>(i_Component)->
+				SetParticleType(kParticleTrailEffect, m_o_GraphicsSystem);
+			static_cast<ParticleEffectComponent*>(i_Component)->SetSpawnTransform(
+				newSnekHeadEntity->GetComponent<TransformComponent>());
+		}
 	}
 
 	auto bodyTexture = "SnekBody01";
@@ -509,6 +517,13 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 			static_cast<CollisionComponent*>(i_Component)->m_i_CollisionGroupVec.push_back
 			(static_cast<CollisionGroupName>(playerNumber * 2 + 1));
 		}
+		else if (i_Component->m_x_ComponentID == kComponentParticleEffect)
+		{
+			static_cast<ParticleEffectComponent*>(i_Component)->
+				SetParticleType(kParticleTrailEffect, m_o_GraphicsSystem);
+			static_cast<ParticleEffectComponent*>(i_Component)->SetSpawnTransform(
+				newSnekBodyEntity->GetComponent<TransformComponent>());
+		}
 	}
 
 	auto ownerHeadComponent = 
@@ -581,6 +596,13 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
 		{
 
+		}
+		else if (i_Component->m_x_ComponentID == kComponentParticleEffect)
+		{
+			static_cast<ParticleEffectComponent*>(i_Component)->
+				SetParticleType(kParticleTrailEffect, m_o_GraphicsSystem);
+			static_cast<ParticleEffectComponent*>(i_Component)->SetSpawnTransform(
+				newSnekBodyEntity->GetComponent<TransformComponent>());
 		}
 	}
 

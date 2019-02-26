@@ -35,14 +35,17 @@ void ParticleSystem::Update(float dt)
 			}
 			else
 			{
-				float spawnperframe =
+				float spawnperframe = 
 					pec->GetParticleSpawnFrequency() / pec->GetParticleSpawnDensity();
-				for (float iter = dt; iter > spawnperframe; iter -= spawnperframe);
-				SpawnParticle(pec);
+				float& iter = pec->GetParticleLeftoverTime();
+				for (iter += dt; iter > spawnperframe; iter -= spawnperframe)
+					SpawnParticle(pec);
 			}
 
 			pec->UpdateTime(dt);
 		}
+		else
+			m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(pec->m_po_OwnerEntity));
 	}
 
 	for (auto pc = m_po_ComponentManager->GetFirstComponentInstance
@@ -140,10 +143,10 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 
 	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 		pep, Component::kComponentTransform)->SetPosition(
-			tcp->GetPosition().x, tcp->GetPosition().y);
+			CalculatePositionX(pec, tcp), CalculatePositionY(pec, tcp));
 
 	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-		pep, Component::kComponentTransform)->SetRotation(static_cast<float>(rand() % 360));
+		pep, Component::kComponentTransform)->SetRotation(CalculateRotation(pec, tcp));
 
 	m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 		pep, Component::kComponentPhysics)->m_f_Speed = pec->GetParticleSpeed();
@@ -151,4 +154,30 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
 		pep, Component::kComponentDraw)->Initialize(
 			pec->GetParticleTexture(), pec->GetParticleSizeX(), pec->GetParticleSizeY(), HTColor{ 1,1,1,1 });
+
+	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
+		pep, Component::kComponentDraw)->m_f_DrawPriority = pec->GetParticleDrawOrder();
+}
+
+float ParticleSystem::CalculateRotation(ParticleEffectComponent* pec, TransformComponent* tcp)
+{
+	return ((AERandFloat() - 0.5f) * pec->GetSpreadAngle() + pec->GetOffsetAngle()) + tcp->GetRotation();
+}
+
+float ParticleSystem::CalculatePositionX(ParticleEffectComponent* pec, TransformComponent* tcp)
+{
+	float randfloat = AERandFloat();
+	return (tcp->GetPosition().x + cos(tcp->GetRotation() + pec->GetAngleForOffsetDistance()) * 
+		pec->GetOffsetDistance() + (pec->GetSplitBool() ? pec->GetCurrentSplitFactor() : randfloat) *
+		pec->GetSpreadDistance() * cos(tcp->GetRotation() + pec->GetAngleForSpreadDistance()) *
+		((randfloat > 0.5f) ? 1.0f : -1.0f));
+}
+
+float ParticleSystem::CalculatePositionY(ParticleEffectComponent* pec, TransformComponent* tcp)
+{
+	float randfloat = AERandFloat();
+	return tcp->GetPosition().y + (sin(tcp->GetRotation() + pec->GetAngleForOffsetDistance()) *
+		pec->GetOffsetDistance() + (pec->GetSplitBool() ? pec->GetCurrentSplitFactor() : randfloat)*
+		pec->GetSpreadDistance() * sin(tcp->GetRotation() + pec->GetAngleForSpreadDistance()) *
+		((randfloat > 0.5f) ? 1.0f : -1.0f));
 }

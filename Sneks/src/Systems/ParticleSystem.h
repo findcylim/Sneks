@@ -19,6 +19,9 @@ private:
 	void SpawnParticle(ParticleEffectComponent* pec);
 	void SpawnParticleEffect(TransformComponent* spawnTransform, ParticleType type);
 
+	float CalculateRotation(ParticleEffectComponent* pec, TransformComponent* tcp);
+	float CalculatePositionX(ParticleEffectComponent* pec, TransformComponent* tcp);
+	float CalculatePositionY(ParticleEffectComponent* pec, TransformComponent* tcp);
 	bool CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* spawn1,
 		CollisionGroupName name2, TransformComponent* spawn2, CollisionGroupName namecheck, ParticleType type);
 
