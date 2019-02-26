@@ -63,7 +63,7 @@ void ParticleSystem::Update(float dt)
 	}
 }
 
-void ParticleSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	CollisionGroupName cgn1 = eventData.object1->m_i_CollisionGroupVec[0];
 	CollisionGroupName cgn2 = eventData.object2->m_i_CollisionGroupVec[0];

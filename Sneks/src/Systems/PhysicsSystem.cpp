@@ -11,7 +11,6 @@ PhysicsSystem::~PhysicsSystem()
 {
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
-
 }
 
 void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
@@ -19,14 +18,13 @@ void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
 	m_o_GameStateManager	= gameStateManager;
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
-
 }
-void PhysicsSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+void PhysicsSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 }
 
-void PhysicsSystem::receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
+void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 {
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 	auto phyComp = eventData.caller;

@@ -65,6 +65,11 @@ namespace Events
 		HTVector2* pos,*velocity;
 		const char * texName;
 	};
+
+	struct EV_PLAY_SOUND
+	{
+
+	};
 }
 
 
@@ -167,7 +172,7 @@ public:
 			for (auto* baseListener : i_Listener->second)
 			{
 				auto* Listener = reinterpret_cast<EventListener<T>*>(baseListener);
-				Listener->receive(event);
+				Listener->Receive(event);
 			}
 			return true;
 		}

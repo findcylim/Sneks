@@ -17,7 +17,7 @@ public:
 	GraphicsSystem(GraphicsSystem&) = delete;
 	~GraphicsSystem();
 	void Initialize();
-	void receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
+	void Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
 	AEGfxTexture* FetchTexture(const char* textureName);
 	AEGfxTexture* FetchTexture(const char* textureName, int* retWidth, int* retHeight);
 	void PreLoadTextures();

@@ -37,11 +37,12 @@ class BaseEntity
 			{
 				if (T* p = dynamic_cast<T*>(component))
 				{
-					return static_cast<T*>(component);
+					return p; static_cast<T*>(component);
 				}
 			}
 			return nullptr;
 		}
+
 };
 
 class SampleEntity : public BaseEntity

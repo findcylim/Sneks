@@ -14,7 +14,7 @@ CollisionSystem::~CollisionSystem()
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
-void CollisionSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
+void CollisionSystem::Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 	UpdateComponentsPerGroup();

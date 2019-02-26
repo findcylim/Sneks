@@ -120,6 +120,9 @@
     <ClCompile Include="Systems\ParticleSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\AudioSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -255,6 +258,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Systems\ParticleSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\AudioSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

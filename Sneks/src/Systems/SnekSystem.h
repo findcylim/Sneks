@@ -45,11 +45,11 @@ private:
 public:
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	~SnekSystem() ;
-	void receive(const Events::EV_PLAYER_COLLISION& eventData);
+	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
+	void Receive(const Events::EV_SNEK_INVULNERABLE& eventData) override;
 	void HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim);
 	void HeadInvulnerableSet(float duration, BaseComponent* anyComponent);
 	void HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
-	void receive(const Events::EV_SNEK_INVULNERABLE& eventData);
 	void Update(float dt) override;
 	void CheckInvulnerability(BaseComponent* component, float dt) const;
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;
