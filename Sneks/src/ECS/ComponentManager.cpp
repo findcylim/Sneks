@@ -14,6 +14,7 @@
 #include "../Components/FollowComponent.h"
 #include "../Components/ParticleEffectComponent.h"
 #include "../Components/ParticleComponent.h"
+#include "../Components/CanvasComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -89,6 +90,11 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 		case kComponentParticle:
 			componentPointer = static_cast<BaseComponent*>(new ParticleComponent);
 			break;
+		case kComponentCanvas:
+			componentPointer = static_cast<BaseComponent*>(new CanvasComponent);
+			break;
+		case kComponentCanvasElement:
+			componentPointer = static_cast<BaseComponent*>(new CanvasElementComponent);
 		default: ;
 		}
 

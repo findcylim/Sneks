@@ -17,6 +17,8 @@ enum Component : unsigned char
 	kComponentFollow,
 	kComponentParticleEffect,
 	kComponentParticle,
+	kComponentCanvas,
+	kComponentCanvasElement,
 	kComponentEnd
 };
 

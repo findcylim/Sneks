@@ -111,6 +111,15 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityParticle:
 			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityCanvasBasicSprite:
+			componentPointer = ((CanvasBasicSpriteEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityCanvasButton:
+			componentPointer = ((CanvasButtonEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityCanvasTextLabel:
+			componentPointer = ((CanvasTextLabelEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -132,19 +141,15 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 		case Entity::kEntityBase:
 			entityPointer = new BaseEntity(entityName);
 			break;
-
 		case Entity::kEntitySample:
 			entityPointer = (BaseEntity*)new SampleEntity(entityName);
 			break;
-
 		case Entity::kEntityStaticObject:
 			entityPointer = (BaseEntity*)new StaticObjectEntity(entityName);
 			break;
-
 		case Entity::kEntityBackground:
 			entityPointer = (BaseEntity*)new BackgroundEntity(entityName);
 			break;
-
 		case Entity::kEntityCamera:
 			entityPointer = (BaseEntity*)new CameraEntity(entityName);
 			break;
@@ -168,6 +173,15 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 			break;
 		case kEntityParticle:
 			entityPointer = (BaseEntity*)new ParticleEntity(entityName);
+			break;
+		case kEntityCanvasBasicSprite:
+			entityPointer = (BaseEntity*)new CanvasBasicSpriteEntity(entityName);
+			break;
+		case kEntityCanvasButton:
+			entityPointer = (BaseEntity*)new CanvasButtonEntity(entityName);
+			break;
+		case kEntityCanvasTextLabel:
+			entityPointer = (BaseEntity*)new CanvasTextLabelEntity(entityName);
 			break;
 	}
 

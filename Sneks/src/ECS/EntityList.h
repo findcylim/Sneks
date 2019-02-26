@@ -142,4 +142,38 @@ public:
 };
 
 
+/*class ParticleEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics,
+											Component::kComponentParticle, Component::kComponentEnd };
+
+	ParticleEntity(const char* entityName) : BaseEntity(entityName) {};
+};*/
+
+
+class CanvasButtonEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw , Component::kComponentCollision, Component::kComponentCanvasElement, Component::kComponentEnd };
+
+	CanvasButtonEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class CanvasBasicSpriteEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[4] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentCanvasElement, Component::kComponentEnd };
+
+	CanvasBasicSpriteEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class CanvasTextLabelEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[4] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentCanvasElement, Component::kComponentEnd };
+
+	CanvasTextLabelEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
 #endif

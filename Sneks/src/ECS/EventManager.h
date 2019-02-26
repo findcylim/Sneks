@@ -10,6 +10,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CollisionComponent.h"
 #include "../Components/SnekHeadComponent.h"
+#include "../Components/CanvasComponent.h"
 #include "../Utility/RTTIHelper.h"
 
 

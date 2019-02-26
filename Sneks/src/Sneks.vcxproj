@@ -37,10 +37,10 @@
     <ClCompile Include="Math\CameraShake.cpp" />
     <ClCompile Include="Math\CollisionGroup.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
-    <ClCompile Include="Systems\AudioSystem.cpp" />
     <ClCompile Include="Systems\BackgroundSystem.cpp" />
     <ClCompile Include="Systems\BuildingsSystem.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
+    <ClCompile Include="Systems\CanvasUISystem.cpp" />
     <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\CameraComponent.h" />
+    <ClInclude Include="Components\CanvasComponent.h" />
     <ClInclude Include="Components\CollisionComponent.h" />
     <ClInclude Include="Components\DrawComponent.h" />
     <ClInclude Include="Components\FollowComponent.h" />
@@ -83,10 +84,10 @@
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />
     <ClInclude Include="Math\PerlinNoise.h" />
-    <ClInclude Include="Systems\AudioSystem.h" />
     <ClInclude Include="Systems\BackgroundSystem.h" />
     <ClInclude Include="Systems\BuildingsSystem.h" />
     <ClInclude Include="Systems\CameraSystem.h" />
+    <ClInclude Include="Systems\CanvasUISystem.h" />
     <ClInclude Include="Systems\CollisionSystem.h" />
     <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
@@ -198,7 +199,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Alpha_EngineD.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Alpha_EngineD.lib;fmod64.dll;fmod64_vc.lib;fmodL64.dll;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\ALPHA\Lib\x64;$(SolutionDir)Dependencies\glew\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -240,7 +241,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Alpha_Engine.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Alpha_Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\ALPHA\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>

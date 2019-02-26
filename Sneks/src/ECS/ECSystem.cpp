@@ -14,7 +14,7 @@
 #include "../Systems/BuildingsSystem.h"
 #include "../Systems/ProjectileSystem.h"
 #include "../Systems/ParticleSystem.h"
-#include "../Systems/AudioSystem.h"
+//#include "../Systems/AudioSystem.h"
 #include <iostream>
 
 ECSystem::ECSystem()
@@ -123,10 +123,10 @@ void ECSystem::InitializeEngine()
 	particle->SetName("Particles");
 	particle->Initialize();
 
-	auto audio = new AudioSystem(m_o_EntityComponentManager);
+	/*auto audio = new AudioSystem(m_o_EntityComponentManager);
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
-	audio->Initialize();
+	audio->Initialize();*/
 }
 
 bool ECSystem::IsEngineOn() const
