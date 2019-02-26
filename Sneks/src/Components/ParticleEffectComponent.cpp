@@ -55,7 +55,7 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_f_SpreadAngle = PI * 0.15f;
 			m_f_OffsetDistance = 0.0f;
 			m_f_AngleForOffsetDistance = PI * 0.0f;
-			m_f_OffsetAngle = PI * 1.0f;
+			m_f_OffsetAngle = PI * 0.0f;
 		
 			m_f_ParticleSpeed = 100.0f;
 			m_f_ParticleSpawnFrequency = 1.0f;

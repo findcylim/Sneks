@@ -48,8 +48,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		auto objectColliding = eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
 			eventData.object1 : eventData.object2;
-		auto otherObject = eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
-			eventData.object1 : eventData.object2;
+		//auto otherObject = eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
+		//	eventData.object1 : eventData.object2;
 		objectColliding->enabled = false;
 		auto objectDrawComp = 
 			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
