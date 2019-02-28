@@ -84,6 +84,7 @@ void ECSystem::InitializeEngine()
 	camera->SetName("Camera");
 	camera->Initialize();
 	camera->SetID(3);
+	
 
 	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
 	m_o_SystemManager->AddSystem(levelLoader);

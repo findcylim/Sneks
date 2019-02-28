@@ -6,6 +6,10 @@ MainMenuSystem::MainMenuSystem(EntityManager* entityManagerPtr, EventManager* ev
 	:BaseSystem(entityManagerPtr)
 {
 	m_o_EventManagerPtr = eventManager;
+	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	cameraComponent->m_f_VirtualOffsetX = -AEGfxGetWinMaxX();
+	cameraComponent->m_f_VirtualOffsetY = AEGfxGetWinMaxY();
+	cameraComponent->m_f_VirtualScale = 1.1f;
 }
 
 
@@ -15,9 +19,7 @@ MainMenuSystem::~MainMenuSystem()
 
 void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
 {
-	auto cameraTransform = m_po_EntityManager->GetFirstEntityInstance<CameraEntity>(kEntityCamera)->GetComponent<TransformComponent>();
-	cameraTransform->SetPosition(AEGfxGetWinMaxX() , AEGfxGetWinMaxY() );
-	Events::EV_NEW_UI_ELEMENT newElement = { canvasComponent,HTVector2{ AEGfxGetWinMaxX() / 8, AEGfxGetWinMaxY() / 8 } ,kCanvasBasicSprite,"Logo" ,"MainMenuLogo" };
+	Events::EV_NEW_UI_ELEMENT newElement = { canvasComponent,HTVector2{ 483 + AEGfxGetWinMaxX()/8 , -(136 + AEGfxGetWinMaxY() / 8) } ,kCanvasBasicSprite,"Logo" ,"MainMenuLogo" };
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(newElement);
 }
 void MainMenuSystem::Update(float dt)

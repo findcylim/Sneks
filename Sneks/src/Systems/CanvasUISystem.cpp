@@ -19,6 +19,17 @@ CanvasUISystem::~CanvasUISystem()
 void CanvasUISystem::Update(float dt) 
 {
 	(void)dt;
+	for (auto uiElement : m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas)->m_x_CanvasElementList)
+	{
+		if (uiElement->m_b_IsActive)
+		{
+			CollisionComponent* col_Component = uiElement->GetComponent<CollisionComponent>();
+			if (col_Component)
+			{
+				
+			}
+		}
+	}
 }
 
 
@@ -66,6 +77,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			t_Component = newElement3->GetComponent<TransformComponent>();
 			ui_Component = newElement3->GetComponent<CanvasElementComponent>();
 			d_Component = newElement3->GetComponent<DrawComponent>();
+			newElement3->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(static_cast<CollisionGroupName>(12));
 			break;
 		}
 	}
@@ -74,6 +86,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		t_Component->m_x_Position = initPosition;
 		t_Component->SetRotation(0);
 		m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
+		
 		ui_Component->m_x_BasicSprite = m_po_GraphicsManager->FetchTexture(uiElementSprite);
 		if (strcmp(uiHoverSprite, "") != 0)
 			ui_Component->m_x_HoverSprite = m_po_GraphicsManager->FetchTexture(uiHoverSprite);

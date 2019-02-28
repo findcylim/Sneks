@@ -183,4 +183,12 @@ public:
 	CanvasTextLabelEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
+class MouseEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[3] = { Component::kComponentTransform , Component::kComponentCollision , Component::kComponentEnd };
+
+	MouseEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
 #endif

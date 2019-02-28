@@ -16,7 +16,9 @@ enum CollisionGroupName
 	kCollGroupSnek5Head,
 	kCollGroupSnek5Body,
 	kCollGroupBuilding = 10,
-	kCollGroupMoon = 11
+	kCollGroupMoon = 11,
+	kCollGroupUIButton,
+	kCollGroupMouse
 };
 
 class CollisionComponent : public BaseComponent

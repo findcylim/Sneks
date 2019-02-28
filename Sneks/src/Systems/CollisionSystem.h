@@ -36,7 +36,8 @@ private:
 		 {kCollGroupSnek2Head,kCollGroupBuilding },
 		 {kCollGroupMoon		 ,kCollGroupSnek2Head}, //Moon and Other Head
 		 {kCollGroupMoon		 ,kCollGroupSnek2Body}, //Moon and Other Body
-		 {kCollGroupMoon		 ,kCollGroupBuilding }  //Moon and Buildings
+		 {kCollGroupMoon		 ,kCollGroupBuilding },  //Moon and Buildings
+		 {kCollGroupUIButton   ,kCollGroupMouse}
 		};
 
 
