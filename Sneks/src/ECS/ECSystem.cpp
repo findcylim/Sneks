@@ -67,7 +67,6 @@ void ECSystem::InitializeEngine()
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(graphics);
-	graphics->SetID(0);
 	graphics->SetName("Graphics");
 	graphics->PreLoadTextures();
 
@@ -75,23 +74,19 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(physics);
 	physics->SetName("Physics");
 	physics->Initialize(m_o_GameStateManager);
-	physics->SetID(1);
 
 	auto camera = new CameraSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(camera);
 	camera->SetName("Camera");
 	camera->Initialize();
-	camera->SetID(3);
 
 	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
 	m_o_SystemManager->AddSystem(levelLoader);
-	levelLoader->SetID(4);
 	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
 
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
-	graphics->SetID(5);
 	snek->SetName("Snek");
 	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
 	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);

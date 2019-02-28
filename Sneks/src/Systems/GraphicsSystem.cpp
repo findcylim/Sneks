@@ -3,7 +3,8 @@
 #include <vector>
 #include "../Utility/FileIO.h"
 
-GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr){};
+GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr)
+{};
 
 
 GraphicsSystem::~GraphicsSystem()
