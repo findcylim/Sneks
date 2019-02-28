@@ -17,9 +17,9 @@ const char * BaseSystem::GetName()
 {
 	return m_c_SystemName;
 }
-void BaseSystem::SetID(short iD)
+void BaseSystem::SetID(short id)
 {
-	m_s_SystemID = iD;
+	m_s_SystemID = id;
 }
 void BaseSystem::SetName(const char* name)
 {

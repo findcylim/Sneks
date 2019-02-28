@@ -25,6 +25,11 @@ void SystemManager::Initialize(EventManager* eventManager, EntityManager* entMan
 	m_o_EntityManager = entManager;
 }
 
+size_t SystemManager::GetSystemCount() const
+{
+	return m_v_SystemList.size();
+}
+
 void SystemManager::AddSystem(BaseSystem* NewSystem)
 {
 	if (NewSystem != nullptr)
@@ -32,6 +37,7 @@ void SystemManager::AddSystem(BaseSystem* NewSystem)
 		NewSystem->m_o_EventManagerPtr = m_o_EventManager;
 		NewSystem->m_po_EntityManager = m_o_EntityManager;
 		NewSystem->m_po_ComponentManager = m_o_EntityManager->GetComponentManager();
+		NewSystem->SetID(static_cast<short>(GetSystemCount()));
 		m_v_SystemList.push_back(NewSystem);
 	}
 	else

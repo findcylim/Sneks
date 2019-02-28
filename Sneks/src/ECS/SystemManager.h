@@ -18,6 +18,7 @@ private:
 	EntityManager* m_o_EntityManager;
 	Logger* m_o_Logger;
 public:
+	size_t GetSystemCount() const;
 	void AddSystem(BaseSystem* NewSystem);
 	
 	void RemoveSystem(BaseSystem* RemSystem);
