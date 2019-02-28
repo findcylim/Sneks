@@ -147,7 +147,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
 	LoadTextureToMap("../Resources/MainMenuLogo.png", "MainMenuLogo");
-
+	LoadTextureToMap("../Resources/MouseCollider.png", "MouseCollider");
+	
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 

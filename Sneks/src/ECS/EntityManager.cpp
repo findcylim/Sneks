@@ -123,6 +123,9 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityCanvasTextLabel:
 			componentPointer = ((CanvasTextLabelEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityMouse:
+			componentPointer = ((MouseEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -188,6 +191,9 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 			break;
 		case kEntityCanvasTextLabel:
 			entityPointer = (BaseEntity*)new CanvasTextLabelEntity(entityName);
+			break;
+		case kEntityMouse:
+			entityPointer = (BaseEntity*)new MouseEntity(entityName);
 			break;
 	}
 

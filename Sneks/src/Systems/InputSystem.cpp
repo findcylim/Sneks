@@ -62,7 +62,15 @@ void InputSystem::SetKeyBinds()
 
 void InputSystem::Update(float dt)
 {
+	MouseEntity* mouseEntity = m_po_EntityManager->GetFirstEntityInstance<MouseEntity>(kEntityMouse);
+	POINT mouse;
+	CameraComponent* cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	GetCursorPos(&mouse);
+	mouseEntity->GetComponent<TransformComponent>()->SetPosition(mouse.x + cameraComponent->m_f_VirtualOffsetX, 
+																 mouse.y + cameraComponent->m_f_VirtualOffsetY);
+
 	UNREFERENCED_PARAMETER(dt);
+
 	/*
 	for (i = 0; i < kKeyCount; i++)
 	{

@@ -66,6 +66,7 @@ void ECSystem::InitializeEngine()
 	*/
 
 	m_o_EntityComponentManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
+	
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(graphics);
@@ -133,6 +134,16 @@ void ECSystem::InitializeEngine()
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
 	canvas->SetName("Main Menu");
+
+	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
+	m_o_SystemManager->AddSystem(input);
+
+
+	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
+	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
+	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
+
+
 
 	/*auto audio = new AudioSystem(m_o_EntityComponentManager);
 	audio->SetName("Audio");

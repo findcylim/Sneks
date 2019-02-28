@@ -12,14 +12,14 @@ CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* g
 
 CanvasUISystem::~CanvasUISystem()
 {
-
-
+	m_o_EventManagerPtr->RemoveListener<Events::EV_NEW_UI_ELEMENT>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CanvasUISystem::Update(float dt) 
 {
 	(void)dt;
-	for (auto uiElement : m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas)->m_x_CanvasElementList)
+	/*for (auto uiElement : m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas)->m_x_CanvasElementList)
 	{
 		if (uiElement->m_b_IsActive)
 		{
@@ -29,13 +29,14 @@ void CanvasUISystem::Update(float dt)
 				
 			}
 		}
-	}
+	}*/
 }
 
 
 void CanvasUISystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CanvasUISystem::ClearUI(CanvasComponent* canvas)
@@ -77,7 +78,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			t_Component = newElement3->GetComponent<TransformComponent>();
 			ui_Component = newElement3->GetComponent<CanvasElementComponent>();
 			d_Component = newElement3->GetComponent<DrawComponent>();
-			newElement3->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(static_cast<CollisionGroupName>(12));
+			newElement3->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupUIButton);
 			break;
 		}
 	}
@@ -111,4 +112,12 @@ void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
 	AddElement(eventData.canvas,			eventData.initialPosition,		eventData.elementType, 
 			   eventData.elementEntityName, eventData.uiElementSpriteName, 
 			   eventData.uiTextLabel,		eventData.uiHoverSpriteName,	eventData.uiClickSpriteName);
+}
+
+void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
+{
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
+	{
+		(void)1;
+	}
 }

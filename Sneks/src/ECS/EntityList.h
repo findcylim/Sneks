@@ -186,7 +186,7 @@ public:
 class MouseEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[3] = { Component::kComponentTransform , Component::kComponentCollision , Component::kComponentEnd };
+	Component m_ax_InitialComponents[4] = { Component::kComponentTransform ,Component::kComponentDraw ,Component::kComponentCollision , Component::kComponentEnd };
 
 	MouseEntity(const char* entityName) : BaseEntity(entityName) {};
 };

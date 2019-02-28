@@ -3,7 +3,8 @@
 #include "GraphicsSystem.h"
 class CanvasUISystem :
 	public BaseSystem,
-	public EventListener<Events::EV_NEW_UI_ELEMENT>
+	public EventListener<Events::EV_NEW_UI_ELEMENT>,
+	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 	GraphicsSystem* m_po_GraphicsManager;
 
@@ -16,4 +17,5 @@ public:
 		const char * uiElementSprite, const char* uiText = "", const char * uiHoverSprite = "", const char * uiClickSprite = "");
 	void ClearUI(CanvasComponent* canvas);
 	void Receive(const Events::EV_NEW_UI_ELEMENT& eventData) override;
+	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 };
