@@ -34,7 +34,8 @@ void CameraSystem::Initialize()
 void CameraSystem::UpdateCamera(const float dt) const
 {
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-
+	float x = m_po_EntityManager->GetFirstEntityInstance<CameraEntity>(kEntityCamera)->GetComponent<TransformComponent>()->m_x_Position.x;
+	printf("%f\n", x);
 	m_po_CamShake->Update(dt);
 
 	while (cameraComponent) {

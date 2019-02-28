@@ -15,6 +15,8 @@
 #include "../Systems/ProjectileSystem.h"
 #include "../Systems/ParticleSystem.h"
 //#include "../Systems/AudioSystem.h"
+#include "../Systems/Menus/MainMenuSystem.h"
+
 #include <iostream>
 
 ECSystem::ECSystem()
@@ -88,7 +90,7 @@ void ECSystem::InitializeEngine()
 	levelLoader->SetID(4);
 	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
-
+/*
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
 	graphics->SetID(5);
@@ -105,7 +107,7 @@ void ECSystem::InitializeEngine()
 	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(buildings);
 	buildings->SetName("Buildings");
-	buildings->Initialize();
+	buildings->Initialize();*/
 
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(collisions);
@@ -123,10 +125,27 @@ void ECSystem::InitializeEngine()
 	particle->SetName("Particles");
 	particle->Initialize();
 
+	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
+	m_o_SystemManager->AddSystem(canvas);
+	canvas->SetName("Canvas UI");
+	canvas->Initialize();
+
+	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
+
+	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
+	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
+	m_o_SystemManager->AddSystem(mainMenu);
+	canvas->SetName("Main Menu");
+
 	/*auto audio = new AudioSystem(m_o_EntityComponentManager);
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();*/
+}
+
+void ECSystem::LoadMainMenu()
+{
+
 }
 
 bool ECSystem::IsEngineOn() const

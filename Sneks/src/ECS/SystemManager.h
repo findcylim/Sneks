@@ -19,6 +19,7 @@ private:
 	Logger* m_o_Logger;
 public:
 	void AddSystem(BaseSystem* NewSystem);
+	
 	void RemoveSystem(BaseSystem* RemSystem);
 	void Update(float dt);
 	BaseSystem* GetSystem(int ID);

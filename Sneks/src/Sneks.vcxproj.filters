@@ -20,6 +20,9 @@
     <Filter Include="Components">
       <UniqueIdentifier>{6933e68f-8b22-457d-826e-1b129e51416a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Menus">
+      <UniqueIdentifier>{5837b660-d228-4c91-aba4-252866ac4ff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ECS\ComponentManager.cpp">
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="Systems\CanvasUISystem.cpp">
       <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\MainMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="Components\CanvasComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\MainMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

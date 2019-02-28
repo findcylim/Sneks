@@ -151,6 +151,13 @@ public:
 	ParticleEntity(const char* entityName) : BaseEntity(entityName) {};
 };*/
 
+class CanvasEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentCanvas, Component::kComponentEnd };
+
+	CanvasEntity(const char* entityName) : BaseEntity(entityName) {};
+};
 
 class CanvasButtonEntity : public BaseEntity
 {

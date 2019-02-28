@@ -16,6 +16,7 @@ SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics
 SnekSystem::~SnekSystem()
 {
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_SNEK_INVULNERABLE>(this);
 };
 
 

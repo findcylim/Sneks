@@ -17,6 +17,7 @@ enum Entity : unsigned char
 	kEntityProjectile,
 	kEntityParticleEffect,
 	kEntityParticle,
+	kEntityCanvas,
 	kEntityCanvasButton,
 	kEntityCanvasBasicSprite,
 	kEntityCanvasTextLabel,

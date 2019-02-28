@@ -111,6 +111,9 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityParticle:
 			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityCanvas:
+			componentPointer = ((CanvasEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		case Entity::kEntityCanvasBasicSprite:
 			componentPointer = ((CanvasBasicSpriteEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
@@ -173,6 +176,9 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 			break;
 		case kEntityParticle:
 			entityPointer = (BaseEntity*)new ParticleEntity(entityName);
+			break;
+		case kEntityCanvas:
+			entityPointer = (BaseEntity*)new CanvasEntity(entityName);
 			break;
 		case kEntityCanvasBasicSprite:
 			entityPointer = (BaseEntity*)new CanvasBasicSpriteEntity(entityName);

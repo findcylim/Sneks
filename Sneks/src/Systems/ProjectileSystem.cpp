@@ -63,4 +63,5 @@ void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 ProjectileSystem::~ProjectileSystem()
 {
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->RemoveListener<Events::EV_CREATE_PROJECTILE>(this);
 };

@@ -145,6 +145,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
+	LoadTextureToMap("../Resources/MainMenuLogo.png", "MainMenuLogo");
 
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
@@ -208,8 +209,8 @@ void GraphicsSystem::Draw(float dt)
 	}
 
 	
-	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
-		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
+	for (auto i_DrawVector = m_x_DrawOrder.size(); i_DrawVector > 0; --i_DrawVector) {
+		for (auto drawComponent : m_x_DrawOrder[i_DrawVector-1]) {
 			//Check if there is draw component
 			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 

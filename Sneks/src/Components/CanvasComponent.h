@@ -21,7 +21,6 @@ public:
 	CanvasComponent(){}
 	~CanvasComponent()
 	{
-		m_x_CanvasElementList.clear();
 	}
 	CanvasComponent(const CanvasComponent&) = delete;
 	CanvasComponent& operator=(const CanvasComponent&) = delete;
@@ -31,13 +30,14 @@ public:
 
 class CanvasElementComponent : public BaseComponent
 {
-	char* m_pc_ElementText = nullptr;
 public:
+	char* m_pc_ElementText = nullptr;
+	AEGfxTexture * m_x_BasicSprite,* m_x_HoverSprite,* m_x_ClickSprite;
 	CanvasElementComponent() {}
 	~CanvasElementComponent()
 	{
 		if (m_pc_ElementText)
-			delete m_pc_ElementText;
+			delete[] m_pc_ElementText;
 	}
 };
 

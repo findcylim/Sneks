@@ -71,6 +71,18 @@ namespace Events
 	{
 
 	};
+
+	struct EV_NEW_UI_ELEMENT
+	{
+		CanvasComponent* canvas;
+		HTVector2 initialPosition;
+		CanvasElementEnum elementType;
+		const char * elementEntityName;
+		const char * uiElementSpriteName;
+		const char * uiTextLabel = "";
+		const char * uiHoverSpriteName = "";
+		const char * uiClickSpriteName = "";
+	};
 }
 
 

@@ -2,11 +2,11 @@
 
 
 
-CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr) :
+CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* graphicsManager,EventManager* eventManager) :
 	BaseSystem(entityManagerPtr)
 {
-
-
+	m_po_GraphicsManager = graphicsManager;
+	m_o_EventManagerPtr = eventManager;
 }
 
 
@@ -19,27 +19,83 @@ CanvasUISystem::~CanvasUISystem()
 void CanvasUISystem::Update(float dt) 
 {
 	(void)dt;
-
 }
 
 
 void CanvasUISystem::Initialize()
 {
-
+	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this);
 }
 
-void CanvasUISystem::AddElement(HTVector2 initPosition,CanvasElementEnum num, const char * name)
+void CanvasUISystem::ClearUI(CanvasComponent* canvas)
 {
+	for (auto& element : canvas->m_x_CanvasElementList)
+	{
+		m_po_EntityManager->AddToDeleteQueue(element);
+	}
+	canvas->m_x_CanvasElementList.clear();
+}
+
+void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 initPosition,CanvasElementEnum num, const char * name, 
+								const char * uiElementSprite, const char* uiText,const char * uiHoverSprite, const char * uiClickSprite)
+{
+	CanvasElementComponent* ui_Component = nullptr;
+	TransformComponent *    t_Component = nullptr;
+	DrawComponent *         d_Component = nullptr;
 	switch (num)
 	{
-	case kCanvasTextLabel:
-		CanvasTextLabelEntity* newElement = m_po_EntityManager->NewEntity<CanvasTextLabelEntity>(kEntityCanvasTextLabel, name);
-		break;
-	case kCanvasBasicSprite:
-		CanvasBasicSpriteEntity* newElement = m_po_EntityManager->NewEntity<CanvasBasicSpriteEntity>(kEntityCanvasBasicSprite, name);
-		break;
-	case kCanvasButton:
-		CanvasButtonEntity* newElement = m_po_EntityManager->NewEntity<CanvasButtonEntity>(kEntityCanvasButton, name);
-		break;
+		case kCanvasTextLabel:
+		{
+			CanvasTextLabelEntity* newElement1 = m_po_EntityManager->NewEntity<CanvasTextLabelEntity>(kEntityCanvasTextLabel, name);
+			t_Component = newElement1->GetComponent<TransformComponent>();
+			ui_Component = newElement1->GetComponent<CanvasElementComponent>();
+			d_Component = newElement1->GetComponent<DrawComponent>();
+			break;
+		}
+		case kCanvasBasicSprite:
+		{
+			CanvasBasicSpriteEntity* newElement2 = m_po_EntityManager->NewEntity<CanvasBasicSpriteEntity>(kEntityCanvasBasicSprite, name);
+			t_Component = newElement2->GetComponent<TransformComponent>();
+			ui_Component = newElement2->GetComponent<CanvasElementComponent>();
+			d_Component = newElement2->GetComponent<DrawComponent>();
+			break;
+		}
+		case kCanvasButton:
+		{
+			CanvasButtonEntity* newElement3 = m_po_EntityManager->NewEntity<CanvasButtonEntity>(kEntityCanvasButton, name);
+			t_Component = newElement3->GetComponent<TransformComponent>();
+			ui_Component = newElement3->GetComponent<CanvasElementComponent>();
+			d_Component = newElement3->GetComponent<DrawComponent>();
+			break;
+		}
 	}
+	if (ui_Component)
+	{
+		t_Component->m_x_Position = initPosition;
+		t_Component->SetRotation(0);
+		m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
+		ui_Component->m_x_BasicSprite = m_po_GraphicsManager->FetchTexture(uiElementSprite);
+		if (strcmp(uiHoverSprite, "") != 0)
+			ui_Component->m_x_HoverSprite = m_po_GraphicsManager->FetchTexture(uiHoverSprite);
+		if (strcmp(uiClickSprite, "") != 0)
+			ui_Component->m_x_ClickSprite = m_po_GraphicsManager->FetchTexture(uiClickSprite);
+		if (strcmp(uiText, "") != 0)
+		{
+			int length = static_cast<int>(strlen(uiText) + 1);
+			ui_Component->m_pc_ElementText = new char[length];
+			strcpy_s(ui_Component->m_pc_ElementText, length, uiText);
+		}
+		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);
+	}
+	else
+	{
+		
+	}
+}
+
+void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
+{
+	AddElement(eventData.canvas,			eventData.initialPosition,		eventData.elementType, 
+			   eventData.elementEntityName, eventData.uiElementSpriteName, 
+			   eventData.uiTextLabel,		eventData.uiHoverSpriteName,	eventData.uiClickSpriteName);
 }
