@@ -12,7 +12,7 @@
 
 class ComponentManager
 {
-	std::vector<BaseComponent*> m_v_ComponentPool;
+	std::vector<BaseComponent*> m_v_ComponentPool = {};
 	void AddComponent(BaseComponent* componentPointer, Component componentType);
 	BaseComponent* NewComponentReroute(BaseEntity* entityPointer, Component componentType);
 	BaseComponent* GetFirstComponentInstanceReroute(Component componentType);

@@ -129,7 +129,10 @@ void CollisionSystem::UpdateAllHitBoxes()
 
 void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup) const
 {
-	//TODO::FIX MEMORY LEAK
+	for (auto aabb : collisionGroup->objectsHitBoxes)
+	{
+		delete aabb;
+	}
 	collisionGroup->objectsHitBoxes.clear();
 	while (collisionGroup->objects.size() > collisionGroup->objectsHitBoxes.size())
 	{

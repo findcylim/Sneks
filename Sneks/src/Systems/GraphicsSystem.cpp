@@ -13,12 +13,16 @@ GraphicsSystem::~GraphicsSystem()
 	{
 		AEGfxTextureUnload(pairing.second);
 	}
+	for (auto pairing : m_x_MeshMap)
+	{
+		AEGfxMeshFree(pairing.second);
+	}
+	m_x_TextureMap.clear();
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
-	//PreLoadTextures();
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 
 }
@@ -146,7 +150,6 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
-
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
@@ -208,7 +211,9 @@ void GraphicsSystem::Draw(float dt)
 		UpdateDrawOrderVector(firstDrawComponent); 
 	}
 
-	
+	if (m_x_DrawOrder.empty())
+		return;
+
 	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
 		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
 			//Check if there is draw component

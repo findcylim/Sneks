@@ -1,3 +1,5 @@
+#include "../Utility/MemoryAllocator.h"
+
 #include <windows.h>
 #include "ECSystem.h"
 #include "../Utility/FileIO.h"
@@ -23,8 +25,8 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager(m_o_Logger);
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_GameStateManager		   = new GameStateManager(kStateGame);
-	m_o_EntityComponentManager	   = new EntityManager();
-	m_b_EngineStatus			   = false;
+	m_o_EntityComponentManager	= new EntityManager();
+	m_b_EngineStatus			   = true;
 }
 
 
@@ -68,6 +70,7 @@ void ECSystem::InitializeEngine()
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(graphics);
 	graphics->SetName("Graphics");
+	graphics->Initialize();
 	graphics->PreLoadTextures();
 
 	auto physics = new PhysicsSystem(m_o_EntityComponentManager);
@@ -132,7 +135,6 @@ bool ECSystem::IsEngineOn() const
 void ECSystem::Update()
 {
 	AESysFrameStart();
-
 
 	auto dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 
