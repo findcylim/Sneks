@@ -1,5 +1,7 @@
 #include "MemoryAllocator.h"
 #include <iostream>
+#include <set>
+#include <iomanip>
 
 int allocCounter = 0;
 int deleteCounter = 0;
@@ -51,12 +53,19 @@ void LogMemoryLeaks()
 		//Asset if file is open
 		if (outFile.is_open())
 		{
-			outFile << ::allAllocations.size() << " MEMORY LEAK DETECTED!" << std::endl;
+			outFile << ::allAllocations.size() << " MEMORY LEAK(S) DETECTED!" << std::endl;
+			std::set<MallocDebugData> uniqueLeaks;
 			for (auto pairing : allAllocations)
 			{
 				outFile << "At address (" << pairing.first << "), Declared in file " << pairing.second.file << ", line " << pairing.second.line << std::endl;
+				uniqueLeaks.insert(pairing.second);
 			}
 			outFile << std::endl << std::endl << "Breakdown: " << std::endl << std::endl;
+			outFile << "Unique leaks found: " << uniqueLeaks.size() << std::endl;
+			for (auto unique : uniqueLeaks)
+			{
+				outFile << "File: " << std::left << std::setw(60) << unique.file << ", line " << unique.line << std::endl;
+			}
 		}
 		::allAllocations.clear();
 		outFile.close();

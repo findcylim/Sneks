@@ -14,7 +14,22 @@ struct MallocDebugData
 {
 	const char* file;
 	int line;
+	bool operator== (const MallocDebugData& rhs) const
+	{
+		return file == rhs.file && line == rhs.line;
+	}
+
 };
+
+inline bool operator <(const MallocDebugData& lhs, const MallocDebugData& rhs)
+{
+	if (lhs.file == rhs.file)
+	{
+		return lhs.line < rhs.line;
+	}
+	return lhs.file < rhs.file;
+}
+
 
 extern int allocCounter;
 extern int deleteCounter;
