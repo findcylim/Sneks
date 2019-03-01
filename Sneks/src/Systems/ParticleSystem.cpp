@@ -167,6 +167,6 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 
 	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
 		pep, Component::kComponentDraw)->m_f_DrawPriority = pec->GetParticleDrawOrder();
-}
+
 
 }
