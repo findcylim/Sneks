@@ -23,8 +23,8 @@ public:
 	PhysicsSystem(EntityManager* entityManagerPtr);
 
 	void Initialize(GameStateManager* gameStateManager);
-	void receive(const Events::EV_PLAYER_COLLISION& eventData) override;
-	void receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
+	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
+	void Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
 	void Update(float dt) override;
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
 	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;

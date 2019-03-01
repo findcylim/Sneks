@@ -2,7 +2,7 @@
 #include "../Components/CameraComponent.h"
 
 
-void CameraSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
 		SetShake(0.4f);
@@ -23,6 +23,7 @@ BaseSystem(entityManagerPtr)
 
 CameraSystem::~CameraSystem()
 {
+	delete m_po_CamShake;
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 

@@ -65,6 +65,11 @@ namespace Events
 		HTVector2* pos,*velocity;
 		const char * texName;
 	};
+
+	struct EV_PLAY_SOUND
+	{
+
+	};
 }
 
 
@@ -132,7 +137,7 @@ public:
 	{
 		auto type		= getTypeIndex<T>();
 		auto v_Listener = m_l_ListenerList.find(type);
-		for (auto i_Listener = v_Listener->second.begin();i_Listener!=v_Listener->second.end();i_Listener++)
+		for (auto i_Listener = v_Listener->second.begin();i_Listener <= v_Listener->second.end(); ++i_Listener)
 		{
 			auto ii_Listener = reinterpret_cast<BaseEventListener*>(listener);
 			if (ii_Listener == *i_Listener)
@@ -167,7 +172,7 @@ public:
 			for (auto* baseListener : i_Listener->second)
 			{
 				auto* Listener = reinterpret_cast<EventListener<T>*>(baseListener);
-				Listener->receive(event);
+				Listener->Receive(event);
 			}
 			return true;
 		}

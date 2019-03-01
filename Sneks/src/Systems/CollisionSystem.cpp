@@ -11,10 +11,18 @@ BaseSystem(entityManagerPtr)
 
 CollisionSystem::~CollisionSystem()
 {
+	for (auto group : m_xo_ComponentsPerGroup)
+	{
+		for (auto objectHitBox : group->objectsHitBoxes)
+		{
+			delete objectHitBox;
+		}
+		delete group;
+	}
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
-void CollisionSystem::receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
+void CollisionSystem::Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 	UpdateComponentsPerGroup();
@@ -90,7 +98,12 @@ void CollisionSystem::AddComponentToCollisionGroup(CollisionComponent* collision
 
 void CollisionSystem::UpdateComponentsPerGroup()
 {
-	m_xo_ComponentsPerGroup.clear();
+	for (auto cpg : m_xo_ComponentsPerGroup)
+	{
+		cpg->objects.clear();
+	}
+	//m_xo_ComponentsPerGroup.clear();
+
 	auto i_CollisionComponent =
 		m_po_ComponentManager->GetFirstComponentInstance<CollisionComponent>(kComponentCollision);
 
@@ -129,7 +142,10 @@ void CollisionSystem::UpdateAllHitBoxes()
 
 void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup) const
 {
-	//TODO::FIX MEMORY LEAK
+	for (auto aabb : collisionGroup->objectsHitBoxes)
+	{
+		delete aabb;
+	}
 	collisionGroup->objectsHitBoxes.clear();
 	while (collisionGroup->objects.size() > collisionGroup->objectsHitBoxes.size())
 	{

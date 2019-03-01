@@ -25,7 +25,7 @@ void ProjectileSystem::Initialize()
 	m_o_EventManagerPtr->AddListener<Events::EV_CREATE_PROJECTILE>(this);
 }
 
-void ProjectileSystem::receive(const Events::EV_CREATE_PROJECTILE& eventData)
+void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 {
 	ProjectileEntity* ent = m_po_EntityManager->NewEntity<ProjectileEntity>(kEntityProjectile, eventData.texName);
 	auto T_Comp = ent->GetComponent<TransformComponent>();
@@ -43,10 +43,10 @@ void ProjectileSystem::receive(const Events::EV_CREATE_PROJECTILE& eventData)
 	C_Comp->m_i_CollisionGroupVec.push_back(kCollGroupMoon);
 
 	auto G_Comp = ent->GetComponent<DrawComponent>();
-	G_Comp->Initialize(m_o_GraphicsSystem->FetchTexture(eventData.texName));
+	m_o_GraphicsSystem->InitializeDrawComponent(G_Comp, eventData.texName);
 }
 
-void ProjectileSystem::receive(const Events::EV_PLAYER_COLLISION& eventData)
+void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
 	{

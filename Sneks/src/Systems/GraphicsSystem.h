@@ -12,13 +12,19 @@ class GraphicsSystem : public BaseSystem,
 {
 public:
 	std::multimap<const char*, AEGfxTexture*> m_x_TextureMap;
+	std::multimap<const char*, AEGfxVertexList*> m_x_MeshMap;
 
 	GraphicsSystem(EntityManager* entityManagerPtr);
 	GraphicsSystem(GraphicsSystem&) = delete;
 	~GraphicsSystem();
 	void Initialize();
-	void receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
+	void InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, const float sizeX, const float sizeY, HTColor color ={ 1,1,1,1 });
+	void InitializeDrawComponent(DrawComponent* dc, const char* texture, const float sizeX, const float sizeY, HTColor color ={ 1,1,1,1 });
+	void InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, HTColor color ={ 1,1,1,1 });
+	void InitializeDrawComponent(DrawComponent* dc, const char* texture, HTColor color = {1,1,1,1});
+	void Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
 	AEGfxTexture* FetchTexture(const char* textureName);
+	AEGfxVertexList* FetchMesh(const char* meshName);
 	AEGfxTexture* FetchTexture(const char* textureName, int* retWidth, int* retHeight);
 	void PreLoadTextures();
 	void LoadTextureToMap(const char* fileName, const char* textureName);

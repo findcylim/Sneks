@@ -2,6 +2,7 @@
 #define SYSTEM_H
 
 #pragma once
+#include "../Utility/MemoryAllocator.h" //new overload
 
 #include "EventManager.h"
 #include "EntityManager.h"
@@ -12,7 +13,7 @@
 class BaseSystem 
 {
 protected:
-	const char*                m_c_SystemName;
+	const char*                m_c_SystemName = "Unknown";
 	short		                  m_s_SystemID;
 	bool		                  m_b_isActive;
 public:

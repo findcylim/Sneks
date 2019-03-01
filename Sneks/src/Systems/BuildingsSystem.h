@@ -11,7 +11,7 @@ public:
 	BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	void Update(float dt) override;
 	void Initialize();
-	StaticObjectEntity* CreateBuilding(float posX, float posY, float sizeX, float sizeY, const char* textureName) const;
+	StaticObjectEntity* CreateBuilding(float posX, float posY, const char* textureName) const;
 	void CreateInstancedBackgrounds(int instancesX, int instancesY, const char* textureName);
 
 	~BuildingsSystem() = default;

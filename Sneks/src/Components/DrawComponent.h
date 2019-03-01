@@ -26,13 +26,14 @@ public:
 
 	int							   m_f_DrawPriority = 5;
 
+	DrawComponent();
+	~DrawComponent() override;
 	void SetAlpha(float alpha);
 	void SetColor(float red, float green, float blue, float alpha);
 	float GetSizeX()	 const;
 	float GetSizeY()	 const;
-	void Initialize(AEGfxTexture* texture, float sizeX, float sizeY, HTColor color);
-	void Initialize(AEGfxTexture* texture, HTColor color);
-	void Initialize(AEGfxTexture* texture);
+	//void Initialize(AEGfxTexture* texture, float sizeX, float sizeY, HTColor color = {1,1,1,1});
+	//void Initialize(AEGfxTexture* texture, HTColor color= {1,1,1,1});
 };
 
 #endif

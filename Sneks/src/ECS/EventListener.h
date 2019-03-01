@@ -24,7 +24,7 @@ public:
 	//	Derived Systems that inherit this listener will overload their own receieve functions for whatever 
 	//	event that they are listening for.
 
-	virtual void receive(const T& eventData) = 0;
+	virtual void Receive(const T& eventData) = 0;
 
 };
 

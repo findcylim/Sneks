@@ -43,7 +43,7 @@ private:
 public:
 	CollisionSystem(EntityManager* entityManagerPtr);
 	~CollisionSystem();
-	void receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
+	void Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
 	void Update(float dt) override;
 	void Initialize();
 	void AddComponentToCollisionGroup(CollisionComponent* collisionComponent, unsigned int collisionGroup);

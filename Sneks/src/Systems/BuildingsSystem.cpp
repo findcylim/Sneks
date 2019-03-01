@@ -37,7 +37,7 @@ void BuildingsSystem::Initialize()
 
 }
 
-StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, float sizeX, float sizeY,
+StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, 
                                                     const char* textureName) const
 {
 	auto newBuildingEntity =
@@ -52,10 +52,7 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, floa
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			static_cast<DrawComponent*>(i_Component)->Initialize(
-				m_o_GraphicsSystem->FetchTexture(textureName),
-				sizeX, sizeY, HTColor{ 1,1,1,1 }
-			);
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 9;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
@@ -77,7 +74,7 @@ void BuildingsSystem::GenerateNewBuildings(int num)
 
 		
 		m_BuildingInstances.push_back(
-			CreateBuilding(newPosition->x, newPosition->y, 71, 42, "Building01")
+			CreateBuilding(newPosition->x, newPosition->y, "Building01")
 		);
 		/*DrawObject* building;
 		if (m_px_BuildingMesh == nullptr) {
