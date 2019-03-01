@@ -1,3 +1,4 @@
+
 #include "Utility/MemoryAllocator.h"
 #include <cstdlib>
 #include "ECS/EventManager.h"
@@ -10,6 +11,7 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 	LPSTR, int nCmdShow)
 {
+	//NOTE:: VS check for mem leaks use this before submission
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	AlphaEngineHelper::AlphaInitialize(hInstance, nCmdShow);
@@ -22,6 +24,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 	}
 	delete(engine);
 	AESysExit();
-	LogMemoryLeaks();
+	assert(!LogMemoryLeaks() && "Memory leaks detected! Check log file for more info.");
 	return 0;
 }

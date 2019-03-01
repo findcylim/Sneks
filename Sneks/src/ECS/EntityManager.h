@@ -13,7 +13,7 @@
 class EntityManager
 {
 	std::vector<BaseEntity*> m_v_EntityPool;
-	ComponentManager *m_po_ComponentManagerInstance = new ComponentManager;
+	ComponentManager *m_po_ComponentManagerInstance;
 	std::vector<BaseEntity*> m_v_ToDelete;
 
 	void AddEntity(BaseEntity* entityPointer, Entity entityType);
@@ -30,6 +30,7 @@ class EntityManager
 public:
 
 	EntityManager();
+	~EntityManager();
 
 	template <class T>
 	T* NewEntity(Entity entityType, const char* entityName)

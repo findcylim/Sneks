@@ -2,7 +2,6 @@
 #define ECSYSTEM_H
 #pragma once
 #include <minwindef.h> //HINSTANCE typdef
-#define new new(__FILE__,__LINE__)
 
 
 #include "EventManager.h"

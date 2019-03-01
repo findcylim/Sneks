@@ -80,6 +80,8 @@ inline void operator delete[](void* pMemory, const char*, int)noexcept
 void operator delete(void* pMemory)noexcept;
 
 #define new new(__FILE__,__LINE__)
+//#define malloc "Use new/delete instead of malloc/free!"
+//#define free "Use new/delete instead of malloc/free!"
 //
 //namespace{
 //	std::map<void*, MallocDebugData> allAllocations;
@@ -101,6 +103,6 @@ void operator delete(void* pMemory)noexcept;
 //
 //void operator delete[](void* pMemory, const char*, int) noexcept;
 //
-void LogMemoryLeaks();
+bool LogMemoryLeaks();
 
 #endif //MEMORY_ALLOCATOR_H

@@ -18,6 +18,7 @@
 #include "../Systems/ParticleSystem.h"
 #include "../Systems/AudioSystem.h"
 #include <iostream>
+#include <queue>
 
 ECSystem::ECSystem()
 {
@@ -141,8 +142,7 @@ void ECSystem::Update()
 
 	m_o_EventManager->Update();
 	m_o_SystemManager->Update(dt);
-	auto iii = new int;
-	(void)iii;
+
 	if (GetAsyncKeyState(AEVK_ESCAPE))
 	{
 		m_b_EngineStatus = false;

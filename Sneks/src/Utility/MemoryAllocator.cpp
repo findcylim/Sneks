@@ -24,13 +24,13 @@ void* operator new [](size_t size, const char* file, int line)
 #define new new(__FILE__,__LINE__)
 #endif
 
-void LogMemoryLeaks()
+bool LogMemoryLeaks()
 {
 	{
 		if (allAllocations.empty())
 		{
 			std::cerr << "There were " << allocCounter << " allocations and no leaks." << std::endl;
-			return;
+			return false;
 		}
 
 		char fileName[100] ={ '\0' };
@@ -69,6 +69,7 @@ void LogMemoryLeaks()
 		}
 		::allAllocations.clear();
 		outFile.close();
-
+		
 	}
+	return true;
 }
