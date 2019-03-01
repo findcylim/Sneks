@@ -3,7 +3,7 @@
 #include <iostream>
 #include "../Utility/FileIO.h"
 
-//#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS BEFORE INCLUDING SYSTEMMANAGER IF YOU WANT LOGGING
+#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
 
 #ifdef LOG_SYSTEM_UPDATE_TIME
 #define __STDC_WANT_LIB_EXT1__ 1
@@ -31,7 +31,7 @@ SystemManager::~SystemManager()
 		char fileName[100] = {'\0'};
 		char timeDate[100] = {'\0'};
 
-		strcpy_s(fileName, sizeof(fileName), "./Logs/time_log_");
+		strcpy_s(fileName, sizeof(fileName), "../Logs/time_log_");
 
 		auto time = std::time(nullptr);
 

@@ -2,6 +2,7 @@
 #define SYSTEM_H
 
 #pragma once
+#include "../Utility/MemoryAllocator.h" //new overload
 
 #include "EventManager.h"
 #include "EntityManager.h"

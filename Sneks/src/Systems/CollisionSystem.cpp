@@ -11,6 +11,14 @@ BaseSystem(entityManagerPtr)
 
 CollisionSystem::~CollisionSystem()
 {
+	for (auto group : m_xo_ComponentsPerGroup)
+	{
+		for (auto objectHitBox : group->objectsHitBoxes)
+		{
+			delete objectHitBox;
+		}
+		delete group;
+	}
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
@@ -90,7 +98,12 @@ void CollisionSystem::AddComponentToCollisionGroup(CollisionComponent* collision
 
 void CollisionSystem::UpdateComponentsPerGroup()
 {
-	m_xo_ComponentsPerGroup.clear();
+	for (auto cpg : m_xo_ComponentsPerGroup)
+	{
+		cpg->objects.clear();
+	}
+	//m_xo_ComponentsPerGroup.clear();
+
 	auto i_CollisionComponent =
 		m_po_ComponentManager->GetFirstComponentInstance<CollisionComponent>(kComponentCollision);
 

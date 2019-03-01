@@ -62,10 +62,6 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 	dc->m_po_TransformComponent->m_f_Scale *= largerDimension;
 
 	dc->m_f_RgbaColor = color;
-
-	dc->m_po_GlobalMatrix = new AEMtx33();
-	dc->m_po_RotationMatrix = new AEMtx33();
-	dc->m_po_TranslationMatrix = new AEMtx33();
 }
 
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, const char* texture, const float sizeX,

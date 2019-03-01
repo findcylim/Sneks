@@ -37,6 +37,7 @@ ECSystem::~ECSystem()
 	delete(m_o_EventManager);
 	delete(m_o_GameStateManager);
 	delete(m_o_EntityComponentManager);
+	
 }
 
 /*******************************************************
@@ -140,7 +141,8 @@ void ECSystem::Update()
 
 	m_o_EventManager->Update();
 	m_o_SystemManager->Update(dt);
-
+	auto iii = new int;
+	(void)iii;
 	if (GetAsyncKeyState(AEVK_ESCAPE))
 	{
 		m_b_EngineStatus = false;

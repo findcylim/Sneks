@@ -1,24 +1,15 @@
 #include "MemoryAllocator.h"
+#include <iostream>
 
-
-namespace {
-	void* HT_alloc(size_t size, const char* file, int line)
-	{
-		static int counter{};
-		void* allocation = malloc(size);
-		allAllocations[allocation] = MallocDebugData{ file,line };
-		return allocation;
-	}
-
-	void HT_free(void* pMemory)
-	{
-		auto key = ::allAllocations.find(pMemory);
-		free(pMemory);
-		if (key != allAllocations.end())
-			::allAllocations.erase(key);
-	}
+int allocCounter = 0;
+int deleteCounter = 0;
+void operator delete(void* pMemory)noexcept
+{
+	HT_free(pMemory);
 }
 
+#ifdef new 
+#undef new
 void* operator new(size_t size, const char* file, int line)
 {
 	return ::HT_alloc(size, file, line);
@@ -28,34 +19,22 @@ void* operator new [](size_t size, const char* file, int line)
 {
 	return ::HT_alloc(size, file, line);
 }
-
-void operator delete(void* pMemory, const char*, int)
-{
-	operator delete(pMemory);
-}
-
-void operator delete[](void* pMemory, const char*, int)
-{
-	operator delete(pMemory);
-}
-
-void operator delete(void* pMemory)
-{
-	HT_free(pMemory);
-}
+#define new new(__FILE__,__LINE__)
+#endif
 
 void LogMemoryLeaks()
 {
 	{
 		if (allAllocations.empty())
 		{
+			std::cerr << "There were " << allocCounter << " allocations and no leaks." << std::endl;
 			return;
 		}
 
 		char fileName[100] ={ '\0' };
 		char timeDate[100] ={ '\0' };
 
-		strcpy_s(fileName, sizeof(fileName), "./Logs/memory_leak_log_");
+		strcpy_s(fileName, sizeof(fileName), "../Logs/memory_leak_log_");
 
 		auto time = std::time(nullptr);
 
