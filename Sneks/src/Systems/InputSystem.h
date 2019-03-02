@@ -47,9 +47,9 @@ struct KeyState
 {
 	const unsigned m_i_KeyId;                 //the m_i_KeyId
 	const bool     m_b_CoolDownEnabled;       //If CoolDown Enabled
-	bool           m_b_KeyCoolingDown;        //Is the Key on CD?
 	const float    m_f_CoolDown;              //Value in ms
 	float          m_f_CurrentCoolDownTimer;  //The timer to keep track of whether it's on CD
+	KeyState(unsigned keyId);
 };
 
 class InputSystem : public BaseSystem
@@ -65,6 +65,7 @@ private:
 	Logger*				m_o_Logger;
 	std::vector<KeyState> m_x_CurrentKeyStates;
 	void SetKeyBinds();
+	void ResolveKeyPress(unsigned char keyId);
 };
 
 #endif

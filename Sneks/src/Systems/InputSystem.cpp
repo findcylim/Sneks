@@ -38,6 +38,11 @@ KeyState m_x_CurrentKeyStates[] ={
 
 constexpr size_t kKeyCount = sizeof(m_x_CurrentKeyStates) / sizeof(KeyState);
 
+KeyState::KeyState(unsigned keyId, float coolDOwn):
+m_i_KeyId(keyId)
+{
+}
+
 InputSystem::InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager, Logger* logger) :
 	BaseSystem(entityManagerPtr)
 {
@@ -60,11 +65,25 @@ void InputSystem::SetKeyBinds()
 	}*/
 }
 
+void InputSystem::ResolveKeyPress(unsigned char keyId)
+{
+	switch(keyId)
+	{
+	case AEVK_W:
+	case AEVK_S:
+	case AEVK_A:
+	case AEVK_D:
+		break;
+	default:
+		break;
+	}
+}
+
 void InputSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
-	/*
-	for (i = 0; i < kKeyCount; i++)
+	
+	for (unsigned i = 0; i < kKeyCount; i++)
 	{
 		KeyState *current_key = &m_x_CurrentKeyStates[i];
 		//decrement m_i_KeyId cd timers if they are cooling down
@@ -73,12 +92,12 @@ void InputSystem::Update(float dt)
 			//subtract by deltatime in ms
 			if (current_key->m_f_CurrentCoolDownTimer >= 0.0f)
 			{
-				current_key->m_f_CurrentCoolDownTimer -= kKeyCount;
+				current_key->m_f_CurrentCoolDownTimer -= dt * 1000;
 			}
 			else
 			{
 				//finished cooling down
-				current_key->m_b_KeyCoolingDown = 0;
+				current_key->m_b_KeyCoolingDown = false;
 				current_key->m_f_CurrentCoolDownTimer = 0;
 			}
 		}
@@ -96,17 +115,19 @@ void InputSystem::Update(float dt)
 				}
 				else
 				{
+					ResolveKeyPress(current_key->m_i_KeyId);
+					//Emit(GEV_KEYPRESS, (void*)&(current_key->m_i_KeyId));
 					// fire off but set it to cooling down
 					current_key->m_f_CurrentCoolDownTimer = current_key->m_f_CoolDown;
-					current_key->m_b_KeyCoolingDown = 1;
+					current_key->m_b_KeyCoolingDown = true;
 				}
 			}
 
-			//PostEvent(GEV_KEYPRESS, (void*)&(current_key->m_i_KeyId));
+
 
 
 		}
-	}*/
+	}
 
 	//State currentState = m_o_GameStateManager->ReturnCurrentState();
 
