@@ -49,7 +49,8 @@ struct KeyState
 	const bool     m_b_CoolDownEnabled;       //If CoolDown Enabled
 	const float    m_f_CoolDown;              //Value in ms
 	float          m_f_CurrentCoolDownTimer;  //The timer to keep track of whether it's on CD
-	KeyState(unsigned keyId);
+	//eventID?
+	KeyState(unsigned keyId, float coolDown);
 };
 
 class InputSystem : public BaseSystem

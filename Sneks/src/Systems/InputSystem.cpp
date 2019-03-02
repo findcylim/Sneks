@@ -13,35 +13,38 @@
 	pause screen etc...)
 
 ***************************************************/
-KeyState m_x_CurrentKeyStates[] ={
-	{ HTKEY_W,        true,    false,    100,    0 },
-	{ HTKEY_A,        true,    false,    100,    0 },
-	{ HTKEY_S,        true,    false,    100,    0 },
-	{ HTKEY_D,        true,    false,    100,    0 },
-	{ HTKEY_LEFT,     true,    false,    100,    0 },
-	{ HTKEY_RIGHT,    true,    false,    100,    0 },
-	{ HTKEY_DOWN,     true,    false,    100,    0 },
-	{ HTKEY_UP,       true,    false,    100,    0 },
-	{ HTKEY_SPACE,    true,    false,    100,    0 },
-	{ HTKEY_ENTER,    true,    false,    100,    0 },
-	{ HTKEY_ESC,      true,    false,    100,    0 },
-	{ HTKEY_E,        true,    false,    100,    0 },
-	{ HTKEY_P,        true,    false,    100,    0 },
-	{ HTKEY_C,        true,    false,    100,    0 },
-	{ HTKEY_B,        true,    false,    100,    0 },
-	{ HTKEY_NUM_1,    true,    false,    100,    0 },
-	{ HTKEY_NUM_2,    true,    false,    100,    0 },
-	{ HTKEY_NUM_3,    true,    false,    100,    0 },
-	{ HTKEY_NUM_4,    true,    false,    100,    0 },
-	{ HTKEY_NUM_5,    true,    false,    100,    0 }
+std::vector<KeyState> m_x_CurrentKeyStates ={
+	{ HTKEY_W},
+	{ HTKEY_A},
+	{ HTKEY_S},
+	{ HTKEY_D},
+	{ HTKEY_LEFT},
+	{ HTKEY_RIGHT},
+	{ HTKEY_DOWN},
+	{ HTKEY_UP},
+	{ HTKEY_SPACE},
+	{ HTKEY_ENTER},
+	{ HTKEY_ESC},
+	{ HTKEY_E},
+	{ HTKEY_P},
+	{ HTKEY_C},
+	{ HTKEY_B},
+	{ HTKEY_NUM_1},
+	{ HTKEY_NUM_2},
+	{ HTKEY_NUM_3},
+	{ HTKEY_NUM_4},
+	{ HTKEY_NUM_5},
+	{ AEVK_COMMA}
 };
 
 constexpr size_t kKeyCount = sizeof(m_x_CurrentKeyStates) / sizeof(KeyState);
 
-KeyState::KeyState(unsigned keyId, float coolDOwn):
-m_i_KeyId(keyId)
-{
-}
+KeyState::KeyState(unsigned keyId, float coolDown = 100):
+m_i_KeyId(keyId),
+m_b_CoolDownEnabled(coolDown > 0),
+m_f_CoolDown(coolDown),
+m_f_CurrentCoolDownTimer(0)
+{}
 
 InputSystem::InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager, Logger* logger) :
 	BaseSystem(entityManagerPtr)
@@ -87,7 +90,7 @@ void InputSystem::Update(float dt)
 	{
 		KeyState *current_key = &m_x_CurrentKeyStates[i];
 		//decrement m_i_KeyId cd timers if they are cooling down
-		if (current_key->m_b_CoolDownEnabled && current_key->m_b_KeyCoolingDown)
+		if (current_key->m_b_CoolDownEnabled && current_key->m_f_CurrentCoolDownTimer > 0)
 		{
 			//subtract by deltatime in ms
 			if (current_key->m_f_CurrentCoolDownTimer >= 0.0f)
@@ -97,7 +100,6 @@ void InputSystem::Update(float dt)
 			else
 			{
 				//finished cooling down
-				current_key->m_b_KeyCoolingDown = false;
 				current_key->m_f_CurrentCoolDownTimer = 0;
 			}
 		}
@@ -108,7 +110,7 @@ void InputSystem::Update(float dt)
 			// and cooldown enabled
 			if (current_key->m_b_CoolDownEnabled)
 			{
-				if (current_key->m_b_KeyCoolingDown)
+				if (current_key->m_f_CurrentCoolDownTimer > 0)
 				{
 					// if it's cooling down dont fire off
 					continue;
@@ -119,7 +121,6 @@ void InputSystem::Update(float dt)
 					//Emit(GEV_KEYPRESS, (void*)&(current_key->m_i_KeyId));
 					// fire off but set it to cooling down
 					current_key->m_f_CurrentCoolDownTimer = current_key->m_f_CoolDown;
-					current_key->m_b_KeyCoolingDown = true;
 				}
 			}
 

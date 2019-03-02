@@ -192,7 +192,7 @@ public:
 	virtual ~EventManager();
 private:
 	std::map<std::type_index,std::vector<BaseEventListener*>> m_l_ListenerList;
-	bool hasEvent(short EventId);
+	bool hasEvent(short EventId) const;
 	Logger* m_o_Logger;
 	std::vector<std::vector<CallbackP>> m_EventCallBackList;
 	//template<typename T>
