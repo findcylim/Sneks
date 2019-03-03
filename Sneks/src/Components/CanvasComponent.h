@@ -33,6 +33,7 @@ class CanvasElementComponent : public BaseComponent
 public:
 	char* m_pc_ElementText = nullptr;
 	AEGfxTexture * m_x_BasicSprite,* m_x_HoverSprite,* m_x_ClickSprite;
+	void(*ButtonFunction)(void);
 	CanvasElementComponent() {}
 	~CanvasElementComponent()
 	{

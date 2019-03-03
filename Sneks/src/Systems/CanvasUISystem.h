@@ -14,7 +14,8 @@ public:
 	~CanvasUISystem();
 	void Initialize();
 	void AddElement(CanvasComponent* canvasComponent, HTVector2 initPosition, CanvasElementEnum num, const char * name,
-		const char * uiElementSprite, const char* uiText = "", const char * uiHoverSprite = "", const char * uiClickSprite = "");
+		const char * uiElementSprite, const char* uiText = "", const char * uiHoverSprite = "", const char * uiClickSprite = "", 
+		void(*ButtonFunction)() = nullptr);
 	void ClearUI(CanvasComponent* canvas);
 	void Receive(const Events::EV_NEW_UI_ELEMENT& eventData) override;
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;

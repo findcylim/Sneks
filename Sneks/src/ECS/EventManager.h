@@ -82,6 +82,7 @@ namespace Events
 		const char * uiTextLabel = "";
 		const char * uiHoverSpriteName = "";
 		const char * uiClickSpriteName = "";
+		void(*ButtonPressFunc)(void) = nullptr;
 	};
 }
 
