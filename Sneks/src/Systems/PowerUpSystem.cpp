@@ -1,5 +1,6 @@
 
 #include "PowerUpSystem.h"
+#include "../Components/InvulnerableComponent.h"
 
 
 
@@ -107,7 +108,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 {
-	PowerUpType type = kPowerUpSpeedIncrease;//static_cast<PowerUpType>(rand() % kPowerUpEnd);
+	PowerUpType type = kPowerUpInvul;//static_cast<PowerUpType>(rand() % kPowerUpEnd);
 
 	if (powerup->IsAlive() || powerup->GetJustDied())
 		RemovePowerUp(powerup);
@@ -130,6 +131,14 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 			break;
 
 		case kPowerUpInvul:
+			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>
+				(powerup, KComponentInvulnerable)->m_f_InvulnerableTime = powerup->GetPowerIncrease();
+
+			for (auto i_BodyParts : m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+				(powerup, kComponentSnekHead)->m_x_BodyParts)
+				m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
+					i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime =
+					powerup->GetPowerIncrease();
 			break;
 
 		case kPowerUpPlusBody:
@@ -158,6 +167,13 @@ void PowerUpSystem::RemovePowerUp(PowerUpComponent* powerup)
 		break;
 
 	case kPowerUpInvul:
+		m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>
+			(powerup, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
+
+		for (auto i_BodyParts : m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+			(powerup, kComponentSnekHead)->m_x_BodyParts)
+			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
+				i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
 		break;
 	}
 
