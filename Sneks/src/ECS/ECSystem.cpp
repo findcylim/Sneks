@@ -15,6 +15,7 @@
 #include "../Systems/ProjectileSystem.h"
 #include "../Systems/ParticleSystem.h"
 #include "../Systems/AudioSystem.h"
+#include "../Systems/PowerUpSystem.h"
 #include <iostream>
 
 ECSystem::ECSystem()
@@ -111,6 +112,10 @@ void ECSystem::InitializeEngine()
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(particle);
 	particle->Initialize();
+
+	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics);
+	m_o_SystemManager->AddSystem(powerup);
+	powerup->Initialize();
 
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(audio);

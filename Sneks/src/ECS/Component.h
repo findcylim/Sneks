@@ -6,7 +6,6 @@
 enum Component : unsigned char
 {
 	kComponentBase,
-	kComponentSample,
 	kComponentTransform,
 	kComponentDraw,
 	kComponentPhysics,
@@ -17,6 +16,7 @@ enum Component : unsigned char
 	kComponentFollow,
 	kComponentParticleEffect,
 	kComponentParticle,
+	kComponentPowerUp,
 	kComponentEnd
 };
 

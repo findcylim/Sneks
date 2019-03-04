@@ -16,9 +16,4 @@ class BaseComponent
 		BaseComponent* m_po_PrevComponent = nullptr, *m_po_NextComponent = nullptr;
 };
 
-class SampleComponent : BaseComponent
-{
-	public:
-};
-
 #endif

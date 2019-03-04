@@ -123,6 +123,12 @@
     <ClCompile Include="Systems\AudioSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Components\PowerUpComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\PowerUpSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -261,6 +267,12 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Systems\AudioSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PowerUpComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\PowerUpSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

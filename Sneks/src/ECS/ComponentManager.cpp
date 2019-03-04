@@ -14,6 +14,7 @@
 #include "../Components/FollowComponent.h"
 #include "../Components/ParticleEffectComponent.h"
 #include "../Components/ParticleComponent.h"
+#include "../Components/PowerUpComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -31,8 +32,6 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 		{
 		case Component::kComponentBase:
 			componentPointer = new BaseComponent;
-			break;
-		case Component::kComponentSample:
 			break;
 		case Component::kComponentTransform:
 			componentPointer = static_cast<BaseComponent*>(new TransformComponent);
@@ -88,6 +87,9 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case kComponentParticle:
 			componentPointer = static_cast<BaseComponent*>(new ParticleComponent);
+			break;
+		case kComponentPowerUp:
+			componentPointer = static_cast<BaseComponent*>(new PowerUpComponent);
 			break;
 		default: ;
 		}
