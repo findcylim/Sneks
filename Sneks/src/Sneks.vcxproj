@@ -23,6 +23,7 @@
     <ClCompile Include="Components\DrawComponent.cpp" />
     <ClCompile Include="Components\ParticleComponent.cpp" />
     <ClCompile Include="Components\ParticleEffectComponent.cpp" />
+    <ClCompile Include="Components\TextRendererComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="Components\ParticleEffectComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\SnekHeadComponent.h" />
+    <ClInclude Include="Components\TextRendererComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />

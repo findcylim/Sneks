@@ -15,6 +15,7 @@
 #include "../Components/ParticleEffectComponent.h"
 #include "../Components/ParticleComponent.h"
 #include "../Components/CanvasComponent.h"
+#include "../Components/TextRendererComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -95,6 +96,12 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case kComponentCanvasElement:
 			componentPointer = static_cast<BaseComponent*>(new CanvasElementComponent);
+		case kComponentTextRenderer:
+			{
+			auto transformComponent = GetSpecificComponentInstance<TransformComponent>(
+				entityPointer, kComponentTransform
+			);
+			componentPointer = static_cast<BaseComponent*>(new TextRendererComponent(transformComponent));
 		default: ;
 		}
 

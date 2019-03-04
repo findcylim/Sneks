@@ -19,6 +19,7 @@ enum Component : unsigned char
 	kComponentParticle,
 	kComponentCanvas,
 	kComponentCanvasElement,
+	kComponentTextRenderer,
 	kComponentEnd
 };
 

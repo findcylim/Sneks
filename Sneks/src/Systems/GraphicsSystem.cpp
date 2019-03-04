@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include "../Utility/FileIO.h"
+#include "../Components/TextRendererComponent.h"
 
 GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr)
 {};
@@ -20,7 +21,7 @@ void GraphicsSystem::Initialize()
 {
 	//PreLoadTextures();
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
-
+	m_i_font = AEGfxCreateFont("Arial", 20, false, false);
 }
 
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, const float sizeX,
@@ -232,7 +233,7 @@ void GraphicsSystem::Draw(float dt)
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 		}
 	}
-	
+	DrawTextRenderer();
 }
 
 void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
@@ -271,5 +272,17 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 		}
 
 		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
+	}
+}
+
+
+void GraphicsSystem::DrawTextRenderer()const
+{
+	auto text_Comp = m_po_ComponentManager->GetFirstComponentInstance<TextRendererComponent>(kComponentTextRenderer);
+	while (text_Comp)
+	{
+		char textToDraw[100];
+		sprintf_s(textToDraw, 100, "Name: %s", text_Comp->m_p_Text);
+		AEGfxPrint(m_i_font, textToDraw, text_Comp->m_po_LinkedTransform->m_x_Position.x, text_Comp->m_po_LinkedTransform->m_x_Position.y, 1, 1, 1);
 	}
 }

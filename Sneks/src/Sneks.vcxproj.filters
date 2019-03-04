@@ -129,6 +129,9 @@
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Components\TextRendererComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="Systems\Menus\MainMenuSystem.h">
       <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\TextRendererComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

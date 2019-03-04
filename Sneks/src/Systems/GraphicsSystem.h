@@ -13,7 +13,7 @@ class GraphicsSystem : public BaseSystem,
 public:
 	std::multimap<const char*, AEGfxTexture*> m_x_TextureMap;
 	std::multimap<const char*, AEGfxVertexList*> m_x_MeshMap;
-
+	u32 m_i_font;
 	GraphicsSystem(EntityManager* entityManagerPtr);
 	GraphicsSystem(GraphicsSystem&) = delete;
 	~GraphicsSystem();
@@ -33,7 +33,7 @@ public:
 	void UpdateDrawOrderVector();
 	void Draw(float dt);
 	void UpdateMatrices(CameraComponent*) const;
-
+	void DrawTextRenderer()const;
 private:
 	std::vector<std::vector<DrawComponent*>> m_x_DrawOrder ={};
 
