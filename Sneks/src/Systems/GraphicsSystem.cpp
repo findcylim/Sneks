@@ -21,7 +21,7 @@ void GraphicsSystem::Initialize()
 {
 	//PreLoadTextures();
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
-	m_i_font = AEGfxCreateFont("Arial", 20, false, false);
+	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
 
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, const float sizeX,
@@ -282,9 +282,9 @@ void GraphicsSystem::DrawTextRenderer()const
 	while (text_Comp)
 	{
 		char textToDraw[100];
-		sprintf_s(textToDraw, 100, "Name: %s", text_Comp->m_p_Text);
-		AEGfxPrint(m_i_font, textToDraw, static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x), 
-										 static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y), 1, 1, 1);
+		sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+		AEGfxPrint(m_i_font, textToDraw, static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x-AEGfxGetWinMaxX() + text_Comp->m_o_PositionOffset.x), 
+										 static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y+ AEGfxGetWinMaxY() + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
 		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
 	}
 }

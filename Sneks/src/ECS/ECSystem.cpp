@@ -14,7 +14,7 @@
 #include "../Systems/BuildingsSystem.h"
 #include "../Systems/ProjectileSystem.h"
 #include "../Systems/ParticleSystem.h"
-//#include "../Systems/AudioSystem.h"
+#include "../Systems/AudioSystem.h"
 #include "../Systems/Menus/MainMenuSystem.h"
 
 #include <iostream>
@@ -70,6 +70,7 @@ void ECSystem::InitializeEngine()
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(graphics);
+	graphics->Initialize();
 	graphics->SetName("Graphics");
 	graphics->PreLoadTextures();
 
@@ -89,7 +90,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(levelLoader);
 	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
-/*
+
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
 	snek->SetName("Snek");
@@ -105,7 +106,7 @@ void ECSystem::InitializeEngine()
 	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(buildings);
 	buildings->SetName("Buildings");
-	buildings->Initialize();*/
+	buildings->Initialize();
 
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(collisions);
@@ -128,12 +129,12 @@ void ECSystem::InitializeEngine()
 	canvas->SetName("Canvas UI");
 	canvas->Initialize();
 
-	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
+	/*CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
 	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
-	canvas->SetName("Main Menu");
+	canvas->SetName("Main Menu");*/
 
 	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
 	m_o_SystemManager->AddSystem(input);
@@ -145,10 +146,10 @@ void ECSystem::InitializeEngine()
 
 
 
-	/*auto audio = new AudioSystem(m_o_EntityComponentManager);
+	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
-	audio->Initialize();*/
+	audio->Initialize();
 }
 
 void ECSystem::LoadMainMenu()

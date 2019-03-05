@@ -38,6 +38,7 @@
     <ClCompile Include="Math\CameraShake.cpp" />
     <ClCompile Include="Math\CollisionGroup.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
+    <ClCompile Include="Systems\AudioSystem.cpp" />
     <ClCompile Include="Systems\BackgroundSystem.cpp" />
     <ClCompile Include="Systems\BuildingsSystem.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />
     <ClInclude Include="Math\PerlinNoise.h" />
+    <ClInclude Include="Systems\AudioSystem.h" />
     <ClInclude Include="Systems\BackgroundSystem.h" />
     <ClInclude Include="Systems\BuildingsSystem.h" />
     <ClInclude Include="Systems\CameraSystem.h" />
@@ -203,7 +205,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Alpha_EngineD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Alpha_EngineD.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\ALPHA\Lib\x64;$(SolutionDir)Dependencies\glew\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
