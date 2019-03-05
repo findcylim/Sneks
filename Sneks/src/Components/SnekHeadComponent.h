@@ -12,7 +12,7 @@ public:
 	float m_f_TurnSpeed                    = 6;
 	float m_f_IdleSpeed                    = 100;		//default move speed
 
-	//unused
+	//unused for now
 	float m_f_Friction                     = 1.5f;
 	float m_f_BrakeForce                   = 6;
 	float m_f_TurnMinSpeed                 = 60;       //need to be moving at this speed to turn

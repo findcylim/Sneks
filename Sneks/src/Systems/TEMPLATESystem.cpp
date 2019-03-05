@@ -11,7 +11,7 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 	}
 	else
-		SetShake(3.0f);
+		SetShake(2.0f);
 }
 
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr):
@@ -155,7 +155,7 @@ float CameraSystem::AddShake(float magnitude)
 
 void CameraSystem::SetShake(float magnitude)
 {
-	m_po_CamShake->SetShake(magnitude);
+	m_po_CamShake->AddShake(magnitude);
 }
 
 

@@ -188,7 +188,6 @@ void SnekSystem::Receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 	BodyInvulnerableSet(eventData.snekHead);
 }
 
-bool press = false,press2 = false; //REMOVE  LATER TODO
 void SnekSystem::Update(float dt)
 {
 
@@ -215,44 +214,30 @@ void SnekSystem::Update(float dt)
 		auto headPhysicsComponent = i_SnekHead->m_po_OwnerEntity->
 								GetComponent<PhysicsComponent>();
 
-		if (GetAsyncKeyState(i_SnekHead->m_i_BoostKey))
+		if (AEInputCheckTriggered((u8)i_SnekHead->m_i_BoostKey))
 		{
-			if (!press) 
-			{
-				Events::EV_CREATE_PROJECTILE projData;
-				
-				projData.pos = &headTransComponent->m_x_Position;
+			Events::EV_CREATE_PROJECTILE projData;
+			
+			projData.pos = &headTransComponent->m_x_Position;
 
-				projData.velocity = &headPhysicsComponent->m_x_Velocity;
+			projData.velocity = &headPhysicsComponent->m_x_Velocity;
 
-				projData.rot = headTransComponent->GetRotation();
-				projData.speed = 1400.0f;
-				projData.scale = 0.1f;
-				projData.isCollide = true;
+			projData.rot = headTransComponent->GetRotation();
+			projData.speed = 1400.0f;
+			projData.scale = 0.1f;
+			projData.isCollide = true;
 
-				projData.texName = "Moon";
+			projData.texName = "Moon";
 
-				m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
-				press = true;
-			}
-		}
-		else
-		{
-			press = false;
+			m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
 
-		if (GetAsyncKeyState(AEVK_F) < 0)
+
+		if (AEInputCheckTriggered(AEVK_F))
 		{
-			if (!press2)
-			{
-				press2 = true;
-				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
-			}
+			Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
 		}
-		else
-		{
-			press2 = false;
-		}
+
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
@@ -399,7 +384,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 5000;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 2000;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
@@ -413,7 +398,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BrakeKey = AEVK_S;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
-				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_RCTRL;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
