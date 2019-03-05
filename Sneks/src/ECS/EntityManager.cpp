@@ -224,13 +224,13 @@ void EntityManager::ResolveDeletes()
 	m_v_ToDelete.clear();
 }
 
-void EntityManager::DeleteEntity(BaseEntity* entityPointer)
+void EntityManager::  DeleteEntity(BaseEntity* entityPointer)
 {
 	if (entityPointer)
 	{
 		BaseEntity *prevEntity = entityPointer->m_po_PrevEntiy, *nextEntity = entityPointer->m_po_NextEntity;
 
-		while (entityPointer->m_v_AttachedComponentsList.size() > 0)
+		while (!entityPointer->m_v_AttachedComponentsList.empty())
 			m_po_ComponentManagerInstance->DeleteComponent(entityPointer->m_v_AttachedComponentsList[0]);
 
 		if (prevEntity && nextEntity)

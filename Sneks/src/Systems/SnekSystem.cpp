@@ -137,6 +137,10 @@ void SnekSystem::HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim
 
 	auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity));
 	aggPhysics->SetVelocity(newVel);
+
+	if (aggPhysics->m_f_Speed > aggPhysics->m_f_MaxSpeed) {
+		aggPhysics->m_f_Speed = aggPhysics->m_f_MaxSpeed;
+	}
 }
 
 void SnekSystem::HeadInvulnerableSet(float duration, BaseComponent* anyComponent)
@@ -676,6 +680,11 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 
 	auto scaleFactor = (stretchFactor - 1.0f) * stretchFactorMultiplier + 1.0f;
 
+	if (headPhysicsComponent->m_po_OwnerEntity == reference->m_po_OwnerEntity)
+	{
+		stretchFactor = 0.3f;
+	}
+
 	toChange->m_po_TransformComponent->m_f_ScaleMultiplier.x = scaleFactor;
 
 	toChange->m_po_TransformComponent->m_x_Position.x = reference->m_po_TransformComponent->m_x_Position.x + 
@@ -709,42 +718,6 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 	toChange->m_po_TransformComponent->m_x_Position.y =
 		reference->m_po_TransformComponent->m_x_Position.y + distanceY
 		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
-
-}
-
-void SnekSystem::MoveTowardsReference3(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
-{
-	UNREFERENCED_PARAMETER(headPhysicsComponent);
-
-	AEVec2 rotation;
-	AEVec2FromAngle(&rotation, toChange->m_po_TransformComponent->GetRotation());
-
-	toChange->m_po_TransformComponent->m_x_Position.x = reference->m_po_TransformComponent->m_x_Position.x +
-		rotation.x * reference->m_po_TransformComponent->m_f_Scale.x / 3;
-	toChange->m_po_TransformComponent->m_x_Position.y = reference->m_po_TransformComponent->m_x_Position.y +
-		rotation.y * reference->m_po_TransformComponent->m_f_Scale.y / 3;
-
-	/*
-
-
-	//float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
-	//	 reference->m_po_TransformComponent->m_x_Position.x;
-	//float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
-	//	 reference->m_po_TransformComponent->m_x_Position.y;
-
-	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
-
-
-	 if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
-		toChange->m_po_TransformComponent->m_x_Position.x =
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX
-			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
-
-		toChange->m_po_TransformComponent->m_x_Position.y =
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY
-			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
-
-	}*/
 
 }
 

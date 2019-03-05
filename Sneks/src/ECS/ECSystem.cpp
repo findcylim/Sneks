@@ -70,65 +70,69 @@ void ECSystem::InitializeEngine()
 	m_o_EntityComponentManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
+	auto physics = new PhysicsSystem(m_o_EntityComponentManager);
+	auto camera = new CameraSystem(m_o_EntityComponentManager);
+	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
+	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
+	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
+	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
+	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
+	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
+	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
+	auto audio = new AudioSystem(m_o_EntityComponentManager);
+
+
+
+	m_o_SystemManager->AddSystem(projectile);
+	projectile->SetName("Projectile");
+	projectile->Initialize();
+
+	m_o_SystemManager->AddSystem(particle);
+	particle->SetName("Particles");
+	particle->Initialize();
+
+	m_o_SystemManager->AddSystem(snek);
+	snek->SetName("Snek");
+	snek->Initialize();
+
+	m_o_SystemManager->AddSystem(physics);
+	physics->SetName("Physics");
+	physics->Initialize(m_o_GameStateManager);
+
+	m_o_SystemManager->AddSystem(collisions);
+	collisions->Initialize();
+	collisions->SetName("Collisions");
+	m_b_EngineStatus = true;
+
+	m_o_SystemManager->AddSystem(camera);
+	camera->SetName("Camera");
+	camera->Initialize();
+
 	m_o_SystemManager->AddSystem(graphics);
 	graphics->SetName("Graphics");
 	graphics->Initialize();
 	graphics->PreLoadTextures();
 
-	auto physics = new PhysicsSystem(m_o_EntityComponentManager);
-	m_o_SystemManager->AddSystem(physics);
-	physics->SetName("Physics");
-	physics->Initialize(m_o_GameStateManager);
+	audio->SetName("Audio");
+	m_o_SystemManager->AddSystem(audio);
+	audio->Initialize();
 
-	auto camera = new CameraSystem(m_o_EntityComponentManager);
-	m_o_SystemManager->AddSystem(camera);
-	camera->SetName("Camera");
-	camera->Initialize();
 
-	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
-	m_o_SystemManager->AddSystem(levelLoader);
-	levelLoader->SetName("LevelLoader");
-	//levelLoader->LoadLevel(kLevel1);
-
-	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
-	m_o_SystemManager->AddSystem(snek);
-	snek->SetName("Snek");
-	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
-	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
-	snek->Initialize();
-
-	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");
 	background->CreateInstancedBackgrounds(2, 2, "Background01");
 
-	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(buildings);
 	buildings->SetName("Buildings");
 	buildings->Initialize();
 
-	
-	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
-	m_o_SystemManager->AddSystem(collisions);
-	collisions->Initialize();
-	collisions->SetName("Collisions");
-	m_b_EngineStatus = true;
-	
+	m_o_SystemManager->AddSystem(levelLoader);
+	levelLoader->SetName("LevelLoader");
+	//levelLoader->LoadLevel(kLevel1);
 
-	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
-	m_o_SystemManager->AddSystem(projectile);
-	projectile->SetName("Projectile");
-	projectile->Initialize();
 
-	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
-	m_o_SystemManager->AddSystem(particle);
-	particle->SetName("Particles");
-	particle->Initialize();
-
-	auto audio = new AudioSystem(m_o_EntityComponentManager);
-	audio->SetName("Audio");
-	m_o_SystemManager->AddSystem(audio);
-	audio->Initialize();
+	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01", 0);
+	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
 }
 
 bool ECSystem::IsEngineOn() const

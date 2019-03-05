@@ -17,6 +17,12 @@ const char * BaseSystem::GetName()
 {
 	return m_c_SystemName;
 }
+
+bool BaseSystem::operator<(const BaseSystem& rhs) const
+{
+	return m_s_SystemID < rhs.m_s_SystemID;
+}
+
 void BaseSystem::SetID(short id)
 {
 	m_s_SystemID = id;

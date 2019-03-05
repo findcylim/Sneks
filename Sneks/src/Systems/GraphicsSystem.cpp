@@ -2,6 +2,10 @@
 #include <algorithm>
 #include <vector>
 #include "../Utility/FileIO.h"
+#include "../Utility/AlphaEngineHelper.h"
+
+static unsigned debugFont;
+void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
 
 GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr)
 {};
@@ -18,12 +22,14 @@ GraphicsSystem::~GraphicsSystem()
 		AEGfxMeshFree(pairing.second);
 	}
 	m_x_TextureMap.clear();
+	AEGfxDestroyFont(debugFont);
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
 
 }
 
@@ -230,7 +236,28 @@ void GraphicsSystem::Draw(float dt)
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 		}
 	}
-	
+
+
+	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+
+	SnekHeadEntity* snekHeadEntity = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+
+	auto snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+
+	s8 strBuffer[500];
+
+	sprintf_s(strBuffer, sizeof(strBuffer), "Snek 1 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+
+	AEGfxPrint(debugFont, strBuffer, -900, 480, 0, 0, 1);
+
+	snekHeadEntity = static_cast<SnekHeadEntity*>(snekHeadEntity->m_po_NextEntity);
+
+	snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+
+	sprintf_s(strBuffer, sizeof(strBuffer), "Snek 2 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+
+	AEGfxPrint(debugFont, strBuffer, 200, 480, 1, 0, 0);
+
 }
 
 void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
@@ -296,4 +323,18 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 		}
 		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
+}
+
+void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue)
+{
+	float halfScreenSizeX, halfScreenSizeY;
+	AlphaEngineHelper::GetScreenSize(&halfScreenSizeX, &halfScreenSizeY);
+	halfScreenSizeX /= 2;
+	halfScreenSizeY /= 2;
+
+	s8 strBuffer[500];
+	float posX = -halfScreenSizeX + relativePosX * halfScreenSizeX * 2;
+	float posY = -halfScreenSizeY + relativePosY * halfScreenSizeY * 2;
+	sprintf_s(strBuffer, sizeof(strBuffer), toPrint);
+	AEGfxPrint(fontId, strBuffer, (int)posX, (int)posY, red, green, blue);
 }
