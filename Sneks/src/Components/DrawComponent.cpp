@@ -7,6 +7,7 @@ DrawComponent::DrawComponent()
 	m_po_GlobalMatrix = new AEMtx33();
 	m_po_RotationMatrix = new AEMtx33();
 	m_po_TranslationMatrix = new AEMtx33();
+	m_po_ScaleMatrix = new AEMtx33();
 }
 
 DrawComponent::~DrawComponent()
@@ -14,6 +15,7 @@ DrawComponent::~DrawComponent()
 	delete m_po_GlobalMatrix;
 	delete m_po_RotationMatrix;
 	delete m_po_TranslationMatrix;
+	delete m_po_ScaleMatrix;
 }
 
 void DrawComponent::SetAlpha(float alpha)

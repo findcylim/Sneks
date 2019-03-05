@@ -59,7 +59,7 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 		m_x_MeshMap.insert(std::pair<const char*, AEGfxVertexList*>(texture->mpName, dc->m_px_Mesh));
 	}
 
-	dc->m_po_TransformComponent->m_f_Scale *= largerDimension;
+	dc->m_po_TransformComponent->m_f_Scale = dc->m_po_TransformComponent->m_f_Scale * largerDimension;
 
 	dc->m_f_RgbaColor = color;
 }
@@ -243,31 +243,57 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 		//Check if there is transform component
 		if (auto i_TransformComponent = i_DrawComponent->m_po_TransformComponent) {
 
-			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
-			AEMtx33ScaleApply(
-				i_DrawComponent->m_po_RotationMatrix, i_DrawComponent->m_po_RotationMatrix, 
-				i_TransformComponent->m_f_Scale, i_TransformComponent->m_f_Scale
+			AEMtx33 globalTransform;
+
+			AEMtx33Identity(&globalTransform);
+
+			AEMtx33Scale(i_DrawComponent->m_po_ScaleMatrix, 
+				i_TransformComponent->m_f_Scale.x * i_TransformComponent->m_f_ScaleMultiplier.x,
+				i_TransformComponent->m_f_Scale.y * i_TransformComponent->m_f_ScaleMultiplier.y
 				);
-			
+
+			AEMtx33Concat(&globalTransform, i_DrawComponent->m_po_ScaleMatrix,
+				&globalTransform
+			);
+
+			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
+
+			AEMtx33Concat(&globalTransform, i_DrawComponent->m_po_RotationMatrix,
+				&globalTransform
+			);
+
 			AEMtx33Trans(
 				i_DrawComponent->m_po_TranslationMatrix, i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y
 				);
 
-			/*generate global matrix from rot and trans*/
-			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_TranslationMatrix, i_DrawComponent->m_po_RotationMatrix
+			/*generate global matrix from rot and trans and scale*/
+			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix, i_DrawComponent->m_po_TranslationMatrix,
+				&globalTransform	
 				);
 
-			AEMtx33TransApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
+			AEMtx33 cameraTransform;
+			AEMtx33Identity(&cameraTransform);
+
+			AEMtx33TransApply(&cameraTransform,
+				&cameraTransform, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
 				);
 
-			AEMtx33ScaleApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
+			AEMtx33 rotMatrix;
+			AEMtx33Rot(&rotMatrix, cameraComponent->m_f_VirtualRotation);
+
+			AEMtx33Concat(&cameraTransform,
+				&rotMatrix, &cameraTransform
+			);
+
+			AEMtx33ScaleApply(&cameraTransform,
+				&cameraTransform, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
+				);
+
+			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix, 
+				&cameraTransform, i_DrawComponent->m_po_GlobalMatrix
 				);
 
 		}
-
 		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
 }

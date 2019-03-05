@@ -89,7 +89,6 @@ HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float
 
 HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) const
 {
-	//apply the velocity
 	AEVec2 forwardVector;
 	AEVec2FromAngle(&forwardVector, physicsComponent->m_po_TransformComponent->GetRotation());
 	HTVector2 forwardVelocity ={ forwardVector.x * physicsComponent->m_f_Speed, forwardVector.y * physicsComponent->m_f_Speed };
