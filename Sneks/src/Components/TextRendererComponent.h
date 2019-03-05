@@ -8,7 +8,7 @@ public:
 	TransformComponent* m_po_LinkedTransform;
 	char * m_p_Text;
 	TextRendererComponent() = delete;
-	TextRendererComponent(TransformComponent* t_Comp,const char* textIn = nullptr);
+	TextRendererComponent(TransformComponent* t_Comp,const char* textIn = "");
 	void SetText(const char * textIn);
 	~TextRendererComponent();
 };

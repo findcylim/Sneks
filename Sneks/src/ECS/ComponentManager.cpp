@@ -96,12 +96,14 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case kComponentCanvasElement:
 			componentPointer = static_cast<BaseComponent*>(new CanvasElementComponent);
+			break;
 		case kComponentTextRenderer:
-			{
+		{
 			auto transformComponent = GetSpecificComponentInstance<TransformComponent>(
-				entityPointer, kComponentTransform
-			);
+				entityPointer, kComponentTransform);
 			componentPointer = static_cast<BaseComponent*>(new TextRendererComponent(transformComponent));
+			break;
+		}
 		default: ;
 		}
 

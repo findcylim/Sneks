@@ -283,6 +283,8 @@ void GraphicsSystem::DrawTextRenderer()const
 	{
 		char textToDraw[100];
 		sprintf_s(textToDraw, 100, "Name: %s", text_Comp->m_p_Text);
-		AEGfxPrint(m_i_font, textToDraw, text_Comp->m_po_LinkedTransform->m_x_Position.x, text_Comp->m_po_LinkedTransform->m_x_Position.y, 1, 1, 1);
+		AEGfxPrint(m_i_font, textToDraw, static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x), 
+										 static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y), 1, 1, 1);
+		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
 	}
 }

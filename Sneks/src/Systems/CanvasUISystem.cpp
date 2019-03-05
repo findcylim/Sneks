@@ -1,4 +1,5 @@
 #include "CanvasUISystem.h"
+#include "../Components/TextRendererComponent.h"
 #include "../Utility/FileIO.h"
 
 
@@ -54,6 +55,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 	CanvasElementComponent* ui_Component = nullptr;
 	TransformComponent *    t_Component = nullptr;
 	DrawComponent *         d_Component = nullptr;
+	TextRendererComponent* text_Component = nullptr;
 	switch (num)
 	{
 		case kCanvasTextLabel:
@@ -62,6 +64,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			t_Component = newElement1->GetComponent<TransformComponent>();
 			ui_Component = newElement1->GetComponent<CanvasElementComponent>();
 			d_Component = newElement1->GetComponent<DrawComponent>();
+			text_Component = newElement1->GetComponent<TextRendererComponent>();
 			break;
 		}
 		case kCanvasBasicSprite:
@@ -70,6 +73,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			t_Component = newElement2->GetComponent<TransformComponent>();
 			ui_Component = newElement2->GetComponent<CanvasElementComponent>();
 			d_Component = newElement2->GetComponent<DrawComponent>();
+			text_Component = newElement2->GetComponent<TextRendererComponent>();
 			break;
 		}
 		case kCanvasButton:
@@ -80,6 +84,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			d_Component = newElement3->GetComponent<DrawComponent>();
 			ui_Component->ButtonFunction = ButtonFunction;
 			newElement3->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupUIButton);
+			text_Component = newElement3->GetComponent<TextRendererComponent>();
 			break;
 		}
 	}
@@ -100,12 +105,16 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		y /=2;
 		t_Component->m_x_Position = { initPosition.x + x, -(initPosition.y) - y };
 		t_Component->SetRotation(0);
-
+		
 		if (strcmp(uiText, "") != 0)
 		{
 			int length = static_cast<int>(strlen(uiText) + 1);
 			ui_Component->m_pc_ElementText = new char[length];
 			strcpy_s(ui_Component->m_pc_ElementText, length, uiText);
+			if (text_Component)
+			{
+				text_Component->m_p_Text = ui_Component->m_pc_ElementText;
+			}
 		}
 		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);
 	}
