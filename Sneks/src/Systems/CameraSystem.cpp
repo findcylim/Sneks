@@ -10,8 +10,8 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 
 	}
-	else
-		SetShake(2.0f);
+	//else
+		//SetShake(2.0f);
 }
 
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr):

@@ -91,6 +91,7 @@ void ECSystem::InitializeEngine()
 	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
 
+
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
 	snek->SetName("Snek");
@@ -128,14 +129,14 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(canvas);
 	canvas->SetName("Canvas UI");
 	canvas->Initialize();
-
-	/*CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
+/*
+	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
 	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
-	canvas->SetName("Main Menu");*/
-
+	canvas->SetName("Main Menu");
+*/
 	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
 	m_o_SystemManager->AddSystem(input);
 
