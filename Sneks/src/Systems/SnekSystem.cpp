@@ -698,28 +698,6 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 	toChange->m_po_TransformComponent->m_x_Position.y = reference->m_po_TransformComponent->m_x_Position.y + 
 		rotation.y * reference->m_po_TransformComponent->m_f_Scale.y / 3 * stretchFactor;
 
-	/*
-	
-	
-	//float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
-	//	 reference->m_po_TransformComponent->m_x_Position.x;
-	//float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
-	//	 reference->m_po_TransformComponent->m_x_Position.y;
-
-	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
-
- 
-	 if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
-		toChange->m_po_TransformComponent->m_x_Position.x =
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX
-			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
-
-		toChange->m_po_TransformComponent->m_x_Position.y =
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY
-			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
-
-	}*/
-
 }
 
 void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
@@ -739,7 +717,6 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 	if (stretchFactor > 1.0f)
 		stretchFactor = 1.0f;
 
-	//if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
 	toChange->m_po_TransformComponent->m_x_Position.x =
 		reference->m_po_TransformComponent->m_x_Position.x + distanceX
 		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
@@ -747,7 +724,6 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 	toChange->m_po_TransformComponent->m_x_Position.y =
 		reference->m_po_TransformComponent->m_x_Position.y + distanceY
 		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
-	//}
 
 }
 

@@ -102,6 +102,11 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadCo
 	{
 		physicsComponent->m_f_Speed *= 0.95f;
 	}
+	else
+	{
+		physicsComponent->m_f_Speed *= 0.999f;
+	}
+
 	//std::cout << "Accel: " << physicsComponent->m_f_Acceleration << ", " << physicsComponent->m_f_Speed << std::endl;
 	if (physicsComponent->m_f_Acceleration == 0) {
 		if (physicsComponent->m_f_Speed < snekHeadComponent->m_f_IdleSpeed)
@@ -111,6 +116,7 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadCo
 		else if (physicsComponent->m_f_Speed > 0)
 			physicsComponent->m_f_Speed -= snekHeadComponent->m_f_Friction;
 	}
+	
 }
 
 void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const
