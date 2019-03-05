@@ -7,6 +7,15 @@
 #include <iostream>
 #include <algorithm>
 
+struct FollowData
+{
+	AEVec2 pos;
+	AEVec2 vel;
+	float rot;
+};
+
+std::vector< std::vector<FollowData> > bodyPartsData;
+
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
 : BaseSystem(entityManagerPtr)
 {
@@ -56,9 +65,9 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				otherObjectCollide->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 		{
 			//for (int i = 0; i < 2; i ++)
-				CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-					"SnekBody01", snekHeadComp->m_i_PlayerNumber);
-
+			auto bodyTexture = snekHeadComp->m_i_PlayerNumber == 0 ? "SnekBody01" : "SnekBody02";
+			CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+				bodyTexture, snekHeadComp->m_i_PlayerNumber);
 		}
 		objectColliding->enabled = false;
 		auto objectDrawComp = 
@@ -178,6 +187,7 @@ void SnekSystem::Receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 {
 	BodyInvulnerableSet(eventData.snekHead);
 }
+
 bool press = false,press2 = false; //REMOVE  LATER TODO
 void SnekSystem::Update(float dt)
 {
@@ -282,8 +292,10 @@ void SnekSystem::Update(float dt)
 				);
 			
 			FaceReference(followComponent->m_po_TransformComponent, bodyDraw->m_po_TransformComponent);
-			if (!GetAsyncKeyState(AEVK_0))
+			if (i_SnekHead->m_i_PlayerNumber)
 				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
+			else
+				MoveTowardsReference2(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
 
 		i_SnekHead = static_cast<SnekHeadComponent*>(i_SnekHead->m_po_NextComponent);
@@ -338,9 +350,6 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 	}
 }
 
-
-
-
 void SnekSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
@@ -390,7 +399,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 5000;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
@@ -668,16 +677,39 @@ void SnekSystem::FaceReference(const TransformComponent* reference, TransformCom
 
 void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
 {
+	UNREFERENCED_PARAMETER(headPhysicsComponent);
 
-	float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
-		 reference->m_po_TransformComponent->m_x_Position.x;
-	float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
-		 reference->m_po_TransformComponent->m_x_Position.y;
+	AEVec2 rotation;
+	AEVec2FromAngle(&rotation, toChange->m_po_TransformComponent->GetRotation() );
+
+	auto stretchThreshold = 900.0f; //Any faster than this speed the snek will start stretching
+	auto stretchFactorMultiplier = 0.3f;
+	auto stretchFactor  =headPhysicsComponent->m_f_Speed / stretchThreshold;
+
+	if (stretchFactor < 1.0f)
+		stretchFactor = 1.0f;
+
+	auto scaleFactor = (stretchFactor - 1.0f) * stretchFactorMultiplier + 1.0f;
+
+	toChange->m_po_TransformComponent->m_f_ScaleMultiplier.x = scaleFactor;
+
+	toChange->m_po_TransformComponent->m_x_Position.x = reference->m_po_TransformComponent->m_x_Position.x + 
+		rotation.x * reference->m_po_TransformComponent->m_f_Scale.x / 3 * stretchFactor;
+	toChange->m_po_TransformComponent->m_x_Position.y = reference->m_po_TransformComponent->m_x_Position.y + 
+		rotation.y * reference->m_po_TransformComponent->m_f_Scale.y / 3 * stretchFactor;
+
+	/*
+	
+	
+	//float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
+	//	 reference->m_po_TransformComponent->m_x_Position.x;
+	//float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
+	//	 reference->m_po_TransformComponent->m_x_Position.y;
 
 	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
 
-	//TODO
-	if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
+ 
+	 if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
 		toChange->m_po_TransformComponent->m_x_Position.x =
 			reference->m_po_TransformComponent->m_x_Position.x + distanceX
 			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
@@ -686,7 +718,72 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 			reference->m_po_TransformComponent->m_x_Position.y + distanceY
 			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
 
-	}
+	}*/
+
+}
+
+void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
+{
+	UNREFERENCED_PARAMETER(headPhysicsComponent);
+
+	float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
+		 reference->m_po_TransformComponent->m_x_Position.x;
+	float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
+		 reference->m_po_TransformComponent->m_x_Position.y;
+
+	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
+
+	auto headBodyAllowance = 0.93f;
+	auto headBodyClosenessMultiplier = 0.4f;// *reference->m_po_TransformComponent->m_f_Scale;
+	auto stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
+	if (stretchFactor > 1.0f)
+		stretchFactor = 1.0f;
+
+	//if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
+	toChange->m_po_TransformComponent->m_x_Position.x =
+		reference->m_po_TransformComponent->m_x_Position.x + distanceX
+		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
+
+	toChange->m_po_TransformComponent->m_x_Position.y =
+		reference->m_po_TransformComponent->m_x_Position.y + distanceY
+		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
+	//}
+
+}
+
+void SnekSystem::MoveTowardsReference3(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
+{
+	UNREFERENCED_PARAMETER(headPhysicsComponent);
+
+	AEVec2 rotation;
+	AEVec2FromAngle(&rotation, toChange->m_po_TransformComponent->GetRotation());
+
+	toChange->m_po_TransformComponent->m_x_Position.x = reference->m_po_TransformComponent->m_x_Position.x +
+		rotation.x * reference->m_po_TransformComponent->m_f_Scale.x / 3;
+	toChange->m_po_TransformComponent->m_x_Position.y = reference->m_po_TransformComponent->m_x_Position.y +
+		rotation.y * reference->m_po_TransformComponent->m_f_Scale.y / 3;
+
+	/*
+
+
+	//float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
+	//	 reference->m_po_TransformComponent->m_x_Position.x;
+	//float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
+	//	 reference->m_po_TransformComponent->m_x_Position.y;
+
+	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
+
+
+	 if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
+		toChange->m_po_TransformComponent->m_x_Position.x =
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX
+			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
+
+		toChange->m_po_TransformComponent->m_x_Position.y =
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY
+			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
+
+	}*/
 
 }
 

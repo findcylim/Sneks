@@ -107,11 +107,13 @@ void ECSystem::InitializeEngine()
 	buildings->SetName("Buildings");
 	buildings->Initialize();
 
+	
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(collisions);
 	collisions->Initialize();
 	collisions->SetName("Collisions");
 	m_b_EngineStatus = true;
+	
 
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(projectile);
@@ -137,8 +139,12 @@ bool ECSystem::IsEngineOn() const
 void ECSystem::Update()
 {
 	AESysFrameStart();
+	AEInputUpdate();
 
 	auto dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
+
+	if (dt >= 3.0f / 60.0f)
+		dt = 3.0f / 60.0f;
 
 	m_o_EventManager->Update();
 	m_o_SystemManager->Update(dt);
@@ -148,7 +154,7 @@ void ECSystem::Update()
 		m_b_EngineStatus = false;
 	}
 	m_o_EntityComponentManager->ResolveDeletes();
-	AESysFrameEnd();
 
+	AESysFrameEnd();
 }
 

@@ -8,14 +8,17 @@
 class SnekHeadComponent : public BaseComponent
 {
 public:
-	float m_f_MaxVelocity                  = 700;
 	float m_f_AccelerationForce            = 200;
-	float m_f_BrakeForce                   = 6;
 	float m_f_TurnSpeed                    = 6;
-	float m_f_Friction                     = 1.5f;	   //natural slowdown
-	float m_f_TurnMinSpeed                 = 60;      //need to be moving at this speed to turn
-	float m_f_MinSpeed                     = 300;	   //if speed lower than this then clamp to 0
 	float m_f_IdleSpeed                    = 100;		//default move speed
+
+	//unused
+	float m_f_Friction                     = 1.5f;
+	float m_f_BrakeForce                   = 6;
+	float m_f_TurnMinSpeed                 = 60;       //need to be moving at this speed to turn
+	float m_f_MinSpeed                     = 300;
+	float m_f_MaxVelocity                  = 700;
+
 
 	unsigned short m_i_PlayerNumber        = 0;
 	unsigned int   m_i_AccelerationKey     = AEVK_UP;

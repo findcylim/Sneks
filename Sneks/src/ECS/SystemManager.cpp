@@ -154,7 +154,7 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 void SystemManager::Update(float dt)
 {
 #ifdef LOG_SYSTEM_UPDATE_TIME
-	fpsLog.push_back( 1.0f / static_cast<float>(AEFrameRateControllerGetFrameTime() ) );
+	fpsLog.push_back( 1.0f / static_cast<float>(dt) );
 #endif
 
 	for (BaseSystem* currSystem : m_v_SystemList)
