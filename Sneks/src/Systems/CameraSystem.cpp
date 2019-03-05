@@ -23,6 +23,7 @@ BaseSystem(entityManagerPtr)
 
 CameraSystem::~CameraSystem()
 {
+	delete m_po_CamShake;
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 

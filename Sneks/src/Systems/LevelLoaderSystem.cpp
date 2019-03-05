@@ -118,7 +118,7 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 					strncpy_s(texName, len, cPointer, len - 1);
 					//Change this to texture pool later TODO;
 
-					static_cast<DrawComponent*>(comp)->Initialize(m_o_GraphicsSystem->FetchTexture(texName));
+					m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(comp), texName);
 
 					break;
 				}

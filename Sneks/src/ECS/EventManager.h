@@ -137,7 +137,7 @@ public:
 	{
 		auto type		= getTypeIndex<T>();
 		auto v_Listener = m_l_ListenerList.find(type);
-		for (auto i_Listener = v_Listener->second.begin();i_Listener!=v_Listener->second.end();i_Listener++)
+		for (auto i_Listener = v_Listener->second.begin();i_Listener <= v_Listener->second.end(); ++i_Listener)
 		{
 			auto ii_Listener = reinterpret_cast<BaseEventListener*>(listener);
 			if (ii_Listener == *i_Listener)
@@ -192,7 +192,7 @@ public:
 	virtual ~EventManager();
 private:
 	std::map<std::type_index,std::vector<BaseEventListener*>> m_l_ListenerList;
-	bool hasEvent(short EventId);
+	bool hasEvent(short EventId) const;
 	Logger* m_o_Logger;
 	std::vector<std::vector<CallbackP>> m_EventCallBackList;
 	//template<typename T>

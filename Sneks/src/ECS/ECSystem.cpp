@@ -1,3 +1,5 @@
+#include "../Utility/MemoryAllocator.h"
+
 #include <windows.h>
 #include "ECSystem.h"
 #include "../Utility/FileIO.h"
@@ -17,6 +19,7 @@
 #include "../Systems/AudioSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include <iostream>
+#include <queue>
 
 ECSystem::ECSystem()
 {
@@ -24,8 +27,8 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager(m_o_Logger);
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_GameStateManager		   = new GameStateManager(kStateGame);
-	m_o_EntityComponentManager	   = new EntityManager();
-	m_b_EngineStatus			   = false;
+	m_o_EntityComponentManager	= new EntityManager();
+	m_b_EngineStatus			   = true;
 }
 
 
@@ -36,6 +39,7 @@ ECSystem::~ECSystem()
 	delete(m_o_EventManager);
 	delete(m_o_GameStateManager);
 	delete(m_o_EntityComponentManager);
+	
 }
 
 /*******************************************************
@@ -68,49 +72,56 @@ void ECSystem::InitializeEngine()
 
 	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(graphics);
-	graphics->SetID(0);
+	graphics->SetName("Graphics");
+	graphics->Initialize();
 	graphics->PreLoadTextures();
 
 	auto physics = new PhysicsSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(physics);
+	physics->SetName("Physics");
 	physics->Initialize(m_o_GameStateManager);
-	physics->SetID(1);
 
 	auto camera = new CameraSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(camera);
+	camera->SetName("Camera");
 	camera->Initialize();
-	camera->SetID(3);
 
 	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
 	m_o_SystemManager->AddSystem(levelLoader);
-	levelLoader->SetID(4);
+	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
 
 	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(snek);
+	snek->SetName("Snek");
 	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
 	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
 	snek->Initialize();
 
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(background);
+	background->SetName("Background");
 	background->CreateInstancedBackgrounds(2, 2, "Background01");
 
 	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(buildings);
+	buildings->SetName("Buildings");
 	buildings->Initialize();
 
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(collisions);
 	collisions->Initialize();
+	collisions->SetName("Collisions");
 	m_b_EngineStatus = true;
 
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(projectile);
+	projectile->SetName("Projectile");
 	projectile->Initialize();
 
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	m_o_SystemManager->AddSystem(particle);
+	particle->SetName("Particles");
 	particle->Initialize();
 
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics);
@@ -118,6 +129,7 @@ void ECSystem::InitializeEngine()
 	powerup->Initialize();
 
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
+	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
 }
@@ -130,7 +142,6 @@ bool ECSystem::IsEngineOn() const
 void ECSystem::Update()
 {
 	AESysFrameStart();
-
 
 	auto dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 

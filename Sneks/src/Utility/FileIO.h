@@ -1,6 +1,7 @@
 #ifndef FILE_IO_H
 #define FILE_IO_H
 #pragma once
+#include "../Utility/MemoryAllocator.h"
 #include <intrin.h>
 #include <fstream>
 #include <climits>

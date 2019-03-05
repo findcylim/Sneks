@@ -3,7 +3,8 @@
 #include <vector>
 #include "../Utility/FileIO.h"
 
-GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr){};
+GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr)
+{};
 
 
 GraphicsSystem::~GraphicsSystem()
@@ -12,15 +13,76 @@ GraphicsSystem::~GraphicsSystem()
 	{
 		AEGfxTextureUnload(pairing.second);
 	}
+	for (auto pairing : m_x_MeshMap)
+	{
+		AEGfxMeshFree(pairing.second);
+	}
+	m_x_TextureMap.clear();
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
-	//PreLoadTextures();
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 
 }
+
+void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, const float sizeX,
+	const float sizeY, HTColor color)
+{
+	auto largerDimension = max(sizeX, sizeY);
+
+	auto normalizedX = sizeX / largerDimension;
+	auto normalizedY = sizeY / largerDimension;
+
+	dc->m_x_MeshSize  ={ normalizedX, normalizedY };
+
+	dc->m_px_Texture  = texture;
+
+	if (auto mesh = FetchMesh(texture->mpName))
+	{
+		dc->m_px_Mesh = mesh;
+	}
+	else {
+		//check if mesh exists
+		AEGfxMeshStart();
+		AEGfxTriAdd(-(normalizedX / 2), -(normalizedY / 2), 0x00FFFFFF, 0, 1,
+			normalizedX / 2, -(normalizedY / 2), 0x0000FFFF, 1, 1,
+			-(normalizedX / 2), normalizedY / 2, 0x00FFFF00, 0, 0);
+
+		AEGfxTriAdd(
+			normalizedX / 2, normalizedY / 2, 0x00FFFFFF, 1, 0,
+			-(normalizedX / 2), normalizedY / 2, 0x00FFFFFF, 0, 0,
+			normalizedX / 2, -(normalizedY / 2), 0x00FFFFFF, 1, 1);
+		dc->m_px_Mesh = AEGfxMeshEnd();
+
+		m_x_MeshMap.insert(std::pair<const char*, AEGfxVertexList*>(texture->mpName, dc->m_px_Mesh));
+	}
+
+	dc->m_po_TransformComponent->m_f_Scale *= largerDimension;
+
+	dc->m_f_RgbaColor = color;
+}
+
+void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, const char* texture, const float sizeX,
+	const float sizeY, HTColor color)
+{
+	InitializeDrawComponent(dc, FetchTexture(texture), sizeX, sizeY, color);
+}
+
+void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, HTColor color)
+{
+	int sizeX, sizeY;
+	FileIO::ReadPngDimensions(texture->mpName, &sizeX, &sizeY);
+	InitializeDrawComponent(dc, texture, static_cast<float>(sizeX), static_cast<float>(sizeY), color);
+}
+
+void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, const char* texture, HTColor color)
+{
+	InitializeDrawComponent(dc, FetchTexture(texture), color);
+}
+
+
 
 void GraphicsSystem::Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
@@ -35,6 +97,18 @@ AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName)
 	for (auto pairing : m_x_TextureMap)
 	{
 		if (strcmp(textureName, pairing.first) == 0)
+		{
+			return pairing.second;
+		}
+	}
+	return nullptr;
+}
+
+AEGfxVertexList* GraphicsSystem::FetchMesh(const char* meshName)
+{
+	for (auto pairing : m_x_MeshMap)
+	{
+		if (strcmp(meshName, pairing.first) == 0)
 		{
 			return pairing.second;
 		}
@@ -72,7 +146,6 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
-
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
@@ -134,7 +207,9 @@ void GraphicsSystem::Draw(float dt)
 		UpdateDrawOrderVector(firstDrawComponent); 
 	}
 
-	
+	if (m_x_DrawOrder.empty())
+		return;
+
 	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
 		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
 			//Check if there is draw component

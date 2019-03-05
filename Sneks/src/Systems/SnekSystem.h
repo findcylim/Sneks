@@ -62,5 +62,6 @@ public:
 	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);
+	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
 };
 #endif

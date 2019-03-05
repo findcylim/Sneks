@@ -12,8 +12,8 @@ void checkName(BaseEntity* entityPointerSource, BaseEntity* entityPointerUntouch
 	{
 		if (!(*charPointerUntouched))
 		{
-			free(entityPointerSource->m_pc_EntityName);
-			entityPointerSource->m_pc_EntityName = (char*)malloc(strlen(entityPointerUntouched->m_pc_EntityName) + 4);
+			delete(entityPointerSource->m_pc_EntityName);
+			entityPointerSource->m_pc_EntityName = new char [(strlen(entityPointerUntouched->m_pc_EntityName) + 4)];
 
 			charPointerUntouched = entityPointerUntouched->m_pc_EntityName, charPointerSource = entityPointerSource->m_pc_EntityName;
 			while (*charPointerUntouched)
@@ -36,8 +36,32 @@ void checkName(BaseEntity* entityPointerSource, BaseEntity* entityPointerUntouch
 
 EntityManager::EntityManager()
 {
+	m_po_ComponentManagerInstance = new ComponentManager;
 	for (int i_iter = 0; i_iter < Entity::kEntityEnd; i_iter++)
 		m_v_EntityPool.push_back(nullptr);
+}
+
+EntityManager::~EntityManager()
+{
+	while (!m_v_EntityPool.empty())
+	{
+		auto toDelete = m_v_EntityPool.back();
+		if (!toDelete)
+		{
+			m_v_EntityPool.pop_back();
+			continue;
+		}
+		BaseEntity* i_EntityType = toDelete->m_po_NextEntity;
+		while (i_EntityType)
+		{
+			auto nextNode = i_EntityType->m_po_NextEntity;
+			DeleteEntity(i_EntityType);
+			i_EntityType = nextNode;
+		}
+		DeleteEntity(toDelete);
+		m_v_EntityPool.pop_back();
+	}
+	delete m_po_ComponentManagerInstance;
 }
 
 ComponentManager* EntityManager::GetComponentManager() const
@@ -190,7 +214,7 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 
 	if (entityPointer)
 	{
-		entityPointer->m_x_EntityID = entityType;
+		entityPointer->SetEntityID(entityType);
 		AddEntity(entityPointer, entityType);
 	}
 
@@ -234,16 +258,16 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 		}
 		else if (nextEntity && !prevEntity)
 		{
-			m_v_EntityPool[entityPointer->m_x_EntityID] = nextEntity;
+			m_v_EntityPool[entityPointer->GetEntityID()] = nextEntity;
 			nextEntity->m_po_PrevEntiy = nullptr;
 		}
 		else if (prevEntity && !nextEntity)
 			prevEntity->m_po_NextEntity = nullptr;
 		else if (!prevEntity && !nextEntity)
-			m_v_EntityPool[entityPointer->m_x_EntityID] = nullptr;
+			m_v_EntityPool[entityPointer->GetEntityID()] = nullptr;
 
 		if (entityPointer->m_pc_EntityName)
-			free(entityPointer->m_pc_EntityName);
+			delete (entityPointer->m_pc_EntityName);
 
 		delete entityPointer;
 	}

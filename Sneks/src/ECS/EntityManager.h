@@ -3,7 +3,7 @@
 #define ENTITY_MANAGER_H
 
 //iterator by list, pool handled by vector, get and add by id and name, each entity has it's own pool of components sorted with vector, 
-
+#include "../Utility/MemoryAllocator.h"
 #include "Entity.h"
 #include "Component.h"
 #include "EntityList.h"
@@ -13,7 +13,7 @@
 class EntityManager
 {
 	std::vector<BaseEntity*> m_v_EntityPool;
-	ComponentManager *m_po_ComponentManagerInstance = new ComponentManager;
+	ComponentManager *m_po_ComponentManagerInstance;
 	std::vector<BaseEntity*> m_v_ToDelete;
 
 	void AddEntity(BaseEntity* entityPointer, Entity entityType);
@@ -30,6 +30,7 @@ class EntityManager
 public:
 
 	EntityManager();
+	~EntityManager();
 
 	template <class T>
 	T* NewEntity(Entity entityType, const char* entityName)
