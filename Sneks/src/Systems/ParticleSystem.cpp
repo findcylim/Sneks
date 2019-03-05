@@ -151,9 +151,9 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 	m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 		pep, Component::kComponentPhysics)->m_f_Speed = pec->GetParticleSpeed();
 
-	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
-		pep, Component::kComponentDraw)->Initialize(
-			pec->GetParticleTexture(), pec->GetParticleSizeX(), pec->GetParticleSizeY(), HTColor{ 1,1,1,1 });
+	m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
+		GetSpecificComponentInstance<DrawComponent>(pep, Component::kComponentDraw),
+		pec->GetParticleTexture(), pec->GetParticleSizeX(), pec->GetParticleSizeY());
 
 	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
 		pep, Component::kComponentDraw)->m_f_DrawPriority = pec->GetParticleDrawOrder();

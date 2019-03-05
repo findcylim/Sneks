@@ -96,9 +96,9 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 				snekVelocity, Component::kComponentPhysics)->m_f_Speed * m_f_HolderSpeedRatio;
 
-		m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
-			powerupHolder, Component::kComponentDraw)->Initialize(
-				m_o_GraphicsSystem->FetchTexture("Moon"));
+		m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
+			GetSpecificComponentInstance<DrawComponent>(powerupHolder, Component::kComponentDraw),
+			"Moon");
 
 		m_po_ComponentManager->GetSpecificComponentInstance<CollisionComponent>(
 			powerupHolder, Component::kComponentCollision)->m_i_CollisionGroupVec.push_back(
