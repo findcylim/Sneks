@@ -12,8 +12,8 @@ void checkName(BaseEntity* entityPointerSource, BaseEntity* entityPointerUntouch
 	{
 		if (!(*charPointerUntouched))
 		{
-			delete(entityPointerSource->m_pc_EntityName);
-			entityPointerSource->m_pc_EntityName = new char [(strlen(entityPointerUntouched->m_pc_EntityName) + 4)];
+			//delete(entityPointerSource->m_pc_EntityName);
+			//entityPointerSource->m_pc_EntityName = new char [(strlen(entityPointerUntouched->m_pc_EntityName) + 4)];
 
 			charPointerUntouched = entityPointerUntouched->m_pc_EntityName, charPointerSource = entityPointerSource->m_pc_EntityName;
 			while (*charPointerUntouched)
@@ -248,9 +248,7 @@ void EntityManager::  DeleteEntity(BaseEntity* entityPointer)
 			prevEntity->m_po_NextEntity = nullptr;
 		else if (!prevEntity && !nextEntity)
 			m_v_EntityPool[entityPointer->GetEntityID()] = nullptr;
-
-		if (entityPointer->m_pc_EntityName)
-			delete (entityPointer->m_pc_EntityName);
+		m_v_ToFree.push_back(entityPointer);
 
 		delete entityPointer;
 	}
