@@ -5,10 +5,11 @@
 
 
 
-PowerUpSystem::PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics)
+PowerUpSystem::PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics, SnekSystem* snek)
 	: BaseSystem(entityManagerPointer)
 {
 	m_o_GraphicsSystem = graphics;
+	m_o_SnekSystem = snek;
 }
 
 PowerUpSystem::~PowerUpSystem()
@@ -108,7 +109,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 {
-	PowerUpType type = kPowerUpInvul;//static_cast<PowerUpType>(rand() % kPowerUpEnd);
+	PowerUpType type = kPowerUpPlusBody;//static_cast<PowerUpType>(rand() % kPowerUpEnd);
 
 	if (powerup->IsAlive() || powerup->GetJustDied())
 		RemovePowerUp(powerup);
@@ -142,6 +143,12 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 			break;
 
 		case kPowerUpPlusBody:
+			//TODO emit event to snek system to increase body part
+			//TODO snek system to recieve event to grow body part
+			for (int i = 0; i < 5; i++)
+				m_o_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerup->m_po_OwnerEntity),
+					"SnekBody01", m_po_ComponentManager->GetSpecificComponentInstance
+					<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber);
 			break;
 
 		case kPowerUpEnd:

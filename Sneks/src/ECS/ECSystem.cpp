@@ -124,7 +124,7 @@ void ECSystem::InitializeEngine()
 	particle->SetName("Particles");
 	particle->Initialize();
 
-	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics);
+	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 	m_o_SystemManager->AddSystem(powerup);
 	powerup->Initialize();
 

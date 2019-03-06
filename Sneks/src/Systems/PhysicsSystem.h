@@ -5,6 +5,7 @@
 #include "../ECS/System.h"
 #include "../ECS/EventListener.h"
 #include "../ECS/EventManager.h"
+#include "../ECS/EntityManager.h"
 #include "../Utility/GameStateManager.h"
 #include "../Math/HTVector2.h"
 #include "../Components/DrawComponent.h"
@@ -31,5 +32,6 @@ public:
 	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const;
 	void ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent, PhysicsComponent* physicsComponent) const;
+	void DeleteOutOfBound(TransformComponent* transformComponent) const;
 };
 #endif

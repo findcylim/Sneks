@@ -7,7 +7,6 @@ enum PowerUpType : unsigned char
 	kPowerUpGrowthIncrease,
 	kPowerUpUnlimitedSpecial,
 	kPowerUpInvul,
-	kPowerUpPlusLife,
 	kPowerUpPlusBody,
 	kPowerUpEnd
 };

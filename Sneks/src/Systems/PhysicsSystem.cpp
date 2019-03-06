@@ -76,6 +76,13 @@ void PhysicsSystem::Update(float dt)
 		if (!GetAsyncKeyState(AEVK_0)) {
 			ApplyVelocity(i_PhysicsComponent, dt);
 		}
+
+		if (i_PhysicsComponent->m_po_OwnerEntity->GetEntityID() == kEntityPowerUpHolder)
+		{
+			DeleteOutOfBound(m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
+				(i_PhysicsComponent, kComponentTransform));
+		}
+
 		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
 	}
 }
@@ -151,3 +158,18 @@ void PhysicsSystem::CheckOutOfBounds(TransformComponent* transformComponent, Phy
 		transformComponent->m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;
 	}
 }
+
+void PhysicsSystem::DeleteOutOfBound(TransformComponent* transformComponent) const
+{
+	//if out of screen, delete object
+	if ((transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920) ||
+	(transformComponent->m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920) ||
+	(transformComponent->m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080) ||
+	(transformComponent->m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080))
+	{
+		m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(
+			transformComponent->m_po_OwnerEntity));
+	}
+}
+
+
