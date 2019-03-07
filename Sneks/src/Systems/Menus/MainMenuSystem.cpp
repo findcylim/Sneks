@@ -15,12 +15,21 @@ MainMenuSystem::MainMenuSystem(EntityManager* entityManagerPtr, EventManager* ev
 
 MainMenuSystem::~MainMenuSystem()
 {
-
+	auto UI = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
+	while (UI)
+	{
+		for (auto& element : UI->m_x_CanvasElementList)
+		{
+			m_po_EntityManager->AddToDeleteQueue(element);
+		}
+		UI->m_x_CanvasElementList.clear();
+	}
 }
 
 void PlayGame()
 {
-	
+	// Change game state
+	// TODO
 }
 
 void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)

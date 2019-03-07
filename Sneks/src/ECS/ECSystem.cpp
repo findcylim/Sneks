@@ -86,28 +86,28 @@ void ECSystem::InitializeEngine()
 	camera->SetID(3);
 	
 
-	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
-	m_o_SystemManager->AddSystem(levelLoader);
-	levelLoader->SetName("LevelLoader");
-	//levelLoader->LoadLevel(kLevel1);
+	//auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
+	//m_o_SystemManager->AddSystem(levelLoader);
+	//levelLoader->SetName("LevelLoader");
+	////levelLoader->LoadLevel(kLevel1);
 
 
-	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
-	m_o_SystemManager->AddSystem(snek);
-	snek->SetName("Snek");
-	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
-	snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
-	snek->Initialize();
+	//auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
+	//m_o_SystemManager->AddSystem(snek);
+	//snek->SetName("Snek");
+	//snek->CreateSnek(-200, 0, PI, 20, "SnekHead01",0);
+	//snek->CreateSnek(200, 0, 0, 20, "SnekHead02",1);
+	//snek->Initialize();
 
-	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
-	m_o_SystemManager->AddSystem(background);
-	background->SetName("Background");
-	background->CreateInstancedBackgrounds(2, 2, "Background01");
+	//auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
+	//m_o_SystemManager->AddSystem(background);
+	//background->SetName("Background");
+	//background->CreateInstancedBackgrounds(2, 2, "Background01");
 
-	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
-	m_o_SystemManager->AddSystem(buildings);
-	buildings->SetName("Buildings");
-	buildings->Initialize();
+	//auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
+	//m_o_SystemManager->AddSystem(buildings);
+	//buildings->SetName("Buildings");
+	//buildings->Initialize();
 
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
 	m_o_SystemManager->AddSystem(collisions);
@@ -129,14 +129,14 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(canvas);
 	canvas->SetName("Canvas UI");
 	canvas->Initialize();
-/*
+
 	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
 	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
 	canvas->SetName("Main Menu");
-*/
+
 	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
 	m_o_SystemManager->AddSystem(input);
 

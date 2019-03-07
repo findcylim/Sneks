@@ -141,7 +141,10 @@ void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		//TODO
 		//Wait for Chus input system
 		//On mouse click carry on with this 
-		if(comp->ButtonFunction)
-			comp->ButtonFunction();
+		if (GetAsyncKeyState(VK_LBUTTON) < 0)
+		{
+			if (comp->ButtonFunction)
+				comp->ButtonFunction();
+		}
 	}
 }

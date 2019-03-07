@@ -21,6 +21,7 @@ public:
 	CanvasComponent(){}
 	~CanvasComponent()
 	{
+		
 	}
 	CanvasComponent(const CanvasComponent&) = delete;
 	CanvasComponent& operator=(const CanvasComponent&) = delete;
