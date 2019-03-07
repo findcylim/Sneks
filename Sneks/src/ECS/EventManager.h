@@ -84,6 +84,18 @@ namespace Events
 		const char * uiClickSpriteName = "";
 		void(*ButtonPressFunc)(void) = nullptr;
 	};
+
+	struct EV_PLAYER_COLLISION_ON_ENTER
+	{
+		CollisionComponent* object1;
+		CollisionComponent* object2;
+	};
+
+	struct EV_PLAYER_COLLISION_ON_EXIT
+	{
+		CollisionComponent* object1;
+		CollisionComponent* object2;
+	};
 }
 
 

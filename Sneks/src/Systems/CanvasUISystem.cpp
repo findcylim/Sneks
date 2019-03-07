@@ -20,17 +20,25 @@ CanvasUISystem::~CanvasUISystem()
 void CanvasUISystem::Update(float dt) 
 {
 	(void)dt;
-	/*for (auto uiElement : m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas)->m_x_CanvasElementList)
+	
+	auto uiCanvas = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
+	while (uiCanvas)
 	{
-		if (uiElement->m_b_IsActive)
+		if (uiCanvas->m_b_IsActive)
 		{
-			CollisionComponent* col_Component = uiElement->GetComponent<CollisionComponent>();
-			if (col_Component)
+			for (auto uiElement : uiCanvas->m_x_CanvasElementList)
 			{
-				
+				auto uiElementComp = uiElement->GetComponent<CanvasElementComponent>();
+				if (uiElementComp && uiElementComp->m_b_IsCollided)
+				{
+					
+				}
+				uiElementComp->m_b_IsCollided = false;
 			}
+			
 		}
-	}*/
+		uiCanvas = static_cast<CanvasComponent*>(uiCanvas->m_po_NextComponent);
+	}
 }
 
 
@@ -138,12 +146,13 @@ void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
 	{
 		auto comp = eventData.object1->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
+		
 		//TODO
 		//Wait for Chus input system
 		//On mouse click carry on with this 
 		if (GetAsyncKeyState(VK_LBUTTON) < 0)
 		{
-			if (comp->ButtonFunction)
+			if (comp && comp->ButtonFunction)
 				comp->ButtonFunction();
 		}
 	}
