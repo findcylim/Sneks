@@ -53,6 +53,9 @@ void ParticleSystem::Update(float dt)
 
 			pec->UpdateTime(dt);
 		}
+		else
+			m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(pec->m_po_OwnerEntity));
+
 	}
 
 	for (auto pc = m_po_ComponentManager->GetFirstComponentInstance
@@ -157,8 +160,13 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 
 	m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 		pep, Component::kComponentPhysics)->m_f_Speed = pec->GetParticleSpeed();
-
 	m_o_GraphicsSystem->InitializeDrawComponent(pep->GetComponent<DrawComponent>(),
-			pec->GetParticleTexture());
+		pec->GetParticleTexture());
+
 	pep->GetComponent<TransformComponent>()->m_f_Scale = 20.0f;
+
+	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
+		pep, Component::kComponentDraw)->m_f_DrawPriority = pec->GetParticleDrawOrder();
+
+
 }

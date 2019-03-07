@@ -3,7 +3,7 @@
 #define ENTITY_MANAGER_H
 
 //iterator by list, pool handled by vector, get and add by id and name, each entity has it's own pool of components sorted with vector, 
-
+#include "../Utility/MemoryAllocator.h"
 #include "Entity.h"
 #include "Component.h"
 #include "EntityList.h"
@@ -13,7 +13,7 @@
 class EntityManager
 {
 	std::vector<BaseEntity*> m_v_EntityPool;
-	ComponentManager *m_po_ComponentManagerInstance = new ComponentManager;
+	ComponentManager *m_po_ComponentManagerInstance;
 	std::vector<BaseEntity*> m_v_ToDelete;
 
 	void AddEntity(BaseEntity* entityPointer, Entity entityType);
@@ -30,26 +30,27 @@ class EntityManager
 public:
 
 	EntityManager();
+	~EntityManager();
 
 	template <class T>
 	T* NewEntity(Entity entityType, const char* entityName)
 	{
-		return static_cast<T*>(static_cast<void*>(NewEntityReroute(entityType, entityName)));
+		return static_cast<T*>(NewEntityReroute(entityType, entityName));
 	}
 	template <class T>
 	T* GetFirstEntityInstance(Entity entityType)
 	{
-		return static_cast<T*>(static_cast<void*>(GetFirstEntityInstanceReroute(entityType)));
+		return static_cast<T*>(GetFirstEntityInstanceReroute(entityType));
 	}
 	template <class T>
 	T* GetSpecificEntityInstance(Entity entityType, const char* entityName)
 	{
-		return static_cast<T*>(static_cast<void*>(GetSpecificEntityInstanceReroute(entityType, entityName)));
+		return static_cast<T*>(GetSpecificEntityInstanceReroute(entityType, entityName));
 	}
 	template <class T>
 	T* GetSpecificEntityInstance(BaseComponent* componentPointer)
 	{
-		return static_cast<T*>(static_cast<void*>(GetSpecificEntityInstanceReroute(componentPointer)));
+		return static_cast<T*>(GetSpecificEntityInstanceReroute(componentPointer));
 	}
 	
 	ComponentManager* GetComponentManager() const;

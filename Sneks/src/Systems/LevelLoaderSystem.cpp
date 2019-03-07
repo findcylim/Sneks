@@ -127,6 +127,6 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 			std::getline(inFile, output);
 		}
 	}
-	m_po_EntityManager->NewEntity<CameraComponent>(kEntityCamera, "Camera");
+	m_po_EntityManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
 	return true;
 }

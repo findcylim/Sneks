@@ -13,3 +13,15 @@ BaseEntity::BaseEntity(const char* entityName)
 
 	*charPointer = 0;
 }
+
+Entity BaseEntity::GetEntityID()
+{
+	return m_x_EntityID;
+}
+
+void BaseEntity::SetEntityID(Entity type)
+{
+	m_x_EntityID = type;
+}
+
+

@@ -26,6 +26,8 @@ public:
 
 	int							   m_f_DrawPriority = 5;
 
+	DrawComponent();
+	~DrawComponent() override;
 	void SetAlpha(float alpha);
 	void SetColor(float red, float green, float blue, float alpha);
 	float GetSizeX()	 const;

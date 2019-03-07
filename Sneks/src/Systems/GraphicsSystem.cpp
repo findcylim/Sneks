@@ -14,12 +14,16 @@ GraphicsSystem::~GraphicsSystem()
 	{
 		AEGfxTextureUnload(pairing.second);
 	}
+	for (auto pairing : m_x_MeshMap)
+	{
+		AEGfxMeshFree(pairing.second);
+	}
+	m_x_TextureMap.clear();
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
-	//PreLoadTextures();
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
@@ -59,10 +63,6 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 	dc->m_po_TransformComponent->m_f_Scale *= largerDimension;
 
 	dc->m_f_RgbaColor = color;
-
-	dc->m_po_GlobalMatrix = new AEMtx33();
-	dc->m_po_RotationMatrix = new AEMtx33();
-	dc->m_po_TranslationMatrix = new AEMtx33();
 }
 
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, const char* texture, const float sizeX,
@@ -212,9 +212,11 @@ void GraphicsSystem::Draw(float dt)
 		UpdateDrawOrderVector(firstDrawComponent); 
 	}
 
-	
-	for (auto i_DrawVector = m_x_DrawOrder.size(); i_DrawVector > 0; --i_DrawVector) {
-		for (auto drawComponent : m_x_DrawOrder[i_DrawVector-1]) {
+	if (m_x_DrawOrder.empty())
+		return;
+
+	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
+		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
 			//Check if there is draw component
 			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
