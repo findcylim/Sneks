@@ -6,7 +6,6 @@
 enum Entity : unsigned char
 {
 	kEntityBase,
-	kEntitySample,
 	kEntitySnekHead,
 	kEntitySnekBody,
 	kEntitySnekTail,
@@ -22,6 +21,7 @@ enum Entity : unsigned char
 	kEntityCanvasBasicSprite,
 	kEntityCanvasTextLabel,
 	kEntityMouse,
+	kEntityPowerUpHolder,
 	kEntityEnd
 };
 

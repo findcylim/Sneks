@@ -23,9 +23,4 @@ class BaseComponent
 		}
 };
 
-class SampleComponent : BaseComponent
-{
-	public:
-};
-
 #endif

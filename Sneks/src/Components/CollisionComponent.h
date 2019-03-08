@@ -19,6 +19,8 @@ enum CollisionGroupName
 	kCollGroupMoon = 11,
 	kCollGroupUIButton,
 	kCollGroupMouse
+	kCollGroupMoon = 11,
+	kCollGroupPowerUp
 };
 
 class CollisionComponent : public BaseComponent

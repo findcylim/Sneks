@@ -21,6 +21,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 	while (engine->IsEngineOn())
 	{
 		engine->Update();
+		if(GetAsyncKeyState(AEVK_9))
+			assert(!LogMemoryLeaks() && "Memory leaks detected! Check log file for more info.");
 	}
 	delete(engine);
 	AESysExit();

@@ -6,7 +6,6 @@
 enum Component : unsigned char
 {
 	kComponentBase,
-	kComponentSample,
 	kComponentTransform,
 	kComponentDraw,
 	kComponentPhysics,
@@ -20,6 +19,7 @@ enum Component : unsigned char
 	kComponentCanvas,
 	kComponentCanvasElement,
 	kComponentTextRenderer,
+	kComponentPowerUp,
 	kComponentEnd
 };
 

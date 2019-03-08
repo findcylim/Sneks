@@ -24,6 +24,7 @@
     <ClCompile Include="Components\ParticleComponent.cpp" />
     <ClCompile Include="Components\ParticleEffectComponent.cpp" />
     <ClCompile Include="Components\TextRendererComponent.cpp" />
+    <ClCompile Include="Components\PowerUpComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\ECSystem.cpp" />
@@ -51,6 +52,7 @@
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp" />
     <ClCompile Include="Systems\ParticleSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Systems\PowerUpSystem.cpp" />
     <ClCompile Include="Systems\ProjectileSystem.cpp" />
     <ClCompile Include="Systems\SnekSystem.cpp" />
     <ClCompile Include="Utility\AlphaEngineHelper.cpp" />
@@ -69,6 +71,7 @@
     <ClInclude Include="Components\ParticleComponent.h" />
     <ClInclude Include="Components\ParticleEffectComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
+    <ClInclude Include="Components\PowerUpComponent.h" />
     <ClInclude Include="Components\SnekHeadComponent.h" />
     <ClInclude Include="Components\TextRendererComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
@@ -102,6 +105,7 @@
     <ClInclude Include="Systems\Menus\MainMenuSystem.h" />
     <ClInclude Include="Systems\ParticleSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
+    <ClInclude Include="Systems\PowerUpSystem.h" />
     <ClInclude Include="Systems\ProjectileSystem.h" />
     <ClInclude Include="Systems\SnekSystem.h" />
     <ClInclude Include="Utility\AlphaEngineHelper.h" />
