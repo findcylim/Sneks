@@ -7,7 +7,7 @@
 #include "../Components/SnekHeadComponent.h"
 #include "../Components/FollowComponent.h"
 
-float timeStamp = 0;
+//float timeStamp = 0;
 
 ProjectileSystem::ProjectileSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
 	: BaseSystem(entityManagerPtr)
@@ -29,12 +29,13 @@ void ProjectileSystem::Initialize()
 
 void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 {
-	float currTime = static_cast<float>(AEFrameRateControllerGetFrameTime()) - timeStamp;
-	if (currTime > 3)
-	{
+	//float currTime = static_cast<float>(AEFrameRateControllerGetFrameTime()) - timeStamp;
+	//if (currTime > 3)
+	//{
 		ProjectileEntity* ent = m_po_EntityManager->NewEntity<ProjectileEntity>(kEntityProjectile, eventData.texName);
 		auto T_Comp = ent->GetComponent<TransformComponent>();
-		T_Comp->SetPosition(eventData.pos->x, eventData.pos->y);
+		T_Comp->SetPositionX(eventData.pos->x);
+		T_Comp->SetPositionY(eventData.pos->y);
 		T_Comp->SetRotation(eventData.rot);
 		T_Comp->m_f_Scale = eventData.scale;
 
@@ -50,8 +51,8 @@ void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 		auto G_Comp = ent->GetComponent<DrawComponent>();
 		m_o_GraphicsSystem->InitializeDrawComponent(G_Comp, eventData.texName);
 
-		timeStamp = static_cast<float>(AEFrameRateControllerGetFrameTime());
-	}
+		//timeStamp = static_cast<float>(AEFrameRateControllerGetFrameTime());
+	//}
 }
 
 void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)

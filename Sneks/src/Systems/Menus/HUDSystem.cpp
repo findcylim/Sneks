@@ -3,6 +3,7 @@
 #include "../../Utility/AlphaEngineHelper.h"
 #include "../CameraSystem.h"
 
+float X, Y;
 
 HUDSystem::HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager)
 	:BaseSystem(entityManagerPtr)
@@ -35,19 +36,22 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 
-	Events::EV_NEW_UI_ELEMENT LBarElement = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "LBar", "LeftBar","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT sLBarElement = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "sLBar", "SmallLeftBar","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT RBarElement = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "RBar", "RightBar","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT sRBarElement = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "sRBar", "SmallRightBar","","","", nullptr };
+	X = c_Comp->GetOffsetX() + screenX - 480;
+	Y = c_Comp->GetOffsetY() - screenY/2 + 87;
 
-	Events::EV_NEW_UI_ELEMENT HUDElement = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX/2 - 480, c_Comp->GetOffsetY() - screenY + 87} ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LBarElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LBar", "LeftBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT sLBarElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "sLBar", "SmallLeftBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RBarElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RBar", "RightBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT sRBarElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "sRBar", "SmallRightBar","","","", nullptr };
 
-	Events::EV_NEW_UI_ELEMENT RLifeElement1 = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "RL1", "LifeR1","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT RLifeElement2 = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "RL2", "LifeR2","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT RLifeElement3 = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "RL3", "LifeR3","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT LLifeElement1 = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "LL1", "LifeL1","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT LLifeElement2 = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "LL2", "LifeL2","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT LLifeElement3 = { canvasComponent,HTVector2{ c_Comp->GetOffsetX() + screenX / 2 - 480, c_Comp->GetOffsetY() - screenY + 87 } ,kCanvasBasicSprite, "LL3", "LifeL3","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT HUDElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
+
+	Events::EV_NEW_UI_ELEMENT RLifeElement1 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL1", "LifeR1","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RLifeElement2 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL2", "LifeR2","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RLifeElement3 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL3", "LifeR3","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement1 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL1", "LifeL1","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement2 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL2", "LifeL2","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement3 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL3", "LifeL3","","","", nullptr };
 
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LBarElement);
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(sLBarElement);
@@ -67,6 +71,7 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 void HUDSystem::Update(float dt)
 {
 	(void)dt;
+	 CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	CanvasComponent * can_Comp = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
 
 	float screenX = 0, screenY = 0;
@@ -75,10 +80,50 @@ void HUDSystem::Update(float dt)
 	for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
 		TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
-		t_Comp->SetPosition(t_Comp->GetPosition().x + getCameraMovement().x, t_Comp->GetPosition().y + getCameraMovement().y );
 
-		//t_Comp->SetScale(1.0f/(c_Comp->GetScale()));
+		t_Comp->SetScale(1.0f / c_Comp->GetScale());
+		t_Comp->SetPositionX(t_Comp->GetPosition().x + getCameraMovement().x);
+		t_Comp->SetPositionY(t_Comp->GetPosition().y + getCameraMovement().y);
+
+		/* X += (getCameraMovement().x * t_Comp->GetScale().x);
+		Y += (getCameraMovement().y * t_Comp->GetScale().y);
+
+		if (t_Comp->GetPosition().x < X)
+		{
+			while (t_Comp->GetPosition().x < X)
+				t_Comp->SetPositionX(t_Comp->GetPosition().x + 0.1f);
+		}
+
+		else if (t_Comp->GetPosition().x > X)
+		{
+			while (t_Comp->GetPosition().x > X)
+				t_Comp->SetPositionX(t_Comp->GetPosition().x - 0.1f);
+		}
+
+		if (t_Comp->GetPosition().y < Y)
+		{
+			while (t_Comp->GetPosition().y < Y)
+				t_Comp->SetPositionY(t_Comp->GetPosition().y + 0.1f);
+		}
+
+		else if (t_Comp->GetPosition().y > Y)
+		{
+			while (t_Comp->GetPosition().y > Y)
+				t_Comp->SetPositionY(t_Comp->GetPosition().y - 0.1f);
+		} */
 	}
 
+	/*
+	switch (GetP1Lives())
+	{
+	case 1: break;
+	case 2: break;
+	}
 
+	switch (GetP2Lives()) 
+	{
+	case 1: break;
+	case 2: break;
+	}
+	*/
 }

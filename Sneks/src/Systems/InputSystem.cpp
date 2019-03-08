@@ -68,8 +68,8 @@ void InputSystem::Update(float dt)
 	GetCursorPos(&mouse);
 	TransformComponent* t_Comp = mouseEntity->GetComponent<TransformComponent>();
 	/*CameraComponent* c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);*/
-	t_Comp->SetPosition(static_cast<float>(mouse.x-5) /*+ c_Comp->m_f_VirtualOffsetX*/,
-						static_cast<float>(-mouse.y+10) /*- c_Comp->m_f_VirtualOffsetY*/);
+	t_Comp->SetPositionX(static_cast<float>(mouse.x-5) /*+ c_Comp->m_f_VirtualOffsetX*/);
+	t_Comp->SetPositionY(static_cast<float>(-mouse.y + 10) /*- c_Comp->m_f_VirtualOffsetY*/);
 	
 	//CanvasButtonEntity* base = m_po_EntityManager->GetFirstEntityInstance<CanvasButtonEntity>(kEntityCanvasButton);
 	//printf("X: %d Y: %d Game X: %f Game Y: %f %f %f \n", mouse.x, mouse.y,t_Comp->m_x_Position.x, t_Comp->m_x_Position.y,base->GetComponent<TransformComponent>()->m_x_Position.x, base->GetComponent<TransformComponent>()->m_x_Position.y);

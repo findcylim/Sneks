@@ -68,7 +68,10 @@ public:
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
-	float GetP1GrowthPercentage();
-	float GetP2GrowthPercentage();
 };
+
+float GetP1GrowthPercentage();
+float GetP2GrowthPercentage();
+int GetP1Lives();
+int GetP2Lives();
 #endif

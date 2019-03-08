@@ -82,8 +82,12 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 			<PowerUpHolderEntity>(Entity::kEntityPowerUpHolder, "PowerUpHolder");
 
 		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			powerupHolder, Component::kComponentTransform)->SetPosition(
-				spawnPoint->GetPosition().x, spawnPoint->GetPosition().y);
+			powerupHolder, Component::kComponentTransform)->SetPositionX(
+				spawnPoint->GetPosition().x);
+
+		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+			powerupHolder, Component::kComponentTransform)->SetPositionY(
+				spawnPoint->GetPosition().y);
 
 		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 			powerupHolder, Component::kComponentTransform)->SetRotation(

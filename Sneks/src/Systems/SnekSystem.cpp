@@ -9,15 +9,26 @@
 
 float P1Growth = 0, P2Growth = 0;
 float P1GrowthMeter = 1, P2GrowthMeter = 1;
+int P1Lives = 3, P2Lives = 3;
 
-float SnekSystem::GetP1GrowthPercentage()
+float GetP1GrowthPercentage()
 {
 	return P1Growth/P1GrowthMeter;
 }
 
-float SnekSystem::GetP2GrowthPercentage()
+float GetP2GrowthPercentage()
 {
 	return P2Growth/P2GrowthMeter;
+}
+
+int GetP1Lives()
+{
+	return P1Lives;
+}
+
+int GetP2Lives()
+{
+	return P2Lives;
 }
 
 struct FollowData
@@ -120,8 +131,13 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			RemoveSnekBody(snekHed1->m_x_BodyParts.at(0) , snekHed1);
 			RemoveSnekBody(snekHed2->m_x_BodyParts.at(0) , snekHed2);
 
-			/*if (snekHed1->m_x_BodyParts.size() == 1)
+			if (snekHed1->m_x_BodyParts.size() == 1)
 			{
+				if (snekHed1->m_i_PlayerNumber == 0)
+					P1Lives--;
+				else
+					P2Lives--;
+				/*
 				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
 				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_po_OwnerEntity);
 				auto i_CameraComponent = static_cast<CameraComponent*>(
@@ -129,10 +145,16 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				
 				CreateSnek(0, 0, 0, 20, "SnekHead01", 0);
 				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+				*/
 
 			}
 			else if (snekHed2->m_x_BodyParts.size() == 1)
 			{
+				if (snekHed1->m_i_PlayerNumber == 0)
+					P1Lives--;
+				else
+					P2Lives--;
+				/*
 				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
 				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
 				auto i_CameraComponent = static_cast<CameraComponent*>(
@@ -140,8 +162,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 				CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
 				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
-
-			}*/
+				*/
+			}
 
 			srand(clock());
 			auto randDirection = rand() % 360;
@@ -405,7 +427,8 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPosition(posX, posY);
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(posX);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(posY);
 			static_cast<TransformComponent*>(i_Component)->SetRotation(rotation);
 
 			auto cameraComponent = 
@@ -535,8 +558,10 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPosition(
-				referenceTransform->m_x_Position.x, referenceTransform->m_x_Position.y);
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+				referenceTransform->m_x_Position.x);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+				referenceTransform->m_x_Position.y);
 
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			//TODO: REMOVE HARCCODE
@@ -628,8 +653,10 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPosition(
-				ownerTransform->m_x_Position.x, ownerTransform->m_x_Position.y);
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+				ownerTransform->m_x_Position.x);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+				ownerTransform->m_x_Position.y);
 
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			//TODO: REMOVE HARCCODE
@@ -756,13 +783,13 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 
 }
 
-float timeStamp1 = 0;
+//float timeStamp1 = 0;
 
 void SnekSystem::Flip(SnekHeadEntity* owner)
 {
-	float currTime = getDt() - timeStamp1;
-	if (currTime > 3)
-	{
+	//float currTime = getDt() - timeStamp1;
+	//if (currTime > 3)
+	//{
 		/*Swap head and tail positions*/
 		auto snekHeadComponent =
 			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
@@ -785,8 +812,10 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 
 		auto tempX = headTransformComponent->GetPosition().x;
 		auto tempY = headTransformComponent->GetPosition().y;
-		headTransformComponent->SetPosition(tailTransformComponent->GetPosition().x, tailTransformComponent->GetPosition().y);
-		tailTransformComponent->SetPosition(tempX, tempY);
+		headTransformComponent->SetPositionX(tailTransformComponent->GetPosition().x);
+		headTransformComponent->SetPositionY(tailTransformComponent->GetPosition().y);
+		tailTransformComponent->SetPositionX(tempX);
+		tailTransformComponent->SetPositionY(tempY);
 
 		tempX = headTransformComponent->GetRotation();
 		headTransformComponent->SetRotation(tailTransformComponent->GetRotation());
@@ -797,8 +826,8 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 
 		UpdateFollowComponents(snekHeadComponent);
 
-		timeStamp1 = getDt();
-	}
+		//timeStamp1 = getDt();
+	//}
 }
 
 void SnekSystem::UpdateFollowComponents(SnekHeadComponent* snekHeadComponent)
