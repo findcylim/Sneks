@@ -3,6 +3,7 @@
 
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
+#include "../ECS/ECSystem.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/DrawComponent.h"
 #include "GraphicsSystem.h"
@@ -67,5 +68,7 @@ public:
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
+	float GetP1GrowthPercentage();
+	float GetP2GrowthPercentage();
 };
 #endif

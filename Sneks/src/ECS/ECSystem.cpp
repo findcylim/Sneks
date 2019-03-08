@@ -30,7 +30,7 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager(m_o_Logger);
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_GameStateManager		   = new GameStateManager(kStateGame);
-	m_o_EntityComponentManager	= new EntityManager();
+	m_o_EntityComponentManager	   = new EntityManager();
 	m_b_EngineStatus			   = true;
 }
 
@@ -85,7 +85,7 @@ void ECSystem::InitializeEngine()
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
-	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
+	//auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 
 
 
@@ -168,9 +168,9 @@ void ECSystem::InitializeEngine()
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
 	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
 
-	m_o_SystemManager->AddSystem(powerup);
-	powerup->SetName("Power Up");
-	powerup->Initialize();
+	//m_o_SystemManager->AddSystem(powerup);
+	//powerup->SetName("Power Up");
+	//powerup->Initialize();
 
 }
 
@@ -185,6 +185,7 @@ bool ECSystem::IsEngineOn() const
 }
 
 float actualDt = 0;
+float timeElapsed = 0;
 
 void ECSystem::Update()
 {
@@ -213,11 +214,16 @@ void ECSystem::Update()
 		m_o_EntityComponentManager->ResolveDeletes();
 
 
-		actualDt -= dtCap;
+		//actualDt -= dtCap;
 		
 		AESysFrameEnd();
 
 	} while (actualDt > 0.0f);
 
 
+}
+
+float getDt()
+{
+	return actualDt;
 }

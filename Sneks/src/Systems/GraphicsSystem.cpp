@@ -144,8 +144,8 @@ void GraphicsSystem::PreLoadTextures()
 	//ENFORCE FILE NAMES TO BE UNIQUE
 	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
 	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
-	LoadTextureToMap("../Resources/snake-body.png"		 , "SnekBody01");
-	LoadTextureToMap("../Resources/snake-body2.png"	 , "SnekBody02");
+	LoadTextureToMap("../Resources/bodytest.png"		 , "SnekBody01");
+	LoadTextureToMap("../Resources/bodytest2.png"	 , "SnekBody02");
 	LoadTextureToMap("../Resources/head.png"				 , "SnekTail01");
 	LoadTextureToMap("../Resources/head.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
@@ -161,7 +161,19 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
+	LoadTextureToMap("../Resources/UI_BarLeft.png", "LeftBar");
+	LoadTextureToMap("../Resources/UI_BarLeftSmall.png", "SmallLeftBar");
+	LoadTextureToMap("../Resources/UI_BarRight.png", "RightBar");
+	LoadTextureToMap("../Resources/UI_BarRightSmall.png", "SmallRightBar");
+
 	LoadTextureToMap("../Resources/UI_Bar.png", "HUD");
+
+	LoadTextureToMap("../Resources/UI_BarRightLife1.png", "LifeR1");
+	LoadTextureToMap("../Resources/UI_BarRightLife2.png", "LifeR2");
+	LoadTextureToMap("../Resources/UI_BarRightLife3.png", "LifeR3");
+	LoadTextureToMap("../Resources/UI_BarLeftLife1.png", "LifeL1");
+	LoadTextureToMap("../Resources/UI_BarLeftLife2.png", "LifeL2");
+	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
 }
 

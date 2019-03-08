@@ -34,8 +34,34 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
+
+	Events::EV_NEW_UI_ELEMENT LBarElement = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "LBar", "LeftBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT sLBarElement = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "sLBar", "SmallLeftBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RBarElement = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "RBar", "RightBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT sRBarElement = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "sRBar", "SmallRightBar","","","", nullptr };
+
 	Events::EV_NEW_UI_ELEMENT HUDElement = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
+
+	Events::EV_NEW_UI_ELEMENT RLifeElement1 = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "RL1", "LifeR1","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RLifeElement2 = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "RL2", "LifeR2","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RLifeElement3 = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "RL3", "LifeR3","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement1 = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "LL1", "LifeL1","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement2 = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "LL2", "LifeL2","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement3 = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "LL3", "LifeL3","","","", nullptr };
+
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LBarElement);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(sLBarElement);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(RBarElement);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(sRBarElement);
+
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(HUDElement);
+
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(RLifeElement1);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(RLifeElement2);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(RLifeElement3);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LLifeElement1);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LLifeElement2);
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LLifeElement3);
 
 	t_Comp->SetPosition(t_Comp->GetPosition().x + c_Comp->GetOffsetX(), t_Comp->GetPosition().y + c_Comp->GetOffsetY());
 	t_Comp->SetScale(c_Comp->GetScale());

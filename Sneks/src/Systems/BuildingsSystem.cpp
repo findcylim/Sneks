@@ -4,7 +4,7 @@
 //TODO: REPLACE THESE ARE TEMP VARIABLES
 //TODO: INVESTIGATE LAG DUE TO INCREASE IN BUILDINGS
 constexpr int buildingsDistX = 80;
-constexpr int buildingsDistY = 51;
+constexpr int buildingsDistY = 45;
 constexpr int bgInstancesX = 0;
 constexpr int bgInstancesY = 0;
 
@@ -24,11 +24,11 @@ void BuildingsSystem::Update(float dt)
 void BuildingsSystem::Initialize()
 {
 	m_i_MaxBuildingsX = 1920 / 80 * (bgInstancesX * 2 + 1);
-	m_i_MaxBuildingsY = 1080 / 51 * (bgInstancesY * 2 + 1);
+	m_i_MaxBuildingsY = 1080 / 45 * (bgInstancesY * 2 + 1);
 
 	//The coordinates of the building at the origin
-	m_i_FirstBuildingCoords.x = -1920.0f * bgInstancesX - 35.5f - buildingsDistX * 11.0f;
-	m_i_FirstBuildingCoords.y = -1080.0f * bgInstancesY - buildingsDistY * 10.0f;
+	m_i_FirstBuildingCoords.x = -1920.0f * bgInstancesX - 33.5f - buildingsDistX - 13.0f;
+	m_i_FirstBuildingCoords.y = -1080.0f * bgInstancesY - 21.0f - buildingsDistY + 6.0f;
 
 	m_BuildingInstances.clear();
 	m_BuildingCoordsCurrent.clear();

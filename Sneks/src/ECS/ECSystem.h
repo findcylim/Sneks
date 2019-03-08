@@ -11,7 +11,6 @@
 #include "EntityManager.h"
 
 
-
 class ECSystem
 {
 private:
@@ -29,5 +28,7 @@ public:
 	bool IsEngineOn() const;
 	void Update();
 };
+
+float getDt();
 
 #endif

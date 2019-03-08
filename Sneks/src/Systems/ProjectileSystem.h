@@ -4,6 +4,7 @@
 #pragma once
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
+#include "../ECS/ECSystem.h"
 #include "GraphicsSystem.h"
 #include "SnekSystem.h"
 
