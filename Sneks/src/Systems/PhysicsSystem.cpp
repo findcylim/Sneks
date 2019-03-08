@@ -2,6 +2,9 @@
 #include <iostream>
 #include "SnekSystem.h"
 
+//TODO FIX THIS HARD CODE
+static float currDt;
+
 PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)
 {
@@ -26,7 +29,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 {
-	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
+	
 	auto phyComp = eventData.caller;
 	auto snekHeadComponent = m_po_ComponentManager->
 		GetSpecificComponentInstance<SnekHeadComponent>(phyComp, kComponentSnekHead);
@@ -45,7 +48,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() +
-			snekHeadComponent->m_f_TurnSpeed * dt *
+			snekHeadComponent->m_f_TurnSpeed * currDt *
 			turnSpeedMultiplier
 			);
 	}
@@ -59,7 +62,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() -
-			snekHeadComponent->m_f_TurnSpeed * dt *
+			snekHeadComponent->m_f_TurnSpeed * currDt *
 			turnSpeedMultiplier
 			);
 	}
@@ -68,6 +71,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 
 void PhysicsSystem::Update(float dt)
 {
+	currDt = dt;
 	State currentState = m_o_GameStateManager->ReturnCurrentState();
 
 	UNREFERENCED_PARAMETER(currentState);

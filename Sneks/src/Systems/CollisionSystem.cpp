@@ -52,7 +52,7 @@ void CollisionSystem::Update(float dt)
 		for (unsigned int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
 			// if any object has collision disabled
-			if (!objectsInGroupA->objects[i_ObjectA]->enabled)
+			if (!objectsInGroupA->objects[i_ObjectA]->enabled || !objectsInGroupA->objects[i_ObjectA]->m_po_OwnerEntity->m_b_IsActive)
 				continue;
 			if (i_CollisionPair.groupB >= m_xo_ComponentsPerGroup.size())
 				continue;
@@ -61,8 +61,9 @@ void CollisionSystem::Update(float dt)
 			for (unsigned int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
 			{
 				// if any object has collision disabled
-				if (!objectsInGroupB->objects[i_ObjectB]->enabled)
+				if (!objectsInGroupB->objects[i_ObjectB]->enabled || !objectsInGroupB->objects[i_ObjectB]->m_po_OwnerEntity->m_b_IsActive)
 					continue;
+
 				auto hitBoxA = objectsInGroupA->objectsHitBoxes[i_ObjectA];
 				auto hitBoxB = objectsInGroupB->objectsHitBoxes[i_ObjectB];
 

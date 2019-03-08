@@ -155,26 +155,23 @@ void ECSystem::InitializeEngine()
 */
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
-	auto HUD = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager);
-	HUD->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
-	m_o_SystemManager->AddSystem(HUD);
-	canvas->SetName("HUD");
+	auto hud = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager);
+	hud->SetName("HUD");
+	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
+	m_o_SystemManager->AddSystem(hud);
 
 	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
 	m_o_SystemManager->AddSystem(input);
-
+	input->SetName("Input");
 
 	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
 	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
 
-	
 	m_o_SystemManager->AddSystem(powerup);
+	powerup->SetName("Power Up");
 	powerup->Initialize();
 
-	audio->SetName("Audio");
-	m_o_SystemManager->AddSystem(audio);
-	audio->Initialize();
 }
 
 void ECSystem::LoadMainMenu()
@@ -187,25 +184,40 @@ bool ECSystem::IsEngineOn() const
 	return m_b_EngineStatus;
 }
 
+float actualDt = 0;
+
 void ECSystem::Update()
 {
-	AESysFrameStart();
-	AEInputUpdate();
+	constexpr float dtCap = 1.0f / 60.0f;
 
-	auto dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
+	if (actualDt <= 0)
+		actualDt = static_cast<float>(AEFrameRateControllerGetFrameTime());
 
-	if (dt >= 3.0f / 60.0f)
-		dt = 3.0f / 60.0f;
+	do {
 
-	m_o_EventManager->Update();
-	m_o_SystemManager->Update(dt);
+		AESysFrameStart();
+		AEInputUpdate();
 
-	if (GetAsyncKeyState(AEVK_ESCAPE))
-	{
-		m_b_EngineStatus = false;
-	}
-	m_o_EntityComponentManager->ResolveDeletes();
+		auto cappedDt = min(actualDt, dtCap);
 
-	AESysFrameEnd();
+		if (actualDt > dtCap)
+			++m_o_SystemManager->m_i_DroppedFrames;
+
+		m_o_EventManager->Update();
+		m_o_SystemManager->Update(cappedDt);
+
+		if (GetAsyncKeyState(AEVK_ESCAPE))
+		{
+			m_b_EngineStatus = false;
+		}
+		m_o_EntityComponentManager->ResolveDeletes();
+
+
+		actualDt -= dtCap;
+		
+		AESysFrameEnd();
+
+	} while (actualDt > 0.0f);
+
+
 }
-

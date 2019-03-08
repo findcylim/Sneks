@@ -5,8 +5,8 @@
 //TODO: INVESTIGATE LAG DUE TO INCREASE IN BUILDINGS
 constexpr int buildingsDistX = 80;
 constexpr int buildingsDistY = 51;
-constexpr int bgInstancesX = 2;
-constexpr int bgInstancesY = 2;
+constexpr int bgInstancesX = 0;
+constexpr int bgInstancesY = 0;
 
 
 BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics) :
@@ -34,7 +34,7 @@ void BuildingsSystem::Initialize()
 	m_BuildingCoordsCurrent.clear();
 
 	LoadPossibleLocations();
-	GenerateNewBuildings(500);
+	GenerateNewBuildings(100);
 
 }
 

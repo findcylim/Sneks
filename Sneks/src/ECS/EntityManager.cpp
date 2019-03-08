@@ -263,7 +263,8 @@ void EntityManager::ResolveDeletes()
 {
 	for (auto entity : m_v_ToDelete)
 	{
-		DeleteEntity(entity);
+		entity->m_b_IsActive = false;
+		//DeleteEntity(entity);
 	}
 	m_v_ToDelete.clear();
 }

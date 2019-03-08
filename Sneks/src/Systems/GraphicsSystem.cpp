@@ -181,14 +181,19 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 	m_x_DrawOrder.clear();
 
 	auto i_AddDrawComponent = firstDrawComponent;
-	while (i_AddDrawComponent) {
+	for (;
+		i_AddDrawComponent;
+		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent) )
+	{
+		if (!i_AddDrawComponent->m_po_OwnerEntity->m_b_IsActive)
+			continue;
 		//m_x_DrawOrder.insert(std::pair<int, DrawComponent*>(i_AddDrawComponent->m_f_DrawPriority, i_AddDrawComponent));
 		while (m_x_DrawOrder.size() <= static_cast<size_t>(i_AddDrawComponent->m_f_DrawPriority))
 		{
 			m_x_DrawOrder.emplace_back();
 		}
 		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
-		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent);
+
 	}
 }
 void GraphicsSystem::UpdateDrawOrderVector()
@@ -226,6 +231,8 @@ void GraphicsSystem::Draw(float dt)
 
 	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
 		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
+			if (!drawComponent->m_po_OwnerEntity->m_b_IsActive)
+				continue;
 			//Check if there is draw component
 			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
@@ -274,8 +281,12 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 	auto i_DrawComponent = m_po_ComponentManager
 		->GetFirstComponentInstance<DrawComponent>(kComponentDraw);
 
-	while (i_DrawComponent)
+	for (;
+		i_DrawComponent;
+		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent) )
 	{
+		if (!i_DrawComponent->m_po_OwnerEntity->m_b_IsActive)
+			continue;
 		//Check if there is transform component
 		if (auto i_TransformComponent = i_DrawComponent->m_po_TransformComponent) {
 
@@ -330,7 +341,6 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 				);
 
 		}
-		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
 }
 

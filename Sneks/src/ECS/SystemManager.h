@@ -27,6 +27,9 @@ public:
 	void Initialize(EventManager* eventManager, EntityManager* entManager);
 	SystemManager(Logger* logger);
 	~SystemManager();
+
+	//TODO
+	int m_i_DroppedFrames;
 };
 
 #endif

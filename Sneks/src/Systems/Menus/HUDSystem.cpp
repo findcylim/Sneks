@@ -15,6 +15,7 @@ HUDSystem::HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager
 
 HUDSystem::~HUDSystem()
 {
+	/*
 	auto UI = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
 	while (UI)
 	{
@@ -23,7 +24,7 @@ HUDSystem::~HUDSystem()
 			m_po_EntityManager->AddToDeleteQueue(element);
 		}
 		UI->m_x_CanvasElementList.clear();
-	}
+	}*/
 }
 
 void HUDSystem::Initialize(CanvasComponent* canvasComponent)
