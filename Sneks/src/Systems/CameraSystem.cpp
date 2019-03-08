@@ -1,6 +1,7 @@
 #include "CameraSystem.h"
 #include "../Components/CameraComponent.h"
 
+HTVector2 cameraMovement;
 
 void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
@@ -132,6 +133,10 @@ void CameraSystem::UpdateCamera(const float dt) const
 			/ 2,
 		(cameraComponent->m_v_EntitiesToTrack.front()->GetPosition().y + cameraComponent->m_v_EntitiesToTrack.back()->GetPosition().y)
 			/ 2 };
+
+			cameraMovement.x = cameraComponent->m_f_VirtualOffsetX + averagePosition.x;
+			cameraMovement.y = cameraComponent->m_f_VirtualOffsetY + averagePosition.y;
+
 			cameraComponent->m_f_VirtualOffsetX = -averagePosition.x;
 			cameraComponent->m_f_VirtualOffsetY = -averagePosition.y;
 		}
@@ -157,6 +162,11 @@ float CameraSystem::AddShake(float magnitude)
 void CameraSystem::SetShake(float magnitude)
 {
 	m_po_CamShake->SetShake(magnitude);
+}
+
+HTVector2 getCameraMovement()
+{
+	return cameraMovement;
 }
 
 
