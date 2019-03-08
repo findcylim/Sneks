@@ -24,3 +24,16 @@ void CameraComponent::AddToTrack(TransformComponent* pDrawObject)
 	m_v_EntitiesToTrack.push_back(pDrawObject);
 }
 
+float CameraComponent::GetOffsetX()
+{
+	return m_f_VirtualOffsetX;
+}
+float CameraComponent::GetOffsetY()
+{
+	return m_f_VirtualOffsetY;
+}
+
+float CameraComponent::GetScale()
+{
+	return m_f_VirtualScale;
+}

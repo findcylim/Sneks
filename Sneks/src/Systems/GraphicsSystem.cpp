@@ -154,6 +154,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
+	LoadTextureToMap("../Resources/UI_Bar.png", "HUD");
+
 }
 
 void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
