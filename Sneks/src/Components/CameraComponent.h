@@ -54,6 +54,10 @@ public:
 
 	CameraComponent();
 	~CameraComponent();
+
+	float GetOffsetX();
+	float GetOffsetY();
+	float GetScale();
 };
 
 

@@ -18,6 +18,7 @@
 #include "../Systems/ParticleSystem.h"
 #include "../Systems/AudioSystem.h"
 #include "../Systems/Menus/MainMenuSystem.h"
+#include "../Systems/Menus/HUDSystem.h"
 
 #include <iostream>
 #include <queue>
@@ -142,13 +143,20 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(canvas);
 	canvas->SetName("Canvas UI");
 	canvas->Initialize();
+/*
+	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
-	//CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
+	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
+	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
+	m_o_SystemManager->AddSystem(mainMenu);
+	canvas->SetName("Main Menu");
+*/
+	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
-	//auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
-	//mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
-	//m_o_SystemManager->AddSystem(mainMenu);
-	//canvas->SetName("Main Menu");
+	auto HUD = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager);
+	HUD->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
+	m_o_SystemManager->AddSystem(HUD);
+	canvas->SetName("HUD");
 
 	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
 	m_o_SystemManager->AddSystem(input);

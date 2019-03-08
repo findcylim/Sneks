@@ -135,6 +135,9 @@
     <ClCompile Include="Systems\AudioSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\HUDSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="Systems\AudioSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\HUDSystem.h">
+      <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

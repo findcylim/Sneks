@@ -21,6 +21,11 @@ void TransformComponent::SetPosition(const float positionX, const float position
 	m_x_Position.y = positionY;
 }
 
+void TransformComponent::SetScale(const float newScale)
+{
+	m_f_Scale = newScale;
+}
+
 HTVector2 TransformComponent::GetPosition() const
 {
 	return m_x_Position;
