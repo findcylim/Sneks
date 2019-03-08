@@ -29,23 +29,23 @@ HUDSystem::~HUDSystem()
 void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 {
 	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	TransformComponent * t_Comp = m_po_ComponentManager->GetFirstComponentInstance<TransformComponent>(kComponentTransform);
 
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
-	Events::EV_NEW_UI_ELEMENT HUDElement = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT HUDElement = { canvasComponent,HTVector2{ screenX / 2 , screenY / 2 } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(HUDElement);
 
-	t_Comp->SetPosition(t_Comp->GetPosition().x + c_Comp->GetOffsetX(), t_Comp->GetPosition().y + c_Comp->GetOffsetY());
+	TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(canvasComponent, kComponentTransform);
+	t_Comp->SetPosition(c_Comp->GetOffsetX(), c_Comp->GetOffsetY());
 	t_Comp->SetScale(c_Comp->GetScale());
 }
 
 void HUDSystem::Update(float dt)
 {
 	(void)dt;
-	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	TransformComponent * t_Comp = m_po_ComponentManager->GetFirstComponentInstance<TransformComponent>(kComponentTransform);
+	//CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	//TransformComponent * t_Comp = m_po_ComponentManager->GetFirstComponentInstance<TransformComponent>(kComponentTransform);
 
-	t_Comp->SetPosition(t_Comp->GetPosition().x + c_Comp->GetOffsetX(), t_Comp->GetPosition().y + c_Comp->GetOffsetY());
-	t_Comp->SetScale(c_Comp->GetScale());
+	//t_Comp->SetPosition(t_Comp->GetPosition().x + c_Comp->GetOffsetX(), t_Comp->GetPosition().y + c_Comp->GetOffsetY());
+	//t_Comp->SetScale(c_Comp->GetScale());
 }
