@@ -181,9 +181,6 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 		case Entity::kEntityBase:
 			entityPointer = new BaseEntity(entityName);
 			break;
-		case Entity::kEntitySample:
-			entityPointer = (BaseEntity*)new SampleEntity(entityName);
-			break;
 		case Entity::kEntityStaticObject:
 			entityPointer = (BaseEntity*)new StaticObjectEntity(entityName);
 			break;

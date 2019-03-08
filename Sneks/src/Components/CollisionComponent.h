@@ -18,8 +18,7 @@ enum CollisionGroupName
 	kCollGroupBuilding = 10,
 	kCollGroupMoon = 11,
 	kCollGroupUIButton,
-	kCollGroupMouse
-	kCollGroupMoon = 11,
+	kCollGroupMouse,
 	kCollGroupPowerUp
 };
 

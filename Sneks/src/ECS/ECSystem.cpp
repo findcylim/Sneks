@@ -85,6 +85,7 @@ void ECSystem::InitializeEngine()
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
+	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 
 
 
@@ -167,11 +168,10 @@ void ECSystem::InitializeEngine()
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
 	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
 
-	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
+	
 	m_o_SystemManager->AddSystem(powerup);
 	powerup->Initialize();
 
-	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
