@@ -15,6 +15,8 @@ class EntityManager
 	std::vector<BaseEntity*> m_v_EntityPool;
 	ComponentManager *m_po_ComponentManagerInstance;
 	std::vector<BaseEntity*> m_v_ToDelete;
+	std::vector<BaseEntity*> m_v_ToFree;
+
 
 	void AddEntity(BaseEntity* entityPointer, Entity entityType);
 	void AttachAllComponents(BaseEntity* entityPointer, Entity entityType);

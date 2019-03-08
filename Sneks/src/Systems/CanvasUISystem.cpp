@@ -21,7 +21,7 @@ void CanvasUISystem::Update(float dt)
 {
 	(void)dt;
 	
-	/* auto uiCanvas = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
+	/*auto uiCanvas = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
 	while (uiCanvas)
 	{
 		if (uiCanvas->m_b_IsActive)
@@ -38,7 +38,7 @@ void CanvasUISystem::Update(float dt)
 			
 		}
 		uiCanvas = static_cast<CanvasComponent*>(uiCanvas->m_po_NextComponent);
-	} */
+	}*/
 }
 
 

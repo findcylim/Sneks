@@ -13,30 +13,30 @@
 	pause screen etc...)
 
 ***************************************************/
-KeyState m_x_CurrentKeyStates[] ={
-	{ HTKEY_W,        true,    false,    100,    0 },
-	{ HTKEY_A,        true,    false,    100,    0 },
-	{ HTKEY_S,        true,    false,    100,    0 },
-	{ HTKEY_D,        true,    false,    100,    0 },
-	{ HTKEY_LEFT,     true,    false,    100,    0 },
-	{ HTKEY_RIGHT,    true,    false,    100,    0 },
-	{ HTKEY_DOWN,     true,    false,    100,    0 },
-	{ HTKEY_UP,       true,    false,    100,    0 },
-	{ HTKEY_SPACE,    true,    false,    100,    0 },
-	{ HTKEY_ENTER,    true,    false,    100,    0 },
-	{ HTKEY_ESC,      true,    false,    100,    0 },
-	{ HTKEY_E,        true,    false,    100,    0 },
-	{ HTKEY_P,        true,    false,    100,    0 },
-	{ HTKEY_C,        true,    false,    100,    0 },
-	{ HTKEY_B,        true,    false,    100,    0 },
-	{ HTKEY_NUM_1,    true,    false,    100,    0 },
-	{ HTKEY_NUM_2,    true,    false,    100,    0 },
-	{ HTKEY_NUM_3,    true,    false,    100,    0 },
-	{ HTKEY_NUM_4,    true,    false,    100,    0 },
-	{ HTKEY_NUM_5,    true,    false,    100,    0 }
-};
+//KeyState m_x_CurrentKeyStates[] ={
+//	{ HTKEY_W,        true,    false,    100,    0 },
+//	{ HTKEY_A,        true,    false,    100,    0 },
+//	{ HTKEY_S,        true,    false,    100,    0 },
+//	{ HTKEY_D,        true,    false,    100,    0 },
+//	{ HTKEY_LEFT,     true,    false,    100,    0 },
+//	{ HTKEY_RIGHT,    true,    false,    100,    0 },
+//	{ HTKEY_DOWN,     true,    false,    100,    0 },
+//	{ HTKEY_UP,       true,    false,    100,    0 },
+//	{ HTKEY_SPACE,    true,    false,    100,    0 },
+//	{ HTKEY_ENTER,    true,    false,    100,    0 },
+//	{ HTKEY_ESC,      true,    false,    100,    0 },
+//	{ HTKEY_E,        true,    false,    100,    0 },
+//	{ HTKEY_P,        true,    false,    100,    0 },
+//	{ HTKEY_C,        true,    false,    100,    0 },
+//	{ HTKEY_B,        true,    false,    100,    0 },
+//	{ HTKEY_NUM_1,    true,    false,    100,    0 },
+//	{ HTKEY_NUM_2,    true,    false,    100,    0 },
+//	{ HTKEY_NUM_3,    true,    false,    100,    0 },
+//	{ HTKEY_NUM_4,    true,    false,    100,    0 },
+//	{ HTKEY_NUM_5,    true,    false,    100,    0 }
+//};
 
-constexpr size_t kKeyCount = sizeof(m_x_CurrentKeyStates) / sizeof(KeyState);
+//constexpr size_t kKeyCount = sizeof(m_x_CurrentKeyStates) / sizeof(KeyState);
 
 InputSystem::InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager, Logger* logger) :
 	BaseSystem(entityManagerPtr)

@@ -11,7 +11,7 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 	}
 	else
-		SetShake(3.0f);
+		SetShake(2.0f);
 }
 
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr):
@@ -35,8 +35,7 @@ void CameraSystem::Initialize()
 void CameraSystem::UpdateCamera(const float dt) const
 {
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	//float x = m_po_EntityManager->GetFirstEntityInstance<CameraEntity>(kEntityCamera)->GetComponent<TransformComponent>()->m_x_Position.x;
-	//printf("%f\n", x);
+
 	m_po_CamShake->Update(dt);
 
 	while (cameraComponent) {
@@ -156,7 +155,7 @@ float CameraSystem::AddShake(float magnitude)
 
 void CameraSystem::SetShake(float magnitude)
 {
-	m_po_CamShake->SetShake(magnitude);
+	m_po_CamShake->AddShake(magnitude);
 }
 
 

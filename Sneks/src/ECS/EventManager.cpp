@@ -17,9 +17,7 @@ EventManager::EventManager(Logger* logger)
 
 //Destructor
 EventManager::~EventManager()
-{
-	
-}
+= default;
 
 
 void EventManager::Update()
@@ -43,13 +41,9 @@ void EventManager::ProcessEvents()
 	//EventQueue.clear();
 }
 
-bool EventManager::hasEvent(short EventId)
+bool EventManager::hasEvent(short EventId) const
 {
-	if (static_cast<short>(m_EventCallBackList.size()) > EventId)
-	{
-		return true;
-	}
-	return false;
+	return static_cast<short>(m_EventCallBackList.size()) > EventId;
 }
 
 
@@ -60,9 +54,9 @@ bool EventManager::hasEvent(short EventId)
 */
 bool EventManager::RemoveCallbackFromEvent(short eventID, FunctionP functionPointer, void* callee)
 {
-	for (std::vector<CallbackP>::iterator i_v_EventCallbackIterator = m_EventCallBackList[eventID].begin();
+	for (auto i_v_EventCallbackIterator = m_EventCallBackList[eventID].begin();
 										  i_v_EventCallbackIterator != m_EventCallBackList[eventID].end();
-										  i_v_EventCallbackIterator++)
+										  ++i_v_EventCallbackIterator)
 	{
 		try
 		{
@@ -86,13 +80,13 @@ bool EventManager::RemoveCallbackFromEvent(short eventID, FunctionP functionPoin
 
 bool EventManager::RemoveCallback(FunctionP FPRef, void* callee)
 {
-	for (std::vector<std::vector<CallbackP>>::iterator i_l_EventIterator = m_EventCallBackList.begin();
+	for (auto i_l_EventIterator = m_EventCallBackList.begin();
 													   i_l_EventIterator != m_EventCallBackList.end(); 
-													   i_l_EventIterator++)
+													   ++i_l_EventIterator)
 	{
-		for (std::vector<CallbackP>::iterator i_v_EventCallbackIterator = (*i_l_EventIterator).begin();
+		for (auto i_v_EventCallbackIterator = (*i_l_EventIterator).begin();
 											  i_v_EventCallbackIterator != (*i_l_EventIterator).end(); 
-											  i_v_EventCallbackIterator++)
+											  ++i_v_EventCallbackIterator)
 		{
 			try
 			{

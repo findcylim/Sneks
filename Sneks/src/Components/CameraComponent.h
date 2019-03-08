@@ -47,6 +47,7 @@ public:
 	float		           m_f_VirtualOffsetX;
 	float		           m_f_VirtualOffsetY;
 	float		           m_f_VirtualScale;
+	float					  m_f_VirtualRotation;
 
 	void AddToTrack(TransformComponent* pDrawObject);
 	void Update(float dt);

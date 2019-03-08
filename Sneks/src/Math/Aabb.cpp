@@ -22,11 +22,27 @@ namespace AabbHelper {
 		return min;
 	}
 
+	HTVector2 GetMin(const HTVector2 position, const HTVector2 size, const HTVector2 scale)
+	{
+		HTVector2 min ={};
+		min.x = position.x - size.x * scale.x / 2;
+		min.y = position.y - size.y * scale.y / 2;
+		return min;
+	}
+
 	HTVector2 GetMax(const HTVector2 position, const HTVector2 size, const float scale)
 	{
 		HTVector2 max ={};
 		max.x = position.x + size.x * scale / 2;
 		max.y = position.y + size.y * scale / 2;
+		return max;
+	}
+
+	HTVector2 GetMax(const HTVector2 position, const HTVector2 size, const HTVector2 scale)
+	{
+		HTVector2 max ={};
+		max.x = position.x + size.x * scale.x / 2;
+		max.y = position.y + size.y * scale.y / 2;
 		return max;
 	}
 

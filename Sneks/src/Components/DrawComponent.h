@@ -23,6 +23,7 @@ public:
 	AEMtx33*				         m_po_RotationMatrix;
 	AEMtx33*		               m_po_TranslationMatrix;
 	AEMtx33*				         m_po_GlobalMatrix;
+	AEMtx33*				         m_po_ScaleMatrix;
 
 	int							   m_f_DrawPriority = 5;
 

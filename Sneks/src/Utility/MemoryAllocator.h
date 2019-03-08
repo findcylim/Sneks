@@ -41,10 +41,6 @@ namespace {
 	{
 		static int counter{};
 		++allocCounter;
-		if (allocCounter > 10000)
-		{
-			allocCounter++;
-		}
 		void* allocation = malloc(size);
 		allAllocations.insert (std::make_pair(allocation, MallocDebugData{ file,line } ));
 		allAlloc2.push_back(allocation);

@@ -28,6 +28,7 @@ public:
 	virtual ~BaseSystem() {}
 	short GetID();
 	const char * GetName();
+	bool operator<(const BaseSystem& rhs) const;
 };
 
 #endif
