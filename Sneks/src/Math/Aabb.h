@@ -12,6 +12,9 @@ namespace AabbHelper {
 	bool CheckAabbIntersect(Aabb*, Aabb*);
 	HTVector2 GetMin(const HTVector2 position, const HTVector2 size, const float scale);
 	HTVector2 GetMax(const HTVector2 position, const HTVector2 size, const float scale);
+	HTVector2 GetMin(const HTVector2 position, const HTVector2 size, const HTVector2 scale);
+	HTVector2 GetMax(const HTVector2 position, const HTVector2 size, const HTVector2 scale);
+
 
 }
 #endif //AABB_H

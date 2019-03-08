@@ -35,16 +35,33 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
 	}
 	else if (eventData.key == Events::MOVE_KEY_LEFT) {
+
+		auto turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
+
+		if (turnSpeedMultiplier > 1.0f)
+			turnSpeedMultiplier = 1.0f;
+		else if (turnSpeedMultiplier < 0.5f)
+			turnSpeedMultiplier = 0.5f;
+
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() +
-			snekHeadComponent->m_f_TurnSpeed * dt
-		);
+			snekHeadComponent->m_f_TurnSpeed * dt *
+			turnSpeedMultiplier
+			);
 	}
 	else if (eventData.key == Events::MOVE_KEY_RIGHT) {
+		auto turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
+
+		if (turnSpeedMultiplier > 1.0f)
+			turnSpeedMultiplier = 1.0f;
+		else if (turnSpeedMultiplier < 0.5f)
+			turnSpeedMultiplier = 0.5f;
+
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() -
-			snekHeadComponent->m_f_TurnSpeed * dt
-		);
+			snekHeadComponent->m_f_TurnSpeed * dt *
+			turnSpeedMultiplier
+			);
 	}
 }
 
@@ -89,7 +106,6 @@ HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float
 
 HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) const
 {
-	//apply the velocity
 	AEVec2 forwardVector;
 	AEVec2FromAngle(&forwardVector, physicsComponent->m_po_TransformComponent->GetRotation());
 	HTVector2 forwardVelocity ={ forwardVector.x * physicsComponent->m_f_Speed, forwardVector.y * physicsComponent->m_f_Speed };
@@ -103,8 +119,15 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadCo
 	{
 		physicsComponent->m_f_Speed *= 0.95f;
 	}
+	else
+	{
+		if (physicsComponent->m_f_Acceleration == 0)
+			physicsComponent->m_f_Speed *= 0.99f;
+	}
+
 	//std::cout << "Accel: " << physicsComponent->m_f_Acceleration << ", " << physicsComponent->m_f_Speed << std::endl;
-	if (physicsComponent->m_f_Acceleration == 0) {
+	if (physicsComponent->m_f_Acceleration == 0) 
+	{
 		if (physicsComponent->m_f_Speed < snekHeadComponent->m_f_IdleSpeed)
 			physicsComponent->m_f_Speed = snekHeadComponent->m_f_IdleSpeed;		
 		else if (physicsComponent->m_f_Speed < 0)
@@ -112,6 +135,7 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadCo
 		else if (physicsComponent->m_f_Speed > 0)
 			physicsComponent->m_f_Speed -= snekHeadComponent->m_f_Friction;
 	}
+	
 }
 
 void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const

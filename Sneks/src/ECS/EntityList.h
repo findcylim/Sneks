@@ -24,7 +24,7 @@ class BaseEntity
 		Entity m_x_EntityID = Entity::kEntityBase;
 
 	public:
-		char* m_pc_EntityName = nullptr;
+		char m_pc_EntityName[100];
 		bool m_b_IsActive = true;
 		std::vector<BaseComponent*> m_v_AttachedComponentsList;
 		BaseEntity* m_po_PrevEntiy = nullptr, *m_po_NextEntity = nullptr;

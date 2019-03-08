@@ -73,17 +73,17 @@ void CollisionSystem::Update(float dt)
 						Events::EV_PLAYER_COLLISION collEvent{ objectsInGroupA->objects[i_ObjectA],
 							objectsInGroupB->objects[i_ObjectB]
 						};
-						if (!objectsInGroupA)
+						/*if (!objectsInGroupA)
 						{
 							Events::EV_PLAYER_COLLISION_ON_ENTER collEventEnter{ objectsInGroupA->objects[i_ObjectA],
 							objectsInGroupB->objects[i_ObjectB]
 							};
 							objectsInGroupA->objects[i_ObjectA]->m_b_OnEnter = true;
 							m_o_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_ENTER>(collEventEnter);
-						}
+						}*/
 						m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
 					}
-					else
+					/*else
 					{
 						if (objectsInGroupA->objects[i_ObjectA]->m_b_OnEnter)
 						{
@@ -93,7 +93,7 @@ void CollisionSystem::Update(float dt)
 							objectsInGroupA- = false;
 							m_o_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_EXIT>(collEventEnter);
 						}
-					}
+					}*/
 				}
 			}
 		}

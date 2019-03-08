@@ -2,7 +2,11 @@
 #include <algorithm>
 #include <vector>
 #include "../Utility/FileIO.h"
+#include "../Utility/AlphaEngineHelper.h"
 #include "../Components/TextRendererComponent.h"
+
+static unsigned debugFont;
+void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
 
 GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr)
 {};
@@ -19,12 +23,15 @@ GraphicsSystem::~GraphicsSystem()
 		AEGfxMeshFree(pairing.second);
 	}
 	m_x_TextureMap.clear();
+	AEGfxDestroyFont(debugFont);
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
+
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
 
@@ -60,7 +67,7 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 		m_x_MeshMap.insert(std::pair<const char*, AEGfxVertexList*>(texture->mpName, dc->m_px_Mesh));
 	}
 
-	dc->m_po_TransformComponent->m_f_Scale *= largerDimension;
+	dc->m_po_TransformComponent->m_f_Scale = dc->m_po_TransformComponent->m_f_Scale * largerDimension;
 
 	dc->m_f_RgbaColor = color;
 }
@@ -235,6 +242,28 @@ void GraphicsSystem::Draw(float dt)
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 		}
 	}
+
+
+	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+
+	SnekHeadEntity* snekHeadEntity = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+
+	auto snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+
+	s8 strBuffer[500];
+
+	sprintf_s(strBuffer, sizeof(strBuffer), "Snek 1 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+
+	AEGfxPrint(debugFont, strBuffer, -900, 480, 0, 0, 1);
+
+	snekHeadEntity = static_cast<SnekHeadEntity*>(snekHeadEntity->m_po_NextEntity);
+
+	snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+
+	sprintf_s(strBuffer, sizeof(strBuffer), "Snek 2 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+
+	AEGfxPrint(debugFont, strBuffer, 200, 480, 1, 0, 0);
+
 	DrawTextRenderer();
 }
 
@@ -248,31 +277,57 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 		//Check if there is transform component
 		if (auto i_TransformComponent = i_DrawComponent->m_po_TransformComponent) {
 
-			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
-			AEMtx33ScaleApply(
-				i_DrawComponent->m_po_RotationMatrix, i_DrawComponent->m_po_RotationMatrix, 
-				i_TransformComponent->m_f_Scale, i_TransformComponent->m_f_Scale
+			AEMtx33 globalTransform;
+
+			AEMtx33Identity(&globalTransform);
+
+			AEMtx33Scale(i_DrawComponent->m_po_ScaleMatrix, 
+				i_TransformComponent->m_f_Scale.x * i_TransformComponent->m_f_ScaleMultiplier.x,
+				i_TransformComponent->m_f_Scale.y * i_TransformComponent->m_f_ScaleMultiplier.y
 				);
-			
+
+			AEMtx33Concat(&globalTransform, i_DrawComponent->m_po_ScaleMatrix,
+				&globalTransform
+			);
+
+			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
+
+			AEMtx33Concat(&globalTransform, i_DrawComponent->m_po_RotationMatrix,
+				&globalTransform
+			);
+
 			AEMtx33Trans(
 				i_DrawComponent->m_po_TranslationMatrix, i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y
 				);
 
-			/*generate global matrix from rot and trans*/
-			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_TranslationMatrix, i_DrawComponent->m_po_RotationMatrix
+			/*generate global matrix from rot and trans and scale*/
+			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix, i_DrawComponent->m_po_TranslationMatrix,
+				&globalTransform	
 				);
 
-			AEMtx33TransApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
+			AEMtx33 cameraTransform;
+			AEMtx33Identity(&cameraTransform);
+
+			AEMtx33TransApply(&cameraTransform,
+				&cameraTransform, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
 				);
 
-			AEMtx33ScaleApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
+			AEMtx33 rotMatrix;
+			AEMtx33Rot(&rotMatrix, cameraComponent->m_f_VirtualRotation);
+
+			AEMtx33Concat(&cameraTransform,
+				&rotMatrix, &cameraTransform
+			);
+
+			AEMtx33ScaleApply(&cameraTransform,
+				&cameraTransform, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
+				);
+
+			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix, 
+				&cameraTransform, i_DrawComponent->m_po_GlobalMatrix
 				);
 
 		}
-
 		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
 }
@@ -289,4 +344,18 @@ void GraphicsSystem::DrawTextRenderer()const
 										 static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y+ AEGfxGetWinMaxY() + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
 		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
 	}
+}
+
+void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue)
+{
+	float halfScreenSizeX, halfScreenSizeY;
+	AlphaEngineHelper::GetScreenSize(&halfScreenSizeX, &halfScreenSizeY);
+	halfScreenSizeX /= 2;
+	halfScreenSizeY /= 2;
+
+	s8 strBuffer[500];
+	float posX = -halfScreenSizeX + relativePosX * halfScreenSizeX * 2;
+	float posY = -halfScreenSizeY + relativePosY * halfScreenSizeY * 2;
+	sprintf_s(strBuffer, sizeof(strBuffer), toPrint);
+	AEGfxPrint(fontId, strBuffer, (int)posX, (int)posY, red, green, blue);
 }

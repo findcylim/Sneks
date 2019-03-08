@@ -12,8 +12,8 @@ void checkName(BaseEntity* entityPointerSource, BaseEntity* entityPointerUntouch
 	{
 		if (!(*charPointerUntouched))
 		{
-			delete(entityPointerSource->m_pc_EntityName);
-			entityPointerSource->m_pc_EntityName = new char [(strlen(entityPointerUntouched->m_pc_EntityName) + 4)];
+			//delete(entityPointerSource->m_pc_EntityName);
+			//entityPointerSource->m_pc_EntityName = new char [(strlen(entityPointerUntouched->m_pc_EntityName) + 4)];
 
 			charPointerUntouched = entityPointerUntouched->m_pc_EntityName, charPointerSource = entityPointerSource->m_pc_EntityName;
 			while (*charPointerUntouched)
@@ -250,13 +250,13 @@ void EntityManager::ResolveDeletes()
 	m_v_ToDelete.clear();
 }
 
-void EntityManager::DeleteEntity(BaseEntity* entityPointer)
+void EntityManager::  DeleteEntity(BaseEntity* entityPointer)
 {
 	if (entityPointer)
 	{
 		BaseEntity *prevEntity = entityPointer->m_po_PrevEntiy, *nextEntity = entityPointer->m_po_NextEntity;
 
-		while (entityPointer->m_v_AttachedComponentsList.size() > 0)
+		while (!entityPointer->m_v_AttachedComponentsList.empty())
 			m_po_ComponentManagerInstance->DeleteComponent(entityPointer->m_v_AttachedComponentsList[0]);
 
 		if (prevEntity && nextEntity)
@@ -274,9 +274,7 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 			prevEntity->m_po_NextEntity = nullptr;
 		else if (!prevEntity && !nextEntity)
 			m_v_EntityPool[entityPointer->GetEntityID()] = nullptr;
-
-		if (entityPointer->m_pc_EntityName)
-			delete (entityPointer->m_pc_EntityName);
+		m_v_ToFree.push_back(entityPointer);
 
 		delete entityPointer;
 	}

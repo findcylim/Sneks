@@ -60,6 +60,10 @@ public:
 	void RemoveSnekBody(SnekBodyEntity*, SnekHeadComponent* snekHead);
 	void FaceReference(const TransformComponent* reference, TransformComponent* toChange) const;
 	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
+	void MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange,
+	                           PhysicsComponent* headPhysicsComponent) const;
+	void MoveTowardsReference3(DrawComponent* reference, DrawComponent* toChange,
+	                           PhysicsComponent* headPhysicsComponent) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);

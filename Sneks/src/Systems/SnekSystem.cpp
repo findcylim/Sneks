@@ -7,6 +7,15 @@
 #include <iostream>
 #include <algorithm>
 
+struct FollowData
+{
+	AEVec2 pos;
+	AEVec2 vel;
+	float rot;
+};
+
+std::vector< std::vector<FollowData> > bodyPartsData;
+
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
 : BaseSystem(entityManagerPtr)
 {
@@ -57,9 +66,9 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				otherObjectCollide->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 		{
 			//for (int i = 0; i < 2; i ++)
-				CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-					"SnekBody01", snekHeadComp->m_i_PlayerNumber);
-
+			auto bodyTexture = snekHeadComp->m_i_PlayerNumber == 0 ? "SnekBody01" : "SnekBody02";
+			CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+				bodyTexture, snekHeadComp->m_i_PlayerNumber);
 		}
 		objectColliding->enabled = false;
 		auto objectDrawComp = 
@@ -129,6 +138,10 @@ void SnekSystem::HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim
 
 	auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity));
 	aggPhysics->SetVelocity(newVel);
+
+	if (aggPhysics->m_f_Speed > aggPhysics->m_f_MaxSpeed) {
+		aggPhysics->m_f_Speed = aggPhysics->m_f_MaxSpeed;
+	}
 }
 
 void SnekSystem::HeadInvulnerableSet(float duration, BaseComponent* anyComponent)
@@ -179,7 +192,7 @@ void SnekSystem::Receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 {
 	BodyInvulnerableSet(eventData.snekHead);
 }
-bool press = false,press2 = false; //REMOVE  LATER TODO
+
 void SnekSystem::Update(float dt)
 {
 
@@ -206,44 +219,30 @@ void SnekSystem::Update(float dt)
 		auto headPhysicsComponent = i_SnekHead->m_po_OwnerEntity->
 								GetComponent<PhysicsComponent>();
 
-		if (GetAsyncKeyState(i_SnekHead->m_i_BoostKey))
+		if (AEInputCheckTriggered((u8)i_SnekHead->m_i_BoostKey))
 		{
-			if (!press) 
-			{
-				Events::EV_CREATE_PROJECTILE projData;
-				
-				projData.pos = &headTransComponent->m_x_Position;
+			Events::EV_CREATE_PROJECTILE projData;
+			
+			projData.pos = &headTransComponent->m_x_Position;
 
-				projData.velocity = &headPhysicsComponent->m_x_Velocity;
+			projData.velocity = &headPhysicsComponent->m_x_Velocity;
 
-				projData.rot = headTransComponent->GetRotation();
-				projData.speed = 1400.0f;
-				projData.scale = 0.1f;
-				projData.isCollide = true;
+			projData.rot = headTransComponent->GetRotation();
+			projData.speed = 1400.0f;
+			projData.scale = 0.1f;
+			projData.isCollide = true;
 
-				projData.texName = "Moon";
+			projData.texName = "Moon";
 
-				m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
-				press = true;
-			}
-		}
-		else
-		{
-			press = false;
+			m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
 
-		if (GetAsyncKeyState(AEVK_F) < 0)
+
+		if (AEInputCheckTriggered(AEVK_F))
 		{
-			if (!press2)
-			{
-				press2 = true;
-				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
-			}
+			Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
 		}
-		else
-		{
-			press2 = false;
-		}
+
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
@@ -283,8 +282,10 @@ void SnekSystem::Update(float dt)
 				);
 			
 			FaceReference(followComponent->m_po_TransformComponent, bodyDraw->m_po_TransformComponent);
-			if (!GetAsyncKeyState(AEVK_0))
+			if (i_SnekHead->m_i_PlayerNumber)
 				MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
+			else
+				MoveTowardsReference2(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
 
 		i_SnekHead = static_cast<SnekHeadComponent*>(i_SnekHead->m_po_NextComponent);
@@ -339,9 +340,6 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 	}
 }
 
-
-
-
 void SnekSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
@@ -391,7 +389,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 2000;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
@@ -405,7 +403,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BrakeKey = AEVK_S;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
-				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_RCTRL;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
@@ -669,6 +667,37 @@ void SnekSystem::FaceReference(const TransformComponent* reference, TransformCom
 
 void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
 {
+	UNREFERENCED_PARAMETER(headPhysicsComponent);
+
+	AEVec2 rotation;
+	AEVec2FromAngle(&rotation, toChange->m_po_TransformComponent->GetRotation() );
+
+	auto stretchThreshold = 900.0f; //Any faster than this speed the snek will start stretching
+	auto stretchFactorMultiplier = 0.3f;
+	auto stretchFactor  =headPhysicsComponent->m_f_Speed / stretchThreshold;
+
+	if (stretchFactor < 1.0f)
+		stretchFactor = 1.0f;
+
+	auto scaleFactor = (stretchFactor - 1.0f) * stretchFactorMultiplier + 1.0f;
+
+	if (headPhysicsComponent->m_po_OwnerEntity == reference->m_po_OwnerEntity)
+	{
+		stretchFactor = 0.3f;
+	}
+
+	toChange->m_po_TransformComponent->m_f_ScaleMultiplier.x = scaleFactor;
+
+	toChange->m_po_TransformComponent->m_x_Position.x = reference->m_po_TransformComponent->m_x_Position.x + 
+		rotation.x * reference->m_po_TransformComponent->m_f_Scale.x / 3 * stretchFactor;
+	toChange->m_po_TransformComponent->m_x_Position.y = reference->m_po_TransformComponent->m_x_Position.y + 
+		rotation.y * reference->m_po_TransformComponent->m_f_Scale.y / 3 * stretchFactor;
+
+}
+
+void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
+{
+	UNREFERENCED_PARAMETER(headPhysicsComponent);
 
 	float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
 		 reference->m_po_TransformComponent->m_x_Position.x;
@@ -677,17 +706,19 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 
 	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
 
-	//TODO
-	if (fabsf(distanceX) > toChange->m_po_TransformComponent->m_f_Scale / 2 || 1) {
-		toChange->m_po_TransformComponent->m_x_Position.x =
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX
-			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
+	auto headBodyAllowance = 0.93f;
+	auto headBodyClosenessMultiplier = 0.4f;// *reference->m_po_TransformComponent->m_f_Scale;
+	auto stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
+	if (stretchFactor > 1.0f)
+		stretchFactor = 1.0f;
 
-		toChange->m_po_TransformComponent->m_x_Position.y =
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY
-			* (0.95f - 0.5f * (headPhysicsComponent->m_f_Speed / headPhysicsComponent->m_f_MaxSpeed));
+	toChange->m_po_TransformComponent->m_x_Position.x =
+		reference->m_po_TransformComponent->m_x_Position.x + distanceX
+		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 
-	}
+	toChange->m_po_TransformComponent->m_x_Position.y =
+		reference->m_po_TransformComponent->m_x_Position.y + distanceY
+		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 
 }
 

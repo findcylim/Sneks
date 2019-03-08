@@ -46,6 +46,13 @@ struct HTVector2 final
 		y = rhs.y;
 		return *this;
 	}
+
+	HTVector2& operator=(const float rhs)
+	{
+		x = rhs;
+		y = rhs;
+		return *this;
+	}
 	
 };
 
