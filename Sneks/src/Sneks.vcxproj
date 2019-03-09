@@ -50,6 +50,7 @@
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
     <ClCompile Include="Systems\Menus\HUDSystem.cpp" />
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp" />
+    <ClCompile Include="Systems\Menus\WinScreenSystem.cpp" />
     <ClCompile Include="Systems\ParticleSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
     <ClCompile Include="Systems\PowerUpSystem.cpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
     <ClInclude Include="Systems\Menus\HUDSystem.h" />
     <ClInclude Include="Systems\Menus\MainMenuSystem.h" />
+    <ClInclude Include="Systems\Menus\WinScreenSystem.h" />
     <ClInclude Include="Systems\ParticleSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
     <ClInclude Include="Systems\PowerUpSystem.h" />
