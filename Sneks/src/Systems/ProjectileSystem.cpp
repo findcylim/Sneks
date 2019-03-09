@@ -7,7 +7,7 @@
 #include "../Components/SnekHeadComponent.h"
 #include "../Components/FollowComponent.h"
 
-time_t timeStamp = 0;
+time_t timeStampProjectile = 0;
 
 ProjectileSystem::ProjectileSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
 	: BaseSystem(entityManagerPtr)
@@ -29,7 +29,7 @@ void ProjectileSystem::Initialize()
 
 void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 {
-	time_t currTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp;
+	time_t currTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStampProjectile;
 	if (currTime > 3)
 	{
 		ProjectileEntity* ent = m_po_EntityManager->NewEntity<ProjectileEntity>(kEntityProjectile, eventData.texName);
@@ -51,7 +51,7 @@ void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 		auto G_Comp = ent->GetComponent<DrawComponent>();
 		m_o_GraphicsSystem->InitializeDrawComponent(G_Comp, eventData.texName);
 
-		timeStamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());;
+		timeStampProjectile = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());;
 	}
 }
 
@@ -74,3 +74,8 @@ ProjectileSystem::~ProjectileSystem()
 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 	m_o_EventManagerPtr->RemoveListener<Events::EV_CREATE_PROJECTILE>(this);
 };
+
+//float GetProjectileChargeRate()
+//{
+//	return timeStampProjectile/3;
+//}

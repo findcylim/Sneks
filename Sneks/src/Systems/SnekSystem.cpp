@@ -850,3 +850,8 @@ void SnekSystem::UpdateFollowComponents(SnekHeadComponent* snekHeadComponent)
 				);
 	}
 }
+
+//float GetFlipChargeRate()
+//{
+//	return timeStampFlip / 3;
+//}

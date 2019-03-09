@@ -74,4 +74,6 @@ float GetP1GrowthPercentage();
 float GetP2GrowthPercentage();
 int GetP1Lives();
 int GetP2Lives();
+
+//float GetFlipChargeRate();
 #endif

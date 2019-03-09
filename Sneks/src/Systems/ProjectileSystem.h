@@ -25,4 +25,6 @@ private:
 	GraphicsSystem* m_o_GraphicsSystem;
 };
 
+//float GetProjectileChargeRate();
+
 #endif //BACKGROUND_SYSTEM_H
