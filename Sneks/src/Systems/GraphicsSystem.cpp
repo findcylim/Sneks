@@ -157,6 +157,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/MainMenuLogo.png", "MainMenuLogo");
 	LoadTextureToMap("../Resources/MouseCollider.png", "MouseCollider");
 	LoadTextureToMap("../Resources/UIBack.png", "UIBack");
+	LoadTextureToMap("../Resources/UIBack_Hover.png", "UIBack_Hover");
+	LoadTextureToMap("../Resources/UIBack_Click.png", "UIBack_Click");
 	
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");

@@ -9,6 +9,8 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 
 	}
+	else if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
+	{}
 	else
 		SetShake(3.0f);
 }
