@@ -101,6 +101,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		int x = 0, y = 0;
 		
 		m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
+		d_Component->m_f_DrawPriority = 1;
 		
 		ui_Component->m_x_BasicSprite = m_po_GraphicsManager->FetchTexture(uiElementSprite);
 		if (strcmp(uiHoverSprite, "") != 0)
