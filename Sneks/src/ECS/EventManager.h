@@ -22,7 +22,7 @@ enum kEventList
 	Ev_PLAYER2GAME_LEFTKEY,
 	Ev_PLAYER2GAME_RIGHTKEY,
 	Ev_PLAYER2GAME_RIGHTSHIFTKEY,
-	
+
 };
 
 
@@ -37,90 +37,43 @@ namespace Events
 		MOVE_KEY_DOWN
 	};
 
-	struct IEvent
+	struct EV_PLAYER_MOVEMENT_KEY final
 	{
-		virtual ~IEvent() {}
-	};
-
-	struct IEventWrapper
-	{
-		
-	};
-
-	struct EV_PLAYER_MOVEMENT_KEY final : public IEvent
-	{
-		EV_PLAYER_MOVEMENT_KEY() {}
-		EV_PLAYER_MOVEMENT_KEY(PhysicsComponent* _caller, MoveKey _key) 
-							   :IEvent{}, caller{ _caller }, key{_key} {}
 		PhysicsComponent* caller;
 		MoveKey key;
 	};
 
-	struct EV_PLAYER_COLLISION final : public IEvent
+	struct EV_PLAYER_COLLISION final
 	{
-		EV_PLAYER_COLLISION() {}
-		EV_PLAYER_COLLISION(CollisionComponent* obj1, CollisionComponent* obj2) 
-							:IEvent{ }, object1{obj1}, object2 { obj2 }{}
 		CollisionComponent* object1;
 		CollisionComponent* object2;
 	};
 
-	struct EV_ENTITY_POOL_CHANGED final : public IEvent
+	struct EV_ENTITY_POOL_CHANGED final
 	{
-		EV_ENTITY_POOL_CHANGED() :IEvent{} {}
+
 	};
 
-	struct EV_SNEK_INVULNERABLE : public IEvent
+	struct EV_SNEK_INVULNERABLE
 	{
-		EV_SNEK_INVULNERABLE() {}
-		EV_SNEK_INVULNERABLE(SnekHeadComponent* _snekHead) :IEvent{}, snekHead{_snekHead} {}
 		SnekHeadComponent* snekHead;
 	};
 
-	struct EV_CREATE_PROJECTILE : public IEvent
+	struct EV_CREATE_PROJECTILE
 	{
-		EV_CREATE_PROJECTILE() {};
-		EV_CREATE_PROJECTILE(bool _isCollide, float _rot,
-			float _speed, float _scale,
-			HTVector2* _pos, HTVector2 *_velocity,
-			const char * _texName) 
-			:IEvent{}, isCollide{ _isCollide }, rot{ _rot }, 
-			speed{ _speed }, scale{ _scale }, pos{ _pos }, 
-		    velocity{ _velocity }, texName{ _texName } {}
 		bool isCollide;
-		float rot,speed, scale;
-		HTVector2* pos,*velocity;
+		float rot, speed, scale;
+		HTVector2* pos, *velocity;
 		const char * texName;
 	};
 
-	struct EV_PLAY_SOUND : public IEvent
+	struct EV_PLAY_SOUND
 	{
-		EV_PLAY_SOUND() :IEvent{} {}
+
 	};
 
-	struct EV_NEW_UI_ELEMENT : public IEvent
+	struct EV_NEW_UI_ELEMENT
 	{
-		EV_NEW_UI_ELEMENT() {}
-		EV_NEW_UI_ELEMENT(CanvasComponent* _canvas,
-		HTVector2 _initialPosition,
-		CanvasElementEnum _elementType,
-		const char * _elementEntityName,
-		const char * _uiElementSpriteName,
-		const char * _uiTextLabel = "",
-		const char * _uiHoverSpriteName = "",
-		const char * _uiClickSpriteName = "",
-		void(*_ButtonPressFunc)(void) = nullptr) 
-			:IEvent{},
-			canvas{ _canvas },
-			initialPosition{ _initialPosition },
-			elementType{_elementType},
-			elementEntityName{ _elementEntityName },
-			uiElementSpriteName{ _uiElementSpriteName },
-			uiTextLabel{ _uiTextLabel },
-			uiHoverSpriteName{ _uiHoverSpriteName },
-			uiClickSpriteName{ _uiClickSpriteName },
-			ButtonPressFunc{ _ButtonPressFunc }{}
-
 		CanvasComponent* canvas;
 		HTVector2 initialPosition;
 		CanvasElementEnum elementType;
@@ -132,36 +85,26 @@ namespace Events
 		void(*ButtonPressFunc)(void) = nullptr;
 	};
 
-	struct EV_PLAYER_COLLISION_ON_ENTER : public IEvent
+	struct EV_PLAYER_COLLISION_ON_ENTER
 	{
-		EV_PLAYER_COLLISION_ON_ENTER() {}
-		EV_PLAYER_COLLISION_ON_ENTER(CollisionComponent* obj1, CollisionComponent* obj2)
-			:IEvent{ }, object1{ obj1 }, object2{ obj2 }{}
 		CollisionComponent* object1;
 		CollisionComponent* object2;
 	};
 
-	struct EV_PLAYER_COLLISION_ON_EXIT : public IEvent
+	struct EV_PLAYER_COLLISION_ON_EXIT
 	{
-		EV_PLAYER_COLLISION_ON_EXIT(CollisionComponent* obj1, CollisionComponent* obj2)
-			:IEvent{ }, object1{ obj1 }, object2{ obj2 }{}
-		EV_PLAYER_COLLISION_ON_EXIT() :IEvent{} {}
 		CollisionComponent* object1;
 		CollisionComponent* object2;
 	};
 }
 
-
-
-
-
-
 class EventManager
 {
-protected : 
+protected:
 public:
 	void Update();
 	void ProcessEvents();
+
 
 	template<typename T>
 	bool AddListener(EventListener<T>* listener)
@@ -185,9 +128,9 @@ public:
 	template<typename T>
 	void RemoveListener(EventListener<T>* listener)
 	{
-		auto type		= getTypeIndex<T>();
+		auto type = getTypeIndex<T>();
 		auto v_Listener = m_l_ListenerList.find(type);
-		for (auto i_Listener = v_Listener->second.begin();i_Listener <= v_Listener->second.end(); ++i_Listener)
+		for (auto i_Listener = v_Listener->second.begin(); i_Listener <= v_Listener->second.end(); ++i_Listener)
 		{
 			auto ii_Listener = reinterpret_cast<BaseEventListener*>(listener);
 			if (ii_Listener == *i_Listener)
@@ -222,7 +165,6 @@ public:
 			for (auto* baseListener : i_Listener->second)
 			{
 				auto* Listener = reinterpret_cast<EventListener<T>*>(baseListener);
-				//EventQueue.push_back(static_cast<Events::IEvent>(event));
 				Listener->Receive(event);
 			}
 			return true;
@@ -233,13 +175,10 @@ public:
 		}
 	}
 
-
-	EventManager(Logger* logger);
+	EventManager();
 	virtual ~EventManager();
 private:
-	std::map<std::type_index,std::vector<BaseEventListener*>> m_l_ListenerList;
-	Logger* m_o_Logger;
-	std::list<Events::IEvent> EventQueue;
+	std::map<std::type_index, std::vector<BaseEventListener*>> m_l_ListenerList;
 };
 
 #endif
