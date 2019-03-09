@@ -142,8 +142,12 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 	auto tcp = pec->GetSpawnTransform();
 
 	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-		pep, Component::kComponentTransform)->SetPosition(
-			CalculatePositionX(pec, tcp), CalculatePositionY(pec, tcp));
+		pep, Component::kComponentTransform)->SetPositionX(
+			CalculatePositionX(pec, tcp));
+
+	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+		pep, Component::kComponentTransform)->SetPositionY(
+			CalculatePositionY(pec, tcp));
 
 	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 		pep, Component::kComponentTransform)->SetRotation(CalculateRotation(pec, tcp));

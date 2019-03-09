@@ -27,7 +27,8 @@ BackgroundEntity* BackgroundSystem::CreateBackground(float posX, float posY, flo
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPosition(posX, posY);
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(posX);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(posY);
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)

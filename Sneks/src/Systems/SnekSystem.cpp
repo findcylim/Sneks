@@ -7,6 +7,30 @@
 #include <iostream>
 #include <algorithm>
 
+float P1Growth = 0, P2Growth = 0;
+float P1GrowthMeter = 1, P2GrowthMeter = 1;
+int P1Lives = 3, P2Lives = 3;
+
+float GetP1GrowthPercentage()
+{
+	return P1Growth/P1GrowthMeter;
+}
+
+float GetP2GrowthPercentage()
+{
+	return P2Growth/P2GrowthMeter;
+}
+
+int GetP1Lives()
+{
+	return P1Lives;
+}
+
+int GetP2Lives()
+{
+	return P2Lives;
+}
+
 struct FollowData
 {
 	AEVec2 pos;
@@ -51,7 +75,6 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		HeadCollideBodyCheck(eventData.object2, eventData.object1);
 	}
 
-	//If it involves a building
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ||
 		 eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
 	{
@@ -65,10 +88,32 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		if (auto snekHeadComp = 
 				otherObjectCollide->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 		{
-			//for (int i = 0; i < 2; i ++)
-			auto bodyTexture = snekHeadComp->m_i_PlayerNumber == 0 ? "SnekBody01" : "SnekBody02";
-			CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-				bodyTexture, snekHeadComp->m_i_PlayerNumber);
+			if (snekHeadComp->m_i_PlayerNumber == 0)
+			{
+				if (P1Growth >= P1GrowthMeter)
+				{
+					P1Growth = 0;
+					P1GrowthMeter *= 1.5;
+					auto bodyTexture = "SnekBody01";
+					CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+						bodyTexture, snekHeadComp->m_i_PlayerNumber);
+				}
+				else
+					P1Growth += 0.1f;
+			}
+			else
+			{
+				if (P2Growth >= P2GrowthMeter)
+				{
+					P2Growth = 0;
+					P2GrowthMeter *= 1.5;
+					auto bodyTexture = "SnekBody02";
+					CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+						bodyTexture, snekHeadComp->m_i_PlayerNumber);
+				}
+				else
+					P2Growth += 0.1f;
+			}
 		}
 		objectColliding->enabled = false;
 		auto objectDrawComp = 
@@ -86,8 +131,13 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			RemoveSnekBody(snekHed1->m_x_BodyParts.at(0) , snekHed1);
 			RemoveSnekBody(snekHed2->m_x_BodyParts.at(0) , snekHed2);
 
-			/*if (snekHed1->m_x_BodyParts.size() == 1)
+			if (snekHed1->m_x_BodyParts.size() == 1)
 			{
+				if (snekHed1->m_i_PlayerNumber == 0)
+					P1Lives--;
+				else
+					P2Lives--;
+				/*
 				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
 				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_po_OwnerEntity);
 				auto i_CameraComponent = static_cast<CameraComponent*>(
@@ -95,10 +145,16 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				
 				CreateSnek(0, 0, 0, 20, "SnekHead01", 0);
 				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+				*/
 
 			}
 			else if (snekHed2->m_x_BodyParts.size() == 1)
 			{
+				if (snekHed1->m_i_PlayerNumber == 0)
+					P1Lives--;
+				else
+					P2Lives--;
+				/*
 				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
 				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
 				auto i_CameraComponent = static_cast<CameraComponent*>(
@@ -106,8 +162,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 				CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
 				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
-
-			}*/
+				*/
+			}
 
 			srand(clock());
 			auto randDirection = rand() % 360;
@@ -368,7 +424,8 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPosition(posX, posY);
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(posX);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(posY);
 			static_cast<TransformComponent*>(i_Component)->SetRotation(rotation);
 
 			auto cameraComponent = 
@@ -498,8 +555,10 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPosition(
-				referenceTransform->m_x_Position.x, referenceTransform->m_x_Position.y);
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+				referenceTransform->m_x_Position.x);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+				referenceTransform->m_x_Position.y);
 
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			//TODO: REMOVE HARCCODE
@@ -591,8 +650,10 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPosition(
-				ownerTransform->m_x_Position.x, ownerTransform->m_x_Position.y);
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+				ownerTransform->m_x_Position.x);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+				ownerTransform->m_x_Position.y);
 
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			//TODO: REMOVE HARCCODE
@@ -719,42 +780,51 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 
 }
 
+//float timeStamp1 = 0;
+
 void SnekSystem::Flip(SnekHeadEntity* owner)
 {
-	/*Swap head and tail positions*/
-	auto snekHeadComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
-			owner, kComponentSnekHead
-		);
+	//float currTime = getDt() - timeStamp1;
+	//if (currTime > 3)
+	//{
+		/*Swap head and tail positions*/
+		auto snekHeadComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
+				owner, kComponentSnekHead
+				);
 
-	auto headTransformComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			owner, kComponentTransform
-		);
+		auto headTransformComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+				owner, kComponentTransform
+				);
 
-	auto tailTransformComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			snekHeadComponent->m_x_BodyParts.back(), kComponentTransform
-		);
-	auto headPhysicsComponent = owner->GetComponent<PhysicsComponent>();
+		auto tailTransformComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+				snekHeadComponent->m_x_BodyParts.back(), kComponentTransform
+				);
+		auto headPhysicsComponent = owner->GetComponent<PhysicsComponent>();
 
-	headPhysicsComponent->m_f_Acceleration = 0;
-	headPhysicsComponent->m_f_Speed = 0;
+		headPhysicsComponent->m_f_Acceleration = 0;
+		headPhysicsComponent->m_f_Speed = 0;
 
-	auto tempX = headTransformComponent->GetPosition().x;
-	auto tempY = headTransformComponent->GetPosition().y;
-	headTransformComponent->SetPosition(tailTransformComponent->GetPosition().x, tailTransformComponent->GetPosition().y);
-	tailTransformComponent->SetPosition(tempX, tempY);
+		auto tempX = headTransformComponent->GetPosition().x;
+		auto tempY = headTransformComponent->GetPosition().y;
+		headTransformComponent->SetPositionX(tailTransformComponent->GetPosition().x);
+		headTransformComponent->SetPositionY(tailTransformComponent->GetPosition().y);
+		tailTransformComponent->SetPositionX(tempX);
+		tailTransformComponent->SetPositionY(tempY);
 
-	tempX = headTransformComponent->GetRotation();
-	headTransformComponent->SetRotation(tailTransformComponent->GetRotation());
-	tailTransformComponent->SetRotation(tempX);
+		tempX = headTransformComponent->GetRotation();
+		headTransformComponent->SetRotation(tailTransformComponent->GetRotation());
+		tailTransformComponent->SetRotation(tempX);
 
-	//reverse the body parts vector
-	std::reverse(snekHeadComponent->m_x_BodyParts.begin(), snekHeadComponent->m_x_BodyParts.end() - 1);
+		//reverse the body parts vector
+		std::reverse(snekHeadComponent->m_x_BodyParts.begin(), snekHeadComponent->m_x_BodyParts.end() - 1);
 
-	UpdateFollowComponents(snekHeadComponent);
+		UpdateFollowComponents(snekHeadComponent);
 
+		//timeStamp1 = getDt();
+	//}
 }
 
 void SnekSystem::UpdateFollowComponents(SnekHeadComponent* snekHeadComponent)
