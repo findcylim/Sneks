@@ -1,7 +1,7 @@
 #pragma once
 #include "../CanvasUISystem.h"
 #include "../../ECS/System.h"
-//#include "../SnekSystem.h"
+#include "../SnekSystem.h"
 
 class HUDSystem : public BaseSystem
 {

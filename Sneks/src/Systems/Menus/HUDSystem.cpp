@@ -3,9 +3,6 @@
 #include "../../Utility/AlphaEngineHelper.h"
 #include "../CameraSystem.h"
 
-//TODO
-//REMOVE GLOBAL VARIABLES
-//float X, Y;
 
 HUDSystem::HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager)
 	:BaseSystem(entityManagerPtr)
@@ -71,59 +68,69 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 void HUDSystem::Update(float dt)
 {
 	(void)dt;
-	// CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	//CanvasComponent * can_Comp = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
+	CanvasComponent * can_Comp = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
 
-	//float screenX = 0, screenY = 0;
-	//AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
-
-	//for (auto& element : can_Comp->m_x_CanvasElementList)
-	//{
-	//	TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
-
-	//	t_Comp->SetScale(1.0f / c_Comp->GetScale());
-	//	t_Comp->SetPositionX(t_Comp->GetPosition().x + getCameraMovement().x);
-	//	t_Comp->SetPositionY(t_Comp->GetPosition().y + getCameraMovement().y);
-
-	//	/* X += (getCameraMovement().x * t_Comp->GetScale().x);
-	//	Y += (getCameraMovement().y * t_Comp->GetScale().y);
-
-	//	if (t_Comp->GetPosition().x < X)
-	//	{
-	//		while (t_Comp->GetPosition().x < X)
-	//			t_Comp->SetPositionX(t_Comp->GetPosition().x + 0.1f);
-	//	}
-
-	//	else if (t_Comp->GetPosition().x > X)
-	//	{
-	//		while (t_Comp->GetPosition().x > X)
-	//			t_Comp->SetPositionX(t_Comp->GetPosition().x - 0.1f);
-	//	}
-
-	//	if (t_Comp->GetPosition().y < Y)
-	//	{
-	//		while (t_Comp->GetPosition().y < Y)
-	//			t_Comp->SetPositionY(t_Comp->GetPosition().y + 0.1f);
-	//	}
-
-	//	else if (t_Comp->GetPosition().y > Y)
-	//	{
-	//		while (t_Comp->GetPosition().y > Y)
-	//			t_Comp->SetPositionY(t_Comp->GetPosition().y - 0.1f);
-	//	} */
-	//}
-
-	/*
-	switch (GetP1Lives())
+	switch (GetP1Lives()) {
+	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
-	case 1: break;
-	case 2: break;
+		if (!strcmp(element->m_pc_EntityName, "RL3"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+	}
+	break;
+
+	case 1: for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strcmp(element->m_pc_EntityName, "RL2"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+	}
+	break;
+
+	case 2: for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strcmp(element->m_pc_EntityName, "RL1"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+	}
+	break;
 	}
 
-	switch (GetP2Lives()) 
+	switch (GetP2Lives()) {
+	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
-	case 1: break;
-	case 2: break;
+		if (!strcmp(element->m_pc_EntityName, "LL3"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
 	}
-	*/
+	break;
+
+	case 1: for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strcmp(element->m_pc_EntityName, "LL2"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+	}
+	break;
+
+	case 2: for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strcmp(element->m_pc_EntityName, "LL1"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+	}
+	break;
+	}
 }

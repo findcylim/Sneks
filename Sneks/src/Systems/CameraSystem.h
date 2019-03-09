@@ -19,5 +19,3 @@ public:
 	void  SetShake(float magnitude);
 };
 
-HTVector2 getCameraMovement();
-
