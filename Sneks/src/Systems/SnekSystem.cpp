@@ -126,10 +126,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 		}
 	}
-
-
 }
-
 
 void SnekSystem::HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim)
 {

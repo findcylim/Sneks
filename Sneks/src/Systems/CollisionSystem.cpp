@@ -71,9 +71,9 @@ void CollisionSystem::Update(float dt)
 				if (hitBoxB != hitBoxA) {
 					if (AabbHelper::CheckAabbIntersect(hitBoxA, hitBoxB))
 					{
-						Events::EV_PLAYER_COLLISION collEvent{ objectsInGroupA->objects[i_ObjectA],
+						Events::EV_PLAYER_COLLISION collEvent( objectsInGroupA->objects[i_ObjectA],
 							objectsInGroupB->objects[i_ObjectB]
-						};
+						);
 						/*if (!objectsInGroupA)
 						{
 							Events::EV_PLAYER_COLLISION_ON_ENTER collEventEnter{ objectsInGroupA->objects[i_ObjectA],

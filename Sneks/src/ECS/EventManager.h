@@ -37,43 +37,90 @@ namespace Events
 		MOVE_KEY_DOWN
 	};
 
-	struct EV_PLAYER_MOVEMENT_KEY final
+	struct IEvent
 	{
-		PhysicsComponent* caller;
-		MoveKey key;
+		virtual ~IEvent() {}
 	};
 
-	struct EV_PLAYER_COLLISION final
-	{
-		CollisionComponent* object1;
-		CollisionComponent* object2;
-	};
-
-	struct EV_ENTITY_POOL_CHANGED final
+	struct IEventWrapper
 	{
 		
 	};
 
-	struct EV_SNEK_INVULNERABLE
+	struct EV_PLAYER_MOVEMENT_KEY final : public IEvent
 	{
+		EV_PLAYER_MOVEMENT_KEY() {}
+		EV_PLAYER_MOVEMENT_KEY(PhysicsComponent* _caller, MoveKey _key) 
+							   :IEvent{}, caller{ _caller }, key{_key} {}
+		PhysicsComponent* caller;
+		MoveKey key;
+	};
+
+	struct EV_PLAYER_COLLISION final : public IEvent
+	{
+		EV_PLAYER_COLLISION() {}
+		EV_PLAYER_COLLISION(CollisionComponent* obj1, CollisionComponent* obj2) 
+							:IEvent{ }, object1{obj1}, object2 { obj2 }{}
+		CollisionComponent* object1;
+		CollisionComponent* object2;
+	};
+
+	struct EV_ENTITY_POOL_CHANGED final : public IEvent
+	{
+		EV_ENTITY_POOL_CHANGED() :IEvent{} {}
+	};
+
+	struct EV_SNEK_INVULNERABLE : public IEvent
+	{
+		EV_SNEK_INVULNERABLE() {}
+		EV_SNEK_INVULNERABLE(SnekHeadComponent* _snekHead) :IEvent{}, snekHead{_snekHead} {}
 		SnekHeadComponent* snekHead;
 	};
 
-	struct EV_CREATE_PROJECTILE
+	struct EV_CREATE_PROJECTILE : public IEvent
 	{
+		EV_CREATE_PROJECTILE() {};
+		EV_CREATE_PROJECTILE(bool _isCollide, float _rot,
+			float _speed, float _scale,
+			HTVector2* _pos, HTVector2 *_velocity,
+			const char * _texName) 
+			:IEvent{}, isCollide{ _isCollide }, rot{ _rot }, 
+			speed{ _speed }, scale{ _scale }, pos{ _pos }, 
+		    velocity{ _velocity }, texName{ _texName } {}
 		bool isCollide;
 		float rot,speed, scale;
 		HTVector2* pos,*velocity;
 		const char * texName;
 	};
 
-	struct EV_PLAY_SOUND
+	struct EV_PLAY_SOUND : public IEvent
 	{
-
+		EV_PLAY_SOUND() :IEvent{} {}
 	};
 
-	struct EV_NEW_UI_ELEMENT
+	struct EV_NEW_UI_ELEMENT : public IEvent
 	{
+		EV_NEW_UI_ELEMENT() {}
+		EV_NEW_UI_ELEMENT(CanvasComponent* _canvas,
+		HTVector2 _initialPosition,
+		CanvasElementEnum _elementType,
+		const char * _elementEntityName,
+		const char * _uiElementSpriteName,
+		const char * _uiTextLabel = "",
+		const char * _uiHoverSpriteName = "",
+		const char * _uiClickSpriteName = "",
+		void(*_ButtonPressFunc)(void) = nullptr) 
+			:IEvent{},
+			canvas{ _canvas },
+			initialPosition{ _initialPosition },
+			elementType{_elementType},
+			elementEntityName{ _elementEntityName },
+			uiElementSpriteName{ _uiElementSpriteName },
+			uiTextLabel{ _uiTextLabel },
+			uiHoverSpriteName{ _uiHoverSpriteName },
+			uiClickSpriteName{ _uiClickSpriteName },
+			ButtonPressFunc{ _ButtonPressFunc }{}
+
 		CanvasComponent* canvas;
 		HTVector2 initialPosition;
 		CanvasElementEnum elementType;
@@ -85,14 +132,20 @@ namespace Events
 		void(*ButtonPressFunc)(void) = nullptr;
 	};
 
-	struct EV_PLAYER_COLLISION_ON_ENTER
+	struct EV_PLAYER_COLLISION_ON_ENTER : public IEvent
 	{
+		EV_PLAYER_COLLISION_ON_ENTER() {}
+		EV_PLAYER_COLLISION_ON_ENTER(CollisionComponent* obj1, CollisionComponent* obj2)
+			:IEvent{ }, object1{ obj1 }, object2{ obj2 }{}
 		CollisionComponent* object1;
 		CollisionComponent* object2;
 	};
 
-	struct EV_PLAYER_COLLISION_ON_EXIT
+	struct EV_PLAYER_COLLISION_ON_EXIT : public IEvent
 	{
+		EV_PLAYER_COLLISION_ON_EXIT(CollisionComponent* obj1, CollisionComponent* obj2)
+			:IEvent{ }, object1{ obj1 }, object2{ obj2 }{}
+		EV_PLAYER_COLLISION_ON_EXIT() :IEvent{} {}
 		CollisionComponent* object1;
 		CollisionComponent* object2;
 	};
@@ -102,34 +155,6 @@ namespace Events
 
 
 
-/*
-	<Standard function pointer format for callbacks>
-	-Returns void.
-	-Takes in void* to data structure, of which you will have to 
-	typecast in your callback function.
-	-Takes in a void* to member object of which the callback 
-	came from.
-*/
-typedef void(*FunctionP)(void * data,void* callee);
-
-typedef struct CallbackT
-{
-	FunctionP m_function;
-	short m_EventId;
-	void* m_CalleePtr;
-}CallbackT;
-
-typedef CallbackT* CallbackP;
-
-template<typename T>
-struct Event 
-{	
-	short EventId;
-	T* Data;
-	Event(short id,T* data) : EventId(id), Data(data) {}
-};
-
-
 
 class EventManager
 {
@@ -137,7 +162,6 @@ protected :
 public:
 	void Update();
 	void ProcessEvents();
-
 
 	template<typename T>
 	bool AddListener(EventListener<T>* listener)
@@ -198,6 +222,7 @@ public:
 			for (auto* baseListener : i_Listener->second)
 			{
 				auto* Listener = reinterpret_cast<EventListener<T>*>(baseListener);
+				//EventQueue.push_back(static_cast<Events::IEvent>(event));
 				Listener->Receive(event);
 			}
 			return true;
@@ -209,20 +234,12 @@ public:
 	}
 
 
-	bool RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void* callee);
-	bool RemoveCallback(FunctionP FPRef, void* callee);
-
-	void ResetInstance();
-	void Initialize();
 	EventManager(Logger* logger);
 	virtual ~EventManager();
 private:
 	std::map<std::type_index,std::vector<BaseEventListener*>> m_l_ListenerList;
-	bool hasEvent(short EventId) const;
 	Logger* m_o_Logger;
-	std::vector<std::vector<CallbackP>> m_EventCallBackList;
-	//template<typename T>
-	//bool AddListener(EventListener<T>* listener);
+	std::list<Events::IEvent> EventQueue;
 };
 
 #endif

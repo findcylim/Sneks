@@ -59,7 +59,7 @@ void ECSystem::InitializeEngine()
 	//TODO change this state to splash screen/main menu in the future
 	
 	
-	m_o_EventManager->Initialize();
+	//m_o_EventManager->Initialize();
 	/*
 		Create and add Events here
 	*/

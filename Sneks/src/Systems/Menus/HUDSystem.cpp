@@ -34,7 +34,7 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
-	Events::EV_NEW_UI_ELEMENT HUDElement = { canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT HUDElement( canvasComponent,HTVector2{ screenX / 16 , screenY / 16 } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr );
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(HUDElement);
 
 	t_Comp->SetPosition(t_Comp->GetPosition().x + c_Comp->GetOffsetX(), t_Comp->GetPosition().y + c_Comp->GetOffsetY());

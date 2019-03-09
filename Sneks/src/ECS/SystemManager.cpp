@@ -86,7 +86,6 @@ SystemManager::~SystemManager()
 					  <<  "Lowest FPS was "  << lowestFps << std::endl
 					  <<  "Number of Dropped Frames: " << droppedFramesLog.back() << std::endl;
 
-
 		}
 		nameLog.clear();
 		timeLog.clear();
