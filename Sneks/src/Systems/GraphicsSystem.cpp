@@ -23,7 +23,10 @@ GraphicsSystem::~GraphicsSystem()
 		AEGfxMeshFree(pairing.second);
 	}
 	m_x_TextureMap.clear();
+
 	AEGfxDestroyFont(debugFont);
+	AEGfxDestroyFont(m_i_font);
+
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
@@ -31,7 +34,6 @@ void GraphicsSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
-
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
 
@@ -180,6 +182,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UI_BarLeftLife2.png", "LifeL2");
 	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
+	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");
 }
 
 void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
@@ -365,12 +368,19 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 void GraphicsSystem::DrawTextRenderer()const
 {
 	auto text_Comp = m_po_ComponentManager->GetFirstComponentInstance<TextRendererComponent>(kComponentTextRenderer);
+	auto camera_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	
 	while (text_Comp)
 	{
-		char textToDraw[100];
-		sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
-		AEGfxPrint(m_i_font, textToDraw, static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x-AEGfxGetWinMaxX() + text_Comp->m_o_PositionOffset.x), 
-										 static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y+ AEGfxGetWinMaxY() + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+		if (text_Comp->m_p_Text)
+		{
+			char textToDraw[100];
+			sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+			AEGfxPrint(m_i_font,
+				textToDraw, 
+				static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x + camera_Comp->m_f_VirtualOffsetX + text_Comp->m_o_PositionOffset.x),
+				static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y + camera_Comp->m_f_VirtualOffsetY+ text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+		}
 		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
 	}
 }

@@ -8,8 +8,9 @@ class WinScreenSystem :
 {
 	EntityManager * m_po_EntityManager;
 public:
-	WinScreenSystem(EntityManager* entityManager, EventManager* eventManager);
+	WinScreenSystem(EntityManager* entityManager, EventManager* eventManager,char winner);
 	~WinScreenSystem();
+	void Update(float dt)override;
 };
 
 #endif // !WIN_SCREEN_SYSTEM_H

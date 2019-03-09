@@ -25,6 +25,7 @@ SystemManager::SystemManager(Logger* logger)
 
 SystemManager::~SystemManager()
 {
+
 #ifdef LOG_SYSTEM_UPDATE_TIME
 	{
 		int counter = 0;
@@ -121,6 +122,7 @@ void SystemManager::AddSystem(BaseSystem* NewSystem)
 		NewSystem->m_o_EventManagerPtr = m_o_EventManager;
 		NewSystem->m_po_EntityManager = m_o_EntityManager;
 		NewSystem->m_po_ComponentManager = m_o_EntityManager->GetComponentManager();
+		NewSystem->m_o_SystemManager = this;
 		NewSystem->SetID(static_cast<short>(GetSystemCount()));
 		m_v_SystemList.push_back(NewSystem);
 	}
@@ -165,21 +167,23 @@ void SystemManager::Update(float dt)
 
 	for (BaseSystem* currSystem : m_v_SystemList)
 	{
+		if (currSystem->m_b_isActive)
+		{
 #ifdef LOG_SYSTEM_UPDATE_TIME
-		auto preTime = AEGetTime(nullptr);
+			auto preTime = AEGetTime(nullptr);
 #endif
 
-		currSystem->Update(dt);
+			currSystem->Update(dt);
 
 #ifdef LOG_SYSTEM_UPDATE_TIME
-		auto timeToUpdate = AEGetTime(nullptr) - preTime;
-		totalFrames++;
-		timeToUpdate *= 1000;
-		timeElapsed += timeToUpdate;
-		nameLog.push_back(currSystem->GetName());
-		timeLog.push_back(timeToUpdate);
+			auto timeToUpdate = AEGetTime(nullptr) - preTime;
+			totalFrames++;
+			timeToUpdate *= 1000;
+			timeElapsed += timeToUpdate;
+			nameLog.push_back(currSystem->GetName());
+			timeLog.push_back(timeToUpdate);
 #endif
-
+		}
 	}
 }
 
@@ -197,3 +201,14 @@ BaseSystem* SystemManager::GetSystem(int ID)
 	return nullptr;
 }
 
+BaseSystem* SystemManager::GetSystem(const char * systemName)
+{
+	for (BaseSystem* currSystem : m_v_SystemList)
+	{
+		if (strcmp(currSystem->GetName(),systemName)==0)
+		{
+			return currSystem;
+		}
+	}
+	return nullptr;
+}

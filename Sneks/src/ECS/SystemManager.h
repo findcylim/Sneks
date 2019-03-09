@@ -23,7 +23,8 @@ public:
 	
 	void RemoveSystem(BaseSystem* RemSystem);
 	void Update(float dt);
-	BaseSystem* GetSystem(int ID);
+	BaseSystem* GetSystem(int ID); 
+	BaseSystem* GetSystem(const char * systemName);
 	void Initialize(EventManager* eventManager, EntityManager* entManager);
 	SystemManager(Logger* logger);
 	~SystemManager();
