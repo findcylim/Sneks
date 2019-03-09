@@ -135,7 +135,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			{
 				if (snekHed1->m_i_PlayerNumber == 0)
 					P1Lives--;
-				else
+				else 
 					P2Lives--;
 				/*
 				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
@@ -148,9 +148,10 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				*/
 
 			}
-			else if (snekHed2->m_x_BodyParts.size() == 1)
+
+			if (snekHed2->m_x_BodyParts.size() == 1)
 			{
-				if (snekHed1->m_i_PlayerNumber == 0)
+				if (snekHed2->m_i_PlayerNumber == 0)
 					P1Lives--;
 				else
 					P2Lives--;
@@ -780,13 +781,13 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 
 }
 
-//float timeStamp1 = 0;
+time_t timeStampFlip = 0;
 
 void SnekSystem::Flip(SnekHeadEntity* owner)
 {
-	//float currTime = getDt() - timeStamp1;
-	//if (currTime > 3)
-	//{
+	time_t currTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStampFlip;
+	if (currTime > 3)
+	{
 		/*Swap head and tail positions*/
 		auto snekHeadComponent =
 			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
@@ -823,8 +824,8 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 
 		UpdateFollowComponents(snekHeadComponent);
 
-		//timeStamp1 = getDt();
-	//}
+		timeStampFlip = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	}
 }
 
 void SnekSystem::UpdateFollowComponents(SnekHeadComponent* snekHeadComponent)
