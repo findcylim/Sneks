@@ -25,15 +25,41 @@ void CanvasUISystem::Update(float dt)
 	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	CanvasComponent * can_Comp = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
 
-	
-	for (auto& element : can_Comp->m_x_CanvasElementList)
+	while (can_Comp)
 	{
-		TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
-		CanvasElementComponent * canvasElementComponent = element->GetComponent<CanvasElementComponent>();
-		float scale = 1.0f / c_Comp->GetScale();
-		t_Comp->SetScale(scale);
-		t_Comp->SetPositionX(-c_Comp->GetOffsetX() + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
-		t_Comp->SetPositionY(-c_Comp->GetOffsetY() - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+		for (auto& element : can_Comp->m_x_CanvasElementList)
+		{
+			TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
+			CanvasElementComponent * canvasElementComponent = element->GetComponent<CanvasElementComponent>();
+			//Need to figure out a more optimized way to do this
+			CollisionComponent * collisionComponent = element->GetComponent<CollisionComponent>();
+			DrawComponent * drawComponent = element->GetComponent<DrawComponent>();
+
+			float scale = 1.0f / c_Comp->GetScale();
+			t_Comp->SetScale(scale);
+			t_Comp->SetPositionX(-c_Comp->GetOffsetX() + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
+			t_Comp->SetPositionY(-c_Comp->GetOffsetY() - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+
+			if (collisionComponent)
+			{
+				if (canvasElementComponent->m_b_IsClicked)
+				{
+					if (canvasElementComponent->m_x_ClickSprite)
+					drawComponent->m_px_Texture = canvasElementComponent->m_x_ClickSprite;
+				}
+				else if (collisionComponent->m_b_Colliding)
+				{
+					if (canvasElementComponent->m_x_HoverSprite)
+						drawComponent->m_px_Texture = canvasElementComponent->m_x_HoverSprite;
+					collisionComponent->m_b_Colliding = false;
+				}
+				else
+				{
+					drawComponent->m_px_Texture = canvasElementComponent->m_x_BasicSprite;
+				}
+			}
+		}
+		can_Comp = static_cast<CanvasComponent*>(can_Comp->m_po_NextComponent);
 	}
 }
 
@@ -104,8 +130,13 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		ui_Component->m_x_BasicSprite = m_po_GraphicsManager->FetchTexture(uiElementSprite);
 		if (strcmp(uiHoverSprite, "") != 0)
 			ui_Component->m_x_HoverSprite = m_po_GraphicsManager->FetchTexture(uiHoverSprite);
+		else
+			ui_Component->m_x_HoverSprite = nullptr;
 		if (strcmp(uiClickSprite, "") != 0)
 			ui_Component->m_x_ClickSprite = m_po_GraphicsManager->FetchTexture(uiClickSprite);
+		else
+			ui_Component->m_x_ClickSprite = nullptr;
+
 		//Adjusts the origin to the top left corner of the sprite
 		/*FileIO::ReadPngDimensions(d_Component->m_px_Texture->mpName, &x, &y);
 		x /=2;
@@ -145,15 +176,22 @@ void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
 	{
-		auto comp = eventData.object1->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
-		
+		auto elementComp = eventData.object1->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
+		auto collisionComponent = eventData.object1->m_po_OwnerEntity->GetComponent<CollisionComponent>();
+		collisionComponent->m_b_Colliding = true;
+
 		//TODO
 		//Wait for Chus input system
 		//On mouse click carry on with this 
 		if (GetAsyncKeyState(VK_LBUTTON) < 0)
 		{
-			if (comp && comp->ButtonFunction)
-				comp->ButtonFunction();
+			auto drawComponent = eventData.object1->m_po_OwnerEntity->GetComponent<DrawComponent>();
+			drawComponent->m_px_Texture = elementComp->m_x_HoverSprite;
+			elementComp->m_b_IsClicked = true;
+			if (elementComp && elementComp->ButtonFunction)
+				elementComp->ButtonFunction();
 		}
+		else
+			elementComp->m_b_IsClicked = false;
 	}
 }
