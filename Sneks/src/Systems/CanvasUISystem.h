@@ -7,13 +7,13 @@ class CanvasUISystem :
 	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 	GraphicsSystem* m_po_GraphicsManager;
-
+	HTVector2 m_o_ScreenSize;
 public:
 	void Update(float dt) override;
 	CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* graphicsManager, EventManager* eventManager);
 	~CanvasUISystem();
 	void Initialize();
-	void AddElement(CanvasComponent* canvasComponent, HTVector2 initPosition, CanvasElementEnum num, const char * name,
+	void AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset, CanvasElementEnum num, const char * name,
 		const char * uiElementSprite, const char* uiText = "", const char * uiHoverSprite = "", const char * uiClickSprite = "", 
 		void(*ButtonFunction)() = nullptr);
 	void ClearUI(CanvasComponent* canvas);

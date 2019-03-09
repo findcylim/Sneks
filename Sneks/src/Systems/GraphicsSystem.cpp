@@ -267,23 +267,23 @@ void GraphicsSystem::Draw(float dt)
 
 	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
 
-	SnekHeadEntity* snekHeadEntity = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+	//SnekHeadEntity* snekHeadEntity = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
 
-	auto snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+	//auto snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
 
-	s8 strBuffer[500];
+	//s8 strBuffer[500];
 
-	sprintf_s(strBuffer, sizeof(strBuffer), "Snek 1 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+	//sprintf_s(strBuffer, sizeof(strBuffer), "Snek 1 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
 
-	AEGfxPrint(debugFont, strBuffer, -900, 480, 0, 0, 1);
+	//AEGfxPrint(debugFont, strBuffer, -900, 480, 0, 0, 1);
 
-	snekHeadEntity = static_cast<SnekHeadEntity*>(snekHeadEntity->m_po_NextEntity);
+	//snekHeadEntity = static_cast<SnekHeadEntity*>(snekHeadEntity->m_po_NextEntity);
 
-	snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+	//snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
 
-	sprintf_s(strBuffer, sizeof(strBuffer), "Snek 2 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+	//sprintf_s(strBuffer, sizeof(strBuffer), "Snek 2 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
 
-	AEGfxPrint(debugFont, strBuffer, 200, 480, 1, 0, 0);
+	//AEGfxPrint(debugFont, strBuffer, 200, 480, 1, 0, 0);
 
 	DrawTextRenderer();
 }

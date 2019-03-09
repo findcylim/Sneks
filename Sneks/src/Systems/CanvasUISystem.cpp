@@ -1,6 +1,7 @@
 #include "CanvasUISystem.h"
 #include "../Components/TextRendererComponent.h"
 #include "../Utility/FileIO.h"
+#include "../Utility/AlphaEngineHelper.h"
 
 
 CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* graphicsManager,EventManager* eventManager) :
@@ -21,24 +22,19 @@ void CanvasUISystem::Update(float dt)
 {
 	(void)dt;
 	
-	/*auto uiCanvas = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
-	while (uiCanvas)
+	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	CanvasComponent * can_Comp = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
+
+	
+	for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
-		if (uiCanvas->m_b_IsActive)
-		{
-			for (auto uiElement : uiCanvas->m_x_CanvasElementList)
-			{
-				auto uiElementComp = uiElement->GetComponent<CanvasElementComponent>();
-				if (uiElementComp && uiElementComp->m_b_IsCollided)
-				{
-					
-				}
-				uiElementComp->m_b_IsCollided = false;
-			}
-			
-		}
-		uiCanvas = static_cast<CanvasComponent*>(uiCanvas->m_po_NextComponent);
-	}*/
+		TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
+		CanvasElementComponent * canvasElementComponent = element->GetComponent<CanvasElementComponent>();
+		float scale = 1.0f / c_Comp->GetScale();
+		t_Comp->SetScale(scale);
+		t_Comp->SetPositionX(-c_Comp->GetOffsetX() + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
+		t_Comp->SetPositionY(-c_Comp->GetOffsetY() - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+	}
 }
 
 
@@ -46,6 +42,9 @@ void CanvasUISystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this);
 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	float screenX = 0, screenY = 0;
+	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
+	m_o_ScreenSize = { screenX *0.5f, screenY*0.5f };
 }
 
 void CanvasUISystem::ClearUI(CanvasComponent* canvas)
@@ -57,7 +56,7 @@ void CanvasUISystem::ClearUI(CanvasComponent* canvas)
 	canvas->m_x_CanvasElementList.clear();
 }
 
-void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 initPosition,CanvasElementEnum num, const char * name, 
+void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset,CanvasElementEnum num, const char * name, 
 								const char * uiElementSprite, const char* uiText,const char * uiHoverSprite, const char * uiClickSprite,void(*ButtonFunction)())
 {
 	CanvasElementComponent* ui_Component = nullptr;
@@ -98,7 +97,6 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 	}
 	if (ui_Component)
 	{
-		int x = 0, y = 0;
 		
 		m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
 		d_Component->m_f_DrawPriority = 1;
@@ -109,10 +107,11 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		if (strcmp(uiClickSprite, "") != 0)
 			ui_Component->m_x_ClickSprite = m_po_GraphicsManager->FetchTexture(uiClickSprite);
 		//Adjusts the origin to the top left corner of the sprite
-		FileIO::ReadPngDimensions(d_Component->m_px_Texture->mpName, &x, &y);
+		/*FileIO::ReadPngDimensions(d_Component->m_px_Texture->mpName, &x, &y);
 		x /=2;
-		y /=2;
-		t_Component->m_x_Position = { initPosition.x + x, -(initPosition.y) - y };
+		y /=2;*/
+		ui_Component->m_f_XOffset = initialOffset.x * m_o_ScreenSize.x * 2;
+		ui_Component->m_f_YOffset = initialOffset.y * m_o_ScreenSize.y * 2;
 		t_Component->SetRotation(0);
 		
 		if (strcmp(uiText, "") != 0)
