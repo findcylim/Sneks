@@ -20,7 +20,7 @@ PowerUpSystem::~PowerUpSystem()
 
 void PowerUpSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 }
 
 void PowerUpSystem::Update(float dt)

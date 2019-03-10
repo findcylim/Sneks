@@ -188,7 +188,6 @@ void SystemManager::Update(float dt)
 }
 
 
-
 BaseSystem* SystemManager::GetSystem(int ID)
 {
 	for (BaseSystem* currSystem : m_v_SystemList)
