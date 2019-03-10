@@ -129,11 +129,12 @@ void CollisionSystem::UpdateComponentsPerGroup()
 
 	while (i_CollisionComponent)
 	{
-		for (auto i_CollisionGroup : i_CollisionComponent->m_i_CollisionGroupVec)
-		{
-			//Add it to the group
-			AddComponentToCollisionGroup(i_CollisionComponent, i_CollisionGroup);
-		}
+		if(i_CollisionComponent->m_b_IsActive)
+			for (auto i_CollisionGroup : i_CollisionComponent->m_i_CollisionGroupVec)
+			{
+				//Add it to the group
+				AddComponentToCollisionGroup(i_CollisionComponent, i_CollisionGroup);
+			}
 		//Iterate
 		i_CollisionComponent = static_cast<CollisionComponent*>(i_CollisionComponent->m_po_NextComponent);
 	}

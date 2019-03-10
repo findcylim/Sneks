@@ -191,6 +191,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					*/
 				}
 
+				//todo: optimize this portion
 				if (P1Lives <= 0)
 				{
 					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
@@ -343,6 +344,8 @@ void SnekSystem::Update(float dt)
 			m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
 
+		std::cout << headTransComponent->GetPosition().x << std::endl;
+		std::cout << headTransComponent->GetPosition().y << std::endl;
 
 		if (AEInputCheckTriggered(AEVK_F))
 		{
