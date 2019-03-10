@@ -153,7 +153,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			if (text_Component)
 			{
 				int stringLen = static_cast<int>(strlen(ui_Component->m_pc_ElementText) + 1);
-				text_Component->CreateText(static_cast<float>(-stringLen  * 5), -10.0f, ui_Component->m_pc_ElementText);
+				text_Component->CreateText(static_cast<float>(-stringLen  * 7.5f), -13.5f, ui_Component->m_pc_ElementText);
 			}
 		}
 		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);

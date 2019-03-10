@@ -6,7 +6,7 @@
 
 #include "EventManager.h"
 #include "EntityManager.h"
-
+class SystemManager;
 //Virtual System Class
 //To be overriden by actual systems
 //Needs to be used to manage different systems in the SystemManager
@@ -15,8 +15,9 @@ class BaseSystem
 protected:
 	const char*                m_c_SystemName = "Unknown";
 	short		                  m_s_SystemID;
-	bool		                  m_b_isActive;
 public:
+	bool		                  m_b_isActive = true;
+	SystemManager* m_o_SystemManager;
 	EventManager*              m_o_EventManagerPtr;
 	EntityManager*		         m_po_EntityManager;
 	ComponentManager*          m_po_ComponentManager;

@@ -144,6 +144,9 @@
     <ClCompile Include="Systems\Menus\HUDSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\WinScreenSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="Systems\PowerUpSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\WinScreenSystem.h">
+      <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

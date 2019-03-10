@@ -85,7 +85,7 @@ void ECSystem::InitializeEngine()
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
-	//auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
+	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 
 
 
@@ -151,7 +151,7 @@ void ECSystem::InitializeEngine()
 	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
-	canvas->SetName("Main Menu"); */
+	canvas->SetName("Main Menu");*/
 
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
@@ -168,9 +168,9 @@ void ECSystem::InitializeEngine()
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
 	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
 
-	//m_o_SystemManager->AddSystem(powerup);
-	//powerup->SetName("Power Up");
-	//powerup->Initialize();
+	m_o_SystemManager->AddSystem(powerup);
+	powerup->SetName("Power Up");
+	powerup->Initialize();
 
 }
 
@@ -214,11 +214,16 @@ void ECSystem::Update()
 		m_o_EntityComponentManager->ResolveDeletes();
 
 
-		actualDt -= dtCap;
+		//actualDt -= dtCap;
 		
 		AESysFrameEnd();
 
 	} while (actualDt > 0.0f);
 
 
+}
+
+float getDt()
+{
+	return actualDt;
 }

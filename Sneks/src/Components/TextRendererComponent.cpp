@@ -11,7 +11,7 @@ TextRendererComponent::~TextRendererComponent()
 TextRendererComponent::TextRendererComponent(TransformComponent* t_Comp)
 {
 	m_po_LinkedTransform = t_Comp;
-	m_p_Text = new char[1];
+	m_p_Text = nullptr;
 }
 
 void TextRendererComponent::CreateText(float xOffset, float yOffset, const char * textIn)
