@@ -29,8 +29,8 @@ ECSystem::ECSystem()
 	m_o_Logger					   = new Logger("log.txt");
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
-	m_o_GameStateManager		   = new GameStateManager(kStateGame);
 	m_o_EntityComponentManager	   = new EntityManager();
+	m_o_GameStateManager           = new GameStateManager(kStateGame, m_o_EntityComponentManager, m_o_SystemManager, m_o_EventManager);
 	m_b_EngineStatus			   = true;
 }
 
@@ -78,7 +78,7 @@ void ECSystem::InitializeEngine()
 	auto physics = new PhysicsSystem(m_o_EntityComponentManager);
 	auto camera = new CameraSystem(m_o_EntityComponentManager);
 	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
-	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics);
+	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics, m_o_GameStateManager);
 	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
 	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
@@ -146,12 +146,12 @@ void ECSystem::InitializeEngine()
 	canvas->SetName("Canvas UI");
 	canvas->Initialize();
 
-	/*CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
+	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
 	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
-	canvas->SetName("Main Menu");*/
+	canvas->SetName("Main Menu");
 
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
@@ -204,6 +204,7 @@ void ECSystem::Update()
 		if (actualDt > dtCap)
 			++m_o_SystemManager->m_i_DroppedFrames;
 
+		m_o_GameStateManager->Update();
 		m_o_EventManager->Update();
 		m_o_SystemManager->Update(cappedDt);
 
@@ -219,8 +220,6 @@ void ECSystem::Update()
 		AESysFrameEnd();
 
 	} while (actualDt > 0.0f);
-
-
 }
 
 float getDt()

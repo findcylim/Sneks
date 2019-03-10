@@ -62,9 +62,10 @@ struct FollowData
 
 std::vector< std::vector<FollowData> > bodyPartsData;
 
-SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
+SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
 : BaseSystem(entityManagerPtr)
 {
+	m_o_GameStateManager = gameStateManagerPtr;
 	m_o_GraphicsSystem = graphics;
 }
 
@@ -199,15 +200,16 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				}
 				if (P1Lives <= 0)
 				{
-
-					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+					m_o_GameStateManager->SetState(kStateWinScreen);
+					/* m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
 					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
 
 					m_po_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
-					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>(); */
+
 					/*auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
 					while(snek)
 					{
@@ -217,6 +219,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				}
 				else if (P2Lives <= 0)
 				{
+					m_o_GameStateManager->SetState(kStateWinScreen);
+					/*
 					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
 					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
