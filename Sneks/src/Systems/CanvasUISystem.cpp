@@ -27,8 +27,13 @@ void CanvasUISystem::Update(float dt)
 
 	while (can_Comp)
 	{
+		if(can_Comp->m_b_IsActive)
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
+			if (!element->m_b_IsActive)
+			{
+				m_po_EntityManager->EnableSpecificEntityType(*element->m_v_AttachedComponentsList.begin());
+			}
 			TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
 			CanvasElementComponent * canvasElementComponent = element->GetComponent<CanvasElementComponent>();
 			//Need to figure out a more optimized way to do this
@@ -56,6 +61,16 @@ void CanvasUISystem::Update(float dt)
 				else
 				{
 					drawComponent->m_px_Texture = canvasElementComponent->m_x_BasicSprite;
+				}
+			}
+		}
+		else
+		{
+			for (auto& element : can_Comp->m_x_CanvasElementList)
+			{
+				if (element->m_b_IsActive)
+				{
+					m_po_EntityManager->DisableSpecificEntityType(*element->m_v_AttachedComponentsList.begin());
 				}
 			}
 		}
