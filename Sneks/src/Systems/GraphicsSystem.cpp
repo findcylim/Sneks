@@ -254,19 +254,22 @@ void GraphicsSystem::Draw(float dt)
 			if (!drawComponent->m_po_OwnerEntity->m_b_IsActive)
 				continue;
 			//Check if there is draw component
-			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
+			if (drawComponent->m_b_IsActive)
+			{
+				if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
-				//allow transparency to work !! must be first
-				AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-				AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+					//allow transparency to work !! must be first
+					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+					AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
-				AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
-				AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
-				AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
-				AEGfxSetTransparency(1);
-				AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
-				AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
-				AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+					AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
+					AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
+					AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
+					AEGfxSetTransparency(1);
+					AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
+					AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
+					AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+				}
 			}
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 		}
@@ -372,14 +375,17 @@ void GraphicsSystem::DrawTextRenderer()const
 	
 	while (text_Comp)
 	{
-		if (text_Comp->m_p_Text)
+		if (text_Comp->m_b_IsActive)
 		{
-			char textToDraw[100];
-			sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
-			AEGfxPrint(m_i_font,
-				textToDraw, 
-				static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x + camera_Comp->m_f_VirtualOffsetX + text_Comp->m_o_PositionOffset.x),
-				static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y + camera_Comp->m_f_VirtualOffsetY+ text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+			if (text_Comp->m_p_Text)
+			{
+				char textToDraw[100];
+				sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+				AEGfxPrint(m_i_font,
+					textToDraw,
+					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x + camera_Comp->m_f_VirtualOffsetX + text_Comp->m_o_PositionOffset.x),
+					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y + camera_Comp->m_f_VirtualOffsetY + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+			}
 		}
 		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
 	}

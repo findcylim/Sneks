@@ -17,26 +17,7 @@ private:
 	Logger* m_o_Logger;
 
 
-	template<typename T>
-	void DisableAllSystemComponents(Component type)
-	{
-		auto components = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<T>(type);
-		while (components)
-		{
-			components->m_b_IsActive = false;
-			components = static_cast<T*>(components->m_po_NextComponent);
-		}
-	}
-	template<typename T>
-	void EnableAllSystemComponents(Component type)
-	{
-		auto components = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<T>(type);
-		while (components)
-		{
-			components->m_b_IsActive = true;
-			components = static_cast<T*>(components->m_po_NextComponent);
-		}
-	}
+
 
 public:
 	size_t GetSystemCount() const;
@@ -78,6 +59,26 @@ public:
 		}
 	}
 
+	template<typename T>
+	void DisableAllSystemComponents(Component type)
+	{
+		auto components = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<T>(type);
+		while (components)
+		{
+			components->m_b_IsActive = false;
+			components = static_cast<T*>(components->m_po_NextComponent);
+		}
+	}
+	template<typename T>
+	void EnableAllSystemComponents(Component type)
+	{
+		auto components = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<T>(type);
+		while (components)
+		{
+			components->m_b_IsActive = true;
+			components = static_cast<T*>(components->m_po_NextComponent);
+		}
+	}
 
 	//TODO
 	int m_i_DroppedFrames;
