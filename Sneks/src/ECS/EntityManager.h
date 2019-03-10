@@ -111,6 +111,32 @@ public:
 		}
 	}
 
+	void DisableSpecificEntityType(BaseComponent * comp)
+	{
+		auto firstEnt = comp->m_po_OwnerEntity;
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = false;
+			}
+		}
+	}
+
+
+	void EnableSpecificEntityType(BaseComponent * comp)
+	{
+		auto firstEnt = comp->m_po_OwnerEntity;
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = true;
+			}
+		}
+	}
+
+
 	template <typename EntityType,Entity kEntity, typename ComponentType>
 	void DisableComponentsFromEntityType()
 	{
