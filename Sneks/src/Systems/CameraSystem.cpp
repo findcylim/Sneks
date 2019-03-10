@@ -144,10 +144,16 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 		cameraComponent->m_f_ZoomVelocity *= cameraComponent->m_x_CameraAttributes.speedDecay;
 
-		Aabb cameraAABB = { {-cameraComponent->GetOffsetX() - cameraComponent->m_x_CurrentViewDistance.x / 2,
-			-cameraComponent->GetOffsetY() - cameraComponent->m_x_CurrentViewDistance.y / 2},
-			{-cameraComponent->GetOffsetX() + cameraComponent->m_x_CurrentViewDistance.x / 2,
-			-cameraComponent->GetOffsetY() + cameraComponent->m_x_CurrentViewDistance.y / 2} };
+		Aabb cameraAABB = { {-cameraComponent->GetOffsetX() - cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->GetOffsetY() - cameraComponent->m_x_CurrentViewDistance.y},
+			{-cameraComponent->GetOffsetX() + cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->GetOffsetY() + cameraComponent->m_x_CurrentViewDistance.y} };
+
+		//original param
+		//Aabb cameraAABB = { {-cameraComponent->GetOffsetX() - cameraComponent->m_x_CurrentViewDistance.x / 2,
+		//	-cameraComponent->GetOffsetY() - cameraComponent->m_x_CurrentViewDistance.y / 2},
+		//	{-cameraComponent->GetOffsetX() + cameraComponent->m_x_CurrentViewDistance.x / 2,
+		//	-cameraComponent->GetOffsetY() + cameraComponent->m_x_CurrentViewDistance.y / 2} };
 
 		Aabb otherAABB;
 
