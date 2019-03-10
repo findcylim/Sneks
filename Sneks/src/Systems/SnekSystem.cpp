@@ -37,6 +37,22 @@ int GetP2Lives()
 	return P2Lives;
 }
 
+void SnekSystem::IncreaseGrowthRate(unsigned short player, float increase)
+{
+	if (player == 0)
+		P1GrowthMeter /= increase;
+	else
+		P2GrowthMeter /= increase;
+}
+
+void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
+{
+	if (player == 0)
+		P1GrowthMeter *= decrease;
+	else
+		P2GrowthMeter *= decrease;
+}
+
 struct FollowData
 {
 	AEVec2 pos;
@@ -103,7 +119,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				{
 					if (P1Growth >= P1GrowthMeter)
 					{
-						P1Growth = 0;
+						P1Growth -= P1GrowthMeter;
 						P1GrowthMeter *= 1.5;
 						auto bodyTexture = "SnekBody01";
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
@@ -116,7 +132,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				{
 					if (P2Growth >= P2GrowthMeter)
 					{
-						P2Growth = 0;
+						P2Growth -= P2GrowthMeter;
 						P2GrowthMeter *= 1.5;
 						auto bodyTexture = "SnekBody02";
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
