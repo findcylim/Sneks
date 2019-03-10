@@ -23,9 +23,7 @@ private:
 	int m_i_SplitNumber = 0;
 	int m_i_CurrentSplit = -1;
 
-	float m_f_ParticleSizeMultiplier = 0.0f;
-	float m_f_ParticleSizeX = 0.0f;
-	float m_f_ParticleSizeY = 0.0f;
+	float m_f_ParticleSize = 0.0f;
 
 	float m_f_SpreadDistance = 0.0f;
 	//Angle stored as radian.
@@ -73,8 +71,7 @@ public:
 	float GetOffsetDistance();
 	float GetAngleForOffsetDistance();
 	float GetOffsetAngle();
-	float GetParticleSizeX();
-	float GetParticleSizeY();
+	float GetParticleSize();
 	float GetParticleSpeed();
 	float GetParticleMaxLifetime();
 	int GetParticleSpawnDensity();

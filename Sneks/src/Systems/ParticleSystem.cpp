@@ -152,12 +152,15 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 		pep, Component::kComponentTransform)->SetRotation(CalculateRotation(pec, tcp));
 
+	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+		pep, Component::kComponentTransform)->SetScale(pec->GetParticleSize());
+
 	m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 		pep, Component::kComponentPhysics)->m_f_Speed = pec->GetParticleSpeed();
 
 	m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
 		GetSpecificComponentInstance<DrawComponent>(pep, Component::kComponentDraw),
-		pec->GetParticleTexture(), pec->GetParticleSizeX(), pec->GetParticleSizeY());
+		pec->GetParticleTexture());
 
 	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
 		pep, Component::kComponentDraw)->m_f_DrawPriority = pec->GetParticleDrawOrder();
