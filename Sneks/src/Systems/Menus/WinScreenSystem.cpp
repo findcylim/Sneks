@@ -4,14 +4,14 @@
 WinScreenSystem::WinScreenSystem(EntityManager* entityManager, EventManager* eventManager, char winner)
 	:BaseSystem{entityManager}
 {
-	if(winner)
+	if (winner)
 	{ }
 	m_o_EventManagerPtr = eventManager;
 	auto canvas = entityManager->NewEntity<CanvasEntity>(kEntityCanvas, "WinScreenEntity");
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
+	Events::EV_NEW_UI_ELEMENT WinScreenUIElement;
 
-	Events::EV_NEW_UI_ELEMENT WinScreenUIElement = 
-	{ canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"WinScreen" ,"Player1Win" ,"","","", nullptr };
+	WinScreenUIElement = { canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"WinScreen" ,"Player1Win" ,"","","", nullptr };
 
 	Events::EV_NEW_UI_ELEMENT RestartUIElement = 
 	{ canvas_Component, HTVector2{ 0.5f ,0.6f } ,kCanvasButton,"RestartButton" ,"UIBack" ,"Restart","UIBack_Hover","UIBack_Click", nullptr };

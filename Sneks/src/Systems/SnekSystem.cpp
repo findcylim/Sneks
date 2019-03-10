@@ -16,6 +16,13 @@ float P1Growth = 0, P2Growth = 0;
 float P1GrowthMeter = 1, P2GrowthMeter = 1;
 int P1Lives = 3, P2Lives = 3;
 
+int winner;
+
+int GetWinner()
+{
+	return winner;
+}
+
 
 float GetP1GrowthPercentage()
 {
@@ -201,6 +208,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				//todo: optimize this portion
 				if (P1Lives <= 0)
 				{
+					winner = 2;
 					m_o_GameStateManager->SetState(kStateWinScreen);
 					/* m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
@@ -220,6 +228,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				}
 				else if (P2Lives <= 0)
 				{
+					winner = 1;
 					m_o_GameStateManager->SetState(kStateWinScreen);
 					/*
 					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();

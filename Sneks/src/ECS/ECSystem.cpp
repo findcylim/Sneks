@@ -30,7 +30,7 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_EntityComponentManager	   = new EntityManager();
-	m_o_GameStateManager           = new GameStateManager(kStateGame, m_o_EntityComponentManager, m_o_SystemManager, m_o_EventManager);
+	m_o_GameStateManager           = new GameStateManager(kStateMainMenu, m_o_EntityComponentManager, m_o_SystemManager, m_o_EventManager);
 	m_b_EngineStatus			   = true;
 }
 
@@ -146,12 +146,12 @@ void ECSystem::InitializeEngine()
 	canvas->SetName("Canvas UI");
 	canvas->Initialize();
 
-	/* CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
+	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
 	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
-	canvas->SetName("Main Menu"); */
+	canvas->SetName("Main Menu"); 
 
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
@@ -172,6 +172,16 @@ void ECSystem::InitializeEngine()
 	powerup->SetName("Power Up");
 	powerup->Initialize();
 
+	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<HUDSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<PowerUpSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<BackgroundSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<BuildingsSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<LevelLoaderSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<SnekSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<ProjectileSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<ParticleSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
 }
 
 void ECSystem::LoadMainMenu()

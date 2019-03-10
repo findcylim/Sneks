@@ -8,6 +8,8 @@
 #include "../Utility/Logger.h"
 #include "../ECS/EntityManager.h"
 
+typedef void(*FP)(void);
+
 typedef enum State
 {
 	kStateSplashScreen,
@@ -32,6 +34,7 @@ private:
 	EntityManager* m_o_EntityManager;
 	SystemManager* m_o_SystemManager;
 	EventManager* m_o_EventManager;
+	FP fpLoad, fpUnload;
 public:
 	State	ReturnCurrentState();
 	State	ReturnNextState();
@@ -43,6 +46,8 @@ public:
 	~GameStateManager();
 
 	void Update();
+	void Load();
+	void Unload();
 	void LoadMainMenu();
 	void UnloadMainMenu();
 	void LoadBattle();

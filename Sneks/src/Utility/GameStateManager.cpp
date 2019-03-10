@@ -46,7 +46,7 @@ bool GameStateManager::IsValid(State state)
 
 void GameStateManager::SetState(State state)
 {
-	m_x_Current = state;
+	m_x_Next = state;
 }
 
 GameStateManager::GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr)
@@ -66,20 +66,17 @@ GameStateManager::~GameStateManager()
 
 void GameStateManager::LoadMainMenu()
 {
-	UnloadBattle();
-	UnloadWinScreen();
+
 	m_o_SystemManager->EnableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
 }
 
 void GameStateManager::UnloadMainMenu()
 {
-	//m_o_SystemManager->DisableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
 }
 
 void GameStateManager::LoadBattle()
 {
-	UnloadMainMenu();
-	UnloadWinScreen();
 	m_o_SystemManager->EnableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 	m_o_SystemManager->EnableSystem<HUDSystem, DrawComponent, kComponentDraw>();
 	m_o_SystemManager->EnableSystem<PowerUpSystem, DrawComponent, kComponentDraw>();
@@ -106,7 +103,7 @@ void GameStateManager::UnloadBattle()
 
 void GameStateManager::UnloadWinScreen()
 {
-	//m_o_SystemManager->DisableSystem<WinScreenSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->RemoveSystem(WinScreen);
 }
 
 void GameStateManager::LoadWinScreen()
@@ -131,23 +128,46 @@ void GameStateManager::LoadWinScreen()
 	m_o_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
 }
 
-void GameStateManager::Update()
+void GameStateManager::Load()
 {
 	switch (m_x_Current) {
-	//case kStateMainMenu:    UnloadBattle();
-	//						UnloadWinScreen();
-	//						LoadMainMenu();
-	//						break;
+	case kStateMainMenu:    LoadMainMenu();
+						    break;
 
-	case kStateGame:		UnloadMainMenu();
-							UnloadWinScreen();
-							LoadBattle();
+	case kStateGame:		LoadBattle();
 							break;
 
 	case kStateWinScreen:	LoadWinScreen();
 							break;
 	}
+	m_x_Current = m_x_Next;
 }
+
+void GameStateManager::Unload()
+{
+	switch (m_x_Previous) {
+	case kStateMainMenu:    UnloadMainMenu();
+		break;
+
+	case kStateGame:		UnloadBattle();
+		break;
+
+	case kStateWinScreen:	UnloadWinScreen();
+		break;
+	}
+}
+
+void GameStateManager::Update()
+{
+	if (m_x_Current != m_x_Next)
+	{
+		m_x_Previous = m_x_Current;
+		m_x_Current = m_x_Next;
+		Unload();
+		Load();
+	}
+}
+
 
 
 
