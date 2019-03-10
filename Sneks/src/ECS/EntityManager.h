@@ -61,7 +61,7 @@ public:
 		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity);
 		while (firstEnt)
 		{
-			for (auto componentIterator : m_v_AttachedComponentsList)
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
 			{
 				componentIterator->m_b_IsActive = false;
 			}
@@ -75,7 +75,7 @@ public:
 		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity);
 		while (firstEnt)
 		{
-			for (auto componentIterator : m_v_AttachedComponentsList)
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
 			{
 				componentIterator->m_b_IsActive = true;
 			}
@@ -89,7 +89,7 @@ public:
 		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity,name);
 		while (firstEnt)
 		{
-			for (auto componentIterator : m_v_AttachedComponentsList)
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
 			{
 				componentIterator->m_b_IsActive = false;
 			}
@@ -103,7 +103,7 @@ public:
 		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity,name);
 		while (firstEnt)
 		{
-			for (auto componentIterator : m_v_AttachedComponentsList)
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
 			{
 				componentIterator->m_b_IsActive = true;
 			}
