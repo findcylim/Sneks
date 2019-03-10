@@ -182,6 +182,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UI_BarLeftLife2.png", "LifeL2");
 	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
+	LoadTextureToMap("../Resources/rock.png", "Rock");
+
 	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");
 }
 
