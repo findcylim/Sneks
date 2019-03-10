@@ -181,9 +181,10 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 					*/
 				}
-				else if (snekHed2->m_x_BodyParts.size() == 1)
+
+				if (snekHed2->m_x_BodyParts.size() == 1)
 				{
-					if (snekHed1->m_i_PlayerNumber == 0)
+					if (snekHed2->m_i_PlayerNumber == 0)
 						P1Lives--;
 					else
 						P2Lives--;

@@ -73,7 +73,7 @@ void GameStateManager::LoadMainMenu()
 
 void GameStateManager::UnloadMainMenu()
 {
-	m_o_SystemManager->DisableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
+	//m_o_SystemManager->DisableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
 }
 
 void GameStateManager::LoadBattle()
@@ -106,11 +106,13 @@ void GameStateManager::UnloadBattle()
 
 void GameStateManager::UnloadWinScreen()
 {
-	m_o_SystemManager->DisableSystem<WinScreenSystem, DrawComponent, kComponentDraw>();
+	//m_o_SystemManager->DisableSystem<WinScreenSystem, DrawComponent, kComponentDraw>();
 }
 
 void GameStateManager::LoadWinScreen()
 {
+	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+
 	if (GetP1Lives() <= 0)
 	{
 		WinScreen = new WinScreenSystem(m_o_EntityManager, m_o_EventManager, static_cast<char>(2));
@@ -124,7 +126,6 @@ void GameStateManager::LoadWinScreen()
 		WinScreen->SetName("WinScreen");
 		m_o_SystemManager->AddSystem(WinScreen);
 	}
-	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
 	m_o_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
 	m_o_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
@@ -133,10 +134,10 @@ void GameStateManager::LoadWinScreen()
 void GameStateManager::Update()
 {
 	switch (m_x_Current) {
-	case kStateMainMenu:    UnloadBattle();
-							UnloadWinScreen();
-							LoadMainMenu();
-							break;
+	//case kStateMainMenu:    UnloadBattle();
+	//						UnloadWinScreen();
+	//						LoadMainMenu();
+	//						break;
 
 	case kStateGame:		UnloadMainMenu();
 							UnloadWinScreen();
