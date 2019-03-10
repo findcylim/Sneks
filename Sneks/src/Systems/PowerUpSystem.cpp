@@ -81,20 +81,17 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		auto powerupHolder = m_po_EntityManager->NewEntity
 			<PowerUpHolderEntity>(Entity::kEntityPowerUpHolder, "PowerUpHolder");
 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			powerupHolder, Component::kComponentTransform)->SetPositionX(
-				spawnPoint->GetPosition().x);
+		auto transformComponent = m_po_ComponentManager->GetSpecificComponentInstance
+			<TransformComponent>(powerupHolder, Component::kComponentTransform);
 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			powerupHolder, Component::kComponentTransform)->SetPositionY(
-				spawnPoint->GetPosition().y);
+		transformComponent->SetPositionX(spawnPoint->GetPosition().x);
 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			powerupHolder, Component::kComponentTransform)->SetRotation(
-				snekVelocity->GetRotation() + (AERandFloat() - 0.5f) * m_f_ForwardAngleRange);
+		transformComponent->SetPositionY(spawnPoint->GetPosition().y);
 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			powerupHolder, Component::kComponentTransform)->m_f_Scale = m_f_HolderSizeRatio;
+		transformComponent->SetRotation(snekVelocity->GetRotation() +
+			(AERandFloat() - 0.5f) * m_f_ForwardAngleRange);
+
+		transformComponent->m_f_Scale = m_f_HolderSizeRatio;
 
 		m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 			powerupHolder, Component::kComponentPhysics)->m_f_Speed = 
@@ -117,7 +114,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 {
-	PowerUpType type = kPowerUpPlusBody;//static_cast<PowerUpType>(rand() % kPowerUpEnd);
+	PowerUpType type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
 
 	if (powerup->IsAlive() || powerup->GetJustDied())
 		RemovePowerUp(powerup);
@@ -127,19 +124,29 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 	switch (type)
 	{
 		case kPowerUpSpeedIncrease:
+		{
 			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
 				Component::kComponentPhysics)->m_f_Speed *= powerup->GetPowerIncrease();
 			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
 				Component::kComponentPhysics)->m_f_MaxSpeed *= powerup->GetPowerIncrease();
+		}
 			break;
 
 		case kPowerUpGrowthIncrease:
+		{
+			m_o_SnekSystem->IncreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
+				<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber,
+				powerup->GetPowerIncrease());
+		}
 			break;
 
 		case kPowerUpUnlimitedSpecial:
+		{
+		}
 			break;
 
 		case kPowerUpInvul:
+		{
 			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>
 				(powerup, KComponentInvulnerable)->m_f_InvulnerableTime = powerup->GetPowerIncrease();
 
@@ -148,15 +155,25 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 				m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
 					i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime =
 					powerup->GetPowerIncrease();
+		}
 			break;
 
 		case kPowerUpPlusBody:
+		{
 			//TODO emit event to snek system to increase body part
 			//TODO snek system to recieve event to grow body part
+			const char* bodyTexture = nullptr;
+			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+				(powerup, kComponentSnekHead)->m_i_PlayerNumber == 0)
+				bodyTexture = "SnekBody01";
+			else
+				bodyTexture = "SnekBody02";
+
 			for (int i = 0; i < 5; i++)
 				m_o_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerup->m_po_OwnerEntity),
-					"SnekBody01", m_po_ComponentManager->GetSpecificComponentInstance
+					bodyTexture, m_po_ComponentManager->GetSpecificComponentInstance
 					<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber);
+		}
 			break;
 
 		case kPowerUpEnd:
@@ -168,28 +185,39 @@ void PowerUpSystem::RemovePowerUp(PowerUpComponent* powerup)
 {
 	switch (powerup->GetPowerUp())
 	{
-	case kPowerUpSpeedIncrease:
-		m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
-			Component::kComponentPhysics)->m_f_Speed /= powerup->GetPowerIncrease();
-		m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
-			Component::kComponentPhysics)->m_f_MaxSpeed /= powerup->GetPowerIncrease();
-		break;
+		case kPowerUpSpeedIncrease:
+		{
+			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
+				Component::kComponentPhysics)->m_f_Speed /= powerup->GetPowerIncrease();
+			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
+				Component::kComponentPhysics)->m_f_MaxSpeed /= powerup->GetPowerIncrease();
+		}
+			break;
 
-	case kPowerUpGrowthIncrease:
-		break;
+		case kPowerUpGrowthIncrease:
+		{
+			m_o_SnekSystem->DecreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
+				<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber,
+				powerup->GetPowerIncrease());
+		}
+			break;
 
-	case kPowerUpUnlimitedSpecial:
-		break;
+		case kPowerUpUnlimitedSpecial:
+		{
+		}
+			break;
 
-	case kPowerUpInvul:
-		m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>
-			(powerup, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
+		case kPowerUpInvul:
+		{
+			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>
+				(powerup, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
 
-		for (auto i_BodyParts : m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-			(powerup, kComponentSnekHead)->m_x_BodyParts)
-			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
-				i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
-		break;
+			for (auto i_BodyParts : m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+				(powerup, kComponentSnekHead)->m_x_BodyParts)
+				m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
+					i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
+		}
+			break;
 	}
 
 	powerup->SetPowerUp(kPowerUpEnd);

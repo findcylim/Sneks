@@ -30,7 +30,7 @@ private:
 	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings = 
 		{{kCollGroupSnek1Head,kCollGroupSnek2Head},
 		 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
-		 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Body
+//		 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Body
 		 {kCollGroupSnek2Head,kCollGroupSnek1Body},
 		 {kCollGroupSnek1Head,kCollGroupBuilding },
 		 {kCollGroupSnek2Head,kCollGroupBuilding },
