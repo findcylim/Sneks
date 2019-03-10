@@ -104,6 +104,10 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		m_po_ComponentManager->GetSpecificComponentInstance<CollisionComponent>(
 			powerupHolder, Component::kComponentCollision)->m_i_CollisionGroupVec.push_back(
 				CollisionGroupName::kCollGroupPowerUp);
+
+		m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
+			powerupHolder, Component::KComponentInvulnerable)->m_f_InvulnerableTime =
+			m_f_HolderInvulTime;
 	}
 }
 
