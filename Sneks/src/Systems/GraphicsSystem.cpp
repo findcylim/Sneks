@@ -32,7 +32,7 @@ GraphicsSystem::~GraphicsSystem()
 
 void GraphicsSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
 	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }

@@ -311,5 +311,8 @@
     <ClInclude Include="Systems\Menus\WinScreenSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="Systems\SystemList.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

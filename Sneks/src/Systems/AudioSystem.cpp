@@ -118,7 +118,7 @@ AudioSystem::~AudioSystem()
 
 void AudioSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)

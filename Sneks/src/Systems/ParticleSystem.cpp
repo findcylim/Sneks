@@ -16,7 +16,7 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void ParticleSystem::Update(float dt)

@@ -66,8 +66,8 @@ void CanvasUISystem::Update(float dt)
 
 void CanvasUISystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this);
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this, this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 	m_o_ScreenSize = { screenX *0.5f, screenY*0.5f };

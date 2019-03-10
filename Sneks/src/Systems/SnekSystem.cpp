@@ -9,9 +9,13 @@
 #include <iostream>
 #include <algorithm>
 
+//"Forward" declaration includes
+#include "PhysicsSystem.h"
+
 float P1Growth = 0, P2Growth = 0;
 float P1GrowthMeter = 1, P2GrowthMeter = 1;
 int P1Lives = 3, P2Lives = 3;
+
 
 float GetP1GrowthPercentage()
 {
@@ -124,6 +128,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			}
 		}
 		objectColliding->enabled = false;
+		objectColliding->m_b_IsActive = false;
 		auto objectDrawComp = 
 			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
 				objectColliding, kComponentDraw
@@ -176,32 +181,36 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 					*/
 				}
-
 				if (P1Lives <= 0)
 				{
 					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
-					m_o_SystemManager->GetSystem("Physics")->m_b_isActive = false;
-					auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
+					/*auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
 					while(snek)
 					{
 						snek->m_b_IsActive = false;
 						snek = static_cast<SnekHeadEntity*>(snek->m_po_NextEntity);
-					}
+					}*/
 				}
 				else if (P2Lives <= 0)
 				{
 					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(1));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
-					m_o_SystemManager->GetSystem("Physics")->m_b_isActive = false;
-					auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
+					/*auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
 					while(snek)
 					{
 						snek->m_b_IsActive = false;
 						snek = static_cast<SnekHeadEntity*>(snek->m_po_NextEntity);
-					}
+					}*/
 				}
 
 				srand(clock());
@@ -434,8 +443,8 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_o_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this, this);
 }
 
 //HEAD SIZE : 105, 77

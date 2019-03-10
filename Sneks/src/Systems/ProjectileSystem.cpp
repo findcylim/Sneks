@@ -23,8 +23,8 @@ void ProjectileSystem::Update(float dt)
 
 void ProjectileSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->AddListener<Events::EV_CREATE_PROJECTILE>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_o_EventManagerPtr->AddListener<Events::EV_CREATE_PROJECTILE>(this, this);
 }
 
 void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
