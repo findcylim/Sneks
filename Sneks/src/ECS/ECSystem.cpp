@@ -172,8 +172,14 @@ void ECSystem::InitializeEngine()
 	powerup->SetName("Power Up");
 	powerup->Initialize();
 
-	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
+	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Heads Up Display");
+
 	m_o_SystemManager->DisableSystem<HUDSystem, DrawComponent, kComponentDraw>();
+	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
+	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
+
+	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 	m_o_SystemManager->DisableSystem<PowerUpSystem, DrawComponent, kComponentDraw>();
 	m_o_SystemManager->DisableSystem<BackgroundSystem, DrawComponent, kComponentDraw>();
 	m_o_SystemManager->DisableSystem<BuildingsSystem, DrawComponent, kComponentDraw>();
