@@ -46,6 +46,13 @@ struct HTVector2 final
 		y = rhs.y;
 		return *this;
 	}
+
+	HTVector2& operator=(const float rhs)
+	{
+		x = rhs;
+		y = rhs;
+		return *this;
+	}
 	
 };
 
@@ -63,5 +70,30 @@ inline HTVector2 GetNormal(HTVector2 vector)
 	result.x = vector.y * -1;
 	result.y = vector.x;
 	return result;
+}
+
+
+namespace MathHT
+{
+
+	inline float Abs(float value)
+	{
+		return value < 0 ? -value : value;
+	}
+
+	inline float CalculateVector2Distance(HTVector2 lhs, HTVector2 rhs)
+	{
+		return (Abs((lhs.x - rhs.x)*(lhs.x - rhs.x)) + Abs((lhs.y - rhs.y)*(lhs.y - rhs.y)));
+	}
+
+	inline float CalculateDistanceX(HTVector2 lhs, HTVector2 rhs)
+	{
+		return Abs(lhs.x - rhs.x);
+	}
+
+	inline float CalculateDistanceY(HTVector2 lhs, HTVector2 rhs)
+	{
+		return Abs(lhs.y - rhs.y);
+	}
 }
 

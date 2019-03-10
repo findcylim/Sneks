@@ -7,6 +7,7 @@
 #include "../Utility/Logger.h"
 #include "../Utility/GameStateManager.h"
 #include "../ECS/EventListener.h"
+#include "../Components/CameraComponent.h"
 
 enum KeyBindsId
 {

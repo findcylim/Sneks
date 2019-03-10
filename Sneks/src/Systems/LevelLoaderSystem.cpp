@@ -86,7 +86,8 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 					float x = static_cast<float>(atof(cPointer));
 					while (*(cPointer++) != '=') {}
 					float y = static_cast<float>(atof(cPointer));
-					static_cast<TransformComponent*>(comp)->SetPosition(x,y);
+					static_cast<TransformComponent*>(comp)->SetPositionX(x);
+					static_cast<TransformComponent*>(comp)->SetPositionY(y);
 
 					std::getline(inFile, output);
 					cPointer = output.c_str();

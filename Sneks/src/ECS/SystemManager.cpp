@@ -3,13 +3,14 @@
 #include <iostream>
 #include "../Utility/FileIO.h"
 
-//#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
+#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
 
 #ifdef LOG_SYSTEM_UPDATE_TIME
 #define __STDC_WANT_LIB_EXT1__ 1
 #include <chrono>
 
 std::vector<float> fpsLog;
+std::vector<int> droppedFramesLog;
 std::vector<const char*> nameLog;
 std::vector<f64> timeLog;
 std::vector<f64> totalTime(20);
@@ -82,11 +83,14 @@ SystemManager::~SystemManager()
 			}
 			outFile << "A total of " << timeElapsed << " ms elapsed during this session. " << std::endl
 					  <<  "Average FPS was " << avgFps << std::endl
-					  <<  "Lowest FPS was "  << lowestFps << std::endl;
+					  <<  "Lowest FPS was "  << lowestFps << std::endl
+					  <<  "Number of Dropped Frames: " << droppedFramesLog.back() << std::endl;
+
 		}
 		nameLog.clear();
 		timeLog.clear();
 		fpsLog.clear();
+		droppedFramesLog.clear();
 		outFile.close();
 	}
 #endif
@@ -102,6 +106,7 @@ void SystemManager::Initialize(EventManager* eventManager, EntityManager* entMan
 {
 	m_o_EventManager = eventManager;
 	m_o_EntityManager = entManager;
+	m_i_DroppedFrames = 0;
 }
 
 size_t SystemManager::GetSystemCount() const
@@ -154,7 +159,8 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 void SystemManager::Update(float dt)
 {
 #ifdef LOG_SYSTEM_UPDATE_TIME
-	fpsLog.push_back( 1.0f / static_cast<float>(AEFrameRateControllerGetFrameTime() ) );
+	fpsLog.push_back( 1.0f / static_cast<float>(dt) );
+	droppedFramesLog.push_back(m_i_DroppedFrames);
 #endif
 
 	for (BaseSystem* currSystem : m_v_SystemList)

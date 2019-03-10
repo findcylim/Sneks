@@ -12,8 +12,8 @@ void checkName(BaseEntity* entityPointerSource, BaseEntity* entityPointerUntouch
 	{
 		if (!(*charPointerUntouched))
 		{
-			delete(entityPointerSource->m_pc_EntityName);
-			entityPointerSource->m_pc_EntityName = new char [(strlen(entityPointerUntouched->m_pc_EntityName) + 4)];
+			//delete(entityPointerSource->m_pc_EntityName);
+			//entityPointerSource->m_pc_EntityName = new char [(strlen(entityPointerUntouched->m_pc_EntityName) + 4)];
 
 			charPointerUntouched = entityPointerUntouched->m_pc_EntityName, charPointerSource = entityPointerSource->m_pc_EntityName;
 			while (*charPointerUntouched)
@@ -141,6 +141,21 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityParticle:
 			componentPointer = ((ParticleEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+		case Entity::kEntityCanvas:
+			componentPointer = ((CanvasEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityCanvasBasicSprite:
+			componentPointer = ((CanvasBasicSpriteEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityCanvasButton:
+			componentPointer = ((CanvasButtonEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityCanvasTextLabel:
+			componentPointer = ((CanvasTextLabelEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
+		case Entity::kEntityMouse:
+			componentPointer = ((MouseEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 
 		case Entity::kEntityPowerUpHolder:
 			componentPointer = ((PowerUpHolderEntity*)entityPointer)->m_ax_InitialComponents;
@@ -166,15 +181,12 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 		case Entity::kEntityBase:
 			entityPointer = new BaseEntity(entityName);
 			break;
-
 		case Entity::kEntityStaticObject:
 			entityPointer = (BaseEntity*)new StaticObjectEntity(entityName);
 			break;
-
 		case Entity::kEntityBackground:
 			entityPointer = (BaseEntity*)new BackgroundEntity(entityName);
 			break;
-
 		case Entity::kEntityCamera:
 			entityPointer = (BaseEntity*)new CameraEntity(entityName);
 			break;
@@ -206,6 +218,21 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 		case kEntityParticle:
 			entityPointer = (BaseEntity*)new ParticleEntity(entityName);
 			break;
+		case kEntityCanvas:
+			entityPointer = (BaseEntity*)new CanvasEntity(entityName);
+			break;
+		case kEntityCanvasBasicSprite:
+			entityPointer = (BaseEntity*)new CanvasBasicSpriteEntity(entityName);
+			break;
+		case kEntityCanvasButton:
+			entityPointer = (BaseEntity*)new CanvasButtonEntity(entityName);
+			break;
+		case kEntityCanvasTextLabel:
+			entityPointer = (BaseEntity*)new CanvasTextLabelEntity(entityName);
+			break;
+		case kEntityMouse:
+			entityPointer = (BaseEntity*)new MouseEntity(entityName);
+			break;
 		
 		case kEntityPowerUpHolder:
 			entityPointer = (BaseEntity*)new PowerUpHolderEntity(entityName);
@@ -236,18 +263,19 @@ void EntityManager::ResolveDeletes()
 {
 	for (auto entity : m_v_ToDelete)
 	{
-		DeleteEntity(entity);
+		entity->m_b_IsActive = false;
+		//DeleteEntity(entity);
 	}
 	m_v_ToDelete.clear();
 }
 
-void EntityManager::DeleteEntity(BaseEntity* entityPointer)
+void EntityManager::  DeleteEntity(BaseEntity* entityPointer)
 {
 	if (entityPointer)
 	{
 		BaseEntity *prevEntity = entityPointer->m_po_PrevEntiy, *nextEntity = entityPointer->m_po_NextEntity;
 
-		while (entityPointer->m_v_AttachedComponentsList.size() > 0)
+		while (!entityPointer->m_v_AttachedComponentsList.empty())
 			m_po_ComponentManagerInstance->DeleteComponent(entityPointer->m_v_AttachedComponentsList[0]);
 
 		if (prevEntity && nextEntity)
@@ -265,9 +293,7 @@ void EntityManager::DeleteEntity(BaseEntity* entityPointer)
 			prevEntity->m_po_NextEntity = nullptr;
 		else if (!prevEntity && !nextEntity)
 			m_v_EntityPool[entityPointer->GetEntityID()] = nullptr;
-
-		if (entityPointer->m_pc_EntityName)
-			delete (entityPointer->m_pc_EntityName);
+		m_v_ToFree.push_back(entityPointer);
 
 		delete entityPointer;
 	}

@@ -4,8 +4,9 @@
 #pragma once
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
+//#include "../ECS/ECSystem.h"
 #include "GraphicsSystem.h"
-#include "SnekSystem.h"
+//#include "SnekSystem.h"
 
 class ProjectileSystem : public BaseSystem,
 	public EventListener<Events::EV_PLAYER_COLLISION>,
@@ -23,5 +24,7 @@ public:
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 };
+
+//float GetProjectileChargeRate();
 
 #endif //BACKGROUND_SYSTEM_H

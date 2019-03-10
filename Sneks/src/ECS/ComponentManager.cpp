@@ -14,6 +14,8 @@
 #include "../Components/FollowComponent.h"
 #include "../Components/ParticleEffectComponent.h"
 #include "../Components/ParticleComponent.h"
+#include "../Components/CanvasComponent.h"
+#include "../Components/TextRendererComponent.h"
 #include "../Components/PowerUpComponent.h"
 
 ComponentManager::ComponentManager()
@@ -88,6 +90,19 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 		case kComponentParticle:
 			componentPointer = static_cast<BaseComponent*>(new ParticleComponent);
 			break;
+		case kComponentCanvas:
+			componentPointer = static_cast<BaseComponent*>(new CanvasComponent);
+			break;
+		case kComponentCanvasElement:
+			componentPointer = static_cast<BaseComponent*>(new CanvasElementComponent);
+			break;
+		case kComponentTextRenderer:
+		{
+			auto transformComponent = GetSpecificComponentInstance<TransformComponent>(
+				entityPointer, kComponentTransform);
+			componentPointer = static_cast<BaseComponent*>(new TextRendererComponent(transformComponent));
+			break;
+		}
 		case kComponentPowerUp:
 			componentPointer = static_cast<BaseComponent*>(new PowerUpComponent);
 			break;

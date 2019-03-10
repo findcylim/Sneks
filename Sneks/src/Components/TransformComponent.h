@@ -12,13 +12,16 @@ private:
 
 public:
 	HTVector2				m_x_Position = {0,0};
-	float						m_f_Scale    = 1.0f;
+	HTVector2				m_f_Scale    = { 1.0f,1.0f };
+	HTVector2				m_f_ScaleMultiplier = {1.0f,1.0f};
 
 	void		SetRotation(float f);
 	float		GetRotation() const;
-	void		SetPosition(float, float);
+	void		SetPositionX(float);
+	void		SetPositionY(float);
+	void        SetScale(float);
 	HTVector2	GetPosition() const;
-
+	HTVector2   GetScale() const;
 };
 
 #endif

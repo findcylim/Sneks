@@ -1,7 +1,6 @@
 #include "CameraSystem.h"
 #include "../Components/CameraComponent.h"
 
-
 void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
@@ -10,8 +9,10 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 
 	}
+	else if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
+	{}
 	else
-		SetShake(2.0f);
+		SetShake(3.0f);
 }
 
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr):
@@ -35,7 +36,8 @@ void CameraSystem::Initialize()
 void CameraSystem::UpdateCamera(const float dt) const
 {
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-
+	//float x = m_po_EntityManager->GetFirstEntityInstance<CameraEntity>(kEntityCamera)->GetComponent<TransformComponent>()->m_x_Position.x;
+	//printf("%f\n", x);
 	m_po_CamShake->Update(dt);
 
 	while (cameraComponent) {
@@ -131,6 +133,7 @@ void CameraSystem::UpdateCamera(const float dt) const
 			/ 2,
 		(cameraComponent->m_v_EntitiesToTrack.front()->GetPosition().y + cameraComponent->m_v_EntitiesToTrack.back()->GetPosition().y)
 			/ 2 };
+
 			cameraComponent->m_f_VirtualOffsetX = -averagePosition.x;
 			cameraComponent->m_f_VirtualOffsetY = -averagePosition.y;
 		}
@@ -155,7 +158,7 @@ float CameraSystem::AddShake(float magnitude)
 
 void CameraSystem::SetShake(float magnitude)
 {
-	m_po_CamShake->AddShake(magnitude);
+	m_po_CamShake->SetShake(magnitude);
 }
 
 

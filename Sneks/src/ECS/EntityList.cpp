@@ -3,15 +3,17 @@
 
 BaseEntity::BaseEntity(const char* entityName)
 {
-	char* charPointer = m_pc_EntityName = (char*)malloc(strlen(entityName) + 1);
+	if (entityName)
+		strcpy_s(m_pc_EntityName, entityName);
+	//char* charPointer = m_pc_EntityName = (char*)malloc(strlen(entityName) + 1);
 
-	while (*entityName)
-	{
-		*charPointer = *entityName;
-		charPointer++, entityName++;
-	}
+	//while (*entityName)
+	//{
+	//	*charPointer = *entityName;
+	//	charPointer++, entityName++;
+	//}
 
-	*charPointer = 0;
+	//*charPointer = 0;
 }
 
 Entity BaseEntity::GetEntityID()

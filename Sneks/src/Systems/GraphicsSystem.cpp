@@ -2,6 +2,11 @@
 #include <algorithm>
 #include <vector>
 #include "../Utility/FileIO.h"
+#include "../Utility/AlphaEngineHelper.h"
+#include "../Components/TextRendererComponent.h"
+
+static unsigned debugFont;
+void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
 
 GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr)
 {};
@@ -18,13 +23,16 @@ GraphicsSystem::~GraphicsSystem()
 		AEGfxMeshFree(pairing.second);
 	}
 	m_x_TextureMap.clear();
+	AEGfxDestroyFont(debugFont);
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
 	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
 
+	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
 
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, const float sizeX,
@@ -59,7 +67,7 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 		m_x_MeshMap.insert(std::pair<const char*, AEGfxVertexList*>(texture->mpName, dc->m_px_Mesh));
 	}
 
-	dc->m_po_TransformComponent->m_f_Scale *= largerDimension;
+	dc->m_po_TransformComponent->m_f_Scale = dc->m_po_TransformComponent->m_f_Scale * largerDimension;
 
 	dc->m_f_RgbaColor = color;
 }
@@ -136,8 +144,8 @@ void GraphicsSystem::PreLoadTextures()
 	//ENFORCE FILE NAMES TO BE UNIQUE
 	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
 	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
-	LoadTextureToMap("../Resources/snake-body.png"		 , "SnekBody01");
-	LoadTextureToMap("../Resources/snake-body2.png"	 , "SnekBody02");
+	LoadTextureToMap("../Resources/bodytest.png"		 , "SnekBody01");
+	LoadTextureToMap("../Resources/bodytest2.png"	 , "SnekBody02");
 	LoadTextureToMap("../Resources/head.png"				 , "SnekTail01");
 	LoadTextureToMap("../Resources/head.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
@@ -146,8 +154,28 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
+	LoadTextureToMap("../Resources/MainMenuLogo.png", "MainMenuLogo");
+	LoadTextureToMap("../Resources/MouseCollider.png", "MouseCollider");
+	LoadTextureToMap("../Resources/UIBack.png", "UIBack");
+	LoadTextureToMap("../Resources/UIBack_Hover.png", "UIBack_Hover");
+	LoadTextureToMap("../Resources/UIBack_Click.png", "UIBack_Click");
+	
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
+
+	LoadTextureToMap("../Resources/UI_BarLeft.png", "LeftBar");
+	LoadTextureToMap("../Resources/UI_BarLeftSmall.png", "SmallLeftBar");
+	LoadTextureToMap("../Resources/UI_BarRight.png", "RightBar");
+	LoadTextureToMap("../Resources/UI_BarRightSmall.png", "SmallRightBar");
+
+	LoadTextureToMap("../Resources/UI_Bar.png", "HUD");
+
+	LoadTextureToMap("../Resources/UI_BarRightLife1.png", "LifeR1");
+	LoadTextureToMap("../Resources/UI_BarRightLife2.png", "LifeR2");
+	LoadTextureToMap("../Resources/UI_BarRightLife3.png", "LifeR3");
+	LoadTextureToMap("../Resources/UI_BarLeftLife1.png", "LifeL1");
+	LoadTextureToMap("../Resources/UI_BarLeftLife2.png", "LifeL2");
+	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
 }
 
@@ -167,14 +195,19 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 	m_x_DrawOrder.clear();
 
 	auto i_AddDrawComponent = firstDrawComponent;
-	while (i_AddDrawComponent) {
+	for (;
+		i_AddDrawComponent;
+		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent) )
+	{
+		if (!i_AddDrawComponent->m_po_OwnerEntity->m_b_IsActive)
+			continue;
 		//m_x_DrawOrder.insert(std::pair<int, DrawComponent*>(i_AddDrawComponent->m_f_DrawPriority, i_AddDrawComponent));
 		while (m_x_DrawOrder.size() <= static_cast<size_t>(i_AddDrawComponent->m_f_DrawPriority))
 		{
 			m_x_DrawOrder.emplace_back();
 		}
 		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
-		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent);
+
 	}
 }
 void GraphicsSystem::UpdateDrawOrderVector()
@@ -212,6 +245,8 @@ void GraphicsSystem::Draw(float dt)
 
 	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
 		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
+			if (!drawComponent->m_po_OwnerEntity->m_b_IsActive)
+				continue;
 			//Check if there is draw component
 			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
@@ -230,7 +265,29 @@ void GraphicsSystem::Draw(float dt)
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 		}
 	}
-	
+
+
+	AEGfxSetRenderMode(AE_GFX_RM_COLOR);
+
+	//SnekHeadEntity* snekHeadEntity = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+
+	//auto snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+
+	//s8 strBuffer[500];
+
+	//sprintf_s(strBuffer, sizeof(strBuffer), "Snek 1 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+
+	//AEGfxPrint(debugFont, strBuffer, -900, 480, 0, 0, 1);
+
+	//snekHeadEntity = static_cast<SnekHeadEntity*>(snekHeadEntity->m_po_NextEntity);
+
+	//snekPhysics = snekHeadEntity->GetComponent<PhysicsComponent>();
+
+	//sprintf_s(strBuffer, sizeof(strBuffer), "Snek 2 Speed: %f / %f", snekPhysics->m_f_Speed, snekPhysics->m_f_MaxSpeed);
+
+	//AEGfxPrint(debugFont, strBuffer, 200, 480, 1, 0, 0);
+
+	DrawTextRenderer();
 }
 
 void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
@@ -238,36 +295,93 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 	auto i_DrawComponent = m_po_ComponentManager
 		->GetFirstComponentInstance<DrawComponent>(kComponentDraw);
 
-	while (i_DrawComponent)
+	for (;
+		i_DrawComponent;
+		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent) )
 	{
+		if (!i_DrawComponent->m_po_OwnerEntity->m_b_IsActive)
+			continue;
 		//Check if there is transform component
 		if (auto i_TransformComponent = i_DrawComponent->m_po_TransformComponent) {
 
-			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
-			AEMtx33ScaleApply(
-				i_DrawComponent->m_po_RotationMatrix, i_DrawComponent->m_po_RotationMatrix, 
-				i_TransformComponent->m_f_Scale, i_TransformComponent->m_f_Scale
+			AEMtx33 globalTransform;
+
+			AEMtx33Identity(&globalTransform);
+
+			AEMtx33Scale(i_DrawComponent->m_po_ScaleMatrix, 
+				i_TransformComponent->m_f_Scale.x * i_TransformComponent->m_f_ScaleMultiplier.x,
+				i_TransformComponent->m_f_Scale.y * i_TransformComponent->m_f_ScaleMultiplier.y
 				);
-			
+
+			AEMtx33Concat(&globalTransform, i_DrawComponent->m_po_ScaleMatrix,
+				&globalTransform
+			);
+
+			AEMtx33Rot(i_DrawComponent->m_po_RotationMatrix, i_TransformComponent->GetRotation());
+
+			AEMtx33Concat(&globalTransform, i_DrawComponent->m_po_RotationMatrix,
+				&globalTransform
+			);
+
 			AEMtx33Trans(
 				i_DrawComponent->m_po_TranslationMatrix, i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y
 				);
 
-			/*generate global matrix from rot and trans*/
-			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_TranslationMatrix, i_DrawComponent->m_po_RotationMatrix
+			/*generate global matrix from rot and trans and scale*/
+			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix, i_DrawComponent->m_po_TranslationMatrix,
+				&globalTransform	
 				);
 
-			AEMtx33TransApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
+			AEMtx33 cameraTransform;
+			AEMtx33Identity(&cameraTransform);
+
+			AEMtx33TransApply(&cameraTransform,
+				&cameraTransform, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
 				);
 
-			AEMtx33ScaleApply(i_DrawComponent->m_po_GlobalMatrix,
-				i_DrawComponent->m_po_GlobalMatrix, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
+			AEMtx33 rotMatrix;
+			AEMtx33Rot(&rotMatrix, cameraComponent->m_f_VirtualRotation);
+
+			AEMtx33Concat(&cameraTransform,
+				&rotMatrix, &cameraTransform
+			);
+
+			AEMtx33ScaleApply(&cameraTransform,
+				&cameraTransform, cameraComponent->m_f_VirtualScale, cameraComponent->m_f_VirtualScale
+				);
+
+			AEMtx33Concat(i_DrawComponent->m_po_GlobalMatrix, 
+				&cameraTransform, i_DrawComponent->m_po_GlobalMatrix
 				);
 
 		}
-
-		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
 	}
+}
+
+
+void GraphicsSystem::DrawTextRenderer()const
+{
+	auto text_Comp = m_po_ComponentManager->GetFirstComponentInstance<TextRendererComponent>(kComponentTextRenderer);
+	while (text_Comp)
+	{
+		char textToDraw[100];
+		sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+		AEGfxPrint(m_i_font, textToDraw, static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x-AEGfxGetWinMaxX() + text_Comp->m_o_PositionOffset.x), 
+										 static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y+ AEGfxGetWinMaxY() + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
+	}
+}
+
+void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue)
+{
+	float halfScreenSizeX, halfScreenSizeY;
+	AlphaEngineHelper::GetScreenSize(&halfScreenSizeX, &halfScreenSizeY);
+	halfScreenSizeX /= 2;
+	halfScreenSizeY /= 2;
+
+	s8 strBuffer[500];
+	float posX = -halfScreenSizeX + relativePosX * halfScreenSizeX * 2;
+	float posY = -halfScreenSizeY + relativePosY * halfScreenSizeY * 2;
+	sprintf_s(strBuffer, sizeof(strBuffer), toPrint);
+	AEGfxPrint(fontId, strBuffer, (int)posX, (int)posY, red, green, blue);
 }

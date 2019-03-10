@@ -17,14 +17,16 @@ enum CollisionGroupName
 	kCollGroupSnek5Body,
 	kCollGroupBuilding = 10,
 	kCollGroupMoon = 11,
+	kCollGroupUIButton,
+	kCollGroupMouse,
 	kCollGroupPowerUp
 };
 
 class CollisionComponent : public BaseComponent
 {
 public:
-	std::vector<CollisionGroupName> m_i_CollisionGroupVec;
-	DrawComponent*			     m_po_DrawComponent;
+	std::vector<CollisionGroupName>   m_i_CollisionGroupVec;
+	DrawComponent*					  m_po_DrawComponent;
 	bool							  enabled = true;
-
+	bool							  m_b_Colliding = false;
 };

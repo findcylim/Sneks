@@ -10,6 +10,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CollisionComponent.h"
 #include "../Components/SnekHeadComponent.h"
+#include "../Components/CanvasComponent.h"
 #include "../Utility/RTTIHelper.h"
 
 
@@ -21,7 +22,7 @@ enum kEventList
 	Ev_PLAYER2GAME_LEFTKEY,
 	Ev_PLAYER2GAME_RIGHTKEY,
 	Ev_PLAYER2GAME_RIGHTSHIFTKEY,
-	
+
 };
 
 
@@ -50,7 +51,7 @@ namespace Events
 
 	struct EV_ENTITY_POOL_CHANGED final
 	{
-		
+
 	};
 
 	struct EV_SNEK_INVULNERABLE
@@ -61,8 +62,8 @@ namespace Events
 	struct EV_CREATE_PROJECTILE
 	{
 		bool isCollide;
-		float rot,speed, scale;
-		HTVector2* pos,*velocity;
+		float rot, speed, scale;
+		HTVector2* pos, *velocity;
 		const char * texName;
 	};
 
@@ -70,44 +71,36 @@ namespace Events
 	{
 
 	};
+
+	struct EV_NEW_UI_ELEMENT
+	{
+		CanvasComponent* canvas;
+		HTVector2 initialPosition;
+		CanvasElementEnum elementType;
+		const char * elementEntityName;
+		const char * uiElementSpriteName;
+		const char * uiTextLabel = "";
+		const char * uiHoverSpriteName = "";
+		const char * uiClickSpriteName = "";
+		void(*ButtonPressFunc)(void) = nullptr;
+	};
+
+	struct EV_PLAYER_COLLISION_ON_ENTER
+	{
+		CollisionComponent* object1;
+		CollisionComponent* object2;
+	};
+
+	struct EV_PLAYER_COLLISION_ON_EXIT
+	{
+		CollisionComponent* object1;
+		CollisionComponent* object2;
+	};
 }
-
-
-
-
-
-/*
-	<Standard function pointer format for callbacks>
-	-Returns void.
-	-Takes in void* to data structure, of which you will have to 
-	typecast in your callback function.
-	-Takes in a void* to member object of which the callback 
-	came from.
-*/
-typedef void(*FunctionP)(void * data,void* callee);
-
-typedef struct CallbackT
-{
-	FunctionP m_function;
-	short m_EventId;
-	void* m_CalleePtr;
-}CallbackT;
-
-typedef CallbackT* CallbackP;
-
-template<typename T>
-struct Event 
-{	
-	short EventId;
-	T* Data;
-	Event(short id,T* data) : EventId(id), Data(data) {}
-};
-
-
 
 class EventManager
 {
-protected : 
+protected:
 public:
 	void Update();
 	void ProcessEvents();
@@ -135,9 +128,9 @@ public:
 	template<typename T>
 	void RemoveListener(EventListener<T>* listener)
 	{
-		auto type		= getTypeIndex<T>();
+		auto type = getTypeIndex<T>();
 		auto v_Listener = m_l_ListenerList.find(type);
-		for (auto i_Listener = v_Listener->second.begin();i_Listener <= v_Listener->second.end(); ++i_Listener)
+		for (auto i_Listener = v_Listener->second.begin(); i_Listener <= v_Listener->second.end(); ++i_Listener)
 		{
 			auto ii_Listener = reinterpret_cast<BaseEventListener*>(listener);
 			if (ii_Listener == *i_Listener)
@@ -182,21 +175,10 @@ public:
 		}
 	}
 
-
-	bool RemoveCallbackFromEvent(short EventID, FunctionP FPRef, void* callee);
-	bool RemoveCallback(FunctionP FPRef, void* callee);
-
-	void ResetInstance();
-	void Initialize();
-	EventManager(Logger* logger);
+	EventManager();
 	virtual ~EventManager();
 private:
-	std::map<std::type_index,std::vector<BaseEventListener*>> m_l_ListenerList;
-	bool hasEvent(short EventId) const;
-	Logger* m_o_Logger;
-	std::vector<std::vector<CallbackP>> m_EventCallBackList;
-	//template<typename T>
-	//bool AddListener(EventListener<T>* listener);
+	std::map<std::type_index, std::vector<BaseEventListener*>> m_l_ListenerList;
 };
 
 #endif

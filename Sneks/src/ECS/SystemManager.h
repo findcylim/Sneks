@@ -20,12 +20,16 @@ private:
 public:
 	size_t GetSystemCount() const;
 	void AddSystem(BaseSystem* NewSystem);
+	
 	void RemoveSystem(BaseSystem* RemSystem);
 	void Update(float dt);
 	BaseSystem* GetSystem(int ID);
 	void Initialize(EventManager* eventManager, EntityManager* entManager);
 	SystemManager(Logger* logger);
 	~SystemManager();
+
+	//TODO
+	int m_i_DroppedFrames;
 };
 
 #endif

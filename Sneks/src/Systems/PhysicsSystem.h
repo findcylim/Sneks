@@ -33,5 +33,6 @@ public:
 	void ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const;
 	void CheckOutOfBounds(TransformComponent* transformComponent, PhysicsComponent* physicsComponent) const;
 	void DeleteOutOfBound(TransformComponent* transformComponent) const;
+
 };
 #endif

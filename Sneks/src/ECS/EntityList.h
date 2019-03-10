@@ -24,7 +24,7 @@ class BaseEntity
 		Entity m_x_EntityID = Entity::kEntityBase;
 
 	public:
-		char* m_pc_EntityName = nullptr;
+		char m_pc_EntityName[100];
 		bool m_b_IsActive = true;
 		std::vector<BaseComponent*> m_v_AttachedComponentsList;
 		BaseEntity* m_po_PrevEntiy = nullptr, *m_po_NextEntity = nullptr;
@@ -145,5 +145,56 @@ public:
 	PowerUpHolderEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
+
+/*class ParticleEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics,
+											Component::kComponentParticle, Component::kComponentEnd };
+
+	ParticleEntity(const char* entityName) : BaseEntity(entityName) {};
+};*/
+
+class CanvasEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentCanvas, Component::kComponentEnd };
+
+	CanvasEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class CanvasButtonEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[6] = { Component::kComponentTransform , Component::kComponentDraw , Component::kComponentCollision,Component::kComponentCanvasElement,Component::kComponentTextRenderer, Component::kComponentEnd };
+
+	CanvasButtonEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class CanvasBasicSpriteEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentCanvasElement,
+											Component::kComponentTextRenderer, Component::kComponentEnd };
+
+	CanvasBasicSpriteEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class CanvasTextLabelEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentCanvasElement,
+											Component::kComponentTextRenderer, Component::kComponentEnd };
+
+	CanvasTextLabelEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class MouseEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[4] = { Component::kComponentTransform ,Component::kComponentDraw ,Component::kComponentCollision, Component::kComponentEnd };
+
+	MouseEntity(const char* entityName) : BaseEntity(entityName) {};
+};
 
 #endif
