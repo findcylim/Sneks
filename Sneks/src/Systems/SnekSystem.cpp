@@ -16,6 +16,13 @@ float P1Growth = 0, P2Growth = 0;
 float P1GrowthMeter = 1, P2GrowthMeter = 1;
 int P1Lives = 3, P2Lives = 3;
 
+int winner;
+
+int GetWinner()
+{
+	return winner;
+}
+
 
 float GetP1GrowthPercentage()
 {
@@ -62,9 +69,10 @@ struct FollowData
 
 std::vector< std::vector<FollowData> > bodyPartsData;
 
-SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
+SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
 : BaseSystem(entityManagerPtr)
 {
+	m_o_GameStateManager = gameStateManagerPtr;
 	m_o_GraphicsSystem = graphics;
 }
 
@@ -178,9 +186,10 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 					*/
 				}
-				else if (snekHed2->m_x_BodyParts.size() == 1)
+
+				if (snekHed2->m_x_BodyParts.size() == 1)
 				{
-					if (snekHed1->m_i_PlayerNumber == 0)
+					if (snekHed2->m_i_PlayerNumber == 0)
 						P1Lives--;
 					else
 						P2Lives--;
@@ -199,15 +208,17 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				//todo: optimize this portion
 				if (P1Lives <= 0)
 				{
-
-					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+					winner = 2;
+					m_o_GameStateManager->SetState(kStateWinScreen);
+					/* m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
 					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
 
 					m_po_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
-					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>(); */
+
 					/*auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
 					while(snek)
 					{
@@ -217,6 +228,9 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				}
 				else if (P2Lives <= 0)
 				{
+					winner = 1;
+					m_o_GameStateManager->SetState(kStateWinScreen);
+					/*
 					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
 					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));

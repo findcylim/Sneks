@@ -137,7 +137,7 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 {
 	for (std::vector<BaseSystem*>::iterator sys = m_v_SystemList.begin();sys != m_v_SystemList.end();)
 	{
-		if (typeid(*sys) == typeid(*RemSystem))
+		if (strcmp( (*sys)->GetName(),RemSystem->GetName())==0)
 		{
 			try
 			{
