@@ -19,8 +19,8 @@ PhysicsSystem::~PhysicsSystem()
 void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
 {
 	m_o_GameStateManager	= gameStateManager;
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this,this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 }
 void PhysicsSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {

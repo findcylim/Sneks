@@ -107,18 +107,20 @@ public:
 
 
 	template<typename T>
-	bool AddListener(EventListener<T>* listener)
+	bool AddListener(EventListener<T>* listener, BaseSystem* systemPtr)
 	{
 		auto type = getTypeIndex<T>();
 		auto v_Listener = m_l_ListenerList.find(type);
 
 		if (v_Listener != m_l_ListenerList.end())
 		{
+			listener->systemListener = systemPtr;
 			v_Listener->second.push_back(listener);
 		}
 		else
 		{
 			std::vector<BaseEventListener*> v_newEvent;
+			listener->systemListener = systemPtr;
 			v_newEvent.push_back(listener);
 			m_l_ListenerList.insert({ type,v_newEvent });
 		}
@@ -165,7 +167,8 @@ public:
 			for (auto* baseListener : i_Listener->second)
 			{
 				auto* Listener = reinterpret_cast<EventListener<T>*>(baseListener);
-				Listener->Receive(event);
+				if(Listener->systemListener->m_b_isActive)
+					Listener->Receive(event);
 			}
 			return true;
 		}

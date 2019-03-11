@@ -14,10 +14,11 @@ class PowerUpSystem final : public BaseSystem,
 	private:
 		GraphicsSystem* m_o_GraphicsSystem;
 		SnekSystem* m_o_SnekSystem;
-		float m_f_SpawnChance = 0.5f;
+		float m_f_SpawnChance = 0.2f;
 		float m_f_ForwardAngleRange = PI * 0.4f;
-		float m_f_HolderSpeedRatio = 0.7f;
+		float m_f_HolderSpeedRatio = 0.3f;
 		float m_f_HolderSizeRatio = 0.3f;
+		float m_f_HolderInvulTime = 1.0f;
 
 		void SpawnPowerUp(TransformComponent* spawnPoint, TransformComponent* snekVelocity);
 		void UpdatePowerUp(PowerUpComponent* powerup);

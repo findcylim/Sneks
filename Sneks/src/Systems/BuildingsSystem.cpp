@@ -2,11 +2,12 @@
 #include "../Components/CollisionComponent.h"
 
 //TODO: REPLACE THESE ARE TEMP VARIABLES
-//TODO: INVESTIGATE LAG DUE TO INCREASE IN BUILDINGS
+//TODO: INVESTIGATE LAG DUE TO INCREASE IN BUILDINGS (in pascal coms)
+//TODO: analyse the code and make the buildings cover the entire map
 constexpr int buildingsDistX = 80;
 constexpr int buildingsDistY = 45;
-constexpr int bgInstancesX = 0;
-constexpr int bgInstancesY = 0;
+constexpr int bgInstancesX = 1;
+constexpr int bgInstancesY = 1;
 
 
 BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics) :
@@ -34,7 +35,7 @@ void BuildingsSystem::Initialize()
 	m_BuildingCoordsCurrent.clear();
 
 	LoadPossibleLocations();
-	GenerateNewBuildings(100);
+	GenerateNewBuildings(300);
 
 }
 

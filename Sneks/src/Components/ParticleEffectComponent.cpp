@@ -8,15 +8,13 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 		case ParticleType::kParticleBasicOneShot:
 			m_x_ParticleType = type;
 		
-			m_px_ParticleTexture = graphics->FetchTexture("SnekHead01");
+			m_px_ParticleTexture = graphics->FetchTexture("Rock");
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 0;
 			m_i_CurrentSplit = -1;
 		
-			m_f_ParticleSizeMultiplier = 0.1f;
-			m_f_ParticleSizeX = m_f_ParticleSizeMultiplier * 186.0f;
-			m_f_ParticleSizeY = m_f_ParticleSizeMultiplier * 186.0f;
+			m_f_ParticleSize = 0.7f;
 		
 			m_f_SpreadDistance = 0.0f;
 			m_f_AngleForSpreadDistance = PI * 0.0f;
@@ -40,15 +38,13 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 		case ParticleType::kParticleTrailEffect:
 			m_x_ParticleType = type;
 		
-			m_px_ParticleTexture = graphics->FetchTexture("SnekHead01");
+			m_px_ParticleTexture = graphics->FetchTexture("Rock");
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 2;
 			m_i_CurrentSplit = -1;
 		
-			m_f_ParticleSizeMultiplier = 0.1f;
-			m_f_ParticleSizeX = m_f_ParticleSizeMultiplier * 186.0f;
-			m_f_ParticleSizeY = m_f_ParticleSizeMultiplier * 186.0f;
+			m_f_ParticleSize = 0.6f;
 		
 			m_f_SpreadDistance = 25.0f;
 			m_f_AngleForSpreadDistance = PI * 0.5f;
@@ -158,14 +154,9 @@ float ParticleEffectComponent::GetOffsetAngle()
 	return m_f_OffsetAngle;
 }
 
-float ParticleEffectComponent::GetParticleSizeX()
+float ParticleEffectComponent::GetParticleSize()
 {
-	return m_f_ParticleSizeX;
-}
-
-float ParticleEffectComponent::GetParticleSizeY()
-{
-	return m_f_ParticleSizeY;
+	return m_f_ParticleSize;
 }
 
 float ParticleEffectComponent::GetParticleSpeed()

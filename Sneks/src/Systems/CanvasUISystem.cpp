@@ -27,8 +27,13 @@ void CanvasUISystem::Update(float dt)
 
 	while (can_Comp)
 	{
+		if(can_Comp->m_b_IsActive)
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
+			if (!element->m_b_IsActive)
+			{
+				m_po_EntityManager->EnableSpecificEntityType(*element->m_v_AttachedComponentsList.begin());
+			}
 			TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
 			CanvasElementComponent * canvasElementComponent = element->GetComponent<CanvasElementComponent>();
 			//Need to figure out a more optimized way to do this
@@ -59,6 +64,16 @@ void CanvasUISystem::Update(float dt)
 				}
 			}
 		}
+		else
+		{
+			for (auto& element : can_Comp->m_x_CanvasElementList)
+			{
+				if (element->m_b_IsActive)
+				{
+					m_po_EntityManager->DisableSpecificEntityType(*element->m_v_AttachedComponentsList.begin());
+				}
+			}
+		}
 		can_Comp = static_cast<CanvasComponent*>(can_Comp->m_po_NextComponent);
 	}
 }
@@ -66,8 +81,8 @@ void CanvasUISystem::Update(float dt)
 
 void CanvasUISystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this);
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this, this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 	m_o_ScreenSize = { screenX *0.5f, screenY*0.5f };
@@ -153,7 +168,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			if (text_Component)
 			{
 				int stringLen = static_cast<int>(strlen(ui_Component->m_pc_ElementText) + 1);
-				text_Component->CreateText(static_cast<float>(-stringLen  * 5), -10.0f, ui_Component->m_pc_ElementText);
+				text_Component->CreateText(static_cast<float>(-stringLen  * 7.5f), -13.5f, ui_Component->m_pc_ElementText);
 			}
 		}
 		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);
