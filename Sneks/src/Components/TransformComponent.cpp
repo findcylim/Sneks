@@ -37,5 +37,5 @@ HTVector2 TransformComponent::GetPosition() const
 
 HTVector2 TransformComponent::GetScale() const
 {
-	return m_f_ScaleMultiplier;
+	return m_f_ScaleMultiplier * m_f_Scale;
 }

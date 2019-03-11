@@ -183,7 +183,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)Dependencies\FMOD;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\FMOD;$(LibraryPath)</LibraryPath>
-    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\FMOD;$(IncludePath)</IncludePath>
@@ -219,7 +218,7 @@
       <AdditionalDependencies>Alpha_EngineD.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\ALPHA\Lib\x64;$(SolutionDir)Dependencies\glew\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <Profile>true</Profile>
+      <Profile>false</Profile>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /d /y "$(SolutionDir)Dependencies\FMOD\Lib\*.dll" "$(OutDir)"</Command>
@@ -266,7 +265,7 @@
       <AdditionalDependencies>Alpha_Engine.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\ALPHA\Lib\x64;$(SolutionDir)Dependencies\glew\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <Profile>true</Profile>
+      <Profile>false</Profile>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /d /y "$(SolutionDir)Dependencies\FMOD\Lib\*.dll" "$(OutDir)"</Command>

@@ -42,7 +42,7 @@ void CameraSystem::UpdateCamera(const float dt) const
 	//printf("%f\n", x);
 	m_po_CamShake->Update(dt);
 
-	while (cameraComponent) {
+	if (cameraComponent) {
 		cameraComponent->m_x_CurrentViewDistance.x = cameraComponent->m_px_ScreenSize.x / cameraComponent->m_f_VirtualScale;
 		cameraComponent->m_x_CurrentViewDistance.y = cameraComponent->m_px_ScreenSize.y / cameraComponent->m_f_VirtualScale;
 
@@ -143,7 +143,7 @@ void CameraSystem::UpdateCamera(const float dt) const
 		cameraComponent->m_f_VirtualScale *= 1 + cameraComponent->m_f_ZoomVelocity * 1.4f * dt;
 
 		cameraComponent->m_f_ZoomVelocity *= cameraComponent->m_x_CameraAttributes.speedDecay;
-
+		
 		Aabb cameraAABB = { {-cameraComponent->GetOffsetX() - cameraComponent->m_x_CurrentViewDistance.x,
 			-cameraComponent->GetOffsetY() - cameraComponent->m_x_CurrentViewDistance.y},
 			{-cameraComponent->GetOffsetX() + cameraComponent->m_x_CurrentViewDistance.x,
@@ -155,25 +155,26 @@ void CameraSystem::UpdateCamera(const float dt) const
 		//	{-cameraComponent->GetOffsetX() + cameraComponent->m_x_CurrentViewDistance.x / 2,
 		//	-cameraComponent->GetOffsetY() + cameraComponent->m_x_CurrentViewDistance.y / 2} };
 
-		Aabb otherAABB;
 
 		auto transformComponent =
 			m_po_ComponentManager->GetFirstComponentInstance<TransformComponent>(kComponentTransform);
 
 		while(transformComponent)
 		{
-			otherAABB = { {transformComponent->GetPosition().x - transformComponent->GetScale().x / 2,
+			Aabb otherAABB = { {transformComponent->GetPosition().x - transformComponent->GetScale().x / 2,
 				transformComponent->GetPosition().y - transformComponent->GetScale().y / 2},
 				{transformComponent->GetPosition().x + transformComponent->GetScale().x / 2,
 				transformComponent->GetPosition().y + transformComponent->GetScale().y / 2} };
+				
+			auto collisionComponent = transformComponent->GetComponent<CollisionComponent>();
+				//m_po_ComponentManager->GetSpecificComponentInstance
+				//<CollisionComponent>(transformComponent, kComponentCollision);
 
-			auto collisionComponent = m_po_ComponentManager->GetSpecificComponentInstance
-				<CollisionComponent>(transformComponent, kComponentCollision);
-
-			auto drawComponent = m_po_ComponentManager->GetSpecificComponentInstance
-				<DrawComponent>(transformComponent, kComponentDraw);
-
-			if (AabbHelper::CheckAabbIntersect(&cameraAABB, &otherAABB))
+			auto drawComponent =transformComponent->GetComponent<DrawComponent>();
+				//m_po_ComponentManager->GetSpecificComponentInstance
+				//<DrawComponent>(transformComponent, kComponentDraw);
+			
+			if (AabbHelper::CheckAabbIntersect(cameraAABB, otherAABB))
 			{
 				if(collisionComponent)
 					collisionComponent->m_b_IsActive = true;
@@ -187,11 +188,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 				if (drawComponent)
 					drawComponent->m_b_IsActive = false;
 			}
-
 			transformComponent = static_cast<TransformComponent*>(transformComponent->m_po_NextComponent);
 		}
-
-		cameraComponent = static_cast<CameraComponent*>(cameraComponent->m_po_NextComponent);
+		//cameraComponent = static_cast<CameraComponent*>(cameraComponent->m_po_NextComponent);
 	}
 }
 

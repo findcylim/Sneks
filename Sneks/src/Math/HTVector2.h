@@ -32,6 +32,14 @@ struct HTVector2 final
 		return result;
 	}
 
+	HTVector2 operator*(const HTVector2& rhs) const
+	{
+		HTVector2 result;
+		result.x = x * rhs.x;
+		result.y = y * rhs.y;
+		return result;
+	}
+
 	HTVector2 operator/(const float& rhs) const
 	{
 		HTVector2 result;
