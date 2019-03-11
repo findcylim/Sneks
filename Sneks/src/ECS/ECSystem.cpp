@@ -189,7 +189,7 @@ float timeElapsed = 0;
 
 void ECSystem::Update()
 {
-	constexpr float dtCap = 1.0f / 60.0f;
+	constexpr float dtCap = 1.0f / 45.0f;
 
 	if (actualDt <= 0)
 		actualDt = static_cast<float>(AEFrameRateControllerGetFrameTime());

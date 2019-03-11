@@ -12,7 +12,7 @@ struct CollisionGroup final
 {
 public:
 	std::vector<CollisionComponent*> objects = {};
-	std::vector<Aabb*>					objectsHitBoxes = {};
+	std::vector<Aabb>					objectsHitBoxes = {};
 };
 
 struct CollisionGroupPairing final

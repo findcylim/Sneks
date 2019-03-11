@@ -53,7 +53,16 @@ struct HTVector2 final
 		y = rhs;
 		return *this;
 	}
-	
+
+	bool operator==(const HTVector2& rhs) const
+	{
+		return x == rhs.x && y == rhs.y;
+	}
+
+	bool operator!=(const HTVector2& rhs) const
+	{
+		return !(*this == rhs);
+	}
 };
 
 

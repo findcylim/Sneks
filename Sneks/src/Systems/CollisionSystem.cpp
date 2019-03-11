@@ -13,10 +13,10 @@ CollisionSystem::~CollisionSystem()
 {
 	for (auto group : m_xo_ComponentsPerGroup)
 	{
-		for (auto objectHitBox : group->objectsHitBoxes)
+		/*for (auto objectHitBox : group->objectsHitBoxes)
 		{
 			delete objectHitBox;
-		}
+		}*/
 		delete group;
 	}
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
@@ -162,21 +162,18 @@ void CollisionSystem::UpdateAllHitBoxes()
 
 void CollisionSystem::UpdateHitBoxes(CollisionGroup* collisionGroup) const
 {
-	for (auto aabb : collisionGroup->objectsHitBoxes)
-	{
-		delete aabb;
-	}
+
 	collisionGroup->objectsHitBoxes.clear();
-	while (collisionGroup->objects.size() > collisionGroup->objectsHitBoxes.size())
+
+
+	for (unsigned int i_Objects = 0; i_Objects < collisionGroup->objects.size(); i_Objects++)
 	{
-		collisionGroup->objectsHitBoxes.push_back(new Aabb);
+		Aabb aabb ={
+		CollisionSystem::GetMin(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent),
+		CollisionSystem::GetMax(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent) 
+		};
+		collisionGroup->objectsHitBoxes.push_back(aabb);
 	}
-	if (collisionGroup->objects.size() == collisionGroup->objectsHitBoxes.size())
-	{
-		for (unsigned int i_Objects = 0; i_Objects < collisionGroup->objects.size(); i_Objects++)
-		{
-			collisionGroup->objectsHitBoxes.at(i_Objects)->min = CollisionSystem::GetMin(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);
-			collisionGroup->objectsHitBoxes.at(i_Objects)->max = CollisionSystem::GetMax(collisionGroup->objects.at(i_Objects)->m_po_DrawComponent);
-		}
-	}
+
+	AE_ASSERT(collisionGroup->objects.size() == collisionGroup->objectsHitBoxes.size() && "hitbox count wrong");
 }

@@ -1,15 +1,15 @@
 #include "Aabb.h"
 
 namespace AabbHelper {
-	bool CheckAabbIntersect(Aabb* a, Aabb* b)
+	bool CheckAabbIntersect(const Aabb& a, const Aabb& b)
 	{
-		if (b->min.x > a->max.x)
+		if (b.min.x > a.max.x)
 			return false;
-		if (b->min.y > a->max.y)
+		if (b.min.y > a.max.y)
 			return false;
-		if (a->min.x > b->max.x)
+		if (a.min.x > b.max.x)
 			return false;
-		if (a->min.y > b->max.y)
+		if (a.min.y > b.max.y)
 			return false;
 		return true;
 	}
