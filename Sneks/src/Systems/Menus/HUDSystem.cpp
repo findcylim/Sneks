@@ -9,8 +9,8 @@ HUDSystem::HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager
 {
 	m_o_EventManagerPtr = eventManager;
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	cameraComponent->m_f_VirtualOffsetX = -AEGfxGetWinMaxX();
-	cameraComponent->m_f_VirtualOffsetY = AEGfxGetWinMaxY();
+	cameraComponent->m_f_VirtualOffset.x = -AEGfxGetWinMaxX();
+	cameraComponent->m_f_VirtualOffset.y = AEGfxGetWinMaxY();
 	cameraComponent->m_f_VirtualScale = 1.0f;
 }
 

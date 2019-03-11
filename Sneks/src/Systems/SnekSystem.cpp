@@ -358,16 +358,14 @@ void SnekSystem::Update(float dt)
 			m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
 
-
-		if (AEInputCheckTriggered(AEVK_F))
-		{
-			Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
-		}
-
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
 			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+		}
+		else if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_SpecialKey)))
+		{
+				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
 		}
 		else
 		{
@@ -413,31 +411,32 @@ void SnekSystem::Update(float dt)
 	}
 }
 
+constexpr float MAX_ALPHA_BLINKING = 0.5f;
+constexpr float MIN_ALPHA_BLINKING = 0.1f;
+constexpr float BLINK_SPEED = 2.0f;
+
 void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 {
-	auto invulComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
-		component, KComponentInvulnerable
-		);
+	auto invulComponent = component->GetComponent<InvulnerableComponent>();
 
-	auto drawComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
-		invulComponent, kComponentDraw
-		);
+	auto drawComponent = component->GetComponent<DrawComponent>();
 
-
-	auto collisionComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<CollisionComponent>(
-		invulComponent, kComponentCollision
-		);
+	auto collisionComponent = component->GetComponent<CollisionComponent>();
 
 	if (invulComponent->m_f_InvulnerableTime > 0)
 	{
-		drawComponent->SetAlpha(0.33f);
+		float blinkSpeedModifier = 1.0f / invulComponent->m_f_InvulnerableTime;
+		float blinkSpeedModifierClamped = AEClamp(blinkSpeedModifier, 0.2f, 1.0f);
+
+		drawComponent->m_f_RgbaColor.alpha -= blinkSpeedModifierClamped * BLINK_SPEED * dt;
+
+		if (drawComponent->GetAlpha() <= MIN_ALPHA_BLINKING)
+			drawComponent->SetAlpha(MAX_ALPHA_BLINKING);
+
 		collisionComponent->enabled = false;
 		invulComponent->m_f_InvulnerableTime -= dt;
 	}
-	else if (drawComponent->m_f_RgbaColor.alpha != 1.0f)
+	else 
 	{
 		collisionComponent->enabled = true;
 		drawComponent->SetAlpha(1.0f);
@@ -526,6 +525,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_DELETE;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
@@ -542,17 +542,18 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 	}
 
+	auto tailTexture = "SnekTail01";
 	auto bodyTexture = "SnekBody01";
 	if (!strcmp(textureName, "SnekHead02"))
 	{
 		bodyTexture = "SnekBody02";
+		tailTexture = "SnekTail02";
 	}
 
 	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++){
 		CreateSnekBody(newSnekHeadEntity, bodyTexture, controlScheme);
 	}
-
-	auto tailTexture = "SnekTail02";
+	
 	CreateSnekTail(newSnekHeadEntity, tailTexture);
 }
 

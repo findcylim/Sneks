@@ -30,6 +30,7 @@ public:
 	DrawComponent();
 	~DrawComponent() override;
 	void SetAlpha(float alpha);
+	float GetAlpha() const;
 	void SetColor(float red, float green, float blue, float alpha);
 	float GetSizeX()	 const;
 	float GetSizeY()	 const;

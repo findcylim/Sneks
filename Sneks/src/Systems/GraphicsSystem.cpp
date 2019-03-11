@@ -148,8 +148,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
 	LoadTextureToMap("../Resources/bodytest.png"		 , "SnekBody01");
 	LoadTextureToMap("../Resources/bodytest2.png"	 , "SnekBody02");
-	LoadTextureToMap("../Resources/head.png"				 , "SnekTail01");
-	LoadTextureToMap("../Resources/head.png"				 , "SnekTail02");
+	LoadTextureToMap("../Resources/Placeholder/tail.png"				 , "SnekTail01");
+	LoadTextureToMap("../Resources/Placeholder/tail2.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
 	LoadTextureToMap("../Resources/building.png"		 , "Building01"); 
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
@@ -347,7 +347,7 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 			AEMtx33Identity(&cameraTransform);
 
 			AEMtx33TransApply(&cameraTransform,
-				&cameraTransform, cameraComponent->m_f_VirtualOffsetX, cameraComponent->m_f_VirtualOffsetY
+				&cameraTransform, cameraComponent->m_f_VirtualOffset.x, cameraComponent->m_f_VirtualOffset.y
 				);
 
 			AEMtx33 rotMatrix;
@@ -385,8 +385,8 @@ void GraphicsSystem::DrawTextRenderer()const
 				sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
 				AEGfxPrint(m_i_font,
 					textToDraw,
-					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x + camera_Comp->m_f_VirtualOffsetX + text_Comp->m_o_PositionOffset.x),
-					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y + camera_Comp->m_f_VirtualOffsetY + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x + camera_Comp->m_f_VirtualOffset.x + text_Comp->m_o_PositionOffset.x),
+					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y + camera_Comp->m_f_VirtualOffset.y + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
 			}
 		}
 		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);

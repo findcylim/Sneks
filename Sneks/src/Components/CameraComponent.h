@@ -8,6 +8,7 @@
 #include "AEEngine.h"
 #include <vector>
 #include "TransformComponent.h"
+#include "../Math/HTVector2.h"
 
 enum CameraState
 {
@@ -32,31 +33,29 @@ class CameraComponent : public BaseComponent
 public:
 	std::vector<TransformComponent*> m_v_EntitiesToTrack;
 
-	AEVec2				  m_x_CurrentViewDistance;
-	AEVec2				  m_px_ScreenSize;
+	HTVector2			  m_x_CurrentViewDistance;
+	HTVector2			  m_px_ScreenSize;
 	float					  m_f_ZoomVelocity;
 
 	//TRACKING STUFF
 	bool					  m_b_TrackObjects;
-	AEVec2              m_f_DistanceOutTolerance ={ 0.05f,0.042f };
-	AEVec2              m_f_DistanceInTolerance  ={ 0.2f,0.2f };
+	HTVector2           m_f_DistanceOutTolerance ={ 0.05f,0.042f };
+	HTVector2           m_f_DistanceInTolerance  ={ 0.2f,0.2f };
 	CameraAttributes    m_x_CameraAttributes;
 	int					  m_i_CurrentStage;
 
 	//ZOOM AND OFFSET ( CAMERA "X Y Z" )
-	float		           m_f_VirtualOffsetX;
-	float		           m_f_VirtualOffsetY;
+	HTVector2			  m_f_TargetOffset;
+	HTVector2			  m_f_PanningSpeed = {1.0f, 2.0f};
+	HTVector2		     m_f_VirtualOffset;
 	float		           m_f_VirtualScale;
 	float					  m_f_VirtualRotation;
 
 	void AddToTrack(TransformComponent* pDrawObject);
-	void Update(float dt);
 
 	CameraComponent();
 	~CameraComponent();
 
-	float GetOffsetX();
-	float GetOffsetY();
 	float GetScale();
 };
 

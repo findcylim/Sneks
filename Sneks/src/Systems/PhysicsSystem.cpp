@@ -1,6 +1,7 @@
 #include "PhysicsSystem.h"
 #include <iostream>
 #include "SnekSystem.h"
+#include "../Components/PowerUpComponent.h"
 
 //TODO FIX THIS HARD CODE
 static float currDt;
@@ -37,6 +38,10 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 	if (eventData.key == Events::MOVE_KEY_UP) {
 		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
 	}
+	else if (eventData.key == Events::MOVE_KEY_DOWN)
+	{
+		phyComp->m_f_Acceleration = -snekHeadComponent->m_f_AccelerationForce / 3;
+	}
 	else if (eventData.key == Events::MOVE_KEY_LEFT) {
 
 		auto turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
@@ -66,6 +71,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 			turnSpeedMultiplier
 			);
 	}
+
 }
 
 
@@ -96,7 +102,7 @@ void PhysicsSystem::Update(float dt)
 		ApplyVelocity(i_PhysicsComponent, dt);
 		
 
-		if (i_PhysicsComponent->m_po_OwnerEntity->GetEntityID() == kEntityPowerUpHolder)
+		if (i_PhysicsComponent->GetComponent<PowerUpComponent>())
 		{
 			DeleteOutOfBound(i_PhysicsComponent->GetComponent<TransformComponent>());
 		}

@@ -52,9 +52,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 		//ZOOM OUT CHECKS
 		for (auto i_Object : cameraComponent->m_v_EntitiesToTrack)
 		{
-			float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualOffsetX)
+			float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualOffset.x)
 				- cameraComponent->m_x_CurrentViewDistance.x / 2;
-			float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualOffsetY)
+			float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualOffset.y)
 				- cameraComponent->m_x_CurrentViewDistance.y / 2;
 
 			if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
@@ -136,24 +136,31 @@ void CameraSystem::UpdateCamera(const float dt) const
 		(cameraComponent->m_v_EntitiesToTrack.front()->GetPosition().y + cameraComponent->m_v_EntitiesToTrack.back()->GetPosition().y)
 			/ 2 };
 
-			cameraComponent->m_f_VirtualOffsetX = -averagePosition.x;
-			cameraComponent->m_f_VirtualOffsetY = -averagePosition.y;
+			cameraComponent->m_f_TargetOffset.x = -averagePosition.x;
+			cameraComponent->m_f_TargetOffset.y = -averagePosition.y;
 		}
+
+		cameraComponent->m_f_VirtualOffset += (cameraComponent->m_f_TargetOffset - cameraComponent->m_f_VirtualOffset) 
+														* cameraComponent->m_f_PanningSpeed * dt;
+		
+			
 
 		cameraComponent->m_f_VirtualScale *= 1 + cameraComponent->m_f_ZoomVelocity * 1.4f * dt;
 
 		cameraComponent->m_f_ZoomVelocity *= cameraComponent->m_x_CameraAttributes.speedDecay;
-		
-		Aabb cameraAABB = { {-cameraComponent->GetOffsetX() - cameraComponent->m_x_CurrentViewDistance.x,
-			-cameraComponent->GetOffsetY() - cameraComponent->m_x_CurrentViewDistance.y},
-			{-cameraComponent->GetOffsetX() + cameraComponent->m_x_CurrentViewDistance.x,
-			-cameraComponent->GetOffsetY() + cameraComponent->m_x_CurrentViewDistance.y} };
+
+
+		//CULLING SYSTEM::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+		Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->m_f_VirtualOffset.y - cameraComponent->m_x_CurrentViewDistance.y},
+			{-cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_x_CurrentViewDistance.y} };
 
 		//original param
-		//Aabb cameraAABB = { {-cameraComponent->GetOffsetX() - cameraComponent->m_x_CurrentViewDistance.x / 2,
-		//	-cameraComponent->GetOffsetY() - cameraComponent->m_x_CurrentViewDistance.y / 2},
-		//	{-cameraComponent->GetOffsetX() + cameraComponent->m_x_CurrentViewDistance.x / 2,
-		//	-cameraComponent->GetOffsetY() + cameraComponent->m_x_CurrentViewDistance.y / 2} };
+		//Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x / 2,
+		//	-cameraComponent->m_f_VirtualOffset.y - cameraComponent->m_x_CurrentViewDistance.y / 2},
+		//	{-cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_x_CurrentViewDistance.x / 2,
+		//	-cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_x_CurrentViewDistance.y / 2} };
 
 
 		auto transformComponent =

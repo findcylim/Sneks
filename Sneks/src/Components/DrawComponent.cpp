@@ -23,6 +23,11 @@ void DrawComponent::SetAlpha(float alpha)
 	m_f_RgbaColor.alpha = alpha;
 }
 
+float DrawComponent::GetAlpha() const
+{
+	return m_f_RgbaColor.alpha;
+}
+
 void DrawComponent::SetColor(float red, float green, float blue, float alpha)
 {
 	m_f_RgbaColor.red = red;

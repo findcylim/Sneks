@@ -72,8 +72,8 @@ void InputSystem::Update(float dt)
 	
 	float scale = 1.0f / c_Comp->GetScale();
 	t_Comp->SetScale(scale);
-	t_Comp->SetPositionX(-c_Comp->GetOffsetX() + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
-	t_Comp->SetPositionY(-c_Comp->GetOffsetY() - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
+	t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
+	t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
 
 	//CanvasButtonEntity* base = m_po_EntityManager->GetFirstEntityInstance<CanvasButtonEntity>(kEntityCanvasButton);
 	//printf("X: %d Y: %d Game X: %f Game Y: %f %f %f \n", mouse.x, mouse.y,t_Comp->m_x_Position.x, t_Comp->m_x_Position.y,base->GetComponent<TransformComponent>()->m_x_Position.x, base->GetComponent<TransformComponent>()->m_x_Position.y);

@@ -9,6 +9,19 @@ struct HTVector2 final
 		return rhs.x * x + rhs.y * y;
 	}
 
+	HTVector2& operator-=(const HTVector2& rhs)
+	{
+		x = x - rhs.x;
+		y = y - rhs.y;
+		return *this;
+	}
+	HTVector2& operator+=(const HTVector2& rhs)
+	{
+		x = x + rhs.x;
+		y = y + rhs.y;
+		return *this;
+	}
+
 	HTVector2 operator-(const HTVector2& rhs) const
 	{
 		HTVector2 result;
