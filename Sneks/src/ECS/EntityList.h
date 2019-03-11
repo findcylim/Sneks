@@ -34,7 +34,7 @@ class BaseEntity
 		template<typename T>
 		T* GetComponent()
 		{
-			for (auto component : m_v_AttachedComponentsList)
+			for (auto& component : m_v_AttachedComponentsList)
 			{
 				if (T* p = dynamic_cast<T*>(component))
 				{

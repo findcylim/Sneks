@@ -54,8 +54,9 @@ void ParticleSystem::Update(float dt)
 	{
 		if (pc->IsAlive())
 		{
-			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>
-			(pc, Component::kComponentDraw)->SetAlpha(pc->GetAlphaValue());
+			pc->GetComponent<DrawComponent>()->
+				SetAlpha(pc->GetAlphaValue());
+			
 			pc->UpdateTime(dt);
 		}
 		else
@@ -70,12 +71,12 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	CollisionGroupName cgnc;
 	ParticleType type;
 
-	TransformComponent* tcp1 = 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			eventData.object1, Component::kComponentTransform);
-	TransformComponent* tcp2 = 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-			eventData.object2, Component::kComponentTransform);
+	TransformComponent* tcp1 = eventData.object1->GetComponent<TransformComponent>();
+	//	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+	//		eventData.object1, Component::kComponentTransform);
+	TransformComponent* tcp2 = eventData.object2->GetComponent<TransformComponent>();
+	//	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
+	//		eventData.object2, Component::kComponentTransform);
 
 	cgnc = CollisionGroupName::kCollGroupBuilding;
 	type = ParticleType::kParticleBasicOneShot;
@@ -119,9 +120,9 @@ void ParticleSystem::SpawnParticleEffect(TransformComponent* spawnTransform, Par
 		auto pee = m_po_EntityManager->NewEntity
 			<ParticleEffectEntity>(Entity::kEntityParticleEffect, "ParticleEffect");
 
-		auto pec = 
-			m_po_ComponentManager->GetSpecificComponentInstance<ParticleEffectComponent>(
-				pee, Component::kComponentParticleEffect);
+		auto pec = pee->GetComponent<ParticleEffectComponent>();
+			//m_po_ComponentManager->GetSpecificComponentInstance<ParticleEffectComponent>(
+			//	pee, Component::kComponentParticleEffect);
 
 		if (pec)
 		{
