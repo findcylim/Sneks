@@ -43,11 +43,13 @@ public:
 	State	ReturnPreviousState();
 	bool	IsValid(State state);
 	bool	IsChanging();
+	bool *	EngineStatus;
 static 	void	SetState(State state);
-	GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr);
+	GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr,bool* engineStatus);
 	~GameStateManager();
 
 	void Update();
+	void ExitGame();
 	void Load();
 	void Unload();
 	void LoadMainMenu();

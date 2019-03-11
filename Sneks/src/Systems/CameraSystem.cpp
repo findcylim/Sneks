@@ -173,7 +173,7 @@ void CameraSystem::UpdateCamera(const float dt) const
 			auto drawComponent = m_po_ComponentManager->GetSpecificComponentInstance
 				<DrawComponent>(transformComponent, kComponentDraw);
 
-			if (AabbHelper::CheckAabbIntersect(&cameraAABB, &otherAABB))
+			if (AabbHelper::CheckAabbIntersect(cameraAABB, otherAABB))
 			{
 				if (collisionComponent)
 				{
