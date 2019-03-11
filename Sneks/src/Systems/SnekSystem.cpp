@@ -510,7 +510,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 700;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
@@ -641,7 +641,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 700;
 		}
 		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
 		{
@@ -735,7 +735,7 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 700;
 		}
 		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
 		{
@@ -799,7 +799,7 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 	AEVec2 rotation;
 	AEVec2FromAngle(&rotation, toChange->m_po_TransformComponent->GetRotation() );
 
-	auto stretchThreshold = 900.0f; //Any faster than this speed the snek will start stretching
+	auto stretchThreshold = 400.0f; //Any faster than this speed the snek will start stretching
 	auto stretchFactorMultiplier = 0.3f;
 	auto stretchFactor  =headPhysicsComponent->m_f_Speed / stretchThreshold;
 
@@ -835,7 +835,7 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 
 	auto headBodyAllowance = 0.93f;
 	auto headBodyClosenessMultiplier = 0.4f;// *reference->m_po_TransformComponent->m_f_Scale;
-	auto stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
+	auto stretchFactor = headPhysicsComponent->m_f_Speed / 400.0f;
 	if (stretchFactor > 1.0f)
 		stretchFactor = 1.0f;
 
