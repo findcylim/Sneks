@@ -23,15 +23,17 @@ GraphicsSystem::~GraphicsSystem()
 		AEGfxMeshFree(pairing.second);
 	}
 	m_x_TextureMap.clear();
+
 	AEGfxDestroyFont(debugFont);
+	AEGfxDestroyFont(m_i_font);
+
 	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
 	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
-
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
 
@@ -156,9 +158,12 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
 	LoadTextureToMap("../Resources/MainMenuLogo.png", "MainMenuLogo");
 	LoadTextureToMap("../Resources/MouseCollider.png", "MouseCollider");
+
 	LoadTextureToMap("../Resources/UIBack.png", "UIBack");
 	LoadTextureToMap("../Resources/UIBack_Hover.png", "UIBack_Hover");
 	LoadTextureToMap("../Resources/UIBack_Click.png", "UIBack_Click");
+
+	LoadTextureToMap("../Resources/Player1_Win.png", "Player1Win");
 	
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
@@ -177,6 +182,9 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UI_BarLeftLife2.png", "LifeL2");
 	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
+	LoadTextureToMap("../Resources/rock.png", "Rock");
+
+	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");
 }
 
 void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
@@ -248,19 +256,22 @@ void GraphicsSystem::Draw(float dt)
 			if (!drawComponent->m_po_OwnerEntity->m_b_IsActive)
 				continue;
 			//Check if there is draw component
-			if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
+			if (drawComponent->m_b_IsActive)
+			{
+				if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
-				//allow transparency to work !! must be first
-				AEGfxSetBlendMode(AE_GFX_BM_BLEND);
-				AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+					//allow transparency to work !! must be first
+					AEGfxSetBlendMode(AE_GFX_BM_BLEND);
+					AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
-				AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
-				AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
-				AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
-				AEGfxSetTransparency(1);
-				AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
-				AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
-				AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+					AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
+					AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
+					AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
+					AEGfxSetTransparency(1);
+					AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
+					AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
+					AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+				}
 			}
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
 		}
@@ -362,12 +373,22 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 void GraphicsSystem::DrawTextRenderer()const
 {
 	auto text_Comp = m_po_ComponentManager->GetFirstComponentInstance<TextRendererComponent>(kComponentTextRenderer);
+	auto camera_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	
 	while (text_Comp)
 	{
-		char textToDraw[100];
-		sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
-		AEGfxPrint(m_i_font, textToDraw, static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x-AEGfxGetWinMaxX() + text_Comp->m_o_PositionOffset.x), 
-										 static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y+ AEGfxGetWinMaxY() + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+		if (text_Comp->m_b_IsActive)
+		{
+			if (text_Comp->m_p_Text)
+			{
+				char textToDraw[100];
+				sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+				AEGfxPrint(m_i_font,
+					textToDraw,
+					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.x + camera_Comp->m_f_VirtualOffsetX + text_Comp->m_o_PositionOffset.x),
+					static_cast<s32>(text_Comp->m_po_LinkedTransform->m_x_Position.y + camera_Comp->m_f_VirtualOffsetY + text_Comp->m_o_PositionOffset.y), 0, 0, 0);
+			}
+		}
 		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
 	}
 }

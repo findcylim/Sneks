@@ -1,6 +1,7 @@
 #include "MainMenuSystem.h"
 #include "../../Math/HTVector2.h"
 #include "../../Utility/AlphaEngineHelper.h"
+#include "../../Utility/GameStateManager.h"
 
 
 MainMenuSystem::MainMenuSystem(EntityManager* entityManagerPtr, EventManager* eventManager)
@@ -30,6 +31,7 @@ void PlayGame()
 {
 	// Change game state
 	// TODO
+	GameStateManager::SetState(kStateGame);
 }
 
 void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
@@ -41,6 +43,9 @@ void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
 	Events::EV_NEW_UI_ELEMENT PlayElement = { canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"PlayButton" ,"UIBack" ,"Play","UIBack_Hover","UIBack_Click",PlayGame };
 	Events::EV_NEW_UI_ELEMENT CreditsElement = { canvasComponent,HTVector2{ 0.825f , 0.6125f } ,kCanvasButton,"CreditsButton" ,"UIBack" ,"Credits","UIBack_Hover","UIBack_Click",PlayGame };
 	Events::EV_NEW_UI_ELEMENT QuitElement = { canvasComponent, HTVector2{ 0.825f , 0.725f }, kCanvasButton, "QuitButton", "UIBack", "Quit","UIBack_Hover","UIBack_Click", PlayGame };
+	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvasComponent, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
+
+	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LogoElement);
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(PlayElement);
 	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(CreditsElement);

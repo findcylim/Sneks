@@ -52,8 +52,10 @@ void CollisionSystem::Update(float dt)
 		for (unsigned int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
 			// if any object has collision disabled
-			if (!objectsInGroupA->objects[i_ObjectA]->enabled || !objectsInGroupA->objects[i_ObjectA]->m_po_OwnerEntity->m_b_IsActive)
+			if (!objectsInGroupA->objects[i_ObjectA]->enabled || !objectsInGroupA->objects[i_ObjectA]->m_b_IsActive 
+			 || !objectsInGroupA->objects[i_ObjectA]->m_po_OwnerEntity->m_b_IsActive)
 				continue;
+
 			if (i_CollisionPair.groupB >= m_xo_ComponentsPerGroup.size())
 				continue;
 			// if group is empty
@@ -61,7 +63,8 @@ void CollisionSystem::Update(float dt)
 			for (unsigned int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
 			{
 				// if any object has collision disabled
-				if (!objectsInGroupB->objects[i_ObjectB]->enabled || !objectsInGroupB->objects[i_ObjectB]->m_po_OwnerEntity->m_b_IsActive)
+				if (!objectsInGroupB->objects[i_ObjectB]->enabled || !objectsInGroupB->objects[i_ObjectB]->m_b_IsActive 
+				 || !objectsInGroupB->objects[i_ObjectB]->m_po_OwnerEntity->m_b_IsActive)
 					continue;
 
 				auto hitBoxA = objectsInGroupA->objectsHitBoxes[i_ObjectA];
@@ -103,7 +106,7 @@ void CollisionSystem::Update(float dt)
 
 void CollisionSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
 	UpdateComponentsPerGroup();
 }
 
@@ -129,11 +132,12 @@ void CollisionSystem::UpdateComponentsPerGroup()
 
 	while (i_CollisionComponent)
 	{
-		for (auto i_CollisionGroup : i_CollisionComponent->m_i_CollisionGroupVec)
-		{
-			//Add it to the group
-			AddComponentToCollisionGroup(i_CollisionComponent, i_CollisionGroup);
-		}
+		if(i_CollisionComponent->m_b_IsActive)
+			for (auto i_CollisionGroup : i_CollisionComponent->m_i_CollisionGroupVec)
+			{
+				//Add it to the group
+				AddComponentToCollisionGroup(i_CollisionComponent, i_CollisionGroup);
+			}
 		//Iterate
 		i_CollisionComponent = static_cast<CollisionComponent*>(i_CollisionComponent->m_po_NextComponent);
 	}

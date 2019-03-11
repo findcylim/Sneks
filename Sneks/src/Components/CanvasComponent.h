@@ -8,6 +8,8 @@
 #include "../Math/HTVector2.h"
 #include <list>
 
+class EntityManager;
+
 enum CanvasElementEnum
 {
 	kCanvasButton,
@@ -21,10 +23,11 @@ public:
 	CanvasComponent(){}
 	~CanvasComponent()
 	{
-		
+		this->m_po_OwnerEntity->m_po_EntityManager->AddToDeleteQueue(this->m_po_OwnerEntity);
 	}
 	CanvasComponent(const CanvasComponent&) = delete;
 	CanvasComponent& operator=(const CanvasComponent&) = delete;
+	ComponentManager* m_po_ComponentManager;
 	std::list<BaseEntity*> m_x_CanvasElementList;
 };
 

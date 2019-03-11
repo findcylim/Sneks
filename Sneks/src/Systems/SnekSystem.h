@@ -12,6 +12,7 @@
 #include "../Components/InvulnerableComponent.h"
 #include "../Components/SnekHeadComponent.h"
 //#include "ProjectileSystem.h"
+#include "../Utility/GameStateManager.h"
 
 struct SnekPreset
 {
@@ -43,8 +44,9 @@ class SnekSystem final : public BaseSystem,
 {
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
+	GameStateManager* m_o_GameStateManager;
 public:
-	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
+	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr);
 	~SnekSystem() ;
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 	void Receive(const Events::EV_SNEK_INVULNERABLE& eventData) override;
@@ -68,6 +70,8 @@ public:
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
+	void IncreaseGrowthRate(unsigned short player, float increase);
+	void DecreaseGrowthRate(unsigned short player, float decrease);
 };
 
 float GetP1GrowthPercentage();

@@ -54,6 +54,145 @@ public:
 	{
 		return static_cast<T*>(GetSpecificEntityInstanceReroute(componentPointer));
 	}
+
+	template <typename EntityType, Entity kEntity>
+	void DisableAllEntityType()
+	{
+		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity);
+		while (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = false;
+			}
+			firstEnt->m_b_IsActive = false;
+			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
+		}
+	}
+
+	template <typename EntityType, Entity kEntity>
+	void EnableAllEntityType()
+	{
+		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity);
+		while (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = true;
+			}
+			firstEnt->m_b_IsActive = true;
+			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
+		}
+	}
+
+	template <typename EntityType, Entity kEntity>
+	void DisableSpecificEntityType(const char * name)
+	{
+		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity,name);
+		while (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = false;
+			}
+			firstEnt->m_b_IsActive = false;
+			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
+		}
+	}
+
+	template <typename EntityType, Entity kEntity>
+	void DisableSpecificEntity(const char * name)
+	{
+		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity, name);
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = false;
+			}
+			firstEnt->m_b_IsActive = false;
+		}
+	}
+
+	template <typename EntityType, Entity kEntity>
+	void EnableSpecificEntity(const char * name)
+	{
+		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity, name);
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = true;
+			}
+			firstEnt->m_b_IsActive = true;
+		}
+	}
+
+	template <typename EntityType, Entity kEntity>
+	void EnableSpecificEntityType(const char * name)
+	{
+		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity,name);
+		while (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = true;
+			}
+			firstEnt->m_b_IsActive = true;
+			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
+		}
+	}
+
+	void DisableSpecificEntityType(BaseComponent * comp)
+	{
+		auto firstEnt = comp->m_po_OwnerEntity;
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = false;
+			}
+			firstEnt->m_b_IsActive = false;
+		}
+		firstEnt->m_b_IsActive = false;
+	}
+
+
+	void EnableSpecificEntityType(BaseComponent * comp)
+	{
+		auto firstEnt = comp->m_po_OwnerEntity;
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = true;
+			}
+			firstEnt->m_b_IsActive = true;
+		}
+	}
+
+
+	template <typename EntityType,Entity kEntity, typename ComponentType>
+	void DisableComponentsFromEntityType()
+	{
+		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity);
+		while (firstEnt)
+		{
+			firstEnt->GetComponent<ComponentType>()->m_b_IsActive = false;
+			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
+		}
+	}
+
+	template <typename EntityType, Entity kEntity, typename ComponentType>
+	void EnableComponentsFromEntityType()
+	{
+		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity);
+		while (firstEnt)
+		{
+			firstEnt->GetComponent<ComponentType>()->m_b_IsActive = true;
+			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
+		}
+	}
 	
 	ComponentManager* GetComponentManager() const;
 	void AddToDeleteQueue(BaseEntity* entityPointer);

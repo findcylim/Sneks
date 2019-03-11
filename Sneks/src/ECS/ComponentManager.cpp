@@ -92,6 +92,7 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			break;
 		case kComponentCanvas:
 			componentPointer = static_cast<BaseComponent*>(new CanvasComponent);
+			static_cast<CanvasComponent*>(componentPointer)->m_po_ComponentManager = this;
 			break;
 		case kComponentCanvasElement:
 			componentPointer = static_cast<BaseComponent*>(new CanvasElementComponent);

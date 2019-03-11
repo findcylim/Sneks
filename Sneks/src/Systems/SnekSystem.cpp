@@ -4,12 +4,25 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CollisionComponent.h"
 #include "../Components/FollowComponent.h"
+#include "../Systems/Menus/WinScreenSystem.h"
+#include "../ECS/SystemManager.h"
 #include <iostream>
 #include <algorithm>
+
+//"Forward" declaration includes
+#include "PhysicsSystem.h"
 
 float P1Growth = 0, P2Growth = 0;
 float P1GrowthMeter = 1, P2GrowthMeter = 1;
 int P1Lives = 3, P2Lives = 3;
+
+int winner;
+
+int GetWinner()
+{
+	return winner;
+}
+
 
 float GetP1GrowthPercentage()
 {
@@ -31,6 +44,22 @@ int GetP2Lives()
 	return P2Lives;
 }
 
+void SnekSystem::IncreaseGrowthRate(unsigned short player, float increase)
+{
+	if (player == 0)
+		P1GrowthMeter /= increase;
+	else
+		P2GrowthMeter /= increase;
+}
+
+void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
+{
+	if (player == 0)
+		P1GrowthMeter *= decrease;
+	else
+		P2GrowthMeter *= decrease;
+}
+
 struct FollowData
 {
 	AEVec2 pos;
@@ -40,9 +69,10 @@ struct FollowData
 
 std::vector< std::vector<FollowData> > bodyPartsData;
 
-SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics)
+SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
 : BaseSystem(entityManagerPtr)
 {
+	m_o_GameStateManager = gameStateManagerPtr;
 	m_o_GraphicsSystem = graphics;
 }
 
@@ -64,8 +94,11 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		{
 			auto snekHeadFollow = eventData.object2->m_po_OwnerEntity->
 				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
-			RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity),
-				snekHeadFollow);
+			if (snekHeadFollow->m_po_OwnerEntity->m_b_IsActive)
+			{
+				RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity),
+					snekHeadFollow);
+			}
 		}
 	}
 	else
@@ -88,34 +121,36 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		if (auto snekHeadComp = 
 				otherObjectCollide->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 		{
-			if (snekHeadComp->m_i_PlayerNumber == 0)
+			if (snekHeadComp->m_po_OwnerEntity->m_b_IsActive)
 			{
-				if (P1Growth >= P1GrowthMeter)
+				if (snekHeadComp->m_i_PlayerNumber == 0)
 				{
-					P1Growth = 0;
-					P1GrowthMeter *= 1.5;
-					auto bodyTexture = "SnekBody01";
-					CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-						bodyTexture, snekHeadComp->m_i_PlayerNumber);
+					if (P1Growth >= P1GrowthMeter)
+					{
+						P1Growth -= P1GrowthMeter;
+						P1GrowthMeter *= 1.5;
+						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
+					}
+					else
+						P1Growth += 0.1f;
 				}
 				else
-					P1Growth += 0.1f;
-			}
-			else
-			{
-				if (P2Growth >= P2GrowthMeter)
 				{
-					P2Growth = 0;
-					P2GrowthMeter *= 1.5;
-					auto bodyTexture = "SnekBody02";
-					CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-						bodyTexture, snekHeadComp->m_i_PlayerNumber);
+					if (P2Growth >= P2GrowthMeter)
+					{
+						P2Growth -= P2GrowthMeter;
+						P2GrowthMeter *= 1.5;
+						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
+					}
+					else
+						P2Growth += 0.1f;
 				}
-				else
-					P2Growth += 0.1f;
 			}
 		}
 		objectColliding->enabled = false;
+		objectColliding->m_b_IsActive = false;
 		auto objectDrawComp = 
 			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
 				objectColliding, kComponentDraw
@@ -128,59 +163,105 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		if (auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 		{
-			RemoveSnekBody(snekHed1->m_x_BodyParts.at(0) , snekHed1);
-			RemoveSnekBody(snekHed2->m_x_BodyParts.at(0) , snekHed2);
-
-			if (snekHed1->m_x_BodyParts.size() == 1)
+			if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
 			{
-				if (snekHed1->m_i_PlayerNumber == 0)
-					P1Lives--;
-				else 
-					P2Lives--;
-				/*
-				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
-				m_po_EntityManager->AddToDeleteQueue(snekHed1->m_po_OwnerEntity);
-				auto i_CameraComponent = static_cast<CameraComponent*>(
-					m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
-				
-				CreateSnek(0, 0, 0, 20, "SnekHead01", 0);
-				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
-				*/
+				RemoveSnekBody(snekHed1->m_x_BodyParts.at(0), snekHed1);
+				RemoveSnekBody(snekHed2->m_x_BodyParts.at(0), snekHed2);
 
+				if (snekHed1->m_x_BodyParts.size() == 1)
+				{
+					if (snekHed1->m_i_PlayerNumber == 0)
+						P1Lives--;
+					else
+						P2Lives--;
+
+
+					/*
+					m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
+					m_po_EntityManager->AddToDeleteQueue(snekHed1->m_po_OwnerEntity);
+					auto i_CameraComponent = static_cast<CameraComponent*>(
+						m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
+
+					CreateSnek(0, 0, 0, 20, "SnekHead01", 0);
+					m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+					*/
+				}
+
+				if (snekHed2->m_x_BodyParts.size() == 1)
+				{
+					if (snekHed2->m_i_PlayerNumber == 0)
+						P1Lives--;
+					else
+						P2Lives--;
+
+					/*
+					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
+					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
+					auto i_CameraComponent = static_cast<CameraComponent*>(
+						m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
+
+					CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
+					m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+					*/
+				}
+
+				//todo: optimize this portion
+				if (P1Lives <= 0)
+				{
+					winner = 2;
+					m_o_GameStateManager->SetState(kStateWinScreen);
+					/* m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+
+					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
+					WinScreen->SetName("WinScreen");
+					m_o_SystemManager->AddSystem(WinScreen);
+
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>(); */
+
+					/*auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+					while(snek)
+					{
+						snek->m_b_IsActive = false;
+						snek = static_cast<SnekHeadEntity*>(snek->m_po_NextEntity);
+					}*/
+				}
+				else if (P2Lives <= 0)
+				{
+					winner = 1;
+					m_o_GameStateManager->SetState(kStateWinScreen);
+					/*
+					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+
+					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
+					WinScreen->SetName("WinScreen");
+					m_o_SystemManager->AddSystem(WinScreen);
+
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
+					m_po_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
+					/*auto snek = m_po_EntityManager->GetFirstEntityInstance<SnekHeadEntity>(kEntitySnekHead);
+					while(snek)
+					{
+						snek->m_b_IsActive = false;
+						snek = static_cast<SnekHeadEntity*>(snek->m_po_NextEntity);
+					}*/
+				}
+
+				srand(clock());
+				auto randDirection = rand() % 360;
+				snekHed1->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(static_cast<float>(randDirection)));
+				snekHed2->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(static_cast<float>(randDirection) + 180.0f));
+				float* snek1Speed = &snekHed1->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
+				float* snek2Speed = &snekHed2->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
+				float newSpeed = (*snek1Speed + *snek2Speed) * 0.75f;
+				*snek1Speed = newSpeed;
+				*snek2Speed = newSpeed;
+
+				//HeadApplyRecoil(snekHed1, snekHed2);
+				//HeadApplyRecoil(snekHed2, snekHed1);
+				HeadInvulnerableSet(1.0f, snekHed1);
+				HeadInvulnerableSet(1.0f, snekHed2);
 			}
-
-			if (snekHed2->m_x_BodyParts.size() == 1)
-			{
-				if (snekHed2->m_i_PlayerNumber == 0)
-					P1Lives--;
-				else
-					P2Lives--;
-				/*
-				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
-				m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
-				auto i_CameraComponent = static_cast<CameraComponent*>(
-					m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
-
-				CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
-				m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
-				*/
-			}
-
-			srand(clock());
-			auto randDirection = rand() % 360;
-			snekHed1->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(static_cast<float>(randDirection)));
-			snekHed2->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(AEDegToRad(static_cast<float>(randDirection) + 180.0f));
-			float* snek1Speed = &snekHed1->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
-			float* snek2Speed = &snekHed2->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
-			float newSpeed = (*snek1Speed + *snek2Speed) * 0.75f;
-			*snek1Speed = newSpeed;
-			*snek2Speed = newSpeed;
-
-			//HeadApplyRecoil(snekHed1, snekHed2);
-			//HeadApplyRecoil(snekHed2, snekHed1);
-			HeadInvulnerableSet(1.0f, snekHed1);
-			HeadInvulnerableSet(1.0f, snekHed2);
-
 		}
 	}
 }
@@ -273,7 +354,7 @@ void SnekSystem::Update(float dt)
 		auto headPhysicsComponent = i_SnekHead->m_po_OwnerEntity->
 								GetComponent<PhysicsComponent>();
 
-		if (AEInputCheckTriggered((u8)i_SnekHead->m_i_BoostKey))
+		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)))
 		{
 			Events::EV_CREATE_PROJECTILE projData;
 			
@@ -396,8 +477,8 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this);
+	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_o_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this, this);
 }
 
 //HEAD SIZE : 105, 77
@@ -781,13 +862,13 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 
 }
 
-time_t timeStampFlip = 0;
+//float timeStamp1 = 0;
 
 void SnekSystem::Flip(SnekHeadEntity* owner)
 {
-	time_t currTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStampFlip;
-	if (currTime > 3)
-	{
+	//float currTime = getDt() - timeStamp1;
+	//if (currTime > 3)
+	//{
 		/*Swap head and tail positions*/
 		auto snekHeadComponent =
 			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
@@ -824,12 +905,13 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 
 		UpdateFollowComponents(snekHeadComponent);
 
-		timeStampFlip = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	}
+		//timeStamp1 = getDt();
+	//}
 }
 
 void SnekSystem::UpdateFollowComponents(SnekHeadComponent* snekHeadComponent)
 {
+
 	auto toFollowTransformComponent =
 		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 			snekHeadComponent, kComponentTransform
@@ -850,8 +932,3 @@ void SnekSystem::UpdateFollowComponents(SnekHeadComponent* snekHeadComponent)
 				);
 	}
 }
-
-//float GetFlipChargeRate()
-//{
-//	return timeStampFlip / 3;
-//}

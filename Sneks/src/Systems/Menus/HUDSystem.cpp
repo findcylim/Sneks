@@ -68,7 +68,7 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 void HUDSystem::Update(float dt)
 {
 	(void)dt;
-	CanvasComponent * can_Comp = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
+	CanvasComponent * can_Comp = m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas,"Heads Up Display")->GetComponent<CanvasComponent>();
 
 	switch (GetP1Lives()) {
 	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)

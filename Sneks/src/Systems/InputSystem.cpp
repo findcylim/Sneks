@@ -1,4 +1,5 @@
 #include "InputSystem.h"
+#include "../Utility/AlphaEngineHelper.h"
 
 /**************************************************
 
@@ -46,7 +47,7 @@ InputSystem::InputSystem(EntityManager* entityManagerPtr, EventManager* eventMan
 	m_o_GameStateManager	= gameStateManager;
 	this->SetID(id);
 	this->SetName(name);
-
+	AlphaEngineHelper::GetScreenSize(&m_o_ScreenSize.x, &m_o_ScreenSize.y);
 }
 
 InputSystem::~InputSystem() = default;
@@ -67,10 +68,13 @@ void InputSystem::Update(float dt)
 	
 	GetCursorPos(&mouse);
 	TransformComponent* t_Comp = mouseEntity->GetComponent<TransformComponent>();
-	/*CameraComponent* c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);*/
-	t_Comp->SetPositionX(static_cast<float>(mouse.x-5) /*+ c_Comp->m_f_VirtualOffsetX*/);
-	t_Comp->SetPositionY(static_cast<float>(-mouse.y + 10) /*- c_Comp->m_f_VirtualOffsetY*/);
+	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	
+	float scale = 1.0f / c_Comp->GetScale();
+	t_Comp->SetScale(scale);
+	t_Comp->SetPositionX(-c_Comp->GetOffsetX() + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
+	t_Comp->SetPositionY(-c_Comp->GetOffsetY() - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
+
 	//CanvasButtonEntity* base = m_po_EntityManager->GetFirstEntityInstance<CanvasButtonEntity>(kEntityCanvasButton);
 	//printf("X: %d Y: %d Game X: %f Game Y: %f %f %f \n", mouse.x, mouse.y,t_Comp->m_x_Position.x, t_Comp->m_x_Position.y,base->GetComponent<TransformComponent>()->m_x_Position.x, base->GetComponent<TransformComponent>()->m_x_Position.y);
 	UNREFERENCED_PARAMETER(dt);

@@ -66,6 +66,7 @@ private:
 	GameStateManager*	m_o_GameStateManager;
 	Logger*				m_o_Logger;
 	std::vector<KeyState> m_x_CurrentKeyStates;
+	HTVector2 m_o_ScreenSize;
 	void SetKeyBinds();
 	void ResolveKeyPress(unsigned char keyId);
 };

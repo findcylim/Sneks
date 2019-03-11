@@ -18,6 +18,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "../Utility/RTTIHelper.h"
+class EntityManager;
 
 class BaseEntity
 {
@@ -27,6 +28,7 @@ class BaseEntity
 		char m_pc_EntityName[100];
 		bool m_b_IsActive = true;
 		std::vector<BaseComponent*> m_v_AttachedComponentsList;
+		EntityManager* m_po_EntityManager;
 		BaseEntity* m_po_PrevEntiy = nullptr, *m_po_NextEntity = nullptr;
 
 		BaseEntity(const char* entityName);
@@ -139,21 +141,12 @@ public:
 class PowerUpHolderEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
-											Component::kComponentCollision, Component::kComponentEnd };
+	Component m_ax_InitialComponents[6] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
+											Component::kComponentCollision, Component::KComponentInvulnerable, Component::kComponentEnd };
 
 	PowerUpHolderEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
-
-/*class ParticleEntity : public BaseEntity
-{
-public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics,
-											Component::kComponentParticle, Component::kComponentEnd };
-
-	ParticleEntity(const char* entityName) : BaseEntity(entityName) {};
-};*/
 
 class CanvasEntity : public BaseEntity
 {
