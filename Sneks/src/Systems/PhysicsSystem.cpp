@@ -86,22 +86,19 @@ void PhysicsSystem::Update(float dt)
 		CalculateVelocity(i_PhysicsComponent);
 
 		// Snek checks
-		for (auto component : i_PhysicsComponent->m_po_OwnerEntity->m_v_AttachedComponentsList) {
-			//only if its a head
-			if (component->m_x_ComponentID == kComponentSnekHead) {
+		//for (auto component : i_PhysicsComponent->m_po_OwnerEntity->m_v_AttachedComponentsList) {
+		//	//only if its a head
+		if (auto component = i_PhysicsComponent->GetComponent<SnekHeadComponent>()){
 				CheckOutOfBounds(i_PhysicsComponent->m_po_TransformComponent,i_PhysicsComponent);
 				ClampVelocity(i_PhysicsComponent, static_cast<SnekHeadComponent*>(component));
-			}
 		}
 		//Move the object
-		if (!GetAsyncKeyState(AEVK_0)) {
-			ApplyVelocity(i_PhysicsComponent, dt);
-		}
+		ApplyVelocity(i_PhysicsComponent, dt);
+		
 
 		if (i_PhysicsComponent->m_po_OwnerEntity->GetEntityID() == kEntityPowerUpHolder)
 		{
-			DeleteOutOfBound(m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-				(i_PhysicsComponent, kComponentTransform));
+			DeleteOutOfBound(i_PhysicsComponent->GetComponent<TransformComponent>());
 		}
 
 		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
