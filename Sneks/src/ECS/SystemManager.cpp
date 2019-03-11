@@ -1,7 +1,5 @@
 
 #include "SystemManager.h"
-#include <iostream>
-#include "../Utility/FileIO.h"
 
 #define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
 

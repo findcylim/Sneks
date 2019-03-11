@@ -1,12 +1,5 @@
-
-#include "Utility/MemoryAllocator.h"
-#include <cstdlib>
 #include "ECS/EventManager.h"
-#include "Utility/Logger.h"
 #include "ECS/ECSystem.h"
-#include <iostream>
-#include "Utility/AlphaEngineHelper.h"
-
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 	LPSTR, int nCmdShow)

@@ -1,6 +1,5 @@
 #include "PerlinNoise.h"
 #include "AEEngine.h"
-#include <iostream>
 #include <ctime>
 
 PerlinNoise::PerlinNoise()

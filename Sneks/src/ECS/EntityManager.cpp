@@ -1,8 +1,4 @@
 
-#include <vector>
-#include <string>
-#include <iostream>
-
 #include "EntityManager.h"
 
 void checkName(BaseEntity* entityPointerSource, BaseEntity* entityPointerUntouched)

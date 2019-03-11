@@ -1,7 +1,6 @@
 #include "CameraSystem.h"
 #include "../Components/CameraComponent.h"
 #include "../Math/Aabb.h"
-#include "iostream"
 
 void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {

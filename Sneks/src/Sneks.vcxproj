@@ -37,8 +37,11 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Math\Aabb.cpp" />
     <ClCompile Include="Math\CameraShake.cpp" />
-    <ClCompile Include="Math\CollisionGroup.cpp" />
     <ClCompile Include="Math\PerlinNoise.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Systems\AudioSystem.cpp" />
     <ClCompile Include="Systems\BackgroundSystem.cpp" />
     <ClCompile Include="Systems\BuildingsSystem.cpp" />
@@ -89,10 +92,10 @@
     <ClInclude Include="ECS\SystemManager.h" />
     <ClInclude Include="Math\Aabb.h" />
     <ClInclude Include="Math\CameraShake.h" />
-    <ClInclude Include="Math\CollisionGroup.h" />
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />
     <ClInclude Include="Math\PerlinNoise.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Systems\AudioSystem.h" />
     <ClInclude Include="Systems\BackgroundSystem.h" />
     <ClInclude Include="Systems\BuildingsSystem.h" />
@@ -213,6 +216,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Alpha_EngineD.lib;fmod64_vc.lib;fmodL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -258,6 +263,8 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

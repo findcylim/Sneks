@@ -89,9 +89,6 @@
     <ClCompile Include="Systems\CollisionSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Math\CollisionGroup.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp">
       <Filter>Systems</Filter>
@@ -147,6 +144,7 @@
     <ClCompile Include="Systems\Menus\WinScreenSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -202,9 +200,6 @@
     </ClInclude>
     <ClInclude Include="Utility\DebugPrintToScreen.h">
       <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\CollisionGroup.h">
-      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\HTColor.h">
       <Filter>Math</Filter>
@@ -314,5 +309,6 @@
     <ClInclude Include="Systems\SystemList.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
 </Project>

@@ -101,8 +101,8 @@ void PhysicsSystem::Update(float dt)
 		//Move the object
 		ApplyVelocity(i_PhysicsComponent, dt);
 		
-
-		if (i_PhysicsComponent->GetComponent<PowerUpComponent>())
+		if (i_PhysicsComponent->m_po_OwnerEntity->GetEntityID() == kEntityPowerUpHolder)
+		//if (i_PhysicsComponent->GetComponent<PowerUpComponent>())
 		{
 			DeleteOutOfBound(i_PhysicsComponent->GetComponent<TransformComponent>());
 		}

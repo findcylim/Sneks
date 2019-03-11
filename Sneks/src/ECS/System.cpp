@@ -1,6 +1,4 @@
 #include "System.h"
-#include <iostream>
-
 
 void BaseSystem::Update(float dt)
 {

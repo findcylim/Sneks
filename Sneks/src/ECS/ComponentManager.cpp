@@ -1,8 +1,6 @@
 //make functions to check and create new, as well as delete
 //please use vector to store ptr, name can be gotten from the ptr itself
 
-#include <vector>
-
 #include "ComponentManager.h"
 #include "../Components/CollisionComponent.h"
 #include "../Components/InvulnerableComponent.h"

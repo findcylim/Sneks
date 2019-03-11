@@ -1,8 +1,4 @@
-#include "../Utility/MemoryAllocator.h"
-
-#include <windows.h>
 #include "ECSystem.h"
-#include "../Utility/FileIO.h"
 #include "../Utility/GameStateManager.h"
 #include "../Systems/InputSystem.h"
 #include "../Systems/PhysicsSystem.h"
@@ -21,7 +17,6 @@
 #include "../Systems/Menus/HUDSystem.h"
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
-#include <iostream>
 #include <queue>
 
 ECSystem::ECSystem()
