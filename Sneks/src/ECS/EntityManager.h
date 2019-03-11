@@ -65,6 +65,7 @@ public:
 			{
 				componentIterator->m_b_IsActive = false;
 			}
+			firstEnt->m_b_IsActive = false;
 			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
 		}
 	}
@@ -79,6 +80,7 @@ public:
 			{
 				componentIterator->m_b_IsActive = true;
 			}
+			firstEnt->m_b_IsActive = true;
 			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
 		}
 	}
@@ -93,20 +95,50 @@ public:
 			{
 				componentIterator->m_b_IsActive = false;
 			}
+			firstEnt->m_b_IsActive = false;
 			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
+		}
+	}
+
+	template <typename EntityType, Entity kEntity>
+	void DisableSpecificEntity(const char * name)
+	{
+		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity, name);
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = false;
+			}
+			firstEnt->m_b_IsActive = false;
+		}
+	}
+
+	template <typename EntityType, Entity kEntity>
+	void EnableSpecificEntity(const char * name)
+	{
+		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity, name);
+		if (firstEnt)
+		{
+			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
+			{
+				componentIterator->m_b_IsActive = true;
+			}
+			firstEnt->m_b_IsActive = true;
 		}
 	}
 
 	template <typename EntityType, Entity kEntity>
 	void EnableSpecificEntityType(const char * name)
 	{
-		auto firstEnt = GetFirstEntityInstance<EntityType>(kEntity,name);
+		auto firstEnt = GetSpecificEntityInstance<EntityType>(kEntity,name);
 		while (firstEnt)
 		{
 			for (auto componentIterator : firstEnt->m_v_AttachedComponentsList)
 			{
 				componentIterator->m_b_IsActive = true;
 			}
+			firstEnt->m_b_IsActive = true;
 			firstEnt = static_cast<EntityType*>(firstEnt->m_po_NextEntity);
 		}
 	}
@@ -120,7 +152,9 @@ public:
 			{
 				componentIterator->m_b_IsActive = false;
 			}
+			firstEnt->m_b_IsActive = false;
 		}
+		firstEnt->m_b_IsActive = false;
 	}
 
 
@@ -133,6 +167,7 @@ public:
 			{
 				componentIterator->m_b_IsActive = true;
 			}
+			firstEnt->m_b_IsActive = true;
 		}
 	}
 

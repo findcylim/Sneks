@@ -17,7 +17,10 @@
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
 
-WinScreenSystem* WinScreen;
+
+State GameStateManager::m_x_Next = kStateErrorState;
+State GameStateManager::m_x_Current = kStateErrorState;
+State GameStateManager::m_x_Previous = kStateErrorState;
 
 State GameStateManager::ReturnCurrentState()
 {
@@ -66,66 +69,76 @@ GameStateManager::~GameStateManager()
 
 void GameStateManager::LoadMainMenu()
 {
-
-	m_o_SystemManager->EnableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->EnableSystem<MainMenuSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 }
 
 void GameStateManager::UnloadMainMenu()
 {
-	m_o_SystemManager->DisableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<MainMenuSystem>();
+	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity ,kEntityCanvasButton> ("PlayButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 }
 
 void GameStateManager::LoadBattle()
 {
-	m_o_SystemManager->EnableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<HUDSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<PowerUpSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<BackgroundSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<BuildingsSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<LevelLoaderSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<SnekSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<ProjectileSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->EnableSystem<ParticleSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->EnableSystem<PhysicsSystem>();
+	m_o_SystemManager->EnableSystem<HUDSystem>();
+	m_o_SystemManager->EnableSystem<PowerUpSystem>();
+	m_o_SystemManager->EnableSystem<BackgroundSystem>();
+	m_o_SystemManager->EnableSystem<BuildingsSystem>();
+	m_o_SystemManager->EnableSystem<LevelLoaderSystem>();
+	m_o_SystemManager->EnableSystem<SnekSystem>();
+	m_o_SystemManager->EnableSystem<ProjectileSystem>();
+	m_o_SystemManager->EnableSystem<ParticleSystem>();
 }
 
 void GameStateManager::UnloadBattle()
 {
-	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<HUDSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<PowerUpSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<BackgroundSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<BuildingsSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<LevelLoaderSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<SnekSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<ProjectileSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<ParticleSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<PhysicsSystem>();
+	m_o_SystemManager->DisableSystem<HUDSystem>();
+	m_o_SystemManager->DisableSystem<PowerUpSystem>();
+	m_o_SystemManager->DisableSystem<BackgroundSystem>();
+	m_o_SystemManager->DisableSystem<BuildingsSystem>();
+	m_o_SystemManager->DisableSystem<LevelLoaderSystem>();
+	m_o_SystemManager->DisableSystem<SnekSystem>();
+	m_o_SystemManager->DisableSystem<ProjectileSystem>();
+	m_o_SystemManager->DisableSystem<ParticleSystem>();
 }
 
 void GameStateManager::UnloadWinScreen()
 {
-	m_o_SystemManager->RemoveSystem(WinScreen);
+	//m_o_EntityManager->AddToDeleteQueue(m_o_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas, "WinScreenEntity"));
+	//m_o_SystemManager->RemoveSystem(WinScreen);
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("RestartButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("ReturnToMainButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Background");
 }
 
 void GameStateManager::LoadWinScreen()
 {
-	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<PhysicsSystem>();
 
 	if (GetP1Lives() <= 0)
 	{
-		WinScreen = new WinScreenSystem(m_o_EntityManager, m_o_EventManager, static_cast<char>(2));
-		WinScreen->SetName("WinScreen");
-		m_o_SystemManager->AddSystem(WinScreen);
+		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	}
 
 	else if (GetP2Lives() <= 0)
 	{
-		WinScreen = new WinScreenSystem(m_o_EntityManager, m_o_EventManager, static_cast<char>(1));
-		WinScreen->SetName("WinScreen");
-		m_o_SystemManager->AddSystem(WinScreen);
+		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	}
 
-	m_o_EntityManager->DisableComponentsFromEntityType<SnekBodyEntity, kEntitySnekBody, CollisionComponent>();
-	m_o_EntityManager->DisableComponentsFromEntityType<SnekHeadEntity, kEntitySnekHead, CollisionComponent>();
+	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
+	
 }
 
 void GameStateManager::Load()

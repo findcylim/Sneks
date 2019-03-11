@@ -241,6 +241,7 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 
 	if (entityPointer)
 	{
+		entityPointer->m_po_EntityManager = this;
 		entityPointer->SetEntityID(entityType);
 		AddEntity(entityPointer, entityType);
 	}
@@ -310,7 +311,7 @@ BaseEntity* EntityManager::GetSpecificEntityInstanceReroute(Entity entityType, c
 
 	while (entityPointer)
 	{
-		if (entityPointer->m_pc_EntityName == entityName)
+		if (strcmp(entityPointer->m_pc_EntityName , entityName)==0)
 			break;
 
 		entityPointer = entityPointer->m_po_NextEntity;

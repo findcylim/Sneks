@@ -19,7 +19,7 @@
 #include "../Systems/AudioSystem.h"
 #include "../Systems/Menus/MainMenuSystem.h"
 #include "../Systems/Menus/HUDSystem.h"
-
+#include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include <iostream>
 #include <queue>
@@ -86,9 +86,9 @@ void ECSystem::InitializeEngine()
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
+	
 
-
-
+	
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
 	projectile->Initialize();
@@ -130,7 +130,7 @@ void ECSystem::InitializeEngine()
 
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");
-	background->CreateInstancedBackgrounds(2, 2, "Background01");
+	background->CreateInstancedBackgrounds(3, 3, "Background01");
 
 	m_o_SystemManager->AddSystem(buildings);
 	buildings->SetName("Buildings");
@@ -151,7 +151,7 @@ void ECSystem::InitializeEngine()
 	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
-	canvas->SetName("Main Menu"); 
+	mainMenu->SetName("Main Menu"); 
 
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
@@ -172,22 +172,28 @@ void ECSystem::InitializeEngine()
 	powerup->SetName("Power Up");
 	powerup->Initialize();
 
-	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
-	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Heads Up Display");
+	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager, static_cast<char>(2));
+	WinScreen->SetName("WinScreen");
+	m_o_SystemManager->AddSystem(WinScreen);
 
-	m_o_SystemManager->DisableSystem<HUDSystem, DrawComponent, kComponentDraw>();
+	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
+
+	m_o_SystemManager->DisableSystem<HUDSystem>();
+	m_o_SystemManager->DisableSystem<WinScreenSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 
-	m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<PowerUpSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<BackgroundSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<BuildingsSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<LevelLoaderSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<SnekSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<ProjectileSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<ParticleSystem, DrawComponent, kComponentDraw>();
-	m_o_SystemManager->DisableSystem<MainMenuSystem, DrawComponent, kComponentDraw>();
+	m_o_SystemManager->DisableSystem<PhysicsSystem>();
+	m_o_SystemManager->DisableSystem<PowerUpSystem>();
+	m_o_SystemManager->DisableSystem<BackgroundSystem>();
+	m_o_SystemManager->DisableSystem<BuildingsSystem>();
+	m_o_SystemManager->DisableSystem<LevelLoaderSystem>();
+	m_o_SystemManager->DisableSystem<SnekSystem>();
+	m_o_SystemManager->DisableSystem<ProjectileSystem>();
+	m_o_SystemManager->DisableSystem<ParticleSystem>();
+	m_o_SystemManager->DisableSystem<MainMenuSystem>();
 }
 
 void ECSystem::LoadMainMenu()

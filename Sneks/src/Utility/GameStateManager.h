@@ -8,6 +8,7 @@
 #include "../Utility/Logger.h"
 #include "../ECS/EntityManager.h"
 
+class WinScreenSystem;
 typedef void(*FP)(void);
 
 typedef enum State
@@ -28,9 +29,10 @@ typedef enum State
 class GameStateManager
 {
 private:
-	State	m_x_Current;	/* Index of the m_x_Current game state. */
-	State	m_x_Previous;	/* Index of the m_x_Previous game state. */
-	State	m_x_Next;		/* Index of the m_x_Next game state. */
+	static	State	m_x_Current;	/* Index of the m_x_Current game state. */
+	static	State	m_x_Previous;	/* Index of the m_x_Previous game state. */
+	static	State	m_x_Next;		/* Index of the m_x_Next game state. */
+	WinScreenSystem* WinScreen;
 	EntityManager* m_o_EntityManager;
 	SystemManager* m_o_SystemManager;
 	EventManager* m_o_EventManager;
@@ -41,7 +43,7 @@ public:
 	State	ReturnPreviousState();
 	bool	IsValid(State state);
 	bool	IsChanging();
-	void	SetState(State state);
+static 	void	SetState(State state);
 	GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr);
 	~GameStateManager();
 

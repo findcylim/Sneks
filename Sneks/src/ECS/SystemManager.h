@@ -31,7 +31,7 @@ public:
 	SystemManager(Logger* logger);
 	~SystemManager();
 
-	template <typename SystemType,typename ComponentType,Component type>
+	template <typename SystemType>
 	void DisableSystem()
 	{
 		for (auto system : m_v_SystemList)
@@ -39,13 +39,13 @@ public:
 			if (auto correctSystem = dynamic_cast<SystemType*>(system))
 			{
 				correctSystem->m_b_isActive = false;
-				DisableAllSystemComponents<ComponentType>(type);
+				//DisableAllSystemComponents<ComponentType>(type);
 				return;
 			}
 		}
 	}
 
-	template <typename SystemType, typename ComponentType, Component type>
+	template <typename SystemType>
 	void EnableSystem()
 	{
 		for (auto system : m_v_SystemList)
@@ -53,14 +53,14 @@ public:
 			if (auto correctSystem = dynamic_cast<SystemType*>(system))
 			{
 				correctSystem->m_b_isActive = true;
-				EnableAllSystemComponents<ComponentType>(type);
+				//EnableAllComponents<ComponentType>(type);
 				return;
 			}
 		}
 	}
 
 	template<typename T>
-	void DisableAllSystemComponents(Component type)
+	void DisableAllComponents(Component type)
 	{
 		auto components = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<T>(type);
 		while (components)
@@ -70,7 +70,7 @@ public:
 		}
 	}
 	template<typename T>
-	void EnableAllSystemComponents(Component type)
+	void EnableAllComponents(Component type)
 	{
 		auto components = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<T>(type);
 		while (components)

@@ -175,17 +175,29 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 			if (AabbHelper::CheckAabbIntersect(&cameraAABB, &otherAABB))
 			{
-				if(collisionComponent)
-					collisionComponent->m_b_IsActive = true;
-				if(drawComponent)
-					drawComponent->m_b_IsActive = true;
+				if (collisionComponent)
+				{
+					if(collisionComponent->m_po_OwnerEntity->m_b_IsActive)
+						collisionComponent->m_b_IsActive = true;
+				}
+				if (drawComponent)
+				{
+					if (drawComponent->m_po_OwnerEntity->m_b_IsActive)
+						drawComponent->m_b_IsActive = true;
+				}
 			}
 			else
 			{
 				if (collisionComponent)
-					collisionComponent->m_b_IsActive = false;
+				{
+					if (collisionComponent->m_po_OwnerEntity->m_b_IsActive)
+						collisionComponent->m_b_IsActive = false;
+				}
 				if (drawComponent)
-					drawComponent->m_b_IsActive = false;
+				{
+					if (drawComponent->m_po_OwnerEntity->m_b_IsActive)
+						drawComponent->m_b_IsActive = false;
+				}
 			}
 
 			transformComponent = static_cast<TransformComponent*>(transformComponent->m_po_NextComponent);
