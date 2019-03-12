@@ -8,7 +8,7 @@ namespace AlphaEngineHelper {
 	{
 		AESysInit(hInstance, nCmdShow, 1920, 1080, 1, 60, true, nullptr);
 		AESysSetWindowTitle("S.N.E.K.S.");
-		AEToogleFullScreen(false);
+		AEToogleFullScreen(true);
 		AEGfxSetBackgroundColor(1, 1, 0);
 		AESysReset();
 	}

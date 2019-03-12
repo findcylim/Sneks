@@ -524,7 +524,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 700;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
@@ -655,7 +655,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 700;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
 		}
 		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
 		{
@@ -749,7 +749,7 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 700;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
 		}
 		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
 		{

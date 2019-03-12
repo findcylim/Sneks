@@ -17,7 +17,7 @@ public:
 	float m_f_BrakeForce                   = 6;
 	float m_f_TurnMinSpeed                 = 60;       //need to be moving at this speed to turn
 	float m_f_MinSpeed                     = 300;
-	float m_f_MaxVelocity                  = 700;
+	float m_f_MaxVelocity                  = 900;
 
 
 	unsigned short m_i_PlayerNumber        = 0;
