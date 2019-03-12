@@ -140,7 +140,8 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 			try
 			{
 				delete(*sys);
-				m_v_SystemList.erase(sys);
+				sys = m_v_SystemList.erase(sys);
+				return;
 			}
 			catch (...)
 			{
@@ -186,7 +187,7 @@ void SystemManager::Update(float dt)
 }
 
 
-BaseSystem* SystemManager::GetSystem(int ID)
+/* BaseSystem* SystemManager::GetSystem(int ID)
 {
 	for (BaseSystem* currSystem : m_v_SystemList)
 	{
@@ -196,16 +197,16 @@ BaseSystem* SystemManager::GetSystem(int ID)
 		}
 	}
 	return nullptr;
-}
+} */
 
-BaseSystem* SystemManager::GetSystem(const char * systemName)
-{
-	for (BaseSystem* currSystem : m_v_SystemList)
-	{
-		if (strcmp(currSystem->GetName(),systemName)==0)
-		{
-			return currSystem;
-		}
-	}
-	return nullptr;
-}
+//BaseSystem* SystemManager::GetSystem(const char * systemName)
+//{
+//	for (BaseSystem* currSystem : m_v_SystemList)
+//	{
+//		if (strcmp(currSystem->GetName(),systemName)==0)
+//		{
+//			return currSystem;
+//		}
+//	}
+//	return nullptr;
+//}

@@ -20,7 +20,6 @@ private:
 	SystemManager*		 m_o_SystemManager;
 	EntityManager*		 m_o_EntityComponentManager;
 	bool					 m_b_EngineStatus;
-	void LoadMainMenu();
 public:
 	ECSystem();
 	~ECSystem();

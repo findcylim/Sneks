@@ -78,6 +78,7 @@ void HUDSystem::Update(float dt)
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(0);
 		}
+
 	}
 	break;
 
@@ -100,7 +101,18 @@ void HUDSystem::Update(float dt)
 		}
 	}
 	break;
+
+	case 3: for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strncmp(element->m_pc_EntityName, "RL", 2))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(100);
+		}
 	}
+	break;
+	}
+
 
 	switch (GetP2Lives()) {
 	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)
@@ -129,6 +141,17 @@ void HUDSystem::Update(float dt)
 		{
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(0);
+		}
+
+	}
+	break;
+
+	case 3: for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strncmp(element->m_pc_EntityName, "LL", 2))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(100);
 		}
 	}
 	break;

@@ -34,6 +34,12 @@ float GetP2GrowthPercentage()
 	return P2Growth/P2GrowthMeter;
 }
 
+void ResetLives()
+{
+	P1Lives = 3;
+	P2Lives = 3;
+}
+
 int GetP1Lives()
 {
 	return P1Lives;
@@ -571,6 +577,14 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	CreateSnekTail(newSnekHeadEntity, tailTexture);
 }
 
+void SnekSystem::DeleteSnek(SnekHeadEntity* snekHead)
+{
+	for (auto snekBody : snekHead->GetComponent<SnekHeadComponent>()->m_x_BodyParts)
+		RemoveSnekBody(snekBody, snekHead->GetComponent<SnekHeadComponent>());
+
+	m_po_EntityManager->AddToDeleteQueue(snekHead);
+}
+
 //TODO
 void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* snekHead)
 {
@@ -651,7 +665,6 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
 			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
-			
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
@@ -691,7 +704,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		ownerHeadComponent->m_x_BodyParts.back()->GetComponent<FollowComponent>()->
 			m_po_TransformComponent = newSnekBodyEntity->GetComponent<TransformComponent>();
 		ownerHeadComponent->m_x_BodyParts.insert(ownerHeadComponent->m_x_BodyParts.end()-1, newSnekBodyEntity);
-		
+
 	}
 	else
 	{
