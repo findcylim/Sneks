@@ -58,5 +58,6 @@ static 	void	SetState(State state);
 	void UnloadBattle();
 	void LoadWinScreen();
 	void UnloadWinScreen();
+	void ResetBattle();
 };
 #endif

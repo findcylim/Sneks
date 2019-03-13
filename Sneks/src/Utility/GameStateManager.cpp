@@ -17,7 +17,6 @@
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
 
-
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
 State GameStateManager::m_x_Previous = kStateErrorState;
@@ -88,6 +87,35 @@ void GameStateManager::UnloadMainMenu()
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 }
 
+void GameStateManager::ResetBattle()
+{
+	auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
+	
+	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+
+	while (snekHead)
+	{
+		m_o_SystemManager->GetSystem<SnekSystem>("Snek")->DeleteSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
+		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
+	}
+
+	m_o_SystemManager->RemoveSystem(m_o_SystemManager->GetSystem<BaseSystem>("Snek"));
+	auto snek = new SnekSystem(m_o_EntityManager, graphics, this);
+	m_o_SystemManager->AddSystem(snek);
+	snek->SetName("Snek");
+	snek->Initialize();
+
+	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01", 0);
+	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
+
+	auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
+	m_o_SystemManager->AddSystem(buildings);
+	buildings->SetName("Buildings");
+	buildings->Initialize();
+
+	ResetLives();
+}
+
 void GameStateManager::LoadBattle()
 {
 	m_o_SystemManager->EnableSystem<PhysicsSystem>();
@@ -149,6 +177,10 @@ void GameStateManager::ExitGame()
 
 void GameStateManager::Load()
 {
+	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
+	{
+		ResetBattle();
+	}
 	switch (m_x_Current) {
 	case kStateMainMenu:    LoadMainMenu();
 						    break;

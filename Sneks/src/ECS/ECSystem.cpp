@@ -19,6 +19,7 @@
 #include "../Systems/PowerUpSystem.h"
 #include <queue>
 
+
 ECSystem::ECSystem()
 {
 	m_o_Logger					   = new Logger("log.txt");
@@ -82,8 +83,6 @@ void ECSystem::InitializeEngine()
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 	
-
-	
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
 	projectile->Initialize();
@@ -134,7 +133,6 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(levelLoader);
 	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
-
 
 	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
 	m_o_SystemManager->AddSystem(canvas);
@@ -189,11 +187,6 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
 	m_o_SystemManager->DisableSystem<MainMenuSystem>();
-}
-
-void ECSystem::LoadMainMenu()
-{
-
 }
 
 bool ECSystem::IsEngineOn() const

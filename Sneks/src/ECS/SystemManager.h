@@ -22,14 +22,26 @@ private:
 public:
 	size_t GetSystemCount() const;
 	void AddSystem(BaseSystem* NewSystem);
-	
 	void RemoveSystem(BaseSystem* RemSystem);
 	void Update(float dt);
-	BaseSystem* GetSystem(int ID); 
-	BaseSystem* GetSystem(const char * systemName);
+	//BaseSystem* GetSystem(int ID); 
+	//BaseSystem* GetSystem(const char * systemName);
 	void Initialize(EventManager* eventManager, EntityManager* entManager);
 	SystemManager(Logger* logger);
 	~SystemManager();
+
+	template <typename SystemType>
+	SystemType* GetSystem(const char* Name)
+	{
+		for (BaseSystem* currSystem : m_v_SystemList)
+		{
+			if (currSystem->GetName() == Name)
+			{
+				return static_cast<SystemType*>(currSystem);
+			}
+		}
+		return nullptr;
+	}
 
 	template <typename SystemType>
 	void DisableSystem()
