@@ -265,7 +265,7 @@ void GraphicsSystem::Draw(float dt)
 					AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
 					AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
-					AEGfxTextureSet(drawComponent->m_px_Texture, 0, 0);
+					AEGfxTextureSet(drawComponent->m_px_Texture, 10, 0);
 					AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
 					AEGfxSetTransparency(1);
 					AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);

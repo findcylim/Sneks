@@ -51,7 +51,7 @@ void GameStateManager::SetState(State state)
 	m_x_Next = state;
 }
 
-GameStateManager::GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr,bool * engineStatus)
+GameStateManager::GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr, bool * engineStatus)
 {
 	m_x_Current		= InitialState;
 	m_x_Next		= InitialState;
@@ -64,7 +64,6 @@ GameStateManager::GameStateManager(State InitialState, EntityManager* entityMana
 
 GameStateManager::~GameStateManager()
 {
-
 }
 
 void GameStateManager::LoadMainMenu()
@@ -81,7 +80,7 @@ void GameStateManager::UnloadMainMenu()
 {
 	m_o_SystemManager->DisableSystem<MainMenuSystem>();
 	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Main Menu UI");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity ,kEntityCanvasButton> ("PlayButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
@@ -90,7 +89,7 @@ void GameStateManager::UnloadMainMenu()
 void GameStateManager::ResetBattle()
 {
 	auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
-	
+
 	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
 
 	while (snekHead)
@@ -167,7 +166,6 @@ void GameStateManager::LoadWinScreen()
 	}
 
 	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
-	
 }
 
 void GameStateManager::ExitGame()
@@ -183,15 +181,15 @@ void GameStateManager::Load()
 	}
 	switch (m_x_Current) {
 	case kStateMainMenu:    LoadMainMenu();
-						    break;
+		break;
 
 	case kStateGame:		LoadBattle();
-							break;
+		break;
 
 	case kStateWinScreen:	LoadWinScreen();
-							break;
+		break;
 	case kStateExit:		ExitGame();
-							break;
+		break;
 	}
 	m_x_Current = m_x_Next;
 }
@@ -220,7 +218,3 @@ void GameStateManager::Update()
 		Load();
 	}
 }
-
-
-
-
