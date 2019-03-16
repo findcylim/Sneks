@@ -525,8 +525,21 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if(i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), "HeadAnim", 
+																		HTColor{ 1,1,1,1 }, 2, 1);
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 4;
+		}
+		else if (i_Component->m_x_ComponentID == kComponentAnimation)
+		{
+			auto animComp = static_cast<AnimationComponent*>(i_Component);
+			//TODO EVENT?
+			//animComp->m_vx_Names.push_back("TestAnim");
+			Animation anim(SpriteSheet{nullptr,2,1}, 0, 2);
+			anim.m_f_SecondsPerFrame = 1.0f;
+			animComp->m_vx_AnimationsList.push_back(anim);
+
+			animComp->m_b_IsAnimating = true;
+			animComp->m_i_CurrentAnimationId = 0;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{

@@ -17,6 +17,7 @@ public:
 	AEGfxVertexList*		      m_px_Mesh;
 	HTVector2				      m_x_MeshSize;
 	HTColor					      m_f_RgbaColor ={ 1,1,1,1 };
+	HTVector2						m_x_TextureOffset ={ 0 };
 
 	TransformComponent*		   m_po_TransformComponent;
 

@@ -18,6 +18,7 @@
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include <queue>
+#include "../Systems/AnimationSystem.h"
 
 
 ECSystem::ECSystem()
@@ -82,6 +83,7 @@ void ECSystem::InitializeEngine()
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
+	auto anim = new AnimationSystem(m_o_EntityComponentManager, graphics);
 	
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
@@ -114,6 +116,10 @@ void ECSystem::InitializeEngine()
 	graphics->Initialize();
 	graphics->PreLoadTextures();
 
+	m_o_SystemManager->AddSystem(anim);
+	anim->SetName("Animations");
+	anim->Initialize();
+
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
@@ -133,6 +139,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(levelLoader);
 	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
+
 
 	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
 	m_o_SystemManager->AddSystem(canvas);
@@ -164,6 +171,8 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(powerup);
 	powerup->SetName("Power Up");
 	powerup->Initialize();
+
+	
 
 	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager, static_cast<char>(2));
 	WinScreen->SetName("WinScreen");

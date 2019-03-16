@@ -2,6 +2,7 @@
 #include <AEVec2.h>
 #include <cstdlib>
 #include <AEEngine.h>
+#include "../Components/CameraComponent.h"
 
 
 CameraShake::CameraShake()
@@ -20,7 +21,7 @@ CameraShake::CameraShake()
 
 }
 
-void CameraShake::Update(float dt)
+void CameraShake::Update(CameraComponent* camComp, float dt)
 {
 	m_f_ShakeTimer += dt;
 	//Updates the angle and shake magnitude when time every ShakeInterval seconds
@@ -33,12 +34,15 @@ void CameraShake::Update(float dt)
 		m_x_CameraOffset.x = static_cast<float>(sin(m_f_CurrentShakeAngle) * m_f_CurrentShakeMagnitude);
 		m_x_CameraOffset.y = static_cast<float>(cos(m_f_CurrentShakeAngle) * m_f_CurrentShakeMagnitude);
 		//Shakes the Camera
-		AEGfxSetCamPosition(m_x_ScreenCentre.x + m_x_CameraOffset.x, m_x_ScreenCentre.y + m_x_CameraOffset.y);
+		//AEGfxSetCamPosition(m_x_ScreenCentre.x + m_x_CameraOffset.x, m_x_ScreenCentre.y + m_x_CameraOffset.y);
+		camComp->m_f_VirtualOffset.x = m_x_CameraOffset.x;
+		camComp->m_f_VirtualOffset.y = m_x_CameraOffset.y;
 
 		//Don't micro shake the screen, also returns the screen back to centre after shaking is done
 		if (m_f_CurrentShakeMagnitude < 0.2f) {
 			m_f_CurrentShakeMagnitude = 0;
-			AEGfxSetCamPosition(m_x_ScreenCentre.x, m_x_ScreenCentre.y);
+			camComp->m_f_VirtualOffset = {0,0};
+			//AEGfxSetCamPosition(m_x_ScreenCentre.x, m_x_ScreenCentre.y);
 		}
 	}
 }

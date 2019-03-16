@@ -53,7 +53,7 @@ class BaseEntity
 class SnekHeadEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[9] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentSnekHead,
+	Component m_ax_InitialComponents[10] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentAnimation, Component::kComponentPhysics , Component::kComponentSnekHead,
 		Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentParticleEffect, Component::kComponentPowerUp, Component::kComponentEnd };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
