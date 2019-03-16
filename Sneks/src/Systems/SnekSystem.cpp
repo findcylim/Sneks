@@ -15,6 +15,7 @@
 float P1Growth = 0, P2Growth = 0;
 float P1GrowthMeter = 1, P2GrowthMeter = 1;
 int P1Lives = 3, P2Lives = 3;
+int i_P1Damage = 2, i_P2Damage = 2;
 
 int winner;
 
@@ -102,15 +103,27 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
 			if (snekHeadFollow->m_po_OwnerEntity->m_b_IsActive)
 			{
-				RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity),
-					snekHeadFollow);
+				if (snekHeadFollow->m_i_PlayerNumber == 0)
+				{
+					RemoveSnekBody(snekHeadFollow->m_x_BodyParts.at(
+						snekHeadFollow->m_x_BodyParts.size() > i_P2Damage ?
+						snekHeadFollow->m_x_BodyParts.size() - i_P2Damage : 0), snekHeadFollow);
+					i_P2Damage++;
+				}
+				else
+				{
+					RemoveSnekBody(snekHeadFollow->m_x_BodyParts.at(
+						snekHeadFollow->m_x_BodyParts.size() > i_P1Damage ?
+						snekHeadFollow->m_x_BodyParts.size() - i_P1Damage : 0), snekHeadFollow);
+					i_P1Damage++;
+				}
 			}
 		}
 	}
 	else
 	{
 		//body collision destroys the body
-		HeadCollideBodyCheck(eventData.object1, eventData.object2);
+//		HeadCollideBodyCheck(eventData.object1, eventData.object2);
 		HeadCollideBodyCheck(eventData.object2, eventData.object1);
 	}
 
@@ -171,8 +184,15 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		{
 			if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
 			{
-				RemoveSnekBody(snekHed1->m_x_BodyParts.at(0), snekHed1);
-				RemoveSnekBody(snekHed2->m_x_BodyParts.at(0), snekHed2);
+				RemoveSnekBody(snekHed1->m_x_BodyParts.at(
+					snekHed1->m_x_BodyParts.size() > i_P2Damage ?
+					snekHed1->m_x_BodyParts.size() - i_P2Damage : 0), snekHed1);
+				i_P2Damage++;
+
+				RemoveSnekBody(snekHed2->m_x_BodyParts.at(
+					snekHed2->m_x_BodyParts.size() > i_P1Damage ?
+					snekHed2->m_x_BodyParts.size() - i_P1Damage : 0), snekHed2);
+				i_P1Damage++;
 
 				if (snekHed1->m_x_BodyParts.size() == 1)
 				{
@@ -322,7 +342,20 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 
 		HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
 
-		RemoveSnekBody(static_cast<SnekBodyEntity*>(victimCollision->m_po_OwnerEntity), snekHeadVictim);
+		if (snekHeadVictim->m_i_PlayerNumber == 0)
+		{
+			RemoveSnekBody(snekHeadVictim->m_x_BodyParts.at(
+				snekHeadVictim->m_x_BodyParts.size() > i_P2Damage ?
+				snekHeadVictim->m_x_BodyParts.size() - i_P2Damage : 0), snekHeadVictim);
+			i_P2Damage++;
+		}
+		else
+		{
+			RemoveSnekBody(snekHeadVictim->m_x_BodyParts.at(
+				snekHeadVictim->m_x_BodyParts.size() > i_P1Damage ?
+				snekHeadVictim->m_x_BodyParts.size() - i_P1Damage : 0), snekHeadVictim);
+			i_P1Damage++;
+		}
 
 		HeadInvulnerableSet(3.0f, snekHeadVictim);
 

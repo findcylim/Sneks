@@ -189,10 +189,10 @@ void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
 
 void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{
-		auto elementComp = eventData.object1->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
-		auto collisionComponent = eventData.object1->m_po_OwnerEntity->GetComponent<CollisionComponent>();
+		auto elementComp = eventData.object2->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
+		auto collisionComponent = eventData.object2->m_po_OwnerEntity->GetComponent<CollisionComponent>();
 		collisionComponent->m_b_Colliding = true;
 
 		//TODO

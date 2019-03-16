@@ -86,6 +86,7 @@ void CollisionSystem::Update(float dt)
 							m_o_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_ENTER>(collEventEnter);
 						}*/
 						m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
+						break;
 					}
 					/*else
 					{
