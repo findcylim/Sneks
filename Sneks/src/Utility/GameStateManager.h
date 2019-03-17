@@ -18,10 +18,13 @@ typedef enum State
 	kStateCharacterSelection,
 	kStateOptions,
 	kStateCredits,
+	kStateCountdown,
 	kStateGame,
 	kStateHelpMenu,
 	kStatePauseMenu,
 	kStateWinScreen,
+	kStatePause,
+	kStateRestart,
 	kStateExit = -1,
 	kStateTransition = -2,
 	kStateErrorState = -99999
@@ -33,12 +36,13 @@ private:
 	static State	m_x_Current;	/* Index of the m_x_Current game state. */
 	static State	m_x_Previous;	/* Index of the m_x_Previous game state. */
 	static State	m_x_Next;		/* Index of the m_x_Next game state. */
+	time_t timeStamp;
 	WinScreenSystem* WinScreen;
 	EntityManager* m_o_EntityManager;
 	SystemManager* m_o_SystemManager;
 	EventManager* m_o_EventManager;
-	FP fpLoad, fpUnload;
 public:
+	time_t ReturnTimeStamp();
 	static	State	ReturnCurrentState();
 	static	State	ReturnNextState();
 	static	State	ReturnPreviousState();
@@ -62,5 +66,10 @@ static 	void	SetState(State state);
 	void LoadHelpMenu();
 	void UnloadHelpMenu();
 	void ResetBattle();
+	void UnloadRestart();
+	void LoadPauseMenu();
+	void UnloadPauseMenu();
+	void LoadCountdown();
+	void UnloadCountdown();
 };
 #endif

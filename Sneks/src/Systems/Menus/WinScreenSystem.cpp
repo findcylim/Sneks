@@ -4,7 +4,7 @@
 
 void Restart()
 {
-	//GameStateManager::SetState()
+	GameStateManager::SetState(kStateRestart);
 }
 
 void QuitToMain()

@@ -154,6 +154,12 @@
     <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\CountdownSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -326,6 +332,12 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Menus\HelpMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\PauseMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\CountdownSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>

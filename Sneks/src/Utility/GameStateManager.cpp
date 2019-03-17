@@ -22,6 +22,11 @@ State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
 State GameStateManager::m_x_Previous = kStateErrorState;
 
+time_t GameStateManager::ReturnTimeStamp()
+{
+	return timeStamp;
+}
+
 State GameStateManager::ReturnCurrentState()
 {
 	return m_x_Current;
@@ -61,6 +66,7 @@ GameStateManager::GameStateManager(State InitialState, EntityManager* entityMana
 	m_o_SystemManager = systemManagerPtr;
 	m_o_EventManager = eventManagerPtr;
 	EngineStatus = engineStatus;
+	timeStamp = 0;
 }
 
 GameStateManager::~GameStateManager()
@@ -114,6 +120,11 @@ void GameStateManager::ResetBattle()
 	buildings->Initialize();
 
 	ResetLives();
+}
+
+void GameStateManager::UnloadRestart()
+{
+	m_x_Next = m_x_Previous;
 }
 
 void GameStateManager::LoadBattle()
@@ -181,6 +192,32 @@ void GameStateManager::LoadWinScreen()
 	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
 }
 
+void GameStateManager::LoadPauseMenu()
+{
+	m_o_SystemManager->DisableSystem<PhysicsSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+}
+
+void GameStateManager::UnloadPauseMenu()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseEntity");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseContinueButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseRestartButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseReturnToMainButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseBackground");
+}
+
+void GameStateManager::LoadCountdown()
+{
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
+	timeStamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+}
+
+void GameStateManager::UnloadCountdown()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
+}
+
 void GameStateManager::ExitGame()
 {
 	*EngineStatus = false;
@@ -189,22 +226,24 @@ void GameStateManager::ExitGame()
 void GameStateManager::Load()
 {
 	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
-	{
 		ResetBattle();
-	}
 	switch (m_x_Current) {
 	case kStateMainMenu:    LoadMainMenu();
-		break;
-
+							break;
 	case kStateGame:		LoadBattle();
-		break;
-
+							break;
 	case kStateWinScreen:	LoadWinScreen();
 							break;
 	case kStateHelpMenu:	LoadHelpMenu();
 							break;
+	case kStateCountdown:	LoadCountdown();
+							break;
+	case kStatePause:		LoadPauseMenu();
+							break;
+	case kStateRestart:		ResetBattle();
+							break;
 	case kStateExit:		ExitGame();
-		break;
+							break;
 	}
 	m_x_Current = m_x_Next;
 }
@@ -214,13 +253,17 @@ void GameStateManager::Unload()
 	switch (m_x_Previous) {
 	case kStateMainMenu:    UnloadMainMenu();
 							break;
-
 	case kStateGame:		UnloadBattle();
 							break;
-
 	case kStateWinScreen:	UnloadWinScreen();
 							break;
 	case kStateHelpMenu:	UnloadHelpMenu();
+							break;
+	case kStateCountdown:	UnloadCountdown();
+							break;
+	case kStateRestart:		UnloadRestart();	
+							break;
+	case kStatePause:		UnloadPauseMenu();
 							break;
 	}
 }
@@ -234,4 +277,13 @@ void GameStateManager::Update()
 		Unload();
 		Load();
 	}
+
+	if (GetAsyncKeyState(AEVK_P))
+	{
+		SetState(kStatePause);
+	}
+
+	if (m_x_Current == kStateCountdown)
+		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3)
+			m_x_Next = kStateGame;
 }
