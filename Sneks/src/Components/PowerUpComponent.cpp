@@ -40,7 +40,7 @@ void PowerUpComponent::SetPowerUp(PowerUpType type)
 
 		case kPowerUpInvul:
 			m_f_PowerUpRemainingLifetime = 5.0f;
-			m_f_PowerIncrease = 5.0f;
+			m_f_PowerIncrease = 1.5f;
 			break;
 
 		case kPowerUpPlusBody:

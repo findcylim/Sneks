@@ -197,9 +197,17 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHed1->m_x_BodyParts.size() == 1)
 				{
 					if (snekHed1->m_i_PlayerNumber == 0)
+					{
 						P1Lives--;
+						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+						CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
+					}
 					else
+					{
 						P2Lives--;
+						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+						CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
+					}
 
 
 					/*
@@ -216,10 +224,17 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHed2->m_x_BodyParts.size() == 1)
 				{
 					if (snekHed2->m_i_PlayerNumber == 0)
+					{
 						P1Lives--;
+						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+						CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
+					}
 					else
+					{
 						P2Lives--;
-
+						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+						CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
+					}
 					/*
 					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
 					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
@@ -357,7 +372,7 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 			i_P1Damage++;
 		}
 
-		HeadInvulnerableSet(3.0f, snekHeadVictim);
+		HeadInvulnerableSet(1.5f, snekHeadVictim);
 
 	}	
 }
