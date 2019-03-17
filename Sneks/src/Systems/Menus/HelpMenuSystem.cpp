@@ -13,10 +13,14 @@ void HelpMenuSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_MOUSE_ONCLICK>(this, this);
 	auto canvas = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "HelpMenuEntity");
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
-	Events::EV_NEW_UI_ELEMENT HelpMenuUIElement;
+	
 
-	HelpMenuUIElement = { canvas_Component, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"UIHelpMenu" ,"UIHelpMenu" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT HelpMenuUIElement = { canvas_Component, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"UIHelpMenu" ,"UIHelpMenu" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvas_Component, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
+
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(HelpMenuUIElement);
+	
 
 	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("HelpMenuEntity");
 
