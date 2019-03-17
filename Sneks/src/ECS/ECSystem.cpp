@@ -84,7 +84,11 @@ void ECSystem::InitializeEngine()
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 	auto helpmenu = new HelpMenuSystem(m_o_EntityComponentManager,m_o_EventManager);
+	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
 	
+
+	
+
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
 	projectile->Initialize();
@@ -102,19 +106,25 @@ void ECSystem::InitializeEngine()
 	physics->SetName("Physics");
 	physics->Initialize(m_o_GameStateManager);
 
+
+	m_o_SystemManager->AddSystem(canvas);
+	canvas->SetName("Canvas UI");
+	canvas->Initialize();
+
 	m_o_SystemManager->AddSystem(collisions);
 	collisions->Initialize();
 	collisions->SetName("Collisions");
 	m_b_EngineStatus = true;
 
-	m_o_SystemManager->AddSystem(camera);
-	camera->SetName("Camera");
-	camera->Initialize();
 
 	m_o_SystemManager->AddSystem(graphics);
 	graphics->SetName("Graphics");
 	graphics->Initialize();
 	graphics->PreLoadTextures();
+
+	m_o_SystemManager->AddSystem(camera);
+	camera->SetName("Camera");
+	camera->Initialize();
 
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
@@ -144,10 +154,7 @@ void ECSystem::InitializeEngine()
 	// UI & MENUS
 	/*************************************************************************/
 
-	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
-	m_o_SystemManager->AddSystem(canvas);
-	canvas->SetName("Canvas UI");
-	canvas->Initialize();
+	
 
 	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 

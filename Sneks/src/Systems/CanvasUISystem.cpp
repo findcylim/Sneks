@@ -104,6 +104,10 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 	TransformComponent *    t_Component = nullptr;
 	DrawComponent *         d_Component = nullptr;
 	TextRendererComponent* text_Component = nullptr;
+
+	float ScreenSizeX, ScreenSizeY;
+	AlphaEngineHelper::GetScreenSize(&ScreenSizeX, &ScreenSizeY);
+
 	switch (num)
 	{
 		case kCanvasTextLabel:
@@ -152,10 +156,6 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		else
 			ui_Component->m_x_ClickSprite = nullptr;
 
-		//Adjusts the origin to the top left corner of the sprite
-		/*FileIO::ReadPngDimensions(d_Component->m_px_Texture->mpName, &x, &y);
-		x /=2;
-		y /=2;*/
 		ui_Component->m_f_XOffset = initialOffset.x * m_o_ScreenSize.x * 2;
 		ui_Component->m_f_YOffset = initialOffset.y * m_o_ScreenSize.y * 2;
 		t_Component->SetRotation(0);
@@ -168,7 +168,10 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			if (text_Component)
 			{
 				int stringLen = static_cast<int>(strlen(ui_Component->m_pc_ElementText) + 1);
-				text_Component->CreateText(static_cast<float>(-stringLen  * 7.5f), -13.5f, ui_Component->m_pc_ElementText);
+
+				//TODO FIGURE OUT A WAY TO MEASURE FONT SIZES
+				text_Component->CreateText(ui_Component->m_f_XOffset + static_cast<float>(-stringLen  * 7.5f),
+							  ScreenSizeY -ui_Component->m_f_YOffset + -13.5f, ui_Component->m_pc_ElementText);
 			}
 		}
 		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);
