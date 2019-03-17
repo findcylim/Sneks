@@ -24,7 +24,7 @@ PauseMenuSystem::PauseMenuSystem(EntityManager* entityManager, EventManager* eve
 
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
 
-	Events::EV_NEW_UI_ELEMENT PauseMenuUIElement = { canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"PauseScreen" ,"Player1Win" ,"","","", nullptr }; //placeholder
+	Events::EV_NEW_UI_ELEMENT PauseMenuUIElement = { canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"PauseScreen" ,"Player1Win" ,"","","", nullptr }; //placeholder, replace with PAUSED
 
 	Events::EV_NEW_UI_ELEMENT ContinueUIElement =
 	{ canvas_Component, HTVector2{ 0.5f ,0.6f } ,kCanvasButton,"PauseContinueButton" ,"UIBack" ,"Continue","UIBack_Hover","UIBack_Click", Pause_Continue };

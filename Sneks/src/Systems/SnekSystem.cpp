@@ -372,7 +372,7 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 			i_P1Damage++;
 		}
 
-		HeadInvulnerableSet(3.0f, snekHeadVictim);
+		HeadInvulnerableSet(1.5f, snekHeadVictim);
 
 	}	
 }

@@ -8,7 +8,7 @@ CountdownSystem::CountdownSystem(EntityManager* entityManager, EventManager* eve
 
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
 
-	Events::EV_NEW_UI_ELEMENT CountdownElement = { canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"Countdown" ,"Player1Win" ,"","","", nullptr }; //placeholder
+	Events::EV_NEW_UI_ELEMENT CountdownElement = { canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"Countdown" ,"Player1Win" ,"","","", nullptr }; //placeholder, replace with countdown animation
 
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement =
 	{ canvas_Component, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"CountdownBackground" ,"TransitionBack" ,"","","", nullptr };

@@ -51,7 +51,7 @@ public:
 			if (auto correctSystem = dynamic_cast<SystemType*>(system))
 			{
 				correctSystem->m_b_isActive = false;
-				correctSystem->OnDisable();
+				//correctSystem->OnDisable();
 				//DisableAllSystemComponents<ComponentType>(type);
 				return;
 			}
