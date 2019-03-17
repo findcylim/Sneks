@@ -117,7 +117,7 @@ void SystemManager::AddSystem(BaseSystem* NewSystem)
 {
 	if (NewSystem != nullptr)
 	{
-		NewSystem->m_o_EventManagerPtr = m_o_EventManager;
+		NewSystem->m_po_EventManagerPtr = m_o_EventManager;
 		NewSystem->m_po_EntityManager = m_o_EntityManager;
 		NewSystem->m_po_ComponentManager = m_o_EntityManager->GetComponentManager();
 		NewSystem->m_o_SystemManager = this;

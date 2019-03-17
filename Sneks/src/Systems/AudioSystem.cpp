@@ -109,7 +109,7 @@ BaseSystem(entityManagerPtr)
 
 AudioSystem::~AudioSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 	if (BGM.getSystem() != NULL)
 		BGM.release();
 	if (SFX.getSystem() != NULL)
@@ -118,7 +118,7 @@ AudioSystem::~AudioSystem()
 
 void AudioSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)

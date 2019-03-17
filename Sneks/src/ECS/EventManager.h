@@ -96,6 +96,11 @@ namespace Events
 		CollisionComponent* object1;
 		CollisionComponent* object2;
 	};
+
+	struct EV_MOUSE_ONCLICK
+	{
+
+	};
 }
 
 class EventManager

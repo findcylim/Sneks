@@ -18,12 +18,14 @@ protected:
 public:
 	bool		                  m_b_isActive = true;
 	SystemManager* m_o_SystemManager;
-	EventManager*              m_o_EventManagerPtr;
+	EventManager*              m_po_EventManagerPtr;
 	EntityManager*		         m_po_EntityManager;
 	ComponentManager*          m_po_ComponentManager;
 	BaseSystem() = default;
 	BaseSystem(EntityManager*);
 	virtual void Update(float dt) = 0;
+	virtual void OnEnable() {}
+	virtual void OnDisable() {}
 	void SetID(short id);
 	void SetName(const char* name);
 	virtual ~BaseSystem() {}

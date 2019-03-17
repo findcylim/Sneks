@@ -14,13 +14,13 @@ PowerUpSystem::PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem
 
 PowerUpSystem::~PowerUpSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 
 void PowerUpSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 }
 
 void PowerUpSystem::Update(float dt)
@@ -100,7 +100,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
 			GetSpecificComponentInstance<DrawComponent>(powerupHolder, Component::kComponentDraw),
-			"Moon");
+			"PowerUpIcon");
 
 		m_po_ComponentManager->GetSpecificComponentInstance<CollisionComponent>(
 			powerupHolder, Component::kComponentCollision)->m_i_CollisionGroupVec.push_back(

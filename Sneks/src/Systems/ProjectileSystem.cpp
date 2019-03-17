@@ -23,8 +23,8 @@ void ProjectileSystem::Update(float dt)
 
 void ProjectileSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
-	m_o_EventManagerPtr->AddListener<Events::EV_CREATE_PROJECTILE>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_CREATE_PROJECTILE>(this, this);
 }
 
 void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
@@ -66,13 +66,13 @@ void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			eventData.object1->m_po_OwnerEntity->GetComponent<CollisionComponent>()->enabled = false;
 		}
 	}
-	m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+	m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 }
 
 ProjectileSystem::~ProjectileSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->RemoveListener<Events::EV_CREATE_PROJECTILE>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_CREATE_PROJECTILE>(this);
 };
 
 //float GetProjectileChargeRate()

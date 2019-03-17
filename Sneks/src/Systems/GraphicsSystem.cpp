@@ -27,12 +27,12 @@ GraphicsSystem::~GraphicsSystem()
 	AEGfxDestroyFont(debugFont);
 	AEGfxDestroyFont(m_i_font);
 
-	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void GraphicsSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
 	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
@@ -183,6 +183,9 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
 	LoadTextureToMap("../Resources/rock.png", "Rock");
+	LoadTextureToMap("../Resources/PowerUpIcon.png", "PowerUpIcon");
+	LoadTextureToMap("../Resources/UIHelpMenu.png", "UIHelpMenu");
+
 
 	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");
 }

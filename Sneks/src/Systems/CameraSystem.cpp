@@ -26,12 +26,12 @@ BaseSystem(entityManagerPtr)
 CameraSystem::~CameraSystem()
 {
 	delete m_po_CamShake;
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CameraSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void CameraSystem::UpdateCamera(const float dt) const

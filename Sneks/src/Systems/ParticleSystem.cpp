@@ -11,12 +11,12 @@ ParticleSystem::ParticleSystem(EntityManager* entityManagerPointer, GraphicsSyst
 
 ParticleSystem::~ParticleSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void ParticleSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void ParticleSystem::Update(float dt)

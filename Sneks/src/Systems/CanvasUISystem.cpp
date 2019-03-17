@@ -8,14 +8,14 @@ CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* g
 	BaseSystem(entityManagerPtr)
 {
 	m_po_GraphicsManager = graphicsManager;
-	m_o_EventManagerPtr = eventManager;
+	m_po_EventManagerPtr = eventManager;
 }
 
 
 CanvasUISystem::~CanvasUISystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_NEW_UI_ELEMENT>(this);
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_NEW_UI_ELEMENT>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CanvasUISystem::Update(float dt) 
@@ -81,8 +81,8 @@ void CanvasUISystem::Update(float dt)
 
 void CanvasUISystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this, this);
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 	m_o_ScreenSize = { screenX *0.5f, screenY*0.5f };

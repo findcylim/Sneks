@@ -17,7 +17,7 @@ WinScreenSystem::WinScreenSystem(EntityManager* entityManager, EventManager* eve
 {
 	if (winner)
 	{ }
-	m_o_EventManagerPtr = eventManager;
+	m_po_EventManagerPtr = eventManager;
 	auto canvas = entityManager->NewEntity<CanvasEntity>(kEntityCanvas, "WinScreenEntity");
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
 	Events::EV_NEW_UI_ELEMENT WinScreenUIElement;
@@ -33,10 +33,10 @@ WinScreenSystem::WinScreenSystem(EntityManager* entityManager, EventManager* eve
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement =
 	{ canvas_Component, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(WinScreenUIElement);
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(RestartUIElement);
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(ReturnToMainUIElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(WinScreenUIElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(RestartUIElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(ReturnToMainUIElement);
 }
 
 WinScreenSystem::~WinScreenSystem()

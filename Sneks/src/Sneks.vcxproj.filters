@@ -145,6 +145,9 @@
       <Filter>Systems\Menus</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -310,5 +313,8 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Systems\Menus\HelpMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
