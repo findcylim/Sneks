@@ -15,6 +15,7 @@
 #include "../Components/CanvasComponent.h"
 #include "../Components/TextRendererComponent.h"
 #include "../Components/PowerUpComponent.h"
+#include "../Components/AnimationComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -105,6 +106,10 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 		case kComponentPowerUp:
 			componentPointer = static_cast<BaseComponent*>(new PowerUpComponent);
 			break;
+		case kComponentAnimation: 
+			componentPointer = static_cast<BaseComponent*>(new AnimationComponent);
+			break;
+		case kComponentEnd: break;
 		default: ;
 		}
 

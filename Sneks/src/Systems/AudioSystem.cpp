@@ -124,8 +124,9 @@ void AudioSystem::Initialize()
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{
+		
 	}
 	else
 		SFX.play();

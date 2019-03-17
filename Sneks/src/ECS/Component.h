@@ -8,6 +8,7 @@ enum Component : unsigned char
 	kComponentBase,
 	kComponentTransform,
 	kComponentDraw,
+	kComponentAnimation,
 	kComponentPhysics,
 	kComponentCamera,
 	kComponentCollision,
