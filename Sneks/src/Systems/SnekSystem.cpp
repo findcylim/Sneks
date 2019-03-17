@@ -503,7 +503,10 @@ void SnekSystem::Update(float dt)
 		auto headPhysicsComponent = i_SnekHead->m_po_OwnerEntity->
 								GetComponent<PhysicsComponent>();
 
-		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)))
+		if (i_SnekHead->m_f_BoostCooldown > 0)
+			i_SnekHead->m_f_BoostCooldown -= dt;
+
+		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)) && i_SnekHead->m_f_BoostCooldown <= 0)
 		{
 			Events::EV_CREATE_PROJECTILE projData;
 			
@@ -517,6 +520,8 @@ void SnekSystem::Update(float dt)
 			projData.isCollide = true;
 
 			projData.texName = "Moon";
+
+			i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
 
 			m_po_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
@@ -711,7 +716,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
-				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_DELETE;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_SpecialKey = AEVK_Q;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
