@@ -12,8 +12,8 @@ class PowerUpSystem final : public BaseSystem,
 	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 	private:
-		GraphicsSystem* m_o_GraphicsSystem;
-		SnekSystem* m_o_SnekSystem;
+		GraphicsSystem* m_po_GraphicsSystem;
+		SnekSystem* m_po_SnekSystem;
 		float m_f_SpawnChance = 0.2f;
 		float m_f_ForwardAngleRange = PI * 0.4f;
 		float m_f_HolderSpeedRatio = 0.3f;

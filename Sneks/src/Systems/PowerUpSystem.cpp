@@ -8,8 +8,8 @@
 PowerUpSystem::PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics, SnekSystem* snek)
 	: BaseSystem(entityManagerPointer)
 {
-	m_o_GraphicsSystem = graphics;
-	m_o_SnekSystem = snek;
+	m_po_GraphicsSystem = graphics;
+	m_po_SnekSystem = snek;
 }
 
 PowerUpSystem::~PowerUpSystem()
@@ -98,7 +98,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 				snekVelocity, Component::kComponentPhysics)->m_f_Speed * m_f_HolderSpeedRatio;
 
-		m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
+		m_po_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
 			GetSpecificComponentInstance<DrawComponent>(powerupHolder, Component::kComponentDraw),
 			"Moon");
 
@@ -134,7 +134,7 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 
 		case kPowerUpGrowthIncrease:
 		{
-			m_o_SnekSystem->IncreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
+			m_po_SnekSystem->IncreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
 				<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber,
 				powerup->GetPowerIncrease());
 		}
@@ -169,11 +169,19 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 			else
 				bodyTexture = "SnekBody02";
 
-			for (int i = 0; i < 5; i++)
-				m_o_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerup->m_po_OwnerEntity),
+			for (int i = 0; i < powerup->GetPowerIncrease(); i++)
+				m_po_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerup->m_po_OwnerEntity),
 					bodyTexture, m_po_ComponentManager->GetSpecificComponentInstance
 					<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber);
 		}
+			break;
+
+		case kPowerUpIncreaseDamage:
+			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+				(powerup, kComponentSnekHead)->m_i_PlayerNumber == 0)
+				m_po_SnekSystem->TweakP1Damage(static_cast<int>(powerup->GetPowerIncrease()));
+			else
+				m_po_SnekSystem->TweakP2Damage(static_cast<int>(powerup->GetPowerIncrease()));
 			break;
 
 		case kPowerUpEnd:
@@ -196,7 +204,7 @@ void PowerUpSystem::RemovePowerUp(PowerUpComponent* powerup)
 
 		case kPowerUpGrowthIncrease:
 		{
-			m_o_SnekSystem->DecreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
+			m_po_SnekSystem->DecreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
 				<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber,
 				powerup->GetPowerIncrease());
 		}
