@@ -4,6 +4,7 @@
 #include "../Utility/FileIO.h"
 #include "../Utility/AlphaEngineHelper.h"
 #include "../Components/TextRendererComponent.h"
+#include "../Components/AnimationComponent.h"
 
 static unsigned debugFont;
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
@@ -37,13 +38,36 @@ void GraphicsSystem::Initialize()
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
 
+//constexpr int spriteGapX = 3;
+//constexpr int spriteGapY = 3;
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, const float sizeX,
-	const float sizeY, HTColor color)
+	const float sizeY, HTColor color, int spriteCountX, int spriteCountY)
 {
-	auto largerDimension = max(sizeX, sizeY);
+	float spriteSizeX = sizeX / spriteCountX;
+	float spriteSizeY = sizeY / spriteCountY;
 
-	auto normalizedX = sizeX / largerDimension;
-	auto normalizedY = sizeY / largerDimension;
+	//float gapRatioX = 0;
+	//float gapRatioY = 0;
+
+	float textureU = 1.0f;
+	float textureV = 1.0f;
+
+	if (spriteCountX > 1 || spriteCountY > 1)
+	{
+		//gapRatioX = spriteGapX / spriteSizeX;
+		//gapRatioY = spriteGapY / spriteSizeY;
+
+		//spriteSizeX -= 2 * spriteGapX;
+		//spriteSizeY -= 2 * spriteGapY;
+
+
+		textureU = spriteSizeX / sizeX; // 1.0f / spriteCountX - gapRatioX * 2;
+		textureV = spriteSizeY / sizeY; //  gapRatioY * 2;
+	}
+	auto largerDimension = max(spriteSizeX, spriteSizeY);
+
+	auto normalizedX = spriteSizeX / largerDimension;
+	auto normalizedY = spriteSizeY / largerDimension;
 
 	dc->m_x_MeshSize  ={ normalizedX, normalizedY };
 
@@ -53,17 +77,18 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 	{
 		dc->m_px_Mesh = mesh;
 	}
-	else {
+	else
+	{
 		//check if mesh exists
 		AEGfxMeshStart();
-		AEGfxTriAdd(-(normalizedX / 2), -(normalizedY / 2), 0x00FFFFFF, 0, 1,
-			normalizedX / 2, -(normalizedY / 2), 0x0000FFFF, 1, 1,
+		AEGfxTriAdd(-(normalizedX / 2), -(normalizedY / 2), 0x00FFFFFF, 0, textureV,
+			normalizedX / 2, -(normalizedY / 2), 0x0000FFFF, textureU, textureV,
 			-(normalizedX / 2), normalizedY / 2, 0x00FFFF00, 0, 0);
 
 		AEGfxTriAdd(
-			normalizedX / 2, normalizedY / 2, 0x00FFFFFF, 1, 0,
+			normalizedX / 2, normalizedY / 2, 0x00FFFFFF, textureU, 0,
 			-(normalizedX / 2), normalizedY / 2, 0x00FFFFFF, 0, 0,
-			normalizedX / 2, -(normalizedY / 2), 0x00FFFFFF, 1, 1);
+			normalizedX / 2, -(normalizedY / 2), 0x00FFFFFF, textureU, textureV);
 		dc->m_px_Mesh = AEGfxMeshEnd();
 
 		m_x_MeshMap.insert(std::pair<const char*, AEGfxVertexList*>(texture->mpName, dc->m_px_Mesh));
@@ -75,21 +100,21 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 }
 
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, const char* texture, const float sizeX,
-	const float sizeY, HTColor color)
+	const float sizeY, HTColor color, int spriteCountX, int spriteCountY)
 {
-	InitializeDrawComponent(dc, FetchTexture(texture), sizeX, sizeY, color);
+	InitializeDrawComponent(dc, FetchTexture(texture), sizeX, sizeY, color, spriteCountX, spriteCountY);
 }
 
-void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, HTColor color)
+void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, HTColor color, int spriteCountX, int spriteCountY)
 {
 	int sizeX, sizeY;
 	FileIO::ReadPngDimensions(texture->mpName, &sizeX, &sizeY);
-	InitializeDrawComponent(dc, texture, static_cast<float>(sizeX), static_cast<float>(sizeY), color);
+	InitializeDrawComponent(dc, texture, static_cast<float>(sizeX), static_cast<float>(sizeY), color, spriteCountX, spriteCountY);
 }
 
-void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, const char* texture, HTColor color)
+void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, const char* texture, HTColor color, int spriteCountX, int spriteCountY)
 {
-	InitializeDrawComponent(dc, FetchTexture(texture), color);
+	InitializeDrawComponent(dc, FetchTexture(texture), color, spriteCountX, spriteCountY);
 }
 
 
@@ -188,12 +213,18 @@ void GraphicsSystem::PreLoadTextures()
 
 
 	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");
+	
+	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
+	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
+
+
 }
 
-void GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
+AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
 {
 	auto texture = AEGfxTextureLoad(fileName);
 	m_x_TextureMap.insert(std::pair<const char*, AEGfxTexture*>(textureName,texture));
+	return texture;
 }
 
 void GraphicsSystem::Update(float dt)
@@ -268,7 +299,10 @@ void GraphicsSystem::Draw(float dt)
 					AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
 					AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
-					AEGfxTextureSet(drawComponent->m_px_Texture, 10, 0);
+
+					//If it is an animation
+					AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
+
 					AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
 					AEGfxSetTransparency(1);
 					AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
@@ -350,7 +384,7 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 			AEMtx33Identity(&cameraTransform);
 
 			AEMtx33TransApply(&cameraTransform,
-				&cameraTransform, cameraComponent->m_f_VirtualOffset.x, cameraComponent->m_f_VirtualOffset.y
+				&cameraTransform, cameraComponent->m_f_VirtualPosition.x, cameraComponent->m_f_VirtualPosition.y
 				);
 
 			AEMtx33 rotMatrix;

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\AnimationComponent.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\DrawComponent.cpp" />
     <ClCompile Include="Components\ParticleComponent.cpp" />
@@ -42,6 +43,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Systems\AnimationSystem.cpp" />
     <ClCompile Include="Systems\AudioSystem.cpp" />
     <ClCompile Include="Systems\BackgroundSystem.cpp" />
     <ClCompile Include="Systems\BuildingsSystem.cpp" />
@@ -67,6 +69,7 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\AnimationComponent.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\CanvasComponent.h" />
     <ClInclude Include="Components\CollisionComponent.h" />
@@ -97,6 +100,7 @@
     <ClInclude Include="Math\HTVector2.h" />
     <ClInclude Include="Math\PerlinNoise.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Systems\AnimationSystem.h" />
     <ClInclude Include="Systems\AudioSystem.h" />
     <ClInclude Include="Systems\BackgroundSystem.h" />
     <ClInclude Include="Systems\BuildingsSystem.h" />

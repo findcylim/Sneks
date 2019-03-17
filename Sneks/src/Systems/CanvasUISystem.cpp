@@ -42,8 +42,8 @@ void CanvasUISystem::Update(float dt)
 
 			float scale = 1.0f / c_Comp->GetScale();
 			t_Comp->SetScale(scale);
-			t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
-			t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+			t_Comp->SetPositionX(-c_Comp->m_f_VirtualPosition.x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
+			t_Comp->SetPositionY(-c_Comp->m_f_VirtualPosition.y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
 
 			if (collisionComponent)
 			{

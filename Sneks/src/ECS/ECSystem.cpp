@@ -19,6 +19,7 @@
 #include "../Systems/Menus/HelpMenuSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include <queue>
+#include "../Systems/AnimationSystem.h"
 
 
 ECSystem::ECSystem()
@@ -85,6 +86,7 @@ void ECSystem::InitializeEngine()
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 	auto helpmenu = new HelpMenuSystem(m_o_EntityComponentManager,m_o_EventManager);
 	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
+	auto anim = new AnimationSystem(m_o_EntityComponentManager, graphics);
 	
 
 	
@@ -122,6 +124,10 @@ void ECSystem::InitializeEngine()
 	graphics->Initialize();
 	graphics->PreLoadTextures();
 
+	m_o_SystemManager->AddSystem(anim);
+	anim->SetName("Animations");
+	anim->Initialize();
+
 	m_o_SystemManager->AddSystem(camera);
 	camera->SetName("Camera");
 	camera->Initialize();
@@ -130,7 +136,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
 
-	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01", 0);
+	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
 	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
 
 
@@ -177,6 +183,8 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(powerup);
 	powerup->SetName("Power Up");
 	powerup->Initialize();
+
+	
 
 	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager, static_cast<char>(2));
 	WinScreen->SetName("WinScreen");
