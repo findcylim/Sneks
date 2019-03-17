@@ -47,7 +47,6 @@ void ParticleSystem::Update(float dt)
 		else
 			m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(pec->m_po_OwnerEntity));
 	}
-
 	for (auto pc = m_po_ComponentManager->GetFirstComponentInstance
 		<ParticleComponent>(Component::kComponentParticle);
 		pc != nullptr;	pc = static_cast<ParticleComponent*>(pc->m_po_NextComponent))
