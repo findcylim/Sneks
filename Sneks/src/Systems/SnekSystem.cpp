@@ -199,14 +199,12 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					if (snekHed1->m_i_PlayerNumber == 0)
 					{
 						P1Lives--;
-						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
-						CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 					}
 					else
 					{
 						P2Lives--;
-						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
-						CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 					}
 
 
@@ -226,14 +224,12 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					if (snekHed2->m_i_PlayerNumber == 0)
 					{
 						P1Lives--;
-						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
-						CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
 					else
 					{
 						P2Lives--;
-						DeleteSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
-						CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
 					/*
 					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
@@ -640,6 +636,32 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	}
 	
 	CreateSnekTail(newSnekHeadEntity, tailTexture);
+}
+
+void SnekSystem::ResetSnek(SnekHeadEntity* owner)
+{
+	auto playerNumber = owner->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber;
+	auto transformComp = owner->GetComponent<TransformComponent>();
+
+	transformComp->SetPositionY(0);
+
+	if (playerNumber == 0)
+	{
+		transformComp->SetRotation(PI);
+		transformComp->SetPositionX(-200);
+	}
+	else
+	{
+		transformComp->SetRotation(0);
+		transformComp->SetPositionX(200);
+	}
+
+	for (int i_BodyParts = 0; i_BodyParts < 5; i_BodyParts++) {
+		if (playerNumber == 0)
+			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody01", playerNumber);
+		else
+			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody02", playerNumber);
+	}
 }
 
 void SnekSystem::DeleteSnek(SnekHeadEntity* snekHead)
