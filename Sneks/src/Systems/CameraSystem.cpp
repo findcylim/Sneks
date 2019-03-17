@@ -51,9 +51,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 		//ZOOM OUT CHECKS
 		for (auto i_Object : cameraComponent->m_v_EntitiesToTrack)
 		{
-			float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualPosition.x)
+			float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualOffset.x)
 				- cameraComponent->m_x_CurrentViewDistance.x / 2;
-			float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualPosition.y)
+			float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualOffset.y)
 				- cameraComponent->m_x_CurrentViewDistance.y / 2;
 
 			if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
@@ -77,7 +77,8 @@ void CameraSystem::UpdateCamera(const float dt) const
 				cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
 			}
 
-
+			//if (cameraComponent->m_f_VirtualScale < 0.5f)
+			//	cameraComponent->m_f_ZoomVelocity = 0;
 
 			//Record the object nearest to the edge
 			if (distFromScreenEdgeX > lowestDistanceFromScreenEdgeX &&
@@ -94,7 +95,7 @@ void CameraSystem::UpdateCamera(const float dt) const
 		{
 			if (-lowestDistanceFromScreenEdgeX >= cameraComponent->m_f_DistanceInTolerance.x * cameraComponent->m_x_CurrentViewDistance.x &&
 				-lowestDistanceFromScreenEdgeY >= cameraComponent->m_f_DistanceInTolerance.y * cameraComponent->m_x_CurrentViewDistance.y) {
-				cameraComponent->m_i_CurrentStage = 1;
+				//cameraComponent->m_i_CurrentStage = 1;
 				cameraComponent->m_f_ZoomVelocity += cameraComponent->m_x_CameraAttributes.zoomInBaseSpeed;
 			}
 
@@ -139,7 +140,7 @@ void CameraSystem::UpdateCamera(const float dt) const
 			cameraComponent->m_f_TargetOffset.y = -averagePosition.y;
 		}
 
-		cameraComponent->m_f_VirtualPosition += (cameraComponent->m_f_TargetOffset - cameraComponent->m_f_VirtualPosition) 
+		cameraComponent->m_f_VirtualOffset += (cameraComponent->m_f_TargetOffset - cameraComponent->m_f_VirtualOffset) 
 														* cameraComponent->m_f_PanningSpeed * dt;
 		
 			
@@ -150,10 +151,10 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 
 		//CULLING SYSTEM::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-		Aabb cameraAABB = { {-cameraComponent->m_f_VirtualPosition.x - cameraComponent->m_x_CurrentViewDistance.x,
-			-cameraComponent->m_f_VirtualPosition.y - cameraComponent->m_x_CurrentViewDistance.y},
-			{-cameraComponent->m_f_VirtualPosition.x + cameraComponent->m_x_CurrentViewDistance.x,
-			-cameraComponent->m_f_VirtualPosition.y + cameraComponent->m_x_CurrentViewDistance.y} };
+		Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->m_f_VirtualOffset.y - cameraComponent->m_x_CurrentViewDistance.y},
+			{-cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_x_CurrentViewDistance.y} };
 
 		//original param
 		//Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x / 2,
@@ -173,13 +174,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 				transformComponent->GetPosition().y + transformComponent->GetScale().y / 2} };
 				
 			auto collisionComponent = transformComponent->GetComponent<CollisionComponent>();
-				//m_po_ComponentManager->GetSpecificComponentInstance
-				//<CollisionComponent>(transformComponent, kComponentCollision);
 
 			auto drawComponent =transformComponent->GetComponent<DrawComponent>();
-				//m_po_ComponentManager->GetSpecificComponentInstance
-				//<DrawComponent>(transformComponent, kComponentDraw);
-			
+
 			if (AabbHelper::CheckAabbIntersect(cameraAABB, otherAABB))
 			{
 				if (collisionComponent)
