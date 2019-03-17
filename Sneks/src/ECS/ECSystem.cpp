@@ -136,9 +136,8 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
 
-	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
-	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
-
+	snek->CreateSnek(-200, 0, PI* 3 / 4, 20, "HeadAnim", 0);
+	snek->CreateSnek(200, 0, PI* 7 / 4, 20, "SnekHead02", 1);
 
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");

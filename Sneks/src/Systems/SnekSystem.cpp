@@ -686,13 +686,9 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 	auto newSnekBodyEntity = 
 		m_po_EntityManager->NewEntity<SnekBodyEntity>(kEntitySnekBody, "Body");
 
-	auto ownerTransform = 
-		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-		owner, kComponentTransform);
+	auto ownerTransform = owner->GetComponent<TransformComponent>();
 
-	auto ownerHeadComponent =
-		m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
-			owner, kComponentSnekHead);
+	auto ownerHeadComponent = owner->GetComponent<SnekHeadComponent>();
 
 	for (auto i_Component : newSnekBodyEntity->m_v_AttachedComponentsList)
 	{
@@ -702,12 +698,24 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPositionX(
-				referenceTransform->m_x_Position.x);
-			static_cast<TransformComponent*>(i_Component)->SetPositionY(
-				referenceTransform->m_x_Position.y);
+			AEVec2 angle;
+			AEVec2FromAngle(&angle, referenceTransform->GetRotation() );
 
-			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
+			if (referenceTransform->GetComponent<SnekHeadComponent>())
+			{
+				AEVec2FromAngle(&angle, referenceTransform->GetRotation() + PI);
+			}
+
+			angle.x *= referenceTransform->m_f_Scale.x * 0.65f;
+			angle.y *= referenceTransform->m_f_Scale.y * 0.65f;
+
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+				referenceTransform->m_x_Position.x + angle.x);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+				referenceTransform->m_x_Position.y + angle.y);
+
+			FaceReference(referenceTransform, static_cast<TransformComponent*>(i_Component) );
+			//static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			//TODO: REMOVE HARCCODE
 			static_cast<TransformComponent*>(i_Component)->m_f_Scale = 0.635f;
 
@@ -715,6 +723,8 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
 			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
+			MoveTowardsReference(referenceTransform->GetComponent<DrawComponent>(),
+										static_cast<DrawComponent*>(i_Component), ownerHeadComponent->GetComponent<PhysicsComponent>());
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
@@ -792,19 +802,37 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 		m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 			owner, kComponentTransform);
 
+	auto ownerHeadComponent = owner->GetComponent<SnekHeadComponent>();
+
+	auto referenceTransform = ownerHeadComponent->m_x_BodyParts.size() <= 1 ?
+		ownerTransform :
+		(*(ownerHeadComponent->m_x_BodyParts.end() - 2))->GetComponent<TransformComponent>();
+	
 	for (auto i_Component : newSnekBodyEntity->m_v_AttachedComponentsList)
 	{
+
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPositionX(
-				ownerTransform->m_x_Position.x);
-			static_cast<TransformComponent*>(i_Component)->SetPositionY(
-				ownerTransform->m_x_Position.y);
+			AEVec2 angle;
+			AEVec2FromAngle(&angle, referenceTransform->GetRotation());
 
-			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
+			if (referenceTransform->GetComponent<SnekHeadComponent>())
+			{
+				AEVec2FromAngle(&angle, referenceTransform->GetRotation() + PI);
+			}
+
+			angle.x *= referenceTransform->m_f_Scale.x * 0.35f;
+			angle.y *= referenceTransform->m_f_Scale.y * 0.35f;
+
+			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+				referenceTransform->m_x_Position.x + angle.x);
+			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+				referenceTransform->m_x_Position.y + angle.y);
+
+			FaceReference(referenceTransform, static_cast<TransformComponent*>(i_Component));
+			//static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			//TODO: REMOVE HARCCODE
 			static_cast<TransformComponent*>(i_Component)->m_f_Scale = 0.635f;
-
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
@@ -824,10 +852,6 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 
 		}
 	}
-
-	auto ownerHeadComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
-			owner, kComponentSnekHead);
 
 	auto followComponent = 
 		m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(
