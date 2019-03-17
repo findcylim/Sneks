@@ -56,9 +56,8 @@ public:
 	void Update(float dt) override;
 	void CheckInvulnerability(BaseComponent* component, float dt) const;
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;
-	void Initialize(SnekHeadComponent* snekHead);
+	void Initialize();
 	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName, int controlScheme) const;
-	void ResetSnek()
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const;
 	void CreateSnekTail(SnekHeadEntity* owner, const char* textureName) const;
 	void DeleteSnek(SnekHeadEntity* snekHead);
