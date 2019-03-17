@@ -69,6 +69,8 @@ void AnimationSystem::UpdateDrawCompTexture(AnimationComponent* animComp)
 		int currentY = currentAnim.m_i_CurrentFrameIndex / currentAnim.m_px_SpriteSheet.m_i_Width;
 
 		drawComp->m_x_TextureOffset.x = currentX * 1.0f / currentAnim.m_px_SpriteSheet.m_i_Width;
+			//+(float)currentAnim.m_px_SpriteSheet.m_i_GapLeftRight / 108.0f;// 1.8f / drawComp->m_po_TransformComponent->GetScale().x;
 		drawComp->m_x_TextureOffset.y = currentY * 1.0f / currentAnim.m_px_SpriteSheet.m_i_Height;
+			//+(float)currentAnim.m_px_SpriteSheet.m_i_GapTopBottom / 78.0f;//1.8f / drawComp->m_po_TransformComponent->GetScale().y;
 	}
 }

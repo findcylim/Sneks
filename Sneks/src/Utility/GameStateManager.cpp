@@ -104,7 +104,7 @@ void GameStateManager::ResetBattle()
 	snek->SetName("Snek");
 	snek->Initialize();
 
-	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01", 0);
+	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
 	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
 
 	auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);

@@ -124,7 +124,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
 
-	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01", 0);
+	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
 	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
 
 

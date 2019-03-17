@@ -38,12 +38,32 @@ void GraphicsSystem::Initialize()
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 }
 
+//constexpr int spriteGapX = 3;
+//constexpr int spriteGapY = 3;
 void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture, const float sizeX,
 	const float sizeY, HTColor color, int spriteCountX, int spriteCountY)
 {
 	float spriteSizeX = sizeX / spriteCountX;
 	float spriteSizeY = sizeY / spriteCountY;
 
+	//float gapRatioX = 0;
+	//float gapRatioY = 0;
+
+	float textureU = 1.0f;
+	float textureV = 1.0f;
+
+	if (spriteCountX > 1 || spriteCountY > 1)
+	{
+		//gapRatioX = spriteGapX / spriteSizeX;
+		//gapRatioY = spriteGapY / spriteSizeY;
+
+		//spriteSizeX -= 2 * spriteGapX;
+		//spriteSizeY -= 2 * spriteGapY;
+
+
+		textureU = spriteSizeX / sizeX; // 1.0f / spriteCountX - gapRatioX * 2;
+		textureV = spriteSizeY / sizeY; //  gapRatioY * 2;
+	}
 	auto largerDimension = max(spriteSizeX, spriteSizeY);
 
 	auto normalizedX = spriteSizeX / largerDimension;
@@ -57,17 +77,18 @@ void GraphicsSystem::InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* te
 	{
 		dc->m_px_Mesh = mesh;
 	}
-	else {
+	else
+	{
 		//check if mesh exists
 		AEGfxMeshStart();
-		AEGfxTriAdd(-(normalizedX / 2), -(normalizedY / 2), 0x00FFFFFF, 0, 1.0f / spriteCountY,
-			normalizedX / 2, -(normalizedY / 2), 0x0000FFFF, 1.0f / spriteCountX, 1.0f / spriteCountY,
+		AEGfxTriAdd(-(normalizedX / 2), -(normalizedY / 2), 0x00FFFFFF, 0, textureV,
+			normalizedX / 2, -(normalizedY / 2), 0x0000FFFF, textureU, textureV,
 			-(normalizedX / 2), normalizedY / 2, 0x00FFFF00, 0, 0);
 
 		AEGfxTriAdd(
-			normalizedX / 2, normalizedY / 2, 0x00FFFFFF, 1.0f / spriteCountX, 0,
+			normalizedX / 2, normalizedY / 2, 0x00FFFFFF, textureU, 0,
 			-(normalizedX / 2), normalizedY / 2, 0x00FFFFFF, 0, 0,
-			normalizedX / 2, -(normalizedY / 2), 0x00FFFFFF, 1.0f / spriteCountX, 1.0f / spriteCountY);
+			normalizedX / 2, -(normalizedY / 2), 0x00FFFFFF, textureU, textureV);
 		dc->m_px_Mesh = AEGfxMeshEnd();
 
 		m_x_MeshMap.insert(std::pair<const char*, AEGfxVertexList*>(texture->mpName, dc->m_px_Mesh));
