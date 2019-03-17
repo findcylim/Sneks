@@ -127,6 +127,10 @@ void GameStateManager::LoadBattle()
 	m_o_SystemManager->EnableSystem<SnekSystem>();
 	m_o_SystemManager->EnableSystem<ProjectileSystem>();
 	m_o_SystemManager->EnableSystem<ParticleSystem>();
+
+	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
+	cameraComponent->m_b_TrackObjects = true;
 }
 
 void GameStateManager::UnloadBattle()

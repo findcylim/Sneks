@@ -383,8 +383,9 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 			AEMtx33 cameraTransform;
 			AEMtx33Identity(&cameraTransform);
 
-			AEMtx33TransApply(&cameraTransform,
-				&cameraTransform, cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_f_VirtualShakeOffset.x , cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_f_VirtualShakeOffset.y
+			AEMtx33TransApply(&cameraTransform,&cameraTransform, 
+								cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_f_VirtualShakeOffset.x , 
+								cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_f_VirtualShakeOffset.y
 				);
 
 			AEMtx33 rotMatrix;

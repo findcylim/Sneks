@@ -230,7 +230,6 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<SnekSystem>();
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
-	m_o_SystemManager->DisableSystem<MainMenuSystem>();
 }
 
 bool ECSystem::IsEngineOn() const

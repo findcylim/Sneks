@@ -297,7 +297,7 @@ void SnekSystem::HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim
 	auto aggPhysics = aggressor->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
 	auto victimPhysics = victim->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
 
-	auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity));
+	auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity)) * 0.65f;
 	aggPhysics->SetVelocity(newVel);
 
 	if (aggPhysics->m_f_Speed > aggPhysics->m_f_MaxSpeed) {
@@ -586,7 +586,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 800;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
@@ -718,7 +718,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 800;
 		}
 		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
 		{
@@ -812,7 +812,7 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 900;
+			static_cast<PhysicsComponent*>(i_Component)->m_f_MaxSpeed = 800;
 		}
 		else if (i_Component->m_x_ComponentID == KComponentInvulnerable)
 		{
@@ -876,7 +876,7 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 	AEVec2 rotation;
 	AEVec2FromAngle(&rotation, toChange->m_po_TransformComponent->GetRotation() );
 
-	auto stretchThreshold = 400.0f; //Any faster than this speed the snek will start stretching
+	auto stretchThreshold = 600.0f; //Any faster than this speed the snek will start stretching
 	auto stretchFactorMultiplier = 0.3f;
 	auto stretchFactor  =headPhysicsComponent->m_f_Speed / stretchThreshold;
 
@@ -901,29 +901,42 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 
 void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
 {
-	UNREFERENCED_PARAMETER(headPhysicsComponent);
+	
 
 	float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
 		 reference->m_po_TransformComponent->m_x_Position.x;
 	float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
 		 reference->m_po_TransformComponent->m_x_Position.y;
 
-	//float distanceXySquared = distanceX * distanceX + distanceY * distanceY;
-
-	auto headBodyAllowance = 0.93f;
-	auto headBodyClosenessMultiplier = 0.4f;// *reference->m_po_TransformComponent->m_f_Scale;
-	auto stretchFactor = headPhysicsComponent->m_f_Speed / 400.0f;
+	auto headBodyAllowance = 0.83f;
+	auto headBodyClosenessMultiplier = 0.4f;
+	auto stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
 	if (stretchFactor > 1.0f)
 		stretchFactor = 1.0f;
 
-	toChange->m_po_TransformComponent->m_x_Position.x =
-		reference->m_po_TransformComponent->m_x_Position.x + distanceX
-		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
+	if (headPhysicsComponent->m_po_OwnerEntity == reference->m_po_OwnerEntity) {
+		toChange->m_po_TransformComponent->m_x_Position.x =
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX
+			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 
-	toChange->m_po_TransformComponent->m_x_Position.y =
-		reference->m_po_TransformComponent->m_x_Position.y + distanceY
-		* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
+		toChange->m_po_TransformComponent->m_x_Position.y =
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY
+			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
+	}
+	else
+	{
+		headBodyAllowance = 0.95f;
+		headBodyClosenessMultiplier = 0.4f;// *reference->m_po_TransformComponent->m_f_Scale;
+		stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
 
+		toChange->m_po_TransformComponent->m_x_Position.x =
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX
+			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
+
+		toChange->m_po_TransformComponent->m_x_Position.y =
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY
+			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
+	}
 }
 
 //float timeStamp1 = 0;
