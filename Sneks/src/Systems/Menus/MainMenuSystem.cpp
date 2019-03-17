@@ -7,10 +7,10 @@
 MainMenuSystem::MainMenuSystem(EntityManager* entityManagerPtr, EventManager* eventManager)
 	:BaseSystem(entityManagerPtr)
 {
-	m_o_EventManagerPtr = eventManager;
+	m_po_EventManagerPtr = eventManager;
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	cameraComponent->m_f_VirtualOffset.x = -AEGfxGetWinMaxX();
-	cameraComponent->m_f_VirtualOffset.y = AEGfxGetWinMaxY();
+	cameraComponent->m_f_VirtualPosition.x = -AEGfxGetWinMaxX();
+	cameraComponent->m_f_VirtualPosition.y = AEGfxGetWinMaxY();
 	cameraComponent->m_f_VirtualScale = 1.0f;
 }
 
@@ -32,7 +32,7 @@ void PlayGame()
 {
 	// Change game state
 	// TODO
-	GameStateManager::SetState(kStateGame);
+	GameStateManager::SetState(kStateHelpMenu);
 }
 
 void QuitGame()
@@ -50,11 +50,11 @@ void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
 	Events::EV_NEW_UI_ELEMENT QuitElement = { canvasComponent, HTVector2{ 0.825f , 0.725f }, kCanvasButton, "QuitButton", "UIBack", "Quit","UIBack_Hover","UIBack_Click", QuitGame };
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvasComponent, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LogoElement);
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(PlayElement);
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(CreditsElement);
-	m_o_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(QuitElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LogoElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(PlayElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(CreditsElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(QuitElement);
 }
 
 void MainMenuSystem::Update(float dt)

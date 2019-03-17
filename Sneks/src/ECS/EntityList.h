@@ -46,6 +46,18 @@ class BaseEntity
 			return nullptr;
 		}
 
+		/*int GetCount()
+		{
+			BaseEntity* current = this;
+			int counter = 0;
+			while(current)
+			{
+				++counter;
+				current = current->m_po_NextEntity;
+			}
+			return counter;
+		}*/
+
 		Entity GetEntityID();
 		void SetEntityID(Entity type);
 };
@@ -53,7 +65,7 @@ class BaseEntity
 class SnekHeadEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[9] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::kComponentSnekHead,
+	Component m_ax_InitialComponents[10] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentAnimation, Component::kComponentPhysics , Component::kComponentSnekHead,
 		Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentParticleEffect, Component::kComponentPowerUp, Component::kComponentEnd };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};

@@ -8,14 +8,14 @@ CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* g
 	BaseSystem(entityManagerPtr)
 {
 	m_po_GraphicsManager = graphicsManager;
-	m_o_EventManagerPtr = eventManager;
+	m_po_EventManagerPtr = eventManager;
 }
 
 
 CanvasUISystem::~CanvasUISystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_NEW_UI_ELEMENT>(this);
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_NEW_UI_ELEMENT>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CanvasUISystem::Update(float dt) 
@@ -42,8 +42,8 @@ void CanvasUISystem::Update(float dt)
 
 			float scale = 1.0f / c_Comp->GetScale();
 			t_Comp->SetScale(scale);
-			t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
-			t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+			t_Comp->SetPositionX(-c_Comp->m_f_VirtualPosition.x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
+			t_Comp->SetPositionY(-c_Comp->m_f_VirtualPosition.y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
 
 			if (collisionComponent)
 			{
@@ -81,8 +81,8 @@ void CanvasUISystem::Update(float dt)
 
 void CanvasUISystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this, this);
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 	m_o_ScreenSize = { screenX *0.5f, screenY*0.5f };
@@ -104,6 +104,10 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 	TransformComponent *    t_Component = nullptr;
 	DrawComponent *         d_Component = nullptr;
 	TextRendererComponent* text_Component = nullptr;
+
+	float ScreenSizeX, ScreenSizeY;
+	AlphaEngineHelper::GetScreenSize(&ScreenSizeX, &ScreenSizeY);
+
 	switch (num)
 	{
 		case kCanvasTextLabel:
@@ -152,10 +156,6 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		else
 			ui_Component->m_x_ClickSprite = nullptr;
 
-		//Adjusts the origin to the top left corner of the sprite
-		/*FileIO::ReadPngDimensions(d_Component->m_px_Texture->mpName, &x, &y);
-		x /=2;
-		y /=2;*/
 		ui_Component->m_f_XOffset = initialOffset.x * m_o_ScreenSize.x * 2;
 		ui_Component->m_f_YOffset = initialOffset.y * m_o_ScreenSize.y * 2;
 		t_Component->SetRotation(0);
@@ -168,7 +168,10 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			if (text_Component)
 			{
 				int stringLen = static_cast<int>(strlen(ui_Component->m_pc_ElementText) + 1);
-				text_Component->CreateText(static_cast<float>(-stringLen  * 7.5f), -13.5f, ui_Component->m_pc_ElementText);
+
+				//TODO FIGURE OUT A WAY TO MEASURE FONT SIZES
+				text_Component->CreateText(ui_Component->m_f_XOffset + static_cast<float>(-stringLen  * 7.5f),
+							  ScreenSizeY -ui_Component->m_f_YOffset + -13.5f, ui_Component->m_pc_ElementText);
 			}
 		}
 		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);

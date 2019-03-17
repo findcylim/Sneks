@@ -47,15 +47,29 @@ void Sound::createBGM(const char* filename)
 
 void Sound::play()
 {
-	soundOn = true;
-	FMOD_System_PlaySound(system, fmodSound, 0, false, &channel);
-	fmodErrorCheck(result);
+	if (m_c_PlayCap < 5)
+	{
+		soundOn = true;
+		FMOD_System_PlaySound(system, fmodSound, 0, false, &channel);
+		fmodErrorCheck(result);
+		++m_c_PlayCap;
+	}
+	else
+	{
+		m_c_PlayCap = m_c_PlayCap;
+	}
 }
 
 void Sound::update()
 {
 	FMOD_System_Update(system);
 	fmodErrorCheck(result);
+	m_f_Timer += static_cast<float>(AEFrameRateControllerGetFrameTime());
+	if (m_f_Timer > 1.0f)
+	{
+		m_f_Timer	= 0.0f;
+		m_c_PlayCap = 0;
+	}
 }
 
 void Sound::pause(FMOD_BOOL pause)
@@ -103,13 +117,14 @@ BaseSystem(entityManagerPtr)
 	BGM.initialise();
 	SFX.initialise();
 	BGM.createBGM("../Resources/main_menu.wav");
+	
 	BGM.play();
 	SFX.create("../Resources/hitsound.wav");
 }
 
 AudioSystem::~AudioSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 	if (BGM.getSystem() != NULL)
 		BGM.release();
 	if (SFX.getSystem() != NULL)
@@ -118,17 +133,20 @@ AudioSystem::~AudioSystem()
 
 void AudioSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{
+		
 	}
 	else
+	{
 		SFX.play();
+	}
 }
 
 void AudioSystem::Update(float dt)

@@ -47,9 +47,10 @@ public:
 	//ZOOM AND OFFSET ( CAMERA "X Y Z" )
 	HTVector2			  m_f_TargetOffset;
 	HTVector2			  m_f_PanningSpeed = {1.0f, 2.0f};
-	HTVector2		     m_f_VirtualOffset;
+	HTVector2		     m_f_VirtualPosition;
 	float		           m_f_VirtualScale;
 	float					  m_f_VirtualRotation;
+	HTVector2		     m_f_VirtualOffset;
 
 	void AddToTrack(TransformComponent* pDrawObject);
 

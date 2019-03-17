@@ -19,6 +19,7 @@ typedef enum State
 	kStateOptions,
 	kStateCredits,
 	kStateGame,
+	kStateHelpMenu,
 	kStatePauseMenu,
 	kStateWinScreen,
 	kStateExit = -1,
@@ -29,18 +30,18 @@ typedef enum State
 class GameStateManager
 {
 private:
-	static	State	m_x_Current;	/* Index of the m_x_Current game state. */
-	static	State	m_x_Previous;	/* Index of the m_x_Previous game state. */
-	static	State	m_x_Next;		/* Index of the m_x_Next game state. */
+	static State	m_x_Current;	/* Index of the m_x_Current game state. */
+	static State	m_x_Previous;	/* Index of the m_x_Previous game state. */
+	static State	m_x_Next;		/* Index of the m_x_Next game state. */
 	WinScreenSystem* WinScreen;
 	EntityManager* m_o_EntityManager;
 	SystemManager* m_o_SystemManager;
 	EventManager* m_o_EventManager;
 	FP fpLoad, fpUnload;
 public:
-	State	ReturnCurrentState();
-	State	ReturnNextState();
-	State	ReturnPreviousState();
+	static	State	ReturnCurrentState();
+	static	State	ReturnNextState();
+	static	State	ReturnPreviousState();
 	bool	IsValid(State state);
 	bool	IsChanging();
 	bool *	EngineStatus;
@@ -58,6 +59,8 @@ static 	void	SetState(State state);
 	void UnloadBattle();
 	void LoadWinScreen();
 	void UnloadWinScreen();
+	void LoadHelpMenu();
+	void UnloadHelpMenu();
 	void ResetBattle();
 };
 #endif

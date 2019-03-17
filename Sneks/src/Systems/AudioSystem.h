@@ -17,10 +17,12 @@ class Sound
 	char*			currentSound;	/* currently played sound */
 
 	/* FMOD-specific stuff */
-	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
 	FMOD_SYSTEM		*system;	/* the system where the sound will be using */
 	FMOD_SOUND		*fmodSound;	/* holding the actual sound */
 	FMOD_CHANNEL	*channel;	/* the channel where the sound will be playing from */
+	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
+	char m_c_PlayCap	= 0;
+	float m_f_Timer		= 0.0f;
 public:
 	Sound();
 	/* Error-checking*/

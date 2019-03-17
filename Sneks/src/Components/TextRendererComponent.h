@@ -6,7 +6,8 @@ class TextRendererComponent :
 {
 public:
 	TransformComponent* m_po_LinkedTransform;
-	HTVector2 m_o_PositionOffset;
+	HTVector2 m_x_TextPosition;
+	
 	char * m_p_Text = nullptr;
 	TextRendererComponent() = delete;
 	TextRendererComponent(TransformComponent* t_Comp);

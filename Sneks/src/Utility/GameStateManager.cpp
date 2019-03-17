@@ -16,6 +16,7 @@
 #include "../Systems/Menus/HUDSystem.h"
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
+#include "../Systems/Menus/HelpMenuSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -104,7 +105,7 @@ void GameStateManager::ResetBattle()
 	snek->SetName("Snek");
 	snek->Initialize();
 
-	snek->CreateSnek(-200, 0, PI, 20, "SnekHead01", 0);
+	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
 	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
 
 	auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
@@ -139,6 +140,18 @@ void GameStateManager::UnloadBattle()
 	m_o_SystemManager->DisableSystem<SnekSystem>();
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
+}
+
+void GameStateManager::LoadHelpMenu()
+{
+	m_o_SystemManager->EnableSystem<HelpMenuSystem>();
+	if (m_x_Previous == kStateMainMenu)
+		m_o_SystemManager->GetSystem<HelpMenuSystem>("HelpMenu")->SetNextState(kStateGame);
+}
+
+void GameStateManager::UnloadHelpMenu()
+{
+	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
 }
 
 void GameStateManager::UnloadWinScreen()
@@ -187,7 +200,9 @@ void GameStateManager::Load()
 		break;
 
 	case kStateWinScreen:	LoadWinScreen();
-		break;
+							break;
+	case kStateHelpMenu:	LoadHelpMenu();
+							break;
 	case kStateExit:		ExitGame();
 		break;
 	}
@@ -198,13 +213,15 @@ void GameStateManager::Unload()
 {
 	switch (m_x_Previous) {
 	case kStateMainMenu:    UnloadMainMenu();
-		break;
+							break;
 
 	case kStateGame:		UnloadBattle();
-		break;
+							break;
 
 	case kStateWinScreen:	UnloadWinScreen();
-		break;
+							break;
+	case kStateHelpMenu:	UnloadHelpMenu();
+							break;
 	}
 }
 

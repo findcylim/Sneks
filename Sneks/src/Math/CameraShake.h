@@ -2,6 +2,7 @@
 #define CAMERA_SHAKE_H
 #pragma once
 #include <AEVec2.h>
+#include "../Components/CameraComponent.h"
 
 
 class CameraShake
@@ -20,7 +21,7 @@ private:
 
 public:
 	CameraShake();
-	void Update(float dt);
+	void Update(CameraComponent* camComp, float dt);
 	~CameraShake();
 	float AddShake(float magnitude); //Adds to the shake magnitude
 	void SetShake(float magnitude); //Adds to the shake magnitude

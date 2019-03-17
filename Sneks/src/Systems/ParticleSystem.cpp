@@ -11,12 +11,12 @@ ParticleSystem::ParticleSystem(EntityManager* entityManagerPointer, GraphicsSyst
 
 ParticleSystem::~ParticleSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void ParticleSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void ParticleSystem::Update(float dt)
@@ -47,7 +47,6 @@ void ParticleSystem::Update(float dt)
 		else
 			m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(pec->m_po_OwnerEntity));
 	}
-
 	for (auto pc = m_po_ComponentManager->GetFirstComponentInstance
 		<ParticleComponent>(Component::kComponentParticle);
 		pc != nullptr;	pc = static_cast<ParticleComponent*>(pc->m_po_NextComponent))

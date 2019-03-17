@@ -97,8 +97,8 @@ SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics
 
 SnekSystem::~SnekSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->RemoveListener<Events::EV_SNEK_INVULNERABLE>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_SNEK_INVULNERABLE>(this);
 };
 
 
@@ -335,7 +335,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				//		m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
 
 				//	CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
-				//	m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+				//	m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 				//	*/
 				//}
 
@@ -346,7 +346,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					m_o_GameStateManager->SetState(kStateWinScreen);
 					/* m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
-					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
+					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_po_EventManagerPtr, static_cast<char>(2));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
 
@@ -367,7 +367,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					/*
 					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
-					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
+					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_po_EventManagerPtr, static_cast<char>(2));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
 
@@ -518,13 +518,13 @@ void SnekSystem::Update(float dt)
 
 			projData.texName = "Moon";
 
-			m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
-			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_SpecialKey)))
 		{
@@ -538,12 +538,12 @@ void SnekSystem::Update(float dt)
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
-			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else if (GetAsyncKeyState(i_SnekHead->m_i_RightKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
-			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 
 		for (auto i_Body : i_SnekHead->m_x_BodyParts)
@@ -625,8 +625,8 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
-	m_o_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this, this);
 }
 
 //HEAD SIZE : 105, 77
@@ -641,6 +641,18 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(
 			kComponentSnekHead
 		);
+
+	auto tailTexture = "SnekTail01";
+	auto bodyTexture = "SnekBody01";
+	auto spriteCountX = 2;
+	auto spriteCountY = 1;
+	if (!strcmp(textureName, "SnekHead02"))
+	{
+		bodyTexture = "SnekBody02";
+		tailTexture = "SnekTail02";
+		spriteCountX = 1;
+	}
+
 	while (i_SnekHeadComponents)
 	{
 		snekHeadCount++;
@@ -668,8 +680,19 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if(i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName, 
+																		HTColor{ 1,1,1,1 }, spriteCountX, spriteCountY);
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 4;
+		}
+		else if (i_Component->m_x_ComponentID == kComponentAnimation)
+		{
+			auto animComp = static_cast<AnimationComponent*>(i_Component);
+			Animation anim(SpriteSheet{textureName,2,1}, 0, spriteCountX * spriteCountY);
+			anim.m_f_SecondsPerFrame = 1.0f;
+			animComp->m_vx_AnimationsList.push_back(anim);
+
+			animComp->m_b_IsAnimating = true;
+			animComp->m_i_CurrentAnimationId = 0;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
@@ -705,13 +728,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 	}
 
-	auto tailTexture = "SnekTail01";
-	auto bodyTexture = "SnekBody01";
-	if (!strcmp(textureName, "SnekHead02"))
-	{
-		bodyTexture = "SnekBody02";
-		tailTexture = "SnekTail02";
-	}
+
 
 	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++){
 		CreateSnekBody(newSnekHeadEntity, bodyTexture, controlScheme);
@@ -751,7 +768,7 @@ void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* sne
 	if (found)
 		snekHead->m_x_BodyParts.erase(toDelete, snekHead->m_x_BodyParts.end() - 1);
 
-	m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+	m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
 		
 	auto tailFollowComponent = m_po_ComponentManager->GetSpecificComponentInstance
@@ -870,7 +887,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 
 		ownerHeadComponent->m_x_BodyParts.insert(lastBodyPartVecIter, newSnekBodyEntity);
 	}
-	m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+	m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 }
 
 //TODO
