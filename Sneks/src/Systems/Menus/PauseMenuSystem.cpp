@@ -17,10 +17,14 @@ void Pause_QuitToMain()
 }
 
 PauseMenuSystem::PauseMenuSystem(EntityManager* entityManager, EventManager* eventManager)
-	:BaseSystem {entityManager}
+	:BaseSystem{ entityManager }
 {
 	m_po_EventManagerPtr = eventManager;
-	auto canvas = entityManager->NewEntity<CanvasEntity>(kEntityCanvas, "PauseMenuEntity");
+}
+
+void PauseMenuSystem::Initialize()
+{
+	auto canvas = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "PauseMenuEntity");
 
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
 

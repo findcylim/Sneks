@@ -30,6 +30,11 @@ void TransformComponent::SetScale(const float newScale)
 	m_f_ScaleMultiplier = newScale;
 }
 
+void TransformComponent::SetScaleX(const float scaleX)
+{
+	m_f_Scale.x = scaleX;
+}
+
 HTVector2 TransformComponent::GetPosition() const
 {
 	return m_x_Position;

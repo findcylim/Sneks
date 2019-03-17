@@ -27,12 +27,12 @@ int GetWinner()
 
 float GetP1GrowthPercentage()
 {
-	return P1Growth/P1GrowthMeter;
+	return P1Growth/P1GrowthMeter * 100;
 }
 
 float GetP2GrowthPercentage()
 {
-	return P2Growth/P2GrowthMeter;
+	return P2Growth/P2GrowthMeter * 100;
 }
 
 void ResetLives()
@@ -146,25 +146,25 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				{
 					if (P1Growth >= P1GrowthMeter)
 					{
-						P1Growth -= P1GrowthMeter;
+						P1Growth = 0;
 						P1GrowthMeter *= 1.5;
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
 					}
 					else
-						P1Growth += 0.1f;
+						P1Growth += 0.5f;
 				}
 				else
 				{
 					if (P2Growth >= P2GrowthMeter)
 					{
-						P2Growth -= P2GrowthMeter;
+						P2Growth = 0;
 						P2GrowthMeter *= 1.5;
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
 					}
 					else
-						P2Growth += 0.1f;
+						P2Growth += 0.5f;
 				}
 			}
 		}

@@ -17,6 +17,7 @@
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include "../Systems/Menus/HelpMenuSystem.h"
+#include "../Systems/Menus/PauseMenuSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -122,11 +123,6 @@ void GameStateManager::ResetBattle()
 	ResetLives();
 }
 
-void GameStateManager::UnloadRestart()
-{
-	m_x_Next = m_x_Previous;
-}
-
 void GameStateManager::LoadBattle()
 {
 	m_o_SystemManager->EnableSystem<PhysicsSystem>();
@@ -194,12 +190,14 @@ void GameStateManager::LoadWinScreen()
 
 void GameStateManager::LoadPauseMenu()
 {
+	m_o_SystemManager->EnableSystem<PauseMenuSystem>();
 	m_o_SystemManager->DisableSystem<PhysicsSystem>();
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
 }
 
 void GameStateManager::UnloadPauseMenu()
 {
+	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseEntity");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseContinueButton");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseRestartButton");
@@ -225,7 +223,7 @@ void GameStateManager::ExitGame()
 
 void GameStateManager::Load()
 {
-	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
+	if (m_x_Previous == kStateWinScreen)
 		ResetBattle();
 	switch (m_x_Current) {
 	case kStateMainMenu:    LoadMainMenu();
@@ -241,6 +239,7 @@ void GameStateManager::Load()
 	case kStatePause:		LoadPauseMenu();
 							break;
 	case kStateRestart:		ResetBattle();
+							m_x_Next = kStateHelpMenu;
 							break;
 	case kStateExit:		ExitGame();
 							break;
@@ -260,8 +259,6 @@ void GameStateManager::Unload()
 	case kStateHelpMenu:	UnloadHelpMenu();
 							break;
 	case kStateCountdown:	UnloadCountdown();
-							break;
-	case kStateRestart:		UnloadRestart();	
 							break;
 	case kStatePause:		UnloadPauseMenu();
 							break;

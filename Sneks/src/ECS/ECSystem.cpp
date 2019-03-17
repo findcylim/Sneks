@@ -188,6 +188,7 @@ void ECSystem::InitializeEngine()
 	auto PauseMenu = new PauseMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	PauseMenu->SetName("PauseMenu");
 	m_o_SystemManager->AddSystem(PauseMenu);
+	PauseMenu->Initialize();
 
 	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager, static_cast<char>(2));
 	WinScreen->SetName("WinScreen");

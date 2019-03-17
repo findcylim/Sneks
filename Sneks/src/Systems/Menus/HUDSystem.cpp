@@ -70,6 +70,26 @@ void HUDSystem::Update(float dt)
 	(void)dt;
 	CanvasComponent * can_Comp = m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas,"Heads Up Display")->GetComponent<CanvasComponent>();
 
+	/* Updating Lives */
+
+	for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strncmp(element->m_pc_EntityName, "LL", 2))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(100);
+		}
+	}
+
+	for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strncmp(element->m_pc_EntityName, "RL", 2))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(100);
+		}
+	}
+
 	switch (GetP1Lives()) {
 	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
@@ -78,13 +98,27 @@ void HUDSystem::Update(float dt)
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(0);
 		}
-
+		if (!strcmp(element->m_pc_EntityName, "RL2"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+		if (!strcmp(element->m_pc_EntityName, "RL1"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
 	}
 	break;
 
 	case 1: for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
 		if (!strcmp(element->m_pc_EntityName, "RL2"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+		if (!strcmp(element->m_pc_EntityName, "RL1"))
 		{
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(0);
@@ -101,23 +135,22 @@ void HUDSystem::Update(float dt)
 		}
 	}
 	break;
-
-	case 3: for (auto& element : can_Comp->m_x_CanvasElementList)
-	{
-		if (!strncmp(element->m_pc_EntityName, "RL", 2))
-		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(100);
-		}
 	}
-	break;
-	}
-
 
 	switch (GetP2Lives()) {
 	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
 		if (!strcmp(element->m_pc_EntityName, "LL3"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+		if (!strcmp(element->m_pc_EntityName, "LL2"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
+		if (!strcmp(element->m_pc_EntityName, "LL1"))
 		{
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(0);
@@ -132,6 +165,11 @@ void HUDSystem::Update(float dt)
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(0);
 		}
+		if (!strcmp(element->m_pc_EntityName, "LL1"))
+		{
+			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+			draw_Comp->SetAlpha(0);
+		}
 	}
 	break;
 
@@ -142,18 +180,25 @@ void HUDSystem::Update(float dt)
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(0);
 		}
-
 	}
 	break;
+	}
 
-	case 3: for (auto& element : can_Comp->m_x_CanvasElementList)
+	for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
-		if (!strncmp(element->m_pc_EntityName, "LL", 2))
+		if (!strcmp(element->m_pc_EntityName, "LBar"))
 		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(100);
+			auto transform_Comp = element->GetComponent<TransformComponent>();
+			transform_Comp->SetScaleX(GetP1GrowthPercentage());
 		}
 	}
-	break;
+
+	for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strcmp(element->m_pc_EntityName, "RBar"))
+		{
+			auto transform_Comp = element->GetComponent<TransformComponent>();
+			transform_Comp->SetScaleX(GetP2GrowthPercentage());
+		}
 	}
 }

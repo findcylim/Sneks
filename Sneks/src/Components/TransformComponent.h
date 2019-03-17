@@ -20,6 +20,7 @@ public:
 	void		SetPositionX(float);
 	void		SetPositionY(float);
 	void        SetScale(float);
+	void		SetScaleX(float);
 	HTVector2	GetPosition() const;
 	HTVector2   GetScale() const;
 };
