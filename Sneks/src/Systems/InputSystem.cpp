@@ -75,6 +75,11 @@ void InputSystem::Update(float dt)
 	t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
 	t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
 
+	if (AEInputCheckTriggered(AEVK_LBUTTON))
+	{
+		m_o_EventManager->EmitEvent<Events::EV_MOUSE_ONCLICK>(Events::EV_MOUSE_ONCLICK{});
+	}
+
 	//CanvasButtonEntity* base = m_po_EntityManager->GetFirstEntityInstance<CanvasButtonEntity>(kEntityCanvasButton);
 	//printf("X: %d Y: %d Game X: %f Game Y: %f %f %f \n", mouse.x, mouse.y,t_Comp->m_x_Position.x, t_Comp->m_x_Position.y,base->GetComponent<TransformComponent>()->m_x_Position.x, base->GetComponent<TransformComponent>()->m_x_Position.y);
 	UNREFERENCED_PARAMETER(dt);

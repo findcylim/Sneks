@@ -16,12 +16,12 @@ m_o_GraphicsSystem(graphicsSystem)
 
 AnimationSystem::~AnimationSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void AnimationSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 
 	/*TODO:: figure out a better initialization for sprite sheets
 	 *auto texture = m_o_GraphicsSystem->LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");

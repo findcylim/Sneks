@@ -16,6 +16,7 @@
 #include "../Systems/Menus/MainMenuSystem.h"
 #include "../Systems/Menus/HUDSystem.h"
 #include "../Systems/Menus/WinScreenSystem.h"
+#include "../Systems/Menus/HelpMenuSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include <queue>
 #include "../Systems/AnimationSystem.h"
@@ -83,8 +84,13 @@ void ECSystem::InitializeEngine()
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
 	auto audio = new AudioSystem(m_o_EntityComponentManager);
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
+	auto helpmenu = new HelpMenuSystem(m_o_EntityComponentManager,m_o_EventManager);
+	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
 	auto anim = new AnimationSystem(m_o_EntityComponentManager, graphics);
 	
+
+	
+
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
 	projectile->Initialize();
@@ -102,14 +108,16 @@ void ECSystem::InitializeEngine()
 	physics->SetName("Physics");
 	physics->Initialize(m_o_GameStateManager);
 
+
+	m_o_SystemManager->AddSystem(canvas);
+	canvas->SetName("Canvas UI");
+	canvas->Initialize();
+
 	m_o_SystemManager->AddSystem(collisions);
 	collisions->Initialize();
 	collisions->SetName("Collisions");
 	m_b_EngineStatus = true;
 
-	m_o_SystemManager->AddSystem(camera);
-	camera->SetName("Camera");
-	camera->Initialize();
 
 	m_o_SystemManager->AddSystem(graphics);
 	graphics->SetName("Graphics");
@@ -119,6 +127,10 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(anim);
 	anim->SetName("Animations");
 	anim->Initialize();
+
+	m_o_SystemManager->AddSystem(camera);
+	camera->SetName("Camera");
+	camera->Initialize();
 
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
@@ -140,11 +152,15 @@ void ECSystem::InitializeEngine()
 	levelLoader->SetName("LevelLoader");
 	//levelLoader->LoadLevel(kLevel1);
 
+	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
+	m_o_SystemManager->AddSystem(input);
+	input->SetName("Input");
 
-	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
-	m_o_SystemManager->AddSystem(canvas);
-	canvas->SetName("Canvas UI");
-	canvas->Initialize();
+	/*************************************************************************/
+	// UI & MENUS
+	/*************************************************************************/
+
+	
 
 	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
@@ -160,13 +176,9 @@ void ECSystem::InitializeEngine()
 	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(hud);
 
-	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
-	m_o_SystemManager->AddSystem(input);
-	input->SetName("Input");
-
-	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
-	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
-	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
+	helpmenu->Initialize();
+	helpmenu->SetName("HelpMenu");
+	m_o_SystemManager->AddSystem(helpmenu);
 
 	m_o_SystemManager->AddSystem(powerup);
 	powerup->SetName("Power Up");
@@ -178,12 +190,35 @@ void ECSystem::InitializeEngine()
 	WinScreen->SetName("WinScreen");
 	m_o_SystemManager->AddSystem(WinScreen);
 
+	/*************************************************************************/
+	//\\\\\\\\\\END UI & MENUS
+	/*************************************************************************/
+
+
+	/*************************************************************************/
+	// Other Entity Creation
+	/*************************************************************************/
+
+	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
+	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
+	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
+
+
+
+
+	/*************************************************************************/
+	//\\\\\\\\\\END Other Entity Creation
+	/*************************************************************************/
+
+
+
 	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 
 	m_o_SystemManager->DisableSystem<HUDSystem>();
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();
+	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 

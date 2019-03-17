@@ -151,6 +151,9 @@
     <ClCompile Include="Systems\AnimationSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -321,6 +324,9 @@
     </ClInclude>
     <ClInclude Include="Systems\AnimationSystem.h">
       <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\HelpMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

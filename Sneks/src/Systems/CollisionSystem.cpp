@@ -19,7 +19,7 @@ CollisionSystem::~CollisionSystem()
 		}*/
 		delete group;
 	}
-	m_o_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_ENTITY_POOL_CHANGED>(this);
 }
 
 void CollisionSystem::Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
@@ -83,9 +83,10 @@ void CollisionSystem::Update(float dt)
 							objectsInGroupB->objects[i_ObjectB]
 							};
 							//objectsInGroupA->objects[i_ObjectA]->m_b_OnEnter = true;
-							m_o_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_ENTER>(collEventEnter);
+							m_po_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_ENTER>(collEventEnter);
 						}*/
-						m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
+						m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
+						break;
 					}
 					/*else
 					{
@@ -95,7 +96,7 @@ void CollisionSystem::Update(float dt)
 							objectsInGroupB->objects[i_ObjectB]
 							};
 							objectsInGroupA = false;
-							m_o_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_EXIT>(collEventEnter);
+							m_po_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_EXIT>(collEventEnter);
 						}
 					}*/
 				}
@@ -106,7 +107,7 @@ void CollisionSystem::Update(float dt)
 
 void CollisionSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
 	UpdateComponentsPerGroup();
 }
 

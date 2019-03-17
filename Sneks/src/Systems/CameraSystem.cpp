@@ -8,10 +8,10 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		SetShake(0.4f);
 	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
 	{
-
 	}
-	else if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupUIButton && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupMouse)
-	{}
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
+	{ 
+	}
 	else
 		SetShake(3.0f);
 }
@@ -26,12 +26,12 @@ BaseSystem(entityManagerPtr)
 CameraSystem::~CameraSystem()
 {
 	delete m_po_CamShake;
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void CameraSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
 }
 
 void CameraSystem::UpdateCamera(const float dt) const

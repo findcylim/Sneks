@@ -253,7 +253,8 @@ void EntityManager::DeleteEntity(BaseComponent* componentPointer)
 
 void EntityManager::AddToDeleteQueue(BaseEntity* entityPointer)
 {
-	m_v_ToDelete.push_back(entityPointer);
+	if(entityPointer)
+		m_v_ToDelete.push_back(entityPointer);
 }
 
 void EntityManager::ResolveDeletes()

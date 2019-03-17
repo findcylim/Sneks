@@ -46,6 +46,18 @@ class BaseEntity
 			return nullptr;
 		}
 
+		/*int GetCount()
+		{
+			BaseEntity* current = this;
+			int counter = 0;
+			while(current)
+			{
+				++counter;
+				current = current->m_po_NextEntity;
+			}
+			return counter;
+		}*/
+
 		Entity GetEntityID();
 		void SetEntityID(Entity type);
 };

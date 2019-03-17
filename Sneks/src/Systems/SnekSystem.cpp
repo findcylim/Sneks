@@ -15,6 +15,7 @@
 float P1Growth = 0, P2Growth = 0;
 float P1GrowthMeter = 1, P2GrowthMeter = 1;
 int P1Lives = 3, P2Lives = 3;
+int i_P1Damage = 2, i_P2Damage = 2;
 
 int winner;
 
@@ -84,8 +85,8 @@ SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics
 
 SnekSystem::~SnekSystem()
 {
-	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
-	m_o_EventManagerPtr->RemoveListener<Events::EV_SNEK_INVULNERABLE>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_SNEK_INVULNERABLE>(this);
 };
 
 
@@ -102,15 +103,27 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
 			if (snekHeadFollow->m_po_OwnerEntity->m_b_IsActive)
 			{
-				RemoveSnekBody(static_cast<SnekBodyEntity*>(eventData.object2->m_po_OwnerEntity),
-					snekHeadFollow);
+				if (snekHeadFollow->m_i_PlayerNumber == 0)
+				{
+					RemoveSnekBody(snekHeadFollow->m_x_BodyParts.at(
+						snekHeadFollow->m_x_BodyParts.size() > i_P2Damage ?
+						snekHeadFollow->m_x_BodyParts.size() - i_P2Damage : 0), snekHeadFollow);
+					i_P2Damage++;
+				}
+				else
+				{
+					RemoveSnekBody(snekHeadFollow->m_x_BodyParts.at(
+						snekHeadFollow->m_x_BodyParts.size() > i_P1Damage ?
+						snekHeadFollow->m_x_BodyParts.size() - i_P1Damage : 0), snekHeadFollow);
+					i_P1Damage++;
+				}
 			}
 		}
 	}
 	else
 	{
 		//body collision destroys the body
-		HeadCollideBodyCheck(eventData.object1, eventData.object2);
+//		HeadCollideBodyCheck(eventData.object1, eventData.object2);
 		HeadCollideBodyCheck(eventData.object2, eventData.object1);
 	}
 
@@ -171,8 +184,15 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		{
 			if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
 			{
-				RemoveSnekBody(snekHed1->m_x_BodyParts.at(0), snekHed1);
-				RemoveSnekBody(snekHed2->m_x_BodyParts.at(0), snekHed2);
+				RemoveSnekBody(snekHed1->m_x_BodyParts.at(
+					snekHed1->m_x_BodyParts.size() > i_P2Damage ?
+					snekHed1->m_x_BodyParts.size() - i_P2Damage : 0), snekHed1);
+				i_P2Damage++;
+
+				RemoveSnekBody(snekHed2->m_x_BodyParts.at(
+					snekHed2->m_x_BodyParts.size() > i_P1Damage ?
+					snekHed2->m_x_BodyParts.size() - i_P1Damage : 0), snekHed2);
+				i_P1Damage++;
 
 				if (snekHed1->m_x_BodyParts.size() == 1)
 				{
@@ -189,7 +209,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
 
 					CreateSnek(0, 0, 0, 20, "SnekHead01", 0);
-					m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+					m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 					*/
 				}
 
@@ -207,7 +227,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
 
 					CreateSnek(0, 0, 180, 20, "SnekHead02", 1);
-					m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+					m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 					*/
 				}
 
@@ -218,7 +238,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					m_o_GameStateManager->SetState(kStateWinScreen);
 					/* m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
-					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
+					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_po_EventManagerPtr, static_cast<char>(2));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
 
@@ -239,7 +259,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					/*
 					m_o_SystemManager->DisableSystem<PhysicsSystem, DrawComponent, kComponentDraw>();
 
-					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_o_EventManagerPtr, static_cast<char>(2));
+					auto WinScreen = new WinScreenSystem(m_po_EntityManager, m_po_EventManagerPtr, static_cast<char>(2));
 					WinScreen->SetName("WinScreen");
 					m_o_SystemManager->AddSystem(WinScreen);
 
@@ -322,7 +342,20 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 
 		HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
 
-		RemoveSnekBody(static_cast<SnekBodyEntity*>(victimCollision->m_po_OwnerEntity), snekHeadVictim);
+		if (snekHeadVictim->m_i_PlayerNumber == 0)
+		{
+			RemoveSnekBody(snekHeadVictim->m_x_BodyParts.at(
+				snekHeadVictim->m_x_BodyParts.size() > i_P2Damage ?
+				snekHeadVictim->m_x_BodyParts.size() - i_P2Damage : 0), snekHeadVictim);
+			i_P2Damage++;
+		}
+		else
+		{
+			RemoveSnekBody(snekHeadVictim->m_x_BodyParts.at(
+				snekHeadVictim->m_x_BodyParts.size() > i_P1Damage ?
+				snekHeadVictim->m_x_BodyParts.size() - i_P1Damage : 0), snekHeadVictim);
+			i_P1Damage++;
+		}
 
 		HeadInvulnerableSet(3.0f, snekHeadVictim);
 
@@ -375,13 +408,13 @@ void SnekSystem::Update(float dt)
 
 			projData.texName = "Moon";
 
-			m_o_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
-			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_SpecialKey)))
 		{
@@ -395,12 +428,12 @@ void SnekSystem::Update(float dt)
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
-			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 		else if (GetAsyncKeyState(i_SnekHead->m_i_RightKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
-			m_o_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 
 		for (auto i_Body : i_SnekHead->m_x_BodyParts)
@@ -482,8 +515,8 @@ void SnekSystem::BodyInvulnerableSet(SnekHeadComponent* snekHead) const
 
 void SnekSystem::Initialize()
 {
-	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
-	m_o_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_SNEK_INVULNERABLE>(this, this);
 }
 
 //HEAD SIZE : 105, 77
@@ -625,7 +658,7 @@ void SnekSystem::RemoveSnekBody(SnekBodyEntity* snekBody, SnekHeadComponent* sne
 	if (found)
 		snekHead->m_x_BodyParts.erase(toDelete, snekHead->m_x_BodyParts.end() - 1);
 
-	m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+	m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 
 		
 	auto tailFollowComponent = m_po_ComponentManager->GetSpecificComponentInstance
@@ -744,7 +777,7 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 
 		ownerHeadComponent->m_x_BodyParts.insert(lastBodyPartVecIter, newSnekBodyEntity);
 	}
-	m_o_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
+	m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 }
 
 //TODO
