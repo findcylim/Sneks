@@ -186,7 +186,10 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
 	LoadTextureToMap("../Resources/rock.png", "Rock");
-	LoadTextureToMap("../Resources/PowerUpIcon.png", "PowerUpIcon");
+	LoadTextureToMap("../Resources/PowerUpIconDamage.png", "PowerUpIconDamage");
+	LoadTextureToMap("../Resources/PowerUpIconHealth.png", "PowerUpIconHealth");
+	LoadTextureToMap("../Resources/PowerUpIconInvul.png", "PowerUpIconInvul");
+	LoadTextureToMap("../Resources/PowerUpIconSpeed.png", "PowerUpIconSpeed");
 	LoadTextureToMap("../Resources/UIHelpMenu.png", "UIHelpMenu");
 
 
