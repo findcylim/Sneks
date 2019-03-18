@@ -18,7 +18,7 @@ public:
 	void GenerateNewBuildings(int num);
 	void RemoveBuildings();
 	void LoadPossibleLocations();
-	HTVector2* GetNewUniqueBuildingPosition(int& indexFound);
+	HTVector2* GetNewUniqueBuildingPosition(HTVector2& scale);
 
 private:
 	GraphicsSystem*                  m_o_GraphicsSystem;
