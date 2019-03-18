@@ -29,30 +29,24 @@ void ProjectileSystem::Initialize()
 
 void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 {
-	time_t currTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStampProjectile;
-	if (currTime > 3)
-	{
-		ProjectileEntity* ent = m_po_EntityManager->NewEntity<ProjectileEntity>(kEntityProjectile, eventData.texName);
-		auto T_Comp = ent->GetComponent<TransformComponent>();
-		T_Comp->SetPositionX(eventData.pos->x);
-		T_Comp->SetPositionY(eventData.pos->y);
-		T_Comp->SetRotation(eventData.rot);
-		T_Comp->m_f_Scale = eventData.scale;
+	ProjectileEntity* ent = m_po_EntityManager->NewEntity<ProjectileEntity>(kEntityProjectile, eventData.texName);
+	auto T_Comp = ent->GetComponent<TransformComponent>();
+	T_Comp->SetPositionX(eventData.pos->x);
+	T_Comp->SetPositionY(eventData.pos->y);
+	T_Comp->SetRotation(eventData.rot);
+	T_Comp->m_f_Scale = eventData.scale;
 
-		auto P_Comp = ent->GetComponent<PhysicsComponent>();
-		P_Comp->m_x_Velocity.x = eventData.velocity->x;
-		P_Comp->m_x_Velocity.y = eventData.velocity->y;
-		P_Comp->m_po_TransformComponent = T_Comp;
-		P_Comp->m_f_Speed = eventData.speed;
+	auto P_Comp = ent->GetComponent<PhysicsComponent>();
+	P_Comp->m_x_Velocity.x = eventData.velocity->x;
+	P_Comp->m_x_Velocity.y = eventData.velocity->y;
+	P_Comp->m_po_TransformComponent = T_Comp;
+	P_Comp->m_f_Speed = eventData.speed;
 
-		auto C_Comp = ent->GetComponent<CollisionComponent>();
-		C_Comp->m_i_CollisionGroupVec.push_back(kCollGroupMoon);
+	auto C_Comp = ent->GetComponent<CollisionComponent>();
+	C_Comp->m_i_CollisionGroupVec.push_back(kCollGroupMoon);
 
-		auto G_Comp = ent->GetComponent<DrawComponent>();
-		m_o_GraphicsSystem->InitializeDrawComponent(G_Comp, eventData.texName);
-
-		timeStampProjectile = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());;
-	}
+	auto G_Comp = ent->GetComponent<DrawComponent>();
+	m_o_GraphicsSystem->InitializeDrawComponent(G_Comp, eventData.texName);
 }
 
 void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
