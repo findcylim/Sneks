@@ -37,21 +37,26 @@ void Sound::create(const char* filename)
 	fmodErrorCheck(result);
 }
 
-void Sound::createBGM(const char* filename)
+void Sound::createBGM(const char*filename)
 {
+	FMOD_Sound_SetMusicChannelVolume(fmodSound, 0, 0);
+	fmodErrorCheck(result);
 	FMOD_System_CreateStream(system, filename, FMOD_LOOP_NORMAL, 0, &fmodSound);
 	fmodErrorCheck(result);
 	FMOD_System_PlaySound(system, fmodSound, 0, true, &channel);
 	fmodErrorCheck(result);
 }
 
-void Sound::play()
+void Sound::play(float volume)
 {
 	if (m_c_PlayCap < 5)
 	{
 		soundOn = true;
+
 		FMOD_System_PlaySound(system, fmodSound, 0, false, &channel);
 		fmodErrorCheck(result);
+		FMOD_Channel_SetVolume(channel, volume);
+		//FMOD_Channel_SetPaused(channel, false);
 		++m_c_PlayCap;
 	}
 	else
@@ -118,7 +123,7 @@ BaseSystem(entityManagerPtr)
 	SFX.initialise();
 	BGM.createBGM("../Resources/main_menu.wav");
 	
-	BGM.play();
+	BGM.play(0.05f);
 	SFX.create("../Resources/hitsound.wav");
 }
 

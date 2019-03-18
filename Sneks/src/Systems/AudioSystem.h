@@ -33,7 +33,7 @@ public:
 	void createBGM(const char* filename);
 	void create(const char* filename);
 	/* Playing */
-	void play();
+	void play(float volume = 1.0f);
 	/* Update functions */
 	void update();
 	/* Pauses the sound */

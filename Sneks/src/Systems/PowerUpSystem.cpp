@@ -98,8 +98,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 				snekVelocity, Component::kComponentPhysics)->m_f_Speed * m_f_HolderSpeedRatio;
 
-		m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
-			GetSpecificComponentInstance<DrawComponent>(powerupHolder, Component::kComponentDraw),
+		m_o_GraphicsSystem->InitializeDrawComponent(powerupHolder->GetComponent<DrawComponent>(),
 			"PowerUpIcon");
 
 		m_po_ComponentManager->GetSpecificComponentInstance<CollisionComponent>(
