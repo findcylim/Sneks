@@ -45,9 +45,17 @@ class SnekSystem final : public BaseSystem,
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 	GameStateManager* m_o_GameStateManager;
+	float P1Growth = 0, P2Growth = 0;
+	float P1GrowthMeter = 5, P2GrowthMeter = 5;
+	int P1Lives = 3, P2Lives = 3;
+
+	int winner;
 public:
+	int i_BaseDamage = 2;
+	int i_P1Damage = i_BaseDamage, i_P2Damage = i_BaseDamage;
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr);
 	~SnekSystem() ;
+	void CheckGrowthMeters();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 	void Receive(const Events::EV_SNEK_INVULNERABLE& eventData) override;
 	void HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim);
@@ -79,13 +87,16 @@ public:
 	void SetSnek(int input);
 };
 
-float GetP1GrowthPercentage();
-float GetP2GrowthPercentage();
-int GetP1Lives();
-int GetP2Lives();
-void ResetLives();
-void ResetDamage();
-extern int i_P1Damage, i_P2Damage;
+	float GetP1GrowthPercentage();
+	float GetP2GrowthPercentage();
+	int GetP1Lives();
+	int GetP2Lives();
+	void ResetLives();
+	void ResetDamage();
+	int GetWinner();
+
+};
+	extern int i_P1Damage, i_P2Damage;
 
 //float GetFlipChargeRate();
 #endif

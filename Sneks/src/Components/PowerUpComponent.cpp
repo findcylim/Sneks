@@ -53,10 +53,17 @@ void PowerUpComponent::SetPowerUp(PowerUpType type)
 			m_f_PowerIncrease = 5;
 			break;
 
+
+		case kPowerUpDamage:
+			m_f_PowerUpRemainingLifetime = 0;
+			m_f_PowerIncrease = 0;
+			break;
+
 		case kPowerUpEnd:
 			m_f_PowerUpRemainingLifetime = 0;
 			m_f_PowerIncrease = 0;
 			break;
+
 	}
 }
 

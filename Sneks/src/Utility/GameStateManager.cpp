@@ -122,8 +122,8 @@ void GameStateManager::ResetBattle()
 	//m_o_SystemManager->AddSystem(buildings);
 	//buildings->SetName("Buildings");
 	//buildings->Initialize();
-	ResetDamage();
-	ResetLives();
+	snek->ResetDamage();
+	snek->ResetLives();
 }
 
 void GameStateManager::LoadBattle()
@@ -180,12 +180,14 @@ void GameStateManager::UnloadWinScreen()
 
 void GameStateManager::LoadWinScreen()
 {
-	if (GetP1Lives() <= 0)
+	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
+
+	if (snek->GetP1Lives() <= 0)
 	{
 		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	}
 
-	else if (GetP2Lives() <= 0)
+	else if (snek->GetP2Lives() <= 0)
 	{
 		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	}
