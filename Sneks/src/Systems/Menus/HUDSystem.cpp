@@ -3,6 +3,8 @@
 #include "../../Utility/AlphaEngineHelper.h"
 #include "../CameraSystem.h"
 
+float oldScale1 = 0, oldScale2 = 0;
+
 HUDSystem::HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GraphicsSystem* graphics)
 	:BaseSystem(entityManagerPtr)
 {
@@ -188,6 +190,7 @@ void HUDSystem::Update(float dt)
 
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
+	float difference;
 
 	for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
@@ -196,7 +199,14 @@ void HUDSystem::Update(float dt)
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
 			trans_Comp->SetScaleX(GetP1GrowthPercentage() * 960);
 
-			trans_Comp->SetPositionX(trans_Comp->GetPosition().x - (960 / screenX) * GetP1GrowthPercentage());
+			difference = (960.0f / screenX * GetP1GrowthPercentage() - 960.0f / screenX * oldScale1) / 2.0f;
+
+			if (difference > 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+			else if (difference < 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+
+			oldScale1 = GetP1GrowthPercentage();
 		}
 
 		if (!strcmp(element->m_pc_EntityName, "LBar"))
@@ -204,7 +214,14 @@ void HUDSystem::Update(float dt)
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
 			trans_Comp->SetScaleX(GetP2GrowthPercentage() * 960);
 
-			trans_Comp->SetPositionX(trans_Comp->GetPosition().x + (960 / screenX) * GetP2GrowthPercentage());
+			difference = (960.0f / screenX * GetP2GrowthPercentage() - 960.0f / screenX * oldScale2) / 2.0f;
+
+			if (difference > 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+			else if (difference < 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+
+			oldScale2 = GetP2GrowthPercentage();
 		}
 	}
 
