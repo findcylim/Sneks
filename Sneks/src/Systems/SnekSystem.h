@@ -45,6 +45,11 @@ class SnekSystem final : public BaseSystem,
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 	GameStateManager* m_o_GameStateManager;
+	float P1Growth = 0, P2Growth = 0;
+	float P1GrowthMeter = 5, P2GrowthMeter = 5;
+	int P1Lives = 3, P2Lives = 3;
+	int i_P1Damage = 2, i_P2Damage = 2;
+	int winner;
 public:
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr);
 	~SnekSystem() ;
@@ -73,15 +78,17 @@ public:
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
 	void IncreaseGrowthRate(unsigned short player, float increase);
 	void DecreaseGrowthRate(unsigned short player, float decrease);
-};
 
-float GetP1GrowthPercentage();
-float GetP2GrowthPercentage();
-int GetP1Lives();
-int GetP2Lives();
-void ResetLives();
-void ResetDamage();
-extern int i_P1Damage, i_P2Damage;
+
+	float GetP1GrowthPercentage();
+	float GetP2GrowthPercentage();
+	int GetP1Lives();
+	int GetP2Lives();
+	void ResetLives();
+	void ResetDamage();
+	int GetWinner();
+};
+	extern int i_P1Damage, i_P2Damage;
 
 //float GetFlipChargeRate();
 #endif
