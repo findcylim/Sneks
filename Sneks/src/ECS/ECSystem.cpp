@@ -39,6 +39,7 @@ ECSystem::~ECSystem()
 	delete(m_o_EventManager);
 	delete(m_o_GameStateManager);
 	delete(m_o_EntityComponentManager);
+	
 }
 
 /*******************************************************

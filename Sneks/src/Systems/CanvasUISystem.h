@@ -1,8 +1,6 @@
 #pragma once
 #include "../ECS/System.h"
 #include "GraphicsSystem.h"
-
-
 class CanvasUISystem :
 	public BaseSystem,
 	public EventListener<Events::EV_NEW_UI_ELEMENT>,

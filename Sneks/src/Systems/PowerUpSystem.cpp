@@ -43,34 +43,34 @@ void PowerUpSystem::Update(float dt)
 
 void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData._object1->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupBuilding)
+	if (eventData.object1->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupBuilding)
 		SpawnPowerUp(
 			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData._object1, Component::kComponentTransform),
+			(eventData.object1, Component::kComponentTransform),
 			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData._object2, Component::kComponentTransform));
-	else if (eventData._object2->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupBuilding)
+			(eventData.object2, Component::kComponentTransform));
+	else if (eventData.object2->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupBuilding)
 		SpawnPowerUp(
 			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData._object2, Component::kComponentTransform),
+			(eventData.object2, Component::kComponentTransform),
 			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData._object1, Component::kComponentTransform));
+			(eventData.object1, Component::kComponentTransform));
 
-	else if (eventData._object1->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
 	{
 		UpdatePowerUp(m_po_ComponentManager->GetSpecificComponentInstance<PowerUpComponent>
-			(eventData._object2, Component::kComponentPowerUp));
+			(eventData.object2, Component::kComponentPowerUp));
 
 		m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(
-			eventData._object1->m_po_OwnerEntity));
+			eventData.object1->m_po_OwnerEntity));
 	}
-	else if (eventData._object2->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
+	else if (eventData.object2->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
 	{
 		UpdatePowerUp(m_po_ComponentManager->GetSpecificComponentInstance<PowerUpComponent>
-			(eventData._object1, Component::kComponentPowerUp));
+			(eventData.object1, Component::kComponentPowerUp));
 
 		m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(
-			eventData._object2->m_po_OwnerEntity));
+			eventData.object2->m_po_OwnerEntity));
 	}
 }
 
