@@ -145,6 +145,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			{
 				if (snekHeadComp->m_i_PlayerNumber == 0)
 				{
+					P1Growth += 0.5f;
 					if (P1Growth >= P1GrowthMeter)
 					{
 						P1Growth = 0;
@@ -152,11 +153,11 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
 					}
-					else
-						P1Growth += 0.5f;
+
 				}
 				else
 				{
+					P2Growth += 0.5f;
 					if (P2Growth >= P2GrowthMeter)
 					{
 						P2Growth = 0;
@@ -164,8 +165,6 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
 					}
-					else
-						P2Growth += 0.5f;
 				}
 			}
 		}
