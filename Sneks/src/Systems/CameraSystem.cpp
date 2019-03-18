@@ -230,4 +230,13 @@ void CameraSystem::SetShake(float magnitude)
 	m_po_CamShake->SetShake(magnitude);
 }
 
+void CameraSystem::RemoveCameraTrackObjects()
+{
+	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	if (cameraComponent)
+	{
+		cameraComponent->m_v_EntitiesToTrack.clear();
+	}
+}
+
 

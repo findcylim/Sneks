@@ -376,7 +376,10 @@ void SnekSystem::Receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 
 void SnekSystem::Update(float dt)
 {
-
+	if (AEInputCheckTriggered(AEVK_3))
+	{
+		P1Lives--;
+	}
 
 	auto i_InvulnerableComponent = 
 		m_po_ComponentManager->GetFirstComponentInstance<InvulnerableComponent>(KComponentInvulnerable);
@@ -636,8 +639,11 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 
 void SnekSystem::DeleteSnek(SnekHeadEntity* snekHead)
 {
-	for (auto snekBody : snekHead->GetComponent<SnekHeadComponent>()->m_x_BodyParts)
-		RemoveSnekBody(snekBody, snekHead->GetComponent<SnekHeadComponent>());
+	for (auto snekBody : snekHead->GetComponent<SnekHeadComponent>()->m_x_BodyParts) 
+	{
+		m_po_EntityManager->AddToDeleteQueue(snekBody);
+		//RemoveSnekBody(snekBody, snekHead->GetComponent<SnekHeadComponent>());
+	}
 
 	m_po_EntityManager->AddToDeleteQueue(snekHead);
 }
