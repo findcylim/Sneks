@@ -14,7 +14,7 @@
 #include "PhysicsSystem.h"
 
 float P1Growth = 0, P2Growth = 0;
-float P1GrowthMeter = 1, P2GrowthMeter = 1;
+float P1GrowthMeter = 5, P2GrowthMeter = 5;
 int P1Lives = 3, P2Lives = 3;
 int i_P1Damage = 2, i_P2Damage = 2;
 
@@ -67,15 +67,6 @@ void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
 	else
 		P2GrowthMeter *= decrease;
 }
-//
-//struct FollowData
-//{
-//	AEVec2 pos;
-//	AEVec2 vel;
-//	float rot;
-//};
-//
-//std::vector< std::vector<FollowData> > bodyPartsData;
 
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
 : BaseSystem(entityManagerPtr)
@@ -149,9 +140,10 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					if (P1Growth >= P1GrowthMeter)
 					{
 						P1Growth = 0;
-						P1GrowthMeter *= 1.5;
+						P1GrowthMeter *= 1.1f;
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
+						(void)0;
 					}
 
 				}
@@ -161,7 +153,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					if (P2Growth >= P2GrowthMeter)
 					{
 						P2Growth = 0;
-						P2GrowthMeter *= 1.5;
+						P2GrowthMeter *= 1.1f;
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
 					}
