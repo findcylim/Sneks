@@ -66,15 +66,15 @@ void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
 	else
 		P2GrowthMeter *= decrease;
 }
-
-struct FollowData
-{
-	AEVec2 pos;
-	AEVec2 vel;
-	float rot;
-};
-
-std::vector< std::vector<FollowData> > bodyPartsData;
+//
+//struct FollowData
+//{
+//	AEVec2 pos;
+//	AEVec2 vel;
+//	float rot;
+//};
+//
+//std::vector< std::vector<FollowData> > bodyPartsData;
 
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
 : BaseSystem(entityManagerPtr)

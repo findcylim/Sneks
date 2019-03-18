@@ -18,8 +18,5 @@ float ParticleComponent::GetAlphaValue()
 
 bool ParticleComponent::IsAlive()
 {
-	if (m_f_ParticleRemainingLifetime > 0)
-		return true;
-	else
-		return false;
+	return m_f_ParticleRemainingLifetime > 0;
 }

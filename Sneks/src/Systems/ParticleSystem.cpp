@@ -120,8 +120,6 @@ void ParticleSystem::SpawnParticleEffect(TransformComponent* spawnTransform, Par
 			<ParticleEffectEntity>(Entity::kEntityParticleEffect, "ParticleEffect");
 
 		auto pec = pee->GetComponent<ParticleEffectComponent>();
-			//m_po_ComponentManager->GetSpecificComponentInstance<ParticleEffectComponent>(
-			//	pee, Component::kComponentParticleEffect);
 
 		if (pec)
 		{
