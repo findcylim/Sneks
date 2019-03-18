@@ -172,7 +172,7 @@ void ECSystem::InitializeEngine()
 
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
-	auto hud = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager);
+	auto hud = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager, graphics);
 	hud->SetName("HUD");
 	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(hud);

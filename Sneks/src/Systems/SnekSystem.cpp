@@ -652,6 +652,9 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 {
 	auto playerNumber = owner->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber;
 	auto transformComp = owner->GetComponent<TransformComponent>();
+	HTVector2 velocity;
+	velocity.x = 0;
+	velocity.y = 0;
 
 	owner->GetComponent<PowerUpComponent>()->ResetPowerIncrease();
 
@@ -661,11 +664,13 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 	{
 		transformComp->SetRotation(PI);
 		transformComp->SetPositionX(-200);
+		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
 	else
 	{
 		transformComp->SetRotation(0);
 		transformComp->SetPositionX(200);
+		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
 
 	for (int i_BodyParts = 0; i_BodyParts < 5; i_BodyParts++) {
