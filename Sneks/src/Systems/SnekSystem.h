@@ -45,9 +45,9 @@ class SnekSystem final : public BaseSystem,
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 	GameStateManager* m_o_GameStateManager;
-	float P1Growth = 0, P2Growth = 0;
-	float P1GrowthMeter = 5, P2GrowthMeter = 5;
-	int P1Lives = 3, P2Lives = 3;
+	float p1Growth = 0, p2Growth = 0;
+	float p1GrowthMeter = 5, p2GrowthMeter = 5;
+	int p1Lives = 3, p2Lives = 3;
 
 	int winner;
 public:
