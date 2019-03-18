@@ -9,7 +9,7 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_x_ParticleType = type;
 		
 			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
-			m_i_ParticleDrawOrder = 1;
+			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 0;
 			m_i_CurrentSplit = -1;
@@ -39,7 +39,7 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_x_ParticleType = type;
 
 			m_px_ParticleTexture = graphics->FetchTexture("Rock");
-			m_i_ParticleDrawOrder = 1;
+			m_i_ParticleDrawOrder = 6;
 
 			m_i_SplitNumber = 0;
 			m_i_CurrentSplit = -1;
