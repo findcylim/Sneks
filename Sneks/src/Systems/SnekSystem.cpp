@@ -201,7 +201,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 
 					}
-					else					{
+					else
+					{
 						P2Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
