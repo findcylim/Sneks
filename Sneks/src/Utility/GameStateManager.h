@@ -66,7 +66,6 @@ static 	void	SetState(State state);
 	void LoadHelpMenu();
 	void UnloadHelpMenu();
 	void ResetBattle();
-	void UnloadRestart();
 	void LoadPauseMenu();
 	void UnloadPauseMenu();
 	void LoadCountdown();

@@ -121,9 +121,6 @@ void GameStateManager::ResetBattle()
 	buildings->Initialize();
 
 	ResetLives();
-
-	if (m_x_Current == kStateRestart)
-		m_x_Next = kStateGame;
 }
 
 void GameStateManager::LoadBattle()
@@ -271,10 +268,13 @@ void GameStateManager::Update()
 		Load();
 	}
 
-	if (GetAsyncKeyState(AEVK_P))
+	if (GetAsyncKeyState(AEVK_P) && m_x_Current == kStateGame)
 		SetState(kStatePause);
 
 	if (m_x_Current == kStateCountdown)
-		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3)
+		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3.5) // check if countdown is over
 			m_x_Next = kStateGame;
+
+	if (m_x_Current == kStateRestart)
+		m_x_Next = kStateGame;
 }

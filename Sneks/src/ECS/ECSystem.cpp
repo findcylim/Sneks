@@ -275,7 +275,6 @@ void ECSystem::Update()
 
 		m_o_EntityComponentManager->ResolveDeletes();
 
-
 		actualDt -= dtCap;
 		
 		AESysFrameEnd();
