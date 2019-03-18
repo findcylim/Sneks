@@ -240,6 +240,8 @@ void GameStateManager::Load()
 							break;
 	case kStateHelpMenu:	LoadHelpMenu();
 							break;
+	case kStatePause:		LoadPauseMenu();
+							break;	
 	case kStateExit:		ExitGame();
 		break;
 	}
