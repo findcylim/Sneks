@@ -4,6 +4,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CollisionComponent.h"
 #include "../Components/FollowComponent.h"
+#include "../Components/PowerUpComponent.h"
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../ECS/SystemManager.h"
 #include <iostream>
@@ -651,6 +652,8 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 {
 	auto playerNumber = owner->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber;
 	auto transformComp = owner->GetComponent<TransformComponent>();
+
+	owner->GetComponent<PowerUpComponent>()->ResetPowerIncrease();
 
 	transformComp->SetPositionY(0);
 

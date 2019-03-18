@@ -81,6 +81,11 @@ bool PowerUpComponent::GetJustDied()
 		return false;
 }
 
+void  PowerUpComponent::ResetPowerIncrease()
+{
+	m_f_PowerIncrease = 0;
+}
+
 
 
 

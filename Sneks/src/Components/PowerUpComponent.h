@@ -23,6 +23,7 @@ class PowerUpComponent : public BaseComponent
 		PowerUpComponent();
 		void UpdateTime(float dt);
 		void SetPowerUp(PowerUpType type);
+		void ResetPowerIncrease();
 		PowerUpType GetPowerUp();
 		float GetPowerIncrease();
 		bool IsAlive();
