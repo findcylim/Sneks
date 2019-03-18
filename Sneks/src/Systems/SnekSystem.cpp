@@ -402,11 +402,6 @@ void SnekSystem::Receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 
 void SnekSystem::Update(float dt)
 {
-	if (AEInputCheckTriggered(AEVK_3))
-	{
-		p1Lives--;
-	}
-
 	auto i_InvulnerableComponent = 
 		m_po_ComponentManager->GetFirstComponentInstance<InvulnerableComponent>(KComponentInvulnerable);
 
