@@ -33,8 +33,9 @@ public:
 	void SetAlpha(float alpha);
 	float GetAlpha() const;
 	void SetColor(float red, float green, float blue, float alpha);
-	float GetSizeX()	 const;
-	float GetSizeY()	 const;
+	float GetMeshSizeX()	 const;
+	float GetMeshSizeY()	 const;
+	HTVector2 GetSizeInPixels() const;
 	//void Initialize(AEGfxTexture* texture, float sizeX, float sizeY, HTColor color = {1,1,1,1});
 	//void Initialize(AEGfxTexture* texture, HTColor color= {1,1,1,1});
 };

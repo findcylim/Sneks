@@ -712,9 +712,10 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 			{
 				AEVec2FromAngle(&angle, referenceTransform->GetRotation() + PI);
 			}
+			auto referenceDraw = referenceTransform->GetComponent<DrawComponent>();
 
-			angle.x *= referenceTransform->m_f_Scale.x * 0.65f;
-			angle.y *= referenceTransform->m_f_Scale.y * 0.65f;
+			angle.x *= referenceDraw->GetSizeInPixels().x * 0.85f;
+			angle.y *= referenceDraw->GetSizeInPixels().y * 0.85f;
 
 			static_cast<TransformComponent*>(i_Component)->SetPositionX(
 				referenceTransform->m_x_Position.x + angle.x);
@@ -828,8 +829,11 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 				AEVec2FromAngle(&angle, referenceTransform->GetRotation() + PI);
 			}
 
-			angle.x *= referenceTransform->m_f_Scale.x * 0.35f;
-			angle.y *= referenceTransform->m_f_Scale.y * 0.35f;
+			auto referenceDraw = referenceTransform->GetComponent<DrawComponent>();
+
+			angle.x *= referenceDraw->GetSizeInPixels().x * 0.55f;
+			angle.y *= referenceDraw->GetSizeInPixels().y * 0.55f;
+
 
 			static_cast<TransformComponent*>(i_Component)->SetPositionX(
 				referenceTransform->m_x_Position.x + angle.x);

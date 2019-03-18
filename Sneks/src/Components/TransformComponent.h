@@ -12,7 +12,7 @@ private:
 
 public:
 	HTVector2				m_x_Position = {0,0};
-	HTVector2				m_f_Scale    = { 1.0f,1.0f };
+	HTVector2				m_f_Scale    = { 1.0f,1.0f }; //Amount scaled by base normalized mesh
 	HTVector2				m_f_ScaleMultiplier = {1.0f,1.0f};
 
 	void		SetRotation(float f);
