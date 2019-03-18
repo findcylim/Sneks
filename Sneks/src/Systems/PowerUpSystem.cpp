@@ -125,10 +125,12 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
 	{
 		case kPowerUpSpeedIncrease:
 		{
-			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
-				Component::kComponentPhysics)->m_f_Speed *= powerup->GetPowerIncrease();
-			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
-				Component::kComponentPhysics)->m_f_MaxSpeed *= powerup->GetPowerIncrease();
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+				Component::kComponentSnekHead)->m_f_AccelerationForce *= powerup->GetPowerIncrease();
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+				Component::kComponentSnekHead)->m_f_MinSpeed *= powerup->GetPowerIncrease();
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+				Component::kComponentSnekHead)->m_f_MaxVelocity *= powerup->GetPowerIncrease();
 		}
 			break;
 
@@ -195,10 +197,12 @@ void PowerUpSystem::RemovePowerUp(PowerUpComponent* powerup)
 	{
 		case kPowerUpSpeedIncrease:
 		{
-			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
-				Component::kComponentPhysics)->m_f_Speed /= powerup->GetPowerIncrease();
-			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(powerup,
-				Component::kComponentPhysics)->m_f_MaxSpeed /= powerup->GetPowerIncrease();
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+				Component::kComponentSnekHead)->m_f_AccelerationForce /= powerup->GetPowerIncrease();
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+				Component::kComponentSnekHead)->m_f_MinSpeed /= powerup->GetPowerIncrease();
+			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+				Component::kComponentSnekHead)->m_f_MaxVelocity /= powerup->GetPowerIncrease();
 		}
 			break;
 

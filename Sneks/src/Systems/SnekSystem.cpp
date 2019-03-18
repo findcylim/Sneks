@@ -505,25 +505,13 @@ void SnekSystem::Update(float dt)
 
 		if (i_SnekHead->m_f_BoostCooldown > 0)
 			i_SnekHead->m_f_BoostCooldown -= dt;
-
-		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)) && i_SnekHead->m_f_BoostCooldown <= 0)
+		else if (i_SnekHead->m_x_SnekType == kSnekTypeSpeed &&
+			i_SnekHead->m_f_AccelerationForce > 200)
 		{
-			Events::EV_CREATE_PROJECTILE projData;
-			
-			projData.pos = &headTransComponent->m_x_Position;
-
-			projData.velocity = &headPhysicsComponent->m_x_Velocity;
-
-			projData.rot = headTransComponent->GetRotation();
-			projData.speed = 1400.0f;
-			projData.scale = 0.1f;
-			projData.isCollide = true;
-
-			projData.texName = "Moon";
-
+			i_SnekHead->m_f_AccelerationForce = 200;
+			i_SnekHead->m_f_MinSpeed = 300;
+			i_SnekHead->m_f_MaxVelocity = 900;
 			i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
-
-			m_po_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
@@ -531,13 +519,45 @@ void SnekSystem::Update(float dt)
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
 			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
-		else if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_SpecialKey)))
-		{
-				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
-		}
 		else
 		{
 			headPhysicsComponent->m_f_Acceleration = 0;
+		}
+
+		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)))
+		{
+			if (i_SnekHead->m_x_SnekType == kSnekTypeFlip)
+			{
+				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
+			}
+			else if (i_SnekHead->m_f_BoostCooldown <= 0 &&
+				i_SnekHead->m_x_SnekType == kSnekTypeShoot)
+			{
+				Events::EV_CREATE_PROJECTILE projData;
+
+				projData.pos = &headTransComponent->m_x_Position;
+
+				projData.velocity = &headPhysicsComponent->m_x_Velocity;
+
+				projData.rot = headTransComponent->GetRotation();
+				projData.speed = 1400.0f;
+				projData.scale = 0.1f;
+				projData.isCollide = true;
+
+				projData.texName = "Moon";
+
+				i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
+
+				m_po_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
+			}
+			else if (i_SnekHead->m_f_BoostCooldown <= 0 &&
+				i_SnekHead->m_x_SnekType == kSnekTypeSpeed)
+			{
+				i_SnekHead->m_f_AccelerationForce = 2000;
+				i_SnekHead->m_f_MinSpeed = 3000;
+				i_SnekHead->m_f_MaxVelocity = 9000;
+				i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
+			}
 		}
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
@@ -716,7 +736,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
-				static_cast<SnekHeadComponent*>(i_Component)->m_i_SpecialKey = AEVK_Q;
+				//static_cast<SnekHeadComponent*>(i_Component)->m_i_SpecialKey = AEVK_Q;
 			}
 			//TODO :: LOTS OF SHIT
 			//((SnekHeadComponent*)i_Component)->
@@ -1111,3 +1131,101 @@ void SnekSystem::UpdateFollowComponents(SnekHeadComponent* snekHeadComponent)
 				);
 	}
 }
+
+
+void SnekSystem::SetSnek(int input)
+{
+	switch (input)
+	{
+		case 1:
+		{
+			auto snekHeadComponent =
+				m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>
+					(kComponentSnekHead);
+
+			if (snekHeadComponent->m_i_PlayerNumber == 0)
+				snekHeadComponent =
+					static_cast<SnekHeadComponent*>(snekHeadComponent->m_po_NextComponent);
+
+			snekHeadComponent->m_x_SnekType = kSnekTypeSpeed;
+		}
+		break;
+
+		case 2:
+		{
+			auto snekHeadComponent =
+				m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>
+				(kComponentSnekHead);
+
+			if (snekHeadComponent->m_i_PlayerNumber == 0)
+				snekHeadComponent =
+				static_cast<SnekHeadComponent*>(snekHeadComponent->m_po_NextComponent);
+
+			snekHeadComponent->m_x_SnekType = kSnekTypeShoot;
+		}
+		break;
+
+		case 3:
+		{
+			auto snekHeadComponent =
+				m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>
+				(kComponentSnekHead);
+
+			if (snekHeadComponent->m_i_PlayerNumber == 0)
+				snekHeadComponent =
+				static_cast<SnekHeadComponent*>(snekHeadComponent->m_po_NextComponent);
+
+			snekHeadComponent->m_x_SnekType = kSnekTypeFlip;
+		}
+		break;
+
+		case 4:
+		{
+			auto snekHeadComponent =
+				m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>
+				(kComponentSnekHead);
+
+			if (snekHeadComponent->m_i_PlayerNumber != 0)
+				snekHeadComponent =
+				static_cast<SnekHeadComponent*>(snekHeadComponent->m_po_NextComponent);
+
+			snekHeadComponent->m_x_SnekType = kSnekTypeSpeed;
+		}
+		break;
+
+		case 5:
+		{
+			auto snekHeadComponent =
+				m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>
+				(kComponentSnekHead);
+
+			if (snekHeadComponent->m_i_PlayerNumber != 0)
+				snekHeadComponent =
+				static_cast<SnekHeadComponent*>(snekHeadComponent->m_po_NextComponent);
+
+			snekHeadComponent->m_x_SnekType = kSnekTypeShoot;
+		}
+		break;
+
+		case 6:
+		{
+			auto snekHeadComponent =
+				m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>
+				(kComponentSnekHead);
+
+			while (snekHeadComponent->m_i_PlayerNumber != 1)
+				snekHeadComponent =
+				static_cast<SnekHeadComponent*>(snekHeadComponent->m_po_NextComponent);
+
+			snekHeadComponent->m_x_SnekType = kSnekTypeFlip;
+		}
+		break;
+	}
+}
+
+
+
+
+
+
+

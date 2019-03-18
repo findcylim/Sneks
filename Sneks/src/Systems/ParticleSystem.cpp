@@ -168,7 +168,7 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
 
 float ParticleSystem::CalculateRotation(ParticleEffectComponent* pec, TransformComponent* tcp)
 {
-	return ((AERandFloat() - 0.5f) * pec->GetSpreadAngle() + pec->GetOffsetAngle()) + tcp->GetRotation();
+	return ((AERandFloat() - 0.5f) * pec->GetSpreadAngle() + pec->GetOffsetAngle() + tcp->GetRotation());
 }
 
 float ParticleSystem::CalculatePositionX(ParticleEffectComponent* pec, TransformComponent* tcp)

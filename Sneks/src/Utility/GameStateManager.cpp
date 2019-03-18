@@ -227,6 +227,22 @@ void GameStateManager::Unload()
 
 void GameStateManager::Update()
 {
+	if (m_x_Current == kStateMainMenu)
+	{
+		if (AEInputCheckTriggered(AEVK_1))
+			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(1);
+		else if (AEInputCheckTriggered(AEVK_2))
+			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(2);
+		else if (AEInputCheckTriggered(AEVK_3))
+			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(3);
+		else if (AEInputCheckTriggered(AEVK_4))
+			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(4);
+		else if (AEInputCheckTriggered(AEVK_5))
+			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(5);
+		else if (AEInputCheckTriggered(AEVK_6))
+			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(6);
+	}
+
 	if (m_x_Current != m_x_Next)
 	{
 		m_x_Previous = m_x_Current;

@@ -76,6 +76,7 @@ public:
 
 	void TweakP1Damage(int increase);
 	void TweakP2Damage(int increase);
+	void SetSnek(int input);
 };
 
 float GetP1GrowthPercentage();
