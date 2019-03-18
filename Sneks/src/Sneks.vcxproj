@@ -56,6 +56,7 @@
     <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\HUDSystem.cpp" />
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp" />
+    <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\WinScreenSystem.cpp" />
     <ClCompile Include="Systems\ParticleSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Systems\Menus\HelpMenuSystem.h" />
     <ClInclude Include="Systems\Menus\HUDSystem.h" />
     <ClInclude Include="Systems\Menus\MainMenuSystem.h" />
+    <ClInclude Include="Systems\Menus\PauseMenuSystem.h" />
     <ClInclude Include="Systems\Menus\WinScreenSystem.h" />
     <ClInclude Include="Systems\ParticleSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />
