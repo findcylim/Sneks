@@ -65,15 +65,15 @@ void ParticleSystem::Update(float dt)
 
 void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	CollisionGroupName cgn1 = eventData.object1->m_i_CollisionGroupVec[0];
-	CollisionGroupName cgn2 = eventData.object2->m_i_CollisionGroupVec[0];
+	CollisionGroupName cgn1 = eventData._object1->m_i_CollisionGroupVec[0];
+	CollisionGroupName cgn2 = eventData._object2->m_i_CollisionGroupVec[0];
 	CollisionGroupName cgnc;
 	ParticleType type;
 
-	TransformComponent* tcp1 = eventData.object1->GetComponent<TransformComponent>();
+	TransformComponent* tcp1 = eventData._object1->GetComponent<TransformComponent>();
 	//	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 	//		eventData.object1, Component::kComponentTransform);
-	TransformComponent* tcp2 = eventData.object2->GetComponent<TransformComponent>();
+	TransformComponent* tcp2 = eventData._object2->GetComponent<TransformComponent>();
 	//	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
 	//		eventData.object2, Component::kComponentTransform);
 

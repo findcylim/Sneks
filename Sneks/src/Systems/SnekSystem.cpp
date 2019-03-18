@@ -94,12 +94,12 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	//std::cout << "Colliding: " << eventData.object1->m_po_OwnerEntity->m_pc_EntityName << " and " <<
 	//	eventData.object2->m_po_OwnerEntity->m_pc_EntityName << std::endl;
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
+	if (eventData._object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
 	{
 		//std::cout << "Moon Collided" << std::endl;
-		if (eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
+		if (eventData._object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
 		{
-			auto snekHeadFollow = eventData.object2->m_po_OwnerEntity->
+			auto snekHeadFollow = eventData._object2->m_po_OwnerEntity->
 				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
 			if (snekHeadFollow->m_po_OwnerEntity->m_b_IsActive)
 			{
@@ -124,17 +124,17 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		//body collision destroys the body
 //		HeadCollideBodyCheck(eventData.object1, eventData.object2);
-		HeadCollideBodyCheck(eventData.object2, eventData.object1);
+		HeadCollideBodyCheck(eventData._object2, eventData._object1);
 	}
 
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ||
-		 eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
+	if (eventData._object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ||
+		 eventData._object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
 	{
 		
-		auto objectColliding = eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
-			eventData.object1 : eventData.object2;
-		auto otherObjectCollide = eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
-			eventData.object1 : eventData.object2;
+		auto objectColliding = eventData._object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
+							   eventData._object1 : eventData._object2;
+		auto otherObjectCollide = eventData._object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
+							      eventData._object1 : eventData._object2;
 
 		//Create new snek Body parts
 		if (auto snekHeadComp = 
@@ -178,9 +178,9 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 
 	//if both have snek heads
-	if (auto snekHed1 = eventData.object1->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
+	if (auto snekHed1 = eventData._object1->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 	{
-		if (auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
+		if (auto snekHed2 = eventData._object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
 		{
 			if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
 			{
@@ -364,7 +364,7 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 
 void SnekSystem::Receive(const Events::EV_SNEK_INVULNERABLE& eventData)
 {
-	BodyInvulnerableSet(eventData.snekHead);
+	BodyInvulnerableSet(eventData._snekHead);
 }
 
 void SnekSystem::Update(float dt)
@@ -395,18 +395,7 @@ void SnekSystem::Update(float dt)
 
 		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)))
 		{
-			Events::EV_CREATE_PROJECTILE projData;
-			
-			projData.pos = &headTransComponent->m_x_Position;
-
-			projData.velocity = &headPhysicsComponent->m_x_Velocity;
-
-			projData.rot = headTransComponent->GetRotation();
-			projData.speed = 1400.0f;
-			projData.scale = 0.1f;
-			projData.isCollide = true;
-
-			projData.texName = "Moon";
+			Events::EV_CREATE_PROJECTILE projData(true, headTransComponent->GetRotation(),1400.0f,0.1f,&headTransComponent->m_x_Position, &headPhysicsComponent->m_x_Velocity,"Moon");
 
 			m_po_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 		}

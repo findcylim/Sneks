@@ -184,18 +184,18 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 
 void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
 {
-	AddElement(eventData.canvas,			eventData.initialPosition,		eventData.elementType, 
-			   eventData.elementEntityName, eventData.uiElementSpriteName, 
-			   eventData.uiTextLabel,		eventData.uiHoverSpriteName,	
-			   eventData.uiClickSpriteName,eventData.ButtonPressFunc);
+	AddElement(eventData._canvas,			eventData._initialPosition,		eventData._elementType, 
+			   eventData._elementEntityName, eventData._uiElementSpriteName, 
+			   eventData._uiTextLabel,		eventData._uiHoverSpriteName,	
+			   eventData._uiClickSpriteName,eventData._ButtonPressFunc);
 }
 
 void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
+	if (eventData._object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData._object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{
-		auto elementComp = eventData.object2->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
-		auto collisionComponent = eventData.object2->m_po_OwnerEntity->GetComponent<CollisionComponent>();
+		auto elementComp = eventData._object2->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
+		auto collisionComponent = eventData._object2->m_po_OwnerEntity->GetComponent<CollisionComponent>();
 		collisionComponent->m_b_Colliding = true;
 
 		//TODO
@@ -203,7 +203,7 @@ void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		//On mouse click carry on with this 
 		if (GetAsyncKeyState(VK_LBUTTON) < 0)
 		{
-			auto drawComponent = eventData.object1->m_po_OwnerEntity->GetComponent<DrawComponent>();
+			auto drawComponent = eventData._object1->m_po_OwnerEntity->GetComponent<DrawComponent>();
 			drawComponent->m_px_Texture = elementComp->m_x_HoverSprite;
 			elementComp->m_b_IsClicked = true;
 			if (elementComp && elementComp->ButtonFunction)

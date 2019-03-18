@@ -9,6 +9,7 @@ class BaseSystem;
 class BaseEventListener
 {
 public:
+	virtual void IReceive(const Events::IEvent&) = 0;
 	virtual ~BaseEventListener() {};
 };
 
@@ -24,7 +25,10 @@ public:
 
 	//	Derived Systems that inherit this listener will overload their own receieve functions for whatever 
 	//	event that they are listening for.
-
+	void IReceive(const Events::IEvent& event)
+	{
+		Receive(static_cast<const T&>(event));
+	}
 	virtual void Receive(const T& eventData) = 0;
 };
 

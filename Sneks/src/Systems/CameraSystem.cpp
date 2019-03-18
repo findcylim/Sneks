@@ -4,12 +4,12 @@
 
 void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
+	if(eventData._object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData._object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
 		SetShake(0.4f);
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
+	else if (eventData._object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
 	{
 	}
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
+	if (eventData._object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData._object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{ 
 	}
 	else

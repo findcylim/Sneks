@@ -18,7 +18,3 @@ void EventManager::Update()
 	//ProcessEvents();
 }
 
-void EventManager::ProcessEvents()
-{
-	
-}

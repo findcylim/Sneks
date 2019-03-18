@@ -31,18 +31,18 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 {
 	
-	auto phyComp = eventData.caller;
+	auto phyComp = eventData._caller;
 	auto snekHeadComponent = m_po_ComponentManager->
 		GetSpecificComponentInstance<SnekHeadComponent>(phyComp, kComponentSnekHead);
 
-	if (eventData.key == Events::MOVE_KEY_UP) {
+	if (eventData._key == Events::MOVE_KEY_UP) {
 		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
 	}
-	else if (eventData.key == Events::MOVE_KEY_DOWN)
+	else if (eventData._key == Events::MOVE_KEY_DOWN)
 	{
 		phyComp->m_f_Acceleration = -snekHeadComponent->m_f_AccelerationForce / 3;
 	}
-	else if (eventData.key == Events::MOVE_KEY_LEFT) {
+	else if (eventData._key == Events::MOVE_KEY_LEFT) {
 
 		auto turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
 
@@ -57,7 +57,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 			turnSpeedMultiplier
 			);
 	}
-	else if (eventData.key == Events::MOVE_KEY_RIGHT) {
+	else if (eventData._key == Events::MOVE_KEY_RIGHT) {
 		auto turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
 
 		if (turnSpeedMultiplier > 1.0f)
