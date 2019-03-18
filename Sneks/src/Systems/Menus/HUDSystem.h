@@ -11,6 +11,4 @@ public:
 	void Update(float dt) override;
 	HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GraphicsSystem* graphics);
 	~HUDSystem();
-	void CreateBar1();
-	void CreateBar2();
 };

@@ -28,12 +28,12 @@ int GetWinner()
 
 float GetP1GrowthPercentage()
 {
-	return P1Growth/P1GrowthMeter * 100;
+	return P1Growth/P1GrowthMeter;
 }
 
 float GetP2GrowthPercentage()
 {
-	return P2Growth/P2GrowthMeter * 100;
+	return P2Growth/P2GrowthMeter;
 }
 
 void ResetLives()
