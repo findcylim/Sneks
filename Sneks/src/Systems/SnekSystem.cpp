@@ -200,13 +200,17 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					{
 						P1Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+
 					}
 					else
 					{
 						P2Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
 
+					//m_o_GameStateManager->SetState(kStateCountdown); //restart the countdown
 
 					/*
 					m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
@@ -224,13 +228,18 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					if (snekHed2->m_i_PlayerNumber == 0)
 					{
 						P1Lives--;
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
 					else
 					{
 						P2Lives--;
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
+
+					//m_o_GameStateManager->SetState(kStateCountdown); //restart the countdown
+
 					/*
 					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
 					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);

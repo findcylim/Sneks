@@ -121,6 +121,9 @@ void GameStateManager::ResetBattle()
 	buildings->Initialize();
 
 	ResetLives();
+
+	if (m_x_Current == kStateRestart)
+		m_x_Next = kStateGame;
 }
 
 void GameStateManager::LoadBattle()
@@ -173,8 +176,6 @@ void GameStateManager::UnloadWinScreen()
 
 void GameStateManager::LoadWinScreen()
 {
-	m_o_SystemManager->DisableSystem<PhysicsSystem>();
-
 	if (GetP1Lives() <= 0)
 	{
 		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
@@ -197,12 +198,8 @@ void GameStateManager::LoadPauseMenu()
 
 void GameStateManager::UnloadPauseMenu()
 {
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseEntity");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseContinueButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseRestartButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PauseReturnToMainButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseBackground");
 }
 
 void GameStateManager::LoadCountdown()
@@ -239,7 +236,6 @@ void GameStateManager::Load()
 	case kStatePause:		LoadPauseMenu();
 							break;
 	case kStateRestart:		ResetBattle();
-							m_x_Next = kStateHelpMenu;
 							break;
 	case kStateExit:		ExitGame();
 							break;
@@ -276,9 +272,7 @@ void GameStateManager::Update()
 	}
 
 	if (GetAsyncKeyState(AEVK_P))
-	{
 		SetState(kStatePause);
-	}
 
 	if (m_x_Current == kStateCountdown)
 		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3)
