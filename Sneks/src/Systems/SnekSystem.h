@@ -73,6 +73,7 @@ public:
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
 	void IncreaseGrowthRate(unsigned short player, float increase);
 	void DecreaseGrowthRate(unsigned short player, float decrease);
+
 };
 
 float GetP1GrowthPercentage();

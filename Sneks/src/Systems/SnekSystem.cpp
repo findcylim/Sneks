@@ -106,14 +106,14 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					RemoveSnekBody(snekHeadFollow->m_x_BodyParts.at(
 						snekHeadFollow->m_x_BodyParts.size() > i_P2Damage ?
 						snekHeadFollow->m_x_BodyParts.size() - i_P2Damage : 0), snekHeadFollow);
-					i_P2Damage++;
+					//i_P2Damage++;
 				}
 				else
 				{
 					RemoveSnekBody(snekHeadFollow->m_x_BodyParts.at(
 						snekHeadFollow->m_x_BodyParts.size() > i_P1Damage ?
 						snekHeadFollow->m_x_BodyParts.size() - i_P1Damage : 0), snekHeadFollow);
-					i_P1Damage++;
+					//i_P1Damage++;
 				}
 			}
 		}
@@ -185,12 +185,12 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				RemoveSnekBody(snekHed1->m_x_BodyParts.at(
 					snekHed1->m_x_BodyParts.size() > i_P2Damage ?
 					snekHed1->m_x_BodyParts.size() - i_P2Damage : 0), snekHed1);
-				i_P2Damage++;
+				//i_P2Damage++;
 
 				RemoveSnekBody(snekHed2->m_x_BodyParts.at(
 					snekHed2->m_x_BodyParts.size() > i_P1Damage ?
 					snekHed2->m_x_BodyParts.size() - i_P1Damage : 0), snekHed2);
-				i_P1Damage++;
+				//i_P1Damage++;
 
 				if (snekHed1->m_x_BodyParts.size() == 1)
 				{
@@ -201,7 +201,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 
 					}
-					else					{
+					else
+					{
 						P2Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
