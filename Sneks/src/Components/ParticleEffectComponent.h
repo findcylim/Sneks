@@ -9,6 +9,7 @@ enum ParticleType : unsigned char
 {
 	kParticleEmpty,
 	kParticleBasicOneShot,
+	kParticleLargeOneShot,
 	kParticleTrailEffect
 };
 

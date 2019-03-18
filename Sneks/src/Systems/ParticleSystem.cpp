@@ -85,6 +85,35 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		cgnc = CollisionGroupName::kCollGroupSnek1Body;
 		type = ParticleType::kParticleBasicOneShot;
 	}
+	else 
+		return;
+	if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	{
+		cgnc = CollisionGroupName::kCollGroupSnek2Body;
+		type = ParticleType::kParticleLargeOneShot;
+	}
+	else
+		return;
+	if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	{
+		cgnc = CollisionGroupName::kCollGroupSnek1Head;
+		type = ParticleType::kParticleLargeOneShot;
+	}
+	else 
+		return;
+	if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	{
+		//cgnc = CollisionGroupName::kCollGroupSnek2Head;
+		//type = ParticleType::kParticleLargeOneShot;
+	}
+	else 
+		return;
+
+	/*if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	{
+		cgnc = CollisionGroupName::kCollGroupSnek1Body;
+		type = ParticleType::kParticleBasicOneShot;
+	}
 	else if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
 	{
 		cgnc = CollisionGroupName::kCollGroupSnek2Body;
@@ -92,7 +121,14 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 	else if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
 	{
+		cgnc = CollisionGroupName::kCollGroupSnek1Head;
+		type = ParticleType::kParticleBasicOneShot;
 	}
+	else if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	{
+		cgnc = CollisionGroupName::kCollGroupSnek2Head;
+		type = ParticleType::kParticleBasicOneShot;
+	}*/
 }
 
 bool ParticleSystem::CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* spawn1,

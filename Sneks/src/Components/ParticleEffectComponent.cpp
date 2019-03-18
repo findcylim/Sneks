@@ -9,7 +9,7 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_x_ParticleType = type;
 		
 			m_px_ParticleTexture = graphics->FetchTexture("Rock");
-			m_i_ParticleDrawOrder = 6;
+			m_i_ParticleDrawOrder = 1;
 		
 			m_i_SplitNumber = 0;
 			m_i_CurrentSplit = -1;
@@ -24,6 +24,36 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_f_OffsetAngle = PI * 0.0f;
 		
 			m_f_ParticleSpeed = 50.0f;
+			m_f_ParticleSpawnFrequency = 0.0f;
+			m_i_ParticleSpawnDensity = 10;
+			m_f_ParticleMaxLifetime = 2.0f;
+
+			m_f_ParticleEffectMaxLifetime = 0.0f;
+			m_f_ParticleEffectRemainingLifetime = 0.0f;
+			m_b_IsParticleEffectEternal = false;
+			m_b_IsParticleEffectOneShot = true;
+			m_b_HasParticleEffectFired = false;
+			break;
+
+		case ParticleType::kParticleLargeOneShot:
+			m_x_ParticleType = type;
+
+			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_i_ParticleDrawOrder = 1;
+
+			m_i_SplitNumber = 0;
+			m_i_CurrentSplit = -1;
+
+			m_f_ParticleSize = 1.0f;
+
+			m_f_SpreadDistance = 0.0f;
+			m_f_AngleForSpreadDistance = PI * 0.0f;
+			m_f_SpreadAngle = PI * 2.0f;
+			m_f_OffsetDistance = 0.0f;
+			m_f_AngleForOffsetDistance = PI * 0.0f;
+			m_f_OffsetAngle = PI * 0.0f;
+
+			m_f_ParticleSpeed = 100.0f;
 			m_f_ParticleSpawnFrequency = 0.0f;
 			m_i_ParticleSpawnDensity = 10;
 			m_f_ParticleMaxLifetime = 2.0f;
