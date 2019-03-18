@@ -218,11 +218,12 @@ void ECSystem::InitializeEngine()
 	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
-  
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
 
 	m_o_SystemManager->DisableSystem<HUDSystem>();
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();
 	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
+	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 
