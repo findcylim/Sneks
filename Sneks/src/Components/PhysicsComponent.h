@@ -11,7 +11,7 @@ class PhysicsComponent : public BaseComponent
 {
 public:
 	float		               m_f_Speed;
-	float		               m_f_MaxSpeed = 900;
+	float		               m_f_MaxSpeed = 600;
 	float							m_f_Acceleration;
 	HTVector2					m_x_Velocity ={};
 	float						   m_f_Mass = 10;

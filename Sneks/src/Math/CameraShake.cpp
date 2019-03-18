@@ -35,13 +35,13 @@ void CameraShake::Update(CameraComponent* camComp, float dt)
 		m_x_CameraOffset.y = static_cast<float>(cos(m_f_CurrentShakeAngle) * m_f_CurrentShakeMagnitude);
 		//Shakes the Camera
 		//AEGfxSetCamPosition(m_x_ScreenCentre.x + m_x_CameraOffset.x, m_x_ScreenCentre.y + m_x_CameraOffset.y);
-		camComp->m_f_VirtualOffset.x = m_x_CameraOffset.x;
-		camComp->m_f_VirtualOffset.y = m_x_CameraOffset.y;
+		camComp->m_f_VirtualShakeOffset.x = m_x_CameraOffset.x;
+		camComp->m_f_VirtualShakeOffset.y = m_x_CameraOffset.y;
 
 		//Don't micro shake the screen, also returns the screen back to centre after shaking is done
 		if (m_f_CurrentShakeMagnitude < 0.2f) {
 			m_f_CurrentShakeMagnitude = 0;
-			camComp->m_f_VirtualOffset = {0,0};
+			camComp->m_f_VirtualShakeOffset = {0,0};
 			//AEGfxSetCamPosition(m_x_ScreenCentre.x, m_x_ScreenCentre.y);
 		}
 	}

@@ -9,7 +9,9 @@ enum ParticleType : unsigned char
 {
 	kParticleEmpty,
 	kParticleBasicOneShot,
-	kParticleTrailEffect
+	kParticleTrailEffect,
+	kParticleSnekImpactSparks,
+	kParticleLargeOneShot,
 };
 
 class ParticleEffectComponent : public BaseComponent

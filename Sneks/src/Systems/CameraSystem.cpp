@@ -32,6 +32,8 @@ CameraSystem::~CameraSystem()
 void CameraSystem::Initialize()
 {
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	cameraComponent->m_f_VirtualOffset = { 0, 0 };
 }
 
 void CameraSystem::UpdateCamera(const float dt) const
@@ -41,84 +43,88 @@ void CameraSystem::UpdateCamera(const float dt) const
 	//printf("%f\n", x);
 	m_po_CamShake->Update(cameraComponent, dt);
 
-	if (cameraComponent) {
+	if (cameraComponent) 
+	{
 		cameraComponent->m_x_CurrentViewDistance.x = cameraComponent->m_px_ScreenSize.x / cameraComponent->m_f_VirtualScale;
 		cameraComponent->m_x_CurrentViewDistance.y = cameraComponent->m_px_ScreenSize.y / cameraComponent->m_f_VirtualScale;
 
 		float lowestDistanceFromScreenEdgeX = -cameraComponent->m_x_CurrentViewDistance.x;
 		float lowestDistanceFromScreenEdgeY = -cameraComponent->m_x_CurrentViewDistance.y;
-
-		//ZOOM OUT CHECKS
-		for (auto i_Object : cameraComponent->m_v_EntitiesToTrack)
+		if (cameraComponent->m_b_TrackObjects)
 		{
-			float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualPosition.x)
-				- cameraComponent->m_x_CurrentViewDistance.x / 2;
-			float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualPosition.y)
-				- cameraComponent->m_x_CurrentViewDistance.y / 2;
+			//ZOOM OUT CHECKS
+			for (auto i_Object : cameraComponent->m_v_EntitiesToTrack)
+			{
+				float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualOffset.x)
+					- cameraComponent->m_x_CurrentViewDistance.x / 2;
+				float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualOffset.y)
+					- cameraComponent->m_x_CurrentViewDistance.y / 2;
 
-			if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
-			{
-				cameraComponent->m_i_CurrentStage = -1;
-				cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
-			}
-			if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y / 2 * cameraComponent->m_x_CurrentViewDistance.y)
-			{
-				cameraComponent->m_i_CurrentStage = -1;
-				cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
-			}
-			if (distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x * cameraComponent->m_x_CurrentViewDistance.x)
-			{
-				cameraComponent->m_i_CurrentStage = -2;
-				cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
-			}
-			if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y * cameraComponent->m_x_CurrentViewDistance.y)
-			{
-				cameraComponent->m_i_CurrentStage = -2;
-				cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
+				if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
+				{
+					cameraComponent->m_i_CurrentStage = -1;
+					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
+				}
+				if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y / 2 * cameraComponent->m_x_CurrentViewDistance.y)
+				{
+					cameraComponent->m_i_CurrentStage = -1;
+					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
+				}
+				if (distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x * cameraComponent->m_x_CurrentViewDistance.x)
+				{
+					cameraComponent->m_i_CurrentStage = -2;
+					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
+				}
+				if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y * cameraComponent->m_x_CurrentViewDistance.y)
+				{
+					cameraComponent->m_i_CurrentStage = -2;
+					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
+				}
+
+				//if (cameraComponent->m_f_VirtualScale < 0.5f)
+				//	cameraComponent->m_f_ZoomVelocity = 0;
+
+				//Record the object nearest to the edge
+				if (distFromScreenEdgeX > lowestDistanceFromScreenEdgeX &&
+					distFromScreenEdgeY > lowestDistanceFromScreenEdgeY)
+				{
+					lowestDistanceFromScreenEdgeX = distFromScreenEdgeX;
+					lowestDistanceFromScreenEdgeY = distFromScreenEdgeY;
+				}
 			}
 
 
-
-			//Record the object nearest to the edge
-			if (distFromScreenEdgeX > lowestDistanceFromScreenEdgeX &&
-				distFromScreenEdgeY > lowestDistanceFromScreenEdgeY)
+			//ZOOM IN CHECKS
+			if (cameraComponent->m_f_VirtualScale < 1.0f && cameraComponent->m_f_ZoomVelocity >= 0)
 			{
-				lowestDistanceFromScreenEdgeX = distFromScreenEdgeX;
-				lowestDistanceFromScreenEdgeY = distFromScreenEdgeY;
+				if (-lowestDistanceFromScreenEdgeX >= cameraComponent->m_f_DistanceInTolerance.x * cameraComponent->m_x_CurrentViewDistance.x &&
+					-lowestDistanceFromScreenEdgeY >= cameraComponent->m_f_DistanceInTolerance.y * cameraComponent->m_x_CurrentViewDistance.y) {
+					//cameraComponent->m_i_CurrentStage = 1;
+					cameraComponent->m_f_ZoomVelocity += cameraComponent->m_x_CameraAttributes.zoomInBaseSpeed;
+				}
+
 			}
+			/*TODO:: Stage based camera zoom (if further then zoom slower)
+			if (m_i_CurrentStage == -1)
+				m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
+				//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30 * m_x_CameraAttributes.perStageMultiplier;
+			else if (m_i_CurrentStage == -2)
+				m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
+
+				//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30;
+			case 1://m_f_ZoomVelocity += m_x_CameraAttributes.zoomInBaseSpeed;
+				break;
+			case 0:
+				break;
+			default: m_f_ZoomVelocity = 0;
+			}*/
 		}
-
-
-		//ZOOM IN CHECKS
-		if (cameraComponent->m_f_VirtualScale < 1.0f && cameraComponent->m_f_ZoomVelocity >= 0)
-		{
-			if (-lowestDistanceFromScreenEdgeX >= cameraComponent->m_f_DistanceInTolerance.x * cameraComponent->m_x_CurrentViewDistance.x &&
-				-lowestDistanceFromScreenEdgeY >= cameraComponent->m_f_DistanceInTolerance.y * cameraComponent->m_x_CurrentViewDistance.y) {
-				cameraComponent->m_i_CurrentStage = 1;
-				cameraComponent->m_f_ZoomVelocity += cameraComponent->m_x_CameraAttributes.zoomInBaseSpeed;
-			}
-
-		}
-		/*TODO:: Stage based camera zoom (if further then zoom slower)
-		if (m_i_CurrentStage == -1)
-			m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
-			//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30 * m_x_CameraAttributes.perStageMultiplier;
-		else if (m_i_CurrentStage == -2)
-			m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
-
-			//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30;
-		case 1://m_f_ZoomVelocity += m_x_CameraAttributes.zoomInBaseSpeed;
-			break;
-		case 0:
-			break;
-		default: m_f_ZoomVelocity = 0;
-		}*/
 
 		if (cameraComponent->m_f_ZoomVelocity > cameraComponent->m_x_CameraAttributes.zoomInMaxSpeed)
 			cameraComponent->m_f_ZoomVelocity = cameraComponent->m_x_CameraAttributes.zoomInMaxSpeed;
 		else if (cameraComponent->m_f_ZoomVelocity < -cameraComponent->m_x_CameraAttributes.zoomOutMaxSpeed)
 			cameraComponent->m_f_ZoomVelocity = -cameraComponent->m_x_CameraAttributes.zoomOutMaxSpeed;
-		else if (fabsf(cameraComponent->m_f_ZoomVelocity) < 0.01f) {
+		else if (fabsf(cameraComponent->m_f_ZoomVelocity) < 0.0005f) {
 			cameraComponent->m_f_ZoomVelocity = 0;
 			cameraComponent->m_i_CurrentStage = 0;
 		}
@@ -128,7 +134,8 @@ void CameraSystem::UpdateCamera(const float dt) const
 			cameraComponent->m_b_TrackObjects = !cameraComponent->m_b_TrackObjects;
 		}
 
-		if (cameraComponent->m_b_TrackObjects) {
+		if (cameraComponent->m_b_TrackObjects)
+		{
 			HTVector2 averagePosition ={
 		(cameraComponent->m_v_EntitiesToTrack.front()->GetPosition().x + cameraComponent->m_v_EntitiesToTrack.back()->GetPosition().x)
 			/ 2,
@@ -139,7 +146,7 @@ void CameraSystem::UpdateCamera(const float dt) const
 			cameraComponent->m_f_TargetOffset.y = -averagePosition.y;
 		}
 
-		cameraComponent->m_f_VirtualPosition += (cameraComponent->m_f_TargetOffset - cameraComponent->m_f_VirtualPosition) 
+		cameraComponent->m_f_VirtualOffset += (cameraComponent->m_f_TargetOffset - cameraComponent->m_f_VirtualOffset) 
 														* cameraComponent->m_f_PanningSpeed * dt;
 		
 			
@@ -150,10 +157,10 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 
 		//CULLING SYSTEM::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-		Aabb cameraAABB = { {-cameraComponent->m_f_VirtualPosition.x - cameraComponent->m_x_CurrentViewDistance.x,
-			-cameraComponent->m_f_VirtualPosition.y - cameraComponent->m_x_CurrentViewDistance.y},
-			{-cameraComponent->m_f_VirtualPosition.x + cameraComponent->m_x_CurrentViewDistance.x,
-			-cameraComponent->m_f_VirtualPosition.y + cameraComponent->m_x_CurrentViewDistance.y} };
+		Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->m_f_VirtualOffset.y - cameraComponent->m_x_CurrentViewDistance.y},
+			{-cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_x_CurrentViewDistance.x,
+			-cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_x_CurrentViewDistance.y} };
 
 		//original param
 		//Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x / 2,
@@ -173,13 +180,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 				transformComponent->GetPosition().y + transformComponent->GetScale().y / 2} };
 				
 			auto collisionComponent = transformComponent->GetComponent<CollisionComponent>();
-				//m_po_ComponentManager->GetSpecificComponentInstance
-				//<CollisionComponent>(transformComponent, kComponentCollision);
 
 			auto drawComponent =transformComponent->GetComponent<DrawComponent>();
-				//m_po_ComponentManager->GetSpecificComponentInstance
-				//<DrawComponent>(transformComponent, kComponentDraw);
-			
+
 			if (AabbHelper::CheckAabbIntersect(cameraAABB, otherAABB))
 			{
 				if (collisionComponent)
@@ -225,6 +228,15 @@ float CameraSystem::AddShake(float magnitude)
 void CameraSystem::SetShake(float magnitude)
 {
 	m_po_CamShake->SetShake(magnitude);
+}
+
+void CameraSystem::RemoveCameraTrackObjects()
+{
+	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	if (cameraComponent)
+	{
+		cameraComponent->m_v_EntitiesToTrack.clear();
+	}
 }
 
 

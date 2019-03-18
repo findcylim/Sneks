@@ -17,6 +17,7 @@
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include "../Systems/Menus/HelpMenuSystem.h"
+#include "../Systems/Menus/PauseMenuSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -89,7 +90,7 @@ void GameStateManager::UnloadMainMenu()
 
 void GameStateManager::ResetBattle()
 {
-	auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
+	//auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
 
 	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
 
@@ -98,21 +99,30 @@ void GameStateManager::ResetBattle()
 		m_o_SystemManager->GetSystem<SnekSystem>("Snek")->DeleteSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
 		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
 	}
+	m_o_EntityManager->ResolveDeletes();
 
-	m_o_SystemManager->RemoveSystem(m_o_SystemManager->GetSystem<BaseSystem>("Snek"));
-	auto snek = new SnekSystem(m_o_EntityManager, graphics, this);
-	m_o_SystemManager->AddSystem(snek);
-	snek->SetName("Snek");
-	snek->Initialize();
+	auto camera = m_o_SystemManager->GetSystem<CameraSystem>("Camera");
+	camera->RemoveCameraTrackObjects();
 
+	//m_o_SystemManager->RemoveSystem(m_o_SystemManager->GetSystem<BaseSystem>("Snek"));
+	//auto snek = new SnekSystem(m_o_EntityManager, graphics, this);
+	//m_o_SystemManager->AddSystem(snek);
+	//snek->SetName("Snek");
+	//snek->Initialize();
+	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
 	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
 	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
 
-	auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
-	m_o_SystemManager->AddSystem(buildings);
-	buildings->SetName("Buildings");
-	buildings->Initialize();
+	auto buildings = m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings");
+	buildings->RemoveBuildings();
+	buildings->GenerateNewBuildings(500);
 
+	
+	//auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
+	//m_o_SystemManager->AddSystem(buildings);
+	//buildings->SetName("Buildings");
+	//buildings->Initialize();
+	ResetDamage();
 	ResetLives();
 }
 
@@ -127,6 +137,10 @@ void GameStateManager::LoadBattle()
 	m_o_SystemManager->EnableSystem<SnekSystem>();
 	m_o_SystemManager->EnableSystem<ProjectileSystem>();
 	m_o_SystemManager->EnableSystem<ParticleSystem>();
+
+	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
+	cameraComponent->m_b_TrackObjects = true;
 }
 
 void GameStateManager::UnloadBattle()
@@ -166,8 +180,6 @@ void GameStateManager::UnloadWinScreen()
 
 void GameStateManager::LoadWinScreen()
 {
-	m_o_SystemManager->DisableSystem<PhysicsSystem>();
-
 	if (GetP1Lives() <= 0)
 	{
 		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
@@ -181,6 +193,30 @@ void GameStateManager::LoadWinScreen()
 	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
 }
 
+void GameStateManager::LoadPauseMenu()
+{
+	m_o_SystemManager->EnableSystem<PauseMenuSystem>();
+	m_o_SystemManager->DisableSystem<PhysicsSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+}
+
+void GameStateManager::UnloadPauseMenu()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
+}
+
+void GameStateManager::LoadCountdown()
+{
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
+	timeStamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+}
+
+void GameStateManager::UnloadCountdown()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
+}
+
 void GameStateManager::ExitGame()
 {
 	*EngineStatus = false;
@@ -188,7 +224,8 @@ void GameStateManager::ExitGame()
 
 void GameStateManager::Load()
 {
-	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
+//	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
+	if (m_x_Previous == kStateWinScreen)
 	{
 		ResetBattle();
 	}
@@ -203,6 +240,8 @@ void GameStateManager::Load()
 							break;
 	case kStateHelpMenu:	LoadHelpMenu();
 							break;
+	case kStatePause:		LoadPauseMenu();
+							break;	
 	case kStateExit:		ExitGame();
 		break;
 	}
@@ -221,6 +260,10 @@ void GameStateManager::Unload()
 	case kStateWinScreen:	UnloadWinScreen();
 							break;
 	case kStateHelpMenu:	UnloadHelpMenu();
+							break;
+	case kStateCountdown:	UnloadCountdown();
+							break;
+	case kStatePause:		UnloadPauseMenu();
 							break;
 	}
 }
@@ -250,4 +293,14 @@ void GameStateManager::Update()
 		Unload();
 		Load();
 	}
+
+	if (GetAsyncKeyState(AEVK_P) && m_x_Current == kStateGame)
+		SetState(kStatePause);
+
+	if (m_x_Current == kStateCountdown)
+		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3.5) // check if countdown is over
+			m_x_Next = kStateGame;
+
+	if (m_x_Current == kStateRestart)
+		m_x_Next = kStateGame;
 }

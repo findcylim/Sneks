@@ -58,6 +58,7 @@ public:
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;
 	void Initialize();
 	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName, int controlScheme) const;
+	void ResetSnek(SnekHeadEntity* owner);
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const;
 	void CreateSnekTail(SnekHeadEntity* owner, const char* textureName) const;
 	void DeleteSnek(SnekHeadEntity* snekHead);
@@ -66,8 +67,7 @@ public:
 	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
 	void MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange,
 	                           PhysicsComponent* headPhysicsComponent) const;
-	void MoveTowardsReference3(DrawComponent* reference, DrawComponent* toChange,
-	                           PhysicsComponent* headPhysicsComponent) const;
+
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
@@ -84,6 +84,8 @@ float GetP2GrowthPercentage();
 int GetP1Lives();
 int GetP2Lives();
 void ResetLives();
+void ResetDamage();
+extern int i_P1Damage, i_P2Damage;
 
 //float GetFlipChargeRate();
 #endif

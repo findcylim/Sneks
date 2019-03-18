@@ -38,10 +38,12 @@ public:
 	void UpdateDrawOrderVector(DrawComponent* firstDrawComponent);
 	void UpdateDrawOrderVector();
 	void Draw(float dt);
+	void DrawBloom(DrawComponent* drawComponent);
 	void UpdateMatrices(CameraComponent*) const;
 	void DrawTextRenderer()const;
 private:
 	std::vector<std::vector<DrawComponent*>> m_x_DrawOrder ={};
+	//std::vector<DrawComponent* [10000]> m_x_DrawOrderTest;
 
 };
 #endif

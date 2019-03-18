@@ -16,6 +16,7 @@
 #include "../Components/TextRendererComponent.h"
 #include "../Components/PowerUpComponent.h"
 #include "../Components/AnimationComponent.h"
+#include "../Components/BloomComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -109,8 +110,9 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 		case kComponentAnimation: 
 			componentPointer = static_cast<BaseComponent*>(new AnimationComponent);
 			break;
-		case kComponentEnd: break;
-		default: ;
+		case kComponentBloom: 
+			componentPointer = static_cast<BaseComponent*>(new BloomComponent);
+			break;
 		}
 
 		if (componentPointer)

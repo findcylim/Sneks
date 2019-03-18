@@ -8,10 +8,10 @@ MainMenuSystem::MainMenuSystem(EntityManager* entityManagerPtr, EventManager* ev
 	:BaseSystem(entityManagerPtr)
 {
 	m_po_EventManagerPtr = eventManager;
-	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	cameraComponent->m_f_VirtualPosition.x = -AEGfxGetWinMaxX();
-	cameraComponent->m_f_VirtualPosition.y = AEGfxGetWinMaxY();
-	cameraComponent->m_f_VirtualScale = 1.0f;
+	//auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	//cameraComponent->m_f_VirtualOffset.x = -AEGfxGetWinMaxX();
+	//cameraComponent->m_f_VirtualOffset.y = AEGfxGetWinMaxY();
+	//cameraComponent->m_f_VirtualScale = 1.0f;
 }
 
 MainMenuSystem::~MainMenuSystem()
@@ -39,6 +39,7 @@ void QuitGame()
 {
 	GameStateManager::SetState(kStateExit);
 }
+
 void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
 {
 	//CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
@@ -57,8 +58,44 @@ void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(QuitElement);
 }
 
+
+bool zoomIn = true;
+float zoomPause = 0.2f;
+float zoomSpeed = 0.05f;
 void MainMenuSystem::Update(float dt)
 {
-	(void)dt;
+	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	cameraComponent->m_x_CameraAttributes.speedDecay = 0.99f;
+	cameraComponent->m_b_TrackObjects = false;
+
+	if (zoomPause > 0.0f)
+	{
+		if (fabsf(cameraComponent->m_f_ZoomVelocity) <= 0.02f) {
+			zoomPause -= dt;
+		}
+	}
+	else {
+		if (zoomIn) {
+			cameraComponent->m_f_ZoomVelocity += zoomSpeed * dt;
+			if (cameraComponent->m_f_ZoomVelocity >= 0.05f)
+				cameraComponent->m_f_ZoomVelocity = 0.05f;
+			if (cameraComponent->m_f_VirtualScale >= 1.5f)
+			{
+				zoomPause = 1.5f;
+				zoomIn = !zoomIn;
+			}
+		}
+		else
+		{
+			cameraComponent->m_f_ZoomVelocity -= zoomSpeed * dt;
+			if (cameraComponent->m_f_ZoomVelocity <= -0.5f)
+				cameraComponent->m_f_ZoomVelocity = -0.5f;
+			if (cameraComponent->m_f_VirtualScale <= 1.0f) 
+			{
+				zoomPause = 1.5f;
+				zoomIn = !zoomIn;
+			}
+		}
+	}
 }
 

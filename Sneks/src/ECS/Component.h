@@ -21,6 +21,7 @@ enum Component : unsigned char
 	kComponentCanvasElement,
 	kComponentTextRenderer,
 	kComponentPowerUp,
+	kComponentBloom,
 	kComponentEnd
 };
 

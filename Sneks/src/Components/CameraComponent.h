@@ -39,7 +39,7 @@ public:
 
 	//TRACKING STUFF
 	bool					  m_b_TrackObjects;
-	HTVector2           m_f_DistanceOutTolerance ={ 0.05f,0.042f };
+	HTVector2           m_f_DistanceOutTolerance ={ 0.05f,0.15f };
 	HTVector2           m_f_DistanceInTolerance  ={ 0.2f,0.2f };
 	CameraAttributes    m_x_CameraAttributes;
 	int					  m_i_CurrentStage;
@@ -47,16 +47,16 @@ public:
 	//ZOOM AND OFFSET ( CAMERA "X Y Z" )
 	HTVector2			  m_f_TargetOffset;
 	HTVector2			  m_f_PanningSpeed = {1.0f, 2.0f};
-	HTVector2		     m_f_VirtualPosition;
+	HTVector2		     m_f_VirtualOffset;
 	float		           m_f_VirtualScale;
 	float					  m_f_VirtualRotation;
-	HTVector2		     m_f_VirtualOffset;
+	HTVector2		     m_f_VirtualShakeOffset = {0,0};
 
 	void AddToTrack(TransformComponent* pDrawObject);
-
+	HTVector2 GetCameraPos(bool includeShake = false) const;
 	CameraComponent();
 	~CameraComponent();
-
+	
 	float GetScale();
 };
 

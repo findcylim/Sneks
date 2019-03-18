@@ -72,8 +72,8 @@ void InputSystem::Update(float dt)
 	
 	float scale = 1.0f / c_Comp->GetScale();
 	t_Comp->SetScale(scale);
-	t_Comp->SetPositionX(-c_Comp->m_f_VirtualPosition.x + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
-	t_Comp->SetPositionY(-c_Comp->m_f_VirtualPosition.y - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
+	t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
+	t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
 
 	if (AEInputCheckTriggered(AEVK_LBUTTON))
 	{

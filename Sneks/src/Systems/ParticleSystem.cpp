@@ -65,126 +65,176 @@ void ParticleSystem::Update(float dt)
 
 void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	CollisionGroupName cgn1 = eventData.object1->m_i_CollisionGroupVec[0];
-	CollisionGroupName cgn2 = eventData.object2->m_i_CollisionGroupVec[0];
-	CollisionGroupName cgnc;
-	ParticleType type;
+	CollisionGroupName collGroup1 = eventData.object1->m_i_CollisionGroupVec[0];
+	CollisionGroupName collGroup2 = eventData.object2->m_i_CollisionGroupVec[0];
+	CollisionGroupName collGroupActual;
+	ParticleType particleType;
 
 	TransformComponent* tcp1 = eventData.object1->GetComponent<TransformComponent>();
-	//	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-	//		eventData.object1, Component::kComponentTransform);
+
 	TransformComponent* tcp2 = eventData.object2->GetComponent<TransformComponent>();
-	//	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-	//		eventData.object2, Component::kComponentTransform);
 
-	cgnc = CollisionGroupName::kCollGroupBuilding;
-	type = ParticleType::kParticleBasicOneShot;
 
-	if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	collGroupActual = CollisionGroupName::kCollGroupBuilding;
+	particleType = ParticleType::kParticleBasicOneShot;
+
+	if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
 	{
-		cgnc = CollisionGroupName::kCollGroupSnek1Body;
-		type = ParticleType::kParticleBasicOneShot;
+		collGroupActual = CollisionGroupName::kCollGroupSnek1Body;
+		particleType = ParticleType::kParticleBasicOneShot;
 	}
-	else if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	else 
+		return;
+	if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
 	{
-		cgnc = CollisionGroupName::kCollGroupSnek2Body;
-		type = ParticleType::kParticleBasicOneShot;
+		collGroupActual = CollisionGroupName::kCollGroupSnek2Body;
+		particleType = ParticleType::kParticleLargeOneShot;
 	}
-	else if (!CollisionCheckForParticleSystem(cgn1, tcp1, cgn2, tcp2, cgnc, type))
+	else
+		return;
+	if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
 	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek1Head;
+		particleType = ParticleType::kParticleLargeOneShot;
 	}
+	else 
+		return;
+	if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		//collGroupActual = CollisionGroupName::kCollGroupSnek2Head;
+		//particleType = ParticleType::kParticleLargeOneShot;
+	}
+	else 
+		return;
+
+	/*if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek1Body;
+		particleType = ParticleType::kParticleBasicOneShot;
+	}
+	else if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek2Body;
+		particleType = ParticleType::kParticleBasicOneShot;
+	}
+	else if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek1Head;
+		particleType = ParticleType::kParticleBasicOneShot;
+	}
+	else if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek2Head;
+		particleType = ParticleType::kParticleBasicOneShot;
+	}*/
 }
 
-bool ParticleSystem::CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* spawn1,
-	CollisionGroupName name2, TransformComponent* spawn2, CollisionGroupName namecheck, ParticleType type)
+bool ParticleSystem::CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* transComp_1,
+	CollisionGroupName collisionGroupName1, TransformComponent* transComp_2, CollisionGroupName collisionGroupName2, ParticleType particleType)
 {
-	if (name1 == namecheck)
+	if (name1 == collisionGroupName2)
 	{
-		SpawnParticleEffect(spawn1, type);
+		SpawnParticleEffect(transComp_1, particleType);
 		return true;
 	}
-	else if (name2 == namecheck)
+	else if (collisionGroupName1 == collisionGroupName2)
 	{
-		SpawnParticleEffect(spawn2, type);
+		SpawnParticleEffect(transComp_2, particleType);
 		return true;
 	}
 	else
 		return false;
 }
 
-void ParticleSystem::SpawnParticleEffect(TransformComponent* spawnTransform, ParticleType type)
+void ParticleSystem::SpawnParticleEffect(TransformComponent* spawnTransform, ParticleType particleType)
 {
 	if (spawnTransform)
 	{
-		auto pee = m_po_EntityManager->NewEntity
+		auto particleEffectEntity = m_po_EntityManager->NewEntity
 			<ParticleEffectEntity>(Entity::kEntityParticleEffect, "ParticleEffect");
 
-		auto pec = pee->GetComponent<ParticleEffectComponent>();
-			//m_po_ComponentManager->GetSpecificComponentInstance<ParticleEffectComponent>(
-			//	pee, Component::kComponentParticleEffect);
+		auto particleEffectComponent = particleEffectEntity->GetComponent<ParticleEffectComponent>();
 
-		if (pec)
+		if (particleEffectComponent)
 		{
-			pec->SetParticleType(type, m_o_GraphicsSystem);
-			pec->SetSpawnTransform(spawnTransform);
+			particleEffectComponent->SetParticleType(particleType, m_o_GraphicsSystem);
+			particleEffectComponent->SetSpawnTransform(spawnTransform);
 		}
 	}
 }
 
-void ParticleSystem::SpawnParticle(ParticleEffectComponent* pec)
+void ParticleSystem::SpawnParticle(ParticleEffectComponent* particleEffectComp)
 {
-	auto pep = m_po_EntityManager->NewEntity<ParticleEntity>(Entity::kEntityParticle, "Particle");
+	auto newParticleEntity = m_po_EntityManager->NewEntity<ParticleEntity>(Entity::kEntityParticle, "Particle");
 
-	m_po_ComponentManager->GetSpecificComponentInstance<ParticleComponent>(
-		pep, Component::kComponentParticle)->SetParticleMaxLifetime(
-			pec->GetParticleMaxLifetime());
+	for (auto i_Component : newParticleEntity->m_v_AttachedComponentsList)
+	{
+		if (i_Component->m_x_ComponentID == kComponentParticle)
+		{
+			static_cast<ParticleComponent*>(i_Component)->SetParticleMaxLifetime(
+																		  particleEffectComp->GetParticleMaxLifetime());
+		}
+		else if (i_Component->m_x_ComponentID == kComponentTransform)
+		{
+			auto transComp = static_cast<TransformComponent*>(i_Component);
+			auto particleEffectTransform = particleEffectComp->GetSpawnTransform();
 
-	auto tcp = pec->GetSpawnTransform();
+			transComp->SetPositionX(CalculatePositionX(particleEffectComp, particleEffectTransform));
 
-	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-		pep, Component::kComponentTransform)->SetPositionX(
-			CalculatePositionX(pec, tcp));
+			transComp->SetPositionY(CalculatePositionY(particleEffectComp, particleEffectTransform));
 
-	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-		pep, Component::kComponentTransform)->SetPositionY(
-			CalculatePositionY(pec, tcp));
+			transComp->SetRotation(CalculateRotation(particleEffectComp, particleEffectTransform));
 
-	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-		pep, Component::kComponentTransform)->SetRotation(CalculateRotation(pec, tcp));
+			transComp->SetScale(particleEffectComp->GetParticleSize());
+		}
+		else if (i_Component->m_x_ComponentID == kComponentPhysics)
+		{
+			static_cast<PhysicsComponent*>(i_Component)->m_f_Speed = particleEffectComp->GetParticleSpeed();
+		}
+		else if (i_Component->m_x_ComponentID == kComponentDraw)
+		{
+			auto drawComp = static_cast<DrawComponent*>(i_Component);
+			m_o_GraphicsSystem->InitializeDrawComponent(drawComp, particleEffectComp->GetParticleTexture(),HTColor{1,1,1,1}
+																		,4,7);
 
-	m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-		pep, Component::kComponentTransform)->SetScale(pec->GetParticleSize());
+			drawComp->m_f_DrawPriority = particleEffectComp->GetParticleDrawOrder();
 
-	m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
-		pep, Component::kComponentPhysics)->m_f_Speed = pec->GetParticleSpeed();
+		}
+		else if (i_Component->m_x_ComponentID == kComponentAnimation)
+		{
+			auto animComp = static_cast<AnimationComponent*>(i_Component);
+			int randRock = static_cast<int>(AERandFloat() * 28) % 28;
+			Animation anim(SpriteSheet{ particleEffectComp->GetParticleTexture()->mpName,4,7}, randRock, 4 * 7);
 
-	m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
-		GetSpecificComponentInstance<DrawComponent>(pep, Component::kComponentDraw),
-		pec->GetParticleTexture());
+			anim.m_f_SecondsPerFrame = 10.0f;
+			animComp->m_vx_AnimationsList.push_back(anim);
+			animComp->m_b_IsAnimating = true;
+			animComp->m_i_CurrentAnimationId = 0;
+			
+		}
+	}
 
-	m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
-		pep, Component::kComponentDraw)->m_f_DrawPriority = pec->GetParticleDrawOrder();
 }
 
-float ParticleSystem::CalculateRotation(ParticleEffectComponent* pec, TransformComponent* tcp)
+float ParticleSystem::CalculateRotation(ParticleEffectComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	return ((AERandFloat() - 0.5f) * pec->GetSpreadAngle() + pec->GetOffsetAngle() + tcp->GetRotation());
+	return ((AERandFloat() - 0.5f) * particleEffectComp->GetSpreadAngle() + particleEffectComp->GetOffsetAngle()) + transformComp->GetRotation();
 }
 
-float ParticleSystem::CalculatePositionX(ParticleEffectComponent* pec, TransformComponent* tcp)
+float ParticleSystem::CalculatePositionX(ParticleEffectComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	float randfloat = AERandFloat();
-	return (tcp->GetPosition().x + cos(tcp->GetRotation() + pec->GetAngleForOffsetDistance()) * 
-		pec->GetOffsetDistance() + (pec->GetSplitBool() ? pec->GetCurrentSplitFactor() : randfloat) *
-		pec->GetSpreadDistance() * cos(tcp->GetRotation() + pec->GetAngleForSpreadDistance()) *
-		((randfloat > 0.5f) ? 1.0f : -1.0f));
+	float randFloat = AERandFloat();
+	return (transformComp->GetPosition().x + cos(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) * 
+		particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat) *
+		particleEffectComp->GetSpreadDistance() * cos(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
+		((randFloat > 0.5f) ? 1.0f : -1.0f));
 }
 
-float ParticleSystem::CalculatePositionY(ParticleEffectComponent* pec, TransformComponent* tcp)
+float ParticleSystem::CalculatePositionY(ParticleEffectComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	float randfloat = AERandFloat();
-	return tcp->GetPosition().y + (sin(tcp->GetRotation() + pec->GetAngleForOffsetDistance()) *
-		pec->GetOffsetDistance() + (pec->GetSplitBool() ? pec->GetCurrentSplitFactor() : randfloat)*
-		pec->GetSpreadDistance() * sin(tcp->GetRotation() + pec->GetAngleForSpreadDistance()) *
-		((randfloat > 0.5f) ? 1.0f : -1.0f));
+	float randFloat = AERandFloat();
+	return transformComp->GetPosition().y + (sin(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) *
+		particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat)*
+		particleEffectComp->GetSpreadDistance() * sin(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
+		((randFloat > 0.5f) ? 1.0f : -1.0f));
 }

@@ -8,13 +8,13 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 		case ParticleType::kParticleBasicOneShot:
 			m_x_ParticleType = type;
 		
-			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 0;
 			m_i_CurrentSplit = -1;
 		
-			m_f_ParticleSize = 0.7f;
+			m_f_ParticleSize = 1.7f;
 		
 			m_f_SpreadDistance = 0.0f;
 			m_f_AngleForSpreadDistance = PI * 0.0f;
@@ -35,10 +35,40 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_b_HasParticleEffectFired = false;
 			break;
 
+		case ParticleType::kParticleLargeOneShot:
+			m_x_ParticleType = type;
+
+			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_i_ParticleDrawOrder = 6;
+
+			m_i_SplitNumber = 0;
+			m_i_CurrentSplit = -1;
+
+			m_f_ParticleSize = 1.0f;
+
+			m_f_SpreadDistance = 0.0f;
+			m_f_AngleForSpreadDistance = PI * 0.0f;
+			m_f_SpreadAngle = PI * 2.0f;
+			m_f_OffsetDistance = 0.0f;
+			m_f_AngleForOffsetDistance = PI * 0.0f;
+			m_f_OffsetAngle = PI * 0.0f;
+
+			m_f_ParticleSpeed = 100.0f;
+			m_f_ParticleSpawnFrequency = 0.0f;
+			m_i_ParticleSpawnDensity = 10;
+			m_f_ParticleMaxLifetime = 2.0f;
+
+			m_f_ParticleEffectMaxLifetime = 0.0f;
+			m_f_ParticleEffectRemainingLifetime = 0.0f;
+			m_b_IsParticleEffectEternal = false;
+			m_b_IsParticleEffectOneShot = true;
+			m_b_HasParticleEffectFired = false;
+			break;
+
 		case ParticleType::kParticleTrailEffect:
 			m_x_ParticleType = type;
 		
-			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 2;
@@ -64,6 +94,36 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_b_IsParticleEffectOneShot = false;
 			m_b_HasParticleEffectFired = false;
 		break;
+		case kParticleSnekImpactSparks: 
+			
+			m_x_ParticleType = type;
+
+			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
+			m_i_ParticleDrawOrder = 6;
+
+			m_i_SplitNumber = 0;
+			m_i_CurrentSplit = -1;
+
+			m_f_ParticleSize = 0.7f;
+
+			m_f_SpreadDistance = 0.0f;
+			m_f_AngleForSpreadDistance = PI * 0.0f;
+			m_f_SpreadAngle = PI * 2.0f;
+			m_f_OffsetDistance = 0.0f;
+			m_f_AngleForOffsetDistance = PI * 0.0f;
+			m_f_OffsetAngle = PI * 0.0f;
+
+			m_f_ParticleSpeed = 50.0f;
+			m_f_ParticleSpawnFrequency = 0.0f;
+			m_i_ParticleSpawnDensity = 10;
+			m_f_ParticleMaxLifetime = 2.0f;
+
+			m_f_ParticleEffectMaxLifetime = 0.0f;
+			m_f_ParticleEffectRemainingLifetime = 0.0f;
+			m_b_IsParticleEffectEternal = false;
+			m_b_IsParticleEffectOneShot = true;
+			m_b_HasParticleEffectFired = false;
+		break;
 	}
 }
 
@@ -75,10 +135,7 @@ void ParticleEffectComponent::UpdateTime(float dt)
 
 bool ParticleEffectComponent::IsParticleEffectAlive()
 {
-	if (m_f_ParticleEffectRemainingLifetime > 0 || !HasParticleEffectOneShot())
-		return true;
-	else
-		return false;
+	return m_f_ParticleEffectRemainingLifetime > 0 || !HasParticleEffectOneShot();
 }
 
 bool ParticleEffectComponent::HasParticleEffectOneShot()

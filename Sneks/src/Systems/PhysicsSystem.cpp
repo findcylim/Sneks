@@ -131,12 +131,12 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadCo
 {
 	if (physicsComponent->m_f_Speed > physicsComponent->m_f_MaxSpeed)
 	{
-		physicsComponent->m_f_Speed *= 0.95f;
+		physicsComponent->m_f_Speed = physicsComponent->m_f_Speed * 0.95f;
 	}
 	else
 	{
 		if (physicsComponent->m_f_Acceleration == 0)
-			physicsComponent->m_f_Speed *= 0.99f;
+			physicsComponent->m_f_Speed = physicsComponent->m_f_Speed * 0.99f;
 	}
 
 	//std::cout << "Accel: " << physicsComponent->m_f_Acceleration << ", " << physicsComponent->m_f_Speed << std::endl;

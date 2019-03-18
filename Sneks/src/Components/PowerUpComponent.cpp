@@ -25,7 +25,7 @@ void PowerUpComponent::SetPowerUp(PowerUpType type)
 	{
 		case kPowerUpSpeedIncrease:
 			m_f_PowerUpRemainingLifetime = 5.0f;
-			m_f_PowerIncrease = 1.5f;
+			m_f_PowerIncrease = 1.2f;
 			break;
 
 		case kPowerUpGrowthIncrease:
@@ -39,8 +39,8 @@ void PowerUpComponent::SetPowerUp(PowerUpType type)
 			break;
 
 		case kPowerUpInvul:
-			m_f_PowerUpRemainingLifetime = 5.0f;
-			m_f_PowerIncrease = 5.0f;
+			m_f_PowerUpRemainingLifetime = 2.0f;
+			m_f_PowerIncrease = 2.0f;
 			break;
 
 		case kPowerUpPlusBody:
@@ -84,6 +84,11 @@ bool PowerUpComponent::GetJustDied()
 	}
 	else
 		return false;
+}
+
+void  PowerUpComponent::ResetPowerIncrease()
+{
+	m_f_PowerIncrease = 0;
 }
 
 

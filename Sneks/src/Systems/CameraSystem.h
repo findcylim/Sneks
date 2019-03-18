@@ -17,5 +17,6 @@ public:
 	void Update(float dt) override;
 	float AddShake(float magnitude);
 	void  SetShake(float magnitude);
+	void RemoveCameraTrackObjects();
 };
 

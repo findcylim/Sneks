@@ -20,6 +20,7 @@
 #include "../Systems/PowerUpSystem.h"
 #include <queue>
 #include "../Systems/AnimationSystem.h"
+#include "../Systems/Menus/PauseMenuSystem.h"
 
 
 ECSystem::ECSystem()
@@ -136,9 +137,8 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
 
-	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
-	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
-
+	snek->CreateSnek(-200, 0, PI* 3 / 4, 20, "HeadAnim", 0);
+	snek->CreateSnek(200, 0, PI* 7 / 4, 20, "SnekHead02", 1);
 
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");
@@ -171,7 +171,7 @@ void ECSystem::InitializeEngine()
 
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
-	auto hud = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager);
+	auto hud = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager, graphics);
 	hud->SetName("HUD");
 	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(hud);
@@ -184,7 +184,10 @@ void ECSystem::InitializeEngine()
 	powerup->SetName("Power Up");
 	powerup->Initialize();
 
-	
+	auto PauseMenu = new PauseMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
+	PauseMenu->SetName("PauseMenu");
+	m_o_SystemManager->AddSystem(PauseMenu);
+	PauseMenu->Initialize();
 
 	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager, static_cast<char>(2));
 	WinScreen->SetName("WinScreen");
@@ -215,10 +218,12 @@ void ECSystem::InitializeEngine()
 	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
 
 	m_o_SystemManager->DisableSystem<HUDSystem>();
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();
 	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
+	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 
@@ -230,7 +235,6 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<SnekSystem>();
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
-	m_o_SystemManager->DisableSystem<MainMenuSystem>();
 }
 
 bool ECSystem::IsEngineOn() const
@@ -267,7 +271,6 @@ void ECSystem::Update()
 			m_b_EngineStatus = false;
 		}
 		m_o_EntityComponentManager->ResolveDeletes();
-
 
 		actualDt -= dtCap;
 		

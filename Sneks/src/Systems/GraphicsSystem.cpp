@@ -5,6 +5,8 @@
 #include "../Utility/AlphaEngineHelper.h"
 #include "../Components/TextRendererComponent.h"
 #include "../Components/AnimationComponent.h"
+#include "../Components/FollowComponent.h"
+#include "../Components/BloomComponent.h"
 
 static unsigned debugFont;
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
@@ -36,6 +38,8 @@ void GraphicsSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
 	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
+	//for (auto i : m_x_DrawOrderTest)
+	//	memset(i, 0, 10000 * sizeof(DrawComponent*));
 }
 
 //constexpr int spriteGapX = 3;
@@ -176,7 +180,10 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Placeholder/tail.png"				 , "SnekTail01");
 	LoadTextureToMap("../Resources/Placeholder/tail2.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
-	LoadTextureToMap("../Resources/building.png"		 , "Building01"); 
+	LoadTextureToMap("../Resources/building1.png"		 , "Building01"); 
+	LoadTextureToMap("../Resources/building2.png", "Building02");
+	LoadTextureToMap("../Resources/building3.png", "Building03");
+	LoadTextureToMap("../Resources/building4.png", "Building04");
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
@@ -193,6 +200,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
+	LoadTextureToMap("../Resources/UIGrowthBarFill.png", "GrowthBarFill");
 	LoadTextureToMap("../Resources/UI_BarLeft.png", "LeftBar");
 	LoadTextureToMap("../Resources/UI_BarLeftSmall.png", "SmallLeftBar");
 	LoadTextureToMap("../Resources/UI_BarRight.png", "RightBar");
@@ -208,7 +216,11 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
 
 	LoadTextureToMap("../Resources/rock.png", "Rock");
-	LoadTextureToMap("../Resources/PowerUpIcon.png", "PowerUpIcon");
+	LoadTextureToMap("../Resources/PowerUpIconDamage.png", "PowerUpIconDamage");
+	LoadTextureToMap("../Resources/PowerUpIconHealth.png", "PowerUpIconHealth");
+	LoadTextureToMap("../Resources/PowerUpIconInvul.png", "PowerUpIconInvul");
+	LoadTextureToMap("../Resources/PowerUpIconSpeed.png", "PowerUpIconSpeed");
+	LoadTextureToMap("../Resources/RockSpriteSheet.png", "Rocks");
 	LoadTextureToMap("../Resources/UIHelpMenu.png", "UIHelpMenu");
 
 
@@ -234,7 +246,8 @@ void GraphicsSystem::Update(float dt)
 
 void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 {
-	m_x_DrawOrder.clear();
+	for (auto& orderGroup : m_x_DrawOrder)
+		orderGroup.clear();
 
 	auto i_AddDrawComponent = firstDrawComponent;
 	for (;
@@ -249,6 +262,7 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 			m_x_DrawOrder.emplace_back();
 		}
 		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
+
 
 	}
 }
@@ -286,12 +300,15 @@ void GraphicsSystem::Draw(float dt)
 		return;
 
 	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
+
+		AEGfxTexture* savedTexture = nullptr;
 		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
 			if (!drawComponent->m_po_OwnerEntity->m_b_IsActive)
 				continue;
 			//Check if there is draw component
 			if (drawComponent->m_b_IsActive)
 			{
+
 				if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
 					//allow transparency to work !! must be first
@@ -300,14 +317,23 @@ void GraphicsSystem::Draw(float dt)
 
 					AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
 
+					if (savedTexture != drawComponent->m_px_Texture || (drawComponent->m_x_TextureOffset.x != 0) || 
+																						(drawComponent->m_x_TextureOffset.y != 0)) 
+					{
+						savedTexture = drawComponent->m_px_Texture;
+						AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
+					}
+					
 					//If it is an animation
-					AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
 
 					AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
 					AEGfxSetTransparency(1);
-					AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
 					AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
 					AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+
+
+					DrawBloom(drawComponent);
+
 				}
 			}
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
@@ -336,6 +362,39 @@ void GraphicsSystem::Draw(float dt)
 	//AEGfxPrint(debugFont, strBuffer, 200, 480, 1, 0, 0);
 
 	DrawTextRenderer();
+}
+
+void GraphicsSystem::DrawBloom(DrawComponent* drawComponent)
+{
+	//TODO MOVE TO BLOOM SYSTEM
+	if (auto bloomComponent = drawComponent->GetComponent<BloomComponent>())
+	{
+		for (int offSetX = -bloomComponent->m_i_BloomIterations;
+			offSetX <= bloomComponent->m_i_BloomIterations; offSetX++)
+		{
+			for (int offSetY = -bloomComponent->m_i_BloomIterations;
+				offSetY <= bloomComponent->m_i_BloomIterations; offSetY++)
+			{
+				if (offSetX == 0 && offSetY == 0)
+					continue;
+				AEMtx33 alphaOffset;
+				AEMtx33TransApply(&alphaOffset, drawComponent->m_po_GlobalMatrix, static_cast<float>(offSetX) * bloomComponent->m_f_BloomDiffuse,
+																														static_cast<float>(offSetY) * bloomComponent->m_f_BloomDiffuse);
+				AEGfxSetBlendMode(AE_GFX_BM_ADD);
+				AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+
+				AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue,
+								drawComponent->m_f_RgbaColor.alpha * bloomComponent->m_f_BloomStrength * 0.1f);
+
+				//If it is an animation
+				AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
+
+				AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
+				AEGfxSetTransform(alphaOffset.m);
+				AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+			}
+		}
+	}
 }
 
 void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
@@ -383,8 +442,9 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 			AEMtx33 cameraTransform;
 			AEMtx33Identity(&cameraTransform);
 
-			AEMtx33TransApply(&cameraTransform,
-				&cameraTransform, cameraComponent->m_f_VirtualPosition.x, cameraComponent->m_f_VirtualPosition.y
+			AEMtx33TransApply(&cameraTransform,&cameraTransform, 
+								cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_f_VirtualShakeOffset.x , 
+								cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_f_VirtualShakeOffset.y
 				);
 
 			AEMtx33 rotMatrix;
