@@ -144,8 +144,8 @@ public:
 class ParticleEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
-											Component::kComponentParticle, Component::kComponentEnd };
+	Component m_ax_InitialComponents[6] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
+											Component::kComponentParticle, Component::kComponentAnimation, Component::kComponentEnd };
 
 	ParticleEntity(const char* entityName) : BaseEntity(entityName) {};
 };

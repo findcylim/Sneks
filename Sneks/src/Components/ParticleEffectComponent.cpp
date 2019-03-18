@@ -8,13 +8,13 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 		case ParticleType::kParticleBasicOneShot:
 			m_x_ParticleType = type;
 		
-			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 0;
 			m_i_CurrentSplit = -1;
 		
-			m_f_ParticleSize = 0.7f;
+			m_f_ParticleSize = 1.7f;
 		
 			m_f_SpreadDistance = 0.0f;
 			m_f_AngleForSpreadDistance = PI * 0.0f;
@@ -38,7 +38,7 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 		case ParticleType::kParticleTrailEffect:
 			m_x_ParticleType = type;
 		
-			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 2;
@@ -68,7 +68,7 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			
 			m_x_ParticleType = type;
 
-			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
 			m_i_ParticleDrawOrder = 6;
 
 			m_i_SplitNumber = 0;

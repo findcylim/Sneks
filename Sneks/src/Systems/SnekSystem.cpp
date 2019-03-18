@@ -584,7 +584,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		else if (i_Component->m_x_ComponentID == kComponentAnimation)
 		{
 			auto animComp = static_cast<AnimationComponent*>(i_Component);
-			Animation anim(SpriteSheet{textureName,2,1}, 0, spriteCountX * spriteCountY);
+			Animation anim(SpriteSheet{textureName, spriteCountX,spriteCountY}, 0, spriteCountX * spriteCountY);
 			anim.m_f_SecondsPerFrame = 1.0f;
 			animComp->m_vx_AnimationsList.push_back(anim);
 
@@ -902,7 +902,6 @@ void SnekSystem::FaceReference(const TransformComponent* reference, TransformCom
 
 void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
 {
-	UNREFERENCED_PARAMETER(headPhysicsComponent);
 
 	AEVec2 rotation;
 	AEVec2FromAngle(&rotation, toChange->m_po_TransformComponent->GetRotation() );
@@ -932,7 +931,6 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 
 void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const
 {
-	
 
 	float distanceX = toChange->m_po_TransformComponent->m_x_Position.x -
 		 reference->m_po_TransformComponent->m_x_Position.x;

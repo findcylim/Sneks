@@ -16,14 +16,14 @@ class ParticleSystem final : public BaseSystem,
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 
-	void SpawnParticle(ParticleEffectComponent* pec);
-	void SpawnParticleEffect(TransformComponent* spawnTransform, ParticleType type);
+	void SpawnParticle(ParticleEffectComponent* particleEffectComp);
+	void SpawnParticleEffect(TransformComponent* spawnTransform, ParticleType particleType);
 
-	float CalculateRotation(ParticleEffectComponent* pec, TransformComponent* tcp);
-	float CalculatePositionX(ParticleEffectComponent* pec, TransformComponent* tcp);
-	float CalculatePositionY(ParticleEffectComponent* pec, TransformComponent* tcp);
-	bool CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* spawn1,
-		CollisionGroupName name2, TransformComponent* spawn2, CollisionGroupName namecheck, ParticleType type);
+	float CalculateRotation(ParticleEffectComponent* particleEffectComp, TransformComponent* transformComp);
+	float CalculatePositionX(ParticleEffectComponent* particleEffectComp, TransformComponent* transformComp);
+	float CalculatePositionY(ParticleEffectComponent* particleEffectComp, TransformComponent* transformComp);
+	bool CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* transComp_1,
+		CollisionGroupName collisionGroupName1, TransformComponent* transComp_2, CollisionGroupName collisionGroupName2, ParticleType particleType);
 
 public:
 	ParticleSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics);

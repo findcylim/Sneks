@@ -25,10 +25,20 @@ void AnimationSystem::Initialize()
 
 	/*TODO:: figure out a better initialization for sprite sheets
 	 *auto texture = m_o_GraphicsSystem->LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
-	
+
 	m_x_SpriteSheetMap.insert(std::pair<const char*, SpriteSheet>(
 		"TestAnim", SpriteSheet{ texture,4,7 }
 	));*/
+
+	auto animationComponent = m_po_ComponentManager->GetFirstComponentInstance<AnimationComponent>(kComponentAnimation);
+	//iterate all animation comps
+	while (animationComponent)
+	{
+		auto& currentAnim = animationComponent->m_vx_AnimationsList[animationComponent->m_i_CurrentAnimationId];
+		currentAnim.m_i_CurrentFrameIndex = currentAnim.m_i_StartFrame;
+		UpdateDrawCompTexture(animationComponent);
+		animationComponent = static_cast<AnimationComponent*>(animationComponent->m_po_NextComponent);
+	}
 
 }
 
@@ -38,6 +48,8 @@ void AnimationSystem::Update(float dt)
 	//iterate all animation comps
 	while (animationComponent) 
 	{
+		//TODO initialize animation comps properly
+		UpdateDrawCompTexture(animationComponent);
 		if (animationComponent->m_b_IsAnimating)
 		{
 			auto& currentAnim = animationComponent->m_vx_AnimationsList[animationComponent->m_i_CurrentAnimationId];
@@ -54,6 +66,7 @@ void AnimationSystem::Update(float dt)
 				UpdateDrawCompTexture(animationComponent);
 			}
 		}
+
 		animationComponent = static_cast<AnimationComponent*>(animationComponent->m_po_NextComponent);
 	}
 }
