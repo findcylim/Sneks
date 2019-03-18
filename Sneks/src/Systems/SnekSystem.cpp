@@ -13,46 +13,39 @@
 //"Forward" declaration includes
 #include "PhysicsSystem.h"
 
-float P1Growth = 0, P2Growth = 0;
-float P1GrowthMeter = 5, P2GrowthMeter = 5;
-int P1Lives = 3, P2Lives = 3;
-int i_P1Damage = 2, i_P2Damage = 2;
-
-int winner;
-
-int GetWinner()
+int SnekSystem::GetWinner()
 {
 	return winner;
 }
 
 
-float GetP1GrowthPercentage()
+float SnekSystem::GetP1GrowthPercentage()
 {
 	return P1Growth/P1GrowthMeter;
 }
 
-float GetP2GrowthPercentage()
+float SnekSystem::GetP2GrowthPercentage()
 {
 	return P2Growth/P2GrowthMeter;
 }
 
-void ResetLives()
+void SnekSystem::ResetLives()
 {
 	P1Lives = 3;
 	P2Lives = 3;
 }
 
-int GetP1Lives()
+int SnekSystem::GetP1Lives()
 {
 	return P1Lives;
 }
 
-int GetP2Lives()
+int SnekSystem::GetP2Lives()
 {
 	return P2Lives;
 }
 
-void ResetDamage()
+void SnekSystem::ResetDamage()
 {
 	i_P1Damage = 2;
 	i_P2Damage = 2;

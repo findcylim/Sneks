@@ -223,11 +223,11 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 		{
 			if (powerup->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber == 0)
 			{
-				i_P2Damage+=2;
+				m_o_SnekSystem->i_P2Damage+=2;
 			}
 			else
 			{
-				i_P1Damage += 2;
+				m_o_SnekSystem->i_P1Damage += 2;
 			}
 		}
 			break;

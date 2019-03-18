@@ -25,34 +25,38 @@ class Sound
 public:
 	Sound();
 	/* Error-checking*/
-	void fmodErrorCheck(FMOD_RESULT result);
+	void FmodErrorCheck(FMOD_RESULT result);
 	/* FMOD initialisation */
-	void initialise();
+	void Initialize();
 	/* FMOD sound/channel/system creation */
-	void createBGM(const char* filename);
-	void create(const char* filename);
+	void CreateBGM(const char* filename);
+	void Create(const char* filename);
 	/* Playing */
-	void play(float volume = 0.33f);
+	void Play(float volume = 0.33f);
 	/* Update functions */
-	void update();
+	void Update();
 	/* Pauses the sound */
-	void pause(FMOD_BOOL pause);
+	void Pause(FMOD_BOOL pause);
 	/* Unload sound */
-	void unload();
+	void Unload();
 	/* Getter/setter functions */
-	bool checkPlaying();
+	bool CheckPlaying();
 	/* Unload from memory */
-	void release();
+	void Release();
 	/* Getter/Setter */
-	FMOD_SYSTEM	*getSystem();
-	FMOD_SOUND *getFMODSound();
+	FMOD_SYSTEM	*GetSystem();
+	FMOD_SOUND *GetFmodSound();
 };
 
 class AudioSystem final : public BaseSystem // Add event listeners here
 , public EventListener<Events::EV_PLAYER_COLLISION>
 {
-	Sound BGM;
-	Sound SFX;
+	Sound m_o_BackgroundMusic;
+	Sound m_o_HitSound;
+	Sound m_o_PowerUpSound;
+	Sound m_o_ExplosionSound;
+
+	//std::map<const char*, Sound> m_x_SoundMap;
 public:
 	AudioSystem(EntityManager* entityManagerPtr);
 	~AudioSystem();
