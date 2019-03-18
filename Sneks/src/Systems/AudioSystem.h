@@ -2,8 +2,7 @@
 #define AUDIO_MANAGER_H
 #pragma once
 
-#include <cstdio>
-#include <cstdlib>
+
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
 #include <fmod.h>
@@ -33,7 +32,7 @@ public:
 	void createBGM(const char* filename);
 	void create(const char* filename);
 	/* Playing */
-	void play(float volume = 1.0f);
+	void play(float volume = 0.33f);
 	/* Update functions */
 	void update();
 	/* Pauses the sound */

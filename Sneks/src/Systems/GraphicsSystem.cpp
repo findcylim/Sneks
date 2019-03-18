@@ -5,6 +5,7 @@
 #include "../Utility/AlphaEngineHelper.h"
 #include "../Components/TextRendererComponent.h"
 #include "../Components/AnimationComponent.h"
+#include "../Components/FollowComponent.h"
 
 static unsigned debugFont;
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
@@ -36,6 +37,8 @@ void GraphicsSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_ENTITY_POOL_CHANGED>(this, this);
 	debugFont = AEGfxCreateFont("Segoe UI", 25, 1, 0);
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
+	//for (auto i : m_x_DrawOrderTest)
+	//	memset(i, 0, 10000 * sizeof(DrawComponent*));
 }
 
 //constexpr int spriteGapX = 3;
@@ -234,7 +237,8 @@ void GraphicsSystem::Update(float dt)
 
 void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 {
-	m_x_DrawOrder.clear();
+	for (auto& orderGroup : m_x_DrawOrder)
+		orderGroup.clear();
 
 	auto i_AddDrawComponent = firstDrawComponent;
 	for (;
@@ -249,6 +253,7 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 			m_x_DrawOrder.emplace_back();
 		}
 		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
+
 
 	}
 }
@@ -305,9 +310,32 @@ void GraphicsSystem::Draw(float dt)
 
 					AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
 					AEGfxSetTransparency(1);
-					AEGfxSetPosition(i_TransformComponent->m_x_Position.x, i_TransformComponent->m_x_Position.y);
 					AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
 					AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+
+					if (drawComponent->GetComponent<SnekHeadComponent>() || drawComponent->GetComponent<FollowComponent>()) {
+						for (int offSetX = -2; offSetX <= 2; offSetX++) {
+							for (int offSetY = -2; offSetY <= 2; offSetY++) {
+								if (offSetX == 0 && offSetY == 0)
+									continue;
+								AEMtx33 alphaOffset;
+								AEMtx33TransApply(&alphaOffset, drawComponent->m_po_GlobalMatrix, (float)offSetX * 3, (float)offSetY * 3);
+
+								AEGfxSetBlendMode(AE_GFX_BM_ADD);
+								AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+
+								AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha * 0.03f);
+
+								//If it is an animation
+								AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
+
+								AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
+								AEGfxSetTransform(alphaOffset.m);
+								AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+							}
+						}
+					}
+
 				}
 			}
 			//i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_PrevComponent);
