@@ -180,7 +180,10 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Placeholder/tail.png"				 , "SnekTail01");
 	LoadTextureToMap("../Resources/Placeholder/tail2.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
-	LoadTextureToMap("../Resources/building.png"		 , "Building01"); 
+	LoadTextureToMap("../Resources/building1.png"		 , "Building01"); 
+	LoadTextureToMap("../Resources/building2.png", "Building02");
+	LoadTextureToMap("../Resources/building3.png", "Building03");
+	LoadTextureToMap("../Resources/building4.png", "Building04");
 	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
 	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
 	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");

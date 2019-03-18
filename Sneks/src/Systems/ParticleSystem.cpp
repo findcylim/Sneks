@@ -83,6 +83,35 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		collGroupActual = CollisionGroupName::kCollGroupSnek1Body;
 		particleType = ParticleType::kParticleBasicOneShot;
 	}
+	else 
+		return;
+	if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek2Body;
+		particleType = ParticleType::kParticleLargeOneShot;
+	}
+	else
+		return;
+	if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek1Head;
+		particleType = ParticleType::kParticleLargeOneShot;
+	}
+	else 
+		return;
+	if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		//collGroupActual = CollisionGroupName::kCollGroupSnek2Head;
+		//particleType = ParticleType::kParticleLargeOneShot;
+	}
+	else 
+		return;
+
+	/*if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek1Body;
+		particleType = ParticleType::kParticleBasicOneShot;
+	}
 	else if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
 	{
 		collGroupActual = CollisionGroupName::kCollGroupSnek2Body;
@@ -90,7 +119,14 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 	else if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
 	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek1Head;
+		particleType = ParticleType::kParticleBasicOneShot;
 	}
+	else if (!CollisionCheckForParticleSystem(collGroup1, tcp1, collGroup2, tcp2, collGroupActual, particleType))
+	{
+		collGroupActual = CollisionGroupName::kCollGroupSnek2Head;
+		particleType = ParticleType::kParticleBasicOneShot;
+	}*/
 }
 
 bool ParticleSystem::CollisionCheckForParticleSystem(CollisionGroupName name1, TransformComponent* transComp_1,
