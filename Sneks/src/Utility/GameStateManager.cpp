@@ -233,6 +233,7 @@ void GameStateManager::Load()
 	}
 	switch (m_x_Current) {
 	case kStateMainMenu:    LoadMainMenu();
+		ResetBattle();
 		break;
 
 	case kStateGame:		LoadBattle();
@@ -288,5 +289,8 @@ void GameStateManager::Update()
 			m_x_Next = kStateGame;
 
 	if (m_x_Current == kStateRestart)
+	{
+		ResetBattle();
 		m_x_Next = kStateGame;
+	}
 }
