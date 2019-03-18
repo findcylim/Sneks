@@ -55,7 +55,6 @@ void SnekSystem::TweakP2Damage(int increase)
 	i_P2Damage += increase;
 }
 
-void ResetDamage()
 void SnekSystem::ResetDamage()
 {
 	i_P1Damage = i_DamageBase;
@@ -68,7 +67,6 @@ void SnekSystem::IncreaseGrowthRate(unsigned short player, float increase)
 		p1GrowthMeter /= increase;
 	else
 		p2GrowthMeter /= increase;
-	CheckGrowthMeters();
 }
 
 void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
@@ -77,7 +75,6 @@ void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
 		p1GrowthMeter *= decrease;
 	else
 		p2GrowthMeter *= decrease;
-	CheckGrowthMeters();
 }
 
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
@@ -92,35 +89,6 @@ SnekSystem::~SnekSystem()
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_SNEK_INVULNERABLE>(this);
 };
-
-void SnekSystem::CheckGrowthMeters()
-{
-	auto snekHeadComp = m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
-
-	while (snekHeadComp)
-	{
-		float* playerGrowth = &p1Growth;
-		float* playerGrowthMeter = &p1GrowthMeter;
-		auto texture = "SnekBody01";
-
-		if (snekHeadComp->m_i_PlayerNumber != 0)
-		{
-			playerGrowth = &p2Growth;
-			playerGrowthMeter = &p2GrowthMeter;
-			texture = "SnekBody02";
-		}
-
-		if (*playerGrowth >= *playerGrowthMeter)
-		{
-			*playerGrowth = 0;
-			*playerGrowthMeter *= 1.1f;
-			CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-				texture, snekHeadComp->m_i_PlayerNumber);
-		}
-		snekHeadComp = static_cast<SnekHeadComponent*>(snekHeadComp->m_po_NextComponent);
-	}
-
-}
 
 
 void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
@@ -180,12 +148,24 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHeadComp->m_i_PlayerNumber == 0)
 				{
 					p1Growth += 0.5f;
-					CheckGrowthMeters();
+					if (p1Growth >= p1GrowthMeter)
+					{
+						p1Growth = 0;
+						p1GrowthMeter *= 1.1f;
+						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
+					}
 				}
 				else
 				{
 					p2Growth += 0.5f;
-					CheckGrowthMeters();
+					if (p2Growth >= p2GrowthMeter)
+					{
+						p2Growth = 0;
+						p2GrowthMeter *= 1.1f;
+						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
+					}
 				}
 			}
 		}
@@ -311,7 +291,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 					}
 					else
 					{
-						P1Lives--;
+						p1Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
@@ -1293,10 +1273,3 @@ void SnekSystem::SetSnek(int input)
 		break;
 	}
 }
-
-
-
-
-
-
-

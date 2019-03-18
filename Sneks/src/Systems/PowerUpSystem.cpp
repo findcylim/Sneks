@@ -113,7 +113,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		case kPowerUpPlusBody:
 			PowerUpIcon = "PowerUpIconHealth";
 			break;
-		case kPowerUpDamage:
+		case kPowerUpIncreaseDamage:
 			PowerUpIcon = "PowerUpIconDamage";
 			break;
 			//TODO Add icon for growth. 
@@ -141,7 +141,7 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 	// GET A WAY TO GET THE NAME OF THE TEXTURE SIMPLER
 	if (strcmp(powerUpDrawComponent->m_px_Texture->mpName, "../Resources/PowerUpIconDamage.png")==0)
 	{
-		type = kPowerUpDamage;
+		type = kPowerUpIncreaseDamage;
 	}
 	else if (strcmp(powerUpDrawComponent->m_px_Texture->mpName, "../Resources/PowerUpIconSpeed.png") == 0)
 	{
@@ -221,18 +221,6 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 					<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber);
 		}
 			break;
-		case kPowerUpDamage:
-		{
-			if (powerup->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber == 0)
-			{
-				m_o_SnekSystem->i_P2Damage+=2;
-			}
-			else
-			{
-				m_o_SnekSystem->i_P1Damage += 2;
-			}
-		}
-			break;
 
 		case kPowerUpIncreaseDamage:
 			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
@@ -285,8 +273,6 @@ void PowerUpSystem::RemovePowerUp(PowerUpComponent* powerup)
 				m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
 					i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
 		}
-			break;
-		case kPowerUpDamage:
 			break;
 	}
 

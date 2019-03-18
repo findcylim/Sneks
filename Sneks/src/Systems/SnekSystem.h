@@ -45,14 +45,16 @@ class SnekSystem final : public BaseSystem,
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 	GameStateManager* m_o_GameStateManager;
-	float P1Growth = 0, P2Growth = 0;
-	float P1GrowthMeter = 5, P2GrowthMeter = 5;
-	int P1Lives = 3, P2Lives = 3;
+	float p1Growth = 0, p2Growth = 0;
+	float p1GrowthMeter = 5, p2GrowthMeter = 5;
+	int p1Lives = 3, p2Lives = 3;
+
+	int i_DamageBase = 2;
+	int i_P1Damage = i_DamageBase, i_P2Damage = i_DamageBase;
+	float f_AngleHeadHit = PI / 4;
 
 	int winner;
 public:
-	int i_BaseDamage = 2;
-	int i_P1Damage = i_BaseDamage, i_P2Damage = i_BaseDamage;
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr);
 	~SnekSystem() ;
 	void CheckGrowthMeters();
@@ -85,7 +87,6 @@ public:
 	void TweakP1Damage(int increase);
 	void TweakP2Damage(int increase);
 	void SetSnek(int input);
-};
 
 	float GetP1GrowthPercentage();
 	float GetP2GrowthPercentage();
