@@ -110,8 +110,10 @@ void GameStateManager::ResetBattle()
 	//snek->SetName("Snek");
 	//snek->Initialize();
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-	snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
-	snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
+	//snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
+	//snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
+	snek->CreateSnek(-200, 0, PI * 3 / 4, 20, "HeadAnim", 0);
+	snek->CreateSnek(200, 0, PI * 7 / 4, 20, "SnekHead02", 1);
 
 	auto buildings = m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings");
 	buildings->RemoveBuildings();
@@ -233,6 +235,7 @@ void GameStateManager::Load()
 	}
 	switch (m_x_Current) {
 	case kStateMainMenu:    LoadMainMenu();
+		ResetBattle();
 		break;
 
 	case kStateGame:		LoadBattle();
@@ -304,5 +307,8 @@ void GameStateManager::Update()
 			m_x_Next = kStateGame;
 
 	if (m_x_Current == kStateRestart)
+	{
+		ResetBattle();
 		m_x_Next = kStateGame;
+	}
 }

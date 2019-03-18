@@ -4,6 +4,7 @@
 void Pause_Continue()
 {
 	GameStateManager::SetState(kStateGame);
+	
 }
 
 void Pause_Restart()
