@@ -220,8 +220,10 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/PowerUpIconHealth.png", "PowerUpIconHealth");
 	LoadTextureToMap("../Resources/PowerUpIconInvul.png", "PowerUpIconInvul");
 	LoadTextureToMap("../Resources/PowerUpIconSpeed.png", "PowerUpIconSpeed");
+	LoadTextureToMap("../Resources/PowerUpIcon.png", "PowerUpIcon");
 	LoadTextureToMap("../Resources/RockSpriteSheet.png", "Rocks");
 	LoadTextureToMap("../Resources/UIHelpMenu.png", "UIHelpMenu");
+	LoadTextureToMap("../Resources/UIGame_Paused.png", "UIGame_Paused");
 
 
 	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");

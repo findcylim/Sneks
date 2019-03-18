@@ -45,12 +45,13 @@ class SnekSystem final : public BaseSystem,
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 	GameStateManager* m_o_GameStateManager;
-	float player1Growth = 0, player2Growth = 0;
-	float player1GrowthMeter = 5, player2GrowthMeter = 5;
-	int player1Lives = 3, player2Lives = 3;
-	int i_P1Damage = 2, i_P2Damage = 2;
+	float P1Growth = 0, P2Growth = 0;
+	float P1GrowthMeter = 5, P2GrowthMeter = 5;
+	int P1Lives = 3, P2Lives = 3;
+
 	int winner;
 public:
+	int i_P1Damage = 2, i_P2Damage = 2;
 	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr);
 	~SnekSystem() ;
 	void CheckGrowthMeters();
@@ -88,6 +89,7 @@ public:
 	void ResetLives();
 	void ResetDamage();
 	int GetWinner();
+
 };
 	extern int i_P1Damage, i_P2Damage;
 
