@@ -38,6 +38,7 @@ public:
 	void UpdateDrawOrderVector(DrawComponent* firstDrawComponent);
 	void UpdateDrawOrderVector();
 	void Draw(float dt);
+	void DrawBloom(DrawComponent* drawComponent);
 	void UpdateMatrices(CameraComponent*) const;
 	void DrawTextRenderer()const;
 private:

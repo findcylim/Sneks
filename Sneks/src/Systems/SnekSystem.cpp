@@ -123,7 +123,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	else
 	{
 		//body collision destroys the body
-//		HeadCollideBodyCheck(eventData.object1, eventData.object2);
+		//HeadCollideBodyCheck(eventData.object1, eventData.object2);
 		HeadCollideBodyCheck(eventData.object2, eventData.object1);
 	}
 
@@ -322,23 +322,30 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 	if (victimCollision->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body ||
 		(victimCollision->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body))
 	{
-		auto snekHeadAggressor = 
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
-				aggressorCollision, kComponentSnekHead
-			);
-
+		auto snekHeadAggressor = aggressorCollision->GetComponent<SnekHeadComponent>();
+			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
+			//	aggressorCollision, kComponentSnekHead
+			//);
 
 		//Get the parent
-		auto objectFollowComp = 
-			m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(
-				victimCollision, kComponentFollow
-			);
+		auto objectFollowComp = victimCollision->GetComponent<FollowComponent>();
+			//m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(
+			//	victimCollision, kComponentFollow
+			//);
 
-		auto snekHeadVictim = 
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
-				objectFollowComp->m_po_ParentEntity, kComponentSnekHead
-			);
-			
+		auto snekHeadVictim = objectFollowComp->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
+			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(
+			//	objectFollowComp->m_po_ParentEntity, kComponentSnekHead
+			//);
+		auto physicsAggressor = aggressorCollision->GetComponent<PhysicsComponent>();
+
+		for (auto snekBodyPart : snekHeadVictim->m_x_BodyParts)
+		{
+			auto bodyPhysics = snekBodyPart->GetComponent<PhysicsComponent>();
+			bodyPhysics->SetVelocity(bodyPhysics->m_x_Velocity + HTVector2{physicsAggressor->m_x_Velocity} * 0.1f);
+		}
+		auto victimPhysics = snekHeadVictim->GetComponent<PhysicsComponent>();
+		victimPhysics->SetVelocity(victimPhysics->m_x_Velocity + HTVector2{ physicsAggressor->m_x_Velocity } * 0.1f);
 
 		HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
 

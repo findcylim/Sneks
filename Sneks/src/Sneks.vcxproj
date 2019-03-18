@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\AnimationComponent.h" />
+    <ClInclude Include="Components\BloomComponent.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\CanvasComponent.h" />
     <ClInclude Include="Components\CollisionComponent.h" />

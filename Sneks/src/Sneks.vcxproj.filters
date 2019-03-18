@@ -328,5 +328,8 @@
     <ClInclude Include="Systems\Menus\HelpMenuSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="Components\BloomComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

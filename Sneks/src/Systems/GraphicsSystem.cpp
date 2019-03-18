@@ -6,6 +6,7 @@
 #include "../Components/TextRendererComponent.h"
 #include "../Components/AnimationComponent.h"
 #include "../Components/FollowComponent.h"
+#include "../Components/BloomComponent.h"
 
 static unsigned debugFont;
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
@@ -291,12 +292,15 @@ void GraphicsSystem::Draw(float dt)
 		return;
 
 	for (auto i_DrawVector = m_x_DrawOrder.size() - 1; i_DrawVector > 0; --i_DrawVector) {
+
+		AEGfxTexture* savedTexture = nullptr;
 		for (auto drawComponent : m_x_DrawOrder[i_DrawVector]) {
 			if (!drawComponent->m_po_OwnerEntity->m_b_IsActive)
 				continue;
 			//Check if there is draw component
 			if (drawComponent->m_b_IsActive)
 			{
+
 				if (auto i_TransformComponent = drawComponent->m_po_TransformComponent) {
 
 					//allow transparency to work !! must be first
@@ -305,36 +309,22 @@ void GraphicsSystem::Draw(float dt)
 
 					AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha);
 
+					if (savedTexture != drawComponent->m_px_Texture || (drawComponent->m_x_TextureOffset.x != 0) || 
+																						(drawComponent->m_x_TextureOffset.y != 0)) 
+					{
+						savedTexture = drawComponent->m_px_Texture;
+						AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
+					}
+					
 					//If it is an animation
-					AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
 
 					AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
 					AEGfxSetTransparency(1);
 					AEGfxSetTransform(drawComponent->m_po_GlobalMatrix->m);
 					AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
 
-					if (drawComponent->GetComponent<SnekHeadComponent>() || drawComponent->GetComponent<FollowComponent>()) {
-						for (int offSetX = -2; offSetX <= 2; offSetX++) {
-							for (int offSetY = -2; offSetY <= 2; offSetY++) {
-								if (offSetX == 0 && offSetY == 0)
-									continue;
-								AEMtx33 alphaOffset;
-								AEMtx33TransApply(&alphaOffset, drawComponent->m_po_GlobalMatrix, (float)offSetX * 3, (float)offSetY * 3);
 
-								AEGfxSetBlendMode(AE_GFX_BM_ADD);
-								AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
-
-								AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue, drawComponent->m_f_RgbaColor.alpha * 0.03f);
-
-								//If it is an animation
-								AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
-
-								AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
-								AEGfxSetTransform(alphaOffset.m);
-								AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
-							}
-						}
-					}
+					DrawBloom(drawComponent);
 
 				}
 			}
@@ -364,6 +354,39 @@ void GraphicsSystem::Draw(float dt)
 	//AEGfxPrint(debugFont, strBuffer, 200, 480, 1, 0, 0);
 
 	DrawTextRenderer();
+}
+
+void GraphicsSystem::DrawBloom(DrawComponent* drawComponent)
+{
+	//TODO MOVE TO BLOOM SYSTEM
+	if (auto bloomComponent = drawComponent->GetComponent<BloomComponent>())
+	{
+		for (int offSetX = -bloomComponent->m_i_BloomIterations;
+			offSetX <= bloomComponent->m_i_BloomIterations; offSetX++)
+		{
+			for (int offSetY = -bloomComponent->m_i_BloomIterations;
+				offSetY <= bloomComponent->m_i_BloomIterations; offSetY++)
+			{
+				if (offSetX == 0 && offSetY == 0)
+					continue;
+				AEMtx33 alphaOffset;
+				AEMtx33TransApply(&alphaOffset, drawComponent->m_po_GlobalMatrix, static_cast<float>(offSetX) * bloomComponent->m_f_BloomDiffuse,
+																														static_cast<float>(offSetY) * bloomComponent->m_f_BloomDiffuse);
+				AEGfxSetBlendMode(AE_GFX_BM_ADD);
+				AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
+
+				AEGfxSetTintColor(drawComponent->m_f_RgbaColor.red, drawComponent->m_f_RgbaColor.green, drawComponent->m_f_RgbaColor.blue,
+								drawComponent->m_f_RgbaColor.alpha * bloomComponent->m_f_BloomStrength * 0.1f);
+
+				//If it is an animation
+				AEGfxTextureSet(drawComponent->m_px_Texture, drawComponent->m_x_TextureOffset.x, drawComponent->m_x_TextureOffset.y);
+
+				AEGfxSetTextureMode(AE_GFX_TM_AVERAGE);
+				AEGfxSetTransform(alphaOffset.m);
+				AEGfxMeshDraw(drawComponent->m_px_Mesh, AE_GFX_MDM_TRIANGLES);
+			}
+		}
+	}
 }
 
 void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
