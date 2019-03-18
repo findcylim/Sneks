@@ -59,7 +59,7 @@ void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	else if (eventData.object1->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
 	{
 		UpdatePowerUp(m_po_ComponentManager->GetSpecificComponentInstance<PowerUpComponent>
-			(eventData.object2, Component::kComponentPowerUp));
+			(eventData.object2, Component::kComponentPowerUp), eventData.object1->GetComponent<DrawComponent>());
 
 		m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(
 			eventData.object1->m_po_OwnerEntity));
@@ -67,7 +67,7 @@ void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	else if (eventData.object2->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
 	{
 		UpdatePowerUp(m_po_ComponentManager->GetSpecificComponentInstance<PowerUpComponent>
-			(eventData.object1, Component::kComponentPowerUp));
+			(eventData.object1, Component::kComponentPowerUp), eventData.object2->GetComponent<DrawComponent>());
 
 		m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(
 			eventData.object2->m_po_OwnerEntity));
@@ -98,8 +98,27 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
 				snekVelocity, Component::kComponentPhysics)->m_f_Speed * m_f_HolderSpeedRatio;
 
-		m_o_GraphicsSystem->InitializeDrawComponent(powerupHolder->GetComponent<DrawComponent>(),
-			"PowerUpIcon");
+		PowerUpType type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
+
+		const char * PowerUpIcon = "PowerUpIconDamage";
+
+		switch (type)
+		{
+		case kPowerUpSpeedIncrease:
+			PowerUpIcon = "PowerUpIconSpeed";
+			break;
+		case kPowerUpInvul:
+			PowerUpIcon = "PowerUpIconInvul";
+			break;
+		case kPowerUpPlusBody:
+			PowerUpIcon = "PowerUpIconHealth";
+			break;
+			//TODO Add icon for growth and damage once merged. 
+		}
+
+		m_o_GraphicsSystem->InitializeDrawComponent(m_po_ComponentManager->
+			GetSpecificComponentInstance<DrawComponent>(powerupHolder, Component::kComponentDraw),
+			PowerUpIcon);
 
 		m_po_ComponentManager->GetSpecificComponentInstance<CollisionComponent>(
 			powerupHolder, Component::kComponentCollision)->m_i_CollisionGroupVec.push_back(
@@ -111,9 +130,29 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 	}
 }
 
-void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup)
+void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* powerUpDrawComponent)
 {
-	PowerUpType type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
+	PowerUpType type;
+	
+	//TODO
+	// GET A WAY TO GET THE NAME OF THE TEXTURE SIMPLER
+	if (strcmp(powerUpDrawComponent->m_px_Texture->mpName, "../Resources/PowerUpIconDamage.png")==0)
+	{
+		type = kPowerUpGrowthIncrease;
+	}
+	else if (strcmp(powerUpDrawComponent->m_px_Texture->mpName, "../Resources/PowerUpIconSpeed.png") == 0)
+	{
+		type = kPowerUpSpeedIncrease;
+	}
+	else if (strcmp(powerUpDrawComponent->m_px_Texture->mpName, "../Resources/PowerUpIconInvul.png") == 0)
+	{
+		type = kPowerUpInvul;
+	}
+	else 
+	{
+		type = kPowerUpPlusBody;
+	}
+
 
 	if (powerup->IsAlive() || powerup->GetJustDied())
 		RemovePowerUp(powerup);
