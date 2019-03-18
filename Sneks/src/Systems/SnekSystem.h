@@ -58,6 +58,7 @@ public:
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;
 	void Initialize();
 	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName, int controlScheme) const;
+	void ResetSnek(SnekHeadEntity* owner);
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const;
 	void CreateSnekTail(SnekHeadEntity* owner, const char* textureName) const;
 	void DeleteSnek(SnekHeadEntity* snekHead);

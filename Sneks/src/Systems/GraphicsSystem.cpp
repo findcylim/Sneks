@@ -200,6 +200,7 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
 
+	LoadTextureToMap("../Resources/UIGrowthBarFill.png", "GrowthBarFill");
 	LoadTextureToMap("../Resources/UI_BarLeft.png", "LeftBar");
 	LoadTextureToMap("../Resources/UI_BarLeftSmall.png", "SmallLeftBar");
 	LoadTextureToMap("../Resources/UI_BarRight.png", "RightBar");

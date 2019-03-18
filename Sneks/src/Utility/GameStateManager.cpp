@@ -17,6 +17,7 @@
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/PowerUpSystem.h"
 #include "../Systems/Menus/HelpMenuSystem.h"
+#include "../Systems/Menus/PauseMenuSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -179,8 +180,6 @@ void GameStateManager::UnloadWinScreen()
 
 void GameStateManager::LoadWinScreen()
 {
-	m_o_SystemManager->DisableSystem<PhysicsSystem>();
-
 	if (GetP1Lives() <= 0)
 	{
 		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
@@ -194,6 +193,30 @@ void GameStateManager::LoadWinScreen()
 	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
 }
 
+void GameStateManager::LoadPauseMenu()
+{
+	m_o_SystemManager->EnableSystem<PauseMenuSystem>();
+	m_o_SystemManager->DisableSystem<PhysicsSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+}
+
+void GameStateManager::UnloadPauseMenu()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
+}
+
+void GameStateManager::LoadCountdown()
+{
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
+	timeStamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+}
+
+void GameStateManager::UnloadCountdown()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
+}
+
 void GameStateManager::ExitGame()
 {
 	*EngineStatus = false;
@@ -201,7 +224,8 @@ void GameStateManager::ExitGame()
 
 void GameStateManager::Load()
 {
-	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
+//	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
+	if (m_x_Previous == kStateWinScreen)
 	{
 		ResetBattle();
 	}
@@ -235,6 +259,10 @@ void GameStateManager::Unload()
 							break;
 	case kStateHelpMenu:	UnloadHelpMenu();
 							break;
+	case kStateCountdown:	UnloadCountdown();
+							break;
+	case kStatePause:		UnloadPauseMenu();
+							break;
 	}
 }
 
@@ -247,4 +275,14 @@ void GameStateManager::Update()
 		Unload();
 		Load();
 	}
+
+	if (GetAsyncKeyState(AEVK_P) && m_x_Current == kStateGame)
+		SetState(kStatePause);
+
+	if (m_x_Current == kStateCountdown)
+		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3.5) // check if countdown is over
+			m_x_Next = kStateGame;
+
+	if (m_x_Current == kStateRestart)
+		m_x_Next = kStateGame;
 }

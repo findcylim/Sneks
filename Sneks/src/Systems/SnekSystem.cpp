@@ -4,6 +4,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CollisionComponent.h"
 #include "../Components/FollowComponent.h"
+#include "../Components/PowerUpComponent.h"
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../ECS/SystemManager.h"
 #include <iostream>
@@ -146,25 +147,25 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				{
 					if (P1Growth >= P1GrowthMeter)
 					{
-						P1Growth -= P1GrowthMeter;
+						P1Growth = 0;
 						P1GrowthMeter *= 1.5;
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
 					}
 					else
-						P1Growth += 0.1f;
+						P1Growth += 0.5f;
 				}
 				else
 				{
 					if (P2Growth >= P2GrowthMeter)
 					{
-						P2Growth -= P2GrowthMeter;
+						P2Growth = 0;
 						P2GrowthMeter *= 1.5;
 						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
 							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
 					}
 					else
-						P2Growth += 0.1f;
+						P2Growth += 0.5f;
 				}
 			}
 		}
@@ -197,10 +198,20 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHed1->m_x_BodyParts.size() == 1)
 				{
 					if (snekHed1->m_i_PlayerNumber == 0)
+          {
 						P1Lives--;
-					else
-						P2Lives--;
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 
+					}
+					else
+          {
+						P2Lives--;
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+					}
+
+					//m_o_GameStateManager->SetState(kStateCountdown); //restart the countdown
 
 					/*
 					m_po_EntityManager->AddToDeleteQueue(snekHed1->m_x_BodyParts[0]);
@@ -216,12 +227,19 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHed2->m_x_BodyParts.size() == 1)
 				{
 					if (snekHed2->m_i_PlayerNumber == 0)
+          {
 						P1Lives--;
-					else
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+					}
+					else{
 						P2Lives--;
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
+            ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+          }
+					//m_o_GameStateManager->SetState(kStateCountdown); //restart the countdown
 
 					/*
-					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_x_BodyParts[0]);
 					m_po_EntityManager->AddToDeleteQueue(snekHed2->m_po_OwnerEntity);
 					auto i_CameraComponent = static_cast<CameraComponent*>(
 						m_po_ComponentManager->GetFirstComponentInstance(kComponentCamera));
@@ -635,6 +653,39 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	}
 	
 	CreateSnekTail(newSnekHeadEntity, tailTexture);
+}
+
+void SnekSystem::ResetSnek(SnekHeadEntity* owner)
+{
+	auto playerNumber = owner->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber;
+	auto transformComp = owner->GetComponent<TransformComponent>();
+	HTVector2 velocity;
+	velocity.x = 0;
+	velocity.y = 0;
+
+	owner->GetComponent<PowerUpComponent>()->ResetPowerIncrease();
+
+	transformComp->SetPositionY(0);
+
+	if (playerNumber == 0)
+	{
+		transformComp->SetRotation(PI);
+		transformComp->SetPositionX(-200);
+		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
+	}
+	else
+	{
+		transformComp->SetRotation(0);
+		transformComp->SetPositionX(200);
+		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
+	}
+
+	for (int i_BodyParts = 0; i_BodyParts < 5; i_BodyParts++) {
+		if (playerNumber == 0)
+			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody01", playerNumber);
+		else
+			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody02", playerNumber);
+	}
 }
 
 void SnekSystem::DeleteSnek(SnekHeadEntity* snekHead)
