@@ -11,7 +11,7 @@ Sound::Sound()
 	channel = 0;
 }
 
-void Sound::fmodErrorCheck(FMOD_RESULT resultCheck)
+void Sound::FmodErrorCheck(FMOD_RESULT resultCheck)
 {
 	/* Throw an error if FMOD finds something wrong */
 	if (resultCheck != FMOD_OK)
@@ -21,40 +21,40 @@ void Sound::fmodErrorCheck(FMOD_RESULT resultCheck)
 	}
 }
 
-void Sound::initialise()
+void Sound::Initialize()
 {
 	FMOD_System_Create(&system);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 	FMOD_System_Init(system, 64, FMOD_INIT_NORMAL, 0);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 }
 
-void Sound::create(const char* filename)
+void Sound::Create(const char* filename)
 {
 	FMOD_System_CreateSound(system, filename, FMOD_LOOP_OFF | FMOD_CREATESAMPLE, 0, &fmodSound);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 	FMOD_System_PlaySound(system, fmodSound, 0, true, &channel);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 }
 
-void Sound::createBGM(const char*filename)
+void Sound::CreateBGM(const char*filename)
 {
 	FMOD_Sound_SetMusicChannelVolume(fmodSound, 0, 0);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 	FMOD_System_CreateStream(system, filename, FMOD_LOOP_NORMAL, 0, &fmodSound);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 	FMOD_System_PlaySound(system, fmodSound, 0, true, &channel);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 }
 
-void Sound::play(float volume)
+void Sound::Play(float volume)
 {
 	if (m_c_PlayCap < 5)
 	{
 		soundOn = true;
 
 		FMOD_System_PlaySound(system, fmodSound, 0, false, &channel);
-		fmodErrorCheck(result);
+		FmodErrorCheck(result);
 		FMOD_Channel_SetVolume(channel, volume);
 		//FMOD_Channel_SetPaused(channel, false);
 		++m_c_PlayCap;
@@ -65,10 +65,10 @@ void Sound::play(float volume)
 	}
 }
 
-void Sound::update()
+void Sound::Update()
 {
 	FMOD_System_Update(system);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 	m_f_Timer += static_cast<float>(AEFrameRateControllerGetFrameTime());
 	if (m_f_Timer > 1.0f)
 	{
@@ -77,41 +77,41 @@ void Sound::update()
 	}
 }
 
-void Sound::pause(FMOD_BOOL pause)
+void Sound::Pause(FMOD_BOOL pause)
 {
 	FMOD_Channel_SetPaused(channel, pause);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 }
 
-void Sound::unload()
+void Sound::Unload()
 {
 	currentSound = 0;
 	soundOn = false;
 	FMOD_Sound_Release(fmodSound);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 }
 
-bool Sound::checkPlaying()
+bool Sound::CheckPlaying()
 {
 	FMOD_Channel_IsPlaying(channel, &soundOn);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 	return soundOn;
 }
 
-void Sound::release()
+void Sound::Release()
 {
 	FMOD_Sound_Release(fmodSound);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 	FMOD_System_Release(system);
-	fmodErrorCheck(result);
+	FmodErrorCheck(result);
 }
 
-FMOD_SYSTEM	*Sound::getSystem()
+FMOD_SYSTEM	*Sound::GetSystem()
 {
 	return system;
 }
 
-FMOD_SOUND* Sound::getFMODSound()
+FMOD_SOUND* Sound::GetFmodSound()
 {
 	return fmodSound;
 }
@@ -119,21 +119,32 @@ FMOD_SOUND* Sound::getFMODSound()
 AudioSystem::AudioSystem(EntityManager* entityManagerPtr) :
 BaseSystem(entityManagerPtr)
 {
-	BGM.initialise();
-	SFX.initialise();
-	BGM.createBGM("../Resources/main_menu.wav");
-	
-	BGM.play(0.05f);
-	SFX.create("../Resources/hitsound.wav");
+	m_o_BackgroundMusic.Initialize();
+	m_o_BackgroundMusic.CreateBGM("../Resources/Sounds/main_menu.wav");
+	m_o_BackgroundMusic.Play(0.05f);
+
+	m_o_HitSound.Initialize();
+	m_o_HitSound.Create("../Resources/Sounds/hitsound.wav");
+
+	m_o_PowerUpSound.Initialize();
+	m_o_PowerUpSound.Create("../Resources/Sounds/powerup.wav");
+
+	m_o_ExplosionSound.Initialize();
+	m_o_ExplosionSound.Create("../Resources/Sounds/explosion.wav");
+
 }
 
 AudioSystem::~AudioSystem()
 {
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
-	if (BGM.getSystem() != NULL)
-		BGM.release();
-	if (SFX.getSystem() != NULL)
-		SFX.release();
+	if (m_o_BackgroundMusic.GetSystem() != NULL)
+		m_o_BackgroundMusic.Release();
+	if (m_o_HitSound.GetSystem() != NULL)
+		m_o_HitSound.Release();
+	if (m_o_PowerUpSound.GetSystem() != NULL)
+		m_o_PowerUpSound.Release();
+	if (m_o_ExplosionSound.GetSystem() != NULL)
+		m_o_ExplosionSound.Release();
 }
 
 void AudioSystem::Initialize()
@@ -143,20 +154,34 @@ void AudioSystem::Initialize()
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	UNREFERENCED_PARAMETER(eventData);
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{
 		
 	}
+	else if (eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupPowerUp)
+	{
+		m_o_PowerUpSound.Play();
+	}
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
+				eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body ||
+				eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head &&
+				eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body || 
+				eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
+				eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head)
+	{
+		m_o_ExplosionSound.Play();
+	}
 	else
 	{
-		SFX.play();
+		m_o_HitSound.Play();
 	}
 }
 
 void AudioSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
-	BGM.update();
-	SFX.update();
+	m_o_BackgroundMusic.Update();
+	m_o_HitSound.Update();
+	m_o_PowerUpSound.Update();
+	m_o_ExplosionSound.Update();
 }
