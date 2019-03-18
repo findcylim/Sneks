@@ -1081,20 +1081,24 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 		 reference->m_po_TransformComponent->m_x_Position.x;
 	float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
 		 reference->m_po_TransformComponent->m_x_Position.y;
+	float hypo = sqrt(distanceX * distanceX + distanceY * distanceY);
 
 	auto headBodyAllowance = 0.83f;
 	auto headBodyClosenessMultiplier = 0.4f;
 	auto stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
-	if (stretchFactor > 1.0f)
-		stretchFactor = 1.0f;
+	//if (stretchFactor > 1.0f)
+	//	stretchFactor = 1.0f;
 
+	/*
+	quick fix is the " / hypo * 15" attached at the back of all the calculations as well as the commented code above
+	*/
 	if (headPhysicsComponent->m_po_OwnerEntity == reference->m_po_OwnerEntity) {
 		toChange->m_po_TransformComponent->m_x_Position.x =
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX / hypo * 15
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 
 		toChange->m_po_TransformComponent->m_x_Position.y =
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY / hypo * 15
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 	}
 	else
@@ -1104,11 +1108,11 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 		stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
 
 		toChange->m_po_TransformComponent->m_x_Position.x =
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX / hypo * 15
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 
 		toChange->m_po_TransformComponent->m_x_Position.y =
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY / hypo * 15
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 	}
 }
