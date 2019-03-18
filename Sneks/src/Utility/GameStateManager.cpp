@@ -117,12 +117,12 @@ void GameStateManager::ResetBattle()
 	buildings->RemoveBuildings();
 	buildings->GenerateNewBuildings(500);
 
-
+	
 	//auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
 	//m_o_SystemManager->AddSystem(buildings);
 	//buildings->SetName("Buildings");
 	//buildings->Initialize();
-	
+	ResetDamage();
 	ResetLives();
 }
 

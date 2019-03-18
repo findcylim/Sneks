@@ -80,6 +80,8 @@ float GetP2GrowthPercentage();
 int GetP1Lives();
 int GetP2Lives();
 void ResetLives();
+void ResetDamage();
+extern int i_P1Damage, i_P2Damage;
 
 //float GetFlipChargeRate();
 #endif

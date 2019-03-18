@@ -52,6 +52,12 @@ int GetP2Lives()
 	return P2Lives;
 }
 
+void ResetDamage()
+{
+	i_P1Damage = 2;
+	i_P2Damage = 2;
+}
+
 void SnekSystem::IncreaseGrowthRate(unsigned short player, float increase)
 {
 	if (player == 0)
@@ -189,14 +195,13 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHed1->m_x_BodyParts.size() == 1)
 				{
 					if (snekHed1->m_i_PlayerNumber == 0)
-          {
+				   {
 						P1Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 
 					}
-					else
-          {
+					else					{
 						P2Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
@@ -218,16 +223,17 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHed2->m_x_BodyParts.size() == 1)
 				{
 					if (snekHed2->m_i_PlayerNumber == 0)
-          {
+				   {
 						P1Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
-					else{
+					else
+					{
 						P2Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
-            ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
-          }
+						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+			      }
 					//m_o_GameStateManager->SetState(kStateCountdown); //restart the countdown
 
 					/*
