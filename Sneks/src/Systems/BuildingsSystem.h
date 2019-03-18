@@ -11,14 +11,14 @@ public:
 	BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
 	void Update(float dt) override;
 	void Initialize();
-	StaticObjectEntity* CreateBuilding(float posX, float posY, const char* textureName) const;
+	StaticObjectEntity* CreateBuilding(float posX, float posY, const char* textureName, HTVector2 scale) const;
 	void CreateInstancedBackgrounds(int instancesX, int instancesY, const char* textureName);
 
 	~BuildingsSystem() = default;
 	void GenerateNewBuildings(int num);
 	void RemoveBuildings();
 	void LoadPossibleLocations();
-	HTVector2* GetNewUniqueBuildingPosition();
+	HTVector2* GetNewUniqueBuildingPosition(int& indexFound);
 
 private:
 	GraphicsSystem*                  m_o_GraphicsSystem;

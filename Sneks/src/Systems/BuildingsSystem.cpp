@@ -40,8 +40,9 @@ void BuildingsSystem::Initialize()
 }
 
 StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, 
-                                                    const char* textureName) const
+                                                    const char* textureName,HTVector2 scale) const
 {
+	
 	auto newBuildingEntity =
 		m_po_EntityManager->NewEntity<StaticObjectEntity>(kEntityStaticObject, "Building");
 
@@ -52,6 +53,8 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 			static_cast<TransformComponent*>(i_Component)->SetPositionX(posX);
 			static_cast<TransformComponent*>(i_Component)->SetPositionY(posY);
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
+			static_cast<TransformComponent*>(i_Component)->m_f_Scale.x *= scale.x;
+			static_cast<TransformComponent*>(i_Component)->m_f_Scale.y *= scale.y;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
@@ -70,14 +73,54 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 void BuildingsSystem::GenerateNewBuildings(int num)
 {
 	for (int i = 0; i < num; i++) {
-		auto newPosition = GetNewUniqueBuildingPosition();
+		int index = -1;
+		HTVector2* newPosition = GetNewUniqueBuildingPosition(index);
 		if (!newPosition)
 			return;
-		m_BuildingCoordsCurrent.push_back(*newPosition);
-
+		HTVector2 scale = { 1,1 };
+		int offset = 1;
 		
+		
+
+		int check = rand() % 100;
+		switch (check / 50)
+		{
+		case 0:
+			m_BuildingCoordsCurrent.push_back(*newPosition);
+			break;
+		case 1:
+			m_BuildingCoordsCurrent.push_back(*newPosition);
+			m_BuildingCoordsCurrent.push_back(HTVector2{ (*newPosition).x + buildingsDistX,(*newPosition).y });
+			m_BuildingCoordsCurrent.push_back(HTVector2{ (*newPosition).x,  (*newPosition).y+ buildingsDistY });
+			m_BuildingCoordsCurrent.push_back(HTVector2{ (*newPosition).x + buildingsDistX,(*newPosition).y+ buildingsDistY });
+			scale.x = 2.18f;
+			scale.y = 2.45f;
+			offset = 2;
+			break;
+		}
+
+
+		const char * buildingName = "Building01";
+		check = rand() % 100;
+		switch (check / 25)
+		{
+		case 0:
+			buildingName = "Building01";
+				break;
+		case 1:
+			buildingName = "Building02";
+			break;
+		case 2:
+			buildingName = "Building03";
+			break;
+		case 3:
+			buildingName = "Building04";
+			break;
+		}
+
 		m_BuildingInstances.push_back(
-			CreateBuilding(newPosition->x, newPosition->y, "Building01")
+			CreateBuilding(newPosition->x + (offset - 1)* (buildingsDistX*0.5f),
+						   newPosition->y + (offset - 1)* (buildingsDistY*0.5f), buildingName, scale)
 		);
 		/*DrawObject* building;
 		if (m_px_BuildingMesh == nullptr) {
@@ -111,13 +154,13 @@ void BuildingsSystem::LoadPossibleLocations()
 		for (int i_MaxBuildingsY = 0; i_MaxBuildingsY < m_i_MaxBuildingsY; i_MaxBuildingsY++)
 		{
 			HTVector2 possibleBuildingCoord{ m_i_FirstBuildingCoords.x + i_MaxBuildingsX * buildingsDistX,
-														 m_i_FirstBuildingCoords.y + i_MaxBuildingsY * buildingsDistY };
+											 m_i_FirstBuildingCoords.y + i_MaxBuildingsY * buildingsDistY };
 			m_BuildingCoordsPossible.push_back(possibleBuildingCoord);
 		}
 	}
 }
 
-HTVector2* BuildingsSystem::GetNewUniqueBuildingPosition()
+HTVector2* BuildingsSystem::GetNewUniqueBuildingPosition(int& indexFound)
 {
 	if (m_BuildingCoordsCurrent.size() < m_BuildingCoordsPossible.size()) {
 		int randIndex = 0;
@@ -136,6 +179,8 @@ HTVector2* BuildingsSystem::GetNewUniqueBuildingPosition()
 				}
 			}
 		}
+		
+		indexFound = randIndex;
 		return currentBuildingCoords;
 	}
 	return nullptr;
