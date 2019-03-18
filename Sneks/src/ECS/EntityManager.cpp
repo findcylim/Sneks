@@ -291,7 +291,7 @@ void EntityManager::  DeleteEntity(BaseEntity* entityPointer)
 			prevEntity->m_po_NextEntity = nullptr;
 		else if (!prevEntity && !nextEntity)
 			m_v_EntityPool[entityPointer->GetEntityID()] = nullptr;
-		m_v_ToFree.push_back(entityPointer);
+		//m_v_ToFree.push_back(entityPointer);
 
 		delete entityPointer;
 	}

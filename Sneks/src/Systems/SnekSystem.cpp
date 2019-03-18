@@ -21,28 +21,28 @@ int SnekSystem::GetWinner()
 
 float SnekSystem::GetP1GrowthPercentage()
 {
-	return P1Growth/P1GrowthMeter;
+	return p1Growth/p1GrowthMeter;
 }
 
 float SnekSystem::GetP2GrowthPercentage()
 {
-	return P2Growth/P2GrowthMeter;
+	return p2Growth/p2GrowthMeter;
 }
 
 void SnekSystem::ResetLives()
 {
-	P1Lives = 3;
-	P2Lives = 3;
+	p1Lives = 3;
+	p2Lives = 3;
 }
 
 int SnekSystem::GetP1Lives()
 {
-	return P1Lives;
+	return p1Lives;
 }
 
 int SnekSystem::GetP2Lives()
 {
-	return P2Lives;
+	return p2Lives;
 }
 
 void SnekSystem::ResetDamage()
@@ -54,17 +54,19 @@ void SnekSystem::ResetDamage()
 void SnekSystem::IncreaseGrowthRate(unsigned short player, float increase)
 {
 	if (player == 0)
-		P1GrowthMeter /= increase;
+		p1GrowthMeter /= increase;
 	else
-		P2GrowthMeter /= increase;
+		p2GrowthMeter /= increase;
+	CheckGrowthMeters();
 }
 
 void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
 {
 	if (player == 0)
-		P1GrowthMeter *= decrease;
+		p1GrowthMeter *= decrease;
 	else
-		P2GrowthMeter *= decrease;
+		p2GrowthMeter *= decrease;
+	CheckGrowthMeters();
 }
 
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
@@ -79,6 +81,35 @@ SnekSystem::~SnekSystem()
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_SNEK_INVULNERABLE>(this);
 };
+
+void SnekSystem::CheckGrowthMeters()
+{
+	auto snekHeadComp = m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+
+	while (snekHeadComp)
+	{
+		float* playerGrowth = &p1Growth;
+		float* playerGrowthMeter = &p1GrowthMeter;
+		auto texture = "SnekBody01";
+
+		if (snekHeadComp->m_i_PlayerNumber != 0)
+		{
+			playerGrowth = &p2Growth;
+			playerGrowthMeter = &p2GrowthMeter;
+			texture = "SnekBody02";
+		}
+
+		if (*playerGrowth >= *playerGrowthMeter)
+		{
+			*playerGrowth = 0;
+			*playerGrowthMeter *= 1.1f;
+			CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+				texture, snekHeadComp->m_i_PlayerNumber);
+		}
+		snekHeadComp = static_cast<SnekHeadComponent*>(snekHeadComp->m_po_NextComponent);
+	}
+
+}
 
 
 void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
@@ -135,27 +166,13 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			{
 				if (snekHeadComp->m_i_PlayerNumber == 0)
 				{
-					P1Growth += 0.5f;
-					if (P1Growth >= P1GrowthMeter)
-					{
-						P1Growth = 0;
-						P1GrowthMeter *= 1.1f;
-						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
-						(void)0;
-					}
-
+					p1Growth += 0.5f;
+					CheckGrowthMeters();
 				}
 				else
 				{
-					P2Growth += 0.5f;
-					if (P2Growth >= P2GrowthMeter)
-					{
-						P2Growth = 0;
-						P2GrowthMeter *= 1.1f;
-						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
-					}
+					p2Growth += 0.5f;
+					CheckGrowthMeters();
 				}
 			}
 		}
@@ -189,14 +206,14 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				{
 					if (snekHed1->m_i_PlayerNumber == 0)
 				   {
-						P1Lives--;
+						p1Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 
 					}
 					else
 					{
-						P2Lives--;
+						p2Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
@@ -218,13 +235,13 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				{
 					if (snekHed2->m_i_PlayerNumber == 0)
 				   {
-						P1Lives--;
+						p1Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 					}
 					else
 					{
-						P2Lives--;
+						p2Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
 			      }
@@ -241,7 +258,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				}
 
 				//todo: optimize this portion
-				if (P1Lives <= 0)
+				if (p1Lives <= 0)
 				{
 					winner = 2;
 					m_o_GameStateManager->SetState(kStateWinScreen);
@@ -261,7 +278,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						snek = static_cast<SnekHeadEntity*>(snek->m_po_NextEntity);
 					}*/
 				}
-				else if (P2Lives <= 0)
+				else if (p2Lives <= 0)
 				{
 					winner = 1;
 					m_o_GameStateManager->SetState(kStateWinScreen);
@@ -387,7 +404,7 @@ void SnekSystem::Update(float dt)
 {
 	if (AEInputCheckTriggered(AEVK_3))
 	{
-		P1Lives--;
+		p1Lives--;
 	}
 
 	auto i_InvulnerableComponent = 

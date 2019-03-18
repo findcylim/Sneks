@@ -183,7 +183,7 @@ void ComponentManager::DeleteComponent(BaseComponent* componentPointer)
 		for (i_vectorIndex = 0; componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList[i_vectorIndex] != componentPointer; i_vectorIndex++);
 
 		componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.erase(componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.begin() + i_vectorIndex);
-
+		
 		delete componentPointer;
 	}
 }
