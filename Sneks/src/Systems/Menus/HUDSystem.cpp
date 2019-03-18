@@ -38,19 +38,19 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 	float X = 0.5f;
 	float Y = 0.083f;
 
-	Events::EV_NEW_UI_ELEMENT LBarElement = { canvasComponent,HTVector2{ X , Y } ,kCanvasBasicSprite, "LBar", "LeftBar","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT sLBarElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "sLBar", "SmallLeftBar","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT RBarElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RBar", "RightBar","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT sRBarElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "sRBar", "SmallRightBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LBarElement ={ canvasComponent,HTVector2{ X , Y } ,kCanvasBasicSprite, "LBar", "LeftBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT sLBarElement ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "sLBar", "SmallLeftBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RBarElement ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RBar", "RightBar","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT sRBarElement ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "sRBar", "SmallRightBar","","","", nullptr };
 
-	Events::EV_NEW_UI_ELEMENT HUDElement = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT HUDElement ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
 
-	Events::EV_NEW_UI_ELEMENT RLifeElement1 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL1", "LifeR1","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT RLifeElement2 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL2", "LifeR2","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT RLifeElement3 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL3", "LifeR3","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT LLifeElement1 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL1", "LifeL1","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT LLifeElement2 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL2", "LifeL2","","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT LLifeElement3 = { canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL3", "LifeL3","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RLifeElement1 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL1", "LifeR1","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RLifeElement2 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL2", "LifeR2","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT RLifeElement3 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL3", "LifeR3","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement1 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL1", "LifeL1","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement2 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL2", "LifeL2","","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LLifeElement3 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "LL3", "LifeL3","","","", nullptr };
 
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LBarElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(sLBarElement);
@@ -70,7 +70,7 @@ void HUDSystem::Initialize(CanvasComponent* canvasComponent)
 void HUDSystem::Update(float dt)
 {
 	(void)dt;
-	CanvasComponent * can_Comp = m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas,"Heads Up Display")->GetComponent<CanvasComponent>();
+	CanvasComponent * can_Comp = m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas, "Heads Up Display")->GetComponent<CanvasComponent>();
 
 	/* Updating Lives */
 
@@ -79,7 +79,7 @@ void HUDSystem::Update(float dt)
 		if (!strncmp(element->m_pc_EntityName, "LL", 2))
 		{
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(100);
+			draw_Comp->SetAlpha(1.0f);
 		}
 	}
 
@@ -88,104 +88,110 @@ void HUDSystem::Update(float dt)
 		if (!strncmp(element->m_pc_EntityName, "RL", 2))
 		{
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(100);
+			draw_Comp->SetAlpha(1.0f);
 		}
 	}
 
 	switch (GetP1Lives()) {
-	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)
-	{
-		if (!strcmp(element->m_pc_EntityName, "RL3"))
+	case 0:
+		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
+			if (!strcmp(element->m_pc_EntityName, "RL3"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
+			if (!strcmp(element->m_pc_EntityName, "RL2"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
+			if (!strcmp(element->m_pc_EntityName, "RL1"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
 		}
-		if (!strcmp(element->m_pc_EntityName, "RL2"))
-		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
-		}
-		if (!strcmp(element->m_pc_EntityName, "RL1"))
-		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
-		}
-	}
-	break;
+		break;
 
-	case 1: for (auto& element : can_Comp->m_x_CanvasElementList)
-	{
-		if (!strcmp(element->m_pc_EntityName, "RL2"))
+	case 1:
+		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
+			if (!strcmp(element->m_pc_EntityName, "RL2"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
+			if (!strcmp(element->m_pc_EntityName, "RL1"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
 		}
-		if (!strcmp(element->m_pc_EntityName, "RL1"))
-		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
-		}
-	}
-	break;
+		break;
 
-	case 2: for (auto& element : can_Comp->m_x_CanvasElementList)
-	{
-		if (!strcmp(element->m_pc_EntityName, "RL1"))
+	case 2:
+		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
+			if (!strcmp(element->m_pc_EntityName, "RL1"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
 		}
-	}
-	break;
+		break;
 	}
 
 	switch (GetP2Lives()) {
-	case 0: for (auto& element : can_Comp->m_x_CanvasElementList)
-	{
-		if (!strcmp(element->m_pc_EntityName, "LL3"))
+	case 0:
+		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
+			if (!strcmp(element->m_pc_EntityName, "LL3"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
+			if (!strcmp(element->m_pc_EntityName, "LL2"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
+			if (!strcmp(element->m_pc_EntityName, "LL1"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
 		}
-		if (!strcmp(element->m_pc_EntityName, "LL2"))
-		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
-		}
-		if (!strcmp(element->m_pc_EntityName, "LL1"))
-		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
-		}
-	}
-	break;
+		break;
 
-	case 1: for (auto& element : can_Comp->m_x_CanvasElementList)
-	{
-		if (!strcmp(element->m_pc_EntityName, "LL2"))
+	case 1:
+		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
+			if (!strcmp(element->m_pc_EntityName, "LL2"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
+			if (!strcmp(element->m_pc_EntityName, "LL1"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
 		}
-		if (!strcmp(element->m_pc_EntityName, "LL1"))
-		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
-		}
-	}
-	break;
+		break;
 
-	case 2: for (auto& element : can_Comp->m_x_CanvasElementList)
-	{
-		if (!strcmp(element->m_pc_EntityName, "LL1"))
+	case 2:
+		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
-			draw_Comp->SetAlpha(0);
+			if (!strcmp(element->m_pc_EntityName, "LL1"))
+			{
+				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
+				draw_Comp->SetAlpha(0);
+			}
 		}
+		break;
 	}
-	break;
-	}
-	
+
 	/* Updating growth meter */
 
 	float screenX = 0, screenY = 0;
