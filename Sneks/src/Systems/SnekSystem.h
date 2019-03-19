@@ -49,7 +49,7 @@ private:
 	float p1GrowthMeter = 5, p2GrowthMeter = 5;
 	int p1Lives = 3, p2Lives = 3;
 
-	int i_DamageBase = 5;
+	int i_DamageBase = 2;
 	int i_P1Damage = i_DamageBase, i_P2Damage = i_DamageBase;
 	float f_AngleHeadHit = PI / 4;
 
@@ -72,7 +72,8 @@ public:
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const;
 	void CreateSnekTail(SnekHeadEntity* owner, const char* textureName) const;
 	void DeleteSnek(SnekHeadEntity* snekHead);
-	void RemoveSnekBody(SnekBodyEntity*, SnekHeadComponent* snekHead);
+	void RemoveBodyParts(int partsToRemove, SnekHeadComponent* snekHead);
+	void CutSnekBody(SnekBodyEntity*, SnekHeadComponent* snekHead);
 	void FaceReference(const TransformComponent* reference, TransformComponent* toChange) const;
 	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
 	void MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange,
