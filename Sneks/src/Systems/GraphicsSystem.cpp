@@ -248,11 +248,13 @@ void GraphicsSystem::Update(float dt)
 	{
 		if (bloomComp->m_b_FlashingBloom)
 		{
-			bloomComp->m_f_BloomStrength += bloomComp->m_f_FlashingSpeed * dt;
+			bloomComp->m_f_BloomStrength += bloomComp->m_f_FlashingSpeed * bloomComp->m_f_FlashingMagnitude * dt;
 
 
-			if (bloomComp->m_f_BloomStrength > bloomComp->m_f_FlashingStrengthMax)
-				bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
+			if (bloomComp->m_f_BloomStrength > bloomComp->m_f_FlashingStrengthMax ||
+				 bloomComp->m_f_BloomStrength < bloomComp->m_f_FlashingStrengthMin)
+				bloomComp->m_f_FlashingMagnitude *= -1.0f;
+				//bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
 		}
 		bloomComp = static_cast<BloomComponent*>(bloomComp->m_po_NextComponent);
 	}

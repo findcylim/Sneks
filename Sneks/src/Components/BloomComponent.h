@@ -13,8 +13,9 @@ public:
 	int   m_i_BloomIterations = 2;   // number of drawn blurs
 	
 	bool m_b_FlashingBloom = false;
-	float m_f_FlashingSpeed = 0.05f;
-	float m_f_FlashingStrengthMin = 0.2f;
+	float m_f_FlashingMagnitude = 1.0f;
+	float m_f_FlashingSpeed = 0.2f;
+	float m_f_FlashingStrengthMin = 0.1f;
 	float m_f_FlashingStrengthMax = 0.3f;
 };
 #endif
