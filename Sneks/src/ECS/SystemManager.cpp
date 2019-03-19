@@ -1,7 +1,7 @@
 
 #include "SystemManager.h"
 
-#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
+//#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
 
 #ifdef LOG_SYSTEM_UPDATE_TIME
 #define __STDC_WANT_LIB_EXT1__ 1
@@ -166,23 +166,25 @@ void SystemManager::Update(float dt)
 
 	for (BaseSystem* currSystem : m_v_SystemList)
 	{
+#ifdef LOG_SYSTEM_UPDATE_TIME
+		auto preTime = AEGetTime(nullptr);
+#endif
 		if (currSystem->m_b_isActive)
 		{
-#ifdef LOG_SYSTEM_UPDATE_TIME
-			auto preTime = AEGetTime(nullptr);
-#endif
+
 
 			currSystem->Update(dt);
 
-#ifdef LOG_SYSTEM_UPDATE_TIME
-			auto timeToUpdate = AEGetTime(nullptr) - preTime;
-			totalFrames++;
-			timeToUpdate *= 1000;
-			timeElapsed += timeToUpdate;
-			nameLog.push_back(currSystem->GetName());
-			timeLog.push_back(timeToUpdate);
-#endif
+
 		}
+#ifdef LOG_SYSTEM_UPDATE_TIME
+		auto timeToUpdate = AEGetTime(nullptr) - preTime;
+		totalFrames++;
+		timeToUpdate *= 1000;
+		timeElapsed += timeToUpdate;
+		nameLog.push_back(currSystem->GetName());
+		timeLog.push_back(timeToUpdate);
+#endif
 	}
 }
 

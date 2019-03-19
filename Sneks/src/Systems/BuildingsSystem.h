@@ -5,16 +5,19 @@
 #include "GraphicsSystem.h"
 
 class BuildingsSystem:
-	public BaseSystem
+	public BaseSystem,
+	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 public:
 	BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
+	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
+
 	void Update(float dt) override;
 	void Initialize();
+	void ResetLevel1();
 	StaticObjectEntity* CreateBuilding(float posX, float posY, const char* textureName, HTVector2 scale) const;
-	void CreateInstancedBackgrounds(int instancesX, int instancesY, const char* textureName);
 
-	~BuildingsSystem() = default;
+	~BuildingsSystem();
 	void GenerateNewBuildings(int num);
 	void RemoveBuildings();
 	void LoadPossibleLocations();
@@ -28,7 +31,8 @@ private:
 	int                              m_i_MaxBuildingsX;
 	int                              m_i_MaxBuildingsY;
 	HTVector2                        m_i_FirstBuildingCoords;
-
+	int m_i_BuildingsCount = 0;
+	const int kBuildingsSpawnCount = 1000;
 };
 
 #endif //BUILDINGS_SYSTEM_H

@@ -243,6 +243,19 @@ AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char*
 
 void GraphicsSystem::Update(float dt)
 {
+	auto bloomComp = m_po_ComponentManager->GetFirstComponentInstance<BloomComponent>(kComponentBloom);
+	while (bloomComp)
+	{
+		if (bloomComp->m_b_FlashingBloom)
+		{
+			bloomComp->m_f_BloomStrength += bloomComp->m_f_FlashingSpeed * dt;
+
+
+			if (bloomComp->m_f_BloomStrength > bloomComp->m_f_FlashingStrengthMax)
+				bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
+		}
+		bloomComp = static_cast<BloomComponent*>(bloomComp->m_po_NextComponent);
+	}
 	Draw(dt);
 }
 

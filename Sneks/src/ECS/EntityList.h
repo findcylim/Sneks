@@ -153,8 +153,8 @@ public:
 class PowerUpHolderEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[6] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
-											Component::kComponentCollision, Component::KComponentInvulnerable, Component::kComponentEnd };
+	Component m_ax_InitialComponents[7] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
+											Component::kComponentCollision, Component::KComponentInvulnerable, Component::kComponentBloom, Component::kComponentEnd };
 
 	PowerUpHolderEntity(const char* entityName) : BaseEntity(entityName) {};
 };

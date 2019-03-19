@@ -270,6 +270,14 @@ void ECSystem::Update()
 		{
 			m_b_EngineStatus = false;
 		}
+		if (AEInputCheckTriggered(AEVK_COMMA))
+		{
+			AEToogleFullScreen(false);
+		}
+		if (AEInputCheckTriggered(AEVK_PERIOD))
+		{
+			AEToogleFullScreen(true);
+		}
 		m_o_EntityComponentManager->ResolveDeletes();
 
 		actualDt -= dtCap;

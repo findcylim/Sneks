@@ -91,7 +91,17 @@ inline HTVector2 CalculateReflectVelocity(HTVector2 velocity, HTVector2 wallNorm
 {
 	HTVector2 perpendicular = wallNormal * ( velocity.dot(wallNormal) / wallNormal.dot(wallNormal)) ;
 	HTVector2 parallel		= velocity - perpendicular;
-	return parallel - perpendicular;
+
+	auto newVel = parallel - perpendicular;
+
+	AEVec2 vel{ newVel.x,newVel.y };
+	if (AEVec2SquareLength(&vel) < 300.0f * 300)
+	{
+		AEVec2Normalize(&vel, &vel);
+		newVel ={ vel.x * 300.0f, vel.y * 300.0f };
+	}
+
+	return newVel;
 }
 
 inline HTVector2 GetNormal(HTVector2 vector)

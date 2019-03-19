@@ -1,8 +1,7 @@
 
 #include "PowerUpSystem.h"
 #include "../Components/InvulnerableComponent.h"
-
-
+#include "../Components/BloomComponent.h"
 
 
 PowerUpSystem::PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics, SnekSystem* snek)
@@ -130,6 +129,11 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
 			powerupHolder, Component::KComponentInvulnerable)->m_f_InvulnerableTime =
 			m_f_HolderInvulTime;
+
+
+		m_po_ComponentManager->GetSpecificComponentInstance<BloomComponent>(
+			powerupHolder, Component::kComponentBloom)->m_b_FlashingBloom = true;
+
 	}
 }
 

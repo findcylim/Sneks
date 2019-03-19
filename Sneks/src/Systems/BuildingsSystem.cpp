@@ -16,14 +16,28 @@ BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem
 	m_o_GraphicsSystem = graphics;
 }
 
+void BuildingsSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
+{
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ||
+		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
+		--m_i_BuildingsCount;
+
+}
+
 
 void BuildingsSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
+	if (m_i_BuildingsCount < 500)
+	{
+		ResetLevel1();
+	}
 }
 
 void BuildingsSystem::Initialize()
 {
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+
 	m_i_MaxBuildingsX = 1920 / 80 * (bgInstancesX * 2 + 1);
 	m_i_MaxBuildingsY = 1080 / 45 * (bgInstancesY * 2 + 1);
 
@@ -35,8 +49,15 @@ void BuildingsSystem::Initialize()
 	m_BuildingCoordsCurrent.clear();
 
 	LoadPossibleLocations();
-	GenerateNewBuildings(1000);
+	ResetLevel1();
 
+}
+
+void BuildingsSystem::ResetLevel1()
+{
+	RemoveBuildings();
+	GenerateNewBuildings(kBuildingsSpawnCount);
+	m_i_BuildingsCount = kBuildingsSpawnCount;
 }
 
 StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, 
@@ -58,7 +79,7 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName, HTColor{0.96f,1,0.88f,1});
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 9;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
@@ -68,6 +89,11 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 		}
 	}
 	return newBuildingEntity;
+}
+
+BuildingsSystem::~BuildingsSystem()
+{
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void BuildingsSystem::GenerateNewBuildings(int num)

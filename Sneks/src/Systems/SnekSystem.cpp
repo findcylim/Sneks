@@ -13,6 +13,8 @@
 
 //"Forward" declaration includes
 #include "PhysicsSystem.h"
+#include "../Components/BloomComponent.h"
+#include "BuildingsSystem.h"
 
 int SnekSystem::GetWinner()
 {
@@ -68,6 +70,7 @@ void SnekSystem::IncreaseGrowthRate(unsigned short player, float increase)
 		p1GrowthMeter /= increase;
 	else
 		p2GrowthMeter /= increase;
+	CheckGrowthMeters();
 }
 
 void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
@@ -76,6 +79,36 @@ void SnekSystem::DecreaseGrowthRate(unsigned short player, float decrease)
 		p1GrowthMeter *= decrease;
 	else
 		p2GrowthMeter *= decrease;
+	CheckGrowthMeters();
+}
+
+void SnekSystem::CheckGrowthMeters()
+{
+	auto snekHeadComp = m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+
+	while (snekHeadComp)
+	{
+		float* playerGrowth = &p1Growth;
+		float* playerGrowthMeter = &p1GrowthMeter;
+		auto texture = "SnekBody01";
+
+		if (snekHeadComp->m_i_PlayerNumber != 0)
+		{
+			playerGrowth = &p2Growth;
+			playerGrowthMeter = &p2GrowthMeter;
+			texture = "SnekBody02";
+		}
+
+		if (*playerGrowth >= *playerGrowthMeter)
+		{
+			*playerGrowth = 0;
+			*playerGrowthMeter *= 1.1f;
+			CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
+				texture, snekHeadComp->m_i_PlayerNumber);
+		}
+		snekHeadComp = static_cast<SnekHeadComponent*>(snekHeadComp->m_po_NextComponent);
+	}
+
 }
 
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
@@ -149,24 +182,12 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (snekHeadComp->m_i_PlayerNumber == 0)
 				{
 					p1Growth += 0.5f;
-					if (p1Growth >= p1GrowthMeter)
-					{
-						p1Growth = 0;
-						p1GrowthMeter *= 1.1f;
-						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-							"SnekBody01", snekHeadComp->m_i_PlayerNumber);
-					}
+					CheckGrowthMeters();
 				}
 				else
 				{
 					p2Growth += 0.5f;
-					if (p2Growth >= p2GrowthMeter)
-					{
-						p2Growth = 0;
-						p2GrowthMeter *= 1.1f;
-						CreateSnekBody(static_cast<SnekHeadEntity*>(snekHeadComp->m_po_OwnerEntity),
-							"SnekBody02", snekHeadComp->m_i_PlayerNumber);
-					}
+					CheckGrowthMeters();
 				}
 			}
 		}
@@ -295,6 +316,9 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 						p1Lives--;
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed1->m_po_OwnerEntity));
 						ResetSnek(static_cast<SnekHeadEntity*>(snekHed2->m_po_OwnerEntity));
+						//TODO REMOVE DEPENDENCY
+						m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings")->ResetLevel1();
+
 					}
 				}
 
@@ -375,7 +399,7 @@ void SnekSystem::HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim
 	auto aggPhysics = aggressor->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
 	auto victimPhysics = victim->m_po_OwnerEntity->GetComponent<PhysicsComponent>();
 
-	auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity)) * 0.65f;
+	auto newVel = CalculateReflectVelocity(aggPhysics->m_x_Velocity, GetNormal(victimPhysics->m_x_Velocity)) ;
 	aggPhysics->SetVelocity(newVel);
 
 	if (aggPhysics->m_f_Speed > aggPhysics->m_f_MaxSpeed) {
@@ -417,11 +441,11 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 			//);
 		auto physicsAggressor = aggressorCollision->GetComponent<PhysicsComponent>();
 
-		for (auto snekBodyPart : snekHeadVictim->m_x_BodyParts)
+		/*for (auto snekBodyPart : snekHeadVictim->m_x_BodyParts)
 		{
 			auto bodyPhysics = snekBodyPart->GetComponent<PhysicsComponent>();
 			bodyPhysics->SetVelocity(bodyPhysics->m_x_Velocity + HTVector2{physicsAggressor->m_x_Velocity} * 0.1f);
-		}
+		}*/
 		auto victimPhysics = snekHeadVictim->GetComponent<PhysicsComponent>();
 		victimPhysics->SetVelocity(victimPhysics->m_x_Velocity + HTVector2{ physicsAggressor->m_x_Velocity } * 0.1f);
 
@@ -486,8 +510,10 @@ void SnekSystem::Update(float dt)
 			i_SnekHead->m_f_AccelerationForce > 200)
 		{
 			i_SnekHead->m_f_AccelerationForce = 200;
-			i_SnekHead->m_f_MinSpeed = 300;
-			i_SnekHead->m_f_MaxVelocity = 900;
+			i_SnekHead->GetComponent<PhysicsComponent>()->m_f_MaxSpeed /= 1.5f;
+			i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength = 0.2f;
+			for (auto bodyPart : i_SnekHead->m_x_BodyParts)
+				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength = 0.2f;
 			i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
 		}
 
@@ -531,8 +557,10 @@ void SnekSystem::Update(float dt)
 				i_SnekHead->m_x_SnekType == kSnekTypeSpeed)
 			{
 				i_SnekHead->m_f_AccelerationForce = 2000;
-				i_SnekHead->m_f_MinSpeed = 3000;
-				i_SnekHead->m_f_MaxVelocity = 9000;
+				i_SnekHead->GetComponent<PhysicsComponent>()->m_f_MaxSpeed *= 1.5f;
+				i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength = 0.45f;
+				for (auto bodyPart : i_SnekHead->m_x_BodyParts)
+					bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength = 0.45f;
 				i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
 			}
 		}
@@ -741,7 +769,8 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 
 void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 {
-	auto playerNumber = owner->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber;
+	auto snekHeadComp = owner->GetComponent<SnekHeadComponent>();
+	auto playerNumber = snekHeadComp->m_i_PlayerNumber;
 	auto transformComp = owner->GetComponent<TransformComponent>();
 	HTVector2 velocity;
 	velocity.x = 0;
@@ -764,7 +793,8 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
 
-	for (int i_BodyParts = 0; i_BodyParts < 5; i_BodyParts++) {
+	for (int i_BodyParts = 0; i_BodyParts < static_cast<int>(20 - snekHeadComp->m_x_BodyParts.size()); i_BodyParts++) 
+	{
 		if (playerNumber == 0)
 			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody01", playerNumber);
 		else
@@ -1053,7 +1083,7 @@ void SnekSystem::MoveTowardsReference(DrawComponent* reference, DrawComponent* t
 
 	auto stretchThreshold = 600.0f; //Any faster than this speed the snek will start stretching
 	auto stretchFactorMultiplier = 0.3f;
-	auto stretchFactor  =headPhysicsComponent->m_f_Speed / stretchThreshold;
+	auto stretchFactor  = 100.0f / stretchThreshold;
 
 	if (stretchFactor < 1.0f)
 		stretchFactor = 1.0f;
@@ -1081,24 +1111,20 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 		 reference->m_po_TransformComponent->m_x_Position.x;
 	float distanceY = toChange->m_po_TransformComponent->m_x_Position.y -
 		 reference->m_po_TransformComponent->m_x_Position.y;
-	float hypo = sqrt(distanceX * distanceX + distanceY * distanceY);
 
 	auto headBodyAllowance = 0.83f;
 	auto headBodyClosenessMultiplier = 0.4f;
-	auto stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
-	//if (stretchFactor > 1.0f)
-	//	stretchFactor = 1.0f;
+	auto stretchFactor = headPhysicsComponent->m_f_Speed / 300.0f;
+	if (stretchFactor > 1.0f)
+		stretchFactor = 1.0f;
 
-	/*
-	quick fix is the " / hypo * 15" attached at the back of all the calculations as well as the commented code above
-	*/
 	if (headPhysicsComponent->m_po_OwnerEntity == reference->m_po_OwnerEntity) {
 		toChange->m_po_TransformComponent->m_x_Position.x =
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX / hypo * 15
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 
 		toChange->m_po_TransformComponent->m_x_Position.y =
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY / hypo * 15
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 	}
 	else
@@ -1108,11 +1134,11 @@ void SnekSystem::MoveTowardsReference2(DrawComponent* reference, DrawComponent* 
 		stretchFactor = headPhysicsComponent->m_f_Speed / 900.0f;
 
 		toChange->m_po_TransformComponent->m_x_Position.x =
-			reference->m_po_TransformComponent->m_x_Position.x + distanceX / hypo * 15
+			reference->m_po_TransformComponent->m_x_Position.x + distanceX // hypo * 15
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 
 		toChange->m_po_TransformComponent->m_x_Position.y =
-			reference->m_po_TransformComponent->m_x_Position.y + distanceY / hypo * 15
+			reference->m_po_TransformComponent->m_x_Position.y + distanceY // hypo * 15
 			* (headBodyAllowance - headBodyClosenessMultiplier * (stretchFactor));
 	}
 }

@@ -49,7 +49,7 @@ private:
 	float p1GrowthMeter = 5, p2GrowthMeter = 5;
 	int p1Lives = 3, p2Lives = 3;
 
-	int i_DamageBase = 2;
+	int i_DamageBase = 5;
 	int i_P1Damage = i_DamageBase, i_P2Damage = i_DamageBase;
 	float f_AngleHeadHit = PI / 4;
 
