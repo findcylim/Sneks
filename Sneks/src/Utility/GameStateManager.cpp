@@ -124,8 +124,8 @@ void GameStateManager::ResetBattle()
 	//m_o_SystemManager->AddSystem(buildings);
 	//buildings->SetName("Buildings");
 	//buildings->Initialize();
-	snek->ResetDamage();
-	snek->ResetLives();
+	snek->ResetDamageAll();
+	snek->ResetLivesAll();
 }
 
 void GameStateManager::LoadBattle()
@@ -182,17 +182,10 @@ void GameStateManager::UnloadWinScreen()
 
 void GameStateManager::LoadWinScreen()
 {
+	//TODO:: Set win screen to player 2 texture if p2 wins
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-
-	if (snek->GetP1Lives() <= 0)
-	{
-		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
-	}
-
-	else if (snek->GetP2Lives() <= 0)
-	{
-		m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
-	}
+	snek->GetWinner();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 
 	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
 }
@@ -233,21 +226,27 @@ void GameStateManager::Load()
 	{
 		ResetBattle();
 	}
-	switch (m_x_Current) {
-	case kStateMainMenu:    LoadMainMenu();
+
+	switch (m_x_Current) 
+	{
+	case kStateMainMenu:   
+		LoadMainMenu();
 		ResetBattle();
 		break;
-
-	case kStateGame:		LoadBattle();
+	case kStateGame:
+		LoadBattle();
 		break;
-
-	case kStateWinScreen:	LoadWinScreen();
-							break;
-	case kStateHelpMenu:	LoadHelpMenu();
-							break;
-	case kStatePause:		LoadPauseMenu();
-							break;	
-	case kStateExit:		ExitGame();
+	case kStateWinScreen:	
+		LoadWinScreen();
+		break;
+	case kStateHelpMenu:	
+		LoadHelpMenu();
+		break;
+	case kStatePause:		
+		LoadPauseMenu();
+		break;	
+	case kStateExit:		
+		ExitGame();
 		break;
 	}
 	m_x_Current = m_x_Next;
@@ -255,42 +254,31 @@ void GameStateManager::Load()
 
 void GameStateManager::Unload()
 {
-	switch (m_x_Previous) {
-	case kStateMainMenu:    UnloadMainMenu();
-							break;
-
-	case kStateGame:		UnloadBattle();
-							break;
-
-	case kStateWinScreen:	UnloadWinScreen();
-							break;
-	case kStateHelpMenu:	UnloadHelpMenu();
-							break;
-	case kStateCountdown:	UnloadCountdown();
-							break;
-	case kStatePause:		UnloadPauseMenu();
-							break;
+	switch (m_x_Previous)
+	{
+	case kStateMainMenu:    
+		UnloadMainMenu();		
+		break;
+	case kStateGame:		
+		UnloadBattle();		
+		break;
+	case kStateWinScreen:	
+		UnloadWinScreen();	
+		break;
+	case kStateHelpMenu:	
+		UnloadHelpMenu();		
+		break;
+	case kStateCountdown:	
+		UnloadCountdown();		
+		break;
+	case kStatePause:		
+		UnloadPauseMenu();			
+		break;
 	}
 }
 
 void GameStateManager::Update()
 {
-	if (m_x_Current == kStateMainMenu)
-	{
-		if (AEInputCheckTriggered(AEVK_1))
-			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(1);
-		else if (AEInputCheckTriggered(AEVK_2))
-			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(2);
-		else if (AEInputCheckTriggered(AEVK_3))
-			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(3);
-		else if (AEInputCheckTriggered(AEVK_4))
-			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(4);
-		else if (AEInputCheckTriggered(AEVK_5))
-			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(5);
-		else if (AEInputCheckTriggered(AEVK_6))
-			m_o_SystemManager->GetSystem<SnekSystem>("Snek")->SetSnek(6);
-	}
-
 	if (m_x_Current != m_x_Next)
 	{
 		m_x_Previous = m_x_Current;

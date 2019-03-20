@@ -389,8 +389,8 @@ void GraphicsSystem::DrawBloom(DrawComponent* drawComponent)
 		for (int offSetX = -bloomComponent->m_i_BloomIterations;
 			offSetX <= bloomComponent->m_i_BloomIterations; offSetX++)
 		{
-			for (int offSetY = -bloomComponent->m_i_BloomIterations;
-				offSetY <= bloomComponent->m_i_BloomIterations; offSetY++)
+			for (int offSetY = -bloomComponent->m_i_BloomIterations + 1;
+				offSetY <= bloomComponent->m_i_BloomIterations - 1; offSetY++)
 			{
 				if (offSetX == 0 && offSetY == 0)
 					continue;

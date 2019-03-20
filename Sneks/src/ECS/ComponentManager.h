@@ -8,6 +8,7 @@
 #include "Entity.h"
 #include "ComponentList.h"
 #include "EntityList.h"
+#include <functional>
 
 
 class ComponentManager
@@ -21,6 +22,23 @@ class ComponentManager
 
 public:
 	ComponentManager();
+	template <typename ComponentType>
+
+	void Each(std::function<void(ComponentType*)> function, Component componentType, bool skipActive = false)
+	{
+		for (ComponentType* component = GetFirstComponentInstance<ComponentType>(componentType);
+			  component != nullptr;
+			  component = static_cast<ComponentType*>(component->m_po_NextComponent))
+		{
+			if (skipActive) {
+				if (!component->m_b_IsActive || !component->m_po_OwnerEntity->m_b_IsActive)
+				{
+					continue;
+				}
+			}
+			function(component);
+		}
+	}
 
 	template <class T>
 	T* NewComponent(BaseEntity* entityPointer, Component componentType)

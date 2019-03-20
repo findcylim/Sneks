@@ -116,6 +116,7 @@ void CollisionSystem::AddComponentToCollisionGroup(CollisionComponent* collision
 	while (m_xo_ComponentsPerGroup.size() < collisionGroup + 1)
 	{
 		m_xo_ComponentsPerGroup.push_back(new CollisionGroup);
+
 	}
 	m_xo_ComponentsPerGroup[collisionGroup]->objects.push_back(collisionComponent);
 }

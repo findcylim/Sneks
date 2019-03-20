@@ -9,7 +9,7 @@
 class FollowComponent : public BaseComponent
 {
 public:
-	TransformComponent*		m_po_TransformComponent;
+	TransformComponent*		m_po_FolloweeTransform;
 	BaseEntity *			   m_po_ParentEntity;
 };
 

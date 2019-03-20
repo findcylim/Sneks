@@ -39,18 +39,12 @@ struct SnekPreset
 
 
 class SnekSystem final : public BaseSystem,
-	public EventListener<Events::EV_PLAYER_COLLISION>,
-	public EventListener<Events::EV_SNEK_INVULNERABLE>
+	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
 	GameStateManager* m_o_GameStateManager;
-	float p1Growth = 0, p2Growth = 0;
-	float p1GrowthMeter = 5, p2GrowthMeter = 5;
-	int p1Lives = 3, p2Lives = 3;
 
-	int i_DamageBase = 2;
-	int i_P1Damage = i_DamageBase, i_P2Damage = i_DamageBase;
 	float f_AngleHeadHit = PI / 4;
 
 	int winner;
@@ -59,7 +53,8 @@ public:
 	~SnekSystem() ;
 	void CheckGrowthMeters();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
-	void Receive(const Events::EV_SNEK_INVULNERABLE& eventData) override;
+	void SnekLoseLife(SnekHeadComponent* snekHead);
+	void ResetStage();
 	void HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim);
 	void HeadInvulnerableSet(float duration, BaseComponent* anyComponent);
 	void HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
@@ -82,23 +77,18 @@ public:
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);
 	void UpdateFollowComponents(SnekHeadComponent* snekHeadComponent);
-	void IncreaseGrowthRate(unsigned short player, float increase);
-	void DecreaseGrowthRate(unsigned short player, float decrease);
 
-	void TweakP1Damage(int increase);
-	void TweakP2Damage(int increase);
-	void SetSnek(int input);
-
-	float GetP1GrowthPercentage();
-	float GetP2GrowthPercentage();
-	int GetP1Lives();
-	int GetP2Lives();
-	void ResetLives();
-	void ResetDamage();
+	void TweakGrowthRate(SnekHeadComponent* snekHead, float change);
+	void SetSnekType(int playerNumber, SnekType snekType);
+	void ResetLivesAll();
+	int GetLives(SnekHeadComponent* snekHead) const;
+	int GetLives(int playerNum) const;
+	void TweakPlayerDamage(SnekHeadComponent* snekHead, int change);
+	void ResetDamageAll();
 	int GetWinner();
-
+	float GetGrowthPercentage(SnekHeadComponent* snekHead) const;
+	float GetGrowthPercentage(int playerNum) const;
 };
-	extern int i_P1Damage, i_P2Damage;
 
 //float GetFlipChargeRate();
 #endif

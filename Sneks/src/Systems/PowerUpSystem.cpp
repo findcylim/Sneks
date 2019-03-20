@@ -73,9 +73,9 @@ void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 }
 
-void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformComponent* snekVelocity)
+void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformComponent* snekTransform)
 {
-	if (spawnPoint && snekVelocity && (AERandFloat() < m_f_SpawnChance))
+	if (spawnPoint && snekTransform && (AERandFloat() < m_f_SpawnChance))
 	{
 		auto powerupHolder = m_po_EntityManager->NewEntity
 			<PowerUpHolderEntity>(Entity::kEntityPowerUpHolder, "PowerUpHolder");
@@ -87,17 +87,16 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		transformComponent->SetPositionY(spawnPoint->GetPosition().y);
 
-		transformComponent->SetRotation(snekVelocity->GetRotation() +
+		transformComponent->SetRotation(snekTransform->GetRotation() +
 			(AERandFloat() - 0.5f) * m_f_ForwardAngleRange);
 
 		transformComponent->m_f_Scale = m_f_HolderSizeRatio;
 
-		m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
-			powerupHolder, Component::kComponentPhysics)->m_f_Speed = 
-			m_po_ComponentManager->GetSpecificComponentInstance<PhysicsComponent>(
-				snekVelocity, Component::kComponentPhysics)->m_f_Speed * m_f_HolderSpeedRatio;
+		powerupHolder->GetComponent<PhysicsComponent>()->m_f_Speed = 
+			snekTransform->GetComponent<PhysicsComponent>()->m_f_Speed * m_f_HolderSpeedRatio;
 
-		PowerUpType type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
+		powerupHolder->GetComponent<PowerUpComponent>();
+		auto type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
 
 		const char * PowerUpIcon = "PowerUpIcon";
 
@@ -169,24 +168,22 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 
 	powerup->SetPowerUp(type);
 
+	auto snekHeadComponent = powerup->GetComponent<SnekHeadComponent>();
 	switch (type)
 	{
 		case kPowerUpSpeedIncrease:
 		{
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
-				Component::kComponentSnekHead)->m_f_AccelerationForce *= powerup->GetPowerIncrease();
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
-				Component::kComponentSnekHead)->m_f_MinSpeed *= powerup->GetPowerIncrease();
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
-				Component::kComponentSnekHead)->m_f_MaxVelocity *= powerup->GetPowerIncrease();
+			snekHeadComponent->m_f_AccelerationForce *= powerup->GetPowerIncrease();
+			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+			//	Component::kComponentSnekHead)->m_f_MinSpeed *= powerup->GetPowerIncrease();
+			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+			//	Component::kComponentSnekHead)->m_f_MaxVelocity *= powerup->GetPowerIncrease();
 		}
 			break;
 
 		case kPowerUpGrowthIncrease:
 		{
-			m_po_SnekSystem->IncreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
-				<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber,
-				powerup->GetPowerIncrease());
+			m_po_SnekSystem->TweakGrowthRate(snekHeadComponent, powerup->GetPowerIncrease());
 		}
 			break;
 
@@ -197,14 +194,13 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 
 		case kPowerUpInvul:
 		{
-			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>
-				(powerup, KComponentInvulnerable)->m_f_InvulnerableTime = powerup->GetPowerIncrease();
+			//auto invulComponent = powerup->GetComponent<InvulnerableComponent>();
+			//invulComponent->m_f_InvulnerableTime = powerup->GetPowerIncrease();
 
-			for (auto i_BodyParts : m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-				(powerup, kComponentSnekHead)->m_x_BodyParts)
-				m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
-					i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime =
-					powerup->GetPowerIncrease();
+			//for (auto& i_BodyParts : snekHeadComponent->m_x_BodyParts) 
+			//{
+			//	invulComponent->m_f_InvulnerableTime =	powerup->GetPowerIncrease();
+			//}
 		}
 			break;
 
@@ -221,19 +217,14 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 
 			for (int i = 0; i < powerup->GetPowerIncrease(); i++)
 				m_po_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerup->m_po_OwnerEntity),
-					bodyTexture, m_po_ComponentManager->GetSpecificComponentInstance
-					<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber);
+					bodyTexture, snekHeadComponent->m_i_PlayerNumber);
 		}
 			break;
 
 		case kPowerUpIncreaseDamage:
-			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-				(powerup, kComponentSnekHead)->m_i_PlayerNumber == 0)
-				m_po_SnekSystem->TweakP1Damage(static_cast<int>(powerup->GetPowerIncrease()));
-			else
-				m_po_SnekSystem->TweakP2Damage(static_cast<int>(powerup->GetPowerIncrease()));
-			break;
+			m_po_SnekSystem->TweakPlayerDamage(snekHeadComponent, static_cast<int>(powerup->GetPowerIncrease()));
 
+			break;
 		case kPowerUpEnd:
 			break;
 	}
@@ -241,24 +232,22 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 
 void PowerUpSystem::RemovePowerUp(PowerUpComponent* powerup)
 {
+	auto snekHeadComponent = powerup->GetComponent<SnekHeadComponent>();
 	switch (powerup->GetPowerUp())
 	{
 		case kPowerUpSpeedIncrease:
 		{
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
-				Component::kComponentSnekHead)->m_f_AccelerationForce /= powerup->GetPowerIncrease();
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
-				Component::kComponentSnekHead)->m_f_MinSpeed /= powerup->GetPowerIncrease();
-			m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
-				Component::kComponentSnekHead)->m_f_MaxVelocity /= powerup->GetPowerIncrease();
+			snekHeadComponent->m_f_AccelerationForce /= powerup->GetPowerIncrease();
+			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+			//	Component::kComponentSnekHead)->m_f_MinSpeed /= powerup->GetPowerIncrease();
+			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
+			//	Component::kComponentSnekHead)->m_f_MaxVelocity /= powerup->GetPowerIncrease();
 		}
 			break;
 
 		case kPowerUpGrowthIncrease:
 		{
-			m_po_SnekSystem->DecreaseGrowthRate(m_po_ComponentManager->GetSpecificComponentInstance
-				<SnekHeadComponent>(powerup, kComponentSnekHead)->m_i_PlayerNumber,
-				powerup->GetPowerIncrease());
+			m_po_SnekSystem->TweakGrowthRate(snekHeadComponent, powerup->GetPowerIncrease());
 		}
 			break;
 

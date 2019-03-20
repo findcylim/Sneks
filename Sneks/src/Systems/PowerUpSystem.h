@@ -20,7 +20,7 @@ class PowerUpSystem final : public BaseSystem,
 		float m_f_HolderSizeRatio = 0.3f;
 		float m_f_HolderInvulTime = 1.0f;
 
-		void SpawnPowerUp(TransformComponent* spawnPoint, TransformComponent* snekVelocity);
+		void SpawnPowerUp(TransformComponent* spawnPoint, TransformComponent* snekTransform);
 		void UpdatePowerUp(PowerUpComponent* powerup, DrawComponent* powerUpDrawComponent);
 		void RemovePowerUp(PowerUpComponent* powerup);
 
