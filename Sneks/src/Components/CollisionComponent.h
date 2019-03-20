@@ -29,4 +29,6 @@ public:
 	DrawComponent*					  m_po_DrawComponent;
 	bool							  enabled = true;
 	bool							  m_b_Colliding = false;
+	int							  m_i_NumCollisionsAllowedPerFrame = 1;
+	int							  m_i_CollisionsThisFrame = 0;
 };

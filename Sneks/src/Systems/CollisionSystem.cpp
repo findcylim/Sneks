@@ -25,8 +25,8 @@ CollisionSystem::~CollisionSystem()
 void CollisionSystem::Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	UpdateComponentsPerGroup();
-	UpdateAllHitBoxes();
+	//UpdateComponentsPerGroup();
+	//UpdateAllHitBoxes();
 }
 
 void CollisionSystem::Update(float dt)
@@ -35,11 +35,8 @@ void CollisionSystem::Update(float dt)
 
 	UpdateComponentsPerGroup();
 
-		//Update Aabb positions
-	for (auto i_CollisionGroup : m_xo_ComponentsPerGroup)
-	{
-		UpdateHitBoxes(i_CollisionGroup);
-	}
+	//Update Aabb positions
+	UpdateAllHitBoxes();
 
 	//Check collisions between all objects in one group
 	// and another
@@ -51,20 +48,22 @@ void CollisionSystem::Update(float dt)
 		auto objectsInGroupA = m_xo_ComponentsPerGroup[i_CollisionPair.groupA];
 		for (unsigned int i_ObjectA = 0; i_ObjectA < objectsInGroupA->objects.size(); i_ObjectA++)
 		{
+			auto objectA = objectsInGroupA->objects[i_ObjectA];
 			// if any object has collision disabled
-			if (!objectsInGroupA->objects[i_ObjectA]->enabled || !objectsInGroupA->objects[i_ObjectA]->m_b_IsActive 
-			 || !objectsInGroupA->objects[i_ObjectA]->m_po_OwnerEntity->m_b_IsActive)
+			if (!objectA->enabled || !objectA->m_b_IsActive || !objectA->m_po_OwnerEntity->m_b_IsActive ||
+				objectA->m_i_CollisionsThisFrame >= objectA->m_i_NumCollisionsAllowedPerFrame)
 				continue;
 
+			// if group is empty
 			if (i_CollisionPair.groupB >= m_xo_ComponentsPerGroup.size())
 				continue;
-			// if group is empty
 			auto objectsInGroupB = m_xo_ComponentsPerGroup[i_CollisionPair.groupB];
 			for (unsigned int i_ObjectB = 0; i_ObjectB < objectsInGroupB->objects.size(); i_ObjectB++)
 			{
+				auto objectB = objectsInGroupB->objects[i_ObjectB];
 				// if any object has collision disabled
-				if (!objectsInGroupB->objects[i_ObjectB]->enabled || !objectsInGroupB->objects[i_ObjectB]->m_b_IsActive 
-				 || !objectsInGroupB->objects[i_ObjectB]->m_po_OwnerEntity->m_b_IsActive)
+				if (!objectB->enabled || !objectB->m_b_IsActive || !objectB->m_po_OwnerEntity->m_b_IsActive ||
+					 objectB->m_i_CollisionsThisFrame >= objectB->m_i_NumCollisionsAllowedPerFrame)
 					continue;
 
 				auto hitBoxA = objectsInGroupA->objectsHitBoxes[i_ObjectA];
@@ -74,15 +73,18 @@ void CollisionSystem::Update(float dt)
 				if (hitBoxB != hitBoxA) {
 					if (AabbHelper::CheckAabbIntersect(hitBoxA, hitBoxB))
 					{
-						Events::EV_PLAYER_COLLISION collEvent = { objectsInGroupA->objects[i_ObjectA],
-							objectsInGroupB->objects[i_ObjectB]
+						++objectA->m_i_CollisionsThisFrame;
+						++objectB->m_i_CollisionsThisFrame;
+
+						Events::EV_PLAYER_COLLISION collEvent = { objectA,
+							objectB
 						};
 						/*if (!objectsInGroupA)
 						{
-							Events::EV_PLAYER_COLLISION_ON_ENTER collEventEnter{ objectsInGroupA->objects[i_ObjectA],
+							Events::EV_PLAYER_COLLISION_ON_ENTER collEventEnter{ objectA,
 							objectsInGroupB->objects[i_ObjectB]
 							};
-							//objectsInGroupA->objects[i_ObjectA]->m_b_OnEnter = true;
+							//objectA->m_b_OnEnter = true;
 							m_po_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_ENTER>(collEventEnter);
 						}*/
 						m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
@@ -129,20 +131,19 @@ void CollisionSystem::UpdateComponentsPerGroup()
 	}
 	//m_xo_ComponentsPerGroup.clear();
 
-	auto i_CollisionComponent =
-		m_po_ComponentManager->GetFirstComponentInstance<CollisionComponent>(kComponentCollision);
-
-	while (i_CollisionComponent)
+	m_po_ComponentManager->Each<CollisionComponent>([&](CollisionComponent* i_CollisionComponent)->void
 	{
-		if(i_CollisionComponent->m_b_IsActive)
+		i_CollisionComponent->m_i_CollisionsThisFrame = 0;
+		if (i_CollisionComponent->m_b_IsActive)
 			for (auto i_CollisionGroup : i_CollisionComponent->m_i_CollisionGroupVec)
 			{
 				//Add it to the group
 				AddComponentToCollisionGroup(i_CollisionComponent, i_CollisionGroup);
 			}
-		//Iterate
-		i_CollisionComponent = static_cast<CollisionComponent*>(i_CollisionComponent->m_po_NextComponent);
-	}
+	}, kComponentCollision);
+
+
+	
 }
 
 

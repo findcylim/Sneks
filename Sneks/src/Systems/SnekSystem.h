@@ -59,6 +59,7 @@ public:
 	void HeadInvulnerableSet(float duration, BaseComponent* anyComponent);
 	void HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
 	void Update(float dt) override;
+	void BodyPartsFollowHead();
 	void CheckInvulnerability(BaseComponent* component, float dt) const;
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;
 	void Initialize();

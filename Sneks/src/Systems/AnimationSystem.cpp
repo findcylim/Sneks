@@ -30,15 +30,13 @@ void AnimationSystem::Initialize()
 		"TestAnim", SpriteSheet{ texture,4,7 }
 	));*/
 
-	auto animationComponent = m_po_ComponentManager->GetFirstComponentInstance<AnimationComponent>(kComponentAnimation);
-	//iterate all animation comps
-	while (animationComponent)
+	m_po_ComponentManager->Each<AnimationComponent>([&](AnimationComponent* animationComponent)->void
 	{
 		auto& currentAnim = animationComponent->m_vx_AnimationsList[animationComponent->m_i_CurrentAnimationId];
 		currentAnim.m_i_CurrentFrameIndex = currentAnim.m_i_StartFrame;
 		UpdateDrawCompTexture(animationComponent);
 		animationComponent = static_cast<AnimationComponent*>(animationComponent->m_po_NextComponent);
-	}
+	}, kComponentAnimation);
 
 }
 

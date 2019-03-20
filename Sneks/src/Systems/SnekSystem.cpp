@@ -472,7 +472,7 @@ void SnekSystem::Update(float dt)
 			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
 		}
 
-		for (auto i_Body : i_SnekHead->m_x_BodyParts)
+		for (auto& i_Body : i_SnekHead->m_x_BodyParts)
 		{
 			auto bodyDraw = 
 				m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
@@ -500,10 +500,6 @@ void SnekSystem::Update(float dt)
 	}
 }
 
-constexpr float MAX_ALPHA_BLINKING = 0.5f;
-constexpr float MIN_ALPHA_BLINKING = 0.1f;
-constexpr float BLINK_SPEED = 2.0f;
-
 void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 {
 	auto invulComponent = component->GetComponent<InvulnerableComponent>();
@@ -517,10 +513,10 @@ void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 		float blinkSpeedModifier = 1.0f / invulComponent->m_f_InvulnerableTime;
 		float blinkSpeedModifierClamped = AEClamp(blinkSpeedModifier, 0.2f, 1.0f);
 
-		drawComponent->m_f_RgbaColor.alpha -= blinkSpeedModifierClamped * BLINK_SPEED * dt;
+		drawComponent->m_f_RgbaColor.alpha -= blinkSpeedModifierClamped * invulComponent->m_f_BlinkSpeed * dt;
 
-		if (drawComponent->GetAlpha() <= MIN_ALPHA_BLINKING)
-			drawComponent->SetAlpha(MAX_ALPHA_BLINKING);
+		if (drawComponent->GetAlpha() <= invulComponent->m_f_MinAlphaBlinking)
+			drawComponent->SetAlpha(invulComponent->m_f_MaxAlphaBlinking);
 
 		collisionComponent->enabled = false;
 		invulComponent->m_f_InvulnerableTime -= dt;
@@ -663,7 +659,31 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	for (int i_BodyParts = 0; i_BodyParts < numBodyParts; i_BodyParts++){
 		CreateSnekBody(newSnekHeadEntity, bodyTexture, controlScheme);
 	}
-	
+
+	auto snekHead = newSnekHeadEntity->GetComponent<SnekHeadComponent>();
+		
+	for (auto& i_Body : snekHead->m_x_BodyParts)
+	{
+		auto bodyDraw =
+			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
+				i_Body, kComponentDraw
+				);
+
+		auto followComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(
+				i_Body, kComponentFollow
+				);
+
+		auto followDrawComponent =
+			m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
+				followComponent->m_po_FolloweeTransform->m_po_OwnerEntity, kComponentDraw
+				);
+
+		FaceReference(followComponent->m_po_FolloweeTransform, bodyDraw->m_po_TransformComponent);
+		MoveTowardsReference(followDrawComponent, bodyDraw,
+			snekHead->GetComponent<PhysicsComponent>());
+	}
+
 }
 
 void SnekSystem::ResetSnek(SnekHeadEntity* owner)
@@ -691,8 +711,8 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 		transformComp->SetPositionX(200);
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
-
-	for (int i_BodyParts = 0; i_BodyParts < static_cast<int>(20 - snekHeadComp->m_x_BodyParts.size()); i_BodyParts++) 
+	int partsToSpawn = 20 - static_cast<int>(snekHeadComp->m_x_BodyParts.size()) + 1;
+	for (int i_BodyParts = 0; i_BodyParts < partsToSpawn; i_BodyParts++)
 	{
 		if (playerNumber == 0)
 			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody01", playerNumber);
@@ -781,29 +801,37 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 	auto referenceTransform = ownerHeadComponent->m_x_BodyParts.size() <= 1 ?
 		ownerTransform : (*(ownerHeadComponent->m_x_BodyParts.end() - 2))->GetComponent<TransformComponent>();
 
+	auto tailTransform = ownerHeadComponent->m_x_BodyParts.back()->GetComponent<TransformComponent>();
+
 	for (auto i_Component : newSnekBodyEntity->m_v_AttachedComponentsList)
 	{
 
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			AEVec2 angle;
-			AEVec2FromAngle(&angle, referenceTransform->GetRotation() );
+			static_cast<TransformComponent*>(i_Component)->m_x_Position = tailTransform->m_x_Position;
 
-			if (referenceTransform->GetComponent<SnekHeadComponent>())
+			//Spawn a new area behind the tail
+			AEVec2 angle;
+			AEVec2FromAngle(&angle, tailTransform->GetRotation() );
+
+			if (tailTransform->GetComponent<SnekHeadComponent>())
 			{
-				AEVec2FromAngle(&angle, referenceTransform->GetRotation() + PI);
+				AEVec2FromAngle(&angle, tailTransform->GetRotation() + PI);
 			}
-			auto referenceDraw = referenceTransform->GetComponent<DrawComponent>();
+			auto referenceDraw = tailTransform->GetComponent<DrawComponent>();
 
 			angle.x *= referenceDraw->GetSizeInPixels().x * 0.85f;
 			angle.y *= referenceDraw->GetSizeInPixels().y * 0.85f;
 
-			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+			tailTransform->SetPositionX(
 				referenceTransform->m_x_Position.x + angle.x);
-			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+			tailTransform->SetPositionY(
 				referenceTransform->m_x_Position.y + angle.y);
 
 			FaceReference(referenceTransform, static_cast<TransformComponent*>(i_Component) );
+			//FaceReference(tailTransform, static_cast<TransformComponent*>(i_Component));
+
+
 			//static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			//TODO: REMOVE HARCCODE
 			static_cast<TransformComponent*>(i_Component)->m_f_Scale = 0.635f;
@@ -936,6 +964,7 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 	}
 
 	ownerHeadComponent->m_x_BodyParts.push_back(newSnekBodyEntity);
+	
 
 	/*auto followComponent = 
 		m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(

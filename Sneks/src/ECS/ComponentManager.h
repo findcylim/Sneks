@@ -23,7 +23,6 @@ class ComponentManager
 public:
 	ComponentManager();
 	template <typename ComponentType>
-
 	void Each(std::function<void(ComponentType*)> function, Component componentType, bool skipActive = false)
 	{
 		for (ComponentType* component = GetFirstComponentInstance<ComponentType>(componentType);
