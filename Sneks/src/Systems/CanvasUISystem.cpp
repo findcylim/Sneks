@@ -100,7 +100,8 @@ void CanvasUISystem::ClearUI(CanvasComponent* canvas)
 }
 
 void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset,CanvasElementEnum num, const char * name, 
-								const char * uiElementSprite, const char* uiText,const char * uiHoverSprite, const char * uiClickSprite,void(*ButtonFunction)())
+								const char * uiElementSprite, const char* uiText,const char * uiHoverSprite, const char * uiClickSprite,
+								void(*ButtonFunction)(),HTColor textColor)
 {
 	CanvasElementComponent* ui_Component = nullptr;
 	TransformComponent *    t_Component = nullptr;
@@ -144,10 +145,12 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 	}
 	if (ui_Component)
 	{
-		
-		m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
-		d_Component->m_f_DrawPriority = 1;
-		
+		if (num != kCanvasTextLabel)
+		{
+			m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
+			d_Component->m_f_DrawPriority = 1;
+		}
+
 		ui_Component->m_x_BasicSprite = m_po_GraphicsManager->FetchTexture(uiElementSprite);
 		if (strcmp(uiHoverSprite, "") != 0)
 			ui_Component->m_x_HoverSprite = m_po_GraphicsManager->FetchTexture(uiHoverSprite);
@@ -173,7 +176,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 
 				//TODO FIGURE OUT A WAY TO MEASURE FONT SIZES
 				text_Component->CreateText(ui_Component->m_f_XOffset + static_cast<float>(-stringLen  * 7.5f),
-							  ScreenSizeY -ui_Component->m_f_YOffset + -13.5f, ui_Component->m_pc_ElementText);
+							  ScreenSizeY -ui_Component->m_f_YOffset + -13.5f, ui_Component->m_pc_ElementText,textColor);
 			}
 		}
 		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);
@@ -189,7 +192,7 @@ void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
 	AddElement(eventData.canvas,			eventData.initialPosition,		eventData.elementType, 
 			   eventData.elementEntityName, eventData.uiElementSpriteName, 
 			   eventData.uiTextLabel,		eventData.uiHoverSpriteName,	
-			   eventData.uiClickSpriteName,eventData.ButtonPressFunc);
+			   eventData.uiClickSpriteName,eventData.ButtonPressFunc,eventData.textColor);
 }
 
 void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)

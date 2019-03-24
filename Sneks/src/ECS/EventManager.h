@@ -11,6 +11,7 @@
 #include "../Components/CollisionComponent.h"
 #include "../Components/SnekHeadComponent.h"
 #include "../Components/CanvasComponent.h"
+#include "../Components/TextRendererComponent.h"
 #include "../Utility/RTTIHelper.h"
 
 
@@ -62,7 +63,6 @@ namespace Events
 		const char * texName;
 	};
 
-
 	struct EV_NEW_UI_ELEMENT
 	{
 		CanvasComponent* canvas;
@@ -74,6 +74,7 @@ namespace Events
 		const char * uiHoverSpriteName = "";
 		const char * uiClickSpriteName = "";
 		void(*ButtonPressFunc)(void) = nullptr;
+		HTColor textColor = { 0.0f,0.0f, 0.0f, 0.0f };
 	};
 
 	struct EV_PLAYER_COLLISION_ON_ENTER

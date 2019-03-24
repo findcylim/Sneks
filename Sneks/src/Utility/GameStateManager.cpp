@@ -18,6 +18,7 @@
 #include "../Systems/PowerUpSystem.h"
 #include "../Systems/Menus/HelpMenuSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
+#include "../Systems/Menus/CreditsScreenSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -85,7 +86,6 @@ void GameStateManager::UnloadMainMenu()
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 }
 
 void GameStateManager::ResetBattle()
@@ -139,6 +139,7 @@ void GameStateManager::LoadBattle()
 	m_o_SystemManager->EnableSystem<SnekSystem>();
 	m_o_SystemManager->EnableSystem<ProjectileSystem>();
 	m_o_SystemManager->EnableSystem<ParticleSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 
 	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
@@ -221,6 +222,18 @@ void GameStateManager::UnloadCountdown()
 	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
 }
 
+void GameStateManager::LoadCreditsScreen()
+{
+	m_o_SystemManager->EnableSystem<CreditsScreenSystem>();
+	if (m_x_Previous == kStateMainMenu)
+		m_o_SystemManager->GetSystem<CreditsScreenSystem>("CreditsScreen")->SetNextState(kStateMainMenu);
+}
+
+void GameStateManager::UnloadCreditsScreen()
+{
+	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
+}
+
 void GameStateManager::ExitGame()
 {
 	*EngineStatus = false;
@@ -238,10 +251,14 @@ void GameStateManager::Load()
 	{
 	case kStateMainMenu:   
 		LoadMainMenu();
-		ResetBattle();
+		if(m_x_Previous != kStateCreditsScreen)
+			ResetBattle();
 		break;
 	case kStateGame:
 		LoadBattle();
+		break;
+	case kStateCreditsScreen:
+		LoadCreditsScreen();
 		break;
 	case kStateWinScreen:	
 		LoadWinScreen();
@@ -271,6 +288,9 @@ void GameStateManager::Unload()
 		break;
 	case kStateWinScreen:	
 		UnloadWinScreen();	
+		break;
+	case kStateCreditsScreen:
+		UnloadCreditsScreen();
 		break;
 	case kStateHelpMenu:	
 		UnloadHelpMenu();		

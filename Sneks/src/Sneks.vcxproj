@@ -53,6 +53,7 @@
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
+    <ClCompile Include="Systems\Menus\CreditsScreenSystem.cpp" />
     <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\HUDSystem.cpp" />
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
+    <ClInclude Include="Systems\Menus\CreditsScreenSystem.h" />
     <ClInclude Include="Systems\Menus\HelpMenuSystem.h" />
     <ClInclude Include="Systems\Menus\HUDSystem.h" />
     <ClInclude Include="Systems\Menus\MainMenuSystem.h" />

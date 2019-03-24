@@ -188,7 +188,7 @@ public:
 class CanvasTextLabelEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentCanvasElement,
+	Component m_ax_InitialComponents[4] = { Component::kComponentTransform , Component::kComponentCanvasElement,
 											Component::kComponentTextRenderer, Component::kComponentEnd };
 
 	CanvasTextLabelEntity(const char* entityName) : BaseEntity(entityName) {};

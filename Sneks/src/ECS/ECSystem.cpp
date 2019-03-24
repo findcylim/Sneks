@@ -21,6 +21,7 @@
 #include <queue>
 #include "../Systems/AnimationSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
+#include "../Systems/Menus/CreditsScreenSystem.h"
 
 
 ECSystem::ECSystem()
@@ -193,6 +194,11 @@ void ECSystem::InitializeEngine()
 	WinScreen->SetName("WinScreen");
 	m_o_SystemManager->AddSystem(WinScreen);
 
+	auto CreditsScreen = new CreditsScreenSystem(m_o_EntityComponentManager, m_o_EventManager,graphics);
+	CreditsScreen->SetName("CreditsScreen");
+	CreditsScreen->Initialize();
+	m_o_SystemManager->AddSystem(CreditsScreen);
+
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
 	/*************************************************************************/
@@ -224,6 +230,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();
 	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
+	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 

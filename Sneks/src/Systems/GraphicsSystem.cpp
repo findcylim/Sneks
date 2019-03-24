@@ -232,6 +232,11 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
 	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
 
+	LoadTextureToMap("../Resources/Portraits/Edwin.png", "Edwin");
+	LoadTextureToMap("../Resources/Portraits/CY.png", "CY");
+	LoadTextureToMap("../Resources/Portraits/Adam.png", "Adam");
+	LoadTextureToMap("../Resources/Portraits/Spoodermun.png", "Spoodermun");
+
 
 }
 
@@ -503,11 +508,13 @@ void GraphicsSystem::DrawTextRenderer()const
 				char textToDraw[100];
 				sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
 
-				
 				AEGfxPrint(m_i_font,
 					textToDraw,
 					static_cast<s32>(text_Comp->m_x_TextPosition.x - halfScreenSizeX),
-					static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 0, 0, 0);
+					static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 
+					text_Comp->m_x_TextColor.red,
+					text_Comp->m_x_TextColor.green,
+					text_Comp->m_x_TextColor.blue);
 			}
 		}
 		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);

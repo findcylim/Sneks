@@ -157,6 +157,9 @@
     <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\CreditsScreenSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -335,6 +338,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Menus\PauseMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\CreditsScreenSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>
