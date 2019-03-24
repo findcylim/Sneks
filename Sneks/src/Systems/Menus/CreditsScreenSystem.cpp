@@ -101,6 +101,7 @@ void CreditsScreenSystem::OnEnable()
 {
 	m_po_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CreditsMenuEntity");
 	m_e_PrevState = GameStateManager::ReturnPreviousState();
+	m_b_ClickHold = true;
 }
 
 void CreditsScreenSystem::OnDisable()

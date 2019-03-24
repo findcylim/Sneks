@@ -78,6 +78,7 @@ void InputSystem::Update(float dt)
 	if (AEInputCheckTriggered(AEVK_LBUTTON))
 	{
 		m_o_EventManager->EmitEvent<Events::EV_MOUSE_ONCLICK>(Events::EV_MOUSE_ONCLICK{});
+		AEInputUpdate();
 	}
 
 	//CanvasButtonEntity* base = m_po_EntityManager->GetFirstEntityInstance<CanvasButtonEntity>(kEntityCanvasButton);
