@@ -3,7 +3,6 @@
 
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
-//#include "../ECS/ECSystem.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/DrawComponent.h"
 #include "GraphicsSystem.h"
@@ -11,7 +10,6 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/InvulnerableComponent.h"
 #include "../Components/SnekHeadComponent.h"
-//#include "ProjectileSystem.h"
 #include "../Utility/GameStateManager.h"
 
 struct SnekPreset

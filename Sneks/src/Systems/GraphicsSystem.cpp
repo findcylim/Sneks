@@ -243,8 +243,8 @@ AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char*
 
 void GraphicsSystem::Update(float dt)
 {
-	auto bloomComp = m_po_ComponentManager->GetFirstComponentInstance<BloomComponent>(kComponentBloom);
-	while (bloomComp)
+	//TODO:: MOVE TO BLOOM SYSTEM
+	m_po_ComponentManager->Each<BloomComponent>([&](BloomComponent* bloomComp)
 	{
 		if (bloomComp->m_b_FlashingBloom)
 		{
@@ -252,12 +252,22 @@ void GraphicsSystem::Update(float dt)
 
 
 			if (bloomComp->m_f_BloomStrength > bloomComp->m_f_FlashingStrengthMax ||
-				 bloomComp->m_f_BloomStrength < bloomComp->m_f_FlashingStrengthMin)
+				bloomComp->m_f_BloomStrength < bloomComp->m_f_FlashingStrengthMin)
 				bloomComp->m_f_FlashingMagnitude *= -1.0f;
-				//bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
+			//bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
 		}
-		bloomComp = static_cast<BloomComponent*>(bloomComp->m_po_NextComponent);
-	}
+		//if it is snekhead
+		if (auto i_SnekHead = bloomComp->GetComponent<SnekHeadComponent>())
+		{
+			auto i_Physics = i_SnekHead->GetComponent<PhysicsComponent>();
+			auto speedBloomStr = i_Physics->m_f_Speed / i_Physics->m_f_MaxSpeed * bloomComp->m_f_BaseBloomStrength * 1.5f;
+			bloomComp->m_f_BloomStrength = speedBloomStr;
+			for (auto& bodyPart : i_SnekHead->m_x_BodyParts)
+				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength = speedBloomStr;
+		}
+	}, kComponentBloom);
+
+
 	Draw(dt);
 }
 

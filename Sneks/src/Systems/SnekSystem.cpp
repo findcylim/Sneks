@@ -424,9 +424,9 @@ void SnekSystem::Update(float dt)
 		{
 			i_SnekHead->m_f_AccelerationForce = 200;
 			i_SnekHead->GetComponent<PhysicsComponent>()->m_f_MaxSpeed /= 1.5f;
-			i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
-			for (auto bodyPart : i_SnekHead->m_x_BodyParts)
-				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
+			//i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
+			//for (auto bodyPart : i_SnekHead->m_x_BodyParts)
+			//	bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
 			i_SnekHead->m_f_BoostCooldown = 0;
 		}
 
@@ -471,9 +471,9 @@ void SnekSystem::Update(float dt)
 			{
 				i_SnekHead->m_f_AccelerationForce = 2000;
 				i_SnekHead->GetComponent<PhysicsComponent>()->m_f_MaxSpeed *= 1.5f;
-				i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength *= 1.4f;
-				for (auto bodyPart : i_SnekHead->m_x_BodyParts)
-					bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength *= 1.4f;
+				//i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength *= 1.4f;
+				//for (auto bodyPart : i_SnekHead->m_x_BodyParts)
+				//	bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength *= 1.4f;
 				i_SnekHead->m_f_BoostCooldown = 0;
 			}
 		}
