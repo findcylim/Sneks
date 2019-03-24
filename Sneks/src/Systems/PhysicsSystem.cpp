@@ -168,25 +168,28 @@ void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float 
 
 void PhysicsSystem::CheckOutOfBounds(TransformComponent* transformComponent, PhysicsComponent* physicsComponent) const
 {
+	
 	UNREFERENCED_PARAMETER(physicsComponent);
+	auto camera = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	auto viewDistHalf = 	camera->m_x_CurrentViewDistance / 2 * 0.95f;
 	//if out of screen, clamp movement
-	if (transformComponent->m_x_Position.x > AEGfxGetWinMaxX() + 2 * 1920)
+	if (transformComponent->m_x_Position.x > viewDistHalf.x - camera->m_f_VirtualOffset.x)
 	{
 		//physicsComponent->m_x_Velocity.x = 0;
-		transformComponent->m_x_Position.x = AEGfxGetWinMaxX() + 2 * 1920;
+		transformComponent->m_x_Position.x = viewDistHalf.x - camera->m_f_VirtualOffset.x;
 	}
-	else if (transformComponent->m_x_Position.x < AEGfxGetWinMinX() - 2 * 1920) {
+	else if (transformComponent->m_x_Position.x < -viewDistHalf.x - camera->m_f_VirtualOffset.x) {
 		//physicsComponent->m_x_Velocity.x = 0;
-		transformComponent->m_x_Position.x = AEGfxGetWinMinX() - 2 * 1920;
+		transformComponent->m_x_Position.x = -viewDistHalf.x - camera->m_f_VirtualOffset.x;
 	}
 	//if out of screen, clamp movement
-	if (transformComponent->m_x_Position.y > AEGfxGetWinMaxY() + 2 * 1080) {
+	if (transformComponent->m_x_Position.y > viewDistHalf.y - camera->m_f_VirtualOffset.y) {
 		//physicsComponent->m_x_Velocity.y = 0;
-		transformComponent->m_x_Position.y = AEGfxGetWinMaxY() + 2 * 1080;
+		transformComponent->m_x_Position.y = viewDistHalf.y - camera->m_f_VirtualOffset.y;
 	}
-	else if (transformComponent->m_x_Position.y < AEGfxGetWinMinY() - 2 * 1080) {
+	else if (transformComponent->m_x_Position.y < -viewDistHalf.y - camera->m_f_VirtualOffset.y) {
 		//physicsComponent->m_x_Velocity.y = 0;
-		transformComponent->m_x_Position.y = AEGfxGetWinMinY() - 2 * 1080;
+		transformComponent->m_x_Position.y = -viewDistHalf.y - camera->m_f_VirtualOffset.y;
 	}
 }
 

@@ -1,4 +1,3 @@
-
 #include "SnekSystem.h"
 #include "../Components/SnekHeadComponent.h"
 #include "../Components/InvulnerableComponent.h"

@@ -70,27 +70,23 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 				if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
 				{
-					cameraComponent->m_i_CurrentStage = -1;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
 				}
 				if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y / 2 * cameraComponent->m_x_CurrentViewDistance.y)
 				{
-					cameraComponent->m_i_CurrentStage = -1;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
 				}
 				if (distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x * cameraComponent->m_x_CurrentViewDistance.x)
 				{
-					cameraComponent->m_i_CurrentStage = -2;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
 				}
 				if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y * cameraComponent->m_x_CurrentViewDistance.y)
 				{
-					cameraComponent->m_i_CurrentStage = -2;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
 				}
 
-				//if (cameraComponent->m_f_VirtualScale < 0.5f)
-				//	cameraComponent->m_f_ZoomVelocity = 0;
+				if (cameraComponent->m_f_VirtualScale < 0.5f)
+					cameraComponent->m_f_ZoomVelocity = 0;
 
 				//Record the object nearest to the edge
 				if (distFromScreenEdgeX > lowestDistanceFromScreenEdgeX &&
@@ -112,20 +108,6 @@ void CameraSystem::UpdateCamera(const float dt) const
 				}
 
 			}
-			/*TODO:: Stage based camera zoom (if further then zoom slower)
-			if (m_i_CurrentStage == -1)
-				m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
-				//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30 * m_x_CameraAttributes.perStageMultiplier;
-			else if (m_i_CurrentStage == -2)
-				m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
-
-				//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30;
-			case 1://m_f_ZoomVelocity += m_x_CameraAttributes.zoomInBaseSpeed;
-				break;
-			case 0:
-				break;
-			default: m_f_ZoomVelocity = 0;
-			}*/
 		}
 
 		if (cameraComponent->m_f_ZoomVelocity > cameraComponent->m_x_CameraAttributes.zoomInMaxSpeed)
@@ -134,7 +116,6 @@ void CameraSystem::UpdateCamera(const float dt) const
 			cameraComponent->m_f_ZoomVelocity = -cameraComponent->m_x_CameraAttributes.zoomOutMaxSpeed;
 		else if (fabsf(cameraComponent->m_f_ZoomVelocity) < 0.0005f) {
 			cameraComponent->m_f_ZoomVelocity = 0;
-			cameraComponent->m_i_CurrentStage = 0;
 		}
 
 

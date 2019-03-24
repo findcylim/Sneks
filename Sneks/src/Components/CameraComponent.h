@@ -42,7 +42,6 @@ public:
 	HTVector2           m_f_DistanceOutTolerance ={ 0.05f,0.15f };
 	HTVector2           m_f_DistanceInTolerance  ={ 0.2f,0.2f };
 	CameraAttributes    m_x_CameraAttributes;
-	int					  m_i_CurrentStage;
 
 	//ZOOM AND OFFSET ( CAMERA "X Y Z" )
 	HTVector2			  m_f_TargetOffset;
