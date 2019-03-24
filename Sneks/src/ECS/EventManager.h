@@ -62,10 +62,6 @@ namespace Events
 		const char * texName;
 	};
 
-	struct EV_PLAY_SOUND
-	{
-
-	};
 
 	struct EV_NEW_UI_ELEMENT
 	{
@@ -83,19 +79,23 @@ namespace Events
 	struct EV_PLAYER_COLLISION_ON_ENTER
 	{
 		CollisionComponent* object1;
-		CollisionComponent* object2;
 	};
 
 	struct EV_PLAYER_COLLISION_ON_EXIT
 	{
 		CollisionComponent* object1;
-		CollisionComponent* object2;
 	};
 
 	struct EV_MOUSE_ONCLICK
 	{
 
 	};
+
+	struct EV_PLAYER_WIN
+	{
+		char WinnerNumber;
+	};
+
 }
 
 class EventManager

@@ -189,7 +189,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(PauseMenu);
 	PauseMenu->Initialize();
 
-	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager, static_cast<char>(2));
+	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager);
 	WinScreen->SetName("WinScreen");
 	m_o_SystemManager->AddSystem(WinScreen);
 

@@ -55,7 +55,9 @@ void CanvasUISystem::Update(float dt)
 				else if (collisionComponent->m_b_Colliding)
 				{
 					if (canvasElementComponent->m_x_HoverSprite)
+					{
 						drawComponent->m_px_Texture = canvasElementComponent->m_x_HoverSprite;
+					}
 					collisionComponent->m_b_Colliding = false;
 				}
 				else

@@ -17,6 +17,13 @@ enum CanvasElementEnum
 	kCanvasTextLabel
 };
 
+enum CanvasElementButtonState
+{
+	kButtonIdle,
+	kButtonHover,
+	kButtonClick
+};
+
 class CanvasComponent : public BaseComponent
 {
 public:
@@ -40,6 +47,7 @@ public:
 	float m_f_XOffset = 0.0f; // 0 to 1.0f
 	float m_f_YOffset = 0.0f; // 0 to 1.0f
 	bool m_b_IsClicked = false;
+	CanvasElementButtonState m_e_ButtonState = kButtonIdle;
 	
 	CanvasElementComponent() {}
 	~CanvasElementComponent()

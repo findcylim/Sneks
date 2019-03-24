@@ -184,9 +184,16 @@ void GameStateManager::LoadWinScreen()
 {
 	//TODO:: Set win screen to player 2 texture if p2 wins
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-	snek->GetWinner();
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 
+	auto winscreen = m_o_SystemManager->GetSystem<WinScreenSystem>("WinScreen");
+
+	if (winscreen->m_c_Winner != snek->GetWinner())
+	{
+		winscreen->SwapWinScreen();
+		winscreen->m_c_Winner = snek->GetWinner();
+	}
+
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
 }
 

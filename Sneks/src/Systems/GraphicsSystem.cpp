@@ -195,7 +195,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UIBack_Hover.png", "UIBack_Hover");
 	LoadTextureToMap("../Resources/UIBack_Click.png", "UIBack_Click");
 
-	LoadTextureToMap("../Resources/Player1_Win.png", "Player1Win");
+	LoadTextureToMap("../Resources/WinSprite.png", "WinSprite");
+	LoadTextureToMap("../Resources/LoseSprite.png", "LoseSprite");
 	
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
