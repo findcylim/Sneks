@@ -24,7 +24,6 @@ public:
 
 	float m_f_Friction                     = 1.5f;
 
-
 	//unused for now
 	//float m_f_BrakeForce                   = 6;
 	//float m_f_TurnMinSpeed                 = 60;       //need to be moving at this speed to turn

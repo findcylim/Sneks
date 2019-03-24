@@ -496,31 +496,30 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 
 void GraphicsSystem::DrawTextRenderer()const
 {
-	auto text_Comp = m_po_ComponentManager->GetFirstComponentInstance<TextRendererComponent>(kComponentTextRenderer);
 	
 	float halfScreenSizeX, halfScreenSizeY;
 	AlphaEngineHelper::GetScreenSize(&halfScreenSizeX, &halfScreenSizeY);
 	halfScreenSizeX /= 2;
 	halfScreenSizeY /= 2;
 
-	while (text_Comp)
+	m_po_ComponentManager->Each<TextRendererComponent>([&](TextRendererComponent* text_Comp)
 	{
-		if (text_Comp->m_b_IsActive)
+		//if (text_Comp->m_b_IsActive)
+		//{
+		if (text_Comp->m_p_Text)
 		{
-			if (text_Comp->m_p_Text)
-			{
-				char textToDraw[100];
-				sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+			char textToDraw[100];
+			sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
 
-				
-				AEGfxPrint(m_i_font,
-					textToDraw,
-					static_cast<s32>(text_Comp->m_x_TextPosition.x - halfScreenSizeX),
-					static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 0, 0, 0);
-			}
+
+			AEGfxPrint(m_i_font,
+				textToDraw,
+				static_cast<s32>(text_Comp->m_x_TextPosition.x - halfScreenSizeX),
+				static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 0, 0, 0);
 		}
-		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
-	}
+		//}
+	}, kComponentTextRenderer, true);
+
 }
 
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue)

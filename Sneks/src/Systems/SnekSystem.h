@@ -82,7 +82,7 @@ public:
 	void ResetLivesAll();
 	int GetLives(SnekHeadComponent* snekHead) const;
 	int GetLives(int playerNum) const;
-	void TweakPlayerDamage(SnekHeadComponent* snekHead, int change);
+	void TweakPlayerDamageBySpeed(SnekHeadComponent* snekHead);
 	void ResetDamageAll();
 	int GetWinner();
 	float GetGrowthPercentage(SnekHeadComponent* snekHead) const;

@@ -222,7 +222,7 @@ void PowerUpSystem::UpdatePowerUp(PowerUpComponent* powerup,DrawComponent* power
 			break;
 
 		case kPowerUpIncreaseDamage:
-			m_po_SnekSystem->TweakPlayerDamage(snekHeadComponent, static_cast<int>(powerup->GetPowerIncrease()));
+			//m_po_SnekSystem->TweakPlayerDamage(snekHeadComponent, static_cast<int>(powerup->GetPowerIncrease()));
 
 			break;
 		case kPowerUpEnd:

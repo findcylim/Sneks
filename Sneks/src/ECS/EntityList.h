@@ -34,7 +34,7 @@ class BaseEntity
 		BaseEntity(const char* entityName);
 
 		template<typename T>
-		T* GetComponent()
+		auto GetComponent()
 		{
 			for (auto& component : m_v_AttachedComponentsList)
 			{
@@ -43,8 +43,29 @@ class BaseEntity
 					return static_cast<T*>(component);
 				}
 			}
-			return nullptr;
+			return static_cast<T*>(nullptr);
 		}
+
+		///Checks if entity of is entityType
+		/// if it is not, return nullptr
+		template<typename T>
+		auto Is(T entityType)
+		{
+			return dynamic_cast<T*>(this);
+		}
+
+		//template<typename T>
+		//T* Has(T componentType)
+		//{
+		//	for (auto& component : m_v_AttachedComponentsList)
+		//	{
+		//		if (T* p = dynamic_cast<T*>(component))
+		//		{
+		//			return static_cast<T*>(component);
+		//		}
+		//	}
+		//	return nullptr;
+		//}
 
 		/*int GetCount()
 		{
