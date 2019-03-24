@@ -89,6 +89,8 @@ public:
 	int GetWinner();
 	float GetGrowthPercentage(SnekHeadComponent* snekHead) const;
 	float GetGrowthPercentage(int playerNum) const;
+	float GetSpecialAttackPercentage(SnekHeadComponent* snekHead) const;
+	float GetSpecialAttackPercentage(int playerNum) const;
 };
 
 //float GetFlipChargeRate();

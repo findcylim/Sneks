@@ -20,7 +20,7 @@ public:
 	float m_f_IdleSpeed                    = 100;		//default move speed
 
 	float m_f_BoostSetCooldown             = 3;
-	float m_f_BoostCooldown                = 0;
+	float m_f_BoostCooldown                = m_f_BoostSetCooldown;
 
 	float m_f_Friction                     = 1.5f;
 

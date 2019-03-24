@@ -233,4 +233,37 @@ void HUDSystem::Update(float dt)
 		}
 	}
 
+	for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strcmp(element->m_pc_EntityName, "sRBar"))
+		{
+			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
+			trans_Comp->SetScaleX(snek->GetSpecialAttackPercentage(0) * 960);
+
+			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(0) - 960.0f / screenX * oldScale1) / 2.0f;
+
+			if (difference > 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+			else if (difference < 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+
+			oldScale1 = snek->GetSpecialAttackPercentage(0);
+		}
+
+		if (!strcmp(element->m_pc_EntityName, "sLBar"))
+		{
+			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
+			trans_Comp->SetScaleX(snek->GetSpecialAttackPercentage(1) * 960);
+
+			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(1) - 960.0f / screenX * oldScale2) / 2.0f;
+
+			if (difference > 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+			else if (difference < 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+
+			oldScale2 = snek->GetSpecialAttackPercentage(1);
+		}
+	}
+
 }
