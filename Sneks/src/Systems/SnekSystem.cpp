@@ -106,6 +106,24 @@ void SnekSystem::CheckGrowthMeters()
 	}, kComponentSnekHead);
 }
 
+float SnekSystem::GetSpecialAttackPercentage(SnekHeadComponent* snekHead) const
+{
+	return snekHead->m_f_BoostCooldown / snekHead->m_f_BoostSetCooldown;
+}
+
+float SnekSystem::GetSpecialAttackPercentage(int playerNum) const
+{
+	float toReturn = 0;
+	m_po_ComponentManager->Each<SnekHeadComponent>([&](SnekHeadComponent* snekHead)->void
+	{
+		if (snekHead->m_i_PlayerNumber == playerNum)
+		{
+			toReturn = GetSpecialAttackPercentage(snekHead);
+		}
+	}, kComponentSnekHead);
+	return toReturn;
+}
+
 SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
 : BaseSystem(entityManagerPtr)
 {
@@ -397,9 +415,9 @@ void SnekSystem::Update(float dt)
 		auto headPhysicsComponent = i_SnekHead->m_po_OwnerEntity->
 								GetComponent<PhysicsComponent>();
 
-		if (i_SnekHead->m_f_BoostCooldown > 0) 
+		if (i_SnekHead->m_f_BoostCooldown < i_SnekHead->m_f_BoostSetCooldown)
 		{
-			i_SnekHead->m_f_BoostCooldown -= dt;
+			i_SnekHead->m_f_BoostCooldown += dt;
 		}
 		else if (i_SnekHead->m_x_SnekType == kSnekTypeSpeed &&
 			i_SnekHead->m_f_AccelerationForce > 200)
@@ -409,7 +427,7 @@ void SnekSystem::Update(float dt)
 			i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
 			for (auto bodyPart : i_SnekHead->m_x_BodyParts)
 				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
-			i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
+			i_SnekHead->m_f_BoostCooldown = 0;
 		}
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
@@ -428,7 +446,7 @@ void SnekSystem::Update(float dt)
 			{
 				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
 			}
-			else if (i_SnekHead->m_f_BoostCooldown <= 0 &&
+			else if (i_SnekHead->m_f_BoostCooldown >= i_SnekHead->m_f_BoostSetCooldown &&
 				i_SnekHead->m_x_SnekType == kSnekTypeShoot)
 			{
 				Events::EV_CREATE_PROJECTILE projData;
@@ -444,11 +462,11 @@ void SnekSystem::Update(float dt)
 
 				projData.texName = "Moon";
 
-				i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
+				i_SnekHead->m_f_BoostCooldown = 0;
 
 				m_po_EventManagerPtr->EmitEvent<Events::EV_CREATE_PROJECTILE>(projData);
 			}
-			else if (i_SnekHead->m_f_BoostCooldown <= 0 &&
+			else if (i_SnekHead->m_f_BoostCooldown >= i_SnekHead->m_f_BoostSetCooldown &&
 				i_SnekHead->m_x_SnekType == kSnekTypeSpeed)
 			{
 				i_SnekHead->m_f_AccelerationForce = 2000;
@@ -456,7 +474,7 @@ void SnekSystem::Update(float dt)
 				i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength *= 1.4f;
 				for (auto bodyPart : i_SnekHead->m_x_BodyParts)
 					bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength *= 1.4f;
-				i_SnekHead->m_f_BoostCooldown = i_SnekHead->m_f_BoostSetCooldown;
+				i_SnekHead->m_f_BoostCooldown = 0;
 			}
 		}
 

@@ -1,0 +1,6234 @@
+Canvas UI took 0.0541816 ms 
+Collisions took 11.7452 ms 
+Graphics took 108.849 ms 
+Animations took 0.00545022 ms 
+Camera took 2.04512 ms 
+Audio took 0.0189155 ms 
+Input took 0.0224421 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0445636 ms 
+Collisions took 5.69163 ms 
+Graphics took 167.684 ms 
+Animations took 0.00641204 ms 
+Camera took 2.95594 ms 
+Audio took 0.102272 ms 
+Input took 0.0118623 ms 
+Main Menu took 0.0025648 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 5.90419 ms 
+Graphics took 80.9342 ms 
+Animations took 0.00512961 ms 
+Camera took 2.08776 ms 
+Audio took 0.011221 ms 
+Input took 0.0105799 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 5.49895 ms 
+Graphics took 80.1769 ms 
+Animations took 0.00512961 ms 
+Camera took 2.06211 ms 
+Audio took 0.108684 ms 
+Input took 0.0137859 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0528992 ms 
+Collisions took 5.61405 ms 
+Graphics took 66.2122 ms 
+Animations took 0.00512961 ms 
+Camera took 2.1865 ms 
+Audio took 0.0121828 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 5.6288 ms 
+Graphics took 79.4498 ms 
+Animations took 0.00512964 ms 
+Camera took 2.05858 ms 
+Audio took 0.00993864 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 5.32583 ms 
+Graphics took 82.751 ms 
+Animations took 0.00705323 ms 
+Camera took 2.11853 ms 
+Audio took 0.0137859 ms 
+Input took 0.00961806 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0391134 ms 
+Collisions took 5.4467 ms 
+Graphics took 79.4222 ms 
+Animations took 0.00545025 ms 
+Camera took 2.03774 ms 
+Audio took 0.0118622 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.041037 ms 
+Collisions took 5.48934 ms 
+Graphics took 80.9156 ms 
+Animations took 0.00577082 ms 
+Camera took 2.0682 ms 
+Audio took 0.0109004 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.36847 ms 
+Graphics took 65.495 ms 
+Animations took 0.00512964 ms 
+Camera took 2.11693 ms 
+Audio took 0.0105799 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.29345 ms 
+Graphics took 81.6212 ms 
+Animations took 0.00545022 ms 
+Camera took 2.13969 ms 
+Audio took 0.0125034 ms 
+Input took 0.0237245 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.4172 ms 
+Graphics took 7.07856 ms 
+Animations took 0.00545022 ms 
+Camera took 1.76106 ms 
+Audio took 0.0125034 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 5.31685 ms 
+Graphics took 6.60086 ms 
+Animations took 0.00512961 ms 
+Camera took 1.6729 ms 
+Audio took 0.00993864 ms 
+Input took 0.0105799 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 5.3518 ms 
+Graphics took 6.6528 ms 
+Animations took 0.00577082 ms 
+Camera took 1.82454 ms 
+Audio took 0.0166713 ms 
+Input took 0.0112211 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0384722 ms 
+Collisions took 5.48517 ms 
+Graphics took 7.40589 ms 
+Animations took 0.00545022 ms 
+Camera took 1.80627 ms 
+Audio took 0.011221 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.26652 ms 
+Graphics took 6.56784 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69181 ms 
+Audio took 0.00929745 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.33929 ms 
+Graphics took 6.56367 ms 
+Animations took 0.004809 ms 
+Camera took 1.70784 ms 
+Audio took 0.0109004 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 5.26972 ms 
+Graphics took 6.58804 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69342 ms 
+Audio took 0.0109004 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 5.32968 ms 
+Graphics took 6.57649 ms 
+Animations took 0.00512961 ms 
+Camera took 1.70111 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 5.37488 ms 
+Graphics took 6.58002 ms 
+Animations took 0.00577082 ms 
+Camera took 1.67514 ms 
+Audio took 0.00961803 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.32936 ms 
+Graphics took 6.60214 ms 
+Animations took 0.00480903 ms 
+Camera took 1.72195 ms 
+Audio took 0.0118622 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 5.33288 ms 
+Graphics took 6.5922 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66616 ms 
+Audio took 0.0109005 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 5.17835 ms 
+Graphics took 6.50211 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67674 ms 
+Audio took 0.0137858 ms 
+Input took 0.1494 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0384721 ms 
+Collisions took 5.34378 ms 
+Graphics took 6.81278 ms 
+Animations took 0.00769444 ms 
+Camera took 1.90597 ms 
+Audio took 0.0109005 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 5.38418 ms 
+Graphics took 6.76693 ms 
+Animations took 0.00512961 ms 
+Camera took 1.92681 ms 
+Audio took 0.0846387 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.26331 ms 
+Graphics took 6.51494 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69085 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0429606 ms 
+Collisions took 5.57686 ms 
+Graphics took 7.06221 ms 
+Animations took 0.00577082 ms 
+Camera took 2.06243 ms 
+Audio took 0.0144271 ms 
+Input took 0.0109004 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 5.20689 ms 
+Graphics took 6.50147 ms 
+Animations took 0.00545022 ms 
+Camera took 1.83063 ms 
+Audio took 0.0125035 ms 
+Input took 0.011221 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0384721 ms 
+Collisions took 5.3938 ms 
+Graphics took 6.70473 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69534 ms 
+Audio took 0.0115416 ms 
+Input took 0.0121829 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 5.25594 ms 
+Graphics took 6.52103 ms 
+Animations took 0.00512964 ms 
+Camera took 1.64661 ms 
+Audio took 0.0105799 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.23157 ms 
+Graphics took 6.61272 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71073 ms 
+Audio took 0.0115416 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 5.35148 ms 
+Graphics took 6.6653 ms 
+Animations took 0.00545022 ms 
+Camera took 1.67418 ms 
+Audio took 0.0115416 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 5.45535 ms 
+Graphics took 6.58868 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66392 ms 
+Audio took 0.012824 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.32391 ms 
+Graphics took 6.49923 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66104 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 5.26588 ms 
+Graphics took 6.45691 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68476 ms 
+Audio took 0.0118623 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0275717 ms 
+Collisions took 5.39187 ms 
+Graphics took 6.61753 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67322 ms 
+Audio took 0.0791885 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.039434 ms 
+Collisions took 5.28447 ms 
+Graphics took 6.589 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66104 ms 
+Audio took 0.0105799 ms 
+Input took 0.0605937 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 5.16425 ms 
+Graphics took 6.48096 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71842 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 5.55057 ms 
+Graphics took 6.61721 ms 
+Animations took 0.00512961 ms 
+Camera took 1.73798 ms 
+Audio took 0.011221 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.21682 ms 
+Graphics took 6.63356 ms 
+Animations took 0.00577082 ms 
+Camera took 1.93194 ms 
+Audio took 0.0134652 ms 
+Input took 0.0118623 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0455254 ms 
+Collisions took 5.29217 ms 
+Graphics took 6.63997 ms 
+Animations took 0.00545022 ms 
+Camera took 1.66488 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.12706 ms 
+Graphics took 6.56014 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68861 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 5.21073 ms 
+Graphics took 6.52552 ms 
+Animations took 0.004809 ms 
+Camera took 1.70656 ms 
+Audio took 0.00929742 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.17899 ms 
+Graphics took 6.54315 ms 
+Animations took 0.00480903 ms 
+Camera took 1.662 ms 
+Audio took 0.00993864 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 5.08377 ms 
+Graphics took 6.43703 ms 
+Animations took 0.00641201 ms 
+Camera took 1.68219 ms 
+Audio took 0.0112211 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 5.24728 ms 
+Graphics took 6.53065 ms 
+Animations took 0.00512964 ms 
+Camera took 1.64693 ms 
+Audio took 0.0105798 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 5.16328 ms 
+Graphics took 6.46941 ms 
+Animations took 0.00480903 ms 
+Camera took 1.63443 ms 
+Audio took 0.011221 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0275717 ms 
+Collisions took 5.21169 ms 
+Graphics took 6.47903 ms 
+Animations took 0.00448842 ms 
+Camera took 1.6527 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 5.11455 ms 
+Graphics took 6.53963 ms 
+Animations took 0.004809 ms 
+Camera took 1.74343 ms 
+Audio took 0.011221 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.34378 ms 
+Graphics took 6.77078 ms 
+Animations took 0.00609143 ms 
+Camera took 1.73413 ms 
+Audio took 0.0128241 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 5.44894 ms 
+Graphics took 7.31644 ms 
+Animations took 0.00512961 ms 
+Camera took 1.79152 ms 
+Audio took 0.0125034 ms 
+Input took 0.00961806 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 5.87887 ms 
+Graphics took 6.67171 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69085 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.19118 ms 
+Graphics took 6.58579 ms 
+Animations took 0.00512961 ms 
+Camera took 1.91463 ms 
+Audio took 0.011221 ms 
+Input took 0.053861 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0371897 ms 
+Collisions took 5.35148 ms 
+Graphics took 6.87529 ms 
+Animations took 0.00833563 ms 
+Camera took 1.98132 ms 
+Audio took 0.0147477 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 5.22324 ms 
+Graphics took 6.51686 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71778 ms 
+Audio took 0.0118623 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 5.21041 ms 
+Graphics took 6.58098 ms 
+Animations took 0.00545022 ms 
+Camera took 1.74856 ms 
+Audio took 0.011221 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.13154 ms 
+Graphics took 6.56303 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67803 ms 
+Audio took 0.0121828 ms 
+Input took 0.0115416 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 5.24375 ms 
+Graphics took 6.58323 ms 
+Animations took 0.004809 ms 
+Camera took 1.71233 ms 
+Audio took 0.00993864 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 5.08217 ms 
+Graphics took 6.45531 ms 
+Animations took 0.00673265 ms 
+Camera took 1.71297 ms 
+Audio took 0.011221 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.10429 ms 
+Graphics took 6.55021 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71297 ms 
+Audio took 0.00929745 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.10461 ms 
+Graphics took 6.47005 ms 
+Animations took 0.00448842 ms 
+Camera took 1.71586 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 5.07544 ms 
+Graphics took 6.57874 ms 
+Animations took 0.004809 ms 
+Camera took 1.69213 ms 
+Audio took 0.00993864 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 5.20624 ms 
+Graphics took 6.87818 ms 
+Animations took 0.00609143 ms 
+Camera took 1.85468 ms 
+Audio took 0.0118622 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 5.64098 ms 
+Graphics took 6.74225 ms 
+Animations took 0.00545022 ms 
+Camera took 1.76331 ms 
+Audio took 0.012824 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.62303 ms 
+Graphics took 6.57297 ms 
+Animations took 0.00512961 ms 
+Camera took 1.66168 ms 
+Audio took 0.0109005 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 5.16553 ms 
+Graphics took 6.59252 ms 
+Animations took 0.00545022 ms 
+Camera took 1.65206 ms 
+Audio took 0.0109005 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.07512 ms 
+Graphics took 6.41876 ms 
+Animations took 0.004809 ms 
+Camera took 1.69534 ms 
+Audio took 0.00961806 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.09692 ms 
+Graphics took 6.4537 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66873 ms 
+Audio took 0.0105798 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 5.36815 ms 
+Graphics took 6.53385 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68829 ms 
+Audio took 0.00897684 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 5.3332 ms 
+Graphics took 6.62779 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71938 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 5.10237 ms 
+Graphics took 6.5268 ms 
+Animations took 0.004809 ms 
+Camera took 1.71393 ms 
+Audio took 0.00993864 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.14052 ms 
+Graphics took 7.49983 ms 
+Animations took 0.00577082 ms 
+Camera took 1.98837 ms 
+Audio took 0.0144271 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 5.23478 ms 
+Graphics took 6.60182 ms 
+Animations took 0.00512964 ms 
+Camera took 1.71041 ms 
+Audio took 0.0141065 ms 
+Input took 0.0214803 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 5.07544 ms 
+Graphics took 6.54796 ms 
+Animations took 0.004809 ms 
+Camera took 1.65751 ms 
+Audio took 0.00993864 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 5.10397 ms 
+Graphics took 7.23565 ms 
+Animations took 0.00545025 ms 
+Camera took 1.87904 ms 
+Audio took 0.0141065 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 5.18284 ms 
+Graphics took 6.97725 ms 
+Animations took 0.00641201 ms 
+Camera took 1.77902 ms 
+Audio took 0.0115416 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 5.14469 ms 
+Graphics took 6.6217 ms 
+Animations took 0.00480903 ms 
+Camera took 1.704 ms 
+Audio took 0.0163506 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 5.12385 ms 
+Graphics took 6.47166 ms 
+Animations took 0.00545022 ms 
+Camera took 1.66809 ms 
+Audio took 0.0115416 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 5.15815 ms 
+Graphics took 6.52712 ms 
+Animations took 0.00512964 ms 
+Camera took 1.70175 ms 
+Audio took 0.0105798 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0432812 ms 
+Collisions took 5.06197 ms 
+Graphics took 6.43511 ms 
+Animations took 0.00577082 ms 
+Camera took 1.64885 ms 
+Audio took 0.00993864 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 5.07512 ms 
+Graphics took 6.60407 ms 
+Animations took 0.004809 ms 
+Camera took 1.71746 ms 
+Audio took 0.00993864 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 4.99882 ms 
+Graphics took 6.42517 ms 
+Animations took 0.004809 ms 
+Camera took 1.6434 ms 
+Audio took 0.00993867 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.98856 ms 
+Graphics took 6.45274 ms 
+Animations took 0.00512964 ms 
+Camera took 1.78062 ms 
+Audio took 0.0134653 ms 
+Input took 0.0487314 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 5.10558 ms 
+Graphics took 6.50083 ms 
+Animations took 0.004809 ms 
+Camera took 1.68989 ms 
+Audio took 0.0115416 ms 
+Input took 0.01603 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 5.2585 ms 
+Graphics took 6.75571 ms 
+Animations took 0.00545025 ms 
+Camera took 1.68604 ms 
+Audio took 0.0859212 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0445636 ms 
+Collisions took 5.12609 ms 
+Graphics took 6.50308 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65975 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 5.0251 ms 
+Graphics took 6.44986 ms 
+Animations took 0.004809 ms 
+Camera took 1.73798 ms 
+Audio took 0.0118623 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 5.03697 ms 
+Graphics took 6.73327 ms 
+Animations took 0.00577082 ms 
+Camera took 1.87039 ms 
+Audio took 0.012824 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 4.8927 ms 
+Graphics took 6.52199 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69662 ms 
+Audio took 0.00961803 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 4.89494 ms 
+Graphics took 6.36586 ms 
+Animations took 0.00448842 ms 
+Camera took 1.65559 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 4.81736 ms 
+Graphics took 6.42677 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68316 ms 
+Audio took 0.0102592 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 4.86801 ms 
+Graphics took 6.41106 ms 
+Animations took 0.004809 ms 
+Camera took 1.64661 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 4.83851 ms 
+Graphics took 6.50628 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67835 ms 
+Audio took 0.0105799 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 5.04819 ms 
+Graphics took 6.74353 ms 
+Animations took 0.0060914 ms 
+Camera took 1.90213 ms 
+Audio took 0.0121829 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 5.01356 ms 
+Graphics took 6.45467 ms 
+Animations took 0.00512961 ms 
+Camera took 1.73253 ms 
+Audio took 0.0125034 ms 
+Input took 0.0105799 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0352662 ms 
+Collisions took 4.84557 ms 
+Graphics took 6.59637 ms 
+Animations took 0.00609143 ms 
+Camera took 1.88097 ms 
+Audio took 0.0990658 ms 
+Input took 0.052258 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0355868 ms 
+Collisions took 4.95682 ms 
+Graphics took 6.51654 ms 
+Animations took 0.00480903 ms 
+Camera took 1.72259 ms 
+Audio took 0.00961803 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 4.83755 ms 
+Graphics took 6.53321 ms 
+Animations took 0.00512964 ms 
+Camera took 1.72131 ms 
+Audio took 0.0109004 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 4.95105 ms 
+Graphics took 6.52231 ms 
+Animations took 0.00577082 ms 
+Camera took 1.7274 ms 
+Audio took 0.0105798 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0387928 ms 
+Collisions took 5.11808 ms 
+Graphics took 6.64639 ms 
+Animations took 0.00673262 ms 
+Camera took 2.10635 ms 
+Audio took 0.0160301 ms 
+Input took 0.0131447 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0439224 ms 
+Collisions took 4.90873 ms 
+Graphics took 6.58772 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66745 ms 
+Audio took 0.0112211 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 4.95425 ms 
+Graphics took 6.94967 ms 
+Animations took 0.00512961 ms 
+Camera took 1.8675 ms 
+Audio took 0.0131447 ms 
+Input took 0.0121828 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 5.04049 ms 
+Graphics took 6.55373 ms 
+Animations took 0.00512964 ms 
+Camera took 1.74888 ms 
+Audio took 0.00961803 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 4.78337 ms 
+Graphics took 6.33059 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65783 ms 
+Audio took 0.0109005 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 4.75997 ms 
+Graphics took 6.38798 ms 
+Animations took 0.004809 ms 
+Camera took 1.66424 ms 
+Audio took 0.0112211 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 4.79812 ms 
+Graphics took 6.36522 ms 
+Animations took 0.00705323 ms 
+Camera took 1.65462 ms 
+Audio took 0.011221 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.75035 ms 
+Graphics took 6.32803 ms 
+Animations took 0.00512964 ms 
+Camera took 1.64661 ms 
+Audio took 0.0105799 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 4.78818 ms 
+Graphics took 6.41042 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67771 ms 
+Audio took 0.0118622 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 4.77087 ms 
+Graphics took 6.4396 ms 
+Animations took 0.00545022 ms 
+Camera took 1.63923 ms 
+Audio took 0.0109004 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 4.75131 ms 
+Graphics took 6.41171 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64308 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 4.78626 ms 
+Graphics took 6.38702 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67546 ms 
+Audio took 0.011221 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 5.19214 ms 
+Graphics took 6.51334 ms 
+Animations took 0.00480903 ms 
+Camera took 1.7274 ms 
+Audio took 0.0125034 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 5.90451 ms 
+Graphics took 10.8296 ms 
+Animations took 0.00609143 ms 
+Camera took 1.91495 ms 
+Audio took 0.0144271 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.80581 ms 
+Graphics took 6.40497 ms 
+Animations took 0.00577082 ms 
+Camera took 1.68348 ms 
+Audio took 0.00929745 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 4.9068 ms 
+Graphics took 6.53802 ms 
+Animations took 0.00512964 ms 
+Camera took 1.72548 ms 
+Audio took 0.0109004 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 4.76478 ms 
+Graphics took 6.44024 ms 
+Animations took 0.00512961 ms 
+Camera took 1.76812 ms 
+Audio took 0.0102592 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 4.71508 ms 
+Graphics took 6.36458 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64404 ms 
+Audio took 0.00961806 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 4.76478 ms 
+Graphics took 6.39471 ms 
+Animations took 0.004809 ms 
+Camera took 1.64821 ms 
+Audio took 0.00993864 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.71444 ms 
+Graphics took 6.31617 ms 
+Animations took 0.00641201 ms 
+Camera took 1.64917 ms 
+Audio took 0.00961803 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 4.64487 ms 
+Graphics took 6.34213 ms 
+Animations took 0.00545022 ms 
+Camera took 1.68091 ms 
+Audio took 0.00961803 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 4.62948 ms 
+Graphics took 6.3213 ms 
+Animations took 0.00480903 ms 
+Camera took 1.63571 ms 
+Audio took 0.0118623 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 4.75291 ms 
+Graphics took 6.40914 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69502 ms 
+Audio took 0.0118623 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 4.62788 ms 
+Graphics took 6.34566 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64853 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 4.82826 ms 
+Graphics took 6.45723 ms 
+Animations took 0.00512964 ms 
+Camera took 1.7819 ms 
+Audio took 0.0105799 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0509756 ms 
+Collisions took 4.89013 ms 
+Graphics took 6.46781 ms 
+Animations took 0.0060914 ms 
+Camera took 1.68893 ms 
+Audio took 0.0121828 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 4.71027 ms 
+Graphics took 6.45242 ms 
+Animations took 0.00480903 ms 
+Camera took 1.87295 ms 
+Audio took 0.012824 ms 
+Input took 0.00961806 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 4.56985 ms 
+Graphics took 6.48352 ms 
+Animations took 0.00480903 ms 
+Camera took 1.8675 ms 
+Audio took 0.0131447 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0371897 ms 
+Collisions took 4.56184 ms 
+Graphics took 6.4848 ms 
+Animations took 0.00545022 ms 
+Camera took 1.77581 ms 
+Audio took 0.0118623 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 4.59325 ms 
+Graphics took 6.46685 ms 
+Animations took 0.00480903 ms 
+Camera took 1.78799 ms 
+Audio took 0.0121828 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 4.45219 ms 
+Graphics took 6.32867 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70047 ms 
+Audio took 0.00961806 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0436018 ms 
+Collisions took 4.48457 ms 
+Graphics took 6.27705 ms 
+Animations took 0.00512964 ms 
+Camera took 1.6543 ms 
+Audio took 0.00929742 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 4.71957 ms 
+Graphics took 6.55149 ms 
+Animations took 0.00545022 ms 
+Camera took 1.75818 ms 
+Audio took 0.0121828 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 4.45892 ms 
+Graphics took 6.38958 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68572 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 4.4586 ms 
+Graphics took 6.3229 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70913 ms 
+Audio took 0.00897684 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 4.48682 ms 
+Graphics took 6.40786 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68412 ms 
+Audio took 0.0109005 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 4.49643 ms 
+Graphics took 6.56335 ms 
+Animations took 0.00545022 ms 
+Camera took 1.72708 ms 
+Audio took 0.0109005 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0375104 ms 
+Collisions took 4.69841 ms 
+Graphics took 6.43254 ms 
+Animations took 0.00512964 ms 
+Camera took 1.71329 ms 
+Audio took 0.0109004 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 4.56632 ms 
+Graphics took 6.35432 ms 
+Animations took 0.004809 ms 
+Camera took 1.67963 ms 
+Audio took 0.00993867 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 4.53907 ms 
+Graphics took 6.4069 ms 
+Animations took 0.004809 ms 
+Camera took 1.65302 ms 
+Audio took 0.0102592 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381516 ms 
+Collisions took 4.55478 ms 
+Graphics took 6.36618 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65013 ms 
+Audio took 0.0105798 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 4.70194 ms 
+Graphics took 6.42068 ms 
+Animations took 0.004809 ms 
+Camera took 1.68861 ms 
+Audio took 0.0125035 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0413576 ms 
+Collisions took 4.64904 ms 
+Graphics took 6.37355 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67129 ms 
+Audio took 0.0105798 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 4.5737 ms 
+Graphics took 6.24082 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67322 ms 
+Audio took 0.00961806 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 4.62756 ms 
+Graphics took 6.37259 ms 
+Animations took 0.004809 ms 
+Camera took 1.67129 ms 
+Audio took 0.0121829 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.53555 ms 
+Graphics took 6.25461 ms 
+Animations took 0.00512961 ms 
+Camera took 1.72419 ms 
+Audio took 0.0750207 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.60031 ms 
+Graphics took 6.35913 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69149 ms 
+Audio took 0.0115416 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0394339 ms 
+Collisions took 4.50509 ms 
+Graphics took 6.43415 ms 
+Animations took 0.00512961 ms 
+Camera took 1.66488 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.415 ms 
+Graphics took 6.62619 ms 
+Animations took 0.00545025 ms 
+Camera took 1.82037 ms 
+Audio took 0.0134652 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 4.5006 ms 
+Graphics took 6.56976 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71073 ms 
+Audio took 0.0115416 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 4.53907 ms 
+Graphics took 6.29244 ms 
+Animations took 0.00448842 ms 
+Camera took 1.65655 ms 
+Audio took 0.0115416 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0272511 ms 
+Collisions took 4.55318 ms 
+Graphics took 6.29821 ms 
+Animations took 0.00448842 ms 
+Camera took 1.69823 ms 
+Audio took 0.00961803 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 4.46245 ms 
+Graphics took 6.29148 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67418 ms 
+Audio took 0.00929745 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 4.31369 ms 
+Graphics took 6.24948 ms 
+Animations took 0.004809 ms 
+Camera took 1.68957 ms 
+Audio took 0.0105798 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 4.41115 ms 
+Graphics took 6.24852 ms 
+Animations took 0.00609143 ms 
+Camera took 1.70592 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 4.38326 ms 
+Graphics took 6.32354 ms 
+Animations took 0.004809 ms 
+Camera took 1.64885 ms 
+Audio took 0.0105799 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 4.53875 ms 
+Graphics took 6.35015 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68797 ms 
+Audio took 0.091692 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 4.4025 ms 
+Graphics took 6.19979 ms 
+Animations took 0.00448842 ms 
+Camera took 1.91623 ms 
+Audio took 0.0109004 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 4.35473 ms 
+Graphics took 6.23505 ms 
+Animations took 0.00512961 ms 
+Camera took 2.00857 ms 
+Audio took 0.00961803 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 4.52785 ms 
+Graphics took 6.53097 ms 
+Animations took 0.00577082 ms 
+Camera took 1.84955 ms 
+Audio took 0.0121829 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0471284 ms 
+Collisions took 4.29958 ms 
+Graphics took 6.28988 ms 
+Animations took 0.00480903 ms 
+Camera took 2.12206 ms 
+Audio took 0.0185949 ms 
+Input took 0.0137858 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 4.49419 ms 
+Graphics took 6.96731 ms 
+Animations took 0.00577082 ms 
+Camera took 1.94958 ms 
+Audio took 0.0131446 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 4.28259 ms 
+Graphics took 6.27898 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65462 ms 
+Audio took 0.0121828 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0355867 ms 
+Collisions took 4.28772 ms 
+Graphics took 6.26134 ms 
+Animations took 0.00512961 ms 
+Camera took 1.95278 ms 
+Audio took 0.0109004 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0407163 ms 
+Collisions took 4.52433 ms 
+Graphics took 6.52327 ms 
+Animations took 0.0125034 ms 
+Camera took 1.89379 ms 
+Audio took 0.0163506 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0384722 ms 
+Collisions took 4.68944 ms 
+Graphics took 6.86055 ms 
+Animations took 0.00577082 ms 
+Camera took 2.1522 ms 
+Audio took 0.0147477 ms 
+Input took 0.0118622 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0359073 ms 
+Collisions took 4.57466 ms 
+Graphics took 6.63036 ms 
+Animations took 0.00512964 ms 
+Camera took 1.75177 ms 
+Audio took 0.0115416 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 4.36274 ms 
+Graphics took 6.32643 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67803 ms 
+Audio took 0.00993864 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 4.35152 ms 
+Graphics took 6.86279 ms 
+Animations took 0.00512964 ms 
+Camera took 2.00761 ms 
+Audio took 0.0157095 ms 
+Input took 0.0131447 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0519374 ms 
+Collisions took 4.39641 ms 
+Graphics took 6.68646 ms 
+Animations took 0.00577082 ms 
+Camera took 1.92906 ms 
+Audio took 0.0182743 ms 
+Input took 0.0121829 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0413576 ms 
+Collisions took 4.415 ms 
+Graphics took 6.75283 ms 
+Animations took 0.00512964 ms 
+Camera took 1.88706 ms 
+Audio took 0.0118623 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 4.32106 ms 
+Graphics took 6.4101 ms 
+Animations took 0.00512961 ms 
+Camera took 1.76202 ms 
+Audio took 0.0125034 ms 
+Input took 0.0234039 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 4.14954 ms 
+Graphics took 6.4194 ms 
+Animations took 0.00545022 ms 
+Camera took 1.95214 ms 
+Audio took 0.0131447 ms 
+Input took 0.0115416 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.047449 ms 
+Collisions took 4.79299 ms 
+Graphics took 7.03143 ms 
+Animations took 0.00577082 ms 
+Camera took 2.47376 ms 
+Audio took 0.0182743 ms 
+Input took 0.0134652 ms 
+Main Menu took 0.00192359 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 4.40763 ms 
+Graphics took 6.47422 ms 
+Animations took 0.00577082 ms 
+Camera took 1.90277 ms 
+Audio took 0.0157095 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 4.63365 ms 
+Graphics took 6.85221 ms 
+Animations took 0.00577082 ms 
+Camera took 2.2083 ms 
+Audio took 0.0153889 ms 
+Input took 0.0131447 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 4.59293 ms 
+Graphics took 7.3453 ms 
+Animations took 0.00641201 ms 
+Camera took 2.26152 ms 
+Audio took 0.0153889 ms 
+Input took 0.0131447 ms 
+Main Menu took 0.00192359 ms 
+Canvas UI took 0.053861 ms 
+Collisions took 5.13732 ms 
+Graphics took 7.2286 ms 
+Animations took 0.00577082 ms 
+Camera took 2.06435 ms 
+Audio took 0.0141065 ms 
+Input took 0.0118623 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.0532198 ms 
+Collisions took 5.61726 ms 
+Graphics took 7.8682 ms 
+Animations took 0.00512961 ms 
+Camera took 2.00119 ms 
+Audio took 0.0169919 ms 
+Input took 0.0134653 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 4.65994 ms 
+Graphics took 7.01508 ms 
+Animations took 0.0278923 ms 
+Camera took 2.09513 ms 
+Audio took 0.01603 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 4.54709 ms 
+Graphics took 6.70153 ms 
+Animations took 0.00545025 ms 
+Camera took 2.04512 ms 
+Audio took 0.0147477 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0452048 ms 
+Collisions took 4.17936 ms 
+Graphics took 6.45274 ms 
+Animations took 0.00577082 ms 
+Camera took 1.92713 ms 
+Audio took 0.0147476 ms 
+Input took 0.0105799 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0455254 ms 
+Collisions took 4.5721 ms 
+Graphics took 6.80989 ms 
+Animations took 0.00545022 ms 
+Camera took 2.0791 ms 
+Audio took 0.0125034 ms 
+Input took 0.0131446 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.041037 ms 
+Collisions took 4.33549 ms 
+Graphics took 6.62779 ms 
+Animations took 0.00609143 ms 
+Camera took 1.92938 ms 
+Audio took 0.0134653 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0432812 ms 
+Collisions took 4.44802 ms 
+Graphics took 6.82015 ms 
+Animations took 0.00545025 ms 
+Camera took 2.03934 ms 
+Audio took 0.0153889 ms 
+Input took 0.0121828 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0548228 ms 
+Collisions took 4.57145 ms 
+Graphics took 6.66338 ms 
+Animations took 0.0060914 ms 
+Camera took 2.01883 ms 
+Audio took 0.0144271 ms 
+Input took 0.162865 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.060273 ms 
+Collisions took 4.59582 ms 
+Graphics took 6.79611 ms 
+Animations took 0.00545025 ms 
+Camera took 2.24581 ms 
+Audio took 0.0131446 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 4.23867 ms 
+Graphics took 6.56271 ms 
+Animations took 0.00577082 ms 
+Camera took 1.9204 ms 
+Audio took 0.0176331 ms 
+Input took 0.0516168 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0436018 ms 
+Collisions took 4.7449 ms 
+Graphics took 8.85821 ms 
+Animations took 0.00673265 ms 
+Camera took 2.30256 ms 
+Audio took 0.0131447 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 4.20501 ms 
+Graphics took 6.24884 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71682 ms 
+Audio took 0.0109005 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 4.09761 ms 
+Graphics took 6.30366 ms 
+Animations took 0.00448842 ms 
+Camera took 1.68989 ms 
+Audio took 0.0105798 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 4.03284 ms 
+Graphics took 6.16484 ms 
+Animations took 0.004809 ms 
+Camera took 1.66456 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 4.24123 ms 
+Graphics took 6.27834 ms 
+Animations took 0.00512961 ms 
+Camera took 1.73029 ms 
+Audio took 0.0115416 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 4.04535 ms 
+Graphics took 6.22864 ms 
+Animations took 0.004809 ms 
+Camera took 1.69534 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705326 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 4.04695 ms 
+Graphics took 6.15234 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67546 ms 
+Audio took 0.00929742 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 4.08703 ms 
+Graphics took 6.20139 ms 
+Animations took 0.004809 ms 
+Camera took 1.67097 ms 
+Audio took 0.00961803 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 4.04535 ms 
+Graphics took 6.10425 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65847 ms 
+Audio took 0.00961803 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 4.34479 ms 
+Graphics took 6.31617 ms 
+Animations took 0.004809 ms 
+Camera took 1.71073 ms 
+Audio took 0.0121828 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0416782 ms 
+Collisions took 4.35601 ms 
+Graphics took 6.53738 ms 
+Animations took 0.00545022 ms 
+Camera took 1.95022 ms 
+Audio took 0.0144271 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0721353 ms 
+Collisions took 4.44225 ms 
+Graphics took 6.43896 ms 
+Animations took 0.00512961 ms 
+Camera took 1.83961 ms 
+Audio took 0.0125034 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 4.13447 ms 
+Graphics took 6.53417 ms 
+Animations took 0.00577082 ms 
+Camera took 2.00664 ms 
+Audio took 0.0141065 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 4.04791 ms 
+Graphics took 6.2716 ms 
+Animations took 0.004809 ms 
+Camera took 1.6527 ms 
+Audio took 0.0105799 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 3.95686 ms 
+Graphics took 6.1844 ms 
+Animations took 0.00545022 ms 
+Camera took 1.64308 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.95782 ms 
+Graphics took 6.21614 ms 
+Animations took 0.004809 ms 
+Camera took 1.71393 ms 
+Audio took 0.00929742 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 3.9761 ms 
+Graphics took 6.14625 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67739 ms 
+Audio took 0.00961803 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 3.96808 ms 
+Graphics took 6.19273 ms 
+Animations took 0.004809 ms 
+Camera took 1.67707 ms 
+Audio took 0.0747001 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 3.95333 ms 
+Graphics took 6.20876 ms 
+Animations took 0.00512961 ms 
+Camera took 1.74247 ms 
+Audio took 0.0125035 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 4.07324 ms 
+Graphics took 6.19947 ms 
+Animations took 0.00512964 ms 
+Camera took 1.74407 ms 
+Audio took 0.0125034 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.94019 ms 
+Graphics took 6.18696 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67482 ms 
+Audio took 0.00929742 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 4.11267 ms 
+Graphics took 6.8676 ms 
+Animations took 0.00512961 ms 
+Camera took 1.79761 ms 
+Audio took 0.011221 ms 
+Input took 0.011221 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 4.00623 ms 
+Graphics took 6.13984 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68091 ms 
+Audio took 0.0115416 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0448842 ms 
+Collisions took 3.98924 ms 
+Graphics took 6.18985 ms 
+Animations took 0.004809 ms 
+Camera took 1.67033 ms 
+Audio took 0.00929742 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.85363 ms 
+Graphics took 6.34021 ms 
+Animations took 0.00577082 ms 
+Camera took 1.82262 ms 
+Audio took 0.0109004 ms 
+Input took 0.0109004 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 3.87767 ms 
+Graphics took 6.25076 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69823 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 3.81548 ms 
+Graphics took 6.17222 ms 
+Animations took 0.0060914 ms 
+Camera took 1.67803 ms 
+Audio took 0.00961806 ms 
+Input took 0.00705326 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 3.87158 ms 
+Graphics took 6.21838 ms 
+Animations took 0.00512961 ms 
+Camera took 1.74599 ms 
+Audio took 0.0727765 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 3.84978 ms 
+Graphics took 6.17895 ms 
+Animations took 0.004809 ms 
+Camera took 1.71169 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 3.77732 ms 
+Graphics took 6.1206 ms 
+Animations took 0.00512961 ms 
+Camera took 1.66168 ms 
+Audio took 0.00865624 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 3.83952 ms 
+Graphics took 6.16805 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69181 ms 
+Audio took 0.0115416 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.81355 ms 
+Graphics took 6.12381 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67707 ms 
+Audio took 0.0105798 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 3.84818 ms 
+Graphics took 6.49987 ms 
+Animations took 0.00545022 ms 
+Camera took 1.9172 ms 
+Audio took 0.0134652 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 3.96391 ms 
+Graphics took 6.5175 ms 
+Animations took 0.00545025 ms 
+Camera took 1.88449 ms 
+Audio took 0.0144271 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 3.87511 ms 
+Graphics took 6.13631 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67963 ms 
+Audio took 0.0118623 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 3.94019 ms 
+Graphics took 6.74802 ms 
+Animations took 0.00512964 ms 
+Camera took 1.77613 ms 
+Audio took 0.0144271 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 3.81996 ms 
+Graphics took 6.08277 ms 
+Animations took 0.00448842 ms 
+Camera took 1.56101 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0339838 ms 
+Collisions took 4.01617 ms 
+Graphics took 6.24563 ms 
+Animations took 0.00512964 ms 
+Camera took 1.71041 ms 
+Audio took 0.00961806 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 3.8267 ms 
+Graphics took 6.13118 ms 
+Animations took 0.004809 ms 
+Camera took 1.72291 ms 
+Audio took 0.0125034 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.93378 ms 
+Graphics took 6.19594 ms 
+Animations took 0.00512961 ms 
+Camera took 1.70688 ms 
+Audio took 0.0118622 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 3.87992 ms 
+Graphics took 6.18632 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67867 ms 
+Audio took 0.0198773 ms 
+Input took 0.0131446 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 3.81419 ms 
+Graphics took 6.12445 ms 
+Animations took 0.00512964 ms 
+Camera took 1.65655 ms 
+Audio took 0.00961803 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 3.79848 ms 
+Graphics took 6.19626 ms 
+Animations took 0.00929745 ms 
+Camera took 2.12527 ms 
+Audio took 0.011221 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 3.777 ms 
+Graphics took 6.18312 ms 
+Animations took 0.004809 ms 
+Camera took 1.67514 ms 
+Audio took 0.00961806 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 3.73789 ms 
+Graphics took 6.10842 ms 
+Animations took 0.004809 ms 
+Camera took 1.95182 ms 
+Audio took 0.0166713 ms 
+Input took 0.0121828 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0387928 ms 
+Collisions took 3.90204 ms 
+Graphics took 6.29404 ms 
+Animations took 0.00512961 ms 
+Camera took 1.89924 ms 
+Audio took 0.0141065 ms 
+Input took 0.0125034 ms 
+Main Menu took 0.00192362 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 3.7956 ms 
+Graphics took 6.20748 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70592 ms 
+Audio took 0.0115416 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 3.79528 ms 
+Graphics took 6.22928 ms 
+Animations took 0.004809 ms 
+Camera took 1.68476 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 3.73501 ms 
+Graphics took 6.1129 ms 
+Animations took 0.00448839 ms 
+Camera took 1.67354 ms 
+Audio took 0.0109004 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 3.79945 ms 
+Graphics took 6.15875 ms 
+Animations took 0.004809 ms 
+Camera took 1.68668 ms 
+Audio took 0.0109005 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 3.67826 ms 
+Graphics took 6.11387 ms 
+Animations took 0.004809 ms 
+Camera took 1.64917 ms 
+Audio took 0.00993867 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 3.73757 ms 
+Graphics took 6.09207 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65623 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0387928 ms 
+Collisions took 3.86485 ms 
+Graphics took 6.13759 ms 
+Animations took 0.00705323 ms 
+Camera took 1.67899 ms 
+Audio took 0.012824 ms 
+Input took 0.0163506 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 3.72859 ms 
+Graphics took 6.04109 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6652 ms 
+Audio took 0.00961803 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.76418 ms 
+Graphics took 6.11932 ms 
+Animations took 0.00577082 ms 
+Camera took 1.70368 ms 
+Audio took 0.00897684 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 3.70615 ms 
+Graphics took 6.04814 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64853 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0339838 ms 
+Collisions took 3.89082 ms 
+Graphics took 6.18344 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68893 ms 
+Audio took 0.00993864 ms 
+Input took 0.0698911 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0419988 ms 
+Collisions took 3.80522 ms 
+Graphics took 6.13182 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68476 ms 
+Audio took 0.012824 ms 
+Input took 0.0317395 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.04264 ms 
+Collisions took 3.94019 ms 
+Graphics took 6.44056 ms 
+Animations took 0.00545022 ms 
+Camera took 1.85436 ms 
+Audio took 0.0118623 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 3.7831 ms 
+Graphics took 6.17414 ms 
+Animations took 0.00512961 ms 
+Camera took 1.73477 ms 
+Audio took 0.0102592 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.67281 ms 
+Graphics took 6.03372 ms 
+Animations took 0.00512961 ms 
+Camera took 1.64276 ms 
+Audio took 0.00929745 ms 
+Input took 0.0109004 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0509756 ms 
+Collisions took 3.84016 ms 
+Graphics took 6.28314 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66616 ms 
+Audio took 0.0118623 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.74046 ms 
+Graphics took 6.11547 ms 
+Animations took 0.00512961 ms 
+Camera took 1.6434 ms 
+Audio took 0.0109004 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0275717 ms 
+Collisions took 3.98379 ms 
+Graphics took 6.38029 ms 
+Animations took 0.00512961 ms 
+Camera took 1.75978 ms 
+Audio took 0.012824 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0131447 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.70872 ms 
+Graphics took 6.13823 ms 
+Animations took 0.00512961 ms 
+Camera took 1.64949 ms 
+Audio took 0.00929742 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.68114 ms 
+Graphics took 6.09527 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70592 ms 
+Audio took 0.00897684 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 3.73789 ms 
+Graphics took 6.13887 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65847 ms 
+Audio took 0.011221 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 3.66992 ms 
+Graphics took 6.00871 ms 
+Animations took 0.00480903 ms 
+Camera took 1.63314 ms 
+Audio took 0.00993864 ms 
+Input took 0.0336631 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 3.66832 ms 
+Graphics took 6.18312 ms 
+Animations took 0.004809 ms 
+Camera took 1.67963 ms 
+Audio took 0.0109004 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.044243 ms 
+Collisions took 3.92705 ms 
+Graphics took 6.14016 ms 
+Animations took 0.00480903 ms 
+Camera took 1.75016 ms 
+Audio took 0.0134653 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 3.69461 ms 
+Graphics took 6.12477 ms 
+Animations took 0.0060914 ms 
+Camera took 1.7149 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 3.67345 ms 
+Graphics took 6.11483 ms 
+Animations took 0.00512964 ms 
+Camera took 1.71201 ms 
+Audio took 0.0125035 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0391133 ms 
+Collisions took 3.6042 ms 
+Graphics took 6.13919 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66681 ms 
+Audio took 0.00993864 ms 
+Input took 0.0676469 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 3.63498 ms 
+Graphics took 6.13599 ms 
+Animations took 0.00512961 ms 
+Camera took 1.78158 ms 
+Audio took 0.00961803 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 3.57631 ms 
+Graphics took 6.13342 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66937 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 3.51796 ms 
+Graphics took 6.03628 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69085 ms 
+Audio took 0.0105798 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 3.54681 ms 
+Graphics took 6.05295 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67001 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 3.53784 ms 
+Graphics took 6.04846 ms 
+Animations took 0.00512961 ms 
+Camera took 1.7367 ms 
+Audio took 0.0561052 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 3.54296 ms 
+Graphics took 6.10457 ms 
+Animations took 0.004809 ms 
+Camera took 1.68123 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 3.50706 ms 
+Graphics took 6.03372 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66649 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 3.53719 ms 
+Graphics took 6.04558 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70592 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 3.68403 ms 
+Graphics took 6.24595 ms 
+Animations took 0.00641204 ms 
+Camera took 1.75914 ms 
+Audio took 0.0105799 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.041037 ms 
+Collisions took 3.99052 ms 
+Graphics took 6.43767 ms 
+Animations took 0.00545025 ms 
+Camera took 1.78799 ms 
+Audio took 0.0118622 ms 
+Input took 0.0112211 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 3.73949 ms 
+Graphics took 6.1937 ms 
+Animations took 0.00545022 ms 
+Camera took 1.78415 ms 
+Audio took 0.0105799 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 3.52469 ms 
+Graphics took 6.04494 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69374 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0339838 ms 
+Collisions took 3.56669 ms 
+Graphics took 6.17254 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69951 ms 
+Audio took 0.0105799 ms 
+Input took 0.00705326 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.50385 ms 
+Graphics took 6.10329 ms 
+Animations took 0.00705323 ms 
+Camera took 1.67514 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 3.47436 ms 
+Graphics took 6.0459 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69213 ms 
+Audio took 0.0692499 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 3.44614 ms 
+Graphics took 6.1004 ms 
+Animations took 0.00641204 ms 
+Camera took 1.82647 ms 
+Audio took 0.0105799 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.46474 ms 
+Graphics took 6.00294 ms 
+Animations took 0.004809 ms 
+Camera took 1.75337 ms 
+Audio took 0.0109005 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0391134 ms 
+Collisions took 3.47564 ms 
+Graphics took 6.05904 ms 
+Animations took 0.00545022 ms 
+Camera took 1.67129 ms 
+Audio took 0.0109004 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.4439 ms 
+Graphics took 6.0334 ms 
+Animations took 0.00448842 ms 
+Camera took 1.64661 ms 
+Audio took 0.0105799 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 3.48878 ms 
+Graphics took 6.05776 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71842 ms 
+Audio took 0.0105798 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0448842 ms 
+Collisions took 3.54457 ms 
+Graphics took 6.75154 ms 
+Animations took 0.00545022 ms 
+Camera took 1.76202 ms 
+Audio took 0.0125034 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 3.91486 ms 
+Graphics took 6.45082 ms 
+Animations took 0.00512961 ms 
+Camera took 1.72772 ms 
+Audio took 0.0118623 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0468078 ms 
+Collisions took 3.72988 ms 
+Graphics took 7.14332 ms 
+Animations took 0.00577082 ms 
+Camera took 1.92553 ms 
+Audio took 0.0134652 ms 
+Input took 0.012824 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0423194 ms 
+Collisions took 3.5638 ms 
+Graphics took 6.12413 ms 
+Animations took 0.004809 ms 
+Camera took 1.65142 ms 
+Audio took 0.0125034 ms 
+Input took 0.00961806 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0368691 ms 
+Collisions took 3.61959 ms 
+Graphics took 6.144 ms 
+Animations took 0.004809 ms 
+Camera took 1.72836 ms 
+Audio took 0.0102592 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 3.52148 ms 
+Graphics took 6.04237 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66168 ms 
+Audio took 0.00961803 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0429606 ms 
+Collisions took 3.48013 ms 
+Graphics took 6.03853 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66039 ms 
+Audio took 0.00929742 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.45095 ms 
+Graphics took 6.01352 ms 
+Animations took 0.004809 ms 
+Camera took 1.67963 ms 
+Audio took 0.00865621 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.49487 ms 
+Graphics took 6.04846 ms 
+Animations took 0.00512961 ms 
+Camera took 1.662 ms 
+Audio took 0.00897684 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0419988 ms 
+Collisions took 3.46346 ms 
+Graphics took 6.09944 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68059 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 3.349 ms 
+Graphics took 5.98434 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66392 ms 
+Audio took 0.00929742 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0275717 ms 
+Collisions took 3.29322 ms 
+Graphics took 5.97729 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64436 ms 
+Audio took 0.00865624 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 3.37144 ms 
+Graphics took 5.95805 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68732 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.34131 ms 
+Graphics took 6.29982 ms 
+Animations took 0.00512964 ms 
+Camera took 1.8114 ms 
+Audio took 0.0115416 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 3.45801 ms 
+Graphics took 6.71435 ms 
+Animations took 0.00545022 ms 
+Camera took 2.44394 ms 
+Audio took 0.0150683 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0432812 ms 
+Collisions took 3.43364 ms 
+Graphics took 6.09752 ms 
+Animations took 0.004809 ms 
+Camera took 1.78222 ms 
+Audio took 0.0115416 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 3.38779 ms 
+Graphics took 6.08822 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68252 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.39421 ms 
+Graphics took 6.04109 ms 
+Animations took 0.00480903 ms 
+Camera took 1.704 ms 
+Audio took 0.0144271 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0445636 ms 
+Collisions took 3.28488 ms 
+Graphics took 6.07059 ms 
+Animations took 0.00512964 ms 
+Camera took 1.70239 ms 
+Audio took 0.0105799 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.27975 ms 
+Graphics took 5.9401 ms 
+Animations took 0.00673262 ms 
+Camera took 1.66456 ms 
+Audio took 0.0102592 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 3.24224 ms 
+Graphics took 5.95998 ms 
+Animations took 0.00480903 ms 
+Camera took 1.63314 ms 
+Audio took 0.0105799 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 3.23679 ms 
+Graphics took 6.01416 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67418 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 3.20665 ms 
+Graphics took 5.93273 ms 
+Animations took 0.004809 ms 
+Camera took 1.66264 ms 
+Audio took 0.00865624 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.00192362 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 3.26597 ms 
+Graphics took 6.06866 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67162 ms 
+Audio took 0.00993867 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 3.30412 ms 
+Graphics took 6.06225 ms 
+Animations took 0.00545022 ms 
+Camera took 1.66264 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.18036 ms 
+Graphics took 5.99877 ms 
+Animations took 0.00512961 ms 
+Camera took 1.82486 ms 
+Audio took 0.0109005 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0429606 ms 
+Collisions took 3.46666 ms 
+Graphics took 6.53097 ms 
+Animations took 0.00641204 ms 
+Camera took 2.79789 ms 
+Audio took 0.0157095 ms 
+Input took 0.0134653 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0387928 ms 
+Collisions took 3.21948 ms 
+Graphics took 5.94138 ms 
+Animations took 0.00545022 ms 
+Camera took 1.64853 ms 
+Audio took 0.0121829 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 3.26019 ms 
+Graphics took 6.08501 ms 
+Animations took 0.004809 ms 
+Camera took 1.6652 ms 
+Audio took 0.0105799 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0352662 ms 
+Collisions took 3.21659 ms 
+Graphics took 5.909 ms 
+Animations took 0.00448842 ms 
+Camera took 1.69406 ms 
+Audio took 0.00897684 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 3.22012 ms 
+Graphics took 6.42004 ms 
+Animations took 0.00512964 ms 
+Camera took 1.73285 ms 
+Audio took 0.0105798 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 3.20088 ms 
+Graphics took 6.01833 ms 
+Animations took 0.00480903 ms 
+Camera took 1.73285 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.25378 ms 
+Graphics took 5.9946 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66681 ms 
+Audio took 0.00865624 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 3.25218 ms 
+Graphics took 6.07572 ms 
+Animations took 0.00545022 ms 
+Camera took 1.7056 ms 
+Audio took 0.0105798 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.22172 ms 
+Graphics took 5.98755 ms 
+Animations took 0.00448842 ms 
+Camera took 1.7056 ms 
+Audio took 0.0102592 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 3.223 ms 
+Graphics took 5.94555 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67386 ms 
+Audio took 0.00801502 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 3.24865 ms 
+Graphics took 5.99108 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67995 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.2089 ms 
+Graphics took 6.11964 ms 
+Animations took 0.00545022 ms 
+Camera took 2.20061 ms 
+Audio took 0.0163506 ms 
+Input took 0.0137858 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 3.23166 ms 
+Graphics took 6.04975 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66873 ms 
+Audio took 0.0109004 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0416782 ms 
+Collisions took 3.22653 ms 
+Graphics took 6.04269 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66713 ms 
+Audio took 0.00993864 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 3.22525 ms 
+Graphics took 6.0972 ms 
+Animations took 0.00512964 ms 
+Camera took 1.69919 ms 
+Audio took 0.0102592 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0349455 ms 
+Collisions took 3.23583 ms 
+Graphics took 6.04846 ms 
+Animations took 0.00577082 ms 
+Camera took 1.80466 ms 
+Audio took 0.0109005 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.039434 ms 
+Collisions took 3.16017 ms 
+Graphics took 5.94747 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65815 ms 
+Audio took 0.0115416 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 3.05341 ms 
+Graphics took 5.82885 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66007 ms 
+Audio took 0.00993864 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 3.03834 ms 
+Graphics took 5.78172 ms 
+Animations took 0.00448842 ms 
+Camera took 1.6434 ms 
+Audio took 0.00833563 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0272511 ms 
+Collisions took 3.09989 ms 
+Graphics took 5.91541 ms 
+Animations took 0.004809 ms 
+Camera took 1.63795 ms 
+Audio took 0.0798297 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 3.06206 ms 
+Graphics took 5.78942 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6341 ms 
+Audio took 0.00833563 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 3.0268 ms 
+Graphics took 5.76249 ms 
+Animations took 0.00480903 ms 
+Camera took 1.62192 ms 
+Audio took 0.00865624 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0275717 ms 
+Collisions took 3.03609 ms 
+Graphics took 5.77563 ms 
+Animations took 0.00480903 ms 
+Camera took 1.61327 ms 
+Audio took 0.00801505 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 3.02295 ms 
+Graphics took 5.72113 ms 
+Animations took 0.00448842 ms 
+Camera took 1.61455 ms 
+Audio took 0.00673262 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0564258 ms 
+Collisions took 3.55547 ms 
+Graphics took 6.22415 ms 
+Animations took 0.00545022 ms 
+Camera took 1.81364 ms 
+Audio took 0.011221 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 3.10727 ms 
+Graphics took 5.88239 ms 
+Animations took 0.00448842 ms 
+Camera took 1.63122 ms 
+Audio took 0.0105799 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 3.10054 ms 
+Graphics took 5.88752 ms 
+Animations took 0.004809 ms 
+Camera took 1.64789 ms 
+Audio took 0.00929745 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 3.10695 ms 
+Graphics took 5.87726 ms 
+Animations took 0.004809 ms 
+Camera took 1.662 ms 
+Audio took 0.00865624 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 3.18453 ms 
+Graphics took 6.01159 ms 
+Animations took 0.004809 ms 
+Camera took 1.65975 ms 
+Audio took 0.0109005 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 3.18293 ms 
+Graphics took 5.94299 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70496 ms 
+Audio took 0.088486 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 3.11272 ms 
+Graphics took 5.83751 ms 
+Animations took 0.00545022 ms 
+Camera took 1.63507 ms 
+Audio took 0.0102592 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 3.17331 ms 
+Graphics took 5.97152 ms 
+Animations took 0.004809 ms 
+Camera took 1.66584 ms 
+Audio took 0.0125034 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.12458 ms 
+Graphics took 5.95581 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66905 ms 
+Audio took 0.012824 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 3.08098 ms 
+Graphics took 6.22383 ms 
+Animations took 0.00577079 ms 
+Camera took 1.75722 ms 
+Audio took 0.012824 ms 
+Input took 0.0109004 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 3.07425 ms 
+Graphics took 5.88848 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66905 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 3.1124 ms 
+Graphics took 5.93177 ms 
+Animations took 0.004809 ms 
+Camera took 1.65398 ms 
+Audio took 0.0115416 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0528992 ms 
+Collisions took 3.55002 ms 
+Graphics took 6.19498 ms 
+Animations took 0.00512964 ms 
+Camera took 2.13873 ms 
+Audio took 0.0112211 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 3.22781 ms 
+Graphics took 6.43928 ms 
+Animations took 0.004809 ms 
+Camera took 1.73317 ms 
+Audio took 0.0121828 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 3.07617 ms 
+Graphics took 6.06353 ms 
+Animations took 0.00673262 ms 
+Camera took 2.10186 ms 
+Audio took 0.012824 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 3.45288 ms 
+Graphics took 6.00743 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70977 ms 
+Audio took 0.012824 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0448842 ms 
+Collisions took 3.92416 ms 
+Graphics took 6.48384 ms 
+Animations took 0.00512964 ms 
+Camera took 1.74054 ms 
+Audio took 0.0121829 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.00192362 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 3.03417 ms 
+Graphics took 5.91958 ms 
+Animations took 0.00512964 ms 
+Camera took 1.6652 ms 
+Audio took 0.0102592 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 3.02167 ms 
+Graphics took 5.96415 ms 
+Animations took 0.004809 ms 
+Camera took 1.67322 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 3.01333 ms 
+Graphics took 5.98306 ms 
+Animations took 0.00512964 ms 
+Camera took 1.70528 ms 
+Audio took 0.0102592 ms 
+Input took 0.0327013 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.94953 ms 
+Graphics took 5.86348 ms 
+Animations took 0.00545025 ms 
+Camera took 1.6527 ms 
+Audio took 0.00929745 ms 
+Input took 0.04264 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 3.01013 ms 
+Graphics took 6.01512 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69374 ms 
+Audio took 0.0141065 ms 
+Input took 0.0185949 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.91523 ms 
+Graphics took 5.94844 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68604 ms 
+Audio took 0.0115416 ms 
+Input took 0.0121829 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.89407 ms 
+Graphics took 5.87502 ms 
+Animations took 0.004809 ms 
+Camera took 1.70207 ms 
+Audio took 0.0109004 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.03738 ms 
+Graphics took 6.09271 ms 
+Animations took 0.00480903 ms 
+Camera took 1.75914 ms 
+Audio took 0.0134653 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 3.01461 ms 
+Graphics took 6.04398 ms 
+Animations took 0.004809 ms 
+Camera took 1.7056 ms 
+Audio took 0.00961803 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.049052 ms 
+Collisions took 3.05565 ms 
+Graphics took 6.09752 ms 
+Animations took 0.00545022 ms 
+Camera took 1.75818 ms 
+Audio took 0.00961806 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.031419 ms 
+Collisions took 2.94953 ms 
+Graphics took 5.87855 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68284 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.9412 ms 
+Graphics took 5.86829 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68027 ms 
+Audio took 0.00929742 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 3.01686 ms 
+Graphics took 5.94202 ms 
+Animations took 0.00865624 ms 
+Camera took 1.67867 ms 
+Audio took 0.0105799 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.98608 ms 
+Graphics took 5.89971 ms 
+Animations took 0.00448842 ms 
+Camera took 1.66584 ms 
+Audio took 0.0105798 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.95434 ms 
+Graphics took 5.91862 ms 
+Animations took 0.004809 ms 
+Camera took 1.6511 ms 
+Audio took 0.00929742 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 2.91395 ms 
+Graphics took 5.88784 ms 
+Animations took 0.004809 ms 
+Camera took 1.6543 ms 
+Audio took 0.0105799 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.94408 ms 
+Graphics took 5.90644 ms 
+Animations took 0.004809 ms 
+Camera took 1.68476 ms 
+Audio took 0.00993864 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.9848 ms 
+Graphics took 5.97953 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70079 ms 
+Audio took 0.00993864 ms 
+Input took 0.0323807 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.92965 ms 
+Graphics took 6.09271 ms 
+Animations took 0.00545022 ms 
+Camera took 1.67033 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 2.9832 ms 
+Graphics took 6.57393 ms 
+Animations took 0.00737383 ms 
+Camera took 2.29551 ms 
+Audio took 0.0144271 ms 
+Input took 0.0484108 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0413576 ms 
+Collisions took 3.01365 ms 
+Graphics took 6.04269 ms 
+Animations took 0.00577082 ms 
+Camera took 1.90501 ms 
+Audio took 0.011221 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 2.98223 ms 
+Graphics took 6.10393 ms 
+Animations took 0.00545022 ms 
+Camera took 1.77998 ms 
+Audio took 0.0160301 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.039434 ms 
+Collisions took 3.03834 ms 
+Graphics took 6.00871 ms 
+Animations took 0.00512961 ms 
+Camera took 1.75625 ms 
+Audio took 0.0131446 ms 
+Input took 0.0461666 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0339838 ms 
+Collisions took 2.95434 ms 
+Graphics took 6.32578 ms 
+Animations took 0.00512964 ms 
+Camera took 1.79601 ms 
+Audio took 0.0150682 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.89599 ms 
+Graphics took 5.99653 ms 
+Animations took 0.00512964 ms 
+Camera took 1.7181 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.89279 ms 
+Graphics took 5.94523 ms 
+Animations took 0.00641204 ms 
+Camera took 1.69406 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.94985 ms 
+Graphics took 5.91285 ms 
+Animations took 0.004809 ms 
+Camera took 1.68508 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.86618 ms 
+Graphics took 5.9308 ms 
+Animations took 0.00448842 ms 
+Camera took 1.66168 ms 
+Audio took 0.00929742 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.83508 ms 
+Graphics took 5.89137 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67482 ms 
+Audio took 0.00865624 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.88285 ms 
+Graphics took 5.85867 ms 
+Animations took 0.004809 ms 
+Camera took 1.68604 ms 
+Audio took 0.00961806 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.87227 ms 
+Graphics took 5.78557 ms 
+Animations took 0.00480903 ms 
+Camera took 1.63699 ms 
+Audio took 0.00929742 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.95883 ms 
+Graphics took 6.06097 ms 
+Animations took 0.00641204 ms 
+Camera took 1.9858 ms 
+Audio took 0.012824 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.96524 ms 
+Graphics took 6.05391 ms 
+Animations took 0.00641204 ms 
+Camera took 2.07333 ms 
+Audio took 0.0185949 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0439224 ms 
+Collisions took 2.99121 ms 
+Graphics took 6.04237 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70335 ms 
+Audio took 0.0137859 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 2.96684 ms 
+Graphics took 5.95036 ms 
+Animations took 0.00512964 ms 
+Camera took 1.69855 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.89086 ms 
+Graphics took 5.87822 ms 
+Animations took 0.004809 ms 
+Camera took 1.67707 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.89792 ms 
+Graphics took 5.97537 ms 
+Animations took 0.004809 ms 
+Camera took 1.69277 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.88541 ms 
+Graphics took 5.89393 ms 
+Animations took 0.00448842 ms 
+Camera took 1.70271 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.87387 ms 
+Graphics took 5.93112 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68893 ms 
+Audio took 0.0756619 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0375104 ms 
+Collisions took 2.82514 ms 
+Graphics took 5.86732 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68861 ms 
+Audio took 0.00961803 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.85528 ms 
+Graphics took 5.8872 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67931 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.89439 ms 
+Graphics took 5.90644 ms 
+Animations took 0.00448842 ms 
+Camera took 1.64212 ms 
+Audio took 0.00897681 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.86361 ms 
+Graphics took 5.86508 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6854 ms 
+Audio took 0.00801505 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.82321 ms 
+Graphics took 5.93112 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71265 ms 
+Audio took 0.0118623 ms 
+Input took 0.0121828 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0500138 ms 
+Collisions took 3.00468 ms 
+Graphics took 5.95485 ms 
+Animations took 0.00512964 ms 
+Camera took 1.69342 ms 
+Audio took 0.0118623 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0455254 ms 
+Collisions took 3.03641 ms 
+Graphics took 6.13663 ms 
+Animations took 0.00545025 ms 
+Camera took 1.98805 ms 
+Audio took 0.0141065 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0452048 ms 
+Collisions took 3.05918 ms 
+Graphics took 6.04718 ms 
+Animations took 0.00480903 ms 
+Camera took 1.82582 ms 
+Audio took 0.00993864 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.83892 ms 
+Graphics took 5.96158 ms 
+Animations took 0.00609143 ms 
+Camera took 1.68155 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.79853 ms 
+Graphics took 5.85386 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65398 ms 
+Audio took 0.00961803 ms 
+Input took 0.065082 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.75429 ms 
+Graphics took 5.90099 ms 
+Animations took 0.00512961 ms 
+Camera took 1.64308 ms 
+Audio took 0.0894478 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.82161 ms 
+Graphics took 5.85867 ms 
+Animations took 0.00577082 ms 
+Camera took 1.68797 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.76326 ms 
+Graphics took 5.88816 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66905 ms 
+Audio took 0.00897684 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.67702 ms 
+Graphics took 5.98691 ms 
+Animations took 0.00545022 ms 
+Camera took 1.78286 ms 
+Audio took 0.0102592 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.7187 ms 
+Graphics took 5.90516 ms 
+Animations took 0.00480903 ms 
+Camera took 1.687 ms 
+Audio took 0.0118623 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.70908 ms 
+Graphics took 5.75928 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65046 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.7389 ms 
+Graphics took 5.81763 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6543 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0452048 ms 
+Collisions took 2.80045 ms 
+Graphics took 6.43992 ms 
+Animations took 0.00577082 ms 
+Camera took 1.74343 ms 
+Audio took 0.0125034 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.67029 ms 
+Graphics took 5.86412 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68316 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.68856 ms 
+Graphics took 5.87213 ms 
+Animations took 0.00448842 ms 
+Camera took 1.6527 ms 
+Audio took 0.00929745 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.68151 ms 
+Graphics took 5.77756 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64565 ms 
+Audio took 0.00929742 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0484108 ms 
+Collisions took 2.90272 ms 
+Graphics took 5.93273 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68572 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.65105 ms 
+Graphics took 5.86764 ms 
+Animations took 0.00448839 ms 
+Camera took 1.69117 ms 
+Audio took 0.00929742 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0339838 ms 
+Collisions took 2.75525 ms 
+Graphics took 5.92407 ms 
+Animations took 0.00512964 ms 
+Camera took 1.70784 ms 
+Audio took 0.011221 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 2.68087 ms 
+Graphics took 5.87277 ms 
+Animations took 0.00448842 ms 
+Camera took 1.65847 ms 
+Audio took 0.0109005 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.64143 ms 
+Graphics took 5.8218 ms 
+Animations took 0.00448842 ms 
+Camera took 1.71393 ms 
+Audio took 0.00929745 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.73633 ms 
+Graphics took 5.89746 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71169 ms 
+Audio took 0.011221 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 2.67894 ms 
+Graphics took 5.77499 ms 
+Animations took 0.00448842 ms 
+Camera took 1.69694 ms 
+Audio took 0.00801502 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 2.72992 ms 
+Graphics took 5.90163 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6652 ms 
+Audio took 0.00961806 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0545022 ms 
+Collisions took 2.91491 ms 
+Graphics took 6.23826 ms 
+Animations took 0.00512961 ms 
+Camera took 1.84025 ms 
+Audio took 0.0125034 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0368692 ms 
+Collisions took 2.69914 ms 
+Graphics took 6.1626 ms 
+Animations took 0.00577082 ms 
+Camera took 1.94092 ms 
+Audio took 0.012824 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 2.77801 ms 
+Graphics took 5.84232 ms 
+Animations took 0.00512964 ms 
+Camera took 1.6931 ms 
+Audio took 0.00961803 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.66227 ms 
+Graphics took 5.78333 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64404 ms 
+Audio took 0.0105799 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.64111 ms 
+Graphics took 5.79968 ms 
+Animations took 0.00641204 ms 
+Camera took 1.66584 ms 
+Audio took 0.00897681 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.6985 ms 
+Graphics took 5.83398 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64212 ms 
+Audio took 0.00929745 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.74082 ms 
+Graphics took 5.96286 ms 
+Animations took 0.00512964 ms 
+Camera took 1.65911 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.64817 ms 
+Graphics took 5.83046 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67707 ms 
+Audio took 0.00961806 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.81135 ms 
+Graphics took 5.96447 ms 
+Animations took 0.00480903 ms 
+Camera took 1.74311 ms 
+Audio took 0.011221 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0327014 ms 
+Collisions took 2.65778 ms 
+Graphics took 5.9167 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68219 ms 
+Audio took 0.00993864 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 2.65682 ms 
+Graphics took 5.80224 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66777 ms 
+Audio took 0.00897684 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.67542 ms 
+Graphics took 5.94651 ms 
+Animations took 0.00577079 ms 
+Camera took 1.71329 ms 
+Audio took 0.0109005 ms 
+Input took 0.0157095 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.77288 ms 
+Graphics took 6.77238 ms 
+Animations took 0.00577082 ms 
+Camera took 2.0355 ms 
+Audio took 0.0125035 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0391133 ms 
+Collisions took 2.74274 ms 
+Graphics took 6.95961 ms 
+Animations took 0.00641204 ms 
+Camera took 2.47889 ms 
+Audio took 0.0147477 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0375103 ms 
+Collisions took 2.71325 ms 
+Graphics took 5.86668 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66745 ms 
+Audio took 0.0125035 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00192359 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 2.78699 ms 
+Graphics took 6.20684 ms 
+Animations took 0.00512964 ms 
+Camera took 1.78863 ms 
+Audio took 0.0125034 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0368692 ms 
+Collisions took 2.77064 ms 
+Graphics took 5.91894 ms 
+Animations took 0.004809 ms 
+Camera took 1.71746 ms 
+Audio took 0.0118623 ms 
+Input took 0.0198773 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 2.66997 ms 
+Graphics took 5.8202 ms 
+Animations took 0.004809 ms 
+Camera took 1.72996 ms 
+Audio took 0.0131447 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0359073 ms 
+Collisions took 2.71325 ms 
+Graphics took 5.89842 ms 
+Animations took 0.004809 ms 
+Camera took 1.66809 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.64272 ms 
+Graphics took 5.80128 ms 
+Animations took 0.00448842 ms 
+Camera took 1.65559 ms 
+Audio took 0.00961803 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 2.66516 ms 
+Graphics took 5.79743 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65623 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 2.62284 ms 
+Graphics took 5.74838 ms 
+Animations took 0.00448842 ms 
+Camera took 1.62833 ms 
+Audio took 0.0105799 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0403957 ms 
+Collisions took 2.68279 ms 
+Graphics took 5.91477 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65943 ms 
+Audio took 0.0105798 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.66804 ms 
+Graphics took 5.84232 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67001 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0368692 ms 
+Collisions took 2.66003 ms 
+Graphics took 6.32418 ms 
+Animations took 0.00545025 ms 
+Camera took 1.83897 ms 
+Audio took 0.0137858 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0413576 ms 
+Collisions took 2.70139 ms 
+Graphics took 5.8997 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65494 ms 
+Audio took 0.0109004 ms 
+Input took 0.0593112 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.67157 ms 
+Graphics took 5.82629 ms 
+Animations took 0.004809 ms 
+Camera took 1.64789 ms 
+Audio took 0.0115416 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 2.71613 ms 
+Graphics took 5.97857 ms 
+Animations took 0.00512964 ms 
+Camera took 1.73445 ms 
+Audio took 0.00961803 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.76903 ms 
+Graphics took 5.96671 ms 
+Animations took 0.00448842 ms 
+Camera took 1.76106 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0343044 ms 
+Collisions took 2.6767 ms 
+Graphics took 5.84264 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71041 ms 
+Audio took 0.011221 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0439224 ms 
+Collisions took 2.73665 ms 
+Graphics took 6.16164 ms 
+Animations took 0.00801505 ms 
+Camera took 1.80242 ms 
+Audio took 0.0631585 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0384721 ms 
+Collisions took 2.76006 ms 
+Graphics took 5.98498 ms 
+Animations took 0.00512964 ms 
+Camera took 1.70752 ms 
+Audio took 0.011221 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.6642 ms 
+Graphics took 5.91574 ms 
+Animations took 0.00512961 ms 
+Camera took 1.73862 ms 
+Audio took 0.00961806 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 2.67959 ms 
+Graphics took 5.89105 ms 
+Animations took 0.004809 ms 
+Camera took 1.70047 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.61579 ms 
+Graphics took 5.81058 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65815 ms 
+Audio took 0.00993864 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.037831 ms 
+Collisions took 2.69081 ms 
+Graphics took 5.90483 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66424 ms 
+Audio took 0.0121829 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 2.61418 ms 
+Graphics took 5.91798 ms 
+Animations took 0.004809 ms 
+Camera took 1.89924 ms 
+Audio took 0.0153889 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 2.71261 ms 
+Graphics took 6.06417 ms 
+Animations took 0.00577082 ms 
+Camera took 1.93066 ms 
+Audio took 0.012824 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.041037 ms 
+Collisions took 2.7623 ms 
+Graphics took 6.0972 ms 
+Animations took 0.00512961 ms 
+Camera took 1.81172 ms 
+Audio took 0.0137858 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0371897 ms 
+Collisions took 2.71133 ms 
+Graphics took 6.07347 ms 
+Animations took 0.00480903 ms 
+Camera took 1.7508 ms 
+Audio took 0.0121829 ms 
+Input took 0.00705326 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0436018 ms 
+Collisions took 2.63246 ms 
+Graphics took 5.91926 ms 
+Animations took 0.00609143 ms 
+Camera took 1.80178 ms 
+Audio took 0.0192361 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.61386 ms 
+Graphics took 5.97056 ms 
+Animations took 0.00512964 ms 
+Camera took 1.78479 ms 
+Audio took 0.0958598 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.54525 ms 
+Graphics took 5.68715 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6543 ms 
+Audio took 0.0105799 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 2.54205 ms 
+Graphics took 5.71087 ms 
+Animations took 0.00480903 ms 
+Camera took 1.63988 ms 
+Audio took 0.011221 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.54557 ms 
+Graphics took 5.79807 ms 
+Animations took 0.00577082 ms 
+Camera took 1.76844 ms 
+Audio took 0.0147477 ms 
+Input took 0.0105799 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.45869 ms 
+Graphics took 5.78621 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71746 ms 
+Audio took 0.011221 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.45997 ms 
+Graphics took 5.72273 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65142 ms 
+Audio took 0.00897681 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.46639 ms 
+Graphics took 5.82661 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64629 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 2.43176 ms 
+Graphics took 5.63585 ms 
+Animations took 0.00480903 ms 
+Camera took 1.63154 ms 
+Audio took 0.00929742 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0375104 ms 
+Collisions took 2.62188 ms 
+Graphics took 6.31264 ms 
+Animations took 0.00577082 ms 
+Camera took 1.95086 ms 
+Audio took 0.011221 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0339838 ms 
+Collisions took 2.54622 ms 
+Graphics took 5.81218 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68732 ms 
+Audio took 0.00961803 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.50422 ms 
+Graphics took 5.75319 ms 
+Animations took 0.00673262 ms 
+Camera took 1.65719 ms 
+Audio took 0.00897681 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.49845 ms 
+Graphics took 5.71247 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68989 ms 
+Audio took 0.00833563 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0407163 ms 
+Collisions took 2.63791 ms 
+Graphics took 5.84264 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66007 ms 
+Audio took 0.0115416 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0416782 ms 
+Collisions took 2.64111 ms 
+Graphics took 5.93209 ms 
+Animations took 0.004809 ms 
+Camera took 1.68668 ms 
+Audio took 0.00961803 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.51832 ms 
+Graphics took 5.70927 ms 
+Animations took 0.004809 ms 
+Camera took 1.65751 ms 
+Audio took 0.00833563 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 2.54012 ms 
+Graphics took 5.8093 ms 
+Animations took 0.004809 ms 
+Camera took 1.70752 ms 
+Audio took 0.0102592 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.49203 ms 
+Graphics took 5.76762 ms 
+Animations took 0.00577082 ms 
+Camera took 1.67162 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.53275 ms 
+Graphics took 5.80256 ms 
+Animations took 0.00448842 ms 
+Camera took 1.68893 ms 
+Audio took 0.0102592 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.48338 ms 
+Graphics took 5.76441 ms 
+Animations took 0.00480903 ms 
+Camera took 1.75144 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.47568 ms 
+Graphics took 6.00582 ms 
+Animations took 0.00512961 ms 
+Camera took 1.80402 ms 
+Audio took 0.00929745 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0416782 ms 
+Collisions took 2.65554 ms 
+Graphics took 6.14112 ms 
+Animations took 0.00512961 ms 
+Camera took 1.94894 ms 
+Audio took 0.0150682 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.57571 ms 
+Graphics took 5.82533 ms 
+Animations took 0.004809 ms 
+Camera took 1.67867 ms 
+Audio took 0.0105799 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0355867 ms 
+Collisions took 2.48017 ms 
+Graphics took 5.84264 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68348 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.48755 ms 
+Graphics took 5.80962 ms 
+Animations took 0.00641204 ms 
+Camera took 1.68123 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.49203 ms 
+Graphics took 5.7907 ms 
+Animations took 0.00512961 ms 
+Camera took 1.66136 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.46863 ms 
+Graphics took 5.72273 ms 
+Animations took 0.00448842 ms 
+Camera took 1.69213 ms 
+Audio took 0.00961806 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.46158 ms 
+Graphics took 5.80352 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67129 ms 
+Audio took 0.00929745 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000641216 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.4526 ms 
+Graphics took 5.74742 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65879 ms 
+Audio took 0.0102592 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.48851 ms 
+Graphics took 5.91125 ms 
+Animations took 0.004809 ms 
+Camera took 1.68187 ms 
+Audio took 0.00993864 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.42246 ms 
+Graphics took 5.69997 ms 
+Animations took 0.0060914 ms 
+Camera took 1.64565 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 2.50197 ms 
+Graphics took 5.79711 ms 
+Animations took 0.00512964 ms 
+Camera took 1.72548 ms 
+Audio took 0.00929745 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.45324 ms 
+Graphics took 5.74646 ms 
+Animations took 0.00448842 ms 
+Camera took 1.66392 ms 
+Audio took 0.00993864 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 2.50967 ms 
+Graphics took 6.13984 ms 
+Animations took 0.00512964 ms 
+Camera took 1.91655 ms 
+Audio took 0.0125035 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0468078 ms 
+Collisions took 2.50774 ms 
+Graphics took 6.0148 ms 
+Animations took 0.00577082 ms 
+Camera took 1.96304 ms 
+Audio took 0.011221 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.4122 ms 
+Graphics took 6.04782 ms 
+Animations took 0.00545022 ms 
+Camera took 1.89379 ms 
+Audio took 0.0118623 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.38111 ms 
+Graphics took 5.72113 ms 
+Animations took 0.004809 ms 
+Camera took 1.69245 ms 
+Audio took 0.0121828 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.34392 ms 
+Graphics took 5.61501 ms 
+Animations took 0.00448842 ms 
+Camera took 1.61006 ms 
+Audio took 0.00865624 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0272511 ms 
+Collisions took 2.32212 ms 
+Graphics took 5.62912 ms 
+Animations took 0.00448842 ms 
+Camera took 2.05473 ms 
+Audio took 0.0105799 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.0327014 ms 
+Collisions took 2.50806 ms 
+Graphics took 5.82693 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66649 ms 
+Audio took 0.00897684 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 2.41124 ms 
+Graphics took 5.6817 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67226 ms 
+Audio took 0.00801502 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.46318 ms 
+Graphics took 5.80994 ms 
+Animations took 0.004809 ms 
+Camera took 1.68989 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0384721 ms 
+Collisions took 2.49075 ms 
+Graphics took 5.82725 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67354 ms 
+Audio took 0.00865624 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0432812 ms 
+Collisions took 2.44362 ms 
+Graphics took 5.77563 ms 
+Animations took 0.00577082 ms 
+Camera took 1.66937 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.42727 ms 
+Graphics took 5.7907 ms 
+Animations took 0.004809 ms 
+Camera took 1.64853 ms 
+Audio took 0.0105799 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.47312 ms 
+Graphics took 6.03019 ms 
+Animations took 0.00545025 ms 
+Camera took 1.80274 ms 
+Audio took 0.0118623 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.04264 ms 
+Collisions took 2.51448 ms 
+Graphics took 5.91926 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70047 ms 
+Audio took 0.011221 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.4869 ms 
+Graphics took 5.70638 ms 
+Animations took 0.004809 ms 
+Camera took 1.68829 ms 
+Audio took 0.00865624 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.42118 ms 
+Graphics took 5.87213 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70303 ms 
+Audio took 0.00961803 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0371898 ms 
+Collisions took 2.39874 ms 
+Graphics took 5.79519 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66168 ms 
+Audio took 0.00865624 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 2.4183 ms 
+Graphics took 5.79711 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71746 ms 
+Audio took 0.0109004 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.39746 ms 
+Graphics took 5.74518 ms 
+Animations took 0.00448842 ms 
+Camera took 1.66584 ms 
+Audio took 0.0734177 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 2.38271 ms 
+Graphics took 5.69741 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67514 ms 
+Audio took 0.00865624 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327014 ms 
+Collisions took 2.46126 ms 
+Graphics took 5.80577 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70624 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.37822 ms 
+Graphics took 5.73812 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68476 ms 
+Audio took 0.00961803 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0551434 ms 
+Collisions took 2.48242 ms 
+Graphics took 5.82212 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67803 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.36027 ms 
+Graphics took 5.66855 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68797 ms 
+Audio took 0.00833563 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 2.37566 ms 
+Graphics took 6.30495 ms 
+Animations took 0.00769444 ms 
+Camera took 1.89187 ms 
+Audio took 0.011221 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.053861 ms 
+Collisions took 2.69113 ms 
+Graphics took 5.8949 ms 
+Animations took 0.004809 ms 
+Camera took 1.72676 ms 
+Audio took 0.00897681 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0391133 ms 
+Collisions took 2.45677 ms 
+Graphics took 5.9292 ms 
+Animations took 0.00545022 ms 
+Camera took 1.70047 ms 
+Audio took 0.0115416 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 2.44875 ms 
+Graphics took 5.80705 ms 
+Animations took 0.00512961 ms 
+Camera took 1.70335 ms 
+Audio took 0.0105799 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0387927 ms 
+Collisions took 2.45965 ms 
+Graphics took 5.84039 ms 
+Animations took 0.00577082 ms 
+Camera took 1.65591 ms 
+Audio took 0.0125035 ms 
+Input took 0.0237245 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.42567 ms 
+Graphics took 5.75768 ms 
+Animations took 0.004809 ms 
+Camera took 1.70335 ms 
+Audio took 0.0724559 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.39489 ms 
+Graphics took 5.77307 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71137 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 2.42567 ms 
+Graphics took 5.73331 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66104 ms 
+Audio took 0.00833566 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 2.42022 ms 
+Graphics took 5.81923 ms 
+Animations took 0.004809 ms 
+Camera took 1.73862 ms 
+Audio took 0.00993864 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 2.39329 ms 
+Graphics took 5.73972 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66809 ms 
+Audio took 0.00833563 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.4635 ms 
+Graphics took 5.76024 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66104 ms 
+Audio took 0.00833566 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.39714 ms 
+Graphics took 5.75736 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66168 ms 
+Audio took 0.00929742 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0272511 ms 
+Collisions took 2.3763 ms 
+Graphics took 5.66567 ms 
+Animations took 0.00480903 ms 
+Camera took 1.75305 ms 
+Audio took 0.00929742 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0875242 ms 
+Collisions took 3.25891 ms 
+Graphics took 6.01063 ms 
+Animations took 0.0060914 ms 
+Camera took 1.78126 ms 
+Audio took 0.0141065 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0368692 ms 
+Collisions took 2.72415 ms 
+Graphics took 5.81314 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68668 ms 
+Audio took 0.0102592 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 2.44843 ms 
+Graphics took 5.83751 ms 
+Animations took 0.00512961 ms 
+Camera took 1.6838 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.43144 ms 
+Graphics took 5.76217 ms 
+Animations took 0.00448839 ms 
+Camera took 1.66456 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 2.47921 ms 
+Graphics took 5.86155 ms 
+Animations took 0.00512964 ms 
+Camera took 1.69983 ms 
+Audio took 0.00929742 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.41765 ms 
+Graphics took 5.73492 ms 
+Animations took 0.00545022 ms 
+Camera took 1.65655 ms 
+Audio took 0.00897684 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.40355 ms 
+Graphics took 5.80513 ms 
+Animations took 0.004809 ms 
+Camera took 1.71169 ms 
+Audio took 0.00897684 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 2.43304 ms 
+Graphics took 5.88047 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67674 ms 
+Audio took 0.00961806 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.41541 ms 
+Graphics took 5.75191 ms 
+Animations took 0.004809 ms 
+Camera took 1.70913 ms 
+Audio took 0.011221 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.43978 ms 
+Graphics took 5.73203 ms 
+Animations took 0.00512964 ms 
+Camera took 1.65847 ms 
+Audio took 0.00993864 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 2.43978 ms 
+Graphics took 5.79936 ms 
+Animations took 0.00512964 ms 
+Camera took 1.70656 ms 
+Audio took 0.0105798 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 2.37918 ms 
+Graphics took 5.80577 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70143 ms 
+Audio took 0.00929745 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0487314 ms 
+Collisions took 2.6424 ms 
+Graphics took 6.47647 ms 
+Animations took 0.00545022 ms 
+Camera took 2.06147 ms 
+Audio took 0.0141065 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.44458 ms 
+Graphics took 5.74389 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69181 ms 
+Audio took 0.00929745 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 2.52954 ms 
+Graphics took 5.80032 ms 
+Animations took 0.00673262 ms 
+Camera took 1.70496 ms 
+Audio took 0.00961806 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.48883 ms 
+Graphics took 5.68779 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65013 ms 
+Audio took 0.0121828 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.49941 ms 
+Graphics took 5.86764 ms 
+Animations took 0.00512961 ms 
+Camera took 1.91399 ms 
+Audio took 0.00961806 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.0022442 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.47408 ms 
+Graphics took 5.88464 ms 
+Animations took 0.004809 ms 
+Camera took 1.67771 ms 
+Audio took 0.00929742 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.45613 ms 
+Graphics took 5.79839 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6854 ms 
+Audio took 0.00929742 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 2.43657 ms 
+Graphics took 5.78429 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68091 ms 
+Audio took 0.00929742 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.35482 ms 
+Graphics took 5.64002 ms 
+Animations took 0.00448842 ms 
+Camera took 1.64821 ms 
+Audio took 0.00929742 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0419988 ms 
+Collisions took 2.46574 ms 
+Graphics took 5.88784 ms 
+Animations took 0.00512961 ms 
+Camera took 1.74279 ms 
+Audio took 0.0125035 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.4962 ms 
+Graphics took 5.90323 ms 
+Animations took 0.00512961 ms 
+Camera took 1.81717 ms 
+Audio took 0.0125034 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.36924 ms 
+Graphics took 5.76986 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67995 ms 
+Audio took 0.0105799 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0557846 ms 
+Collisions took 2.51928 ms 
+Graphics took 5.82949 ms 
+Animations took 0.00512961 ms 
+Camera took 1.70239 ms 
+Audio took 0.0109005 ms 
+Input took 0.0125034 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0464872 ms 
+Collisions took 2.50358 ms 
+Graphics took 6.81919 ms 
+Animations took 0.00737383 ms 
+Camera took 2.50614 ms 
+Audio took 0.0153889 ms 
+Input took 0.0118623 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.037831 ms 
+Collisions took 2.49107 ms 
+Graphics took 5.86957 ms 
+Animations took 0.00512961 ms 
+Camera took 1.72516 ms 
+Audio took 0.0125034 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.41124 ms 
+Graphics took 5.77724 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65591 ms 
+Audio took 0.0121828 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0269305 ms 
+Collisions took 2.36892 ms 
+Graphics took 5.73171 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71137 ms 
+Audio took 0.011221 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.44779 ms 
+Graphics took 5.80962 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67739 ms 
+Audio took 0.0121828 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0384721 ms 
+Collisions took 2.45677 ms 
+Graphics took 5.81603 ms 
+Animations took 0.00512961 ms 
+Camera took 1.66104 ms 
+Audio took 0.012824 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0368691 ms 
+Collisions took 2.46863 ms 
+Graphics took 5.79551 ms 
+Animations took 0.004809 ms 
+Camera took 2.11404 ms 
+Audio took 0.00961803 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.00192362 ms 
+Canvas UI took 0.0362279 ms 
+Collisions took 2.42727 ms 
+Graphics took 5.86861 ms 
+Animations took 0.004809 ms 
+Camera took 1.67739 ms 
+Audio took 0.00897684 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.48915 ms 
+Graphics took 5.93529 ms 
+Animations took 0.00545022 ms 
+Camera took 2.09 ms 
+Audio took 0.0105799 ms 
+Input took 0.0105798 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 2.41733 ms 
+Graphics took 5.80609 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68829 ms 
+Audio took 0.0105799 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 2.46414 ms 
+Graphics took 5.97986 ms 
+Animations took 0.00577082 ms 
+Camera took 1.91784 ms 
+Audio took 0.0109005 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.041037 ms 
+Collisions took 2.83764 ms 
+Graphics took 5.91349 ms 
+Animations took 0.00512961 ms 
+Camera took 1.89796 ms 
+Audio took 0.0131447 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.44138 ms 
+Graphics took 5.76377 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70688 ms 
+Audio took 0.00993864 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 2.43112 ms 
+Graphics took 5.87566 ms 
+Animations took 0.00545022 ms 
+Camera took 1.69662 ms 
+Audio took 0.00961806 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.41285 ms 
+Graphics took 5.99492 ms 
+Animations took 0.00545025 ms 
+Camera took 1.9842 ms 
+Audio took 0.0134652 ms 
+Input took 0.00993867 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 2.50935 ms 
+Graphics took 6.119 ms 
+Animations took 0.00545025 ms 
+Camera took 1.83288 ms 
+Audio took 0.0109005 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.43561 ms 
+Graphics took 5.88496 ms 
+Animations took 0.0060914 ms 
+Camera took 1.73541 ms 
+Audio took 0.0788679 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.45997 ms 
+Graphics took 5.87983 ms 
+Animations took 0.00512964 ms 
+Camera took 1.76042 ms 
+Audio took 0.0105799 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.42471 ms 
+Graphics took 5.81635 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71361 ms 
+Audio took 0.0118623 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.40162 ms 
+Graphics took 5.79006 ms 
+Animations took 0.004809 ms 
+Camera took 1.63988 ms 
+Audio took 0.00961806 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.041037 ms 
+Collisions took 2.4946 ms 
+Graphics took 5.84873 ms 
+Animations took 0.004809 ms 
+Camera took 1.67354 ms 
+Audio took 0.0102592 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 2.44555 ms 
+Graphics took 5.74485 ms 
+Animations took 0.00512961 ms 
+Camera took 1.70335 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 2.3561 ms 
+Graphics took 5.67144 ms 
+Animations took 0.00448842 ms 
+Camera took 1.64533 ms 
+Audio took 0.00833566 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.43272 ms 
+Graphics took 6.07507 ms 
+Animations took 0.00512964 ms 
+Camera took 1.83961 ms 
+Audio took 0.0125034 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0423194 ms 
+Collisions took 2.46318 ms 
+Graphics took 5.85642 ms 
+Animations took 0.004809 ms 
+Camera took 1.73125 ms 
+Audio took 0.00993864 ms 
+Input took 0.0673263 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 2.52089 ms 
+Graphics took 5.95292 ms 
+Animations took 0.00480903 ms 
+Camera took 1.704 ms 
+Audio took 0.0121828 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0355867 ms 
+Collisions took 2.42599 ms 
+Graphics took 5.74806 ms 
+Animations took 0.00512961 ms 
+Camera took 1.6947 ms 
+Audio took 0.0109004 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0375103 ms 
+Collisions took 2.46158 ms 
+Graphics took 5.84007 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68668 ms 
+Audio took 0.0753413 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 2.41797 ms 
+Graphics took 5.79006 ms 
+Animations took 0.004809 ms 
+Camera took 1.70496 ms 
+Audio took 0.0112211 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 2.41509 ms 
+Graphics took 5.75864 ms 
+Animations took 0.00545022 ms 
+Camera took 1.63891 ms 
+Audio took 0.0102592 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 2.37437 ms 
+Graphics took 5.73556 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6963 ms 
+Audio took 0.00897684 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 2.36123 ms 
+Graphics took 5.66759 ms 
+Animations took 0.004809 ms 
+Camera took 1.64949 ms 
+Audio took 0.00833563 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 2.3997 ms 
+Graphics took 5.73716 ms 
+Animations took 0.0060914 ms 
+Camera took 1.66905 ms 
+Audio took 0.00833563 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.36796 ms 
+Graphics took 5.68266 ms 
+Animations took 0.004809 ms 
+Camera took 1.66713 ms 
+Audio took 0.00865624 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0275717 ms 
+Collisions took 2.39585 ms 
+Graphics took 5.65348 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71938 ms 
+Audio took 0.00865624 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.46927 ms 
+Graphics took 6.2357 ms 
+Animations took 0.00512961 ms 
+Camera took 1.83897 ms 
+Audio took 0.0102592 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.041037 ms 
+Collisions took 2.57507 ms 
+Graphics took 5.8763 ms 
+Animations took 0.00577082 ms 
+Camera took 1.68155 ms 
+Audio took 0.012824 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0452048 ms 
+Collisions took 2.5895 ms 
+Graphics took 5.89009 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68091 ms 
+Audio took 0.0125034 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0407164 ms 
+Collisions took 2.55647 ms 
+Graphics took 5.71921 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67354 ms 
+Audio took 0.0109004 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.49171 ms 
+Graphics took 5.79968 ms 
+Animations took 0.00545022 ms 
+Camera took 1.67194 ms 
+Audio took 0.0125034 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.50422 ms 
+Graphics took 5.76249 ms 
+Animations took 0.00641204 ms 
+Camera took 1.65526 ms 
+Audio took 0.0131447 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.039434 ms 
+Collisions took 2.45773 ms 
+Graphics took 5.84103 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67771 ms 
+Audio took 0.0105799 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0375104 ms 
+Collisions took 2.42759 ms 
+Graphics took 5.77691 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71169 ms 
+Audio took 0.012824 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0349455 ms 
+Collisions took 2.38431 ms 
+Graphics took 5.7253 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68123 ms 
+Audio took 0.0141065 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.41958 ms 
+Graphics took 5.76826 ms 
+Animations took 0.00512964 ms 
+Camera took 1.65879 ms 
+Audio took 0.00961803 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0391134 ms 
+Collisions took 2.40002 ms 
+Graphics took 5.81443 ms 
+Animations took 0.00448842 ms 
+Camera took 1.65078 ms 
+Audio took 0.0109004 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0285335 ms 
+Collisions took 2.38399 ms 
+Graphics took 5.68618 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67482 ms 
+Audio took 0.00929745 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.039434 ms 
+Collisions took 2.55968 ms 
+Graphics took 6.03756 ms 
+Animations took 0.00609143 ms 
+Camera took 2.45132 ms 
+Audio took 0.0131447 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 2.68279 ms 
+Graphics took 6.05776 ms 
+Animations took 0.00512961 ms 
+Camera took 1.73093 ms 
+Audio took 0.0121828 ms 
+Input took 0.00897684 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0471284 ms 
+Collisions took 2.45549 ms 
+Graphics took 5.83719 ms 
+Animations took 0.00673262 ms 
+Camera took 1.69342 ms 
+Audio took 0.0105799 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.39169 ms 
+Graphics took 5.60603 ms 
+Animations took 0.00448842 ms 
+Camera took 1.62385 ms 
+Audio took 0.00961803 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.34392 ms 
+Graphics took 5.64515 ms 
+Animations took 0.00577082 ms 
+Camera took 1.65687 ms 
+Audio took 0.00705323 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.031419 ms 
+Collisions took 2.37437 ms 
+Graphics took 5.64419 ms 
+Animations took 0.00512964 ms 
+Camera took 1.63346 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 2.32917 ms 
+Graphics took 5.69484 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65398 ms 
+Audio took 0.00993864 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.34424 ms 
+Graphics took 5.68586 ms 
+Animations took 0.00480903 ms 
+Camera took 1.73798 ms 
+Audio took 0.011221 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 2.45452 ms 
+Graphics took 5.83719 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69342 ms 
+Audio took 0.0105798 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.40034 ms 
+Graphics took 6.1004 ms 
+Animations took 0.00641201 ms 
+Camera took 1.98965 ms 
+Audio took 0.0141065 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0448842 ms 
+Collisions took 2.47729 ms 
+Graphics took 6.06514 ms 
+Animations took 0.00512961 ms 
+Camera took 1.74407 ms 
+Audio took 0.011221 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0371897 ms 
+Collisions took 2.58308 ms 
+Graphics took 5.95773 ms 
+Animations took 0.00512964 ms 
+Camera took 1.78607 ms 
+Audio took 0.0121828 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.39265 ms 
+Graphics took 5.75543 ms 
+Animations took 0.00609143 ms 
+Camera took 1.70239 ms 
+Audio took 0.00929742 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0413576 ms 
+Collisions took 2.43593 ms 
+Graphics took 6.83907 ms 
+Animations took 0.00641204 ms 
+Camera took 2.01017 ms 
+Audio took 0.0134653 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.40355 ms 
+Graphics took 5.86444 ms 
+Animations took 0.00480903 ms 
+Camera took 1.74567 ms 
+Audio took 0.0118622 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.40227 ms 
+Graphics took 5.78782 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66584 ms 
+Audio took 0.00897684 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.34327 ms 
+Graphics took 5.69228 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67867 ms 
+Audio took 0.00897684 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000641186 ms 
+Canvas UI took 0.0359073 ms 
+Collisions took 2.43817 ms 
+Graphics took 5.77916 ms 
+Animations took 0.004809 ms 
+Camera took 1.66937 ms 
+Audio took 0.00929745 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.41637 ms 
+Graphics took 5.74742 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64725 ms 
+Audio took 0.00929742 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0288541 ms 
+Collisions took 2.41926 ms 
+Graphics took 5.72818 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66584 ms 
+Audio took 0.00833563 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0362279 ms 
+Collisions took 2.44971 ms 
+Graphics took 5.84103 ms 
+Animations took 0.00448842 ms 
+Camera took 1.70207 ms 
+Audio took 0.00865624 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.52922 ms 
+Graphics took 5.95389 ms 
+Animations took 0.00512961 ms 
+Camera took 1.82711 ms 
+Audio took 0.0102592 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0468078 ms 
+Collisions took 2.4837 ms 
+Graphics took 5.90387 ms 
+Animations took 0.00512961 ms 
+Camera took 1.72035 ms 
+Audio took 0.0105798 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.41413 ms 
+Graphics took 5.716 ms 
+Animations took 0.004809 ms 
+Camera took 1.66552 ms 
+Audio took 0.00929745 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.44362 ms 
+Graphics took 5.84841 ms 
+Animations took 0.00480903 ms 
+Camera took 1.8037 ms 
+Audio took 0.0121829 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0432812 ms 
+Collisions took 2.52153 ms 
+Graphics took 5.88816 ms 
+Animations took 0.00545022 ms 
+Camera took 2.06435 ms 
+Audio took 0.0147477 ms 
+Input took 0.011221 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 2.60008 ms 
+Graphics took 6.05167 ms 
+Animations took 0.00577082 ms 
+Camera took 2.04896 ms 
+Audio took 0.0144271 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 2.61514 ms 
+Graphics took 5.82212 ms 
+Animations took 0.00512964 ms 
+Camera took 1.7274 ms 
+Audio took 0.012824 ms 
+Input took 0.099707 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.37213 ms 
+Graphics took 5.67913 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66873 ms 
+Audio took 0.00993864 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.34007 ms 
+Graphics took 5.64451 ms 
+Animations took 0.00448842 ms 
+Camera took 1.66136 ms 
+Audio took 0.0718147 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0403957 ms 
+Collisions took 2.47921 ms 
+Graphics took 5.81763 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66584 ms 
+Audio took 0.0102592 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.40547 ms 
+Graphics took 5.83142 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68123 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.40034 ms 
+Graphics took 5.7596 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67322 ms 
+Audio took 0.0109004 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.037831 ms 
+Collisions took 2.4821 ms 
+Graphics took 5.81154 ms 
+Animations took 0.00512964 ms 
+Camera took 1.6838 ms 
+Audio took 0.0109004 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 2.43753 ms 
+Graphics took 5.83174 ms 
+Animations took 0.004809 ms 
+Camera took 1.67097 ms 
+Audio took 0.011221 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.38175 ms 
+Graphics took 5.72017 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69534 ms 
+Audio took 0.00929742 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.39938 ms 
+Graphics took 5.70382 ms 
+Animations took 0.00448842 ms 
+Camera took 1.66264 ms 
+Audio took 0.0109004 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0371898 ms 
+Collisions took 2.46158 ms 
+Graphics took 5.87021 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68668 ms 
+Audio took 0.0105798 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.37245 ms 
+Graphics took 5.89169 ms 
+Animations took 0.00609143 ms 
+Camera took 1.92585 ms 
+Audio took 0.0141065 ms 
+Input took 0.0105799 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 2.4853 ms 
+Graphics took 5.95902 ms 
+Animations took 0.00673262 ms 
+Camera took 2.29999 ms 
+Audio took 0.0169919 ms 
+Input took 0.0147477 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.049052 ms 
+Collisions took 2.476 ms 
+Graphics took 5.92535 ms 
+Animations took 0.00512961 ms 
+Camera took 1.72708 ms 
+Audio took 0.0795091 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 2.47248 ms 
+Graphics took 5.83815 ms 
+Animations took 0.00512961 ms 
+Camera took 1.72932 ms 
+Audio took 0.00993864 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 2.42855 ms 
+Graphics took 5.90323 ms 
+Animations took 0.00512964 ms 
+Camera took 1.8425 ms 
+Audio took 0.011221 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0368692 ms 
+Collisions took 2.44555 ms 
+Graphics took 5.87406 ms 
+Animations took 0.00512961 ms 
+Camera took 1.70624 ms 
+Audio took 0.00961806 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.451 ms 
+Graphics took 5.73524 ms 
+Animations took 0.004809 ms 
+Camera took 1.75112 ms 
+Audio took 0.00929745 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0282129 ms 
+Collisions took 2.37405 ms 
+Graphics took 5.69933 ms 
+Animations took 0.004809 ms 
+Camera took 1.66168 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.40387 ms 
+Graphics took 5.71279 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69758 ms 
+Audio took 0.00897684 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 2.46414 ms 
+Graphics took 5.7394 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67322 ms 
+Audio took 0.00961803 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 2.42439 ms 
+Graphics took 5.75768 ms 
+Animations took 0.00448842 ms 
+Camera took 1.69181 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.42599 ms 
+Graphics took 5.75255 ms 
+Animations took 0.004809 ms 
+Camera took 1.67226 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.44458 ms 
+Graphics took 5.82661 ms 
+Animations took 0.00512964 ms 
+Camera took 1.81492 ms 
+Audio took 0.0150683 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 2.50358 ms 
+Graphics took 5.87983 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66136 ms 
+Audio took 0.011221 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 2.47825 ms 
+Graphics took 5.85739 ms 
+Animations took 0.00512964 ms 
+Camera took 1.7072 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.46959 ms 
+Graphics took 5.85322 ms 
+Animations took 0.00577082 ms 
+Camera took 1.69374 ms 
+Audio took 0.00993864 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 2.49332 ms 
+Graphics took 5.80865 ms 
+Animations took 0.004809 ms 
+Camera took 1.74728 ms 
+Audio took 0.0102592 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.47857 ms 
+Graphics took 5.85226 ms 
+Animations took 0.00512964 ms 
+Camera took 1.7088 ms 
+Audio took 0.0109005 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.45805 ms 
+Graphics took 5.77435 ms 
+Animations took 0.00512964 ms 
+Camera took 1.71041 ms 
+Audio took 0.00929745 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.45837 ms 
+Graphics took 5.86797 ms 
+Animations took 0.00448842 ms 
+Camera took 1.68476 ms 
+Audio took 0.00961803 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.45837 ms 
+Graphics took 5.81154 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67931 ms 
+Audio took 0.00961803 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0278923 ms 
+Collisions took 2.44619 ms 
+Graphics took 5.77307 ms 
+Animations took 0.004809 ms 
+Camera took 1.66584 ms 
+Audio took 0.0105799 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.54589 ms 
+Graphics took 5.79294 ms 
+Animations took 0.00577082 ms 
+Camera took 1.81011 ms 
+Audio took 0.0105799 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.59463 ms 
+Graphics took 5.83046 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67546 ms 
+Audio took 0.00961806 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.52698 ms 
+Graphics took 5.72562 ms 
+Animations took 0.00673265 ms 
+Camera took 1.65847 ms 
+Audio took 0.00865624 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0596318 ms 
+Collisions took 2.99345 ms 
+Graphics took 5.81378 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68636 ms 
+Audio took 0.0128241 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0464872 ms 
+Collisions took 3.50129 ms 
+Graphics took 5.87662 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70207 ms 
+Audio took 0.0115416 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.61034 ms 
+Graphics took 5.85514 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66071 ms 
+Audio took 0.00961806 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 2.5802 ms 
+Graphics took 5.8747 ms 
+Animations took 0.00512961 ms 
+Camera took 1.66905 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.55583 ms 
+Graphics took 5.90451 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68989 ms 
+Audio took 0.0105799 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.52217 ms 
+Graphics took 5.79615 ms 
+Animations took 0.00448839 ms 
+Camera took 1.67963 ms 
+Audio took 0.00833563 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.54525 ms 
+Graphics took 5.89425 ms 
+Animations took 0.00512961 ms 
+Camera took 1.73061 ms 
+Audio took 0.0115416 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.65362 ms 
+Graphics took 5.82468 ms 
+Animations took 0.00448842 ms 
+Camera took 1.69726 ms 
+Audio took 0.00961803 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0375104 ms 
+Collisions took 2.6549 ms 
+Graphics took 5.8997 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67065 ms 
+Audio took 0.00929745 ms 
+Input took 0.00705326 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.59911 ms 
+Graphics took 5.842 ms 
+Animations took 0.004809 ms 
+Camera took 1.67963 ms 
+Audio took 0.00961803 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.00160298 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.60841 ms 
+Graphics took 6.23666 ms 
+Animations took 0.00512961 ms 
+Camera took 1.78511 ms 
+Audio took 0.011221 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.63663 ms 
+Graphics took 5.84777 ms 
+Animations took 0.00480903 ms 
+Camera took 1.72131 ms 
+Audio took 0.00961806 ms 
+Input took 0.00705326 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0567464 ms 
+Collisions took 3.87383 ms 
+Graphics took 9.08584 ms 
+Animations took 0.00865624 ms 
+Camera took 2.61418 ms 
+Audio took 0.0150682 ms 
+Input took 0.0532198 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381516 ms 
+Collisions took 2.69465 ms 
+Graphics took 5.84969 ms 
+Animations took 0.00480903 ms 
+Camera took 1.687 ms 
+Audio took 0.00865624 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.61643 ms 
+Graphics took 5.87438 ms 
+Animations took 0.004809 ms 
+Camera took 1.65975 ms 
+Audio took 0.00961803 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.65426 ms 
+Graphics took 5.83847 ms 
+Animations took 0.00512961 ms 
+Camera took 1.65975 ms 
+Audio took 0.0105798 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.036228 ms 
+Collisions took 2.63182 ms 
+Graphics took 5.84328 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69181 ms 
+Audio took 0.00993864 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0387928 ms 
+Collisions took 2.6642 ms 
+Graphics took 5.87534 ms 
+Animations took 0.00545022 ms 
+Camera took 1.68123 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705326 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.63117 ms 
+Graphics took 5.79455 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67803 ms 
+Audio took 0.0118622 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0413576 ms 
+Collisions took 2.68792 ms 
+Graphics took 5.90451 ms 
+Animations took 0.00577082 ms 
+Camera took 1.72259 ms 
+Audio took 0.0115416 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.62989 ms 
+Graphics took 5.84777 ms 
+Animations took 0.00512964 ms 
+Camera took 1.71329 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.63021 ms 
+Graphics took 5.89265 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69277 ms 
+Audio took 0.00961806 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0432812 ms 
+Collisions took 2.68279 ms 
+Graphics took 6.03596 ms 
+Animations took 0.00545022 ms 
+Camera took 1.73638 ms 
+Audio took 0.0125034 ms 
+Input took 0.00801505 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.6222 ms 
+Graphics took 5.92279 ms 
+Animations took 0.00480903 ms 
+Camera took 1.6745 ms 
+Audio took 0.00993864 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0352662 ms 
+Collisions took 3.10599 ms 
+Graphics took 6.52776 ms 
+Animations took 0.00609143 ms 
+Camera took 2.12014 ms 
+Audio took 0.012824 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0416782 ms 
+Collisions took 2.70652 ms 
+Graphics took 6.00166 ms 
+Animations took 0.00480903 ms 
+Camera took 1.74471 ms 
+Audio took 0.011221 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 2.72607 ms 
+Graphics took 5.91093 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69181 ms 
+Audio took 0.0730971 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.039434 ms 
+Collisions took 2.72062 ms 
+Graphics took 5.95998 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71041 ms 
+Audio took 0.0105798 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.04264 ms 
+Collisions took 2.76583 ms 
+Graphics took 5.93786 ms 
+Animations took 0.00512961 ms 
+Camera took 1.70111 ms 
+Audio took 0.0105799 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.62508 ms 
+Graphics took 5.81378 ms 
+Animations took 0.00512964 ms 
+Camera took 1.68861 ms 
+Audio took 0.00865624 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.6472 ms 
+Graphics took 5.82244 ms 
+Animations took 0.004809 ms 
+Camera took 1.68893 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 2.67317 ms 
+Graphics took 5.86476 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65783 ms 
+Audio took 0.0102592 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0362279 ms 
+Collisions took 2.71325 ms 
+Graphics took 5.94106 ms 
+Animations took 0.00545022 ms 
+Camera took 1.72355 ms 
+Audio took 0.0125034 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327014 ms 
+Collisions took 2.71421 ms 
+Graphics took 5.91093 ms 
+Animations took 0.00512961 ms 
+Camera took 1.79697 ms 
+Audio took 0.0125034 ms 
+Input took 0.0214803 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0416782 ms 
+Collisions took 2.74659 ms 
+Graphics took 5.99941 ms 
+Animations took 0.00545022 ms 
+Camera took 1.88097 ms 
+Audio took 0.0141065 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 2.68856 ms 
+Graphics took 5.88015 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68572 ms 
+Audio took 0.00929745 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0359073 ms 
+Collisions took 2.75781 ms 
+Graphics took 6.23185 ms 
+Animations took 0.00545022 ms 
+Camera took 2.02909 ms 
+Audio took 0.0125034 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0461666 ms 
+Collisions took 2.68311 ms 
+Graphics took 5.94234 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66873 ms 
+Audio took 0.0766237 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0384721 ms 
+Collisions took 2.70107 ms 
+Graphics took 6.47326 ms 
+Animations took 0.00512961 ms 
+Camera took 1.89828 ms 
+Audio took 0.0115416 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 2.76262 ms 
+Graphics took 5.97761 ms 
+Animations took 0.00512964 ms 
+Camera took 1.72131 ms 
+Audio took 0.00961806 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.045846 ms 
+Collisions took 2.72383 ms 
+Graphics took 5.93625 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69662 ms 
+Audio took 0.0105799 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.64945 ms 
+Graphics took 5.86572 ms 
+Animations took 0.00448842 ms 
+Camera took 1.68572 ms 
+Audio took 0.0109004 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0291747 ms 
+Collisions took 2.64945 ms 
+Graphics took 5.82148 ms 
+Animations took 0.004809 ms 
+Camera took 1.66264 ms 
+Audio took 0.00961806 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.64464 ms 
+Graphics took 5.77018 ms 
+Animations took 0.00448839 ms 
+Camera took 1.67803 ms 
+Audio took 0.00865624 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.65233 ms 
+Graphics took 5.75928 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64725 ms 
+Audio took 0.00801505 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.71485 ms 
+Graphics took 5.87342 ms 
+Animations took 0.00480903 ms 
+Camera took 1.71586 ms 
+Audio took 0.00929742 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.67798 ms 
+Graphics took 5.76569 ms 
+Animations took 0.00448842 ms 
+Camera took 1.64084 ms 
+Audio took 0.00929745 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.66644 ms 
+Graphics took 5.8561 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66424 ms 
+Audio took 0.0102592 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0352662 ms 
+Collisions took 2.80398 ms 
+Graphics took 6.1408 ms 
+Animations took 0.00512961 ms 
+Camera took 1.76202 ms 
+Audio took 0.011221 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0423194 ms 
+Collisions took 2.72447 ms 
+Graphics took 5.83943 ms 
+Animations took 0.00480903 ms 
+Camera took 1.64757 ms 
+Audio took 0.0141065 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 2.7841 ms 
+Graphics took 6.0786 ms 
+Animations took 0.00512964 ms 
+Camera took 1.80755 ms 
+Audio took 0.012824 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0384721 ms 
+Collisions took 2.87836 ms 
+Graphics took 6.01031 ms 
+Animations took 0.00480903 ms 
+Camera took 1.81076 ms 
+Audio took 0.012824 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.84758 ms 
+Graphics took 5.89842 ms 
+Animations took 0.00512961 ms 
+Camera took 1.69213 ms 
+Audio took 0.0109004 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.77801 ms 
+Graphics took 5.88752 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66713 ms 
+Audio took 0.00993864 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0359073 ms 
+Collisions took 2.81841 ms 
+Graphics took 5.88528 ms 
+Animations took 0.004809 ms 
+Camera took 1.6636 ms 
+Audio took 0.00897684 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 2.85271 ms 
+Graphics took 5.88848 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66392 ms 
+Audio took 0.0109005 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.7918 ms 
+Graphics took 5.81699 ms 
+Animations took 0.00512964 ms 
+Camera took 1.72932 ms 
+Audio took 0.0134653 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.79212 ms 
+Graphics took 5.87662 ms 
+Animations took 0.00448842 ms 
+Camera took 1.70335 ms 
+Audio took 0.00929745 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0436018 ms 
+Collisions took 2.98191 ms 
+Graphics took 5.96831 ms 
+Animations took 0.004809 ms 
+Camera took 1.66745 ms 
+Audio took 0.0102592 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.85367 ms 
+Graphics took 5.92375 ms 
+Animations took 0.00673262 ms 
+Camera took 1.67194 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 2.87964 ms 
+Graphics took 5.90419 ms 
+Animations took 0.00545022 ms 
+Camera took 1.98035 ms 
+Audio took 0.0150682 ms 
+Input took 0.0102592 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0413576 ms 
+Collisions took 3.02584 ms 
+Graphics took 5.97793 ms 
+Animations took 0.00641204 ms 
+Camera took 1.87616 ms 
+Audio took 0.0147477 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0519374 ms 
+Collisions took 3.18902 ms 
+Graphics took 6.0443 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70528 ms 
+Audio took 0.00961803 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 2.93478 ms 
+Graphics took 6.0055 ms 
+Animations took 0.004809 ms 
+Camera took 1.6931 ms 
+Audio took 0.00993864 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.94472 ms 
+Graphics took 5.97921 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69951 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327014 ms 
+Collisions took 2.87163 ms 
+Graphics took 5.88143 ms 
+Animations took 0.00512961 ms 
+Camera took 1.72419 ms 
+Audio took 0.0105799 ms 
+Input took 0.00641204 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 2.90785 ms 
+Graphics took 5.93144 ms 
+Animations took 0.00512961 ms 
+Camera took 1.75305 ms 
+Audio took 0.0102592 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0349456 ms 
+Collisions took 2.90753 ms 
+Graphics took 5.92503 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67739 ms 
+Audio took 0.0109004 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 2.85271 ms 
+Graphics took 5.86027 ms 
+Animations took 0.00512961 ms 
+Camera took 1.67418 ms 
+Audio took 0.0109005 ms 
+Input took 0.113813 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 2.91234 ms 
+Graphics took 5.88752 ms 
+Animations took 0.004809 ms 
+Camera took 1.67803 ms 
+Audio took 0.00929742 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.92036 ms 
+Graphics took 6.02859 ms 
+Animations took 0.00512964 ms 
+Camera took 1.74471 ms 
+Audio took 0.011221 ms 
+Input took 0.00897681 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 2.87291 ms 
+Graphics took 5.97697 ms 
+Animations took 0.00705326 ms 
+Camera took 1.69085 ms 
+Audio took 0.00961806 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0339837 ms 
+Collisions took 2.95851 ms 
+Graphics took 5.9199 ms 
+Animations took 0.004809 ms 
+Camera took 1.6761 ms 
+Audio took 0.00993864 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 3.19511 ms 
+Graphics took 6.28571 ms 
+Animations took 0.00833563 ms 
+Camera took 1.92297 ms 
+Audio took 0.0118623 ms 
+Input took 0.00993864 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365486 ms 
+Collisions took 2.93767 ms 
+Graphics took 5.93433 ms 
+Animations took 0.004809 ms 
+Camera took 1.71938 ms 
+Audio took 0.0102592 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0320601 ms 
+Collisions took 2.8774 ms 
+Graphics took 5.82597 ms 
+Animations took 0.0205185 ms 
+Camera took 1.65142 ms 
+Audio took 0.00993864 ms 
+Input took 0.00577082 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.04264 ms 
+Collisions took 3.05501 ms 
+Graphics took 6.04911 ms 
+Animations took 0.00512961 ms 
+Camera took 1.68572 ms 
+Audio took 0.00961806 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0304571 ms 
+Collisions took 2.9351 ms 
+Graphics took 5.94202 ms 
+Animations took 0.00480903 ms 
+Camera took 1.65559 ms 
+Audio took 0.0102592 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.00160301 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 2.97358 ms 
+Graphics took 5.91894 ms 
+Animations took 0.004809 ms 
+Camera took 1.65655 ms 
+Audio took 0.0102592 ms 
+Input took 0.00673265 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0359073 ms 
+Collisions took 2.96845 ms 
+Graphics took 5.94138 ms 
+Animations took 0.00512964 ms 
+Camera took 1.70335 ms 
+Audio took 0.0109004 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0330219 ms 
+Collisions took 2.96492 ms 
+Graphics took 5.89233 ms 
+Animations took 0.00545022 ms 
+Camera took 1.75177 ms 
+Audio took 0.0102592 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 2.94248 ms 
+Graphics took 5.93593 ms 
+Animations took 0.00512964 ms 
+Camera took 1.69726 ms 
+Audio took 0.00929745 ms 
+Input took 0.0060914 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0336631 ms 
+Collisions took 3.00051 ms 
+Graphics took 5.96543 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69887 ms 
+Audio took 0.011221 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 2.92709 ms 
+Graphics took 6.02185 ms 
+Animations took 0.004809 ms 
+Camera took 1.6838 ms 
+Audio took 0.0109004 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0346249 ms 
+Collisions took 3.07649 ms 
+Graphics took 5.96928 ms 
+Animations took 0.00480903 ms 
+Camera took 1.69919 ms 
+Audio took 0.0105798 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0403958 ms 
+Collisions took 3.09861 ms 
+Graphics took 6.39215 ms 
+Animations took 0.00833563 ms 
+Camera took 1.91335 ms 
+Audio took 0.0131447 ms 
+Input took 0.00929745 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0378309 ms 
+Collisions took 2.99698 ms 
+Graphics took 5.9946 ms 
+Animations took 0.00512961 ms 
+Camera took 1.71393 ms 
+Audio took 0.0782267 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0378309 ms 
+Collisions took 2.9989 ms 
+Graphics took 5.98466 ms 
+Animations took 0.00512961 ms 
+Camera took 1.66841 ms 
+Audio took 0.0102592 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0368692 ms 
+Collisions took 3.01622 ms 
+Graphics took 6.02057 ms 
+Animations took 0.00480903 ms 
+Camera took 1.68508 ms 
+Audio took 0.00993864 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 3.04411 ms 
+Graphics took 5.97697 ms 
+Animations took 0.00512964 ms 
+Camera took 1.71041 ms 
+Audio took 0.0102592 ms 
+Input took 0.00737383 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0365485 ms 
+Collisions took 2.97294 ms 
+Graphics took 5.95773 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70175 ms 
+Audio took 0.00929742 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 3.02584 ms 
+Graphics took 5.93048 ms 
+Animations took 0.00448842 ms 
+Camera took 1.65815 ms 
+Audio took 0.011221 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381515 ms 
+Collisions took 3.06847 ms 
+Graphics took 6.0039 ms 
+Animations took 0.004809 ms 
+Camera took 1.70528 ms 
+Audio took 0.0105799 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0333425 ms 
+Collisions took 3.11657 ms 
+Graphics took 5.90644 ms 
+Animations took 0.00480903 ms 
+Camera took 1.66552 ms 
+Audio took 0.0125034 ms 
+Input took 0.00801502 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0343043 ms 
+Collisions took 3.08194 ms 
+Graphics took 5.95389 ms 
+Animations took 0.00512964 ms 
+Camera took 1.66713 ms 
+Audio took 0.00961803 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0298159 ms 
+Collisions took 3.02423 ms 
+Graphics took 5.93337 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67963 ms 
+Audio took 0.00961803 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.10438 ms 
+Graphics took 6.01224 ms 
+Animations took 0.00448842 ms 
+Camera took 1.67065 ms 
+Audio took 0.0105799 ms 
+Input took 0.00769441 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 3.1762 ms 
+Graphics took 6.32386 ms 
+Animations took 0.00545022 ms 
+Camera took 1.93836 ms 
+Audio took 0.115737 ms 
+Input took 0.00929742 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0327013 ms 
+Collisions took 3.1358 ms 
+Graphics took 5.97986 ms 
+Animations took 0.004809 ms 
+Camera took 1.69983 ms 
+Audio took 0.00961803 ms 
+Input took 0.0073738 ms 
+Main Menu took 0.00128243 ms 
+Canvas UI took 0.0310983 ms 
+Collisions took 3.11144 ms 
+Graphics took 5.98659 ms 
+Animations took 0.00512961 ms 
+Camera took 1.76812 ms 
+Audio took 0.0112211 ms 
+Input took 0.00865624 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0301365 ms 
+Collisions took 3.11176 ms 
+Graphics took 5.95709 ms 
+Animations took 0.00609143 ms 
+Camera took 1.67867 ms 
+Audio took 0.00961803 ms 
+Input took 0.00705323 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0352661 ms 
+Collisions took 3.16081 ms 
+Graphics took 5.993 ms 
+Animations took 0.004809 ms 
+Camera took 1.70079 ms 
+Audio took 0.0105798 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0294953 ms 
+Collisions took 3.14157 ms 
+Graphics took 6.3322 ms 
+Animations took 0.00545025 ms 
+Camera took 1.82262 ms 
+Audio took 0.0118623 ms 
+Input took 0.00833566 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0397546 ms 
+Collisions took 3.23903 ms 
+Graphics took 6.03275 ms 
+Animations took 0.00480903 ms 
+Camera took 1.70047 ms 
+Audio took 0.0131447 ms 
+Input took 0.00833563 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.11496 ms 
+Graphics took 5.91509 ms 
+Animations took 0.00448842 ms 
+Camera took 1.65815 ms 
+Audio took 0.00865624 ms 
+Input took 0.00641201 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0352662 ms 
+Collisions took 3.18229 ms 
+Graphics took 6.02089 ms 
+Animations took 0.00737383 ms 
+Camera took 1.66681 ms 
+Audio took 0.011221 ms 
+Input took 0.00609143 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0317395 ms 
+Collisions took 3.18742 ms 
+Graphics took 5.8965 ms 
+Animations took 0.00448842 ms 
+Camera took 1.64084 ms 
+Audio took 0.00993864 ms 
+Input took 0.00673262 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0323807 ms 
+Collisions took 3.15664 ms 
+Graphics took 5.94587 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67322 ms 
+Audio took 0.0102592 ms 
+Input took 0.00769444 ms 
+Main Menu took 0.000961794 ms 
+Canvas UI took 0.0307777 ms 
+Collisions took 3.10983 ms 
+Graphics took 6.08822 ms 
+Animations took 0.00512964 ms 
+Camera took 1.67322 ms 
+Audio took 0.00929742 ms 
+Input took 0.0468078 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0314189 ms 
+Collisions took 3.10374 ms 
+Graphics took 5.96318 ms 
+Animations took 0.00705323 ms 
+Camera took 1.68765 ms 
+Audio took 0.0102592 ms 
+Input took 0.00961803 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0381516 ms 
+Collisions took 3.20858 ms 
+Graphics took 6.0273 ms 
+Animations took 0.00480903 ms 
+Camera took 1.85756 ms 
+Audio took 0.0134653 ms 
+Input took 0.0387928 ms 
+Main Menu took 0.000961823 ms 
+Canvas UI took 0.0400752 ms 
+Collisions took 3.19928 ms 
+Graphics took 5.99556 ms 
+Animations took 0.00480903 ms 
+Camera took 1.67418 ms 
+Audio took 0.0102592 ms 
+Input took 0.0153889 ms 
+Main Menu took 0.0012824 ms 
+Canvas UI took 0.0625172 ms 
+Collisions took 3.09957 ms 
+Graphics took 6.00422 ms 
+Animations took 0.00448842 ms 
+Camera took 1.66873 ms 
+Audio took 0.0102592 ms 
+Input took 0.00641201 ms 
+
+
+Breakdown: 
+
+Canvas UI took a total of 277.621 ms.
+Collisions took a total of 536.917 ms.
+Graphics took a total of 1201.77 ms.
+Animations took a total of 1.0022 ms.
+Camera took a total of 274.984 ms.
+Audio took a total of 526.928 ms.
+Input took a total of 1090.3 ms.
+Main Menu took a total of 1.01695 ms.
+Canvas UI took a total of 272.303 ms.
+Collisions took a total of 532.081 ms.
+Graphics took a total of 1184.22 ms.
+Animations took a total of 0.973345 ms.
+Camera took a total of 276.825 ms.
+Audio took a total of 526.136 ms.
+Input took a total of 1060.04 ms.
+Main Menu took a total of 0.999635 ms.
+Canvas UI took a total of 274.247 ms.
+Collisions took a total of 532.203 ms.
+Graphics took a total of 1105.67 ms.
+Animations took a total of 0.978476 ms.
+
+There were 20 systems. 
+
+Canvas UI took 2.86882%% of the time.
+Collisions took 5.54826%% of the time.
+Graphics took 12.4185%% of the time.
+Animations took 0.0103563%% of the time.
+Camera took 2.84156%% of the time.
+Audio took 5.44504%% of the time.
+Input took 11.2667%% of the time.
+Main Menu took 0.0105087%% of the time.
+Canvas UI took 2.81385%% of the time.
+Collisions took 5.49829%% of the time.
+Graphics took 12.2372%% of the time.
+Animations took 0.0100581%% of the time.
+Camera took 2.86059%% of the time.
+Audio took 5.43685%% of the time.
+Input took 10.954%% of the time.
+Main Menu took 0.0103298%% of the time.
+Canvas UI took 2.83394%% of the time.
+Collisions took 5.49955%% of the time.
+Graphics took 11.4255%% of the time.
+Animations took 0.0101111%% of the time.
+A total of 9677.22 ms elapsed during this session. 
+Average FPS was 60.2286
+Lowest FPS was 45
+Number of Dropped Frames: 10
