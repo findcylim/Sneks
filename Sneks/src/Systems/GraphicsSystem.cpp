@@ -260,7 +260,7 @@ void GraphicsSystem::Update(float dt)
 		if (auto i_SnekHead = bloomComp->GetComponent<SnekHeadComponent>())
 		{
 			auto i_Physics = i_SnekHead->GetComponent<PhysicsComponent>();
-			auto speedBloomStr = i_Physics->m_f_Speed / i_Physics->m_f_MaxSpeed * bloomComp->m_f_BaseBloomStrength * 1.5f;
+			auto speedBloomStr = i_Physics->m_f_Speed / 600.0f * bloomComp->m_f_BaseBloomStrength * 1.5f;
 			bloomComp->m_f_BloomStrength = speedBloomStr;
 			for (auto& bodyPart : i_SnekHead->m_x_BodyParts)
 				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength = speedBloomStr;

@@ -427,7 +427,7 @@ void SnekSystem::Update(float dt)
 			//i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
 			//for (auto bodyPart : i_SnekHead->m_x_BodyParts)
 			//	bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength /= 1.4f;
-			i_SnekHead->m_f_BoostCooldown = 0;
+			//i_SnekHead->m_f_BoostCooldown = 0;
 		}
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
