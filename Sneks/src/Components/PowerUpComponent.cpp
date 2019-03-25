@@ -62,17 +62,17 @@ void PowerUpComponent::SetPowerUp(PowerUpType type)
 	}
 }
 
-PowerUpType PowerUpComponent::GetPowerUp()
+PowerUpType PowerUpComponent::GetPowerUp() const
 {
 	return m_x_PowerUpType;
 }
 
-float PowerUpComponent::GetPowerIncrease()
+float PowerUpComponent::GetPowerIncrease() const
 {
 	return m_f_PowerIncrease;
 }
 
-bool PowerUpComponent::IsAlive()
+bool PowerUpComponent::IsAlive() const
 {
 	return (m_f_PowerUpRemainingLifetime > 0);
 }
@@ -92,9 +92,3 @@ void  PowerUpComponent::ResetPowerIncrease()
 {
 	m_f_PowerIncrease = 0;
 }
-
-
-
-
-
-
