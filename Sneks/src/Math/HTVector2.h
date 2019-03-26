@@ -1,7 +1,7 @@
 /* Start Header ***************************************************************/
 /*!
 \file HTVector2.h
-\author Lim Chu Yan, chuyan.lim, 440002918
+\author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
@@ -25,7 +25,7 @@ struct HTVector2 final
 	float x;
 	float y;
 
-	float dot(const HTVector2& rhs) const
+	float Dot(const HTVector2& rhs) const
 	{
 		return rhs.x * x + rhs.y * y;
 	}
@@ -110,7 +110,7 @@ struct HTVector2 final
 
 inline HTVector2 CalculateReflectVelocity(HTVector2 velocity, HTVector2 wallNormal)
 {
-	HTVector2 perpendicular = wallNormal * ( velocity.dot(wallNormal) / wallNormal.dot(wallNormal)) ;
+	HTVector2 perpendicular = wallNormal * ( velocity.Dot(wallNormal) / wallNormal.Dot(wallNormal)) ;
 	HTVector2 parallel		= velocity - perpendicular;
 
 	auto newVel = parallel - perpendicular;
