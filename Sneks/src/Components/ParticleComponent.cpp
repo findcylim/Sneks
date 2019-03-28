@@ -13,7 +13,9 @@ void ParticleComponent::UpdateTime(float dt)
 
 float ParticleComponent::GetAlphaValue()
 {
-	return (m_f_ParticleRemainingLifetime / m_f_ParticleMaxLifetime);
+	if (m_b_AlphaScalingEnabled)
+		return (m_f_BaseAlpha * m_f_ParticleRemainingLifetime / m_f_ParticleMaxLifetime);
+	return m_f_BaseAlpha;
 }
 
 bool ParticleComponent::IsAlive()

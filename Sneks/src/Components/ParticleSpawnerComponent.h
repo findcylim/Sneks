@@ -28,7 +28,6 @@ private:
 	int m_i_SplitNumber = 0;
 	int m_i_CurrentSplit = -1;
 
-	float m_f_ParticleSize = 0.0f;
 
 	float m_f_SpreadDistance = 0.0f;
 	//Angle stored as radian.
@@ -53,9 +52,11 @@ private:
 	bool m_b_IsParticleEffectOneShot = false;
 	bool m_b_HasParticleEffectFired = false;
 
-	TransformComponent* m_po_SpawnTransform;
+	TransformComponent* m_po_SpawnTransform = nullptr;
 
 public:
+	float m_f_ParticleSize = 0.0f;
+
 	int m_i_SpriteCountX = 0;
 	int m_i_SpriteCountY = 0;
 	float m_i_SecondsPerFrame = 0.5f;
@@ -82,7 +83,6 @@ public:
 	float GetOffsetDistance();
 	float GetAngleForOffsetDistance();
 	float GetOffsetAngle();
-	float GetParticleSize();
 	float GetParticleSpeed();
 	float GetParticleMaxLifetime();
 	int GetParticleSpawnDensity();

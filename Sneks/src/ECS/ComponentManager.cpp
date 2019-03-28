@@ -10,7 +10,7 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/FollowComponent.h"
-#include "../Components/ParticleEffectComponent.h"
+#include "../Components/ParticleSpawnerComponent.h"
 #include "../Components/ParticleComponent.h"
 #include "../Components/CanvasComponent.h"
 #include "../Components/TextRendererComponent.h"
@@ -86,7 +86,7 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			componentPointer = static_cast<BaseComponent*>(new FollowComponent);
 			break;
 		case kComponentParticleEffect:
-			componentPointer = static_cast<BaseComponent*>(new ParticleEffectComponent);
+			componentPointer = static_cast<BaseComponent*>(new ParticleSpawnerComponent);
 			break;
 		case kComponentParticle:
 			componentPointer = static_cast<BaseComponent*>(new ParticleComponent);

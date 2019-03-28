@@ -222,14 +222,14 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_px_ParticleTexture = graphics->FetchTexture("SparkParticleWhite");
 			m_i_SpriteCountX = 5;
 			m_i_SpriteCountY = 1;
-			m_i_SecondsPerFrame = 0.1f;
+			m_i_SecondsPerFrame = 0.15f;
 
 			m_i_ParticleDrawOrder = 6;
 
 			m_i_SplitNumber = 0;
 			m_i_CurrentSplit = -1;
 
-			m_f_ParticleSize = 17.0f;
+			m_f_ParticleSize = 12.0f;
 
 			m_f_SpreadDistance = 0.0f;
 			m_f_AngleForSpreadDistance = PI * 2.0f;
@@ -238,11 +238,11 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_f_AngleForOffsetDistance = PI * 0.0f;
 			m_f_OffsetAngle = PI * 0.0f;
 
-			m_x_ParticleEffectColor={ 0.56f, 0.65f,1.0f,0.5f };
+			m_x_ParticleEffectColor={ 0, 0,0.45f,0.4f};
 			m_f_ParticleSpeed = 0;
-			m_f_ParticleSpawnFrequency = 0.1f;
+			m_f_ParticleSpawnFrequency = 0.05f;
 			m_i_ParticleSpawnDensity = 1;
-			m_f_ParticleMaxLifetime = 0.5f;
+			m_f_ParticleMaxLifetime = 0.75f;
 
 			//m_f_ParticleEffectMaxLifetime = 0.5f;
 			m_f_ParticleEffectRemainingLifetime = 0.2f;
@@ -336,11 +336,6 @@ float ParticleSpawnerComponent::GetAngleForOffsetDistance()
 float ParticleSpawnerComponent::GetOffsetAngle()
 {
 	return m_f_OffsetAngle;
-}
-
-float ParticleSpawnerComponent::GetParticleSize()
-{
-	return m_f_ParticleSize;
 }
 
 float ParticleSpawnerComponent::GetParticleSpeed()

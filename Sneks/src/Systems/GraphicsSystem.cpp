@@ -252,6 +252,13 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
 	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
 
+	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
+	LoadTextureToMap("../Resources/Animated/Fire-Explosion-Particle.png", "ExplosionParticle");
+	LoadTextureToMap("../Resources/Animated/Void-Particle.png", "VoidParticle");
+	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle.png", "SparkParticle");
+	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle-White.png", "SparkParticleWhite");
+
+	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
 
 }
 

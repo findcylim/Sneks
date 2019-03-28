@@ -86,8 +86,8 @@ class BaseEntity
 class SnekHeadEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[11] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentAnimation, Component::kComponentPhysics , Component::kComponentSnekHead,
-		Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentParticleEffect, Component::kComponentPowerUp, Component::kComponentBloom, Component::kComponentEnd };
+	Component m_ax_InitialComponents[10] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentAnimation, Component::kComponentPhysics , Component::kComponentSnekHead,
+		Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentPowerUp, Component::kComponentBloom, Component::kComponentEnd };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -95,8 +95,8 @@ public:
 class SnekBodyEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[9] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::KComponentInvulnerable,
-		Component::kComponentCollision, Component::kComponentFollow, Component::kComponentParticleEffect, Component::kComponentBloom, Component::kComponentEnd };
+	Component m_ax_InitialComponents[8] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::KComponentInvulnerable,
+		Component::kComponentCollision, Component::kComponentFollow, Component::kComponentBloom, Component::kComponentEnd };
 
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -104,8 +104,8 @@ public:
 class SnekTailEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[9] = { Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::KComponentInvulnerable,
-		Component::kComponentCollision, Component::kComponentFollow, Component::kComponentParticleEffect, Component::kComponentBloom, Component::kComponentEnd };
+	Component m_ax_InitialComponents[8] = { Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::KComponentInvulnerable,
+		Component::kComponentCollision, Component::kComponentFollow, Component::kComponentBloom, Component::kComponentEnd };
 
 	SnekTailEntity(const char* entityName) : BaseEntity(entityName) {};
 };

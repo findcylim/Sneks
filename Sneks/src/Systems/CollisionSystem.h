@@ -38,8 +38,13 @@ public:
 
 struct CollisionGroupPairing final
 {
-	unsigned int groupA;
-	unsigned int groupB;
+	CollisionGroupName groupA;
+	CollisionGroupName groupB;
+
+	bool operator==(const CollisionGroupPairing& rhs) const
+	{
+		return groupA == rhs.groupA && groupB == rhs.groupB;
+	}
 };
 
 
