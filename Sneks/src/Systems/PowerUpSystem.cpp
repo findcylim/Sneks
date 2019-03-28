@@ -2,6 +2,7 @@
 #include "PowerUpSystem.h"
 #include "../Components/InvulnerableComponent.h"
 #include "../Components/BloomComponent.h"
+#include "../Components/PowerUpHolderComponent.h"
 
 
 PowerUpSystem::PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics, SnekSystem* snek)
@@ -22,6 +23,34 @@ void PowerUpSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 }
 
+HTColor PowerUpSystem::StarColorChange(HTColor& color) const
+{
+//	float* colorToChange = nullptr;
+	HTColor newColor = {1.5f, 1.5f, 1.5f, 1.0f};
+	newColor.alpha = color.alpha;
+	do {
+		int randInt = static_cast<int>(AERandFloat() * 3);
+		if (randInt == 0)
+		{
+			newColor.red = 0;
+			/*colorToChange = &color.red;*/
+		}
+		else if (randInt == 1)
+		{
+			newColor.green = 0;
+		}
+		else if (randInt == 2)
+		{
+			newColor.blue = 0;
+		}
+	} while (newColor.red == color.red &&
+				newColor.green == color.green &&
+				newColor.blue == color.blue);
+
+	color = newColor;
+	return newColor;
+}
+
 void PowerUpSystem::Update(float dt)
 {
 	for (auto powerupComponent = m_po_ComponentManager->GetFirstComponentInstance
@@ -29,11 +58,44 @@ void PowerUpSystem::Update(float dt)
 		powerupComponent != nullptr;
 		powerupComponent = static_cast<PowerUpComponent*>(powerupComponent->m_po_NextComponent))
 	{
-		if (powerupComponent->IsAlive())
+		if (powerupComponent->IsActive())
 		{
-			powerupComponent->UpdateTime(dt);
+			switch (powerupComponent->m_x_PowerUpType)
+			{
+			case kPowerUpSpeedIncrease: break;
+			case kPowerUpGrowthIncrease: break;
+			case kPowerUpUnlimitedSpecial: break;
+			case kPowerUpStar: 
+				{
+				auto snekDraw = powerupComponent->GetComponent<DrawComponent>();
+				auto snekHeadComponent = powerupComponent->GetComponent<SnekHeadComponent>();
+				static float timer = 0;
+				timer += dt;
+				if (timer > 0.2f) 
+				{
+					auto newColor = StarColorChange(snekDraw->m_f_RgbaColor);
+					timer = 0;
+					for (auto& i_BodyParts : snekHeadComponent->m_x_BodyParts)
+					{
+						auto bodyDraw = i_BodyParts->GetComponent<DrawComponent>();
+						bodyDraw->m_f_RgbaColor = newColor;
+					}
+				}
+				break;
+				}
+			case kPowerUpPlusBody: break;
+			case kPowerUpIncreaseDamage: break;
+			default:
+				break;
+			}
+			
+			powerupComponent->m_f_PowerUpDurationLeft -= dt;
+			if (powerupComponent->m_f_PowerUpDurationLeft <= 0)
+			{
+				PowerUpExpire(powerupComponent);
+			}
 		}
-		else if (powerupComponent->GetJustDied())
+		else if (powerupComponent->Expired())
 		{
 			PowerUpExpire(powerupComponent);
 		}
@@ -42,34 +104,17 @@ void PowerUpSystem::Update(float dt)
 
 void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupBuilding)
-		SpawnPowerUp(
-			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData.object1, Component::kComponentTransform),
-			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData.object2, Component::kComponentTransform));
-	else if (eventData.object2->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupBuilding)
-		SpawnPowerUp(
-			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData.object2, Component::kComponentTransform),
-			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>
-			(eventData.object1, Component::kComponentTransform));
+	auto obj2 = eventData.object2;
+	auto obj1 = eventData.object1;
 
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
+	if (obj2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
+		SpawnPowerUp(obj2->GetComponent<TransformComponent>(),
+						 obj1->GetComponent<TransformComponent>());
+	else if (obj2->m_i_CollisionGroupVec[0] == kCollGroupPowerUp)
 	{
-		PowerUpPickup(m_po_ComponentManager->GetSpecificComponentInstance<PowerUpComponent>
-			(eventData.object2, Component::kComponentPowerUp), eventData.object1->GetComponent<DrawComponent>());
+		PowerUpPickup(obj1->GetComponent<PowerUpComponent>(), obj2->GetComponent<PowerUpHolderComponent>());
 
-		m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(
-			eventData.object1->m_po_OwnerEntity));
-	}
-	else if (eventData.object2->m_i_CollisionGroupVec[0] == CollisionGroupName::kCollGroupPowerUp)
-	{
-		PowerUpPickup(m_po_ComponentManager->GetSpecificComponentInstance<PowerUpComponent>
-			(eventData.object1, Component::kComponentPowerUp), eventData.object2->GetComponent<DrawComponent>());
-
-		m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(
-			eventData.object2->m_po_OwnerEntity));
+		m_po_EntityManager->AddToDeleteQueue(obj2->m_po_OwnerEntity);
 	}
 }
 
@@ -94,18 +139,19 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		powerupHolder->GetComponent<PhysicsComponent>()->m_f_Speed = 
 			snekTransform->GetComponent<PhysicsComponent>()->m_f_Speed * m_f_HolderSpeedRatio;
 
-		auto powerUpComp = powerupHolder->GetComponent<PowerUpComponent>();
+		auto powerUpComp = powerupHolder->GetComponent<PowerUpHolderComponent>();
 
-		powerUpComp->SetPowerUp(static_cast<PowerUpType>(rand() % kPowerUpEnd));
-
+		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
+		//MARK
+		powerUpComp->m_x_Type = kPowerUpStar;
 		const char * texture = "PowerUpIcon";
 
-		switch (powerUpComp->m_x_PowerUpType)
+		switch (powerUpComp->m_x_Type)
 		{
 		case kPowerUpSpeedIncrease:
 			texture = "PowerUpIconSpeed";
 			break;
-		case kPowerUpInvul:
+		case kPowerUpStar:
 			texture = "PowerUpIconInvul";
 			break;
 		case kPowerUpPlusBody:
@@ -129,15 +175,15 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 	}
 }
 
-void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp,DrawComponent* powerUpDrawComponent)
+void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderComponent* powerUpHolder)
 {
-
-	if (powerUp->IsAlive() || powerUp->GetJustDied())
+	//Expire the last powerUp
+	if (powerUp->IsActive() || powerUp->Expired())
 		PowerUpExpire(powerUp);
 
-
+	powerUp->SetPowerUp(powerUpHolder->m_x_Type);
 	auto snekHeadComponent = powerUp->GetComponent<SnekHeadComponent>();
-	switch (powerUp->m_x_PowerUpType)
+	switch (powerUpHolder->m_x_Type)
 	{
 		case kPowerUpSpeedIncrease:
 		{
@@ -160,15 +206,8 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp,DrawComponent* power
 		}
 			break;
 
-		case kPowerUpInvul:
+		case kPowerUpStar:
 		{
-			//auto invulComponent = powerup->GetComponent<InvulnerableComponent>();
-			//invulComponent->m_f_InvulnerableTime = powerup->GetPowerIncrease();
-
-			//for (auto& i_BodyParts : snekHeadComponent->m_x_BodyParts) 
-			//{
-			//	invulComponent->m_f_InvulnerableTime =	powerup->GetPowerIncrease();
-			//}
 		}
 			break;
 
@@ -200,6 +239,7 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp,DrawComponent* power
 
 void PowerUpSystem::PowerUpExpire(PowerUpComponent* powerUp) const
 {
+	powerUp->m_f_PowerUpDurationLeft = 0.0f;
 	auto snekHeadComponent = powerUp->GetComponent<SnekHeadComponent>();
 	switch (powerUp->GetPowerUp())
 	{
@@ -224,15 +264,14 @@ void PowerUpSystem::PowerUpExpire(PowerUpComponent* powerUp) const
 		}
 			break;
 
-		case kPowerUpInvul:
+		case kPowerUpStar:
 		{
-			m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>
-				(powerUp, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
-
-			for (auto i_BodyParts : m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-				(powerUp, kComponentSnekHead)->m_x_BodyParts)
-				m_po_ComponentManager->GetSpecificComponentInstance<InvulnerableComponent>(
-					i_BodyParts, KComponentInvulnerable)->m_f_InvulnerableTime = 0;
+			snekHeadComponent->GetComponent<DrawComponent>()->m_f_RgbaColor ={ 1.0f,1.0f,1.0f,1.0f };
+			for (auto& i_BodyParts : snekHeadComponent->m_x_BodyParts)
+			{
+				auto bodyDraw = i_BodyParts->GetComponent<DrawComponent>();
+				bodyDraw->m_f_RgbaColor ={ 1.0f,1.0f,1.0f,1.0f };
+			}
 		}
 			break;
 	}

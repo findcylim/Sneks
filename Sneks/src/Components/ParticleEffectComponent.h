@@ -20,6 +20,7 @@ private:
 	ParticleType m_x_ParticleType = kParticleEmpty;
 
 	AEGfxTexture* m_px_ParticleTexture = nullptr;
+
 	int m_i_ParticleDrawOrder = 3;
 
 	int m_i_SplitNumber = 0;
@@ -55,6 +56,10 @@ private:
 	bool HasParticleEffectOneShot();
 
 public:
+	int m_i_SpriteCountX = 0;
+	int m_i_SpriteCountY = 0;
+	float m_i_SecondsPerFrame = 0.5f;
+
 	void SetParticleType(ParticleType type, GraphicsSystem* graphics);
 	void UpdateTime(float dt);
 	bool IsParticleEffectAlive();

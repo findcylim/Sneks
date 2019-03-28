@@ -17,6 +17,7 @@
 #include "../Components/PowerUpComponent.h"
 #include "../Components/AnimationComponent.h"
 #include "../Components/BloomComponent.h"
+#include "../Components/PowerUpHolderComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -113,6 +114,11 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 		case kComponentBloom: 
 			componentPointer = static_cast<BaseComponent*>(new BloomComponent);
 			break;
+		case kComponentPowerUpHolder:
+			componentPointer = static_cast<BaseComponent*>(new PowerUpHolderComponent);
+			break;
+		
+
 		}
 
 		if (componentPointer)

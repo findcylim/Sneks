@@ -30,8 +30,9 @@ void ParticleSystem::Update(float dt)
 			if (pec->GetIsParticleEffectOneShot())
 			{
 				int density = pec->GetParticleSpawnDensity();
-				for (int iter = 0; iter < density; iter++)
+				for (int iter = 0; iter < density; iter++) 
 					SpawnParticle(pec);
+				
 			}
 			else
 			{
@@ -195,7 +196,7 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* particleEffectComp)
 		{
 			auto drawComp = static_cast<DrawComponent*>(i_Component);
 			m_o_GraphicsSystem->InitializeDrawComponent(drawComp, particleEffectComp->GetParticleTexture(),HTColor{1,1,1,1}
-																		,4,7);
+																		, particleEffectComp->m_i_SpriteCountX, particleEffectComp->m_i_SpriteCountY);
 
 			drawComp->m_f_DrawPriority = particleEffectComp->GetParticleDrawOrder();
 
@@ -204,9 +205,11 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* particleEffectComp)
 		{
 			auto animComp = static_cast<AnimationComponent*>(i_Component);
 			int randRock = static_cast<int>(AERandFloat() * 28) % 28;
-			Animation anim(SpriteSheet{ particleEffectComp->GetParticleTexture()->mpName,4,7}, randRock, 4 * 7);
+			Animation anim(SpriteSheet{ particleEffectComp->GetParticleTexture()->mpName,particleEffectComp->m_i_SpriteCountX,
+												 particleEffectComp->m_i_SpriteCountY}, randRock,
+												 particleEffectComp->m_i_SpriteCountX * particleEffectComp->m_i_SpriteCountY);
 
-			anim.m_f_SecondsPerFrame = 10.0f;
+			anim.m_f_SecondsPerFrame = particleEffectComp->m_i_SecondsPerFrame;
 			animComp->m_vx_AnimationsList.push_back(anim);
 			animComp->m_b_IsAnimating = true;
 			animComp->m_i_CurrentAnimationId = 0;
@@ -215,6 +218,7 @@ void ParticleSystem::SpawnParticle(ParticleEffectComponent* particleEffectComp)
 	}
 
 }
+
 
 float ParticleSystem::CalculateRotation(ParticleEffectComponent* particleEffectComp, TransformComponent* transformComp)
 {

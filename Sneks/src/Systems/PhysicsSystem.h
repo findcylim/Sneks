@@ -1,7 +1,7 @@
 /* Start Header ***************************************************************/
 /*!
 \file PhysicsSystem.h
-\author Lim Chu Yan, chuyan.lim, 440002918
+\author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK

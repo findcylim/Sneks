@@ -24,6 +24,21 @@ Technology is prohibited.
 #include "../Components/DrawComponent.h"
 #include <iostream>
 
+std::vector<CollisionGroupPairing> CollisionSystem::m_vx_CollisionsPairings =
+{ {kCollGroupSnek1Head,kCollGroupSnek2Head},
+ {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
+ {kCollGroupSnek1Head,kCollGroupBuilding },
+ {kCollGroupSnek1Head,kCollGroupPowerUp },
+ {kCollGroupSnek2Head,kCollGroupSnek1Body},
+ {kCollGroupSnek2Head,kCollGroupBuilding },
+ {kCollGroupSnek2Head,kCollGroupPowerUp },
+ {kCollGroupMoon		 ,kCollGroupSnek1Head}, //Moon and Other Head
+ {kCollGroupMoon		 ,kCollGroupSnek1Body}, //Moon and Other Body
+ {kCollGroupMoon		 ,kCollGroupSnek2Head}, //Moon and Other Head
+ {kCollGroupMoon		 ,kCollGroupSnek2Body}, //Moon and Other Body
+ {kCollGroupMoon		 ,kCollGroupBuilding },  //Moon and Buildings
+ {kCollGroupMouse    ,kCollGroupUIButton}
+};
 
 CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)

@@ -6,7 +6,7 @@ enum PowerUpType : unsigned char
 	kPowerUpSpeedIncrease = 0,
 	kPowerUpGrowthIncrease,
 	kPowerUpUnlimitedSpecial,
-	kPowerUpInvul,
+	kPowerUpStar,
 	kPowerUpPlusBody,
 	kPowerUpIncreaseDamage,
 	kPowerUpEnd
@@ -15,17 +15,17 @@ enum PowerUpType : unsigned char
 struct PowerUpComponent : public BaseComponent
 {
 	PowerUpType m_x_PowerUpType = kPowerUpEnd;
-	float m_f_PowerUpRemainingLifetime = 0;
+	float m_f_PowerUpDurationLeft = 0;
 	float m_f_PowerIncrease = 0;
-	bool m_b_JustDied = false;
+	bool m_b_JustExpired = false;
 
 public:
 	PowerUpComponent();
 	void UpdateTime(float dt);
-	void SetPowerUp(PowerUpType type);
+	void SetPowerUp(const PowerUpType type);
 	void ResetPowerIncrease();
 	PowerUpType GetPowerUp() const;
 	float GetPowerIncrease() const;
-	bool IsAlive() const;
-	bool GetJustDied();
+	bool IsActive() const;
+	bool Expired();
 };

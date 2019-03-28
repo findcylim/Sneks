@@ -167,12 +167,14 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		if (eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
 		{
-			auto snekHeadComponent = eventData.object2->m_po_OwnerEntity->
+			auto victimHeadComponent = eventData.object2->m_po_OwnerEntity->
+				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
+			auto attackerHeadComponent = eventData.object1->m_po_OwnerEntity->
 				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
 
-			if (snekHeadComponent->m_po_OwnerEntity->m_b_IsActive)
+			if (victimHeadComponent->m_po_OwnerEntity->m_b_IsActive)
 			{
-				RemoveBodyParts(snekHeadComponent->m_i_CurrentDamage / 2, snekHeadComponent);
+				RemoveBodyParts(attackerHeadComponent->m_i_CurrentDamage / 2, victimHeadComponent);
 			}
 		}
 	}
@@ -401,17 +403,26 @@ void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, Colli
 
 		auto physicsAggressor = aggressorCollision->GetComponent<PhysicsComponent>();
 
-		auto victimPhysics = snekHeadVictim->GetComponent<PhysicsComponent>();
-
-		//Victim head receives some force
-		victimPhysics->SetVelocity(victimPhysics->m_x_Velocity + HTVector2{ physicsAggressor->m_x_Velocity } * 0.5f);
-
 		//Head recoils away
 		HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
 
-		RemoveBodyParts(snekHeadAggressor->m_i_CurrentDamage, snekHeadVictim);
+		auto powerUpComp = snekHeadVictim->GetComponent<PowerUpComponent>();
+		//if victim under star power
+		if (powerUpComp->m_x_PowerUpType == kPowerUpStar &&
+			 powerUpComp->m_f_PowerUpDurationLeft >= 0) 
+		{
+			RemoveBodyParts(snekHeadAggressor->m_i_CurrentDamage, snekHeadAggressor);
+			HeadInvulnerableSet(3.0f, snekHeadAggressor);
+		}
+		else
+		{
+			auto victimPhysics = snekHeadVictim->GetComponent<PhysicsComponent>();
+			RemoveBodyParts(snekHeadAggressor->m_i_CurrentDamage, snekHeadVictim);
+			HeadInvulnerableSet(3.0f, snekHeadVictim);
+			//Victim head receives some force
+			victimPhysics->SetVelocity(victimPhysics->m_x_Velocity + HTVector2{ physicsAggressor->m_x_Velocity } *0.5f);
+		}
 
-		HeadInvulnerableSet(3.0f, snekHeadVictim);
 	}	
 }
 

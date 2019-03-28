@@ -9,6 +9,10 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_x_ParticleType = type;
 		
 			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
+			m_i_SpriteCountX = 4;
+			m_i_SpriteCountY = 7;
+			m_i_SecondsPerFrame = 10.0f;
+
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 0;
@@ -39,6 +43,11 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_x_ParticleType = type;
 
 			m_px_ParticleTexture = graphics->FetchTexture("Rock");
+			m_i_SpriteCountX = 4;
+			m_i_SpriteCountY = 7;
+			m_i_SecondsPerFrame = 10.0f;
+
+
 			m_i_ParticleDrawOrder = 6;
 
 			m_i_SplitNumber = 0;
@@ -69,6 +78,11 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_x_ParticleType = type;
 		
 			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
+			m_i_SpriteCountX = 4;
+			m_i_SpriteCountY = 7;
+			m_i_SecondsPerFrame = 10.0f;
+
+
 			m_i_ParticleDrawOrder = 6;
 		
 			m_i_SplitNumber = 2;
@@ -99,6 +113,11 @@ void ParticleEffectComponent::SetParticleType(ParticleType type, GraphicsSystem*
 			m_x_ParticleType = type;
 
 			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
+			m_i_SpriteCountX = 4;
+			m_i_SpriteCountY = 7;
+			m_i_SecondsPerFrame = 10.0f;
+
+
 			m_i_ParticleDrawOrder = 6;
 
 			m_i_SplitNumber = 0;

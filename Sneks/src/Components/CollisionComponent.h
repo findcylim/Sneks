@@ -1,7 +1,7 @@
 /* Start Header ***************************************************************/
 /*!
 \file CollisionComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918
+\author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
@@ -52,4 +52,10 @@ public:
 	bool							  m_b_Colliding = false;
 	int							  m_i_NumCollisionsAllowedPerFrame = 1;
 	int							  m_i_CollisionsThisFrame = 0;
+	bool IsGroup(CollisionGroupName);
 };
+
+inline bool CollisionComponent::IsGroup(CollisionGroupName collisionGroupName)
+{
+	return m_i_CollisionGroupVec[0] == collisionGroupName;
+}

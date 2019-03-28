@@ -1,6 +1,6 @@
 /* Start Header ***************************************************************/
 /*!
-\file AlphaEngineHelper.h
+\file PowerUpHolderComponent.h
 \author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
@@ -8,9 +8,9 @@
 \par High Tea Studios
 \date Created: 12/02/2019
 \date Modified: 26/03/2019
-\brief This file contains helper functions to some AE Engine features.
+\brief This file contains 
 
-\par Contribution (hours): CY - 1
+\par Contribution (hours): CY - 3
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents
@@ -19,16 +19,18 @@ Technology is prohibited.
 */
 /* End Header *****************************************************************/
 
-#ifndef ALPHA_ENGINE_HELPER_H
-#define ALPHA_ENGINE_HELPER_H
+#ifndef POWERUPHOLDER_COMPONENT_H
+#define POWERUPHOLDER_COMPONENT_H
 #pragma once
-#include <windows.h>
 
-namespace AlphaEngineHelper
+#include "../ECS/ComponentList.h"
+#include "PowerUpComponent.h"
+
+
+class PowerUpHolderComponent : public BaseComponent
 {
-	void AlphaInitialize(HINSTANCE hInstance, int nCmdShow);
-	void GetScreenSize(float* retWidth, float* retHeight);
-
+public:
+	PowerUpType m_x_Type;
 };
 
 #endif

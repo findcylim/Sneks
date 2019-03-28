@@ -331,5 +331,8 @@
     <ClInclude Include="Systems\Menus\PauseMenuSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="Components\PowerUpHolderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

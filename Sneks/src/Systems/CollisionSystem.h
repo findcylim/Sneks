@@ -48,24 +48,10 @@ class CollisionSystem final : public BaseSystem // Add event listeners here
 {
 private:
 	std::vector<CollisionGroup*>					m_xo_ComponentsPerGroup;
-	std::vector<CollisionGroupPairing>			m_vx_CollisionsPairings = 
-		{{kCollGroupSnek1Head,kCollGroupSnek2Head},
-		 {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
-		 {kCollGroupSnek2Head,kCollGroupSnek1Body},
-		 {kCollGroupSnek1Head,kCollGroupBuilding },
-		 {kCollGroupSnek2Head,kCollGroupBuilding },
-		 {kCollGroupSnek1Head,kCollGroupPowerUp },
-		 {kCollGroupSnek2Head,kCollGroupPowerUp },
-		 {kCollGroupMoon		 ,kCollGroupSnek1Head}, //Moon and Other Head
-		 {kCollGroupMoon		 ,kCollGroupSnek1Body}, //Moon and Other Body
-		 {kCollGroupMoon		 ,kCollGroupSnek2Head}, //Moon and Other Head
-		 {kCollGroupMoon		 ,kCollGroupSnek2Body}, //Moon and Other Body
-		 {kCollGroupMoon		 ,kCollGroupBuilding },  //Moon and Buildings
-		 {kCollGroupMouse    ,kCollGroupUIButton}
-		};
-
 
 public:
+	static std::vector<CollisionGroupPairing>	m_vx_CollisionsPairings;
+
 	CollisionSystem(EntityManager* entityManagerPtr);
 	~CollisionSystem();
 	void Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
@@ -80,4 +66,7 @@ public:
 	void UpdateAllHitBoxes();
 	void UpdateHitBoxes(CollisionGroup* collisionGroup) const;
 };
+
+
+
 #endif
