@@ -35,6 +35,8 @@ Technology is prohibited.
 #include "PhysicsSystem.h"
 #include "../Components/BloomComponent.h"
 #include "BuildingsSystem.h"
+#include "CollisionSystem.h"
+#include "../Components/PowerUpHolderComponent.h"
 
 int SnekSystem::GetWinner()
 {
@@ -239,6 +241,12 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 				if (snekLostLife)
 				{
+					//m_o_SystemManager->DisableSystem<PhysicsSystem>();
+					//m_o_SystemManager->DisableSystem<CollisionSystem>();
+					//m_o_SystemManager->DisableSystem<SnekSystem>();
+
+
+
 					ResetStage();
 				}
 
@@ -359,6 +367,12 @@ void SnekSystem::ResetStage()
 	}, kComponentSnekHead);
 	
 	ResetDamageAll();
+
+	m_po_ComponentManager->Each<PowerUpHolderComponent>([&](PowerUpHolderComponent* comp)
+	{
+		m_po_EntityManager->AddToDeleteQueue(comp->m_po_OwnerEntity);
+	}, kComponentPowerUpHolder);
+
 	m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings")->ResetLevel1();
 }
 
@@ -756,13 +770,13 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 
 	if (playerNumber == 0)
 	{
-		transformComp->SetRotation(PI);
+		transformComp->SetRotation(PI * 3 / 4);
 		transformComp->SetPositionX(-200);
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
 	else
 	{
-		transformComp->SetRotation(0);
+		transformComp->SetRotation(PI * 7 / 4);
 		transformComp->SetPositionX(200);
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
@@ -773,6 +787,24 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody01", playerNumber);
 		else
 			CreateSnekBody(static_cast<SnekHeadEntity*>(owner), "SnekBody02", playerNumber);
+	}
+
+	for (int i = 0 ; i < 120; ++i)
+	{
+		
+			
+		for (auto& i_Body : snekHeadComp->m_x_BodyParts)
+		{
+			auto bodyDraw = i_Body->GetComponent<DrawComponent>();
+			auto followComponent = i_Body->GetComponent<FollowComponent>();
+			auto followDrawComponent =	followComponent->m_po_FolloweeTransform->m_po_OwnerEntity->
+												 GetComponent<DrawComponent>();
+
+			auto headPhysicsComponent = snekHeadComp->GetComponent<PhysicsComponent>();
+
+			FaceReference(followComponent->m_po_FolloweeTransform, bodyDraw->m_po_TransformComponent);
+			MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
+		}
 	}
 }
 

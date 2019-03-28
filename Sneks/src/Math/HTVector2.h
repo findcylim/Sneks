@@ -105,6 +105,28 @@ struct HTVector2 final
 	{
 		return !(*this == rhs);
 	}
+
+	HTVector2& operator*=(const HTVector2& rhs)
+	{
+		x *= rhs.x;
+		y *= rhs.y;
+		return (*this);
+	}
+
+
+	HTVector2& operator*=(const float& rhs)
+	{
+		x *= rhs;
+		y *= rhs;
+		return (*this);
+	}
+
+	HTVector2& operator/=(const HTVector2& rhs)
+	{
+		x /= rhs.x;
+		y /= rhs.y;
+		return (*this);
+	}
 };
 
 

@@ -53,28 +53,25 @@ HTColor PowerUpSystem::StarColorChange(HTColor& color) const
 
 void PowerUpSystem::Update(float dt)
 {
-	for (auto powerupComponent = m_po_ComponentManager->GetFirstComponentInstance
-		<PowerUpComponent>(Component::kComponentPowerUp);
-		powerupComponent != nullptr;
-		powerupComponent = static_cast<PowerUpComponent*>(powerupComponent->m_po_NextComponent))
+	m_po_ComponentManager->Each<PowerUpComponent>([&](PowerUpComponent* powerUpComponent)
 	{
-		if (powerupComponent->IsActive())
+		if (powerUpComponent->IsActive())
 		{
-			switch (powerupComponent->m_x_PowerUpType)
+			switch (powerUpComponent->m_x_PowerUpType)
 			{
 			case kPowerUpSpeedIncrease: break;
 			case kPowerUpGrowthIncrease: break;
 			case kPowerUpUnlimitedSpecial: break;
-			case kPowerUpStar: 
-				{
-				auto snekDraw = powerupComponent->GetComponent<DrawComponent>();
-				auto snekHeadComponent = powerupComponent->GetComponent<SnekHeadComponent>();
-				static float timer = 0;
-				timer += dt;
-				if (timer > 0.2f) 
+			case kPowerUpStar:
+			{
+				auto snekDraw = powerUpComponent->GetComponent<DrawComponent>();
+				auto snekHeadComponent = powerUpComponent->GetComponent<SnekHeadComponent>();
+				//float timer = 0;
+				powerUpComponent->m_f_SpecialTimer += dt * (0.5f + (powerUpComponent->m_f_PowerUpDurationLeft / 10));
+				if (powerUpComponent->m_f_SpecialTimer >= 0.2f)
 				{
 					auto newColor = StarColorChange(snekDraw->m_f_RgbaColor);
-					timer = 0;
+					powerUpComponent->m_f_SpecialTimer = 0;
 					for (auto& i_BodyParts : snekHeadComponent->m_x_BodyParts)
 					{
 						auto bodyDraw = i_BodyParts->GetComponent<DrawComponent>();
@@ -82,24 +79,25 @@ void PowerUpSystem::Update(float dt)
 					}
 				}
 				break;
-				}
+			}
 			case kPowerUpPlusBody: break;
 			case kPowerUpIncreaseDamage: break;
 			default:
 				break;
 			}
-			
-			powerupComponent->m_f_PowerUpDurationLeft -= dt;
-			if (powerupComponent->m_f_PowerUpDurationLeft <= 0)
+
+			powerUpComponent->m_f_PowerUpDurationLeft -= dt;
+			if (powerUpComponent->m_f_PowerUpDurationLeft <= 0)
 			{
-				PowerUpExpire(powerupComponent);
+				PowerUpExpire(powerUpComponent);
 			}
 		}
-		else if (powerupComponent->Expired())
+		else if (powerUpComponent->Expired())
 		{
-			PowerUpExpire(powerupComponent);
+			PowerUpExpire(powerUpComponent);
 		}
-	}
+
+	}, kComponentPowerUp, true);
 }
 
 void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
@@ -180,7 +178,7 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 	//Expire the last powerUp
 	if (powerUp->IsActive() || powerUp->Expired())
 		PowerUpExpire(powerUp);
-
+	powerUp->m_b_JustExpired = false;
 	powerUp->SetPowerUp(powerUpHolder->m_x_Type);
 	auto snekHeadComponent = powerUp->GetComponent<SnekHeadComponent>();
 	switch (powerUpHolder->m_x_Type)

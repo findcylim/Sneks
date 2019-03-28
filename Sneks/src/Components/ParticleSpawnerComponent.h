@@ -53,10 +53,10 @@ private:
 	bool m_b_HasParticleEffectFired = false;
 
 	TransformComponent* m_po_SpawnTransform = nullptr;
-
+	TransformComponent  m_x_LastKnown;
 public:
-	float m_f_ParticleSize = 0.0f;
-
+	HTVector2 m_f_ParticleSize ={ 1.0f, 1.0f };
+	bool m_b_UseStaticLocation = false;
 	int m_i_SpriteCountX = 0;
 	int m_i_SpriteCountY = 0;
 	float m_i_SecondsPerFrame = 0.5f;

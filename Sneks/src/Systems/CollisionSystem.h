@@ -47,7 +47,6 @@ struct CollisionGroupPairing final
 	}
 };
 
-
 class CollisionSystem final : public BaseSystem // Add event listeners here
 , public EventListener<Events::EV_ENTITY_POOL_CHANGED>
 {

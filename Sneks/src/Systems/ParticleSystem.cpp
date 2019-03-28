@@ -18,14 +18,44 @@ ParticleSystem::~ParticleSystem()
 void ParticleSystem::Initialize()
 {
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
+
 }
+
+int createdTrails = 0;
+ParticleSpawnerComponent* trails[2];
 
 void ParticleSystem::Update(float dt)
 {
+	if (!createdTrails) {
+		m_po_ComponentManager->Each<SnekHeadComponent>([&](SnekHeadComponent* snekHead)
+		{
+			trails[createdTrails] = CreateParticleSpawner(snekHead->m_x_BodyParts.back()->
+											GetComponent<TransformComponent>(),kParticleTrailEffect);
+			if (!snekHead->m_i_PlayerNumber)
+			{
+				trails[createdTrails]->m_x_ParticleEffectColor ={ 0, 0,0.45f,1.0f };
+			}
+			else
+			{
+				trails[createdTrails]->m_x_ParticleEffectColor ={ 0.5f,0,0.1f,1.0f };
+			}
+			++createdTrails;
+		}, kComponentSnekHead);
+	}
+
+	//int snekCount = 0;
+	//m_po_ComponentManager->Each<SnekHeadComponent>([&](SnekHeadComponent* snekHead)
+	//{
+	//	trails[snekCount]->SetSpawnTransform(snekHead->m_x_BodyParts.back()->
+	//													 GetComponent<TransformComponent>());
+	//	++snekCount;
+	//}, kComponentSnekHead);
+
 	for (auto pec = m_po_ComponentManager->GetFirstComponentInstance
 		<ParticleSpawnerComponent>(Component::kComponentParticleEffect);
 		pec != nullptr;	pec = static_cast<ParticleSpawnerComponent*>(pec->m_po_NextComponent))
 	{
+
 		if (pec->IsParticleEffectAlive())
 		{
 			if (pec->GetIsParticleEffectOneShot())
@@ -53,8 +83,8 @@ void ParticleSystem::Update(float dt)
 
 			pec->UpdateTime(dt);
 		}
-		else;
-			//m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(pec->m_po_OwnerEntity));
+		else
+			m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(pec->m_po_OwnerEntity));
 	}
 	for (auto pc = m_po_ComponentManager->GetFirstComponentInstance
 		<ParticleComponent>(Component::kComponentParticle);
@@ -70,8 +100,8 @@ void ParticleSystem::Update(float dt)
 		else
 			m_po_EntityManager->AddToDeleteQueue(static_cast<BaseEntity*>(pc->m_po_OwnerEntity));
 	}
-}
 
+}
 void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	CollisionGroupName collGroup1 = eventData.object1->m_i_CollisionGroupVec[0];
@@ -109,16 +139,15 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		colPairing == CollisionSystem::m_vx_CollisionsPairings[4])
 	{
 		auto particleSpawnerComp = CreateParticleSpawner(tcp2, kParticleHit);
-
 		//head x head
 		if (colPairing == CollisionSystem::m_vx_CollisionsPairings[0])
 		{
-			particleSpawnerComp->m_f_ParticleSize *= (tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage +
-																  tcp2->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage) * 0.16f;
+			particleSpawnerComp->m_f_ParticleSize *= 0.5f + ((tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage +
+																  tcp2->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage) * 0.16f);
 		}
 		else //if head x body, take heads' damage
 		{
-			particleSpawnerComp->m_f_ParticleSize *= tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage * 0.33f;
+			particleSpawnerComp->m_f_ParticleSize *= 0.5f + (tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage * 0.33f);
 		}
 		return;
 	}
@@ -256,7 +285,7 @@ void ParticleSystem::SpawnParticle(ParticleSpawnerComponent* particleEffectComp)
 
 			transComp->SetRotation(CalculateRotation(particleEffectComp, particleEffectTransform));
 
-			transComp->SetScale(particleEffectComp->m_f_ParticleSize);
+			transComp->m_f_Scale = (particleEffectComp->m_f_ParticleSize);
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
@@ -269,7 +298,6 @@ void ParticleSystem::SpawnParticle(ParticleSpawnerComponent* particleEffectComp)
 																		, particleEffectComp->m_i_SpriteCountX, particleEffectComp->m_i_SpriteCountY);
 
 			drawComp->m_f_DrawPriority = particleEffectComp->GetParticleDrawOrder();
-
 		}
 		else if (i_Component->m_x_ComponentID == kComponentAnimation)
 		{

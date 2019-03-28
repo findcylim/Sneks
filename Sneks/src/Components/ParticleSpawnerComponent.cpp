@@ -39,6 +39,8 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_b_IsParticleEffectEternal = false;
 			m_b_IsParticleEffectOneShot = true;
 			m_b_HasParticleEffectFired = false;
+			m_b_UseStaticLocation = true;
+
 
 			break;
 
@@ -80,36 +82,39 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 		case ParticleType::kParticleTrailEffect:
 			m_x_ParticleType = type;
 		
-			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
-			m_i_SpriteCountX = 4;
-			m_i_SpriteCountY = 7;
+			m_px_ParticleTexture = graphics->FetchTexture("junction.png");
+			m_i_SpriteCountX = 1;
+			m_i_SpriteCountY = 1;
 			m_i_SecondsPerFrame = 10.0f;
 
-
-			m_i_ParticleDrawOrder = 6;
+			m_i_ParticleDrawOrder = 8;
 		
 			m_i_SplitNumber = 2;
 			m_i_CurrentSplit = -1;
 		
-			m_f_ParticleSize = 0.6f;
+			m_f_ParticleSize = 1.0f;
+			m_f_ParticleSize.x *= 5.0f;
+
 		
-			m_f_SpreadDistance = 25.0f;
-			m_f_AngleForSpreadDistance = PI * 0.5f;
-			m_f_SpreadAngle = PI * 0.15f;
-			m_f_OffsetDistance = 0.0f;
-			m_f_AngleForOffsetDistance = PI * 0.0f;
-			m_f_OffsetAngle = PI * 0.0f;
+			m_f_SpreadDistance = 20.0f;
+			m_f_AngleForSpreadDistance = 0;
+			m_f_SpreadAngle = 0;
+			m_f_OffsetDistance = 10.0f;
+			m_f_AngleForOffsetDistance = 0;
+			m_f_OffsetAngle = 0;
 		
-			m_f_ParticleSpeed = 100.0f;
-			m_f_ParticleSpawnFrequency = 1.0f;
-			m_i_ParticleSpawnDensity = 3;
-			m_f_ParticleMaxLifetime = 2.0f;
+			m_f_ParticleSpeed = 0;
+			m_f_ParticleSpawnFrequency = 0.03f;
+			m_i_ParticleSpawnDensity = 2;
+			m_f_ParticleMaxLifetime = 0.8f;
 
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
-			m_f_ParticleEffectRemainingLifetime = 0.0f;
+			m_f_ParticleEffectRemainingLifetime = 10000000.0f;
 			m_b_IsParticleEffectEternal = true;
 			m_b_IsParticleEffectOneShot = false;
 			m_b_HasParticleEffectFired = false;
+			m_b_AlphaScalingEnabled = true;
+
 		break;
 		case kParticleSnekImpactSparks: 
 			
@@ -180,6 +185,7 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_b_IsParticleEffectOneShot = true;
 			m_b_HasParticleEffectFired = false;
 			m_b_AlphaScalingEnabled = false;
+			m_b_UseStaticLocation = true;
 			break;
 
 		case ParticleType::kParticleHit:
@@ -188,33 +194,34 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_px_ParticleTexture = graphics->FetchTexture("HitParticle");
 			m_i_SpriteCountX = 4;
 			m_i_SpriteCountY = 1;
-			m_i_SecondsPerFrame = 0.1f;
+			m_i_SecondsPerFrame = 0.08f;
 
 			m_i_ParticleDrawOrder = 6;
 
-			m_i_SplitNumber = 0;
+			m_i_SplitNumber = 1;
 			m_i_CurrentSplit = -1;
 
 			m_f_ParticleSize = 1.7f;
 
 			m_f_SpreadDistance = 0.0f;
-			m_f_AngleForSpreadDistance = PI * 0.0f;
+			m_f_AngleForSpreadDistance = 0;
 			m_f_SpreadAngle = 0;
 			m_f_OffsetDistance = 0.0f;
 			m_f_AngleForOffsetDistance = PI * 0.0f;
 			m_f_OffsetAngle = PI * 0.0f;
 
 			m_f_ParticleSpeed = 0;
-			m_f_ParticleSpawnFrequency = 0.0f;
-			m_i_ParticleSpawnDensity = 10;
-			m_f_ParticleMaxLifetime = 0.4f;
+			m_f_ParticleSpawnFrequency = 0.05f;
+			m_i_ParticleSpawnDensity = 3;
+			m_f_ParticleMaxLifetime = 0.32f;
 
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
-			m_f_ParticleEffectRemainingLifetime = 0.0f;
+			m_f_ParticleEffectRemainingLifetime = 0.3f;
 			m_b_IsParticleEffectEternal = false;
-			m_b_IsParticleEffectOneShot = true;
+			m_b_IsParticleEffectOneShot = false;
 			m_b_HasParticleEffectFired = false;
-			m_b_AlphaScalingEnabled = false;
+			m_b_AlphaScalingEnabled = true;
+			m_b_UseStaticLocation = true;
 			break;
 		case ParticleType::kParticleSpark:
 			m_x_ParticleType = type;
@@ -370,12 +377,25 @@ bool ParticleSpawnerComponent::GetIsParticleEffectOneShot()
 
 void ParticleSpawnerComponent::SetSpawnTransform(TransformComponent* spawnTransform)
 {
+	if (spawnTransform)
+		m_x_LastKnown = *spawnTransform;
 	m_po_SpawnTransform = spawnTransform;
 }
 
 TransformComponent* ParticleSpawnerComponent::GetSpawnTransform()
 {
-	return m_po_SpawnTransform;
+	if (m_b_UseStaticLocation)
+	{
+		return &m_x_LastKnown;
+	}
+	//TODO FIX do not store TransformComponent*
+	if (m_po_SpawnTransform->m_x_ComponentID == kComponentTransform) 
+	{
+		m_x_LastKnown = *m_po_SpawnTransform;
+		return m_po_SpawnTransform;
+	}
+	else 
+		return &m_x_LastKnown;
 }
 
 
