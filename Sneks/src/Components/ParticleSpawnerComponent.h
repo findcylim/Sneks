@@ -14,7 +14,8 @@ enum ParticleType : unsigned char
 	kParticleLargeOneShot,
 	kParticleExplosion,
 	kParticleHit,
-	kParticleSpark
+	kParticleSpark,
+	kParticleText
 };
 
 class ParticleSpawnerComponent : public BaseComponent
@@ -28,6 +29,9 @@ private:
 	int m_i_SplitNumber = 0;
 	int m_i_CurrentSplit = -1;
 
+	//for transform location
+	bool m_b_ParticleFixOffset = false;
+	bool m_b_ParticleFixDirection = false;
 
 	float m_f_SpreadDistance = 0.0f;
 	//Angle stored as radian.
@@ -69,6 +73,7 @@ public:
 
 
 	void SetParticleType(ParticleType type, GraphicsSystem* graphics);
+	void SetPickUpText(AEGfxTexture* texture);
 	void UpdateTime(float dt);
 	bool IsParticleEffectAlive();
 
@@ -94,6 +99,8 @@ public:
 	float GetParticleStartingAlpha();
 	float GetParticleFadeAmount();
 	bool GetIsParticleEffectOneShot();
+	bool GetIsParticleFixOffset();
+	bool GetIsParticleFixDirection();
 
 	void SetSpawnTransform(TransformComponent* spawnTransform);
 	TransformComponent* GetSpawnTransform();

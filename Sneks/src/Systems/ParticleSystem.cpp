@@ -3,6 +3,7 @@
 #include <random>
 #include <iostream>
 #include "CollisionSystem.h"
+#include "../Components/PowerUpHolderComponent.h"
 
 ParticleSystem::ParticleSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics)
 	: BaseSystem(entityManagerPointer)
@@ -129,6 +130,24 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 		if (tcp1->GetComponent<SnekHeadComponent>()->m_i_PlayerNumber == 1)
 			particleSpawnerComp->m_x_ParticleEffectColor = {0.5f,0,0.1f,0.4f};
+
+		auto text = CreateParticleSpawner(tcp1, kParticleText);
+
+		AEGfxTexture* texture = nullptr;
+
+		switch (tcp2->GetComponent<PowerUpHolderComponent>()->m_x_Type)
+		{
+			case kPowerUpSpeedIncrease:
+				break;
+			case kPowerUpPlusBody:
+				break;
+			case kPowerUpStar:
+				texture = m_o_GraphicsSystem->FetchTexture("PowerUpTextStar");
+				break;
+		}
+
+		if(texture)
+			text->SetPickUpText(texture);
 
 		return;
 	}
@@ -326,23 +345,40 @@ void ParticleSystem::SpawnParticle(ParticleSpawnerComponent* particleEffectComp)
 
 float ParticleSystem::CalculateRotation(ParticleSpawnerComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	return ((AERandFloat() - 0.5f) * particleEffectComp->GetSpreadAngle() + particleEffectComp->GetOffsetAngle()) + transformComp->GetRotation();
+	if (particleEffectComp->GetIsParticleFixDirection())
+		return particleEffectComp->GetOffsetAngle();
+	else
+		return ((AERandFloat() - 0.5f) * particleEffectComp->GetSpreadAngle() + particleEffectComp->GetOffsetAngle()) + transformComp->GetRotation();
 }
 
 float ParticleSystem::CalculatePositionX(ParticleSpawnerComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	float randFloat = AERandFloat();
-	return (transformComp->GetPosition().x + cos(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) * 
-		particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat) *
-		particleEffectComp->GetSpreadDistance() * cos(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
-		((randFloat > 0.5f) ? 1.0f : -1.0f));
+	if (particleEffectComp->GetIsParticleFixOffset())
+	{
+		return (transformComp->GetPosition().x + cos(particleEffectComp->GetAngleForOffsetDistance()) * particleEffectComp->GetOffsetDistance());
+	}
+	else
+	{
+		float randFloat = AERandFloat();
+		return (transformComp->GetPosition().x + cos(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) *
+			particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat) *
+			particleEffectComp->GetSpreadDistance() * cos(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
+			((randFloat > 0.5f) ? 1.0f : -1.0f));
+	}
 }
 
 float ParticleSystem::CalculatePositionY(ParticleSpawnerComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	float randFloat = AERandFloat();
-	return transformComp->GetPosition().y + (sin(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) *
-		particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat)*
-		particleEffectComp->GetSpreadDistance() * sin(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
-		((randFloat > 0.5f) ? 1.0f : -1.0f));
+	if (particleEffectComp->GetIsParticleFixOffset())
+	{
+		return (transformComp->GetPosition().y + sin(particleEffectComp->GetAngleForOffsetDistance()) * particleEffectComp->GetOffsetDistance());
+	}
+	else
+	{
+		float randFloat = AERandFloat();
+		return transformComp->GetPosition().y + (sin(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) *
+			particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat)*
+			particleEffectComp->GetSpreadDistance() * sin(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
+			((randFloat > 0.5f) ? 1.0f : -1.0f));
+	}
 }

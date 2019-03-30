@@ -260,6 +260,8 @@ void GraphicsSystem::PreLoadTextures()
 
 	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
 
+	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
+
 }
 
 AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
