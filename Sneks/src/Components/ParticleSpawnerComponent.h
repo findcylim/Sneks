@@ -45,6 +45,9 @@ private:
 	int m_i_ParticleSpawnDensity = 0;
 	float m_f_ParticleMaxLifetime = 0.0f;
 
+	float m_f_ParticleStartingAlpha = 1.0f;
+	float m_f_ParticleFadeAmount = 1.0f;
+
 	//float m_f_ParticleEffectMaxLifetime = 0.0f;
 	float m_f_ParticleEffectRemainingLifetime = 0.0f;
 	float m_f_ParticleEffectSpawnTimer = 0.0f;
@@ -88,6 +91,8 @@ public:
 	int GetParticleSpawnDensity();
 	float GetParticleSpawnFrequency();
 	float& GetParticleSpawnTimer();
+	float GetParticleStartingAlpha();
+	float GetParticleFadeAmount();
 	bool GetIsParticleEffectOneShot();
 
 	void SetSpawnTransform(TransformComponent* spawnTransform);
