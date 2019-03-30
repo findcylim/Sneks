@@ -72,6 +72,8 @@ void HUDSystem::Update(float dt)
 	(void)dt;
 	CanvasComponent * can_Comp = m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas, "Heads Up Display")->GetComponent<CanvasComponent>();
 
+	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
+
 	/* Updating Lives */
 
 	for (auto& element : can_Comp->m_x_CanvasElementList)
@@ -92,7 +94,7 @@ void HUDSystem::Update(float dt)
 		}
 	}
 
-	switch (GetP1Lives()) {
+	switch (snek->GetLives(0)) {
 	case 0:
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
@@ -142,7 +144,7 @@ void HUDSystem::Update(float dt)
 		break;
 	}
 
-	switch (GetP2Lives()) {
+	switch (snek->GetLives(1)) {
 	case 0:
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
@@ -203,31 +205,64 @@ void HUDSystem::Update(float dt)
 		if (!strcmp(element->m_pc_EntityName, "RBar"))
 		{
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
-			trans_Comp->SetScaleX(GetP1GrowthPercentage() * 960);
+			trans_Comp->SetScaleX(snek->GetGrowthPercentage(0) * 960);
 
-			difference = (960.0f / screenX * GetP1GrowthPercentage() - 960.0f / screenX * oldScale1) / 2.0f;
+			difference = (960.0f / screenX * snek->GetGrowthPercentage(0) - 960.0f / screenX * oldScale1) / 2.0f;
 
 			if (difference > 0)
 				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
 			else if (difference < 0)
 				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
 
-			oldScale1 = GetP1GrowthPercentage();
+			oldScale1 = snek->GetGrowthPercentage(0);
 		}
 
 		if (!strcmp(element->m_pc_EntityName, "LBar"))
 		{
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
-			trans_Comp->SetScaleX(GetP2GrowthPercentage() * 960);
+			trans_Comp->SetScaleX(snek->GetGrowthPercentage(1) * 960);
 
-			difference = (960.0f / screenX * GetP2GrowthPercentage() - 960.0f / screenX * oldScale2) / 2.0f;
+			difference = (960.0f / screenX * snek->GetGrowthPercentage(1) - 960.0f / screenX * oldScale2) / 2.0f;
 
 			if (difference > 0)
 				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
 			else if (difference < 0)
 				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
 
-			oldScale2 = GetP2GrowthPercentage();
+			oldScale2 = snek->GetGrowthPercentage(1);
+		}
+	}
+
+	for (auto& element : can_Comp->m_x_CanvasElementList)
+	{
+		if (!strcmp(element->m_pc_EntityName, "sRBar"))
+		{
+			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
+			trans_Comp->SetScaleX(snek->GetSpecialAttackPercentage(0) * 960);
+
+			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(0) - 960.0f / screenX * oldScale1) / 2.0f;
+
+			if (difference > 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+			else if (difference < 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+
+			oldScale1 = snek->GetSpecialAttackPercentage(0);
+		}
+
+		if (!strcmp(element->m_pc_EntityName, "sLBar"))
+		{
+			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
+			trans_Comp->SetScaleX(snek->GetSpecialAttackPercentage(1) * 960);
+
+			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(1) - 960.0f / screenX * oldScale2) / 2.0f;
+
+			if (difference > 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+			else if (difference < 0)
+				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+
+			oldScale2 = snek->GetSpecialAttackPercentage(1);
 		}
 	}
 

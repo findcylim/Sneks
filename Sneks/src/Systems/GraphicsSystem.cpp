@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file GraphicsSystem.cpp
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 15
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #include "GraphicsSystem.h"
 #include <algorithm>
 #include <vector>
@@ -220,8 +241,10 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/PowerUpIconHealth.png", "PowerUpIconHealth");
 	LoadTextureToMap("../Resources/PowerUpIconInvul.png", "PowerUpIconInvul");
 	LoadTextureToMap("../Resources/PowerUpIconSpeed.png", "PowerUpIconSpeed");
+	LoadTextureToMap("../Resources/PowerUpIcon.png", "PowerUpIcon");
 	LoadTextureToMap("../Resources/RockSpriteSheet.png", "Rocks");
 	LoadTextureToMap("../Resources/UIHelpMenu.png", "UIHelpMenu");
+	LoadTextureToMap("../Resources/UIGame_Paused.png", "UIGame_Paused");
 
 
 	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");
@@ -229,6 +252,13 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
 	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
 
+	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
+	LoadTextureToMap("../Resources/Animated/Fire-Explosion-Particle.png", "ExplosionParticle");
+	LoadTextureToMap("../Resources/Animated/Void-Particle.png", "VoidParticle");
+	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle.png", "SparkParticle");
+	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle-White.png", "SparkParticleWhite");
+
+	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
 
 }
 
@@ -241,6 +271,31 @@ AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char*
 
 void GraphicsSystem::Update(float dt)
 {
+	//TODO:: MOVE TO BLOOM SYSTEM
+	m_po_ComponentManager->Each<BloomComponent>([&](BloomComponent* bloomComp)
+	{
+		if (bloomComp->m_b_FlashingBloom)
+		{
+			bloomComp->m_f_BloomStrength += bloomComp->m_f_FlashingSpeed * bloomComp->m_f_FlashingMagnitude * dt;
+
+
+			if (bloomComp->m_f_BloomStrength > bloomComp->m_f_FlashingStrengthMax ||
+				bloomComp->m_f_BloomStrength < bloomComp->m_f_FlashingStrengthMin)
+				bloomComp->m_f_FlashingMagnitude *= -1.0f;
+			//bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
+		}
+		//if it is snekhead
+		if (auto i_SnekHead = bloomComp->GetComponent<SnekHeadComponent>())
+		{
+			auto i_Physics = i_SnekHead->GetComponent<PhysicsComponent>();
+			auto speedBloomStr = i_Physics->m_f_Speed / 600.0f * bloomComp->m_f_BaseBloomStrength * 1.5f;
+			bloomComp->m_f_BloomStrength = speedBloomStr;
+			for (auto& bodyPart : i_SnekHead->m_x_BodyParts)
+				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength = speedBloomStr;
+		}
+	}, kComponentBloom);
+
+
 	Draw(dt);
 }
 
@@ -372,8 +427,8 @@ void GraphicsSystem::DrawBloom(DrawComponent* drawComponent)
 		for (int offSetX = -bloomComponent->m_i_BloomIterations;
 			offSetX <= bloomComponent->m_i_BloomIterations; offSetX++)
 		{
-			for (int offSetY = -bloomComponent->m_i_BloomIterations;
-				offSetY <= bloomComponent->m_i_BloomIterations; offSetY++)
+			for (int offSetY = -bloomComponent->m_i_BloomIterations + 1;
+				offSetY <= bloomComponent->m_i_BloomIterations - 1; offSetY++)
 			{
 				if (offSetX == 0 && offSetY == 0)
 					continue;
@@ -469,31 +524,30 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 
 void GraphicsSystem::DrawTextRenderer()const
 {
-	auto text_Comp = m_po_ComponentManager->GetFirstComponentInstance<TextRendererComponent>(kComponentTextRenderer);
 	
 	float halfScreenSizeX, halfScreenSizeY;
 	AlphaEngineHelper::GetScreenSize(&halfScreenSizeX, &halfScreenSizeY);
 	halfScreenSizeX /= 2;
 	halfScreenSizeY /= 2;
 
-	while (text_Comp)
+	m_po_ComponentManager->Each<TextRendererComponent>([&](TextRendererComponent* text_Comp)
 	{
-		if (text_Comp->m_b_IsActive)
+		//if (text_Comp->m_b_IsActive)
+		//{
+		if (text_Comp->m_p_Text)
 		{
-			if (text_Comp->m_p_Text)
-			{
-				char textToDraw[100];
-				sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+			char textToDraw[100];
+			sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
 
-				
-				AEGfxPrint(m_i_font,
-					textToDraw,
-					static_cast<s32>(text_Comp->m_x_TextPosition.x - halfScreenSizeX),
-					static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 0, 0, 0);
-			}
+
+			AEGfxPrint(m_i_font,
+				textToDraw,
+				static_cast<s32>(text_Comp->m_x_TextPosition.x - halfScreenSizeX),
+				static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 0, 0, 0);
 		}
-		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
-	}
+		//}
+	}, kComponentTextRenderer, true);
+
 }
 
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue)

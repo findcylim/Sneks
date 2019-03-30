@@ -10,13 +10,14 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/FollowComponent.h"
-#include "../Components/ParticleEffectComponent.h"
+#include "../Components/ParticleSpawnerComponent.h"
 #include "../Components/ParticleComponent.h"
 #include "../Components/CanvasComponent.h"
 #include "../Components/TextRendererComponent.h"
 #include "../Components/PowerUpComponent.h"
 #include "../Components/AnimationComponent.h"
 #include "../Components/BloomComponent.h"
+#include "../Components/PowerUpHolderComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -85,7 +86,7 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			componentPointer = static_cast<BaseComponent*>(new FollowComponent);
 			break;
 		case kComponentParticleEffect:
-			componentPointer = static_cast<BaseComponent*>(new ParticleEffectComponent);
+			componentPointer = static_cast<BaseComponent*>(new ParticleSpawnerComponent);
 			break;
 		case kComponentParticle:
 			componentPointer = static_cast<BaseComponent*>(new ParticleComponent);
@@ -113,6 +114,11 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 		case kComponentBloom: 
 			componentPointer = static_cast<BaseComponent*>(new BloomComponent);
 			break;
+		case kComponentPowerUpHolder:
+			componentPointer = static_cast<BaseComponent*>(new PowerUpHolderComponent);
+			break;
+		
+
 		}
 
 		if (componentPointer)
@@ -183,7 +189,7 @@ void ComponentManager::DeleteComponent(BaseComponent* componentPointer)
 		for (i_vectorIndex = 0; componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList[i_vectorIndex] != componentPointer; i_vectorIndex++);
 
 		componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.erase(componentPointer->m_po_OwnerEntity->m_v_AttachedComponentsList.begin() + i_vectorIndex);
-
+		
 		delete componentPointer;
 	}
 }

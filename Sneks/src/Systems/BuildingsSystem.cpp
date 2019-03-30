@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file BuildingsSystem.cpp
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 5
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #include "BuildingsSystem.h"
 #include "../Components/CollisionComponent.h"
 
@@ -16,25 +37,28 @@ BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem
 	m_o_GraphicsSystem = graphics;
 }
 
+void BuildingsSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
+{
+	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ||
+		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
+		--m_i_BuildingsCount;
+
+}
+
 
 void BuildingsSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
-
-	/*
-	test for object to follow camera center
-	works now
-	todo: implement the moving of objects together with normal culling
-	should move when camera touches the edge of each background
-
-	auto bg = m_po_EntityManager->GetFirstEntityInstance<StaticObjectEntity>(kEntityStaticObject);
-	auto camera = m_po_EntityManager->GetFirstEntityInstance<CameraEntity>(kEntityCamera);
-	bg->GetComponent<TransformComponent>()->m_x_Position = HTVector2{ 0,0 }-camera->GetComponent<CameraComponent>()->m_f_VirtualOffset;
-	*/
+	if (m_i_BuildingsCount < 500)
+	{
+		ResetLevel1();
+	}
 }
 
 void BuildingsSystem::Initialize()
 {
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+
 	m_i_MaxBuildingsX = 1920 / 80 * (bgInstancesX * 2 + 1);
 	m_i_MaxBuildingsY = 1080 / 45 * (bgInstancesY * 2 + 1);
 
@@ -46,8 +70,15 @@ void BuildingsSystem::Initialize()
 	m_BuildingCoordsCurrent.clear();
 
 	LoadPossibleLocations();
-	GenerateNewBuildings(1500);
+	ResetLevel1();
 
+}
+
+void BuildingsSystem::ResetLevel1()
+{
+	RemoveBuildings();
+	GenerateNewBuildings(kBuildingsSpawnCount);
+	m_i_BuildingsCount = kBuildingsSpawnCount;
 }
 
 StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY, 
@@ -69,7 +100,7 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName);
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName, HTColor{0.96f,1,0.88f,1});
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 9;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentCollision)
@@ -79,6 +110,11 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 		}
 	}
 	return newBuildingEntity;
+}
+
+BuildingsSystem::~BuildingsSystem()
+{
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
 void BuildingsSystem::GenerateNewBuildings(int num)

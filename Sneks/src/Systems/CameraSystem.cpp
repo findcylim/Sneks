@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file CameraSystem.cpp
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 5
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #include "CameraSystem.h"
 #include "../Components/CameraComponent.h"
 #include "../Math/Aabb.h"
@@ -9,7 +30,15 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
 	{
 	}
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
+		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body ||
+		eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head &&
+		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body ||
+		eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
+		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head) {
+		SetShake(13.0f);
+	}
+	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{ 
 	}
 	else
@@ -64,27 +93,23 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 				if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
 				{
-					cameraComponent->m_i_CurrentStage = -1;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
 				}
 				if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y / 2 * cameraComponent->m_x_CurrentViewDistance.y)
 				{
-					cameraComponent->m_i_CurrentStage = -1;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
 				}
 				if (distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x * cameraComponent->m_x_CurrentViewDistance.x)
 				{
-					cameraComponent->m_i_CurrentStage = -2;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed;
 				}
 				if (distFromScreenEdgeY > -cameraComponent->m_f_DistanceOutTolerance.y * cameraComponent->m_x_CurrentViewDistance.y)
 				{
-					cameraComponent->m_i_CurrentStage = -2;
 					cameraComponent->m_f_ZoomVelocity -= cameraComponent->m_x_CameraAttributes.zoomOutBaseSpeed * 1.3f;
 				}
 
-				//if (cameraComponent->m_f_VirtualScale < 0.5f)
-				//	cameraComponent->m_f_ZoomVelocity = 0;
+				if (cameraComponent->m_f_VirtualScale < 0.5f)
+					cameraComponent->m_f_ZoomVelocity = 0;
 
 				//Record the object nearest to the edge
 				if (distFromScreenEdgeX > lowestDistanceFromScreenEdgeX &&
@@ -106,20 +131,6 @@ void CameraSystem::UpdateCamera(const float dt) const
 				}
 
 			}
-			/*TODO:: Stage based camera zoom (if further then zoom slower)
-			if (m_i_CurrentStage == -1)
-				m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
-				//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30 * m_x_CameraAttributes.perStageMultiplier;
-			else if (m_i_CurrentStage == -2)
-				m_f_ZoomVelocity -= m_x_CameraAttributes.zoomOutBaseSpeed;
-
-				//m_x_CameraAttributes.zoomOutMaxSpeed = m_x_CameraAttributes.zoomOutBaseSpeed * 30;
-			case 1://m_f_ZoomVelocity += m_x_CameraAttributes.zoomInBaseSpeed;
-				break;
-			case 0:
-				break;
-			default: m_f_ZoomVelocity = 0;
-			}*/
 		}
 
 		if (cameraComponent->m_f_ZoomVelocity > cameraComponent->m_x_CameraAttributes.zoomInMaxSpeed)
@@ -128,7 +139,6 @@ void CameraSystem::UpdateCamera(const float dt) const
 			cameraComponent->m_f_ZoomVelocity = -cameraComponent->m_x_CameraAttributes.zoomOutMaxSpeed;
 		else if (fabsf(cameraComponent->m_f_ZoomVelocity) < 0.0005f) {
 			cameraComponent->m_f_ZoomVelocity = 0;
-			cameraComponent->m_i_CurrentStage = 0;
 		}
 
 

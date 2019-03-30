@@ -22,6 +22,7 @@ enum Component : unsigned char
 	kComponentTextRenderer,
 	kComponentPowerUp,
 	kComponentBloom,
+	kComponentPowerUpHolder,
 	kComponentEnd
 };
 

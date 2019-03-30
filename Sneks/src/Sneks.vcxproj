@@ -23,7 +23,7 @@
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\DrawComponent.cpp" />
     <ClCompile Include="Components\ParticleComponent.cpp" />
-    <ClCompile Include="Components\ParticleEffectComponent.cpp" />
+    <ClCompile Include="Components\ParticleSpawnerComponent.cpp" />
     <ClCompile Include="Components\TextRendererComponent.cpp" />
     <ClCompile Include="Components\PowerUpComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
@@ -38,7 +38,6 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Math\Aabb.cpp" />
     <ClCompile Include="Math\CameraShake.cpp" />
-    <ClCompile Include="Math\PerlinNoise.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -79,9 +78,10 @@
     <ClInclude Include="Components\FollowComponent.h" />
     <ClInclude Include="Components\InvulnerableComponent.h" />
     <ClInclude Include="Components\ParticleComponent.h" />
-    <ClInclude Include="Components\ParticleEffectComponent.h" />
+    <ClInclude Include="Components\ParticleSpawnerComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\PowerUpComponent.h" />
+    <ClInclude Include="Components\PowerUpHolderComponent.h" />
     <ClInclude Include="Components\SnekHeadComponent.h" />
     <ClInclude Include="Components\TextRendererComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
@@ -100,7 +100,6 @@
     <ClInclude Include="Math\CameraShake.h" />
     <ClInclude Include="Math\HTColor.h" />
     <ClInclude Include="Math\HTVector2.h" />
-    <ClInclude Include="Math\PerlinNoise.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Systems\AnimationSystem.h" />
     <ClInclude Include="Systems\AudioSystem.h" />

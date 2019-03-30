@@ -65,9 +65,6 @@
     <ClCompile Include="Utility\DebugPrintToScreen.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Math\PerlinNoise.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
@@ -111,9 +108,6 @@
     <ClCompile Include="Systems\ProjectileSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Components\ParticleEffectComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="Components\ParticleComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -156,6 +150,9 @@
     </ClCompile>
     <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp">
       <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleSpawnerComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,9 +216,6 @@
     <ClInclude Include="Math\HTVector2.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\PerlinNoise.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\MemoryAllocator.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -282,9 +276,6 @@
     <ClInclude Include="Utility\FileIO.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Components\ParticleEffectComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Components\ParticleComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -336,6 +327,12 @@
     </ClInclude>
     <ClInclude Include="Systems\Menus\PauseMenuSystem.h">
       <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PowerUpHolderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleSpawnerComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

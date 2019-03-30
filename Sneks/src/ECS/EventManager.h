@@ -54,11 +54,6 @@ namespace Events
 
 	};
 
-	struct EV_SNEK_INVULNERABLE
-	{
-		SnekHeadComponent* snekHead;
-	};
-
 	struct EV_CREATE_PROJECTILE
 	{
 		bool isCollide;

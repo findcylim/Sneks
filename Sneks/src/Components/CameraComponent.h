@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file CameraComponent.h
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 3
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 
 #ifndef CAMERACOMPONENT_H
 #define CAMERACOMPONENT_H
@@ -42,7 +63,6 @@ public:
 	HTVector2           m_f_DistanceOutTolerance ={ 0.05f,0.15f };
 	HTVector2           m_f_DistanceInTolerance  ={ 0.2f,0.2f };
 	CameraAttributes    m_x_CameraAttributes;
-	int					  m_i_CurrentStage;
 
 	//ZOOM AND OFFSET ( CAMERA "X Y Z" )
 	HTVector2			  m_f_TargetOffset;

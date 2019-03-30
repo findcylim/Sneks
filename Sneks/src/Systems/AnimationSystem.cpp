@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file AnimationSystem.cpp
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 19/03/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 5
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #include "AnimationSystem.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/AnimationComponent.h"
@@ -30,15 +51,13 @@ void AnimationSystem::Initialize()
 		"TestAnim", SpriteSheet{ texture,4,7 }
 	));*/
 
-	auto animationComponent = m_po_ComponentManager->GetFirstComponentInstance<AnimationComponent>(kComponentAnimation);
-	//iterate all animation comps
-	while (animationComponent)
+	m_po_ComponentManager->Each<AnimationComponent>([&](AnimationComponent* animationComponent)->void
 	{
 		auto& currentAnim = animationComponent->m_vx_AnimationsList[animationComponent->m_i_CurrentAnimationId];
 		currentAnim.m_i_CurrentFrameIndex = currentAnim.m_i_StartFrame;
 		UpdateDrawCompTexture(animationComponent);
 		animationComponent = static_cast<AnimationComponent*>(animationComponent->m_po_NextComponent);
-	}
+	}, kComponentAnimation);
 
 }
 
