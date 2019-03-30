@@ -33,6 +33,7 @@ public:
 	float m_f_MaxAlphaBlinking = 0.5f;
 	float m_f_MinAlphaBlinking = 0.1f;
 	float m_f_BlinkSpeed = 2.0f;
+	bool m_b_IsAlive = false;
 };
 
 #endif //INVULNERABLE_COMPONENT_H

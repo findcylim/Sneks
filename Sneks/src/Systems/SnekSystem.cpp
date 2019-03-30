@@ -582,6 +582,14 @@ void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 		float blinkSpeedModifier = 1.0f / invulComponent->m_f_InvulnerableTime;
 		float blinkSpeedModifierClamped = AEClamp(blinkSpeedModifier, 0.2f, 1.0f);
 
+		if (!invulComponent->m_b_IsAlive)
+		{
+			drawComponent->m_f_RgbaColor.red += 1.0f;
+			drawComponent->m_f_RgbaColor.blue -= 0.3f;
+			drawComponent->m_f_RgbaColor.green -= 0.3f;
+			invulComponent->m_b_IsAlive = true;
+		}
+
 		drawComponent->m_f_RgbaColor.alpha -= blinkSpeedModifierClamped * invulComponent->m_f_BlinkSpeed * dt;
 
 		if (drawComponent->GetAlpha() <= invulComponent->m_f_MinAlphaBlinking)
@@ -594,6 +602,14 @@ void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 	{
 		collisionComponent->enabled = true;
 		drawComponent->SetAlpha(1.0f);
+
+		if (invulComponent->m_b_IsAlive)
+		{
+			drawComponent->m_f_RgbaColor.red -= 1.0f;
+			drawComponent->m_f_RgbaColor.blue += 0.3f;
+			drawComponent->m_f_RgbaColor.green += 0.3f;
+			invulComponent->m_b_IsAlive = false;
+		}
 	}
 }
 
