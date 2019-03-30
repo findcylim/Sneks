@@ -53,7 +53,7 @@ private:
 	int                              m_i_MaxBuildingsY;
 	HTVector2                        m_i_FirstBuildingCoords;
 	int m_i_BuildingsCount = 0;
-	const int kBuildingsSpawnCount = 1000;
+	const int kBuildingsSpawnCount = 1500;
 };
 
 #endif //BUILDINGS_SYSTEM_H
