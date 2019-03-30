@@ -98,6 +98,14 @@ void PowerUpSystem::Update(float dt)
 		}
 
 	}, kComponentPowerUp, true);
+
+	m_po_ComponentManager->Each<PowerUpHolderComponent>([&](PowerUpHolderComponent* powerUpHolderComponent)
+	{
+		powerUpHolderComponent->m_f_RemainingLife -= dt;
+
+		if (powerUpHolderComponent->m_f_RemainingLife <= 0)
+			m_po_EntityManager->AddToDeleteQueue(powerUpHolderComponent->m_po_OwnerEntity);
+	}, kComponentPowerUpHolder, true);
 }
 
 void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
@@ -142,6 +150,8 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
 		//MARK
 		powerUpComp->m_x_Type = kPowerUpStar;
+		powerUpComp->m_f_RemainingLife = m_f_HolderLifeTime;
+
 		const char * texture = "PowerUpIcon";
 
 		switch (powerUpComp->m_x_Type)

@@ -31,6 +31,7 @@ class PowerUpHolderComponent : public BaseComponent
 {
 public:
 	PowerUpType m_x_Type;
+	float m_f_RemainingLife;
 };
 
 #endif
