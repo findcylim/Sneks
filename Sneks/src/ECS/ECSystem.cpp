@@ -193,6 +193,8 @@ void ECSystem::InitializeEngine()
 	WinScreen->SetName("WinScreen");
 	m_o_SystemManager->AddSystem(WinScreen);
 
+	m_o_GameStateManager->AddGraphics(graphics);
+
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
 	/*************************************************************************/
@@ -262,7 +264,7 @@ void ECSystem::Update()
 		if (actualDt > dtCap)
 			++m_o_SystemManager->m_i_DroppedFrames;
 
-		m_o_GameStateManager->Update();
+		m_o_GameStateManager->Update(cappedDt);
 		m_o_EventManager->Update();
 		m_o_SystemManager->Update(cappedDt);
 

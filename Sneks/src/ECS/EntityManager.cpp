@@ -156,6 +156,10 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 		case Entity::kEntityPowerUpHolder:
 			componentPointer = ((PowerUpHolderEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
+
+		case Entity::kEntityScreenOverlay:
+			componentPointer = ((ScreenOverlayEntity*)entityPointer)->m_ax_InitialComponents;
+			break;
 		}
 
 		if (componentPointer)
@@ -232,6 +236,10 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 		
 		case kEntityPowerUpHolder:
 			entityPointer = (BaseEntity*)new PowerUpHolderEntity(entityName);
+			break;
+		
+		case kEntityScreenOverlay:
+			entityPointer = (BaseEntity*)new ScreenOverlayEntity(entityName);
 			break;
 	}
 

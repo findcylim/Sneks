@@ -315,7 +315,7 @@ void ParticleSpawnerComponent::SetPickUpText(AEGfxTexture* texture)
 	m_i_SpriteCountY = 1;
 	m_i_SecondsPerFrame = 10.0f;
 
-	m_i_ParticleDrawOrder = 1;
+	m_i_ParticleDrawOrder = 2;
 
 	m_i_SplitNumber = 0;
 	m_i_CurrentSplit = -1;

@@ -22,6 +22,7 @@ enum Entity : unsigned char
 	kEntityCanvasTextLabel,
 	kEntityMouse,
 	kEntityPowerUpHolder,
+	kEntityScreenOverlay,
 	kEntityEnd
 };
 
