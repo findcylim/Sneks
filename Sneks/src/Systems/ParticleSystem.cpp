@@ -138,8 +138,10 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		switch (tcp2->GetComponent<PowerUpHolderComponent>()->m_x_Type)
 		{
 			case kPowerUpSpeedIncrease:
+				texture = m_o_GraphicsSystem->FetchTexture("PowerUpTextBoost");
 				break;
 			case kPowerUpPlusBody:
+				texture = m_o_GraphicsSystem->FetchTexture("PowerUpTextHealth");
 				break;
 			case kPowerUpStar:
 				texture = m_o_GraphicsSystem->FetchTexture("PowerUpTextStar");

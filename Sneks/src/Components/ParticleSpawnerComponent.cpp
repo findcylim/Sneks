@@ -323,11 +323,11 @@ void ParticleSpawnerComponent::SetPickUpText(AEGfxTexture* texture)
 	m_f_ParticleSize = 1.0f;
 
 	m_f_SpreadDistance = 0.0f;
-	m_f_AngleForSpreadDistance = 0.0f;
-	m_f_SpreadAngle = 0;
+	m_f_AngleForSpreadDistance = PI * 0.0f;
+	m_f_SpreadAngle = PI * 0.0f;
 	m_f_OffsetDistance = 50.0f;
 	m_f_AngleForOffsetDistance = PI * 0.5f;
-	m_f_OffsetAngle = PI * 0.0f;
+	m_f_OffsetAngle = PI * 0.5f;
 
 	m_x_ParticleEffectColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 	m_f_ParticleSpeed = 200.0f;

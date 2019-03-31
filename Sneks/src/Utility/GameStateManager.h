@@ -47,7 +47,7 @@ private:
 	bool m_b_PutTransition = false;
 	bool m_b_RemoveTransition = false;
 	float m_f_ScreenMoveSpeed = 5000.0f;
-	float m_f_ScreenWidth = 2000.0f;
+	float m_f_ScreenWidth = 2500.0f;
 	ScreenOverlayEntity* m_x_TransitionEntity = nullptr;
 public:
 	time_t ReturnTimeStamp();

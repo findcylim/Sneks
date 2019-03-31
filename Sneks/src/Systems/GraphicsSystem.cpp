@@ -261,6 +261,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
 
 	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
+	LoadTextureToMap("../Resources/PowerUpTextHealth.png", "PowerUpTextHealth");
+	LoadTextureToMap("../Resources/PowerUpTextBoost.png", "PowerUpTextBoost");
 
 }
 
