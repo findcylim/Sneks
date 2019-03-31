@@ -30,7 +30,7 @@ class BuildingsSystem:
 	public EventListener<Events::EV_PLAYER_COLLISION>
 {
 public:
-	BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
+	BuildingsSystem( GraphicsSystem* graphics);
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 
 	void Update(float dt) override;

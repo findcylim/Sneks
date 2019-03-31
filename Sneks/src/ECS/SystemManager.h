@@ -16,13 +16,22 @@ private:
 	EntityManager* m_o_EntityManager;
 	Logger* m_o_Logger;
 
-
-
-
 public:
 	size_t GetSystemCount() const;
-	void AddSystem(BaseSystem* NewSystem);
-	void RemoveSystem(BaseSystem* RemSystem);
+
+	template <typename SystemType>
+	SystemType* MakeSystem(const char* systemName = "")
+	{
+		auto newSystem = new SystemType();
+		AddSystem(newSystem);
+		newSystem->SetName(systemName);
+		newSystem->Initialize();
+		return newSystem;
+	}
+
+
+	void AddSystem(BaseSystem* newSystem);
+	void RemoveSystem(BaseSystem* toRemove);
 	void Update(float dt);
 	//BaseSystem* GetSystem(int ID); 
 	//BaseSystem* GetSystem(const char * systemName);
@@ -31,13 +40,17 @@ public:
 	~SystemManager();
 
 	template <typename SystemType>
-	SystemType* GetSystem(const char* Name)
+	SystemType* GetSystem(const char* Name = "")
 	{
 		for (BaseSystem* currSystem : m_v_SystemList)
 		{
-			if (currSystem->GetName() == Name)
+			if (auto system = dynamic_cast<SystemType*>(currSystem))
 			{
-				return static_cast<SystemType*>(currSystem);
+				if (strlen(Name))
+					if (currSystem->GetName() != Name)
+						continue;
+				return system;
+				//return static_cast<SystemType*>(currSystem);
 			}
 		}
 		return nullptr;
@@ -97,5 +110,7 @@ public:
 	//TODO
 	int m_i_DroppedFrames;
 };
+
+
 
 #endif

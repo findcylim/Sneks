@@ -31,7 +31,7 @@ private:
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 public:
 
-	CameraSystem(EntityManager* entityManagerPtr);
+	CameraSystem();
 	~CameraSystem();
 	void Initialize();
 	void UpdateCamera(float dt) const;

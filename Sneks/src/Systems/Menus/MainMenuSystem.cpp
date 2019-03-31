@@ -5,15 +5,6 @@
 #include "../SnekSystem.h"
 
 
-MainMenuSystem::MainMenuSystem(EntityManager* entityManagerPtr, EventManager* eventManager)
-	:BaseSystem(entityManagerPtr)
-{
-	m_po_EventManagerPtr = eventManager;
-	//auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	//cameraComponent->m_f_VirtualOffset.x = -AEGfxGetWinMaxX();
-	//cameraComponent->m_f_VirtualOffset.y = AEGfxGetWinMaxY();
-	//cameraComponent->m_f_VirtualScale = 1.0f;
-}
 
 MainMenuSystem::~MainMenuSystem()
 {
@@ -66,7 +57,7 @@ float zoomSpeed = 0.05f;
 void MainMenuSystem::Update(float dt)
 {
 	
-	auto snekSystem = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
+	auto snekSystem = m_po_SystemManager->GetSystem<SnekSystem>("Snek");
 	if (AEInputCheckTriggered(AEVK_1))
 		snekSystem->SetSnekType(0, kSnekTypeSpeed);
 	else if (AEInputCheckTriggered(AEVK_2))

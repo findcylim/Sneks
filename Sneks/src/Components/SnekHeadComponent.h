@@ -33,9 +33,8 @@ enum SnekType : unsigned char
 };
 
 
-class SnekHeadComponent : public BaseComponent
+struct SnekHeadComponent : public BaseComponent
 {
-public:
 	float m_f_AccelerationForce            = 200;
 	float m_f_TurnSpeed                    = 6;
 	float m_f_IdleSpeed                    = 100;		//default move speed

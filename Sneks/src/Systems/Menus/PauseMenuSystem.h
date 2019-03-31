@@ -7,7 +7,7 @@ class PauseMenuSystem :
 	public BaseSystem
 {
 public:
-	PauseMenuSystem(EntityManager* entityManager, EventManager* eventManager);
+	PauseMenuSystem();
 	void Initialize();
 	~PauseMenuSystem();
 	void Update(float dt)override;

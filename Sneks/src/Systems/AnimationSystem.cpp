@@ -29,8 +29,7 @@ void AnimationSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	UNREFERENCED_PARAMETER(eventData);
 }
 
-AnimationSystem::AnimationSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphicsSystem):
-BaseSystem(entityManagerPtr),
+AnimationSystem::AnimationSystem( GraphicsSystem* graphicsSystem):
 m_o_GraphicsSystem(graphicsSystem)
 {
 }

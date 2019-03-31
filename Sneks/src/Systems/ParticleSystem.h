@@ -27,7 +27,7 @@ private:
 		TransformComponent** outTransformComponent);
 
 public:
-	ParticleSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics);
+	ParticleSystem(GraphicsSystem* graphics);
 	~ParticleSystem();
 
 	void Initialize();

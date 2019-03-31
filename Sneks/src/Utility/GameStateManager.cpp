@@ -53,12 +53,12 @@ void GameStateManager::SetState(State state)
 	m_x_Next = state;
 }
 
-GameStateManager::GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr, bool * engineStatus)
+GameStateManager::GameStateManager(State InitialState,  SystemManager* systemManagerPtr, EntityManager* entityManager, EventManager* eventManagerPtr, bool * engineStatus)
 {
 	m_x_Current		= InitialState;
 	m_x_Next		= InitialState;
 	m_x_Previous	= InitialState;
-	m_o_EntityManager = entityManagerPtr;
+	m_o_EntityManager = entityManager;
 	m_o_SystemManager = systemManagerPtr;
 	m_o_EventManager = eventManagerPtr;
 	EngineStatus = engineStatus;
@@ -90,42 +90,16 @@ void GameStateManager::UnloadMainMenu()
 
 void GameStateManager::ResetBattle()
 {
-	//auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
 
-	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
-
-	while (snekHead)
-	{
-		m_o_SystemManager->GetSystem<SnekSystem>("Snek")->DeleteSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
-		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
-	}
 	m_o_EntityManager->ResolveDeletes();
 
 	auto camera = m_o_SystemManager->GetSystem<CameraSystem>("Camera");
 	camera->RemoveCameraTrackObjects();
 
-	//m_o_SystemManager->RemoveSystem(m_o_SystemManager->GetSystem<BaseSystem>("Snek"));
-	//auto snek = new SnekSystem(m_o_EntityManager, graphics, this);
-	//m_o_SystemManager->AddSystem(snek);
-	//snek->SetName("Snek");
-	//snek->Initialize();
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-	//snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
-	//snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
-	snek->CreateSnek(-200, 0, PI * 3 / 4, 20, "HeadAnim", 0);
-	snek->CreateSnek(200, 0, PI * 7 / 4, 20, "SnekHead02", 1);
 
-	auto buildings = m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings");
-	buildings->RemoveBuildings();
-	buildings->GenerateNewBuildings(500);
-
-	
-	//auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
-	//m_o_SystemManager->AddSystem(buildings);
-	//buildings->SetName("Buildings");
-	//buildings->Initialize();
-	snek->ResetDamageAll();
-	snek->ResetLivesAll();
+	//auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
+	snek->ResetStage();
 }
 
 void GameStateManager::LoadBattle()

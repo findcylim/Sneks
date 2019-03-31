@@ -150,10 +150,8 @@ float SnekSystem::GetSpecialAttackPercentage(int playerNum) const
 	return toReturn;
 }
 
-SnekSystem::SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr)
-: BaseSystem(entityManagerPtr)
+SnekSystem::SnekSystem( GraphicsSystem* graphics)
 {
-	m_o_GameStateManager = gameStateManagerPtr;
 	m_o_GraphicsSystem = graphics;
 }
 
@@ -258,8 +256,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				auto snekTrans2 = m_po_ComponentManager->GetSpecificComponentInstance
 					<TransformComponent>(snekHed2, kComponentTransform);
 					
-				float xDistance = snekTrans2->GetPosition().x - snekTrans1->GetPosition().x;
-				float yDistance = snekTrans2->GetPosition().y - snekTrans1->GetPosition().y;
+				float xDistance = snekTrans2->m_x_Position.x - snekTrans1->m_x_Position.x;
+				float yDistance = snekTrans2->m_x_Position.y - snekTrans1->m_x_Position.y;
 				float angle, snekHedDir;
 				bool collide;
 
@@ -373,7 +371,7 @@ void SnekSystem::ResetStage()
 		m_po_EntityManager->AddToDeleteQueue(comp->m_po_OwnerEntity);
 	}, kComponentPowerUpHolder);
 
-	m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings")->ResetLevel1();
+	m_po_SystemManager->GetSystem<BuildingsSystem>("Buildings")->ResetLevel1();
 }
 
 
@@ -656,8 +654,8 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPositionX(posX);
-			static_cast<TransformComponent*>(i_Component)->SetPositionY(posY);
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.x=(posX);
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.y = (posY);
 			static_cast<TransformComponent*>(i_Component)->SetRotation(rotation);
 
 			auto cameraComponent =
@@ -766,18 +764,18 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 
 	owner->GetComponent<PowerUpComponent>()->ResetPowerIncrease();
 
-	transformComp->SetPositionY(0);
+	transformComp->m_x_Position.y = (0);
 
 	if (playerNumber == 0)
 	{
 		transformComp->SetRotation(PI * 3 / 4);
-		transformComp->SetPositionX(-200);
+		transformComp->m_x_Position.x = (-200);
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
 	else
 	{
 		transformComp->SetRotation(PI * 7 / 4);
-		transformComp->SetPositionX(200);
+		transformComp->m_x_Position.x = (200);
 		owner->GetComponent<PhysicsComponent>()->SetVelocity(velocity);
 	}
 	int partsToSpawn = 20 - static_cast<int>(snekHeadComp->m_x_BodyParts.size()) + 1;
@@ -791,8 +789,6 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 
 	for (int i = 0 ; i < 120; ++i)
 	{
-		
-			
 		for (auto& i_Body : snekHeadComp->m_x_BodyParts)
 		{
 			auto bodyDraw = i_Body->GetComponent<DrawComponent>();
@@ -910,9 +906,9 @@ void SnekSystem::CreateSnekBody(SnekHeadEntity* owner, const char* textureName, 
 			angle.x *= referenceDraw->GetSizeInPixels().x * 0.85f;
 			angle.y *= referenceDraw->GetSizeInPixels().y * 0.85f;
 
-			tailTransform->SetPositionX(
+			tailTransform->m_x_Position.x = (
 				referenceTransform->m_x_Position.x + angle.x);
-			tailTransform->SetPositionY(
+			tailTransform->m_x_Position.y = (
 				referenceTransform->m_x_Position.y + angle.y);
 
 			FaceReference(referenceTransform, static_cast<TransformComponent*>(i_Component) );
@@ -1027,9 +1023,9 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 			angle.x *= referenceDraw->GetSizeInPixels().x * 0.55f;
 			angle.y *= referenceDraw->GetSizeInPixels().y * 0.55f;
 
-			static_cast<TransformComponent*>(i_Component)->SetPositionX(
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.x = (
 				referenceTransform->m_x_Position.x + angle.x);
-			static_cast<TransformComponent*>(i_Component)->SetPositionY(
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.y = (
 				referenceTransform->m_x_Position.y + angle.y);
 			//Change the rotation to face towards reference
 			FaceReference(referenceTransform, static_cast<TransformComponent*>(i_Component));
@@ -1166,12 +1162,12 @@ void SnekSystem::Flip(SnekHeadEntity* owner)
 	headPhysicsComponent->m_f_Speed *= 0.6f;
 
 	//Swap the head and tail position
-	auto tempX = headTransformComponent->GetPosition().x;
-	auto tempY = headTransformComponent->GetPosition().y;
-	headTransformComponent->SetPositionX(tailTransformComponent->GetPosition().x);
-	headTransformComponent->SetPositionY(tailTransformComponent->GetPosition().y);
-	tailTransformComponent->SetPositionX(tempX);
-	tailTransformComponent->SetPositionY(tempY);
+	auto tempX = headTransformComponent->m_x_Position.x;
+	auto tempY = headTransformComponent->m_x_Position.y;
+	headTransformComponent->m_x_Position.x = (tailTransformComponent->m_x_Position.x);
+	headTransformComponent->m_x_Position.y = (tailTransformComponent->m_x_Position.y);
+	tailTransformComponent->m_x_Position.x = (tempX);
+	tailTransformComponent->m_x_Position.y = (tempY);
 
 	//Swap the head and tail rotation
 	tempX = headTransformComponent->GetRotation();

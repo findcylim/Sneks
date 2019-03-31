@@ -29,7 +29,7 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_EntityComponentManager	   = new EntityManager();
-	m_o_GameStateManager           = new GameStateManager(kStateMainMenu, m_o_EntityComponentManager, m_o_SystemManager, m_o_EventManager,&m_b_EngineStatus);
+	m_o_GameStateManager           = new GameStateManager(kStateMainMenu, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
 	m_b_EngineStatus			   = true;
 }
 
@@ -44,6 +44,16 @@ ECSystem::~ECSystem()
 	
 }
 
+
+void ECSystem::LoadLevel1()
+{
+	m_o_EntityComponentManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
+	auto snek = m_o_SystemManager->GetSystem<SnekSystem>();
+
+	snek->CreateSnek(-200, 0, PI * 3 / 4, 20, "HeadAnim", 0);
+	snek->CreateSnek(200, 0, PI * 7 / 4, 20, "SnekHead02", 1);
+}
+
 /*******************************************************
 Function: InitializeEngine
 ***************************
@@ -52,45 +62,31 @@ Function: InitializeEngine
 	Place all initialization functions here.
 
 ********************************************************/
-
 void ECSystem::InitializeEngine()
 {
-	//TODO change this state to splash screen/main menu in the future
-	
-	
-	//m_o_EventManager->Initialize();
-	/*
-		Create and add Events here
-	*/
-	m_o_Logger->LogMessage(LOGGER_SYSTEM, "TEST %f", 232.034f);
-
-
 	m_o_SystemManager->Initialize(m_o_EventManager, m_o_EntityComponentManager);
-	/*
-		Create and add Systems here
-	*/
 
-	m_o_EntityComponentManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
-	
+	auto graphics = new GraphicsSystem();
+	auto physics = new PhysicsSystem();
+	auto camera = new CameraSystem();
+	//auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
+	auto snek = new SnekSystem(graphics);
+	auto background = new BackgroundSystem(graphics);
+	auto buildings = new BuildingsSystem(graphics);
+	auto collisions = new CollisionSystem();
+	auto projectile = new ProjectileSystem(graphics);
+	auto particle = new ParticleSystem(graphics);
+	auto audio = new AudioSystem();
+	auto powerUp = new PowerUpSystem(graphics);
+	auto helpMenu = new HelpMenuSystem();
+	auto canvas = new CanvasUISystem(graphics);
+	auto anim = new AnimationSystem(graphics);
+	auto input = new InputSystem();
+	auto mainMenu = new MainMenuSystem();
+	auto hud = new HUDSystem(graphics);
+	auto pauseMenu = new PauseMenuSystem();
+	auto winScreen = new WinScreenSystem();
 
-	auto graphics = new GraphicsSystem(m_o_EntityComponentManager);
-	auto physics = new PhysicsSystem(m_o_EntityComponentManager);
-	auto camera = new CameraSystem(m_o_EntityComponentManager);
-	auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
-	auto snek = new SnekSystem(m_o_EntityComponentManager, graphics, m_o_GameStateManager);
-	auto background = new BackgroundSystem(m_o_EntityComponentManager, graphics);
-	auto buildings = new BuildingsSystem(m_o_EntityComponentManager, graphics);
-	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
-	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
-	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
-	auto audio = new AudioSystem(m_o_EntityComponentManager);
-	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
-	auto helpmenu = new HelpMenuSystem(m_o_EntityComponentManager,m_o_EventManager);
-	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
-	auto anim = new AnimationSystem(m_o_EntityComponentManager, graphics);
-	
-
-	
 
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
@@ -104,7 +100,7 @@ void ECSystem::InitializeEngine()
 	snek->SetName("Snek");
 	snek->Initialize();
 
-	
+
 	m_o_SystemManager->AddSystem(physics);
 	physics->SetName("Physics");
 	physics->Initialize(m_o_GameStateManager);
@@ -117,13 +113,10 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(collisions);
 	collisions->Initialize();
 	collisions->SetName("Collisions");
-	m_b_EngineStatus = true;
-
 
 	m_o_SystemManager->AddSystem(graphics);
 	graphics->SetName("Graphics");
 	graphics->Initialize();
-	graphics->PreLoadTextures();
 
 	m_o_SystemManager->AddSystem(anim);
 	anim->SetName("Animations");
@@ -137,9 +130,6 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(audio);
 	audio->Initialize();
 
-	snek->CreateSnek(-200, 0, PI* 3 / 4, 20, "HeadAnim", 0);
-	snek->CreateSnek(200, 0, PI* 7 / 4, 20, "SnekHead02", 1);
-
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");
 	background->CreateInstancedBackgrounds(3, 3, "Background01");
@@ -148,50 +138,45 @@ void ECSystem::InitializeEngine()
 	buildings->SetName("Buildings");
 	buildings->Initialize();
 
-	m_o_SystemManager->AddSystem(levelLoader);
-	levelLoader->SetName("LevelLoader");
+	/*m_o_SystemManager->AddSystem(levelLoader);
+	levelLoader->SetName("LevelLoader");*/
 	//levelLoader->LoadLevel(kLevel1);
 
-	auto input = new InputSystem(m_o_EntityComponentManager, m_o_EventManager, 5, "Input System", m_o_GameStateManager, m_o_Logger);
 	m_o_SystemManager->AddSystem(input);
-	input->SetName("Input");
+	buildings->SetName("Input");
+
 
 	/*************************************************************************/
 	// UI & MENUS
 	/*************************************************************************/
 
-	
-
 	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
-	auto mainMenu = new MainMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
-	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	m_o_SystemManager->AddSystem(mainMenu);
+	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	mainMenu->SetName("Main Menu"); 
 
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
-	auto hud = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager, graphics);
+	m_o_SystemManager->AddSystem(hud);
 	hud->SetName("HUD");
 	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
-	m_o_SystemManager->AddSystem(hud);
 
-	helpmenu->Initialize();
-	helpmenu->SetName("HelpMenu");
-	m_o_SystemManager->AddSystem(helpmenu);
+	m_o_SystemManager->AddSystem(helpMenu);
+	helpMenu->Initialize();
+	helpMenu->SetName("HelpMenu");
 
-	m_o_SystemManager->AddSystem(powerup);
-	powerup->SetName("Power Up");
-	powerup->Initialize();
+	m_o_SystemManager->AddSystem(powerUp);
+	powerUp->SetName("Power Up");
+	powerUp->Initialize();
 
-	auto PauseMenu = new PauseMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
-	PauseMenu->SetName("PauseMenu");
-	m_o_SystemManager->AddSystem(PauseMenu);
-	PauseMenu->Initialize();
+	m_o_SystemManager->AddSystem(pauseMenu);
+	pauseMenu->SetName("PauseMenu");
+	pauseMenu->Initialize();
 
-	auto WinScreen = new WinScreenSystem(m_o_EntityComponentManager, m_o_EventManager, static_cast<char>(2));
-	WinScreen->SetName("WinScreen");
-	m_o_SystemManager->AddSystem(WinScreen);
+	m_o_SystemManager->AddSystem(winScreen);
+	winScreen->SetName("WinScreen");
+	winScreen->Initialize();
 
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
@@ -201,6 +186,7 @@ void ECSystem::InitializeEngine()
 	/*************************************************************************/
 	// Other Entity Creation
 	/*************************************************************************/
+	LoadLevel1();
 
 	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
@@ -213,8 +199,6 @@ void ECSystem::InitializeEngine()
 	//\\\\\\\\\\END Other Entity Creation
 	/*************************************************************************/
 
-
-
 	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
@@ -224,9 +208,6 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();
 	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
-	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
-	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
-
 	m_o_SystemManager->DisableSystem<PhysicsSystem>();
 	m_o_SystemManager->DisableSystem<PowerUpSystem>();
 	m_o_SystemManager->DisableSystem<BackgroundSystem>();
@@ -287,7 +268,7 @@ void ECSystem::Update()
 	} while (actualDt > 0.0f && m_b_EngineStatus);
 }
 
-float getDt()
+float GetDt()
 {
 	return actualDt;
 }

@@ -55,9 +55,8 @@ struct Animation
 	Animation(SpriteSheet spriteSheet,int startFrame = 0, int numFrames = 1);
 };
 
-class AnimationComponent : public BaseComponent
+struct AnimationComponent : public BaseComponent
 {
-public:
 	std::vector<const char*> m_vx_Names;
 	std::vector<Animation> m_vx_AnimationsList;
 	int m_i_CurrentAnimationId;

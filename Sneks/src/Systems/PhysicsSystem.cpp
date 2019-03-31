@@ -27,8 +27,7 @@ Technology is prohibited.
 //TODO FIX THIS HARD CODE
 static float currDt;
 
-PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr):
-BaseSystem(entityManagerPtr)
+PhysicsSystem::PhysicsSystem()
 {
 }
 

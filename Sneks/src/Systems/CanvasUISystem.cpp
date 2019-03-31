@@ -4,11 +4,9 @@
 #include "../Utility/AlphaEngineHelper.h"
 
 
-CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* graphicsManager,EventManager* eventManager) :
-	BaseSystem(entityManagerPtr)
+CanvasUISystem::CanvasUISystem(GraphicsSystem* graphicsManager)
 {
 	m_po_GraphicsManager = graphicsManager;
-	m_po_EventManagerPtr = eventManager;
 }
 
 
@@ -41,9 +39,9 @@ void CanvasUISystem::Update(float dt)
 			DrawComponent * drawComponent = element->GetComponent<DrawComponent>();
 
 			float scale = 1.0f / c_Comp->GetScale();
-			t_Comp->SetScale(scale);
-			t_Comp->SetPositionX(-c_Comp->GetCameraPos().x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
-			t_Comp->SetPositionY(-c_Comp->GetCameraPos().y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+			t_Comp->m_f_ScaleMultiplier=(scale);
+			t_Comp->m_x_Position.x = (-c_Comp->GetCameraPos().x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
+			t_Comp->m_x_Position.y=(-c_Comp->GetCameraPos().y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
 
 			if (collisionComponent)
 			{

@@ -62,13 +62,12 @@ class SnekSystem final : public BaseSystem,
 {
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
-	GameStateManager* m_o_GameStateManager;
 
 	float f_AngleHeadHit = PI / 4;
 
 	int winner;
 public:
-	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr);
+	SnekSystem( GraphicsSystem* graphics);
 	~SnekSystem() ;
 	void CheckGrowthMeters();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;

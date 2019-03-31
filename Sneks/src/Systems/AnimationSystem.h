@@ -33,7 +33,7 @@ private:
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 public:
 
-	AnimationSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphicsSystem);
+	AnimationSystem( GraphicsSystem* graphicsSystem);
 	~AnimationSystem();
 	void Initialize();
 	void Update(float dt) override;

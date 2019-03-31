@@ -4,8 +4,7 @@
 #include <iostream>
 #include "CollisionSystem.h"
 
-ParticleSystem::ParticleSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics)
-	: BaseSystem(entityManagerPointer)
+ParticleSystem::ParticleSystem(GraphicsSystem* graphics)
 {
 	m_o_GraphicsSystem = graphics;
 }
@@ -58,26 +57,26 @@ void ParticleSystem::Update(float dt)
 
 		if (pec->IsParticleEffectAlive())
 		{
-			if (pec->GetIsParticleEffectOneShot())
+			if (pec->m_b_IsParticleEffectOneShot)
 			{
-				int density = pec->GetParticleSpawnDensity();
+				int density = pec->m_i_ParticleSpawnDensity;
 				for (int iter = 0; iter < density; iter++) 
 					SpawnParticle(pec);
 				
 			}
 			else
 			{
-				float& spawnTimer = pec->GetParticleSpawnTimer();
+				float& spawnTimer = pec->m_f_ParticleEffectSpawnTimer;
 				spawnTimer += dt;
 
-				if (spawnTimer >= pec->GetParticleSpawnFrequency())
+				if (spawnTimer >= pec->m_f_ParticleSpawnFrequency)
 				{
-					for (int i = 0; i < pec->GetParticleSpawnDensity(); ++i)
+					for (int i = 0; i < pec->m_i_ParticleSpawnDensity; ++i)
 					{
 						SpawnParticle(pec);
 
 					}
-					spawnTimer -= pec->GetParticleSpawnFrequency();
+					spawnTimer -= pec->m_f_ParticleSpawnFrequency;
 				}
 			}
 
@@ -138,17 +137,18 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		colPairing == CollisionSystem::m_vx_CollisionsPairings[1] ||
 		colPairing == CollisionSystem::m_vx_CollisionsPairings[4])
 	{
-		auto particleSpawnerComp = CreateParticleSpawner(tcp2, kParticleHit);
+		//auto particleSpawnerComp = CreateParticleSpawner(tcp2, kParticleHit);
+		CreateParticleSpawner(tcp2, kParticleSparks);
 		//head x head
-		if (colPairing == CollisionSystem::m_vx_CollisionsPairings[0])
-		{
-			particleSpawnerComp->m_f_ParticleSize *= 0.5f + ((tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage +
-																  tcp2->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage) * 0.16f);
-		}
-		else //if head x body, take heads' damage
-		{
-			particleSpawnerComp->m_f_ParticleSize *= 0.5f + (tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage * 0.33f);
-		}
+		//if (colPairing == CollisionSystem::m_vx_CollisionsPairings[0])
+		//{
+		//	particleSpawnerComp->m_f_ParticleSize *= 0.5f + ((tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage +
+		//														  tcp2->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage) * 0.16f);
+		//}
+		//else //if head x body, take heads' damage
+		//{
+		//	particleSpawnerComp->m_f_ParticleSize *= 0.5f + (tcp1->GetComponent<SnekHeadComponent>()->m_i_CurrentDamage * 0.33f);
+		//}
 		return;
 	}
 
@@ -269,7 +269,7 @@ void ParticleSystem::SpawnParticle(ParticleSpawnerComponent* particleEffectComp)
 		if (i_Component->m_x_ComponentID == kComponentParticle)
 		{
 			auto particleComp = static_cast<ParticleComponent*>(i_Component);
-			particleComp->SetParticleMaxLifetime(particleEffectComp->GetParticleMaxLifetime());
+			particleComp->SetParticleMaxLifetime(particleEffectComp->m_f_ParticleMaxLifetime);
 			particleComp->m_b_AlphaScalingEnabled = particleEffectComp->m_b_AlphaScalingEnabled;
 			particleComp->m_f_BaseAlpha = particleEffectComp->m_x_ParticleEffectColor.alpha;
 
@@ -279,25 +279,26 @@ void ParticleSystem::SpawnParticle(ParticleSpawnerComponent* particleEffectComp)
 			auto transComp = static_cast<TransformComponent*>(i_Component);
 			auto particleEffectTransform = particleEffectComp->GetSpawnTransform();
 
-			transComp->SetPositionX(CalculatePositionX(particleEffectComp, particleEffectTransform));
-
-			transComp->SetPositionY(CalculatePositionY(particleEffectComp, particleEffectTransform));
-
 			transComp->SetRotation(CalculateRotation(particleEffectComp, particleEffectTransform));
+
+			transComp->m_x_Position.x = (CalculatePositionX(particleEffectComp, particleEffectTransform));
+
+			transComp->m_x_Position.y = (CalculatePositionY(particleEffectComp, particleEffectTransform));
+
 
 			transComp->m_f_Scale = (particleEffectComp->m_f_ParticleSize);
 		}
 		else if (i_Component->m_x_ComponentID == kComponentPhysics)
 		{
-			static_cast<PhysicsComponent*>(i_Component)->m_f_Speed = particleEffectComp->GetParticleSpeed();
+			static_cast<PhysicsComponent*>(i_Component)->m_f_Speed = particleEffectComp->m_f_ParticleSpeed;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
 			auto drawComp = static_cast<DrawComponent*>(i_Component);
-			m_o_GraphicsSystem->InitializeDrawComponent(drawComp, particleEffectComp->GetParticleTexture(), particleEffectComp->m_x_ParticleEffectColor
+			m_o_GraphicsSystem->InitializeDrawComponent(drawComp, particleEffectComp->m_px_ParticleTexture, particleEffectComp->m_x_ParticleEffectColor
 																		, particleEffectComp->m_i_SpriteCountX, particleEffectComp->m_i_SpriteCountY);
 
-			drawComp->m_f_DrawPriority = particleEffectComp->GetParticleDrawOrder();
+			drawComp->m_f_DrawPriority = particleEffectComp->m_i_ParticleDrawOrder;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentAnimation)
 		{
@@ -309,7 +310,7 @@ void ParticleSystem::SpawnParticle(ParticleSpawnerComponent* particleEffectComp)
 			{
 				maxStartFrame = static_cast<int>(AERandFloat() * maxStartFrame) % maxStartFrame;
 			}
-			Animation anim(SpriteSheet{ particleEffectComp->GetParticleTexture()->mpName,particleEffectComp->m_i_SpriteCountX,
+			Animation anim(SpriteSheet{ particleEffectComp->m_px_ParticleTexture->mpName,particleEffectComp->m_i_SpriteCountX,
 												 particleEffectComp->m_i_SpriteCountY}, maxStartFrame,
 												 particleEffectComp->m_i_SpriteCountX * particleEffectComp->m_i_SpriteCountY);
 
@@ -326,23 +327,26 @@ void ParticleSystem::SpawnParticle(ParticleSpawnerComponent* particleEffectComp)
 
 float ParticleSystem::CalculateRotation(ParticleSpawnerComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	return ((AERandFloat() - 0.5f) * particleEffectComp->GetSpreadAngle() + particleEffectComp->GetOffsetAngle()) + transformComp->GetRotation();
+	//return ((AERandFloat() - 0.5f) * particleEffectComp->GetSpreadAngle()) +
+	return particleEffectComp->m_f_OffsetAngle + transformComp->GetRotation();
 }
 
 float ParticleSystem::CalculatePositionX(ParticleSpawnerComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	float randFloat = AERandFloat();
-	return (transformComp->GetPosition().x + cos(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) * 
-		particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat) *
-		particleEffectComp->GetSpreadDistance() * cos(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
-		((randFloat > 0.5f) ? 1.0f : -1.0f));
+	return transformComp->m_x_Position.x;
+	//float randFloat = AERandFloat();
+	//return (transformComp->m_x_Position.x + cos(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) * 
+	//	particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat) *
+	//	particleEffectComp->GetSpreadDistance() * cos(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
+	//	((randFloat > 0.5f) ? 1.0f : -1.0f));
 }
 
 float ParticleSystem::CalculatePositionY(ParticleSpawnerComponent* particleEffectComp, TransformComponent* transformComp)
 {
-	float randFloat = AERandFloat();
-	return transformComp->GetPosition().y + (sin(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) *
-		particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat)*
-		particleEffectComp->GetSpreadDistance() * sin(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
-		((randFloat > 0.5f) ? 1.0f : -1.0f));
+	return transformComp->m_x_Position.y;
+	//float randFloat = AERandFloat();
+	//return transformComp->m_x_Position.y + (sin(transformComp->GetRotation() + particleEffectComp->GetAngleForOffsetDistance()) *
+	//	particleEffectComp->GetOffsetDistance() + (particleEffectComp->GetSplitBool() ? particleEffectComp->GetCurrentSplitFactor() : randFloat)*
+	//	particleEffectComp->GetSpreadDistance() * sin(transformComp->GetRotation() + particleEffectComp->GetAngleForSpreadDistance()) *
+	//	((randFloat > 0.5f) ? 1.0f : -1.0f));
 }

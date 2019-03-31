@@ -36,7 +36,7 @@ public:
 	std::multimap<const char*, AEGfxTexture*> m_x_TextureMap;
 	std::multimap<const char*, AEGfxVertexList*> m_x_MeshMap;
 	u32 m_i_font;
-	GraphicsSystem(EntityManager* entityManagerPtr);
+	GraphicsSystem() = default;
 	GraphicsSystem(GraphicsSystem&) = delete;
 	~GraphicsSystem();
 	void Initialize();
@@ -45,10 +45,13 @@ public:
 
 	void InitializeDrawComponent(DrawComponent* dc, const char* texture, const float sizeX, const float sizeY, 
 											HTColor color ={ 1,1,1,1 }, int spriteCountX = 1, int spriteCountY = 1);
+
 	void InitializeDrawComponent(DrawComponent* dc, AEGfxTexture* texture,
 											HTColor color ={ 1,1,1,1 }, int spriteCountX = 1, int spriteCountY = 1);
+
 	void InitializeDrawComponent(DrawComponent* dc, const char* texture, 
 											HTColor color = {1,1,1,1}, int spriteCountX = 1, int spriteCountY = 1);
+
 	void Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
 	AEGfxTexture* FetchTexture(const char* textureName);
 	AEGfxVertexList* FetchMesh(const char* meshName);

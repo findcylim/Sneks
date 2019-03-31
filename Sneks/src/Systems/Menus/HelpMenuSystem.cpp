@@ -2,11 +2,8 @@
 #include "HelpMenuSystem.h"
 
 
-HelpMenuSystem::HelpMenuSystem(EntityManager* entityManager,EventManager* eventManager)
-	:BaseSystem{ entityManager }
-{
-	m_po_EventManagerPtr = eventManager;
-}
+HelpMenuSystem::HelpMenuSystem()
+{}
 
 void HelpMenuSystem::Initialize()
 {

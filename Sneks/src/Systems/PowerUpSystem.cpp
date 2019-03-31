@@ -5,11 +5,9 @@
 #include "../Components/PowerUpHolderComponent.h"
 
 
-PowerUpSystem::PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics, SnekSystem* snek)
-	: BaseSystem(entityManagerPointer)
+PowerUpSystem::PowerUpSystem(GraphicsSystem* graphics)
 {
 	m_po_GraphicsSystem = graphics;
-	m_po_SnekSystem = snek;
 }
 
 PowerUpSystem::~PowerUpSystem()
@@ -125,9 +123,9 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		auto transformComponent = powerupHolder->GetComponent<TransformComponent>();
 
-		transformComponent->SetPositionX(spawnPoint->GetPosition().x);
+		transformComponent->m_x_Position.x = (spawnPoint->m_x_Position.x);
 
-		transformComponent->SetPositionY(spawnPoint->GetPosition().y);
+		transformComponent->m_x_Position.y = (spawnPoint->m_x_Position.y);
 
 		transformComponent->SetRotation(snekTransform->GetRotation() +
 													 (AERandFloat() - 0.5f) * m_f_ForwardAngleRange);
@@ -195,7 +193,6 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 
 		case kPowerUpGrowthIncrease:
 		{
-			m_po_SnekSystem->TweakGrowthRate(snekHeadComponent, powerUp->GetPowerIncrease());
 		}
 			break;
 
@@ -209,22 +206,22 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 		}
 			break;
 
-		case kPowerUpPlusBody:
-		{
-			//TODO emit event to snek system to increase body part
-			//TODO snek system to recieve event to grow body part
-			const char* bodyTexture = nullptr;
-			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-				(powerUp, kComponentSnekHead)->m_i_PlayerNumber == 0)
-				bodyTexture = "SnekBody01";
-			else
-				bodyTexture = "SnekBody02";
+		//case kPowerUpPlusBody:
+		//{
+		//	//TODO emit event to snek system to increase body part
+		//	//TODO snek system to recieve event to grow body part
+		//	const char* bodyTexture = nullptr;
+		//	if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+		//		(powerUp, kComponentSnekHead)->m_i_PlayerNumber == 0)
+		//		bodyTexture = "SnekBody01";
+		//	else
+		//		bodyTexture = "SnekBody02";
 
-			for (int i = 0; i < powerUp->GetPowerIncrease(); i++)
-				m_po_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerUp->m_po_OwnerEntity),
-					bodyTexture, snekHeadComponent->m_i_PlayerNumber);
-		}
-			break;
+		//	for (int i = 0; i < powerUp->GetPowerIncrease(); i++)
+		//		m_po_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerUp->m_po_OwnerEntity),
+		//			bodyTexture, snekHeadComponent->m_i_PlayerNumber);
+		//}
+		//	break;
 
 		case kPowerUpIncreaseDamage:
 			//m_po_SnekSystem->TweakPlayerDamage(snekHeadComponent, static_cast<int>(powerup->GetPowerIncrease()));
@@ -253,7 +250,6 @@ void PowerUpSystem::PowerUpExpire(PowerUpComponent* powerUp) const
 
 		case kPowerUpGrowthIncrease:
 		{
-			m_po_SnekSystem->TweakGrowthRate(snekHeadComponent, powerUp->GetPowerIncrease());
 		}
 			break;
 

@@ -26,7 +26,7 @@ Technology is prohibited.
 #include "../ECS/ComponentList.h"
 
 
-class BloomComponent : public BaseComponent
+struct BloomComponent : public BaseComponent
 {
 public:
 	float m_f_BaseBloomStrength = 0.6f;

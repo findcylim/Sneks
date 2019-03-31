@@ -56,7 +56,7 @@ private:
 public:
 	static std::vector<CollisionGroupPairing>	m_vx_CollisionsPairings;
 
-	CollisionSystem(EntityManager* entityManagerPtr);
+	CollisionSystem();
 	~CollisionSystem();
 	void Receive(const Events::EV_ENTITY_POOL_CHANGED& eventData) override;
 	void Update(float dt) override;

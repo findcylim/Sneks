@@ -28,18 +28,17 @@ Technology is prohibited.
 #include "TransformComponent.h"
 
 
-class PhysicsComponent : public BaseComponent
+struct PhysicsComponent : public BaseComponent
 {
-public:
 	float		               m_f_Speed;
 	float		               m_f_MaxSpeed = 1200;
 	float							m_f_Acceleration;
-	HTVector2					m_x_Velocity ={};
+	HTVector2					m_x_Velocity = {0,0};
 	float						   m_f_Mass = 10;
 
 	TransformComponent*		m_po_TransformComponent;
 
-	void SetVelocity(HTVector2 velocity)
+	inline void SetVelocity(HTVector2 velocity)
 	{
 		float newRot = atan2(velocity.y, velocity.x);
 		float magnitude = sqrt(velocity.x * velocity.x + velocity.y*velocity.y) ;

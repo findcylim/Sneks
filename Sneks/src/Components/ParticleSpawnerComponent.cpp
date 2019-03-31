@@ -258,6 +258,42 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_b_HasParticleEffectFired = false;
 			m_b_AlphaScalingEnabled = true;
 			break;
+		case ParticleType::kParticleSparks:
+			m_x_ParticleType = type;
+
+			m_px_ParticleTexture = graphics->FetchTexture("Sparks2Particle");
+			m_i_SpriteCountX = 10;
+			m_i_SpriteCountY = 1;
+			m_i_SecondsPerFrame = 0.05f;
+
+			m_i_ParticleDrawOrder = 6;
+
+			m_i_SplitNumber = 0;
+			m_i_CurrentSplit = 0;
+
+			m_f_ParticleSize = 3.4f;
+
+			m_f_SpreadDistance = 0.0f;
+			m_f_AngleForSpreadDistance = 0;
+			m_f_OffsetAngle = PI;
+			m_f_SpreadAngle = 0;
+			m_f_OffsetDistance = 0.0f;
+			m_f_AngleForOffsetDistance = PI * 0.0f;
+
+			m_x_ParticleEffectColor={ 1.0f, 1.0f,1.0f,1.0f };
+			m_f_ParticleSpeed = 0;
+			m_f_ParticleSpawnFrequency = 0;
+			m_i_ParticleSpawnDensity = 1;
+			m_f_ParticleMaxLifetime = 5.0f;
+
+			//m_f_ParticleEffectMaxLifetime = 0.5f;
+			m_f_ParticleEffectRemainingLifetime = 0.0f;
+			m_b_IsParticleEffectEternal = false;
+			m_b_IsParticleEffectOneShot = true;
+			m_b_HasParticleEffectFired = false;
+			m_b_AlphaScalingEnabled = true;
+			m_b_UseStaticLocation = true;
+			break;
 	}
 }
 
@@ -277,26 +313,6 @@ bool ParticleSpawnerComponent::IsParticleEffectAlive()
 	return m_f_ParticleEffectRemainingLifetime > 0;
 }
 
-ParticleType ParticleSpawnerComponent::GetParticleType()
-{
-	return m_x_ParticleType;
-}
-
-AEGfxTexture* ParticleSpawnerComponent::GetParticleTexture()
-{
-	return m_px_ParticleTexture;
-}
-
-int ParticleSpawnerComponent::GetParticleDrawOrder()
-{
-	return m_i_ParticleDrawOrder;
-}
-
-int ParticleSpawnerComponent::GetSplitNumber()
-{
-	return m_i_SplitNumber;
-}
-
 int ParticleSpawnerComponent::GetCurrentSplit()
 {
 	if ((++m_i_CurrentSplit) >= m_i_SplitNumber)
@@ -313,66 +329,6 @@ float ParticleSpawnerComponent::GetCurrentSplitFactor()
 bool ParticleSpawnerComponent::GetSplitBool()
 {
 	return (m_i_SplitNumber > 1);
-}
-
-float ParticleSpawnerComponent::GetSpreadDistance()
-{
-	return m_f_SpreadDistance;
-}
-
-float ParticleSpawnerComponent::GetAngleForSpreadDistance()
-{
-	return m_f_AngleForSpreadDistance;
-}
-
-float ParticleSpawnerComponent::GetSpreadAngle()
-{
-	return m_f_SpreadAngle;
-}
-
-float ParticleSpawnerComponent::GetOffsetDistance()
-{
-	return m_f_OffsetDistance;
-}
-
-float ParticleSpawnerComponent::GetAngleForOffsetDistance()
-{
-	return m_f_AngleForOffsetDistance;
-}
-
-float ParticleSpawnerComponent::GetOffsetAngle()
-{
-	return m_f_OffsetAngle;
-}
-
-float ParticleSpawnerComponent::GetParticleSpeed()
-{
-	return m_f_ParticleSpeed;
-}
-
-float ParticleSpawnerComponent::GetParticleMaxLifetime()
-{
-	return m_f_ParticleMaxLifetime;
-}
-
-int ParticleSpawnerComponent::GetParticleSpawnDensity()
-{
-	return m_i_ParticleSpawnDensity;
-}
-
-float ParticleSpawnerComponent::GetParticleSpawnFrequency()
-{
-	return m_f_ParticleSpawnFrequency;
-}
-
-float& ParticleSpawnerComponent::GetParticleSpawnTimer()
-{
-	return m_f_ParticleEffectSpawnTimer;
-}
-
-bool ParticleSpawnerComponent::GetIsParticleEffectOneShot()
-{
-	return m_b_IsParticleEffectOneShot;
 }
 
 void ParticleSpawnerComponent::SetSpawnTransform(TransformComponent* spawnTransform)

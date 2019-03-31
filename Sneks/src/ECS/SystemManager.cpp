@@ -113,29 +113,29 @@ size_t SystemManager::GetSystemCount() const
 	return m_v_SystemList.size();
 }
 
-void SystemManager::AddSystem(BaseSystem* NewSystem)
+void SystemManager::AddSystem(BaseSystem* newSystem)
 {
-	if (NewSystem != nullptr)
+	if (newSystem != nullptr)
 	{
-		NewSystem->m_po_EventManagerPtr = m_o_EventManager;
-		NewSystem->m_po_EntityManager = m_o_EntityManager;
-		NewSystem->m_po_ComponentManager = m_o_EntityManager->GetComponentManager();
-		NewSystem->m_o_SystemManager = this;
-		NewSystem->SetID(static_cast<short>(GetSystemCount()));
-		m_v_SystemList.push_back(NewSystem);
+		newSystem->m_po_EventManagerPtr = m_o_EventManager;
+		newSystem->m_po_EntityManager = m_o_EntityManager;
+		newSystem->m_po_ComponentManager = m_o_EntityManager->GetComponentManager();
+		newSystem->m_po_SystemManager = this;
+		newSystem->SetID(static_cast<short>(GetSystemCount()));
+		m_v_SystemList.push_back(newSystem);
 	}
 	else
 	{
-		m_o_Logger->LogMessage(LOGGER_SYSTEM, "Error 2002 : System %s has not been initialised", NewSystem->GetName());
+		m_o_Logger->LogMessage(LOGGER_SYSTEM, "Error 2002 : System %s has not been initialised", newSystem->GetName());
 	}
 }
 
 //Needs to be tested. May just erase all systems
-void SystemManager::RemoveSystem(BaseSystem* RemSystem)
+void SystemManager::RemoveSystem(BaseSystem* toRemove)
 {
 	for (std::vector<BaseSystem*>::iterator sys = m_v_SystemList.begin();sys != m_v_SystemList.end();)
 	{
-		if (strcmp( (*sys)->GetName(),RemSystem->GetName())==0)
+		if (strcmp( (*sys)->GetName(),toRemove->GetName())==0)
 		{
 			try
 			{
@@ -145,7 +145,7 @@ void SystemManager::RemoveSystem(BaseSystem* RemSystem)
 			}
 			catch (...)
 			{
-				m_o_Logger->LogMessage(LOGGER_SYSTEM, "Error 2003 : Error removing System %s", typeid(RemSystem).name());
+				m_o_Logger->LogMessage(LOGGER_SYSTEM, "Error 2003 : Error removing System %s", typeid(toRemove).name());
 			}
 		}
 		else

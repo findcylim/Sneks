@@ -11,7 +11,7 @@ public:
 	void SetNextState(State nextState);
 	void Initialize();
 	void Receive(const Events::EV_MOUSE_ONCLICK& eventData) override;
-	HelpMenuSystem(EntityManager* entityManager, EventManager* eventManager);
+	HelpMenuSystem();
 	~HelpMenuSystem();
 	void Update(float dt);
 	void OnEnable() override;

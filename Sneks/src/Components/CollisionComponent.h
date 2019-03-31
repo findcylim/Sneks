@@ -43,7 +43,7 @@ enum CollisionGroupName
 	kCollGroupPowerUp
 };
 
-class CollisionComponent : public BaseComponent
+struct CollisionComponent : public BaseComponent
 {
 public:
 	std::vector<CollisionGroupName>   m_i_CollisionGroupVec;

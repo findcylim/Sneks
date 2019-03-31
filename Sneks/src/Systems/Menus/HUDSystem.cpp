@@ -5,12 +5,9 @@
 
 float oldScale1 = 0, oldScale2 = 0;
 
-HUDSystem::HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GraphicsSystem* graphics)
-	:BaseSystem(entityManagerPtr)
+HUDSystem::HUDSystem(GraphicsSystem* graphics)
 {
 	m_o_GraphicsSystem = graphics;
-	m_po_EventManagerPtr = eventManager;
-	//auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	//cameraComponent->m_f_VirtualOffset.x = -AEGfxGetWinMaxX();
 	//cameraComponent->m_f_VirtualOffset.y = AEGfxGetWinMaxY();
 	//cameraComponent->m_f_VirtualScale = 1.0f;
@@ -72,7 +69,7 @@ void HUDSystem::Update(float dt)
 	(void)dt;
 	CanvasComponent * can_Comp = m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas, "Heads Up Display")->GetComponent<CanvasComponent>();
 
-	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
+	auto snek = m_po_SystemManager->GetSystem<SnekSystem>("Snek");
 
 	/* Updating Lives */
 
@@ -205,14 +202,14 @@ void HUDSystem::Update(float dt)
 		if (!strcmp(element->m_pc_EntityName, "RBar"))
 		{
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
-			trans_Comp->SetScaleX(snek->GetGrowthPercentage(0) * 960);
+			trans_Comp->m_f_Scale.x=(snek->GetGrowthPercentage(0) * 960);
 
 			difference = (960.0f / screenX * snek->GetGrowthPercentage(0) - 960.0f / screenX * oldScale1) / 2.0f;
 
 			if (difference > 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 			else if (difference < 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 
 			oldScale1 = snek->GetGrowthPercentage(0);
 		}
@@ -220,14 +217,14 @@ void HUDSystem::Update(float dt)
 		if (!strcmp(element->m_pc_EntityName, "LBar"))
 		{
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
-			trans_Comp->SetScaleX(snek->GetGrowthPercentage(1) * 960);
+			trans_Comp->m_f_Scale.x=(snek->GetGrowthPercentage(1) * 960);
 
 			difference = (960.0f / screenX * snek->GetGrowthPercentage(1) - 960.0f / screenX * oldScale2) / 2.0f;
 
 			if (difference > 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 			else if (difference < 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 
 			oldScale2 = snek->GetGrowthPercentage(1);
 		}
@@ -238,14 +235,14 @@ void HUDSystem::Update(float dt)
 		if (!strcmp(element->m_pc_EntityName, "sRBar"))
 		{
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
-			trans_Comp->SetScaleX(snek->GetSpecialAttackPercentage(0) * 960);
+			trans_Comp->m_f_Scale.x=(snek->GetSpecialAttackPercentage(0) * 960);
 
 			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(0) - 960.0f / screenX * oldScale1) / 2.0f;
 
 			if (difference > 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 			else if (difference < 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 
 			oldScale1 = snek->GetSpecialAttackPercentage(0);
 		}
@@ -253,14 +250,14 @@ void HUDSystem::Update(float dt)
 		if (!strcmp(element->m_pc_EntityName, "sLBar"))
 		{
 			TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
-			trans_Comp->SetScaleX(snek->GetSpecialAttackPercentage(1) * 960);
+			trans_Comp->m_f_Scale.x=(snek->GetSpecialAttackPercentage(1) * 960);
 
 			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(1) - 960.0f / screenX * oldScale2) / 2.0f;
 
 			if (difference > 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x - difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 			else if (difference < 0)
-				trans_Comp->SetPositionX(trans_Comp->GetPosition().x + difference);
+				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 
 			oldScale2 = snek->GetSpecialAttackPercentage(1);
 		}

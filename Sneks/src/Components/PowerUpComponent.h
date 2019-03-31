@@ -19,7 +19,7 @@ struct PowerUpComponent : public BaseComponent
 	float m_f_PowerIncrease = 0;
 	bool m_b_JustExpired = false;
 	float m_f_SpecialTimer = 0;
-public:
+
 	PowerUpComponent();
 	void UpdateTime(float dt);
 	void SetPowerUp(const PowerUpType type);

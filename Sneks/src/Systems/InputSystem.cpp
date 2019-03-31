@@ -39,14 +39,8 @@
 
 //constexpr size_t kKeyCount = sizeof(m_x_CurrentKeyStates) / sizeof(KeyState);
 
-InputSystem::InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager, short id, const char * name, GameStateManager* gameStateManager, Logger* logger) :
-	BaseSystem(entityManagerPtr)
+InputSystem::InputSystem()
 {
-	m_o_Logger				= logger;
-	m_o_EventManager		= eventManager;
-	m_o_GameStateManager	= gameStateManager;
-	this->SetID(id);
-	this->SetName(name);
 	AlphaEngineHelper::GetScreenSize(&m_o_ScreenSize.x, &m_o_ScreenSize.y);
 }
 
@@ -71,13 +65,13 @@ void InputSystem::Update(float dt)
 	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	
 	float scale = 1.0f / c_Comp->GetScale();
-	t_Comp->SetScale(scale);
-	t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
-	t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
+	t_Comp->m_f_ScaleMultiplier=(scale);
+	t_Comp->m_x_Position.x = (-c_Comp->m_f_VirtualOffset.x + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
+	t_Comp->m_x_Position.y=(-c_Comp->m_f_VirtualOffset.y - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
 
 	if (AEInputCheckTriggered(AEVK_LBUTTON))
 	{
-		m_o_EventManager->EmitEvent<Events::EV_MOUSE_ONCLICK>(Events::EV_MOUSE_ONCLICK{});
+		m_po_EventManagerPtr->EmitEvent<Events::EV_MOUSE_ONCLICK>(Events::EV_MOUSE_ONCLICK{});
 	}
 
 	//CanvasButtonEntity* base = m_po_EntityManager->GetFirstEntityInstance<CanvasButtonEntity>(kEntityCanvasButton);

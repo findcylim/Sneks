@@ -42,7 +42,7 @@ private:
 	GameStateManager* m_o_GameStateManager;
 public:
 	~PhysicsSystem();
-	PhysicsSystem(EntityManager* entityManagerPtr);
+	PhysicsSystem();
 
 	void Initialize(GameStateManager* gameStateManager);
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;

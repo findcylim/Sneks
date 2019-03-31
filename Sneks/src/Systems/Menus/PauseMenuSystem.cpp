@@ -17,11 +17,8 @@ void Pause_QuitToMain()
 	GameStateManager::SetState(kStateMainMenu);
 }
 
-PauseMenuSystem::PauseMenuSystem(EntityManager* entityManager, EventManager* eventManager)
-	:BaseSystem{ entityManager }
-{
-	m_po_EventManagerPtr = eventManager;
-}
+PauseMenuSystem::PauseMenuSystem()
+{}
 
 void PauseMenuSystem::Initialize()
 {

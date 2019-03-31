@@ -116,8 +116,7 @@ FMOD_SOUND* Sound::GetFmodSound()
 	return fmodSound;
 }
 
-AudioSystem::AudioSystem(EntityManager* entityManagerPtr) :
-BaseSystem(entityManagerPtr)
+AudioSystem::AudioSystem()
 {
 	m_o_BackgroundMusic.Initialize();
 	m_o_BackgroundMusic.CreateBGM("../Resources/Sounds/main_menu.wav");

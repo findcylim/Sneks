@@ -50,7 +50,7 @@ public:
 	bool	IsChanging();
 	bool *	EngineStatus;
 	static 	void	SetState(State state);
-	GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr, bool* engineStatus);
+	GameStateManager(State InitialState,  SystemManager* systemManagerPtr, EntityManager* entityManager, EventManager* eventManagerPtr, bool* engineStatus);
 	~GameStateManager();
 
 	void Update();

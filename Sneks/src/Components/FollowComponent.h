@@ -27,9 +27,8 @@ Technology is prohibited.
 #include "TransformComponent.h"
 
 
-class FollowComponent : public BaseComponent
+struct FollowComponent : public BaseComponent
 {
-public:
 	TransformComponent*		m_po_FolloweeTransform;
 	BaseEntity *			   m_po_ParentEntity;
 };

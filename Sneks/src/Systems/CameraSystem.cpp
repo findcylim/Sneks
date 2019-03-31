@@ -45,8 +45,7 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		SetShake(3.0f);
 }
 
-CameraSystem::CameraSystem(EntityManager* entityManagerPtr):
-BaseSystem(entityManagerPtr)
+CameraSystem::CameraSystem()
 {
 	m_po_CamShake = new CameraShake();
 	SetShake(0);
@@ -61,8 +60,7 @@ CameraSystem::~CameraSystem()
 void CameraSystem::Initialize()
 {
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
-	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	cameraComponent->m_f_VirtualOffset = { 0, 0 };
+
 }
 
 void CameraSystem::UpdateCamera(const float dt) const
@@ -84,9 +82,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 			//ZOOM OUT CHECKS
 			for (auto i_Object : cameraComponent->m_v_EntitiesToTrack)
 			{
-				float distFromScreenEdgeX = fabsf(i_Object->GetPosition().x + cameraComponent->m_f_VirtualOffset.x)
+				float distFromScreenEdgeX = fabsf(i_Object->m_x_Position.x + cameraComponent->m_f_VirtualOffset.x)
 					- cameraComponent->m_x_CurrentViewDistance.x / 2;
-				float distFromScreenEdgeY = fabsf(i_Object->GetPosition().y + cameraComponent->m_f_VirtualOffset.y)
+				float distFromScreenEdgeY = fabsf(i_Object->m_x_Position.y + cameraComponent->m_f_VirtualOffset.y)
 					- cameraComponent->m_x_CurrentViewDistance.y / 2;
 
 				if ((distFromScreenEdgeX > -cameraComponent->m_f_DistanceOutTolerance.x / 2 * cameraComponent->m_x_CurrentViewDistance.x))
@@ -147,9 +145,9 @@ void CameraSystem::UpdateCamera(const float dt) const
 		if (cameraComponent->m_b_TrackObjects)
 		{
 			HTVector2 averagePosition ={
-		(cameraComponent->m_v_EntitiesToTrack.front()->GetPosition().x + cameraComponent->m_v_EntitiesToTrack.back()->GetPosition().x)
+		(cameraComponent->m_v_EntitiesToTrack.front()->m_x_Position.x + cameraComponent->m_v_EntitiesToTrack.back()->m_x_Position.x)
 			/ 2,
-		(cameraComponent->m_v_EntitiesToTrack.front()->GetPosition().y + cameraComponent->m_v_EntitiesToTrack.back()->GetPosition().y)
+		(cameraComponent->m_v_EntitiesToTrack.front()->m_x_Position.y + cameraComponent->m_v_EntitiesToTrack.back()->m_x_Position.y)
 			/ 2 };
 
 			cameraComponent->m_f_TargetOffset.x = -averagePosition.x;
@@ -184,10 +182,10 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 		while(transformComponent)
 		{
-			Aabb otherAABB = { {transformComponent->GetPosition().x - transformComponent->GetScale().x / 2,
-				transformComponent->GetPosition().y - transformComponent->GetScale().y / 2},
-				{transformComponent->GetPosition().x + transformComponent->GetScale().x / 2,
-				transformComponent->GetPosition().y + transformComponent->GetScale().y / 2} };
+			Aabb otherAABB = { {transformComponent->m_x_Position.x - transformComponent->GetDrawScale().x / 2,
+				transformComponent->m_x_Position.y - transformComponent->GetDrawScale().y / 2},
+				{transformComponent->m_x_Position.x + transformComponent->GetDrawScale().x / 2,
+				transformComponent->m_x_Position.y + transformComponent->GetDrawScale().y / 2} };
 				
 			auto collisionComponent = transformComponent->GetComponent<CollisionComponent>();
 

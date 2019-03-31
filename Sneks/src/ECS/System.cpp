@@ -1,5 +1,9 @@
 #include "System.h"
 
+void BaseSystem::Initialize()
+{
+}
+
 void BaseSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
@@ -30,9 +34,9 @@ void BaseSystem::SetName(const char* name)
 	m_c_SystemName = name;
 }
 
-BaseSystem::BaseSystem(EntityManager* entityManager)
-{
-	m_po_EntityManager = entityManager;
-	m_po_ComponentManager = entityManager->GetComponentManager();
-}
-
+//BaseSystem::BaseSystem(EntityManager* entityManager)
+//{
+//	m_po_EntityManager = entityManager;
+//	m_po_ComponentManager = entityManager->GetComponentManager();
+//}
+//

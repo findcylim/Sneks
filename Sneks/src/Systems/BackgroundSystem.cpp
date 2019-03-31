@@ -24,8 +24,7 @@ Technology is prohibited.
 #include "../Components/CameraComponent.h"
 #include "../Components/CollisionComponent.h"
 
-BackgroundSystem::BackgroundSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics) :
-	BaseSystem(entityManagerPtr)
+BackgroundSystem::BackgroundSystem( GraphicsSystem* graphics)
 {
 	m_o_GraphicsSystem = graphics;
 }
@@ -48,8 +47,8 @@ BackgroundEntity* BackgroundSystem::CreateBackground(float posX, float posY, flo
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPositionX(posX);
-			static_cast<TransformComponent*>(i_Component)->SetPositionY(posY);
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.x = (posX);
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.y=(posY);
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)

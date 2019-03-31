@@ -40,8 +40,7 @@ std::vector<CollisionGroupPairing> CollisionSystem::m_vx_CollisionsPairings =
  {kCollGroupMouse    ,kCollGroupUIButton}
 };
 
-CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
-BaseSystem(entityManagerPtr)
+CollisionSystem::CollisionSystem()
 {
 }
 

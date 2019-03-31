@@ -13,7 +13,7 @@ class ProjectileSystem : public BaseSystem,
 	public EventListener<Events::EV_CREATE_PROJECTILE>
 {
 public:
-	ProjectileSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
+	ProjectileSystem( GraphicsSystem* graphics);
 	~ProjectileSystem();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData);
 	void Receive(const Events::EV_CREATE_PROJECTILE& eventData);

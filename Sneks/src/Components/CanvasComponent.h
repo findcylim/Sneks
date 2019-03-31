@@ -17,7 +17,7 @@ enum CanvasElementEnum
 	kCanvasTextLabel
 };
 
-class CanvasComponent : public BaseComponent
+struct CanvasComponent : public BaseComponent
 {
 public:
 	CanvasComponent(){}

@@ -9,6 +9,6 @@ class HUDSystem : public BaseSystem
 public:
 	void Initialize(CanvasComponent* canvasComponent);
 	void Update(float dt) override;
-	HUDSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GraphicsSystem* graphics);
+	HUDSystem(GraphicsSystem* graphics);
 	~HUDSystem();
 };

@@ -14,7 +14,6 @@ class PowerUpSystem final : public BaseSystem,
 {
 	private:
 		GraphicsSystem* m_po_GraphicsSystem;
-		SnekSystem* m_po_SnekSystem;
 		float m_f_SpawnChance = 0.5f;
 		float m_f_ForwardAngleRange = PI * 0.4f;
 		float m_f_HolderSpeedRatio = 0.3f;
@@ -26,7 +25,7 @@ class PowerUpSystem final : public BaseSystem,
 		void PowerUpExpire(PowerUpComponent* powerUp) const;
 
 	public:
-		PowerUpSystem(EntityManager* entityManagerPointer, GraphicsSystem* graphics, SnekSystem* snek);
+		PowerUpSystem(GraphicsSystem* graphics);
 		~PowerUpSystem();
 
 		void Initialize();
