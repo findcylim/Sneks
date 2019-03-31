@@ -22,6 +22,7 @@ void TextRendererComponent::CreateText(float xTextPosition, float yTextPosition,
 	m_x_TextPosition.y = yTextPosition;
 }
 
+
 void TextRendererComponent::SetText(const char * textIn)
 {
 	int len = static_cast<int>(strlen(textIn)) + 1;

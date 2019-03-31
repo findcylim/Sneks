@@ -231,7 +231,8 @@ void GraphicsSystem::PreLoadTextures()
 	
 	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
 	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
-
+	LoadTextureToMap("../Resources/Credits-Background.png", "Credits-Background");
+	
 	LoadTextureToMap("../Resources/Portraits/Edwin.png", "Edwin");
 	LoadTextureToMap("../Resources/Portraits/CY.png", "CY");
 	LoadTextureToMap("../Resources/Portraits/Adam.png", "Adam");

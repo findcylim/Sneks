@@ -14,19 +14,22 @@ void CreditsScreenSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_MOUSE_ONCLICK>(this, this);
 	auto canvas				= m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "CreditsMenuEntity");
 	auto canvas_Component	= canvas->GetComponent<CanvasComponent>();
-	
-	Events::EV_NEW_UI_ELEMENT CreditsMenuUIElement = { canvas_Component, HTVector2{ 0.75f ,0.5f } ,
+	Events::EV_NEW_UI_ELEMENT CreditsBackgroundUIElement = { canvas_Component, HTVector2{ 0.5f ,0.5f } ,
+													   kCanvasBasicSprite,"CreditBackground" ,"Credits-Background" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT CreditsMenuUIElement = { canvas_Component, HTVector2{ 0.622f ,0.499f } ,
 													   kCanvasBasicSprite,"CreditPortrait" ,"CY" ,"","","", nullptr };
+	
 
-	Events::EV_NEW_UI_ELEMENT MemberNameUIElement = { canvas_Component, HTVector2{ 0.25f , 0.5f } ,
+	Events::EV_NEW_UI_ELEMENT MemberNameUIElement = { canvas_Component, HTVector2{ 0.35f , 0.5f } ,
 														 kCanvasTextLabel,"NameTextLabelEntity" ,"" ,"Lim Chu Yan","","", nullptr ,HTColor{1.0f,1.0f,1.0f,0.0f} };
-	Events::EV_NEW_UI_ELEMENT MemberRoleUIElement = { canvas_Component, HTVector2{ 0.25f , 0.45f } ,
+	Events::EV_NEW_UI_ELEMENT MemberRoleUIElement = { canvas_Component, HTVector2{ 0.35f , 0.45f } ,
 														 kCanvasTextLabel,"RoleTextLabelEntity" ,"" ,"Tech Lead","","", nullptr,HTColor{1.0f,1.0f,1.0f,0.0f} };
 
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvas_Component, HTVector2{ 0.5f , 0.5f } ,
 														 kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
+	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(CreditsBackgroundUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(CreditsMenuUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(MemberNameUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(MemberRoleUIElement);
