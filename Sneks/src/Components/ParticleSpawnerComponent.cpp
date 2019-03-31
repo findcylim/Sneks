@@ -34,6 +34,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_i_ParticleSpawnDensity = 10;
 			m_f_ParticleMaxLifetime = 2.0f;
 
+			m_f_ParticleStartingAlpha = 1.0f;
+			m_f_ParticleFadeAmount = 1.0f;
+
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
 			m_f_ParticleEffectRemainingLifetime = 0.0f;
 			m_b_IsParticleEffectEternal = false;
@@ -72,6 +75,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_i_ParticleSpawnDensity = 10;
 			m_f_ParticleMaxLifetime = 2.0f;
 
+			m_f_ParticleStartingAlpha = 1.0f;
+			m_f_ParticleFadeAmount = 1.0f;
+
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
 			m_f_ParticleEffectRemainingLifetime = 0.0f;
 			m_b_IsParticleEffectEternal = false;
@@ -107,6 +113,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_f_ParticleSpawnFrequency = 0.03f;
 			m_i_ParticleSpawnDensity = 2;
 			m_f_ParticleMaxLifetime = 0.8f;
+
+			m_f_ParticleStartingAlpha = 1.0f;
+			m_f_ParticleFadeAmount = 1.0f;
 
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
 			m_f_ParticleEffectRemainingLifetime = 10000000.0f;
@@ -145,6 +154,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_i_ParticleSpawnDensity = 10;
 			m_f_ParticleMaxLifetime = 2.0f;
 
+			m_f_ParticleStartingAlpha = 1.0f;
+			m_f_ParticleFadeAmount = 1.0f;
+
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
 			m_f_ParticleEffectRemainingLifetime = 0.0f;
 			m_b_IsParticleEffectEternal = false;
@@ -178,6 +190,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_f_ParticleSpawnFrequency = 0.0f;
 			m_i_ParticleSpawnDensity = 1;
 			m_f_ParticleMaxLifetime = 0.5f;
+
+			m_f_ParticleStartingAlpha = 1.0f;
+			m_f_ParticleFadeAmount = 1.0f;
 
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
 			m_f_ParticleEffectRemainingLifetime = 0.0f;
@@ -215,6 +230,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_i_ParticleSpawnDensity = 3;
 			m_f_ParticleMaxLifetime = 0.32f;
 
+			m_f_ParticleStartingAlpha = 1.0f;
+			m_f_ParticleFadeAmount = 1.0f;
+
 			//m_f_ParticleEffectMaxLifetime = 0.0f;
 			m_f_ParticleEffectRemainingLifetime = 0.3f;
 			m_b_IsParticleEffectEternal = false;
@@ -250,6 +268,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_f_ParticleSpawnFrequency = 0.05f;
 			m_i_ParticleSpawnDensity = 1;
 			m_f_ParticleMaxLifetime = 0.75f;
+
+			m_f_ParticleStartingAlpha = 1.0f;
+			m_f_ParticleFadeAmount = 1.0f;
 
 			//m_f_ParticleEffectMaxLifetime = 0.5f;
 			m_f_ParticleEffectRemainingLifetime = 0.2f;

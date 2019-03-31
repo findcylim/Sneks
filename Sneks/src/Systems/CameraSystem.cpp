@@ -45,10 +45,11 @@ void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		SetShake(3.0f);
 }
 
-CameraSystem::CameraSystem()
+CameraSystem::CameraSystem(GraphicsSystem* graphicsSystem)
 {
 	m_po_CamShake = new CameraShake();
 	SetShake(0);
+	m_po_GraphicsSystem = graphicsSystem;
 }
 
 CameraSystem::~CameraSystem()
@@ -163,6 +164,29 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 		cameraComponent->m_f_ZoomVelocity *= cameraComponent->m_x_CameraAttributes.speedDecay;
 
+		HTVector2 offset{ 0,0 };
+
+		if (cameraComponent->m_f_VirtualOffset.x < -1920)
+		{
+			offset.x -= 1920;
+			cameraComponent->m_f_VirtualOffset.x += 1920;
+		}
+		else if (cameraComponent->m_f_VirtualOffset.x > 1920)
+		{
+			offset.x += 1920;
+			cameraComponent->m_f_VirtualOffset.x -= 1920;
+		}
+
+		if (cameraComponent->m_f_VirtualOffset.y < -1080)
+		{
+			offset.y -= 1080;
+			cameraComponent->m_f_VirtualOffset.y += 1080;
+		}
+		else if (cameraComponent->m_f_VirtualOffset.y > 1080)
+		{
+			offset.y += 1080;
+			cameraComponent->m_f_VirtualOffset.y -= 1080;
+		}
 
 		//CULLING SYSTEM::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x,
@@ -182,6 +206,46 @@ void CameraSystem::UpdateCamera(const float dt) const
 
 		while(transformComponent)
 		{
+			// Aabb otherAABB = { {transformComponent->m_x_Position.x - transformComponent->GetDrawScale().x / 2,
+			// 	transformComponent->m_x_Position.y - transformComponent->GetDrawScale().y / 2},
+			// 	{transformComponent->m_x_Position.x + transformComponent->GetDrawScale().x / 2,
+			// 	transformComponent->m_x_Position.y + transformComponent->GetDrawScale().y / 2} };
+			transformComponent->m_x_Position += offset;
+
+			if (transformComponent->m_po_OwnerEntity->GetEntityID() == kEntityBackground ||
+				transformComponent->m_po_OwnerEntity->GetEntityID() == kEntityStaticObject)
+			{
+				if (transformComponent->m_x_Position.x < -1920 * 2.5f)
+				{
+					transformComponent->m_x_Position.x += 1920 * 5;
+
+					if(transformComponent->m_po_OwnerEntity->GetEntityID() == kEntityStaticObject)
+						ReviveBuildingOnShift(transformComponent);
+				}
+				else if (transformComponent->m_x_Position.x > 1920 * 2.5f)
+				{
+					transformComponent->m_x_Position.x -= 1920 * 5;
+
+					if (transformComponent->m_po_OwnerEntity->GetEntityID() == kEntityStaticObject)
+						ReviveBuildingOnShift(transformComponent);
+				}
+
+				if (transformComponent->m_x_Position.y < -1080 * 2.5f)
+				{
+					transformComponent->m_x_Position.y += 1080 * 5;
+
+					if (transformComponent->m_po_OwnerEntity->GetEntityID() == kEntityStaticObject)
+						ReviveBuildingOnShift(transformComponent);
+				}
+				else if (transformComponent->m_x_Position.y > 1080 * 2.5f)
+				{
+					transformComponent->m_x_Position.y -= 1080 * 5;
+
+					if (transformComponent->m_po_OwnerEntity->GetEntityID() == kEntityStaticObject)
+						ReviveBuildingOnShift(transformComponent);
+				}
+			}
+
 			Aabb otherAABB = { {transformComponent->m_x_Position.x - transformComponent->GetDrawScale().x / 2,
 				transformComponent->m_x_Position.y - transformComponent->GetDrawScale().y / 2},
 				{transformComponent->m_x_Position.x + transformComponent->GetDrawScale().x / 2,
@@ -246,5 +310,43 @@ void CameraSystem::RemoveCameraTrackObjects()
 		cameraComponent->m_v_EntitiesToTrack.clear();
 	}
 }
+
+void CameraSystem::ReviveBuildingOnShift(TransformComponent* transformComponent) const
+{
+	auto collisionComponent =
+		m_po_ComponentManager->GetSpecificComponentInstance<CollisionComponent>(
+			transformComponent, kComponentCollision
+			);
+	collisionComponent->enabled = true;
+	collisionComponent->m_b_IsActive = true;
+
+	const char * buildingName = "Building01";
+	int check = (rand() % 100) / 5;
+
+	if (check >= 0 && check <= 7)
+	{
+		buildingName = "Building01";
+	}
+	else if (check >= 8 && check <= 14)
+	{
+		buildingName = "Building02";
+	}
+	else if (check >= 15 && check <= 18)
+	{
+		buildingName = "Building03";
+	}
+	else
+	{
+		buildingName = "Building04";
+	}
+
+	auto objectDrawComp =
+		m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
+			collisionComponent, kComponentDraw
+			);
+	objectDrawComp->m_px_Texture = m_po_GraphicsSystem->FetchTexture(buildingName);
+}
+
+
 
 

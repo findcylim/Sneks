@@ -1,0 +1,4643 @@
+Canvas UI took 0.0707369 ms 
+Collisions took 13.4004 ms 
+Graphics took 14.8596 ms 
+Animations took 0.00727579 ms 
+Camera took 2.33674 ms 
+Audio took 0.154813 ms 
+Input took 0.0129347 ms 
+Main Menu took 0.00121263 ms 
+Canvas UI took 0.0436548 ms 
+Collisions took 5.9803 ms 
+Graphics took 10.7815 ms 
+Animations took 0.00768 ms 
+Camera took 2.08896 ms 
+Audio took 0.0137432 ms 
+Input took 0.0121263 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.120859 ms 
+Collisions took 6.10035 ms 
+Graphics took 9.78756 ms 
+Animations took 0.00768 ms 
+Camera took 2.26803 ms 
+Audio took 0.013339 ms 
+Input took 0.0117221 ms 
+Main Menu took 0.00161685 ms 
+Canvas UI took 0.0400169 ms 
+Collisions took 6.31741 ms 
+Graphics took 9.31261 ms 
+Animations took 0.00727579 ms 
+Camera took 2.19648 ms 
+Audio took 0.013339 ms 
+Input took 0.0125305 ms 
+Main Menu took 0.00121263 ms 
+Canvas UI took 0.0448674 ms 
+Collisions took 6.15047 ms 
+Graphics took 9.61334 ms 
+Animations took 0.00727579 ms 
+Camera took 2.47417 ms 
+Audio took 0.0161684 ms 
+Input took 0.0129347 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0464842 ms 
+Collisions took 6.21353 ms 
+Graphics took 9.57979 ms 
+Animations took 0.00646737 ms 
+Camera took 2.31694 ms 
+Audio took 0.0145516 ms 
+Input took 0.0129347 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0436548 ms 
+Collisions took 6.09186 ms 
+Graphics took 9.72086 ms 
+Animations took 0.00768 ms 
+Camera took 2.29875 ms 
+Audio took 0.0137432 ms 
+Input took 0.013339 ms 
+Main Menu took 0.00161685 ms 
+Canvas UI took 0.0412295 ms 
+Collisions took 6.05589 ms 
+Graphics took 9.1962 ms 
+Animations took 0.00687158 ms 
+Camera took 2.14515 ms 
+Audio took 0.0129347 ms 
+Input took 0.0117221 ms 
+Main Menu took 0.00121263 ms 
+Canvas UI took 0.0384 ms 
+Collisions took 6.15775 ms 
+Graphics took 9.20671 ms 
+Animations took 0.00687158 ms 
+Camera took 2.05501 ms 
+Audio took 0.0121263 ms 
+Input took 0.0117221 ms 
+Main Menu took 0.00161685 ms 
+Canvas UI took 0.0408253 ms 
+Collisions took 6.10479 ms 
+Graphics took 9.29119 ms 
+Animations took 0.00687158 ms 
+Camera took 2.25024 ms 
+Audio took 0.0137432 ms 
+Input took 0.0117221 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0796295 ms 
+Collisions took 6.25678 ms 
+Graphics took 9.83202 ms 
+Animations took 0.00768 ms 
+Camera took 2.28096 ms 
+Audio took 0.0137432 ms 
+Input took 0.0129347 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0464842 ms 
+Collisions took 6.39583 ms 
+Graphics took 9.39709 ms 
+Animations took 0.00727579 ms 
+Camera took 2.36504 ms 
+Audio took 0.0161684 ms 
+Input took 0.013339 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0521432 ms 
+Collisions took 6.29518 ms 
+Graphics took 9.49855 ms 
+Animations took 0.00727579 ms 
+Camera took 2.63626 ms 
+Audio took 0.0157642 ms 
+Input took 0.0129347 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 6.35258 ms 
+Graphics took 10.9824 ms 
+Animations took 0.00768001 ms 
+Camera took 2.38848 ms 
+Audio took 0.01536 ms 
+Input took 0.01536 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0444632 ms 
+Collisions took 6.4124 ms 
+Graphics took 9.47227 ms 
+Animations took 0.00727579 ms 
+Camera took 2.31128 ms 
+Audio took 0.0141474 ms 
+Input took 0.0117221 ms 
+Main Menu took 0.00121263 ms 
+Canvas UI took 0.0444632 ms 
+Collisions took 6.10116 ms 
+Graphics took 9.90518 ms 
+Animations took 0.00687159 ms 
+Camera took 2.32583 ms 
+Audio took 0.0125305 ms 
+Input took 0.0125305 ms 
+Main Menu took 0.00121263 ms 
+Canvas UI took 0.0432506 ms 
+Collisions took 6.20989 ms 
+Graphics took 9.61051 ms 
+Animations took 0.00727579 ms 
+Camera took 2.26075 ms 
+Audio took 0.0137432 ms 
+Input took 0.0121263 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.0428463 ms 
+Collisions took 6.15573 ms 
+Graphics took 9.46783 ms 
+Animations took 0.00687158 ms 
+Camera took 2.56068 ms 
+Audio took 0.0145516 ms 
+Input took 0.013339 ms 
+Main Menu took 0.00161684 ms 
+Canvas UI took 0.04608 ms 
+Collisions took 6.4989 ms 
+Graphics took 12.3224 ms 
+Animations took 0.00687158 ms 
+Camera took 2.38767 ms 
+Audio took 0.0157642 ms 
+Input took 0.0125305 ms 
+Main Menu took 0.00161685 ms 
+Canvas UI took 0.0448674 ms 
+Collisions took 6.16866 ms 
+Graphics took 9.83526 ms 
+Animations took 0.00727579 ms 
+Camera took 2.65607 ms 
+Audio took 0.01536 ms 
+Input took 0.0129347 ms 
+Main Menu took 0.00121263 ms 
+Canvas UI took 0.0444632 ms 
+Collisions took 6.27052 ms 
+Graphics took 9.48804 ms 
+Animations took 0.00727579 ms 
+Camera took 2.15929 ms 
+Audio took 0.0137432 ms 
+Input took 0.0137432 ms 
+Main Menu took 0.00161685 ms 
+Canvas UI took 0.0468884 ms 
+Collisions took 6.12379 ms 
+Graphics took 9.95975 ms 
+Animations took 0.00727579 ms 
+Camera took 2.20982 ms 
+Audio took 0.0141474 ms 
+Input took 0.0266779 ms 
+Main Menu took 0.00121263 ms 
+Canvas UI took 0.0885222 ms 
+Collisions took 6.15855 ms 
+Graphics took 9.69904 ms 
+Animations took 0.00606316 ms 
+Camera took 2.22397 ms 
+Audio took 0.0125305 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0699285 ms 
+Collisions took 6.14966 ms 
+Graphics took 9.34899 ms 
+Animations took 0.00606316 ms 
+Camera took 2.12534 ms 
+Audio took 0.0129347 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0739706 ms 
+Collisions took 6.19736 ms 
+Graphics took 9.56524 ms 
+Animations took 0.00606316 ms 
+Camera took 2.28824 ms 
+Audio took 0.013339 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.25193 ms 
+Graphics took 9.68772 ms 
+Animations took 0.00646737 ms 
+Camera took 2.49277 ms 
+Audio took 0.0161684 ms 
+Input took 0.0157642 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 5.98313 ms 
+Graphics took 9.64083 ms 
+Animations took 0.00646737 ms 
+Camera took 2.31896 ms 
+Audio took 0.0165726 ms 
+Input took 0.0169769 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 6.10035 ms 
+Graphics took 9.40235 ms 
+Animations took 0.00646737 ms 
+Camera took 2.51662 ms 
+Audio took 0.013339 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0719495 ms 
+Collisions took 6.11894 ms 
+Graphics took 9.51876 ms 
+Animations took 0.00646737 ms 
+Camera took 2.27409 ms 
+Audio took 0.0125305 ms 
+Input took 0.0113179 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0711411 ms 
+Collisions took 6.1533 ms 
+Graphics took 9.37931 ms 
+Animations took 0.00606316 ms 
+Camera took 2.13423 ms 
+Audio took 0.147941 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0715453 ms 
+Collisions took 6.04335 ms 
+Graphics took 9.72167 ms 
+Animations took 0.00646737 ms 
+Camera took 2.25913 ms 
+Audio took 0.0129347 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0699285 ms 
+Collisions took 6.14845 ms 
+Graphics took 9.5895 ms 
+Animations took 0.00687158 ms 
+Camera took 2.42486 ms 
+Audio took 0.0169769 ms 
+Input took 0.0149558 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.074779 ms 
+Collisions took 6.19008 ms 
+Graphics took 9.27421 ms 
+Animations took 0.00727579 ms 
+Camera took 2.51823 ms 
+Audio took 0.0202105 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.074779 ms 
+Collisions took 6.01142 ms 
+Graphics took 9.78675 ms 
+Animations took 0.00687158 ms 
+Camera took 2.37999 ms 
+Audio took 0.0149558 ms 
+Input took 0.0145516 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.59712 ms 
+Graphics took 11.5095 ms 
+Animations took 0.00646737 ms 
+Camera took 2.37918 ms 
+Audio took 0.0157642 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0715453 ms 
+Collisions took 6.14885 ms 
+Graphics took 9.38618 ms 
+Animations took 0.00646737 ms 
+Camera took 2.31411 ms 
+Audio took 0.0145516 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 5.96494 ms 
+Graphics took 9.70672 ms 
+Animations took 0.00646737 ms 
+Camera took 2.2846 ms 
+Audio took 0.0169769 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0719495 ms 
+Collisions took 6.08984 ms 
+Graphics took 9.55554 ms 
+Animations took 0.00687158 ms 
+Camera took 2.31047 ms 
+Audio took 0.0141474 ms 
+Input took 0.0109137 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 6.43059 ms 
+Graphics took 9.60809 ms 
+Animations took 0.00606316 ms 
+Camera took 2.46852 ms 
+Audio took 0.01536 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.00051 ms 
+Graphics took 9.85708 ms 
+Animations took 0.00646737 ms 
+Camera took 2.46447 ms 
+Audio took 0.0137432 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.18847 ms 
+Graphics took 9.71803 ms 
+Animations took 0.00646737 ms 
+Camera took 2.65607 ms 
+Audio took 0.01536 ms 
+Input took 0.013339 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 6.26607 ms 
+Graphics took 9.56443 ms 
+Animations took 0.00646737 ms 
+Camera took 2.2082 ms 
+Audio took 0.0189979 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0727579 ms 
+Collisions took 6.21474 ms 
+Graphics took 9.52684 ms 
+Animations took 0.00606316 ms 
+Camera took 2.25954 ms 
+Audio took 0.0137432 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0711411 ms 
+Collisions took 6.07044 ms 
+Graphics took 9.60122 ms 
+Animations took 0.00606316 ms 
+Camera took 2.2268 ms 
+Audio took 0.013339 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 6.09186 ms 
+Graphics took 9.33848 ms 
+Animations took 0.00606316 ms 
+Camera took 2.18476 ms 
+Audio took 0.013339 ms 
+Input took 0.0282948 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 5.99364 ms 
+Graphics took 9.46945 ms 
+Animations took 0.00646737 ms 
+Camera took 2.68396 ms 
+Audio took 0.0137432 ms 
+Input took 0.0266779 ms 
+HelpMenu took 0.000808421 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.15936 ms 
+Graphics took 9.50987 ms 
+Animations took 0.00606316 ms 
+Camera took 2.44345 ms 
+Audio took 0.0145516 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.14107 ms 
+Collisions took 5.99727 ms 
+Graphics took 9.36152 ms 
+Animations took 0.00606316 ms 
+Camera took 2.19325 ms 
+Audio took 0.0137432 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.60763 ms 
+Graphics took 9.78069 ms 
+Animations took 0.00646737 ms 
+Camera took 2.64152 ms 
+Audio took 0.0145516 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.074779 ms 
+Collisions took 6.03285 ms 
+Graphics took 9.38739 ms 
+Animations took 0.00606316 ms 
+Camera took 2.20214 ms 
+Audio took 0.0125305 ms 
+Input took 0.0274863 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0715453 ms 
+Collisions took 6.05103 ms 
+Graphics took 9.50704 ms 
+Animations took 0.00646737 ms 
+Camera took 2.14717 ms 
+Audio took 0.0145516 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 5.9807 ms 
+Graphics took 9.45247 ms 
+Animations took 0.00606316 ms 
+Camera took 2.36948 ms 
+Audio took 0.0161684 ms 
+Input took 0.0141474 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0953937 ms 
+Collisions took 6.05306 ms 
+Graphics took 9.56241 ms 
+Animations took 0.00687158 ms 
+Camera took 2.57482 ms 
+Audio took 0.0157642 ms 
+Input took 0.0299116 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.21029 ms 
+Graphics took 9.50542 ms 
+Animations took 0.00646737 ms 
+Camera took 2.35695 ms 
+Audio took 0.0149558 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 5.98353 ms 
+Graphics took 9.72127 ms 
+Animations took 0.00646737 ms 
+Camera took 2.23448 ms 
+Audio took 0.0181895 ms 
+Input took 0.0278905 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0707369 ms 
+Collisions took 6.04538 ms 
+Graphics took 9.27906 ms 
+Animations took 0.00606316 ms 
+Camera took 2.24418 ms 
+Audio took 0.0145516 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0719495 ms 
+Collisions took 6.05467 ms 
+Graphics took 9.53816 ms 
+Animations took 0.00646737 ms 
+Camera took 2.13787 ms 
+Audio took 0.013339 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.00253 ms 
+Graphics took 9.23945 ms 
+Animations took 0.00646737 ms 
+Camera took 2.20699 ms 
+Audio took 0.0137432 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0723537 ms 
+Collisions took 6.05791 ms 
+Graphics took 9.51916 ms 
+Animations took 0.00848843 ms 
+Camera took 2.46771 ms 
+Audio took 0.0169769 ms 
+Input took 0.0149558 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.03365 ms 
+Graphics took 9.50097 ms 
+Animations took 0.00687158 ms 
+Camera took 2.53278 ms 
+Audio took 0.166535 ms 
+Input took 0.0282948 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.01425 ms 
+Graphics took 9.3498 ms 
+Animations took 0.00606316 ms 
+Camera took 2.3905 ms 
+Audio took 0.0141474 ms 
+Input took 0.0165726 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0715453 ms 
+Collisions took 6.0284 ms 
+Graphics took 9.47591 ms 
+Animations took 0.00565895 ms 
+Camera took 2.50004 ms 
+Audio took 0.013339 ms 
+Input took 0.0113179 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0715453 ms 
+Collisions took 6.06882 ms 
+Graphics took 9.29442 ms 
+Animations took 0.00646737 ms 
+Camera took 2.13342 ms 
+Audio took 0.013339 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0695242 ms 
+Collisions took 5.9229 ms 
+Graphics took 9.54988 ms 
+Animations took 0.00606316 ms 
+Camera took 2.59908 ms 
+Audio took 0.0141474 ms 
+Input took 0.0165726 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0707369 ms 
+Collisions took 6.0668 ms 
+Graphics took 9.47227 ms 
+Animations took 0.00646737 ms 
+Camera took 2.2078 ms 
+Audio took 0.013339 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.109137 ms 
+Collisions took 6.0571 ms 
+Graphics took 9.45894 ms 
+Animations took 0.00646737 ms 
+Camera took 2.37838 ms 
+Audio took 0.0149558 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000808424 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 5.9904 ms 
+Graphics took 9.77301 ms 
+Animations took 0.00646737 ms 
+Camera took 2.40344 ms 
+Audio took 0.0137432 ms 
+Input took 0.0282948 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 6.08337 ms 
+Graphics took 9.46136 ms 
+Animations took 0.00646737 ms 
+Camera took 2.27611 ms 
+Audio took 0.0129347 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0699285 ms 
+Collisions took 6.11126 ms 
+Graphics took 9.50946 ms 
+Animations took 0.00646737 ms 
+Camera took 2.18031 ms 
+Audio took 0.013339 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 5.98636 ms 
+Graphics took 9.64326 ms 
+Animations took 0.00646737 ms 
+Camera took 2.20982 ms 
+Audio took 0.0141474 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 6.08054 ms 
+Graphics took 9.51997 ms 
+Animations took 0.00606316 ms 
+Camera took 2.26075 ms 
+Audio took 0.0137432 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0703327 ms 
+Collisions took 6.01425 ms 
+Graphics took 9.22045 ms 
+Animations took 0.00606316 ms 
+Camera took 2.15 ms 
+Audio took 0.0177853 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.20746 ms 
+Graphics took 9.37122 ms 
+Animations took 0.00646737 ms 
+Camera took 2.38282 ms 
+Audio took 0.01536 ms 
+Input took 0.0161684 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 5.95726 ms 
+Graphics took 9.56403 ms 
+Animations took 0.00646737 ms 
+Camera took 2.41718 ms 
+Audio took 0.0157642 ms 
+Input took 0.0149558 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.1626 ms 
+Graphics took 9.42983 ms 
+Animations took 0.0101053 ms 
+Camera took 2.33795 ms 
+Audio took 0.0169769 ms 
+Input took 0.0335495 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0772043 ms 
+Collisions took 5.90552 ms 
+Graphics took 9.465 ms 
+Animations took 0.00646737 ms 
+Camera took 2.64879 ms 
+Audio took 0.0137432 ms 
+Input took 0.0145516 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 5.97949 ms 
+Graphics took 9.39143 ms 
+Animations took 0.00606316 ms 
+Camera took 2.4859 ms 
+Audio took 0.0141474 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.0668 ms 
+Graphics took 9.39062 ms 
+Animations took 0.00646737 ms 
+Camera took 2.49438 ms 
+Audio took 0.0145516 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 5.9326 ms 
+Graphics took 9.56565 ms 
+Animations took 0.00727579 ms 
+Camera took 2.2939 ms 
+Audio took 0.0137432 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0707369 ms 
+Collisions took 5.95645 ms 
+Graphics took 9.27987 ms 
+Animations took 0.00606316 ms 
+Camera took 2.13383 ms 
+Audio took 0.0125305 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0695242 ms 
+Collisions took 6.28467 ms 
+Graphics took 9.09555 ms 
+Animations took 0.00606316 ms 
+Camera took 2.10149 ms 
+Audio took 0.0157642 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.04861 ms 
+Graphics took 9.16548 ms 
+Animations took 0.00606316 ms 
+Camera took 2.48145 ms 
+Audio took 0.0125305 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 5.77011 ms 
+Graphics took 9.46136 ms 
+Animations took 0.00646737 ms 
+Camera took 2.34119 ms 
+Audio took 0.0161684 ms 
+Input took 0.0299116 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.14319 ms 
+Graphics took 9.49329 ms 
+Animations took 0.00646737 ms 
+Camera took 2.41597 ms 
+Audio took 0.0157642 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 5.96009 ms 
+Graphics took 9.47268 ms 
+Animations took 0.00606316 ms 
+Camera took 2.34119 ms 
+Audio took 0.0129347 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 6.07448 ms 
+Graphics took 9.66064 ms 
+Animations took 0.00687158 ms 
+Camera took 2.37757 ms 
+Audio took 0.01536 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.13834 ms 
+Graphics took 9.40275 ms 
+Animations took 0.00606316 ms 
+Camera took 2.25792 ms 
+Audio took 0.01536 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0784169 ms 
+Collisions took 6.18725 ms 
+Graphics took 9.45166 ms 
+Animations took 0.00565895 ms 
+Camera took 2.4192 ms 
+Audio took 0.013339 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 6.15896 ms 
+Graphics took 9.54827 ms 
+Animations took 0.00646737 ms 
+Camera took 2.31451 ms 
+Audio took 0.013339 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0699285 ms 
+Collisions took 5.9997 ms 
+Graphics took 9.54746 ms 
+Animations took 0.00687158 ms 
+Camera took 2.20699 ms 
+Audio took 0.0141474 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0743748 ms 
+Collisions took 6.09631 ms 
+Graphics took 9.26289 ms 
+Animations took 0.00646737 ms 
+Camera took 2.59786 ms 
+Audio took 0.9216 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.10601 ms 
+Graphics took 9.63841 ms 
+Animations took 0.00646737 ms 
+Camera took 2.44184 ms 
+Audio took 0.0157642 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.12096 ms 
+Graphics took 9.47672 ms 
+Animations took 0.00646737 ms 
+Camera took 2.24297 ms 
+Audio took 0.013339 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0776085 ms 
+Collisions took 5.91562 ms 
+Graphics took 9.55473 ms 
+Animations took 0.00646737 ms 
+Camera took 2.57199 ms 
+Audio took 0.0125305 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0743748 ms 
+Collisions took 6.52396 ms 
+Graphics took 9.32353 ms 
+Animations took 0.00606316 ms 
+Camera took 2.33957 ms 
+Audio took 0.0157642 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0727579 ms 
+Collisions took 6.08054 ms 
+Graphics took 9.50219 ms 
+Animations took 0.00606316 ms 
+Camera took 2.17829 ms 
+Audio took 0.0137432 ms 
+Input took 0.0278905 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0711411 ms 
+Collisions took 5.97787 ms 
+Graphics took 9.41609 ms 
+Animations took 0.00606316 ms 
+Camera took 2.37595 ms 
+Audio took 0.0137432 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0703327 ms 
+Collisions took 6.47505 ms 
+Graphics took 9.48319 ms 
+Animations took 0.00646737 ms 
+Camera took 2.19608 ms 
+Audio took 0.01536 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.09873 ms 
+Graphics took 9.29766 ms 
+Animations took 0.00646737 ms 
+Camera took 2.26964 ms 
+Audio took 0.01536 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0739706 ms 
+Collisions took 6.01263 ms 
+Graphics took 9.07979 ms 
+Animations took 0.00606316 ms 
+Camera took 2.41031 ms 
+Audio took 0.013339 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.0381 ms 
+Graphics took 9.42013 ms 
+Animations took 0.00646737 ms 
+Camera took 2.53198 ms 
+Audio took 0.01536 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.05427 ms 
+Graphics took 10.0669 ms 
+Animations took 0.00687158 ms 
+Camera took 2.35817 ms 
+Audio took 0.01536 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 6.01425 ms 
+Graphics took 9.43751 ms 
+Animations took 0.0105095 ms 
+Camera took 2.33674 ms 
+Audio took 0.013339 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0695242 ms 
+Collisions took 6.04982 ms 
+Graphics took 9.20307 ms 
+Animations took 0.00606316 ms 
+Camera took 2.16738 ms 
+Audio took 0.0137432 ms 
+Input took 0.0274863 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0707369 ms 
+Collisions took 6.05265 ms 
+Graphics took 9.32757 ms 
+Animations took 0.00646737 ms 
+Camera took 2.1027 ms 
+Audio took 0.0121263 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000808421 ms 
+Canvas UI took 0.0739706 ms 
+Collisions took 5.97585 ms 
+Graphics took 9.22166 ms 
+Animations took 0.00646737 ms 
+Camera took 2.48832 ms 
+Audio took 0.0117221 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.06912 ms 
+Collisions took 6.36228 ms 
+Graphics took 9.52603 ms 
+Animations took 0.00606316 ms 
+Camera took 2.48792 ms 
+Audio took 0.0173811 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 6.11854 ms 
+Graphics took 9.57777 ms 
+Animations took 0.00646737 ms 
+Camera took 2.83028 ms 
+Audio took 0.0161684 ms 
+Input took 0.0137432 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0739706 ms 
+Collisions took 5.86874 ms 
+Graphics took 10.6441 ms 
+Animations took 0.00646737 ms 
+Camera took 2.27369 ms 
+Audio took 0.0141474 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0723537 ms 
+Collisions took 5.99606 ms 
+Graphics took 9.21318 ms 
+Animations took 0.0105095 ms 
+Camera took 2.15808 ms 
+Audio took 0.013339 ms 
+Input took 0.0270821 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0715453 ms 
+Collisions took 6.09631 ms 
+Graphics took 9.68408 ms 
+Animations took 0.00646737 ms 
+Camera took 2.21912 ms 
+Audio took 0.0141474 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.074779 ms 
+Collisions took 5.98515 ms 
+Graphics took 9.20307 ms 
+Animations took 0.00606316 ms 
+Camera took 2.32502 ms 
+Audio took 0.0129347 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0703327 ms 
+Collisions took 6.27699 ms 
+Graphics took 9.4169 ms 
+Animations took 0.00646737 ms 
+Camera took 2.40425 ms 
+Audio took 0.0161684 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 6.10075 ms 
+Graphics took 9.48602 ms 
+Animations took 0.00606316 ms 
+Camera took 2.41678 ms 
+Audio took 0.0157642 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.04214 ms 
+Graphics took 9.41043 ms 
+Animations took 0.00606316 ms 
+Camera took 2.81007 ms 
+Audio took 0.013339 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0711411 ms 
+Collisions took 6.05629 ms 
+Graphics took 9.25926 ms 
+Animations took 0.00646737 ms 
+Camera took 2.16455 ms 
+Audio took 0.013339 ms 
+Input took 0.028699 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0723537 ms 
+Collisions took 6.10358 ms 
+Graphics took 9.43873 ms 
+Animations took 0.00646737 ms 
+Camera took 2.33432 ms 
+Audio took 0.01536 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0719495 ms 
+Collisions took 5.97828 ms 
+Graphics took 9.58505 ms 
+Animations took 0.00646737 ms 
+Camera took 2.36382 ms 
+Audio took 0.013339 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0703327 ms 
+Collisions took 6.21878 ms 
+Graphics took 9.51755 ms 
+Animations took 0.00848843 ms 
+Camera took 2.18678 ms 
+Audio took 0.0125305 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0699285 ms 
+Collisions took 6.05791 ms 
+Graphics took 9.56646 ms 
+Animations took 0.00646737 ms 
+Camera took 2.33391 ms 
+Audio took 0.0161684 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 5.94675 ms 
+Graphics took 9.62102 ms 
+Animations took 0.00646737 ms 
+Camera took 2.78299 ms 
+Audio took 13.5823 ms 
+Input took 0.0157642 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.00536 ms 
+Graphics took 9.59111 ms 
+Animations took 0.00646737 ms 
+Camera took 2.26237 ms 
+Audio took 0.0149558 ms 
+Input took 0.0282948 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 6.08782 ms 
+Graphics took 9.84132 ms 
+Animations took 0.00646737 ms 
+Camera took 2.38403 ms 
+Audio took 0.0149558 ms 
+Input took 0.0161684 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0739706 ms 
+Collisions took 6.17189 ms 
+Graphics took 9.31827 ms 
+Animations took 0.00606316 ms 
+Camera took 2.2559 ms 
+Audio took 0.0129347 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0699285 ms 
+Collisions took 5.91482 ms 
+Graphics took 9.2063 ms 
+Animations took 0.00646737 ms 
+Camera took 2.13262 ms 
+Audio took 0.0129347 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 5.87803 ms 
+Graphics took 9.72006 ms 
+Animations took 0.00646737 ms 
+Camera took 3.13182 ms 
+Audio took 0.0173811 ms 
+Input took 0.0157642 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.10237 ms 
+Graphics took 9.28836 ms 
+Animations took 0.00606316 ms 
+Camera took 2.4867 ms 
+Audio took 0.013339 ms 
+Input took 0.0299116 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 5.87965 ms 
+Graphics took 9.45368 ms 
+Animations took 0.00646737 ms 
+Camera took 2.64556 ms 
+Audio took 0.0121263 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 6.26527 ms 
+Graphics took 9.4553 ms 
+Animations took 0.00646737 ms 
+Camera took 2.21144 ms 
+Audio took 0.0141474 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.05023 ms 
+Graphics took 9.64932 ms 
+Animations took 0.00646737 ms 
+Camera took 2.19527 ms 
+Audio took 0.013339 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0735664 ms 
+Collisions took 5.95968 ms 
+Graphics took 9.44398 ms 
+Animations took 0.00646737 ms 
+Camera took 2.28419 ms 
+Audio took 0.0129347 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0695242 ms 
+Collisions took 6.13794 ms 
+Graphics took 9.16871 ms 
+Animations took 0.00646737 ms 
+Camera took 2.08977 ms 
+Audio took 0.0121263 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 6.27537 ms 
+Graphics took 9.77099 ms 
+Animations took 0.00646737 ms 
+Camera took 2.90021 ms 
+Audio took 0.0165726 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.132985 ms 
+Collisions took 6.05386 ms 
+Graphics took 9.52765 ms 
+Animations took 0.00727579 ms 
+Camera took 2.92446 ms 
+Audio took 0.0141474 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.29922 ms 
+Graphics took 9.45894 ms 
+Animations took 0.00606316 ms 
+Camera took 2.39657 ms 
+Audio took 0.0137432 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0699285 ms 
+Collisions took 5.8849 ms 
+Graphics took 9.11414 ms 
+Animations took 0.00606316 ms 
+Camera took 2.13181 ms 
+Audio took 0.0129347 ms 
+Input took 0.0113179 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0683116 ms 
+Collisions took 5.82791 ms 
+Graphics took 9.1392 ms 
+Animations took 0.00606316 ms 
+Camera took 2.12251 ms 
+Audio took 0.0125305 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0666948 ms 
+Collisions took 6.3736 ms 
+Graphics took 9.64002 ms 
+Animations took 0.00646737 ms 
+Camera took 2.52308 ms 
+Audio took 0.01536 ms 
+Input took 0.013339 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 5.87318 ms 
+Graphics took 9.50906 ms 
+Animations took 0.00606316 ms 
+Camera took 2.1504 ms 
+Audio took 0.0125305 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0772043 ms 
+Collisions took 6.0672 ms 
+Graphics took 9.43307 ms 
+Animations took 0.00606316 ms 
+Camera took 2.65203 ms 
+Audio took 0.013339 ms 
+Input took 0.013339 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0763958 ms 
+Collisions took 5.9997 ms 
+Graphics took 9.36112 ms 
+Animations took 0.00646737 ms 
+Camera took 2.33876 ms 
+Audio took 0.0137432 ms 
+Input took 0.0274863 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0707369 ms 
+Collisions took 6.04416 ms 
+Graphics took 9.5806 ms 
+Animations took 0.00646737 ms 
+Camera took 2.17061 ms 
+Audio took 0.0141474 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0751832 ms 
+Collisions took 6.31013 ms 
+Graphics took 9.64891 ms 
+Animations took 0.00646737 ms 
+Camera took 2.49964 ms 
+Audio took 0.0141474 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 6.374 ms 
+Graphics took 9.46985 ms 
+Animations took 0.00646737 ms 
+Camera took 2.22275 ms 
+Audio took 0.0137432 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0731621 ms 
+Collisions took 5.94594 ms 
+Graphics took 9.52563 ms 
+Animations took 0.00606316 ms 
+Camera took 2.18355 ms 
+Audio took 0.0129347 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.074779 ms 
+Collisions took 5.97302 ms 
+Graphics took 9.23581 ms 
+Animations took 0.00606316 ms 
+Camera took 2.4382 ms 
+Audio took 0.0137432 ms 
+Input took 0.0121263 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.16745 ms 
+Graphics took 9.72531 ms 
+Animations took 0.00606316 ms 
+Camera took 2.46892 ms 
+Audio took 0.0169769 ms 
+Input took 0.0129347 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0759916 ms 
+Collisions took 6.24303 ms 
+Graphics took 9.53735 ms 
+Animations took 0.0157642 ms 
+Camera took 2.44467 ms 
+Audio took 0.0149558 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0735664 ms 
+Collisions took 6.17553 ms 
+Graphics took 9.53412 ms 
+Animations took 0.00606316 ms 
+Camera took 2.3998 ms 
+Audio took 0.0125305 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0723537 ms 
+Collisions took 6.42412 ms 
+Graphics took 9.51229 ms 
+Animations took 0.00646737 ms 
+Camera took 2.21346 ms 
+Audio took 0.0141474 ms 
+Input took 0.0125305 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0727579 ms 
+Collisions took 6.27052 ms 
+Graphics took 9.06483 ms 
+Animations took 0.00646737 ms 
+Camera took 2.06713 ms 
+Audio took 0.14875 ms 
+Input took 0.0109137 ms 
+HelpMenu took 0.000404212 ms 
+Canvas UI took 0.0703327 ms 
+Collisions took 5.94351 ms 
+Graphics took 9.17073 ms 
+Animations took 0.00606316 ms 
+Camera took 2.28298 ms 
+Audio took 0.0121263 ms 
+Input took 0.0113179 ms 
+HelpMenu took 0 ms 
+Canvas UI took 0.0662906 ms 
+Collisions took 6.16098 ms 
+Graphics took 9.41083 ms 
+Animations took 0.00646737 ms 
+Camera took 2.34563 ms 
+Audio took 0.0141474 ms 
+Input took 0.0117221 ms 
+HelpMenu took 0.000404209 ms 
+Canvas UI took 0.0755874 ms 
+Collisions took 6.15855 ms 
+Graphics took 9.19337 ms 
+Animations took 0.00606316 ms 
+Camera took 2.34927 ms 
+Audio took 0.01536 ms 
+Input took 0.0278905 ms 
+HelpMenu took 0 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0331453 ms 
+Snek took 0.652396 ms 
+Physics took 0.0751832 ms 
+Canvas UI took 0.0662906 ms 
+Collisions took 5.77617 ms 
+Graphics took 9.16063 ms 
+Animations took 0.00606316 ms 
+Camera took 2.2268 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0242526 ms 
+Snek took 0.615209 ms 
+Physics took 0.0743748 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.80649 ms 
+Graphics took 9.17599 ms 
+Animations took 0.00606316 ms 
+Camera took 2.14838 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0242526 ms 
+Snek took 0.688775 ms 
+Physics took 0.0751832 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.68886 ms 
+Graphics took 9.13718 ms 
+Animations took 0.00606316 ms 
+Camera took 2.09058 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0238484 ms 
+Snek took 0.619251 ms 
+Physics took 0.0751832 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.85338 ms 
+Graphics took 9.10889 ms 
+Animations took 0.00646737 ms 
+Camera took 2.28541 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0238484 ms 
+Snek took 0.674224 ms 
+Physics took 0.0743748 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.91926 ms 
+Graphics took 9.12465 ms 
+Animations took 0.00606316 ms 
+Camera took 2.08209 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.00929685 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0254653 ms 
+Snek took 0.79104 ms 
+Physics took 0.0768 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.75192 ms 
+Graphics took 11.8434 ms 
+Animations took 0.00646737 ms 
+Camera took 2.27409 ms 
+Audio took 0.0141474 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0250611 ms 
+Snek took 0.696859 ms 
+Physics took 0.0759916 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 6.47182 ms 
+Graphics took 9.06645 ms 
+Animations took 0.119242 ms 
+Camera took 2.18274 ms 
+Audio took 0.0137432 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808424 ms 
+Particles took 0.0254653 ms 
+Snek took 0.641887 ms 
+Physics took 0.0759916 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.90956 ms 
+Graphics took 9.1008 ms 
+Animations took 0.00606316 ms 
+Camera took 2.3331 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0246569 ms 
+Snek took 0.709794 ms 
+Physics took 0.0759916 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.7406 ms 
+Graphics took 9.17599 ms 
+Animations took 0.00606316 ms 
+Camera took 2.07643 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0242526 ms 
+Snek took 0.673415 ms 
+Physics took 0.0743748 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.74181 ms 
+Graphics took 9.00824 ms 
+Animations took 0.00606316 ms 
+Camera took 2.30238 ms 
+Audio took 0.0117221 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000808421 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.00970106 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.02304 ms 
+Snek took 0.666948 ms 
+Physics took 0.0743748 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.87965 ms 
+Graphics took 9.22045 ms 
+Animations took 0.00565895 ms 
+Camera took 2.11726 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0206147 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0242526 ms 
+Snek took 0.746173 ms 
+Physics took 0.0751832 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.86954 ms 
+Graphics took 12.7039 ms 
+Animations took 0.00606316 ms 
+Camera took 2.34038 ms 
+Audio took 0.01536 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0254653 ms 
+Snek took 0.641078 ms 
+Physics took 0.0755874 ms 
+Canvas UI took 0.067099 ms 
+Collisions took 5.78304 ms 
+Graphics took 9.37688 ms 
+Animations took 0.00646737 ms 
+Camera took 6.04416 ms 
+Audio took 0.0173811 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0141474 ms 
+HUD took 0.0242526 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0250611 ms 
+Snek took 0.658864 ms 
+Physics took 0.074779 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.84004 ms 
+Graphics took 10.0826 ms 
+Animations took 0.00606316 ms 
+Camera took 2.2078 ms 
+Audio took 0.01536 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0149558 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0246569 ms 
+Snek took 0.757491 ms 
+Physics took 0.0776085 ms 
+Canvas UI took 0.0626527 ms 
+Collisions took 5.80487 ms 
+Graphics took 9.1194 ms 
+Animations took 0.00606316 ms 
+Camera took 2.14595 ms 
+Audio took 0.0137432 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0250611 ms 
+Snek took 0.681095 ms 
+Physics took 0.0763958 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.8077 ms 
+Graphics took 8.96984 ms 
+Animations took 0.00606316 ms 
+Camera took 2.49681 ms 
+Audio took 0.0137432 ms 
+Background took 0.0375916 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0101053 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0234442 ms 
+Snek took 0.676245 ms 
+Physics took 0.0759916 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 12.0568 ms 
+Graphics took 8.95084 ms 
+Animations took 0.00565895 ms 
+Camera took 2.25388 ms 
+Audio took 0.0109137 ms 
+Background took 0.00444632 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0270821 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 8.38414 ms 
+Snek took 0.524261 ms 
+Physics took 0.0865011 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.83276 ms 
+Graphics took 9.26289 ms 
+Animations took 0.0222316 ms 
+Camera took 2.07522 ms 
+Audio took 0.013339 ms 
+Background took 0.00404211 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0561853 ms 
+Snek took 0.694434 ms 
+Physics took 0.0917558 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 6.74911 ms 
+Graphics took 19.5699 ms 
+Animations took 0.0274863 ms 
+Camera took 2.47983 ms 
+Audio took 0.0169769 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0125305 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0367832 ms 
+Snek took 0.63744 ms 
+Physics took 0.0909474 ms 
+Canvas UI took 0.0598232 ms 
+Collisions took 5.80123 ms 
+Graphics took 9.23864 ms 
+Animations took 0.02304 ms 
+Camera took 2.40748 ms 
+Audio took 0.0141474 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0113179 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0404211 ms 
+Snek took 0.76315 ms 
+Physics took 0.0921601 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.78749 ms 
+Graphics took 9.48763 ms 
+Animations took 0.0246569 ms 
+Camera took 2.3614 ms 
+Audio took 0.0165726 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0105095 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0408253 ms 
+Snek took 0.641482 ms 
+Physics took 0.0905432 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.75394 ms 
+Graphics took 9.15052 ms 
+Animations took 0.02304 ms 
+Camera took 2.37676 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0335495 ms 
+Snek took 0.612379 ms 
+Physics took 0.0889264 ms 
+Canvas UI took 0.0561853 ms 
+Collisions took 6.24586 ms 
+Graphics took 9.29159 ms 
+Animations took 0.0234442 ms 
+Camera took 2.12777 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0355705 ms 
+Snek took 0.612379 ms 
+Physics took 0.0933727 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.69614 ms 
+Graphics took 9.13516 ms 
+Animations took 0.0226358 ms 
+Camera took 2.06673 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0266779 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0351663 ms 
+Snek took 0.605912 ms 
+Physics took 0.090139 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.78991 ms 
+Graphics took 9.02603 ms 
+Animations took 0.0226358 ms 
+Camera took 2.20537 ms 
+Audio took 0.0169769 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0137432 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00242526 ms 
+Projectile took 0.000808424 ms 
+Particles took 0.0396127 ms 
+Snek took 0.641887 ms 
+Physics took 0.0909474 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.80325 ms 
+Graphics took 9.34171 ms 
+Animations took 0.0262737 ms 
+Camera took 2.60837 ms 
+Audio took 0.0157642 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0392084 ms 
+Snek took 0.550939 ms 
+Physics took 0.0937769 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.70301 ms 
+Graphics took 9.09676 ms 
+Animations took 0.0238484 ms 
+Camera took 2.37353 ms 
+Audio took 0.147133 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.06912 ms 
+Snek took 0.566299 ms 
+Physics took 0.0885222 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.72443 ms 
+Graphics took 9.13799 ms 
+Animations took 0.0222316 ms 
+Camera took 2.17667 ms 
+Audio took 0.0117221 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.00929685 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0331453 ms 
+Snek took 0.623697 ms 
+Physics took 0.0889264 ms 
+Canvas UI took 0.0561853 ms 
+Collisions took 5.76081 ms 
+Graphics took 9.1008 ms 
+Animations took 0.02304 ms 
+Camera took 2.16374 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0339537 ms 
+Snek took 0.756683 ms 
+Physics took 0.0897348 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.77213 ms 
+Graphics took 9.19943 ms 
+Animations took 0.0222316 ms 
+Camera took 2.10998 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0 ms 
+Input took 0.00970106 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0331453 ms 
+Snek took 0.616826 ms 
+Physics took 0.0893306 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 11.8009 ms 
+Graphics took 9.12021 ms 
+Animations took 0.0226358 ms 
+Camera took 2.0542 ms 
+Audio took 0.0109137 ms 
+Background took 0.00404211 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0206147 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 5.91239 ms 
+Snek took 0.550535 ms 
+Physics took 0.101861 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.95079 ms 
+Graphics took 9.51148 ms 
+Animations took 0.0392084 ms 
+Camera took 2.26722 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.00970106 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0545685 ms 
+Snek took 0.704944 ms 
+Physics took 0.106712 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.75879 ms 
+Graphics took 10.0644 ms 
+Animations took 0.0412295 ms 
+Camera took 2.304 ms 
+Audio took 0.0161684 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0448674 ms 
+Snek took 0.71424 ms 
+Physics took 0.105499 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.80164 ms 
+Graphics took 9.13435 ms 
+Animations took 0.0388042 ms 
+Camera took 2.33755 ms 
+Audio took 0.013339 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0416337 ms 
+Snek took 0.658459 ms 
+Physics took 0.103074 ms 
+Canvas UI took 0.0557811 ms 
+Collisions took 5.779 ms 
+Graphics took 9.19862 ms 
+Animations took 0.0396127 ms 
+Camera took 2.12696 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0424421 ms 
+Snek took 0.819335 ms 
+Physics took 0.106307 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.68603 ms 
+Graphics took 9.24228 ms 
+Animations took 0.0384 ms 
+Camera took 2.14959 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0436548 ms 
+Snek took 0.725558 ms 
+Physics took 0.122476 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.83317 ms 
+Graphics took 9.15295 ms 
+Animations took 0.0392084 ms 
+Camera took 2.26762 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.00970106 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0412295 ms 
+Snek took 0.704944 ms 
+Physics took 0.104286 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.99121 ms 
+Graphics took 9.10687 ms 
+Animations took 0.0392084 ms 
+Camera took 2.19163 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0509306 ms 
+Snek took 0.892093 ms 
+Physics took 0.107116 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.85378 ms 
+Graphics took 9.38254 ms 
+Animations took 0.0578021 ms 
+Camera took 2.61363 ms 
+Audio took 0.0177853 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0129347 ms 
+HUD took 0.0238484 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0509306 ms 
+Snek took 0.687562 ms 
+Physics took 0.104691 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.75798 ms 
+Graphics took 9.24955 ms 
+Animations took 0.0396127 ms 
+Camera took 2.41071 ms 
+Audio took 0.013339 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0412295 ms 
+Snek took 0.727175 ms 
+Physics took 0.104691 ms 
+Canvas UI took 0.0565895 ms 
+Collisions took 5.94715 ms 
+Graphics took 9.17316 ms 
+Animations took 0.0400169 ms 
+Camera took 2.16091 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0420379 ms 
+Snek took 0.740514 ms 
+Physics took 0.105095 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.68361 ms 
+Graphics took 9.17922 ms 
+Animations took 0.0388042 ms 
+Camera took 2.15606 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0424421 ms 
+Snek took 0.662097 ms 
+Physics took 0.103074 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.69493 ms 
+Graphics took 9.22166 ms 
+Animations took 0.0388042 ms 
+Camera took 2.25752 ms 
+Audio took 0.0149558 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0489095 ms 
+Snek took 0.662501 ms 
+Physics took 0.141474 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.97585 ms 
+Graphics took 10.0333 ms 
+Animations took 0.0416337 ms 
+Camera took 2.23609 ms 
+Audio took 0.01536 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.013339 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0489095 ms 
+Snek took 0.799933 ms 
+Physics took 0.10752 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.71756 ms 
+Graphics took 9.67761 ms 
+Animations took 0.428463 ms 
+Camera took 2.39899 ms 
+Audio took 0.0165726 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202106 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0513348 ms 
+Snek took 0.716666 ms 
+Physics took 0.106712 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.80325 ms 
+Graphics took 9.67883 ms 
+Animations took 0.170981 ms 
+Camera took 2.5728 ms 
+Audio took 0.01536 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0101053 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0476969 ms 
+Snek took 0.784573 ms 
+Physics took 0.105499 ms 
+Canvas UI took 0.0602274 ms 
+Collisions took 5.88369 ms 
+Graphics took 9.26047 ms 
+Animations took 0.0400169 ms 
+Camera took 2.3618 ms 
+Audio took 0.0141474 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.044059 ms 
+Snek took 0.765575 ms 
+Physics took 0.105095 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.59994 ms 
+Graphics took 9.68772 ms 
+Animations took 0.0396127 ms 
+Camera took 2.34119 ms 
+Audio took 0.01536 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0121263 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0468884 ms 
+Snek took 0.681095 ms 
+Physics took 0.105095 ms 
+Canvas UI took 0.0994358 ms 
+Collisions took 5.73413 ms 
+Graphics took 9.27502 ms 
+Animations took 0.0392084 ms 
+Camera took 2.42284 ms 
+Audio took 0.013339 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0444632 ms 
+Snek took 0.73728 ms 
+Physics took 0.104691 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.99768 ms 
+Graphics took 9.7439 ms 
+Animations took 0.0448674 ms 
+Camera took 2.34887 ms 
+Audio took 0.0165726 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0117221 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0468884 ms 
+Snek took 0.755874 ms 
+Physics took 0.106712 ms 
+Canvas UI took 0.0941811 ms 
+Collisions took 5.7499 ms 
+Graphics took 9.43307 ms 
+Animations took 0.0396127 ms 
+Camera took 2.20416 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0521432 ms 
+Snek took 0.755874 ms 
+Physics took 0.118838 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.79396 ms 
+Graphics took 9.37041 ms 
+Animations took 0.0396127 ms 
+Camera took 2.78542 ms 
+Audio took 0.0141474 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0109137 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0513348 ms 
+Snek took 0.689584 ms 
+Physics took 0.105499 ms 
+Canvas UI took 0.112775 ms 
+Collisions took 15.6907 ms 
+Graphics took 9.52725 ms 
+Animations took 0.0396127 ms 
+Camera took 2.12251 ms 
+Audio took 0.0145516 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 5.54456 ms 
+Snek took 0.578426 ms 
+Physics took 0.114796 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 12.2221 ms 
+Graphics took 9.25562 ms 
+Animations took 0.0557811 ms 
+Camera took 2.29066 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 5.46129 ms 
+Snek took 0.580447 ms 
+Physics took 0.151175 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.62944 ms 
+Graphics took 9.5325 ms 
+Animations took 0.0715453 ms 
+Camera took 2.11523 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808424 ms 
+Particles took 0.0598232 ms 
+Snek took 0.722729 ms 
+Physics took 0.132581 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.86995 ms 
+Graphics took 9.53533 ms 
+Animations took 0.0800337 ms 
+Camera took 2.18799 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0630569 ms 
+Snek took 0.800337 ms 
+Physics took 0.132581 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.606 ms 
+Graphics took 9.30251 ms 
+Animations took 0.0727579 ms 
+Camera took 2.15768 ms 
+Audio took 0.0161684 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0578021 ms 
+Snek took 0.654821 ms 
+Physics took 0.130964 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.64682 ms 
+Graphics took 9.35829 ms 
+Animations took 0.0723537 ms 
+Camera took 3.26279 ms 
+Audio took 0.147941 ms 
+Background took 0.00687158 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0141474 ms 
+HUD took 0.0250611 ms 
+Power Up took 0.00242527 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0711411 ms 
+Snek took 0.735259 ms 
+Physics took 0.138644 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.89743 ms 
+Graphics took 9.75239 ms 
+Animations took 0.0994358 ms 
+Camera took 2.44184 ms 
+Audio took 0.0177853 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0141474 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0715453 ms 
+Snek took 0.690392 ms 
+Physics took 0.137027 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.69331 ms 
+Graphics took 9.47551 ms 
+Animations took 0.0743748 ms 
+Camera took 2.51662 ms 
+Audio took 0.0145516 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0699285 ms 
+Snek took 0.868649 ms 
+Physics took 0.147941 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.7499 ms 
+Graphics took 9.39143 ms 
+Animations took 0.0869053 ms 
+Camera took 2.98833 ms 
+Audio took 0.0149558 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0274863 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0602274 ms 
+Snek took 0.711007 ms 
+Physics took 0.136219 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.79355 ms 
+Graphics took 9.33282 ms 
+Animations took 0.0727579 ms 
+Camera took 2.25671 ms 
+Audio took 0.0141474 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0711411 ms 
+Snek took 0.661693 ms 
+Physics took 0.290628 ms 
+Canvas UI took 0.0626527 ms 
+Collisions took 5.70463 ms 
+Graphics took 9.85142 ms 
+Animations took 0.0994358 ms 
+Camera took 2.43254 ms 
+Audio took 0.0173811 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0137432 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808424 ms 
+Particles took 0.0719495 ms 
+Snek took 0.785381 ms 
+Physics took 0.147941 ms 
+Canvas UI took 0.0626527 ms 
+Collisions took 5.63429 ms 
+Graphics took 9.46945 ms 
+Animations took 0.132177 ms 
+Camera took 2.15929 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0727579 ms 
+Snek took 0.807209 ms 
+Physics took 0.137836 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.77173 ms 
+Graphics took 9.49814 ms 
+Animations took 0.0998401 ms 
+Camera took 2.83513 ms 
+Audio took 0.0157642 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0113179 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0719495 ms 
+Snek took 0.683925 ms 
+Physics took 0.137027 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.69614 ms 
+Graphics took 9.57454 ms 
+Animations took 0.0751832 ms 
+Camera took 2.51985 ms 
+Audio took 0.0149558 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000808421 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0117221 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0590148 ms 
+Snek took 0.788615 ms 
+Physics took 0.138644 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.60559 ms 
+Graphics took 9.33242 ms 
+Animations took 0.0723537 ms 
+Camera took 2.18072 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0578021 ms 
+Snek took 0.700497 ms 
+Physics took 0.13339 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.83074 ms 
+Graphics took 9.36354 ms 
+Animations took 0.0723537 ms 
+Camera took 2.26762 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0578021 ms 
+Snek took 0.644312 ms 
+Physics took 0.132177 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.72403 ms 
+Graphics took 9.50825 ms 
+Animations took 0.0723537 ms 
+Camera took 2.24701 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0565895 ms 
+Snek took 0.638653 ms 
+Physics took 0.259503 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.66744 ms 
+Graphics took 9.39547 ms 
+Animations took 0.0731621 ms 
+Camera took 2.17061 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0573979 ms 
+Snek took 0.63744 ms 
+Physics took 0.132177 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.71756 ms 
+Graphics took 10.0891 ms 
+Animations took 0.135815 ms 
+Camera took 2.46124 ms 
+Audio took 0.0149558 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0141474 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0707369 ms 
+Snek took 0.573171 ms 
+Physics took 0.143495 ms 
+Canvas UI took 0.067099 ms 
+Collisions took 6.05023 ms 
+Graphics took 9.99249 ms 
+Animations took 0.0820548 ms 
+Camera took 2.43133 ms 
+Audio took 0.0173811 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0145516 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0719495 ms 
+Snek took 0.86784 ms 
+Physics took 0.144707 ms 
+Canvas UI took 0.0630569 ms 
+Collisions took 5.73333 ms 
+Graphics took 10.4169 ms 
+Animations took 0.113987 ms 
+Camera took 2.36342 ms 
+Audio took 0.0169769 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0121263 ms 
+HUD took 0.14592 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0707369 ms 
+Snek took 0.879158 ms 
+Physics took 0.143899 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.83842 ms 
+Graphics took 9.70793 ms 
+Animations took 0.0776085 ms 
+Camera took 2.35089 ms 
+Audio took 0.0165726 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0598232 ms 
+Snek took 0.707773 ms 
+Physics took 0.136219 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.77253 ms 
+Graphics took 9.28795 ms 
+Animations took 0.0780127 ms 
+Camera took 2.23892 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0582063 ms 
+Snek took 0.698072 ms 
+Physics took 0.132581 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.85095 ms 
+Graphics took 9.31302 ms 
+Animations took 0.0727579 ms 
+Camera took 2.18153 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0804379 ms 
+Snek took 0.636228 ms 
+Physics took 0.229996 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.65612 ms 
+Graphics took 9.27906 ms 
+Animations took 0.0723537 ms 
+Camera took 2.10998 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0578021 ms 
+Snek took 0.707369 ms 
+Physics took 0.132985 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.73413 ms 
+Graphics took 9.34737 ms 
+Animations took 0.0723537 ms 
+Camera took 2.34644 ms 
+Audio took 0.0149558 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.00929685 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0553769 ms 
+Snek took 0.695242 ms 
+Physics took 0.130964 ms 
+Canvas UI took 0.0561853 ms 
+Collisions took 5.84529 ms 
+Graphics took 9.28998 ms 
+Animations took 0.0719495 ms 
+Camera took 2.15202 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0206147 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 1.67505 ms 
+Snek took 0.710602 ms 
+Physics took 0.143091 ms 
+Canvas UI took 0.0768 ms 
+Collisions took 6.96576 ms 
+Graphics took 9.94318 ms 
+Animations took 0.097819 ms 
+Camera took 2.25509 ms 
+Audio took 0.0161684 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0695242 ms 
+Snek took 0.682308 ms 
+Physics took 0.137432 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 6.74466 ms 
+Graphics took 10.2334 ms 
+Animations took 0.0776085 ms 
+Camera took 2.34644 ms 
+Audio took 0.0129347 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0590148 ms 
+Snek took 0.700497 ms 
+Physics took 0.133794 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.93422 ms 
+Graphics took 11.0443 ms 
+Animations took 0.074779 ms 
+Camera took 2.19284 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0590148 ms 
+Snek took 0.796295 ms 
+Physics took 0.138644 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 12.3397 ms 
+Graphics took 9.24996 ms 
+Animations took 0.0731621 ms 
+Camera took 2.10473 ms 
+Audio took 0.0105095 ms 
+Background took 0.00404211 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 5.39702 ms 
+Snek took 0.558619 ms 
+Physics took 0.141878 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.73009 ms 
+Graphics took 9.61213 ms 
+Animations took 0.120051 ms 
+Camera took 2.12696 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0731621 ms 
+Snek took 0.716666 ms 
+Physics took 0.14875 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.86914 ms 
+Graphics took 9.3886 ms 
+Animations took 0.0893306 ms 
+Camera took 2.23852 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0646737 ms 
+Snek took 0.74011 ms 
+Physics took 0.147133 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.65733 ms 
+Graphics took 9.73339 ms 
+Animations took 0.104691 ms 
+Camera took 2.38646 ms 
+Audio took 0.0165726 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0113179 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0816506 ms 
+Snek took 0.754257 ms 
+Physics took 0.151983 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.94432 ms 
+Graphics took 9.9929 ms 
+Animations took 0.0913516 ms 
+Camera took 2.51662 ms 
+Audio took 0.158855 ms 
+Background took 0.00646737 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0101053 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0699285 ms 
+Snek took 0.684329 ms 
+Physics took 0.148345 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.79679 ms 
+Graphics took 9.50744 ms 
+Animations took 0.0929685 ms 
+Camera took 2.49075 ms 
+Audio took 0.0157642 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0121263 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808424 ms 
+Particles took 0.0808421 ms 
+Snek took 0.780127 ms 
+Physics took 0.154004 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 18.6689 ms 
+Graphics took 11.3042 ms 
+Animations took 0.0990316 ms 
+Camera took 2.42001 ms 
+Audio took 0.0141474 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0117221 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808424 ms 
+Particles took 5.21634 ms 
+Snek took 0.57115 ms 
+Physics took 0.157642 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.71029 ms 
+Graphics took 9.55554 ms 
+Animations took 0.105095 ms 
+Camera took 2.18314 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0784169 ms 
+Snek took 0.723537 ms 
+Physics took 0.162089 ms 
+Canvas UI took 0.0565895 ms 
+Collisions took 5.72322 ms 
+Graphics took 9.51148 ms 
+Animations took 0.103882 ms 
+Camera took 2.30926 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0772043 ms 
+Snek took 0.662097 ms 
+Physics took 0.162493 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.68886 ms 
+Graphics took 9.9262 ms 
+Animations took 0.124497 ms 
+Camera took 2.50692 ms 
+Audio took 0.0177853 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.139453 ms 
+Snek took 0.817718 ms 
+Physics took 0.168152 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.75232 ms 
+Graphics took 9.80817 ms 
+Animations took 0.267992 ms 
+Camera took 2.37878 ms 
+Audio took 0.0161684 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0925643 ms 
+Snek took 0.735259 ms 
+Physics took 0.168556 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.66784 ms 
+Graphics took 9.42175 ms 
+Animations took 0.124497 ms 
+Camera took 2.47579 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0772043 ms 
+Snek took 0.662501 ms 
+Physics took 0.160472 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 18.6458 ms 
+Graphics took 9.49046 ms 
+Animations took 0.105499 ms 
+Camera took 2.13747 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0 ms 
+Particles took 10.4359 ms 
+Snek took 0.567512 ms 
+Physics took 0.180682 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 13.0047 ms 
+Graphics took 9.49329 ms 
+Animations took 0.13824 ms 
+Camera took 2.1985 ms 
+Audio took 0.0129347 ms 
+Background took 0.00404211 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 5.38166 ms 
+Snek took 0.569937 ms 
+Physics took 0.194425 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.71837 ms 
+Graphics took 9.92701 ms 
+Animations took 0.16128 ms 
+Camera took 2.23165 ms 
+Audio took 0.0141474 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.108733 ms 
+Snek took 0.730409 ms 
+Physics took 0.202914 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.7309 ms 
+Graphics took 9.58182 ms 
+Animations took 0.159663 ms 
+Camera took 2.65203 ms 
+Audio took 0.0198063 ms 
+Background took 0.00687158 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.01536 ms 
+HUD took 0.0242526 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.119646 ms 
+Snek took 0.73728 ms 
+Physics took 0.210998 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.97464 ms 
+Graphics took 10.0863 ms 
+Animations took 0.178257 ms 
+Camera took 2.52753 ms 
+Audio took 0.0189979 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.01536 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.146324 ms 
+Snek took 0.805592 ms 
+Physics took 0.21019 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.73696 ms 
+Graphics took 10.8611 ms 
+Animations took 0.175427 ms 
+Camera took 2.59301 ms 
+Audio took 0.0157642 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0238484 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.177853 ms 
+Snek took 0.673415 ms 
+Physics took 0.210594 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.70746 ms 
+Graphics took 10.4254 ms 
+Animations took 0.167343 ms 
+Camera took 2.51904 ms 
+Audio took 0.0169769 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.120859 ms 
+Snek took 0.566299 ms 
+Physics took 0.206147 ms 
+Canvas UI took 0.151983 ms 
+Collisions took 5.87601 ms 
+Graphics took 11.6805 ms 
+Animations took 0.168556 ms 
+Camera took 2.4475 ms 
+Audio took 0.0177853 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0145516 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.119646 ms 
+Snek took 0.803975 ms 
+Physics took 0.208169 ms 
+Canvas UI took 0.0606316 ms 
+Collisions took 5.62055 ms 
+Graphics took 10.0681 ms 
+Animations took 0.158451 ms 
+Camera took 2.27045 ms 
+Audio took 0.01536 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.101457 ms 
+Snek took 0.640674 ms 
+Physics took 0.205743 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.59549 ms 
+Graphics took 9.7051 ms 
+Animations took 0.152792 ms 
+Camera took 2.43941 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0 ms 
+Input took 0.00970106 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0949895 ms 
+Snek took 0.629356 ms 
+Physics took 0.19968 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.8081 ms 
+Graphics took 9.91044 ms 
+Animations took 0.162089 ms 
+Camera took 2.34806 ms 
+Audio took 0.0157642 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.143899 ms 
+Snek took 0.813676 ms 
+Physics took 0.212211 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.86227 ms 
+Graphics took 9.99654 ms 
+Animations took 0.162089 ms 
+Camera took 2.54006 ms 
+Audio took 0.0165726 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.124497 ms 
+Snek took 0.600253 ms 
+Physics took 0.215444 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.92937 ms 
+Graphics took 11.5261 ms 
+Animations took 0.182703 ms 
+Camera took 2.58008 ms 
+Audio took 0.0194021 ms 
+Background took 0.00646737 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0161684 ms 
+HUD took 0.0238484 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.120859 ms 
+Snek took 0.589339 ms 
+Physics took 0.207764 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.77819 ms 
+Graphics took 9.92459 ms 
+Animations took 0.243335 ms 
+Camera took 2.44426 ms 
+Audio took 0.0198063 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0117221 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.126922 ms 
+Snek took 0.730409 ms 
+Physics took 0.20736 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.65693 ms 
+Graphics took 10.0826 ms 
+Animations took 0.166131 ms 
+Camera took 2.45962 ms 
+Audio took 0.0177853 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0129347 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.122476 ms 
+Snek took 0.630165 ms 
+Physics took 0.208573 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.65289 ms 
+Graphics took 9.88336 ms 
+Animations took 0.173002 ms 
+Camera took 2.30279 ms 
+Audio took 0.0157642 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0990316 ms 
+Snek took 0.613592 ms 
+Physics took 0.201701 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.71514 ms 
+Graphics took 9.64811 ms 
+Animations took 0.157642 ms 
+Camera took 2.34281 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.12288 ms 
+Snek took 0.857735 ms 
+Physics took 0.217061 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.63753 ms 
+Graphics took 10.2726 ms 
+Animations took 0.170981 ms 
+Camera took 3.17831 ms 
+Audio took 0.0177853 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0238484 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.122476 ms 
+Snek took 0.744556 ms 
+Physics took 0.206956 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.92209 ms 
+Graphics took 10.0584 ms 
+Animations took 0.206552 ms 
+Camera took 2.30602 ms 
+Audio took 0.0145516 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.101457 ms 
+Snek took 0.670181 ms 
+Physics took 0.204531 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.88693 ms 
+Graphics took 9.78958 ms 
+Animations took 0.171385 ms 
+Camera took 2.21507 ms 
+Audio took 0.0161684 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.10267 ms 
+Snek took 0.613592 ms 
+Physics took 0.314476 ms 
+Canvas UI took 0.0598232 ms 
+Collisions took 5.81215 ms 
+Graphics took 9.93227 ms 
+Animations took 0.154004 ms 
+Camera took 2.21265 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0982232 ms 
+Snek took 0.606316 ms 
+Physics took 0.20251 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.71069 ms 
+Graphics took 9.74673 ms 
+Animations took 0.20251 ms 
+Camera took 2.36099 ms 
+Audio took 0.151983 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0945853 ms 
+Snek took 0.605103 ms 
+Physics took 0.199276 ms 
+Canvas UI took 0.0565895 ms 
+Collisions took 5.79396 ms 
+Graphics took 9.66266 ms 
+Animations took 0.232421 ms 
+Camera took 2.24377 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0945853 ms 
+Snek took 0.677457 ms 
+Physics took 0.228783 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.60479 ms 
+Graphics took 10.4517 ms 
+Animations took 0.166535 ms 
+Camera took 2.59827 ms 
+Audio took 0.0169769 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808424 ms 
+Input took 0.0101053 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.123284 ms 
+Snek took 0.758704 ms 
+Physics took 0.213019 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 13.2512 ms 
+Graphics took 10.0923 ms 
+Animations took 0.154813 ms 
+Camera took 2.31694 ms 
+Audio took 0.0165726 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 5.61974 ms 
+Snek took 0.531133 ms 
+Physics took 0.209785 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.66016 ms 
+Graphics took 10.1421 ms 
+Animations took 0.170577 ms 
+Camera took 2.39333 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.104691 ms 
+Snek took 0.684329 ms 
+Physics took 0.277693 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.63308 ms 
+Graphics took 9.93873 ms 
+Animations took 0.186341 ms 
+Camera took 2.21912 ms 
+Audio took 0.0165726 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0 ms 
+Input took 0.0105095 ms 
+HUD took 0.0206147 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.106307 ms 
+Snek took 0.6144 ms 
+Physics took 0.214636 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.64076 ms 
+Graphics took 9.81505 ms 
+Animations took 0.339537 ms 
+Camera took 2.32138 ms 
+Audio took 0.0149558 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0 ms 
+Input took 0.00970106 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.100648 ms 
+Snek took 0.610358 ms 
+Physics took 0.216657 ms 
+Canvas UI took 0.0561853 ms 
+Collisions took 5.67067 ms 
+Graphics took 9.75482 ms 
+Animations took 0.178661 ms 
+Camera took 2.31451 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.1152 ms 
+Snek took 0.622485 ms 
+Physics took 0.318922 ms 
+Canvas UI took 0.0602274 ms 
+Collisions took 5.59226 ms 
+Graphics took 10.1421 ms 
+Animations took 0.171385 ms 
+Camera took 2.25994 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.134602 ms 
+Snek took 0.656034 ms 
+Physics took 0.225954 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.63389 ms 
+Graphics took 10.001 ms 
+Animations took 0.186341 ms 
+Camera took 2.4576 ms 
+Audio took 0.013339 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0113179 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00242527 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.158046 ms 
+Snek took 0.626122 ms 
+Physics took 0.223124 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.79032 ms 
+Graphics took 10.1433 ms 
+Animations took 0.330644 ms 
+Camera took 2.33755 ms 
+Audio took 0.0161684 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.111966 ms 
+Snek took 0.738493 ms 
+Physics took 0.221103 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.67552 ms 
+Graphics took 9.9545 ms 
+Animations took 0.174619 ms 
+Camera took 2.28137 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.109137 ms 
+Snek took 0.672607 ms 
+Physics took 0.219891 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.80123 ms 
+Graphics took 9.88538 ms 
+Animations took 0.187554 ms 
+Camera took 2.41516 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.105499 ms 
+Snek took 0.63744 ms 
+Physics took 0.214636 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.73939 ms 
+Graphics took 9.95288 ms 
+Animations took 0.170577 ms 
+Camera took 2.24903 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.101053 ms 
+Snek took 0.791849 ms 
+Physics took 0.216253 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.74383 ms 
+Graphics took 9.84132 ms 
+Animations took 0.17179 ms 
+Camera took 2.24701 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.103882 ms 
+Snek took 0.69888 ms 
+Physics took 0.215849 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.82387 ms 
+Graphics took 10.0349 ms 
+Animations took 0.170577 ms 
+Camera took 2.64798 ms 
+Audio took 0.0177853 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0157642 ms 
+HUD took 0.0250611 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.130964 ms 
+Snek took 0.673819 ms 
+Physics took 0.227975 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.93503 ms 
+Graphics took 10.5596 ms 
+Animations took 0.183512 ms 
+Camera took 2.43577 ms 
+Audio took 0.0161684 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0141474 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.139857 ms 
+Snek took 1.03074 ms 
+Physics took 0.242931 ms 
+Canvas UI took 0.0626527 ms 
+Collisions took 5.7984 ms 
+Graphics took 10.6069 ms 
+Animations took 0.177044 ms 
+Camera took 2.54491 ms 
+Audio took 0.0169769 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0117221 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.119646 ms 
+Snek took 0.644716 ms 
+Physics took 0.221912 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.67633 ms 
+Graphics took 9.97026 ms 
+Animations took 0.170981 ms 
+Camera took 2.38606 ms 
+Audio took 0.013339 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.104286 ms 
+Snek took 0.675436 ms 
+Physics took 0.218678 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.96575 ms 
+Graphics took 9.81909 ms 
+Animations took 0.172598 ms 
+Camera took 2.25509 ms 
+Audio took 0.0149558 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0117221 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.114796 ms 
+Snek took 0.618847 ms 
+Physics took 0.307604 ms 
+Canvas UI took 0.0598232 ms 
+Collisions took 5.64804 ms 
+Graphics took 10.0608 ms 
+Animations took 0.171385 ms 
+Camera took 2.25469 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.112371 ms 
+Snek took 0.623697 ms 
+Physics took 0.21787 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.67593 ms 
+Graphics took 9.92742 ms 
+Animations took 0.18715 ms 
+Camera took 2.3137 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.104286 ms 
+Snek took 0.673819 ms 
+Physics took 0.217465 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 6.50213 ms 
+Graphics took 11.212 ms 
+Animations took 0.173002 ms 
+Camera took 2.34725 ms 
+Audio took 0.0149558 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.239697 ms 
+Snek took 0.539217 ms 
+Physics took 0.232421 ms 
+Canvas UI took 0.0654821 ms 
+Collisions took 5.79436 ms 
+Graphics took 10.8539 ms 
+Animations took 0.215849 ms 
+Camera took 2.47781 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.122072 ms 
+Snek took 0.64027 ms 
+Physics took 0.209785 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.85459 ms 
+Graphics took 10.3906 ms 
+Animations took 0.185937 ms 
+Camera took 2.38889 ms 
+Audio took 0.0141474 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.102265 ms 
+Snek took 0.616826 ms 
+Physics took 0.204935 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.73535 ms 
+Graphics took 10.0782 ms 
+Animations took 0.157642 ms 
+Camera took 2.29834 ms 
+Audio took 0.0141474 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0113179 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.109945 ms 
+Snek took 0.626527 ms 
+Physics took 0.310434 ms 
+Canvas UI took 0.0602274 ms 
+Collisions took 5.57245 ms 
+Graphics took 9.68812 ms 
+Animations took 0.163705 ms 
+Camera took 2.23852 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.102265 ms 
+Snek took 0.691605 ms 
+Physics took 0.204935 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.84448 ms 
+Graphics took 9.70995 ms 
+Animations took 0.17179 ms 
+Camera took 2.29713 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0974148 ms 
+Snek took 0.668565 ms 
+Physics took 0.203722 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.95039 ms 
+Graphics took 10.1121 ms 
+Animations took 0.157642 ms 
+Camera took 2.29592 ms 
+Audio took 0.0165726 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.124901 ms 
+Snek took 0.816506 ms 
+Physics took 0.215849 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.84085 ms 
+Graphics took 20.7251 ms 
+Animations took 0.175832 ms 
+Camera took 2.60878 ms 
+Audio took 0.0177853 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.12288 ms 
+Snek took 0.713028 ms 
+Physics took 0.22272 ms 
+Canvas UI took 0.0630569 ms 
+Collisions took 5.68927 ms 
+Graphics took 10.1445 ms 
+Animations took 0.161684 ms 
+Camera took 2.31774 ms 
+Audio took 0.152387 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0117221 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.1152 ms 
+Snek took 0.687562 ms 
+Physics took 0.209381 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.81295 ms 
+Graphics took 9.67074 ms 
+Animations took 0.172598 ms 
+Camera took 2.24701 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.101053 ms 
+Snek took 0.684733 ms 
+Physics took 0.204126 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.7596 ms 
+Graphics took 9.76371 ms 
+Animations took 0.172194 ms 
+Camera took 2.26196 ms 
+Audio took 0.0117221 ms 
+Background took 0.00444632 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0990316 ms 
+Snek took 0.611975 ms 
+Physics took 0.267183 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.68361 ms 
+Graphics took 9.69621 ms 
+Animations took 0.203722 ms 
+Camera took 2.2175 ms 
+Audio took 0.0121263 ms 
+Background took 0.00404211 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0994358 ms 
+Snek took 0.676649 ms 
+Physics took 0.204935 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.96494 ms 
+Graphics took 10.1659 ms 
+Animations took 0.161684 ms 
+Camera took 2.43011 ms 
+Audio took 0.013339 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.122476 ms 
+Snek took 0.557811 ms 
+Physics took 0.322156 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.87803 ms 
+Graphics took 10.9759 ms 
+Animations took 0.160067 ms 
+Camera took 2.33917 ms 
+Audio took 0.0141474 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.1152 ms 
+Snek took 0.556194 ms 
+Physics took 0.321348 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.89461 ms 
+Graphics took 11.9036 ms 
+Animations took 0.181086 ms 
+Camera took 2.58574 ms 
+Audio took 0.01536 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0125305 ms 
+HUD took 0.0238484 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.13339 ms 
+Snek took 0.741323 ms 
+Physics took 0.216657 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.88288 ms 
+Graphics took 10.1263 ms 
+Animations took 0.161684 ms 
+Camera took 2.35008 ms 
+Audio took 0.01536 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0933727 ms 
+Snek took 0.639866 ms 
+Physics took 0.191596 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.72039 ms 
+Graphics took 9.96339 ms 
+Animations took 0.155621 ms 
+Camera took 2.24943 ms 
+Audio took 0.0129347 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0885222 ms 
+Snek took 0.631377 ms 
+Physics took 0.268396 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.64925 ms 
+Graphics took 9.62022 ms 
+Animations took 0.137432 ms 
+Camera took 2.25752 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0957979 ms 
+Snek took 0.64027 ms 
+Physics took 0.192809 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.65329 ms 
+Graphics took 9.85062 ms 
+Animations took 0.188362 ms 
+Camera took 2.31168 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.113179 ms 
+Snek took 1.09582 ms 
+Physics took 0.201297 ms 
+Canvas UI took 0.0626527 ms 
+Collisions took 5.85661 ms 
+Graphics took 10.2342 ms 
+Animations took 0.151983 ms 
+Camera took 2.52147 ms 
+Audio took 0.0165726 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.113583 ms 
+Snek took 0.815293 ms 
+Physics took 0.199276 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.83559 ms 
+Graphics took 9.70227 ms 
+Animations took 0.220699 ms 
+Camera took 2.25792 ms 
+Audio took 0.013339 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0962022 ms 
+Snek took 0.627739 ms 
+Physics took 0.192 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.6351 ms 
+Graphics took 9.68085 ms 
+Animations took 0.196042 ms 
+Camera took 2.27894 ms 
+Audio took 0.0117221 ms 
+Background took 0.00444632 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0897348 ms 
+Snek took 0.610358 ms 
+Physics took 0.188362 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.66582 ms 
+Graphics took 9.7431 ms 
+Animations took 0.149558 ms 
+Camera took 2.25752 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0897348 ms 
+Snek took 0.700093 ms 
+Physics took 0.198467 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.57366 ms 
+Graphics took 9.41569 ms 
+Animations took 0.136219 ms 
+Camera took 2.1884 ms 
+Audio took 0.0117221 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.00970106 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.11035 ms 
+Snek took 0.543663 ms 
+Physics took 0.192809 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.93301 ms 
+Graphics took 10.1627 ms 
+Animations took 0.14875 ms 
+Camera took 2.40101 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0 ms 
+Particles took 0.0933727 ms 
+Snek took 0.618847 ms 
+Physics took 0.190383 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.71231 ms 
+Graphics took 10.0996 ms 
+Animations took 0.16128 ms 
+Camera took 2.51298 ms 
+Audio took 0.0169769 ms 
+Background took 0.00565895 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.107116 ms 
+Snek took 0.758704 ms 
+Physics took 0.199276 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.72928 ms 
+Graphics took 10.332 ms 
+Animations took 0.154813 ms 
+Camera took 2.95236 ms 
+Audio took 0.0145516 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00242527 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.109541 ms 
+Snek took 0.66331 ms 
+Physics took 0.19483 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.73898 ms 
+Graphics took 9.54544 ms 
+Animations took 0.158046 ms 
+Camera took 2.51379 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0929685 ms 
+Snek took 0.673819 ms 
+Physics took 0.192 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.78951 ms 
+Graphics took 9.78352 ms 
+Animations took 0.140261 ms 
+Camera took 2.24175 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00242526 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0917558 ms 
+Snek took 0.743748 ms 
+Physics took 0.200084 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.70463 ms 
+Graphics took 9.68772 ms 
+Animations took 0.154004 ms 
+Camera took 2.19608 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.090139 ms 
+Snek took 0.679478 ms 
+Physics took 0.189575 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.74586 ms 
+Graphics took 9.60728 ms 
+Animations took 0.189171 ms 
+Camera took 2.27005 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0877137 ms 
+Snek took 0.67099 ms 
+Physics took 0.192404 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.74505 ms 
+Graphics took 9.69499 ms 
+Animations took 0.202914 ms 
+Camera took 2.25307 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.151175 ms 
+Snek took 0.707773 ms 
+Physics took 0.193213 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.72565 ms 
+Graphics took 10.3733 ms 
+Animations took 0.159259 ms 
+Camera took 3.05462 ms 
+Audio took 0.0141474 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0105095 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.107924 ms 
+Snek took 0.646333 ms 
+Physics took 0.195234 ms 
+Canvas UI took 0.0602274 ms 
+Collisions took 5.73454 ms 
+Graphics took 10.2087 ms 
+Animations took 0.217061 ms 
+Camera took 2.55987 ms 
+Audio took 0.0149558 ms 
+Background took 0.00565895 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.013339 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.115604 ms 
+Snek took 0.646737 ms 
+Physics took 0.196851 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.71635 ms 
+Graphics took 10.0834 ms 
+Animations took 0.150366 ms 
+Camera took 2.5247 ms 
+Audio took 0.0141474 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.146729 ms 
+Snek took 0.614805 ms 
+Physics took 0.301945 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.75313 ms 
+Graphics took 9.5321 ms 
+Animations took 0.155621 ms 
+Camera took 2.19608 ms 
+Audio took 0.0141474 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0953937 ms 
+Snek took 0.674224 ms 
+Physics took 0.193213 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.84448 ms 
+Graphics took 9.58828 ms 
+Animations took 0.150366 ms 
+Camera took 2.26883 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0986274 ms 
+Snek took 0.666139 ms 
+Physics took 0.192809 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.79032 ms 
+Graphics took 9.89104 ms 
+Animations took 0.151983 ms 
+Camera took 2.26035 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0929685 ms 
+Snek took 0.702518 ms 
+Physics took 0.179874 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.62338 ms 
+Graphics took 9.3983 ms 
+Animations took 0.121667 ms 
+Camera took 2.21548 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0719495 ms 
+Snek took 0.609146 ms 
+Physics took 0.163705 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.57245 ms 
+Graphics took 9.99128 ms 
+Animations took 0.180278 ms 
+Camera took 2.58776 ms 
+Audio took 0.150771 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0917558 ms 
+Snek took 0.71424 ms 
+Physics took 0.173002 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 5.79638 ms 
+Graphics took 10.1586 ms 
+Animations took 0.1152 ms 
+Camera took 2.44426 ms 
+Audio took 0.0149558 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0751832 ms 
+Snek took 0.678266 ms 
+Physics took 0.227166 ms 
+Canvas UI took 0.0602274 ms 
+Collisions took 5.55507 ms 
+Graphics took 9.51916 ms 
+Animations took 0.106307 ms 
+Camera took 2.26156 ms 
+Audio took 0.0137432 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0759916 ms 
+Snek took 0.673819 ms 
+Physics took 0.166535 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 12.7326 ms 
+Graphics took 9.5709 ms 
+Animations took 0.142282 ms 
+Camera took 2.15202 ms 
+Audio took 0.0113179 ms 
+Background took 0.00404211 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0 ms 
+Particles took 0.074779 ms 
+Snek took 0.667352 ms 
+Physics took 0.162493 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.66703 ms 
+Graphics took 9.46904 ms 
+Animations took 0.106307 ms 
+Camera took 2.1888 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.874308 ms 
+Snek took 0.540026 ms 
+Physics took 0.160876 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.64682 ms 
+Graphics took 9.70106 ms 
+Animations took 0.105499 ms 
+Camera took 2.12413 ms 
+Audio took 0.0137432 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0751832 ms 
+Snek took 0.707369 ms 
+Physics took 0.160876 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.77536 ms 
+Graphics took 9.35586 ms 
+Animations took 0.104691 ms 
+Camera took 2.23407 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0913516 ms 
+Snek took 0.637845 ms 
+Physics took 0.167343 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.64319 ms 
+Graphics took 9.69338 ms 
+Animations took 0.173406 ms 
+Camera took 2.49196 ms 
+Audio took 0.0169769 ms 
+Background took 0.00565895 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0234442 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0913516 ms 
+Snek took 0.565491 ms 
+Physics took 0.290628 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.64602 ms 
+Graphics took 9.95005 ms 
+Animations took 0.159259 ms 
+Camera took 2.62899 ms 
+Audio took 0.0145516 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.00970106 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0743748 ms 
+Snek took 0.620059 ms 
+Physics took 0.163301 ms 
+Canvas UI took 0.0569937 ms 
+Collisions took 5.64076 ms 
+Graphics took 9.38739 ms 
+Animations took 0.104691 ms 
+Camera took 2.26398 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0731621 ms 
+Snek took 0.615613 ms 
+Physics took 0.160472 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.63874 ms 
+Graphics took 9.53614 ms 
+Animations took 0.108733 ms 
+Camera took 2.28743 ms 
+Audio took 0.013339 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.265971 ms 
+Snek took 0.715049 ms 
+Physics took 0.167747 ms 
+Canvas UI took 0.0598232 ms 
+Collisions took 5.58094 ms 
+Graphics took 9.34212 ms 
+Animations took 0.103478 ms 
+Camera took 2.16253 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0731621 ms 
+Snek took 0.616017 ms 
+Physics took 0.162897 ms 
+Canvas UI took 0.0578021 ms 
+Collisions took 5.61853 ms 
+Graphics took 9.48319 ms 
+Animations took 0.105903 ms 
+Camera took 2.30764 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0768 ms 
+Snek took 0.616017 ms 
+Physics took 0.163301 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.59387 ms 
+Graphics took 9.78594 ms 
+Animations took 0.124093 ms 
+Camera took 2.53966 ms 
+Audio took 0.0165726 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0157642 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808424 ms 
+Particles took 0.140665 ms 
+Snek took 0.753853 ms 
+Physics took 0.167747 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.70665 ms 
+Graphics took 10.6299 ms 
+Animations took 0.116008 ms 
+Camera took 5.25231 ms 
+Audio took 0.0145516 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0109137 ms 
+HUD took 0.0242526 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0905432 ms 
+Snek took 0.535983 ms 
+Physics took 0.163705 ms 
+Canvas UI took 0.0626527 ms 
+Collisions took 5.93098 ms 
+Graphics took 10.0018 ms 
+Animations took 0.108328 ms 
+Camera took 2.26439 ms 
+Audio took 0.0149558 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0788211 ms 
+Snek took 0.675436 ms 
+Physics took 0.165726 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.7313 ms 
+Graphics took 9.50906 ms 
+Animations took 0.107116 ms 
+Camera took 2.24782 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0101053 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0715453 ms 
+Snek took 0.887647 ms 
+Physics took 0.166131 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.64642 ms 
+Graphics took 9.47389 ms 
+Animations took 0.104286 ms 
+Camera took 2.23043 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0743748 ms 
+Snek took 0.675436 ms 
+Physics took 0.16411 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.72079 ms 
+Graphics took 9.50906 ms 
+Animations took 0.104691 ms 
+Camera took 2.3331 ms 
+Audio took 0.0121263 ms 
+Background took 0.00444632 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0727579 ms 
+Snek took 0.666544 ms 
+Physics took 0.164514 ms 
+Canvas UI took 0.0573979 ms 
+Collisions took 5.71716 ms 
+Graphics took 9.54099 ms 
+Animations took 0.103882 ms 
+Camera took 2.20659 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.0206147 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.147133 ms 
+Snek took 0.662501 ms 
+Physics took 0.237272 ms 
+Canvas UI took 0.0804379 ms 
+Collisions took 7.29317 ms 
+Graphics took 10.7597 ms 
+Animations took 0.20251 ms 
+Camera took 2.47458 ms 
+Audio took 0.01536 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0913516 ms 
+Snek took 0.713836 ms 
+Physics took 0.16896 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.86954 ms 
+Graphics took 10.1121 ms 
+Animations took 0.118838 ms 
+Camera took 2.51904 ms 
+Audio took 0.0161684 ms 
+Background took 0.00606316 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0925643 ms 
+Snek took 0.748194 ms 
+Physics took 0.16896 ms 
+Canvas UI took 0.0618442 ms 
+Collisions took 5.77092 ms 
+Graphics took 9.61375 ms 
+Animations took 0.108328 ms 
+Camera took 2.46569 ms 
+Audio took 0.0145516 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.074779 ms 
+Snek took 0.611571 ms 
+Physics took 0.186341 ms 
+Canvas UI took 0.0598232 ms 
+Collisions took 5.64763 ms 
+Graphics took 9.42943 ms 
+Animations took 0.105903 ms 
+Camera took 2.18153 ms 
+Audio took 0.0129347 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0101053 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404209 ms 
+Particles took 0.0913516 ms 
+Snek took 0.652396 ms 
+Physics took 0.167747 ms 
+Canvas UI took 0.0626527 ms 
+Collisions took 5.6064 ms 
+Graphics took 9.91003 ms 
+Animations took 0.10752 ms 
+Camera took 2.31694 ms 
+Audio took 0.0161684 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0222316 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0755874 ms 
+Snek took 0.617634 ms 
+Physics took 0.163301 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.5583 ms 
+Graphics took 9.57899 ms 
+Animations took 0.111562 ms 
+Camera took 2.27854 ms 
+Audio took 0.0125305 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0828632 ms 
+Snek took 0.531537 ms 
+Physics took 0.159259 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.77981 ms 
+Graphics took 9.53978 ms 
+Animations took 0.105499 ms 
+Camera took 2.28015 ms 
+Audio took 0.0145516 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0113179 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00161685 ms 
+Projectile took 0.000808424 ms 
+Particles took 0.090139 ms 
+Snek took 0.708986 ms 
+Physics took 0.168556 ms 
+Canvas UI took 0.06144 ms 
+Collisions took 5.64117 ms 
+Graphics took 10.771 ms 
+Animations took 0.108733 ms 
+Camera took 2.29673 ms 
+Audio took 0.0149558 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000808421 ms 
+Input took 0.0113179 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202106 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.101861 ms 
+Snek took 0.535579 ms 
+Physics took 0.166939 ms 
+Canvas UI took 0.0622485 ms 
+Collisions took 11.7985 ms 
+Graphics took 11.3046 ms 
+Animations took 0.118434 ms 
+Camera took 2.47741 ms 
+Audio took 0.0161684 ms 
+Background took 0.00485053 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.02304 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808424 ms 
+Particles took 5.32386 ms 
+Snek took 0.531537 ms 
+Physics took 0.156025 ms 
+Canvas UI took 0.0586106 ms 
+Collisions took 5.59023 ms 
+Graphics took 9.74835 ms 
+Animations took 0.108733 ms 
+Camera took 2.28015 ms 
+Audio took 0.146729 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0109137 ms 
+HUD took 0.0218274 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.0816506 ms 
+Snek took 0.60672 ms 
+Physics took 0.231613 ms 
+Canvas UI took 0.0590148 ms 
+Collisions took 5.75677 ms 
+Graphics took 9.5806 ms 
+Animations took 0.106712 ms 
+Camera took 2.24499 ms 
+Audio took 0.0121263 ms 
+Background took 0.00485053 ms 
+Buildings took 0 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0105095 ms 
+HUD took 0.0214232 ms 
+Power Up took 0.00202105 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0727579 ms 
+Snek took 0.599849 ms 
+Physics took 0.253844 ms 
+Canvas UI took 0.0582063 ms 
+Collisions took 5.60236 ms 
+Graphics took 9.42579 ms 
+Animations took 0.105499 ms 
+Camera took 2.22073 ms 
+Audio took 0.0125305 ms 
+Background took 0.00444632 ms 
+Buildings took 0.000404209 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0105095 ms 
+HUD took 0.021019 ms 
+Power Up took 0.00161684 ms 
+Projectile took 0.000404212 ms 
+Particles took 0.0755874 ms 
+Snek took 0.605912 ms 
+Physics took 0.190787 ms 
+Canvas UI took 0.059419 ms 
+Collisions took 5.66623 ms 
+Graphics took 9.54342 ms 
+Animations took 0.104691 ms 
+Camera took 2.50085 ms 
+Audio took 0.0185937 ms 
+Background took 0.00687158 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404212 ms 
+Input took 0.0145516 ms 
+HUD took 0.0242526 ms 
+Power Up took 0.00242526 ms 
+Projectile took 0.000808421 ms 
+Particles took 0.105499 ms 
+Snek took 0.551343 ms 
+Physics took 0.16411 ms 
+Canvas UI took 0.0610358 ms 
+Collisions took 5.71029 ms 
+Graphics took 10.0467 ms 
+Animations took 0.124901 ms 
+Camera took 2.49964 ms 
+Audio took 0.0161684 ms 
+Background took 0.00525474 ms 
+Buildings took 0.000404212 ms 
+LevelLoader took 0.000404209 ms 
+Input took 0.0109137 ms 
+HUD took 0.0226358 ms 
+Power Up took 0.00202105 ms 
+
+
+Breakdown: 
+
+Canvas UI took a total of 180.378 ms.
+Collisions took a total of 480.676 ms.
+Graphics took a total of 747.879 ms.
+Animations took a total of 12.2233 ms.
+Camera took a total of 177.177 ms.
+Audio took a total of 487.977 ms.
+Input took a total of 749.325 ms.
+Main Menu took a total of 12.0342 ms.
+Canvas UI took a total of 175.27 ms.
+Collisions took a total of 464.74 ms.
+Graphics took a total of 732.809 ms.
+Animations took a total of 12.195 ms.
+Camera took a total of 178.503 ms.
+Audio took a total of 454.946 ms.
+Input took a total of 732.982 ms.
+Main Menu took a total of 12.0507 ms.
+Canvas UI took a total of 173.283 ms.
+Collisions took a total of 468.642 ms.
+Graphics took a total of 734.147 ms.
+Animations took a total of 12.1874 ms.
+
+There were 20 systems. 
+
+Canvas UI took 2.57704%% of the time.
+Collisions took 6.86737%% of the time.
+Graphics took 10.6849%% of the time.
+Animations took 0.174633%% of the time.
+Camera took 2.53131%% of the time.
+Audio took 6.97167%% of the time.
+Input took 10.7055%% of the time.
+Main Menu took 0.171931%% of the time.
+Canvas UI took 2.50406%% of the time.
+Collisions took 6.63968%% of the time.
+Graphics took 10.4696%% of the time.
+Animations took 0.174229%% of the time.
+Camera took 2.55025%% of the time.
+Audio took 6.49976%% of the time.
+Input took 10.472%% of the time.
+Main Menu took 0.172168%% of the time.
+Canvas UI took 2.47568%% of the time.
+Collisions took 6.69544%% of the time.
+Graphics took 10.4887%% of the time.
+Animations took 0.174119%% of the time.
+A total of 6999.42 ms elapsed during this session. 
+Average FPS was 68.0115
+Lowest FPS was 45
+Number of Dropped Frames: 185

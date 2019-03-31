@@ -68,7 +68,7 @@ void ECSystem::InitializeEngine()
 
 	auto graphics = new GraphicsSystem();
 	auto physics = new PhysicsSystem();
-	auto camera = new CameraSystem();
+	auto camera = new CameraSystem(graphics);
 	//auto levelLoader = new LevelLoaderSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager,graphics);
 	auto snek = new SnekSystem(graphics);
 	auto background = new BackgroundSystem(graphics);
@@ -132,7 +132,7 @@ void ECSystem::InitializeEngine()
 
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");
-	background->CreateInstancedBackgrounds(3, 3, "Background01");
+	background->CreateInstancedBackgrounds(2, 2, "Background01");
 
 	m_o_SystemManager->AddSystem(buildings);
 	buildings->SetName("Buildings");
