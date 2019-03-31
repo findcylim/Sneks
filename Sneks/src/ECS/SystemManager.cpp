@@ -123,6 +123,7 @@ void SystemManager::AddSystem(BaseSystem* newSystem)
 		newSystem->m_po_SystemManager = this;
 		newSystem->SetID(static_cast<short>(GetSystemCount()));
 		m_v_SystemList.push_back(newSystem);
+		newSystem->Initialize();
 	}
 	else
 	{

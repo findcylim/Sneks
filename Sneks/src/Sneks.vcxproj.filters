@@ -154,6 +154,9 @@
     <ClCompile Include="Components\ParticleSpawnerComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\TintSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -333,6 +336,12 @@
     </ClInclude>
     <ClInclude Include="Components\ParticleSpawnerComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\TintComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\TintSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@
 #include <queue>
 #include "../Systems/AnimationSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
+#include "../Systems/TintSystem.h"
 
 
 ECSystem::ECSystem()
@@ -28,8 +29,8 @@ ECSystem::ECSystem()
 	m_o_Logger					   = new Logger("log.txt");
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
-	m_o_EntityComponentManager	   = new EntityManager();
-	m_o_GameStateManager           = new GameStateManager(kStateMainMenu, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
+	m_o_EntityComponentManager	= new EntityManager();
+	m_o_GameStateManager       = new GameStateManager(kStateMainMenu, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
 	m_b_EngineStatus			   = true;
 }
 
@@ -90,45 +91,33 @@ void ECSystem::InitializeEngine()
 
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
-	projectile->Initialize();
 
 	m_o_SystemManager->AddSystem(particle);
 	particle->SetName("Particles");
-	particle->Initialize();
 
 	m_o_SystemManager->AddSystem(snek);
 	snek->SetName("Snek");
-	snek->Initialize();
-
 
 	m_o_SystemManager->AddSystem(physics);
 	physics->SetName("Physics");
-	physics->Initialize(m_o_GameStateManager);
-
 
 	m_o_SystemManager->AddSystem(canvas);
 	canvas->SetName("Canvas UI");
-	canvas->Initialize();
 
 	m_o_SystemManager->AddSystem(collisions);
-	collisions->Initialize();
 	collisions->SetName("Collisions");
 
 	m_o_SystemManager->AddSystem(graphics);
 	graphics->SetName("Graphics");
-	graphics->Initialize();
 
 	m_o_SystemManager->AddSystem(anim);
 	anim->SetName("Animations");
-	anim->Initialize();
 
 	m_o_SystemManager->AddSystem(camera);
 	camera->SetName("Camera");
-	camera->Initialize();
 
 	audio->SetName("Audio");
 	m_o_SystemManager->AddSystem(audio);
-	audio->Initialize();
 
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");
@@ -136,8 +125,8 @@ void ECSystem::InitializeEngine()
 
 	m_o_SystemManager->AddSystem(buildings);
 	buildings->SetName("Buildings");
-	buildings->Initialize();
 
+	m_o_SystemManager->MakeSystem<TintSystem>("Tint");
 	/*m_o_SystemManager->AddSystem(levelLoader);
 	levelLoader->SetName("LevelLoader");*/
 	//levelLoader->LoadLevel(kLevel1);
@@ -163,20 +152,16 @@ void ECSystem::InitializeEngine()
 	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
 
 	m_o_SystemManager->AddSystem(helpMenu);
-	helpMenu->Initialize();
 	helpMenu->SetName("HelpMenu");
 
 	m_o_SystemManager->AddSystem(powerUp);
 	powerUp->SetName("Power Up");
-	powerUp->Initialize();
 
 	m_o_SystemManager->AddSystem(pauseMenu);
 	pauseMenu->SetName("PauseMenu");
-	pauseMenu->Initialize();
 
 	m_o_SystemManager->AddSystem(winScreen);
 	winScreen->SetName("WinScreen");
-	winScreen->Initialize();
 
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
@@ -224,7 +209,8 @@ bool ECSystem::IsEngineOn() const
 }
 
 float actualDt = 0;
-float timeElapsed = 0;
+float cappedDt = 0;
+
 
 void ECSystem::Update()
 {
@@ -238,7 +224,7 @@ void ECSystem::Update()
 		AESysFrameStart();
 		AEInputUpdate();
 
-		auto cappedDt = min(actualDt, dtCap);
+		cappedDt = min(actualDt, dtCap);
 
 		if (actualDt > dtCap)
 			++m_o_SystemManager->m_i_DroppedFrames;
@@ -268,7 +254,12 @@ void ECSystem::Update()
 	} while (actualDt > 0.0f && m_b_EngineStatus);
 }
 
-float GetDt()
+float GetUncappedDt()
 {
 	return actualDt;
+}
+
+float GetCappedDt()
+{
+	return cappedDt;
 }

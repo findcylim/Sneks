@@ -163,30 +163,34 @@ SnekSystem::~SnekSystem()
 
 void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
+	CollisionGroupName collGroup1 = eventData.object1->m_i_CollisionGroupVec[0];
+	CollisionGroupName collGroup2 = eventData.object2->m_i_CollisionGroupVec[0];
+	CollisionGroupPairing colPairing ={ collGroup1, collGroup2 };
+
+	if (colPairing == CollisionGroupPairing{ kCollGroupMoon, kCollGroupSnek2Body } ||
+		 colPairing == CollisionGroupPairing{ kCollGroupMoon, kCollGroupSnek1Body })
 	{
-		if (eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
+		auto victimHeadComponent = eventData.object2->m_po_OwnerEntity->
+			GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
+		auto attackerHeadComponent = eventData.object1->m_po_OwnerEntity->
+			GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
+
+		if (victimHeadComponent->m_po_OwnerEntity->m_b_IsActive)
 		{
-			auto victimHeadComponent = eventData.object2->m_po_OwnerEntity->
-				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
-			auto attackerHeadComponent = eventData.object1->m_po_OwnerEntity->
-				GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
-
-			if (victimHeadComponent->m_po_OwnerEntity->m_b_IsActive)
-			{
-				RemoveBodyParts(attackerHeadComponent->m_i_CurrentDamage / 2, victimHeadComponent);
-			}
+			RemoveBodyParts(attackerHeadComponent->m_i_CurrentDamage / 2, victimHeadComponent);
 		}
-	}
-	else
-	{
-		//body collision destroys the body
-		//HeadCollideBodyCheck(eventData.object1, eventData.object2);
-		HeadCollideBodyCheck(eventData.object2, eventData.object1);
+		return;
 	}
 
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ||
-		 eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
+	if (colPairing == CollisionGroupPairing{ kCollGroupSnek2Head, kCollGroupSnek1Body } ||
+		 colPairing == CollisionGroupPairing{ kCollGroupSnek1Head, kCollGroupSnek2Body })
+	{
+		HeadCollideBody(eventData.object2, eventData.object1);
+		return;
+	}
+
+	if (colPairing.groupA == kCollGroupBuilding ||
+		 colPairing.groupB == kCollGroupBuilding)
 	{
 		
 		auto objectColliding = eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupBuilding ?
@@ -212,137 +216,50 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 		objectDrawComp->m_px_Texture = m_o_GraphicsSystem->FetchTexture("Destroyed01");
 	}
 
-	//if both have snek heads
-	if (auto snekHed1 = eventData.object1->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
+	if (colPairing == CollisionGroupPairing{ kCollGroupSnek1Head, kCollGroupSnek2Head }) 
 	{
-		if (auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>())
+		auto snekHed1 = eventData.object1->m_po_OwnerEntity->GetComponent<SnekHeadComponent>();
+		auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>();
+	
+		if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
 		{
-			if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
+			bool snekLostLife = false;
+			//Perform removal of body parts for body snek heds and check for win condition
+			for (auto i_SnekHed = snekHed1;; i_SnekHed = snekHed2)
 			{
-				bool snekLostLife = false;
-				//Perform removal of body parts for body snek heds and check for win condition
-				for (auto i_SnekHed = snekHed1;; i_SnekHed = snekHed2) 
+				if (i_SnekHed->m_x_BodyParts.size() > 1)
 				{
-					if (i_SnekHed->m_x_BodyParts.size() > 1)
-					{
-						RemoveBodyParts(i_SnekHed->m_i_CurrentDamage, i_SnekHed);
-					}
-					else
-					{
-						SnekLoseLife(i_SnekHed);
-						snekLostLife = true;
-					}
-
-					if (i_SnekHed == snekHed2)
-						break;
+					RemoveBodyParts(i_SnekHed->m_i_CurrentDamage, i_SnekHed);
 				}
-
-				if (snekLostLife)
-				{
-					//m_o_SystemManager->DisableSystem<PhysicsSystem>();
-					//m_o_SystemManager->DisableSystem<CollisionSystem>();
-					//m_o_SystemManager->DisableSystem<SnekSystem>();
-
-
-
-					ResetStage();
-				}
-
-				/*					Commented because unknown angle code
-
-				
-				auto snekTrans1 = m_po_ComponentManager->GetSpecificComponentInstance
-					<TransformComponent>(snekHed1, kComponentTransform);
-				auto snekTrans2 = m_po_ComponentManager->GetSpecificComponentInstance
-					<TransformComponent>(snekHed2, kComponentTransform);
-					
-				float xDistance = snekTrans2->m_x_Position.x - snekTrans1->m_x_Position.x;
-				float yDistance = snekTrans2->m_x_Position.y - snekTrans1->m_x_Position.y;
-				float angle, snekHedDir;
-				bool collide;
-
-				collide = false;
-				snekHedDir = snekTrans1->GetRotation();
-
-				if (xDistance != 0)
-				{
-					angle = AEATan(yDistance / xDistance);
-
-					if (xDistance > 0 && angle > PI / 2 && angle < PI / 2 + PI)
-					{
-						if (angle < PI)
-							angle += PI;
-						else
-							angle -= PI;
-					}
-				}
-				else if (yDistance > 0)
-					angle = PI / 2;
 				else
-					angle = PI + PI / 2;
-
-				if (angle < 0)
-					angle += PI * 2;
-				else if (angle > PI * 2)
-					angle -= PI * 2;
-
-				if (angle < snekHedDir + f_AngleHeadHit && angle > snekHedDir - f_AngleHeadHit)
-					collide = true;
-				else if(snekHedDir + f_AngleHeadHit > PI * 2)
 				{
-					if (angle < snekHedDir + f_AngleHeadHit - PI * 2 ||
-						angle > snekHedDir - f_AngleHeadHit)
-						collide = true;
-				}
-				else if(snekHedDir - f_AngleHeadHit < 0)
-				{
-					if (angle < snekHedDir + f_AngleHeadHit ||
-						angle > snekHedDir - f_AngleHeadHit + PI * 2)
-						collide = true;
+					SnekLoseLife(i_SnekHed);
+					snekLostLife = true;
 				}
 
-				snekHedDir = snekTrans2->GetRotation();
-
-				xDistance = -xDistance;
-				yDistance = -yDistance;
-
-				if (angle < PI)
-					angle += PI;
-				else
-					angle -= PI;
-
-				if (angle < snekHedDir + f_AngleHeadHit && angle > snekHedDir - f_AngleHeadHit)
-					collide = true;
-				else if (snekHedDir + f_AngleHeadHit > PI * 2)
-				{
-					if (angle < snekHedDir + f_AngleHeadHit - PI * 2 ||
-						angle > snekHedDir - f_AngleHeadHit)
-						collide = true;
-				}
-				else if (snekHedDir - f_AngleHeadHit < 0)
-				{
-					if (angle < snekHedDir + f_AngleHeadHit ||
-						angle > snekHedDir - f_AngleHeadHit + PI * 2)
-						collide = true;
-				}
-				*/
-
-				//Send both heads flying in random directions, opposite of each other
-				srand(clock());
-				auto randDirection = AERandFloat() * 2 * PI;
-				snekHed1->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(randDirection);
-				snekHed2->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(randDirection + PI);
-
-				//Set both speeds to the higher of the two
-				float* snek1Speed = &snekHed1->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
-				float* snek2Speed = &snekHed2->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
-				float newSpeed = max(*snek1Speed, *snek2Speed);
-				*snek1Speed = newSpeed;
-				*snek2Speed = newSpeed;
-
-				HeadInvulnerableSet(1.0f, snekHed1);
-				HeadInvulnerableSet(1.0f, snekHed2);
+				if (i_SnekHed == snekHed2)
+					break;
 			}
+			if (snekLostLife)
+			{
+				ResetStage();
+			}
+
+			//Send both heads flying in random directions, opposite of each other
+			srand(clock());
+			auto randDirection = AERandFloat() * 2 * PI;
+			snekHed1->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(randDirection);
+			snekHed2->m_po_OwnerEntity->GetComponent<TransformComponent>()->SetRotation(randDirection + PI);
+
+			//Set both speeds to the higher of the two
+			float* snek1Speed = &snekHed1->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
+			float* snek2Speed = &snekHed2->m_po_OwnerEntity->GetComponent<PhysicsComponent>()->m_f_Speed;
+			float newSpeed = max(*snek1Speed, *snek2Speed);
+			*snek1Speed = newSpeed;
+			*snek2Speed = newSpeed;
+
+			HeadInvulnerableSet(1.0f, snekHed1);
+			HeadInvulnerableSet(1.0f, snekHed2);
 		}
 	}
 }
@@ -401,42 +318,38 @@ void SnekSystem::HeadInvulnerableSet(float duration, BaseComponent* anyComponent
 	BodyInvulnerableSet(snakeHeadInvulComponent->m_po_OwnerEntity->GetComponent<SnekHeadComponent>());
 }
 
-void SnekSystem::HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision)
+void SnekSystem::HeadCollideBody(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision)
 {
-	if (victimCollision->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body ||
-		(victimCollision->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body))
+	auto snekHeadAggressor = aggressorCollision->GetComponent<SnekHeadComponent>();
+
+	//Get the parent
+	auto objectFollowComp = victimCollision->GetComponent<FollowComponent>();
+
+	auto snekHeadVictim = objectFollowComp->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
+
+	auto physicsAggressor = aggressorCollision->GetComponent<PhysicsComponent>();
+
+	//Head recoils away
+	HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
+
+	auto powerUpComp = snekHeadVictim->GetComponent<PowerUpComponent>();
+	//if victim under star power
+	if (powerUpComp->m_x_PowerUpType == kPowerUpStar &&
+		 powerUpComp->m_f_PowerUpDurationLeft >= 0) 
 	{
-		auto snekHeadAggressor = aggressorCollision->GetComponent<SnekHeadComponent>();
+		RemoveBodyParts(snekHeadAggressor->m_i_CurrentDamage, snekHeadAggressor);
+		HeadInvulnerableSet(3.0f, snekHeadAggressor);
+	}
+	else
+	{
+		auto victimPhysics = snekHeadVictim->GetComponent<PhysicsComponent>();
+		RemoveBodyParts(snekHeadAggressor->m_i_CurrentDamage, snekHeadVictim);
+		HeadInvulnerableSet(3.0f, snekHeadVictim);
+		//Victim head receives some force
+		victimPhysics->SetVelocity(victimPhysics->m_x_Velocity + HTVector2{ physicsAggressor->m_x_Velocity } *0.5f);
+	}
+}	
 
-		//Get the parent
-		auto objectFollowComp = victimCollision->GetComponent<FollowComponent>();
-
-		auto snekHeadVictim = objectFollowComp->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
-
-		auto physicsAggressor = aggressorCollision->GetComponent<PhysicsComponent>();
-
-		//Head recoils away
-		HeadApplyRecoil(snekHeadAggressor, snekHeadVictim);
-
-		auto powerUpComp = snekHeadVictim->GetComponent<PowerUpComponent>();
-		//if victim under star power
-		if (powerUpComp->m_x_PowerUpType == kPowerUpStar &&
-			 powerUpComp->m_f_PowerUpDurationLeft >= 0) 
-		{
-			RemoveBodyParts(snekHeadAggressor->m_i_CurrentDamage, snekHeadAggressor);
-			HeadInvulnerableSet(3.0f, snekHeadAggressor);
-		}
-		else
-		{
-			auto victimPhysics = snekHeadVictim->GetComponent<PhysicsComponent>();
-			RemoveBodyParts(snekHeadAggressor->m_i_CurrentDamage, snekHeadVictim);
-			HeadInvulnerableSet(3.0f, snekHeadVictim);
-			//Victim head receives some force
-			victimPhysics->SetVelocity(victimPhysics->m_x_Velocity + HTVector2{ physicsAggressor->m_x_Velocity } *0.5f);
-		}
-
-	}	
-}
 
 void SnekSystem::Update(float dt)
 {

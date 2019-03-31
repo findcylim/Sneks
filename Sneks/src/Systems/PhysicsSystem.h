@@ -38,13 +38,11 @@ class PhysicsSystem : public BaseSystem,
 	public EventListener<Events::EV_PLAYER_COLLISION>,
 	public EventListener<Events::EV_PLAYER_MOVEMENT_KEY>
 {
-private:
-	GameStateManager* m_o_GameStateManager;
 public:
 	~PhysicsSystem();
 	PhysicsSystem();
 
-	void Initialize(GameStateManager* gameStateManager);
+	void Initialize();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 	void Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
 	void Update(float dt) override;

@@ -1,6 +1,6 @@
 /* Start Header ***************************************************************/
 /*!
-\file <name>System.h
+\file TintSystem.h
 \author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
@@ -21,14 +21,14 @@ Technology is prohibited.
  #pragma once
 #include "../ECS/System.h"
 
-class <name>System : public BaseSystem,
+class TintSystem : public BaseSystem,
  	public EventListener<Events::EV_PLAYER_COLLISION>
  {
  private:
  	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
  public:
- 	<name>System();
- 	~<name>System();
+ 	TintSystem();
+ 	~TintSystem();
  	void Initialize();
  	void Update(float dt) override;
  };

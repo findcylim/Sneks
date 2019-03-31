@@ -86,8 +86,8 @@ class BaseEntity
 class SnekHeadEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[10] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentAnimation, Component::kComponentPhysics , Component::kComponentSnekHead,
-		Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentPowerUp, Component::kComponentBloom, Component::kComponentEnd };
+	Component m_ax_InitialComponents[11] ={ kComponentTransform, kComponentDraw, kComponentAnimation, kComponentPhysics , kComponentSnekHead,
+		KComponentInvulnerable, kComponentCollision, kComponentPowerUp, kComponentBloom, kComponentTint, kComponentEnd };
 
 	SnekHeadEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -95,8 +95,8 @@ public:
 class SnekBodyEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[8] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::KComponentInvulnerable,
-		Component::kComponentCollision, Component::kComponentFollow, Component::kComponentBloom, Component::kComponentEnd };
+	Component m_ax_InitialComponents[9] ={ kComponentTransform, kComponentDraw, kComponentPhysics , KComponentInvulnerable,
+		kComponentCollision, kComponentFollow, kComponentBloom, kComponentTint, kComponentEnd };
 
 	SnekBodyEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -104,8 +104,8 @@ public:
 class SnekTailEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[8] = { Component::kComponentTransform, Component::kComponentDraw, Component::kComponentPhysics , Component::KComponentInvulnerable,
-		Component::kComponentCollision, Component::kComponentFollow, Component::kComponentBloom, Component::kComponentEnd };
+	Component m_ax_InitialComponents[8] = { kComponentTransform, kComponentDraw, kComponentPhysics , KComponentInvulnerable,
+		kComponentCollision, kComponentFollow, kComponentBloom, kComponentEnd };
 
 	SnekTailEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -113,8 +113,8 @@ public:
 class MoonEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[6] = { Component::kComponentTransform, Component::kComponentDraw,
-		Component::kComponentPhysics , Component::KComponentInvulnerable, Component::kComponentCollision, Component::kComponentEnd };
+	Component m_ax_InitialComponents[6] = { kComponentTransform, kComponentDraw,
+		kComponentPhysics , KComponentInvulnerable, kComponentCollision, kComponentEnd };
 
 	MoonEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -122,8 +122,8 @@ public:
 class StaticObjectEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform, Component::kComponentDraw, Component::kComponentCollision,
-		Component::kComponentEnd };
+	Component m_ax_InitialComponents[4] ={ kComponentTransform, kComponentDraw, kComponentCollision,
+		kComponentEnd };
 
 	StaticObjectEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -131,7 +131,7 @@ public:
 class BackgroundEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform, Component::kComponentDraw  , Component::kComponentEnd };
+	Component m_ax_InitialComponents[3] ={ kComponentTransform, kComponentDraw  , kComponentEnd };
 
 	BackgroundEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -139,7 +139,7 @@ public:
 class CameraEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[3] ={ Component::kComponentTransform , Component::kComponentCamera , Component::kComponentEnd };
+	Component m_ax_InitialComponents[3] ={ kComponentTransform , kComponentCamera , kComponentEnd };
 
 	CameraEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -147,9 +147,9 @@ public:
 class ProjectileEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, 
-											Component::kComponentPhysics,	 Component::kComponentCollision,
-											Component::kComponentEnd };
+	Component m_ax_InitialComponents[5] = { kComponentTransform , kComponentDraw, 
+											kComponentPhysics,	 kComponentCollision,
+											kComponentEnd };
 
 	ProjectileEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -157,7 +157,7 @@ public:
 class ParticleEffectEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentParticleEffect, Component::kComponentEnd };
+	Component m_ax_InitialComponents[5] = { kComponentParticleEffect, kComponentEnd };
 
 	ParticleEffectEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -165,8 +165,8 @@ public:
 class ParticleEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[6] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
-											Component::kComponentParticle, Component::kComponentAnimation, Component::kComponentEnd };
+	Component m_ax_InitialComponents[6] = { kComponentTransform , kComponentDraw, kComponentPhysics, 
+											kComponentParticle, kComponentAnimation, kComponentEnd };
 
 	ParticleEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -174,8 +174,8 @@ public:
 class PowerUpHolderEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[8] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentPhysics, 
-											Component::kComponentCollision, Component::KComponentInvulnerable, Component::kComponentBloom, kComponentPowerUpHolder, Component::kComponentEnd };
+	Component m_ax_InitialComponents[8] = { kComponentTransform , kComponentDraw, kComponentPhysics, 
+											kComponentCollision, KComponentInvulnerable, kComponentBloom, kComponentPowerUpHolder, kComponentEnd };
 
 	PowerUpHolderEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -184,7 +184,7 @@ public:
 class CanvasEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentCanvas, Component::kComponentEnd };
+	Component m_ax_InitialComponents[5] = { kComponentTransform , kComponentCanvas, kComponentEnd };
 
 	CanvasEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -192,7 +192,7 @@ public:
 class CanvasButtonEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[6] = { Component::kComponentTransform , Component::kComponentDraw , Component::kComponentCollision,Component::kComponentCanvasElement,Component::kComponentTextRenderer, Component::kComponentEnd };
+	Component m_ax_InitialComponents[6] = { kComponentTransform , kComponentDraw , kComponentCollision,kComponentCanvasElement,kComponentTextRenderer, kComponentEnd };
 
 	CanvasButtonEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -200,8 +200,8 @@ public:
 class CanvasBasicSpriteEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentCanvasElement,
-											Component::kComponentTextRenderer, Component::kComponentEnd };
+	Component m_ax_InitialComponents[5] = { kComponentTransform , kComponentDraw, kComponentCanvasElement,
+											kComponentTextRenderer, kComponentEnd };
 
 	CanvasBasicSpriteEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -209,8 +209,8 @@ public:
 class CanvasTextLabelEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { Component::kComponentTransform , Component::kComponentDraw, Component::kComponentCanvasElement,
-											Component::kComponentTextRenderer, Component::kComponentEnd };
+	Component m_ax_InitialComponents[5] = { kComponentTransform , kComponentDraw, kComponentCanvasElement,
+											kComponentTextRenderer, kComponentEnd };
 
 	CanvasTextLabelEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -218,7 +218,7 @@ public:
 class MouseEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[4] = { Component::kComponentTransform ,Component::kComponentDraw ,Component::kComponentCollision, Component::kComponentEnd };
+	Component m_ax_InitialComponents[4] = { kComponentTransform ,kComponentDraw ,kComponentCollision, kComponentEnd };
 
 	MouseEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -226,7 +226,7 @@ public:
 class GrowthPickupEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform ,Component::kComponentDraw, Component::kComponentEnd };
+	Component m_ax_InitialComponents[4] ={ kComponentTransform ,kComponentDraw, kComponentEnd };
 
 	GrowthPickupEntity(const char* entityName) : BaseEntity(entityName) {};
 };

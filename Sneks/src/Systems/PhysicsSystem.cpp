@@ -37,9 +37,8 @@ PhysicsSystem::~PhysicsSystem()
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
-void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
+void PhysicsSystem::Initialize()
 {
-	m_o_GameStateManager	= gameStateManager;
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this,this);
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 }
@@ -98,7 +97,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 void PhysicsSystem::Update(float dt)
 {
 	currDt = dt;
-	State currentState = m_o_GameStateManager->ReturnCurrentState();
+	State currentState = GameStateManager::ReturnCurrentState();
 
 	UNREFERENCED_PARAMETER(currentState);
 

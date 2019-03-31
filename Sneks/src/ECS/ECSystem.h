@@ -27,6 +27,7 @@ public:
 	void Update();
 };
 
-float GetDt();
+float GetUncappedDt();
+float GetCappedDt();
 
 #endif

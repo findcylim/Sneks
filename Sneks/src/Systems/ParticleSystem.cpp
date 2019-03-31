@@ -108,7 +108,6 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	CollisionGroupPairing colPairing ={ collGroup1, collGroup2 };
 
 	auto* tcp1 = eventData.object1->GetComponent<TransformComponent>();
-
 	auto* tcp2 = eventData.object2->GetComponent<TransformComponent>();
 
 	//Building collisions

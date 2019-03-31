@@ -62,6 +62,7 @@
     <ClCompile Include="Systems\PowerUpSystem.cpp" />
     <ClCompile Include="Systems\ProjectileSystem.cpp" />
     <ClCompile Include="Systems\SnekSystem.cpp" />
+    <ClCompile Include="Systems\TintSystem.cpp" />
     <ClCompile Include="Utility\AlphaEngineHelper.cpp" />
     <ClCompile Include="Utility\DebugPrintToScreen.cpp" />
     <ClCompile Include="Utility\GameStateManager.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="Components\PowerUpHolderComponent.h" />
     <ClInclude Include="Components\SnekHeadComponent.h" />
     <ClInclude Include="Components\TextRendererComponent.h" />
+    <ClInclude Include="Components\TintComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />
@@ -122,6 +124,7 @@
     <ClInclude Include="Systems\ProjectileSystem.h" />
     <ClInclude Include="Systems\SnekSystem.h" />
     <ClInclude Include="Systems\SystemList.h" />
+    <ClInclude Include="Systems\TintSystem.h" />
     <ClInclude Include="Utility\AlphaEngineHelper.h" />
     <ClInclude Include="Utility\DebugPrintToScreen.h" />
     <ClInclude Include="Utility\FileIO.h" />
