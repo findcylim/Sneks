@@ -11,6 +11,7 @@ class CreditsScreenSystem :
 	int m_i_PortraitValue = 0;
 	GraphicsSystem* m_po_GraphicsSystem = nullptr;
 	bool m_b_ClickHold = true;
+	void UpdateText(CanvasTextLabelEntity* textEntity, const char * nameText, HTVector2 ScreenOffset);
 public:
 	void SetNextState(State nextState);
 	void Initialize();
