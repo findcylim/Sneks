@@ -222,6 +222,17 @@ void GameStateManager::UnloadCountdown()
 	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
 }
 
+void GameStateManager::LoadSplashScreen()
+{
+}
+
+void GameStateManager::UnloadSplashScreen()
+{
+	auto splashScreen = m_o_SystemManager->GetSystem<MainMenuSystem>("SplashScreen");
+	if(splashScreen)
+		m_o_SystemManager->RemoveSystem(splashScreen);
+}
+
 void GameStateManager::LoadCreditsScreen()
 {
 	m_o_SystemManager->EnableSystem<CreditsScreenSystem>();
@@ -251,8 +262,11 @@ void GameStateManager::Load()
 	{
 	case kStateMainMenu:   
 		LoadMainMenu();
-		if(m_x_Previous != kStateCreditsScreen)
+		if(m_x_Previous != kStateCreditsScreen && m_x_Previous != kStateSplashScreen)
 			ResetBattle();
+		break;
+	case kStateSplashScreen:
+		LoadSplashScreen();
 		break;
 	case kStateGame:
 		LoadBattle();
@@ -280,6 +294,9 @@ void GameStateManager::Unload()
 {
 	switch (m_x_Previous)
 	{
+	case kStateSplashScreen:
+		UnloadSplashScreen();
+		break;
 	case kStateMainMenu:    
 		UnloadMainMenu();		
 		break;

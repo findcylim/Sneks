@@ -162,13 +162,13 @@ void CollisionSystem::UpdateComponentsPerGroup()
 HTVector2 CollisionSystem::GetMin(DrawComponent* drawComponent) 
 {
 	return AabbHelper::GetMin(drawComponent->m_po_TransformComponent->m_x_Position, 
-		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
+		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetScale());
 }
 
 HTVector2 CollisionSystem::GetMax(DrawComponent* drawComponent) 
 {
 	return AabbHelper::GetMax(drawComponent->m_po_TransformComponent->m_x_Position,
-		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
+		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetScale());
 }
 
 void CollisionSystem::UpdateAllHitBoxes()

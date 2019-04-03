@@ -30,7 +30,12 @@ public:
 	CanvasComponent(){}
 	~CanvasComponent()
 	{
-		this->m_po_OwnerEntity->m_po_EntityManager->AddToDeleteQueue(this->m_po_OwnerEntity);
+		/*auto element = m_x_CanvasElementList.begin();
+		while (element != m_x_CanvasElementList.end())
+		{
+			this->m_po_OwnerEntity->m_po_EntityManager->AddToDeleteQueue((*element));
+			++element;
+		}*/
 	}
 	CanvasComponent(const CanvasComponent&) = delete;
 	CanvasComponent& operator=(const CanvasComponent&) = delete;

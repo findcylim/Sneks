@@ -22,6 +22,7 @@
 #include "../Systems/AnimationSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
+#include "../Systems/Menus/SplashScreenSystem.h"
 
 
 ECSystem::ECSystem()
@@ -30,7 +31,7 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_EntityComponentManager	   = new EntityManager();
-	m_o_GameStateManager           = new GameStateManager(kStateMainMenu, m_o_EntityComponentManager, m_o_SystemManager, m_o_EventManager,&m_b_EngineStatus);
+	m_o_GameStateManager           = new GameStateManager(kStateSplashScreen, m_o_EntityComponentManager, m_o_SystemManager, m_o_EventManager,&m_b_EngineStatus);
 	m_b_EngineStatus			   = true;
 }
 
@@ -89,7 +90,7 @@ void ECSystem::InitializeEngine()
 	auto helpmenu = new HelpMenuSystem(m_o_EntityComponentManager,m_o_EventManager);
 	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
 	auto anim = new AnimationSystem(m_o_EntityComponentManager, graphics);
-	
+	auto splashScreen = new SplashScreenSystem(m_o_EntityComponentManager, m_o_EventManager,graphics);
 
 	
 
@@ -199,6 +200,10 @@ void ECSystem::InitializeEngine()
 	CreditsScreen->Initialize();
 	m_o_SystemManager->AddSystem(CreditsScreen);
 
+	splashScreen->SetName("SplashScreen");
+	splashScreen->Initialize();
+	m_o_SystemManager->AddSystem(splashScreen);
+
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
 	/*************************************************************************/
@@ -221,7 +226,7 @@ void ECSystem::InitializeEngine()
 
 
 
-	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");

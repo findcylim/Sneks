@@ -237,6 +237,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Portraits/CY.png", "CY");
 	LoadTextureToMap("../Resources/Portraits/Adam.png", "Adam");
 	LoadTextureToMap("../Resources/Portraits/Spoodermun.png", "Spoodermun");
+	LoadTextureToMap("../Resources/DigiPen_Singapore.png", "DigipenLogo");
+	LoadTextureToMap("../Resources/TeamLogo.png", "TeamLogo");
 
 
 }

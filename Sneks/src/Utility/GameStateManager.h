@@ -70,7 +70,8 @@ public:
 	void UnloadPauseMenu();
 	void LoadCountdown();
 	void UnloadCountdown();
-
+	void LoadSplashScreen();
+	void UnloadSplashScreen();
 	void LoadCreditsScreen();
 	void UnloadCreditsScreen();
 };

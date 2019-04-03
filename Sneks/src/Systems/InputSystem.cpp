@@ -69,11 +69,25 @@ void InputSystem::Update(float dt)
 	GetCursorPos(&mouse);
 	TransformComponent* t_Comp = mouseEntity->GetComponent<TransformComponent>();
 	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	
+	AlphaEngineHelper::GetScreenSize(&m_o_ScreenSize.x, &m_o_ScreenSize.y);
 	float scale = 1.0f / c_Comp->GetScale();
+	m_o_ScreenSize.x *= 0.5f;
+	m_o_ScreenSize.y *= 0.5f;
 	t_Comp->SetScale(scale);
-	t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x + (mouse.x  * scale) - m_o_ScreenSize.x *0.5f * scale);
-	t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y - (mouse.y  * scale) + m_o_ScreenSize.y *0.5f * scale);
+	float overScale = (1 / scale);
+	t_Comp->SetPositionX(-c_Comp->m_f_VirtualOffset.x*overScale + (mouse.x- m_o_ScreenSize.x)-5* overScale);
+	t_Comp->SetPositionY(-c_Comp->m_f_VirtualOffset.y*overScale + (m_o_ScreenSize.y-mouse.y )+20* overScale);
+
+	if (t_Comp->m_x_Position.x > 0)
+		t_Comp->m_x_Position.x -= (t_Comp->m_x_Position.x*(1 - scale));
+	else if(t_Comp->m_x_Position.x < 0)
+		t_Comp->m_x_Position.x -= (t_Comp->m_x_Position.x*(1 - scale));
+
+	if (t_Comp->m_x_Position.y > 0)
+		t_Comp->m_x_Position.y -= (t_Comp->m_x_Position.y*(1 - scale));
+	else if (t_Comp->m_x_Position.y < 0)
+		t_Comp->m_x_Position.y -= (t_Comp->m_x_Position.y*(1 - scale));
+
 
 	if (AEInputCheckTriggered(AEVK_LBUTTON))
 	{
