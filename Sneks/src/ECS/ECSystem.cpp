@@ -281,18 +281,20 @@ void ECSystem::Update()
 		m_o_EventManager->Update();
 		m_o_SystemManager->Update(cappedDt);
 
-		if (GetAsyncKeyState(AEVK_ESCAPE))
+		//DEBUG
+		//DISABLE TODO
+		/*if (GetAsyncKeyState(AEVK_ESCAPE))
 		{
 			m_b_EngineStatus = false;
-		}
-		if (AEInputCheckTriggered(AEVK_COMMA))
+		}*/
+		/*if (AEInputCheckTriggered(AEVK_COMMA))
 		{
 			AEToogleFullScreen(false);
 		}
 		if (AEInputCheckTriggered(AEVK_PERIOD))
 		{
 			AEToogleFullScreen(true);
-		}
+		}*/
 		m_o_EntityComponentManager->ResolveDeletes();
 
 		actualDt -= dtCap;

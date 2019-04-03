@@ -364,6 +364,8 @@ void GameStateManager::Update(float dt)
 {
 	if (m_x_Current != m_x_Next && !m_b_PutTransition && !m_b_RemoveTransition)
 	{
+		m_o_EventManager->EmitEvent<Events::EV_GAME_STATE_CHANGED>(Events::EV_GAME_STATE_CHANGED{ m_x_Next ,m_x_Current });
+
 		if (m_x_Current == kStateMainMenu || m_x_Next == kStateMainMenu || m_x_Next == kStateRestart)
 		{
 			m_o_SystemManager->DisableSystem<InputSystem>();
@@ -377,8 +379,7 @@ void GameStateManager::Update(float dt)
 		}
 		else
 		{
-			m_o_EventManager->EmitEvent<Events::EV_GAME_STATE_CHANGED>(Events::EV_GAME_STATE_CHANGED{ m_x_Next ,m_x_Current });
-
+			
 			m_x_Previous = m_x_Current;
 			m_x_Current = m_x_Next;
 			Unload();
@@ -438,7 +439,7 @@ void GameStateManager::Update(float dt)
 		);
 	}
 
-	if (GetAsyncKeyState(AEVK_P) && m_x_Current == kStateGame)
+	if (GetAsyncKeyState(VK_ESCAPE) && m_x_Current == kStateGame)
 		SetState(kStatePause);
 
 	if (m_x_Current == kStateCountdown)
