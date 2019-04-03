@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file GraphicsSystem.cpp
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 15
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #include "GraphicsSystem.h"
 #include <algorithm>
 #include <vector>
@@ -231,6 +252,13 @@ void GraphicsSystem::PreLoadTextures()
 	
 	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
 	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
+
+	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
+	LoadTextureToMap("../Resources/Animated/Fire-Explosion-Particle.png", "ExplosionParticle");
+	LoadTextureToMap("../Resources/Animated/Void-Particle.png", "VoidParticle");
+	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle.png", "SparkParticle");
+	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle-White.png", "SparkParticleWhite");
+
 	LoadTextureToMap("../Resources/Credits-Background.png", "Credits-Background");
 	
 	LoadTextureToMap("../Resources/Portraits/Edwin.png", "Edwin");
@@ -239,7 +267,11 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Portraits/Spoodermun.png", "Spoodermun");
 	LoadTextureToMap("../Resources/DigiPen_Singapore.png", "DigipenLogo");
 	LoadTextureToMap("../Resources/TeamLogo.png", "TeamLogo");
+	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
 
+	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
+	LoadTextureToMap("../Resources/PowerUpTextHealth.png", "PowerUpTextHealth");
+	LoadTextureToMap("../Resources/PowerUpTextBoost.png", "PowerUpTextBoost");
 
 }
 
@@ -252,8 +284,8 @@ AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char*
 
 void GraphicsSystem::Update(float dt)
 {
-	auto bloomComp = m_po_ComponentManager->GetFirstComponentInstance<BloomComponent>(kComponentBloom);
-	while (bloomComp)
+	//TODO:: MOVE TO BLOOM SYSTEM
+	m_po_ComponentManager->Each<BloomComponent>([&](BloomComponent* bloomComp)
 	{
 		if (bloomComp->m_b_FlashingBloom)
 		{
@@ -261,12 +293,22 @@ void GraphicsSystem::Update(float dt)
 
 
 			if (bloomComp->m_f_BloomStrength > bloomComp->m_f_FlashingStrengthMax ||
-				 bloomComp->m_f_BloomStrength < bloomComp->m_f_FlashingStrengthMin)
+				bloomComp->m_f_BloomStrength < bloomComp->m_f_FlashingStrengthMin)
 				bloomComp->m_f_FlashingMagnitude *= -1.0f;
-				//bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
+			//bloomComp->m_f_BloomStrength = bloomComp->m_f_FlashingStrengthMin;
 		}
-		bloomComp = static_cast<BloomComponent*>(bloomComp->m_po_NextComponent);
-	}
+		//if it is snekhead
+		if (auto i_SnekHead = bloomComp->GetComponent<SnekHeadComponent>())
+		{
+			auto i_Physics = i_SnekHead->GetComponent<PhysicsComponent>();
+			auto speedBloomStr = i_Physics->m_f_Speed / 600.0f * bloomComp->m_f_BaseBloomStrength * 1.5f;
+			bloomComp->m_f_BloomStrength = speedBloomStr;
+			for (auto& bodyPart : i_SnekHead->m_x_BodyParts)
+				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength = speedBloomStr;
+		}
+	}, kComponentBloom);
+
+
 	Draw(dt);
 }
 
@@ -495,21 +537,20 @@ void GraphicsSystem::UpdateMatrices(CameraComponent* cameraComponent) const
 
 void GraphicsSystem::DrawTextRenderer()const
 {
-	auto text_Comp = m_po_ComponentManager->GetFirstComponentInstance<TextRendererComponent>(kComponentTextRenderer);
 	
 	float halfScreenSizeX, halfScreenSizeY;
 	AlphaEngineHelper::GetScreenSize(&halfScreenSizeX, &halfScreenSizeY);
 	halfScreenSizeX /= 2;
 	halfScreenSizeY /= 2;
 
-	while (text_Comp)
+	m_po_ComponentManager->Each<TextRendererComponent>([&](TextRendererComponent* text_Comp)->void
 	{
-		if (text_Comp->m_b_IsActive)
+		//if (text_Comp->m_b_IsActive)
+		//{
+		if (text_Comp->m_p_Text)
 		{
-			if (text_Comp->m_p_Text)
-			{
-				char textToDraw[100];
-				sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
+			char textToDraw[100];
+			sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
 
 				AEGfxPrint(m_i_font,
 					textToDraw,
@@ -518,10 +559,9 @@ void GraphicsSystem::DrawTextRenderer()const
 					text_Comp->m_x_TextColor.red,
 					text_Comp->m_x_TextColor.green,
 					text_Comp->m_x_TextColor.blue);
-			}
+			
 		}
-		text_Comp = static_cast<TextRendererComponent*>(text_Comp->m_po_NextComponent);
-	}
+	},kComponentTextRenderer,true);
 }
 
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue)

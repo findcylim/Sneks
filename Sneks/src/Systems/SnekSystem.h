@@ -1,9 +1,29 @@
+/* Start Header ***************************************************************/
+/*!
+\file SnekSystem.h
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 30
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #ifndef SNEK_SYSTEM_H
 #define SNEK_SYSTEM_H
 
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
-//#include "../ECS/ECSystem.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/DrawComponent.h"
 #include "GraphicsSystem.h"
@@ -11,7 +31,6 @@
 #include "../Components/PhysicsComponent.h"
 #include "../Components/InvulnerableComponent.h"
 #include "../Components/SnekHeadComponent.h"
-//#include "ProjectileSystem.h"
 #include "../Utility/GameStateManager.h"
 
 struct SnekPreset
@@ -31,10 +50,10 @@ struct SnekPreset
 	float m_f_AccelerationForce            = 200;
 	float m_f_BrakeForce                   = 6;
 	float m_f_TurnSpeed                    = 6;
-	float m_f_Friction                     = 1.5f;	   //natural slowdown
-	float m_f_TurnMinSpeed                 = 60;       //need to be moving at this speed to turn
+	float m_f_Friction                     = 1.5f;	 //natural slowdown
+	float m_f_TurnMinSpeed                 = 60;     //need to be moving at this speed to turn
 	float m_f_MinSpeed                     = 300;	   //if speed lower than this then clamp to 0
-	float m_f_IdleSpeed                    = 100;		//default move speed
+	float m_f_IdleSpeed                    = 100;		 //default move speed
 };
 
 
@@ -84,11 +103,13 @@ public:
 	void ResetLivesAll();
 	int GetLives(SnekHeadComponent* snekHead) const;
 	int GetLives(int playerNum) const;
-	void TweakPlayerDamage(SnekHeadComponent* snekHead, int change);
+	void TweakPlayerDamageBySpeed(SnekHeadComponent* snekHead);
 	void ResetDamageAll();
 	int GetWinner();
 	float GetGrowthPercentage(SnekHeadComponent* snekHead) const;
 	float GetGrowthPercentage(int playerNum) const;
+	float GetSpecialAttackPercentage(SnekHeadComponent* snekHead) const;
+	float GetSpecialAttackPercentage(int playerNum) const;
 };
 
 //float GetFlipChargeRate();

@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file SnekHeadComponent.h
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 3
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #ifndef SNEK_HEAD_COMPONENT_H
 #define SNEK_HEAD_COMPONENT_H
 #pragma once
@@ -20,10 +41,9 @@ public:
 	float m_f_IdleSpeed                    = 100;		//default move speed
 
 	float m_f_BoostSetCooldown             = 3;
-	float m_f_BoostCooldown                = 0;
+	float m_f_BoostCooldown                = m_f_BoostSetCooldown;
 
 	float m_f_Friction                     = 1.5f;
-
 
 	//unused for now
 	//float m_f_BrakeForce                   = 6;

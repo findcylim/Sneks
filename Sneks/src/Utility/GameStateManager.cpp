@@ -3,7 +3,6 @@
 #include "../Systems/InputSystem.h"
 #include "../Systems/PhysicsSystem.h"
 #include "../Systems/LevelLoaderSystem.h"
-#include "../Systems/GraphicsSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/CameraSystem.h"
 #include "../Systems/SnekSystem.h"
@@ -69,6 +68,19 @@ GameStateManager::~GameStateManager()
 {
 }
 
+void GameStateManager::AddGraphics(GraphicsSystem* graphics)
+{
+	m_po_GraphicsSystem = graphics;
+	m_x_TransitionEntity = m_o_EntityManager->NewEntity<ScreenOverlayEntity>(kEntityScreenOverlay, "Transition Screen");
+	
+	auto transformComponent = m_x_TransitionEntity->GetComponent<TransformComponent>();
+	auto drawComponent = m_x_TransitionEntity->GetComponent<DrawComponent>();
+
+	transformComponent->m_x_Position = { 1920, 0 };
+	drawComponent->m_f_DrawPriority = 1;
+	m_po_GraphicsSystem->InitializeDrawComponent(drawComponent, "Background01", { 0, 0, 0, 0 }, 1, 1);
+}
+
 void GameStateManager::LoadMainMenu()
 {
 	m_o_SystemManager->EnableSystem<MainMenuSystem>();
@@ -99,6 +111,31 @@ void GameStateManager::ResetBattle()
 		m_o_SystemManager->GetSystem<SnekSystem>("Snek")->DeleteSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
 		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
 	}
+
+	auto particleEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEntity>(kEntityParticle);
+
+	while (particleEntity)
+	{
+		m_o_EntityManager->AddToDeleteQueue(particleEntity);
+		particleEntity = static_cast<ParticleEntity*>(particleEntity->m_po_NextEntity);
+	}
+
+	auto particleSpawnerEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEffectEntity>(kEntityParticleEffect);
+
+	while (particleSpawnerEntity)
+	{
+		m_o_EntityManager->AddToDeleteQueue(particleSpawnerEntity);
+		particleSpawnerEntity = static_cast<ParticleEffectEntity*>(particleSpawnerEntity->m_po_NextEntity);
+	}
+
+	auto powerupEntity = m_o_EntityManager->GetFirstEntityInstance<PowerUpHolderEntity>(kEntityPowerUpHolder);
+
+	while (powerupEntity)
+	{
+		m_o_EntityManager->AddToDeleteQueue(powerupEntity);
+		powerupEntity = static_cast<PowerUpHolderEntity*>(powerupEntity->m_po_NextEntity);
+	}
+
 	m_o_EntityManager->ResolveDeletes();
 
 	auto camera = m_o_SystemManager->GetSystem<CameraSystem>("Camera");
@@ -116,8 +153,7 @@ void GameStateManager::ResetBattle()
 	snek->CreateSnek(200, 0, PI * 7 / 4, 20, "SnekHead02", 1);
 
 	auto buildings = m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings");
-	buildings->RemoveBuildings();
-	buildings->GenerateNewBuildings(500);
+	buildings->ResetLevel1();
 
 	
 	//auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
@@ -324,15 +360,82 @@ void GameStateManager::Unload()
 	}
 }
 
-void GameStateManager::Update()
+void GameStateManager::Update(float dt)
 {
-	if (m_x_Current != m_x_Next)
+	if (m_x_Current != m_x_Next && !m_b_PutTransition && !m_b_RemoveTransition)
 	{
-		m_o_EventManager->EmitEvent<Events::EV_GAME_STATE_CHANGED>(Events::EV_GAME_STATE_CHANGED{ m_x_Next ,m_x_Current });
-		m_x_Previous = m_x_Current;
-		m_x_Current = m_x_Next;
-		Unload();
-		Load();
+		if (m_x_Current == kStateMainMenu || m_x_Next == kStateMainMenu || m_x_Next == kStateRestart)
+		{
+			m_o_SystemManager->DisableSystem<InputSystem>();
+			m_o_SystemManager->DisableSystem<CameraSystem>();
+			auto transformComponent = m_x_TransitionEntity->GetComponent<TransformComponent>();
+			auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+			transformComponent->SetPositionX(m_f_ScreenWidth / cameraComponent->m_f_VirtualScale - cameraComponent->m_f_VirtualOffset.x);
+			transformComponent->SetPositionY(-cameraComponent->m_f_VirtualOffset.y);
+			transformComponent->m_f_Scale = m_f_ScreenWidth / cameraComponent->m_f_VirtualScale;
+			m_b_PutTransition = true;
+		}
+		else
+		{
+			m_o_EventManager->EmitEvent<Events::EV_GAME_STATE_CHANGED>(Events::EV_GAME_STATE_CHANGED{ m_x_Next ,m_x_Current });
+
+			m_x_Previous = m_x_Current;
+			m_x_Current = m_x_Next;
+			Unload();
+			Load();
+		}
+	}
+	if (m_b_PutTransition)
+	{
+		auto transformComponent = m_x_TransitionEntity->GetComponent<TransformComponent>();
+		auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+		transformComponent->SetPositionX(transformComponent->GetPosition().x - m_f_ScreenMoveSpeed / cameraComponent->m_f_VirtualScale * dt);
+
+		if (transformComponent->GetPosition().x <= -cameraComponent->m_f_VirtualOffset.x)
+		{
+			cameraComponent->m_f_VirtualOffset = { 0,0 };
+			cameraComponent->m_f_VirtualScale = 1;
+			transformComponent->m_x_Position = { 0 ,0 };
+			m_b_PutTransition = false;
+			m_b_RemoveTransition = true;
+			m_x_Previous = m_x_Current;
+			m_x_Current = m_x_Next;
+			Unload();
+			Load();
+
+			if (m_x_Current == kStateRestart)
+			{
+				ResetBattle();
+				m_x_Next = kStateGame;
+			}
+		}
+
+		m_x_TransitionEntity->GetComponent<DrawComponent>()->SetAlpha(
+			((m_f_ScreenWidth / cameraComponent->m_f_VirtualScale) -
+				transformComponent->GetPosition().x - cameraComponent->m_f_VirtualOffset.x) /
+				(m_f_ScreenWidth / cameraComponent->m_f_VirtualScale)
+		);
+	}
+	else if (m_b_RemoveTransition)
+	{
+		auto transformComponent = m_x_TransitionEntity->GetComponent<TransformComponent>();
+		auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+		transformComponent->SetPositionX(transformComponent->GetPosition().x - m_f_ScreenMoveSpeed / cameraComponent->m_f_VirtualScale * dt);
+		transformComponent->SetPositionY(-cameraComponent->m_f_VirtualOffset.y);
+		transformComponent->m_f_Scale = m_f_ScreenWidth / cameraComponent->m_f_VirtualScale;
+
+		if (transformComponent->GetPosition().x <= (-m_f_ScreenWidth / cameraComponent->m_f_VirtualScale) - cameraComponent->m_f_VirtualOffset.x)
+		{
+			m_b_RemoveTransition = false;
+			m_o_SystemManager->EnableSystem<InputSystem>();
+			m_o_SystemManager->EnableSystem<CameraSystem>();
+		}
+
+		m_x_TransitionEntity->GetComponent<DrawComponent>()->SetAlpha(
+			((-m_f_ScreenWidth / cameraComponent->m_f_VirtualScale) -
+				transformComponent->GetPosition().x - cameraComponent->m_f_VirtualOffset.x) /
+				(-m_f_ScreenWidth / cameraComponent->m_f_VirtualScale)
+		);
 	}
 
 	if (GetAsyncKeyState(AEVK_P) && m_x_Current == kStateGame)
@@ -341,10 +444,4 @@ void GameStateManager::Update()
 	if (m_x_Current == kStateCountdown)
 		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3.5) // check if countdown is over
 			m_x_Next = kStateGame;
-
-	if (m_x_Current == kStateRestart)
-	{
-		ResetBattle();
-		m_x_Next = kStateGame;
-	}
 }

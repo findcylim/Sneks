@@ -1,10 +1,31 @@
+/* Start Header ***************************************************************/
+/*!
+\file HTVector2.h
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 5
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #pragma once
 struct HTVector2 final
 {
 	float x;
 	float y;
 
-	float dot(const HTVector2& rhs) const
+	float Dot(const HTVector2& rhs) const
 	{
 		return rhs.x * x + rhs.y * y;
 	}
@@ -84,12 +105,34 @@ struct HTVector2 final
 	{
 		return !(*this == rhs);
 	}
+
+	HTVector2& operator*=(const HTVector2& rhs)
+	{
+		x *= rhs.x;
+		y *= rhs.y;
+		return (*this);
+	}
+
+
+	HTVector2& operator*=(const float& rhs)
+	{
+		x *= rhs;
+		y *= rhs;
+		return (*this);
+	}
+
+	HTVector2& operator/=(const HTVector2& rhs)
+	{
+		x /= rhs.x;
+		y /= rhs.y;
+		return (*this);
+	}
 };
 
 
 inline HTVector2 CalculateReflectVelocity(HTVector2 velocity, HTVector2 wallNormal)
 {
-	HTVector2 perpendicular = wallNormal * ( velocity.dot(wallNormal) / wallNormal.dot(wallNormal)) ;
+	HTVector2 perpendicular = wallNormal * ( velocity.Dot(wallNormal) / wallNormal.Dot(wallNormal)) ;
 	HTVector2 parallel		= velocity - perpendicular;
 
 	auto newVel = parallel - perpendicular;

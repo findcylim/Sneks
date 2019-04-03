@@ -170,20 +170,20 @@ void AudioSystem::Initialize()
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
+	if (eventData.object1->IsGroup(kCollGroupMouse) && eventData.object2->IsGroup(kCollGroupUIButton))
 	{
 		
 	}
-	else if (eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupPowerUp)
+	else if (eventData.object2->IsGroup(kCollGroupPowerUp))
 	{
 		m_o_PowerUpSound.Play();
 	}
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
-				eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body ||
-				eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head &&
-				eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body || 
-				eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
-				eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head)
+	else if (eventData.object1->IsGroup(kCollGroupSnek1Head) &&
+				eventData.object2->IsGroup(kCollGroupSnek2Body) ||
+				eventData.object1->IsGroup(kCollGroupSnek2Head) &&
+				eventData.object2->IsGroup(kCollGroupSnek1Body) || 
+				eventData.object1->IsGroup(kCollGroupSnek1Head) &&
+				eventData.object2->IsGroup(kCollGroupSnek2Head))
 	{
 		m_o_ExplosionSound.Play();
 	}

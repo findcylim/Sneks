@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file BuildingsSystem.cpp
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 5
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #include "BuildingsSystem.h"
 #include "../Components/CollisionComponent.h"
 
@@ -6,8 +27,8 @@
 //TODO: analyse the code and make the buildings cover the entire map
 constexpr int buildingsDistX = 80;
 constexpr int buildingsDistY = 45;
-constexpr int bgInstancesX = 1;
-constexpr int bgInstancesY = 1;
+constexpr int bgInstancesX = 2;
+constexpr int bgInstancesY = 2;
 
 
 BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics) :
@@ -42,8 +63,8 @@ void BuildingsSystem::Initialize()
 	m_i_MaxBuildingsY = 1080 / 45 * (bgInstancesY * 2 + 1);
 
 	//The coordinates of the building at the origin
-	m_i_FirstBuildingCoords.x = -1920.0f * bgInstancesX - 33.5f - buildingsDistX - 13.0f;
-	m_i_FirstBuildingCoords.y = -1080.0f * bgInstancesY - 21.0f - buildingsDistY + 6.0f;
+	m_i_FirstBuildingCoords.x = -1920.0f * (bgInstancesX + 0.5f) - 33.5f - buildingsDistX - 13.0f + 160;
+	m_i_FirstBuildingCoords.y = -1080.0f * (bgInstancesY + 0.5f) - 21.0f - buildingsDistY + 6.0f + 90;
 
 	m_BuildingInstances.clear();
 	m_BuildingCoordsCurrent.clear();

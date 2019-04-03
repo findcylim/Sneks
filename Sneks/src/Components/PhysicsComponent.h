@@ -1,3 +1,24 @@
+/* Start Header ***************************************************************/
+/*!
+\file PhysicsComponent.h
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 3
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 #ifndef PHYSICS_COMPONENT_H
 #define PHYSICS_COMPONENT_H
 #pragma once
@@ -11,7 +32,7 @@ class PhysicsComponent : public BaseComponent
 {
 public:
 	float		               m_f_Speed;
-	float		               m_f_MaxSpeed = 600;
+	float		               m_f_MaxSpeed = 1200;
 	float							m_f_Acceleration;
 	HTVector2					m_x_Velocity ={};
 	float						   m_f_Mass = 10;

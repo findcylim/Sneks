@@ -1,8 +1,44 @@
+/* Start Header ***************************************************************/
+/*!
+\file CollisionSystem.cpp
+\author Lim Chu Yan, chuyan.lim, 440002918 
+\par email: chuyan.lim\@digipen.edu
+\par Course : GAM150
+\par SNEKS ATTACK
+\par High Tea Studios
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
+
+\par Contribution (hours): CY - 10
+
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header *****************************************************************/
+
 
 #include "CollisionSystem.h"
 #include "../Components/DrawComponent.h"
 #include <iostream>
 
+std::vector<CollisionGroupPairing> CollisionSystem::m_vx_CollisionsPairings =
+{ {kCollGroupSnek1Head,kCollGroupSnek2Head},
+ {kCollGroupSnek1Head,kCollGroupSnek2Body}, //Snek Head and Other Head
+ {kCollGroupSnek1Head,kCollGroupBuilding },
+ {kCollGroupSnek1Head,kCollGroupPowerUp },
+ {kCollGroupSnek2Head,kCollGroupSnek1Body},
+ {kCollGroupSnek2Head,kCollGroupBuilding },
+ {kCollGroupSnek2Head,kCollGroupPowerUp },
+ {kCollGroupMoon		 ,kCollGroupSnek1Head}, //Moon and Other Head
+ {kCollGroupMoon		 ,kCollGroupSnek1Body}, //Moon and Other Body
+ {kCollGroupMoon		 ,kCollGroupSnek2Head}, //Moon and Other Head
+ {kCollGroupMoon		 ,kCollGroupSnek2Body}, //Moon and Other Body
+ {kCollGroupMoon		 ,kCollGroupBuilding },  //Moon and Buildings
+ {kCollGroupMouse    ,kCollGroupUIButton}
+};
 
 CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
 BaseSystem(entityManagerPtr)

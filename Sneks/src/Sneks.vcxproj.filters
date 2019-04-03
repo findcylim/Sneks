@@ -1,53 +1,124 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="ECSystem">
-      <UniqueIdentifier>{2dae4ec9-d7f1-40e1-b32c-f5f171eb44f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems">
-      <UniqueIdentifier>{56f3dfa6-ca15-40f6-9302-e497ac1a3032}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{53a98c99-b7e4-4a1b-833d-384da71142bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{93fee7eb-6cb9-46be-9758-fe89ea837071}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components">
-      <UniqueIdentifier>{6933e68f-8b22-457d-826e-1b129e51416a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Systems\Menus">
-      <UniqueIdentifier>{5837b660-d228-4c91-aba4-252866ac4ff1}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ECS\ComponentManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\ECSystem.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\EntityList.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\EntityManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\EventManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\System.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ECS\SystemManager.cpp">
-      <Filter>ECSystem</Filter>
+    <ClCompile Include="GameEntry.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Components\AnimationComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Math\Aabb.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\AlphaEngineHelper.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\AnimationSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\AudioSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\BackgroundSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\BuildingsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CameraComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\CameraShake.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\CameraSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\CanvasUISystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\CollisionSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\ComponentManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\CreditsScreenSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\DebugPrintToScreen.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\DrawComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\ECSystem.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EntityList.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EntityManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EventManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\System.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\GraphicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\InputSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\LevelLoaderSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\ParticleSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\PhysicsSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\ProjectileSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\PowerUpSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\WinScreenSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\SplashScreenSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\MainMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\HUDSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\TextRendererComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\TransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PowerUpComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleSpawnerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Utility\GameStateManager.cpp">
       <Filter>Utility</Filter>
@@ -55,268 +126,125 @@
     <ClCompile Include="Utility\Logger.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\InputSystem.cpp">
+    <ClCompile Include="Systems\SnekSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\PhysicsSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEntry.cpp" />
-    <ClCompile Include="Utility\DebugPrintToScreen.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\PerlinNoise.cpp">
-      <Filter>Math</Filter>
+    <ClCompile Include="ECS\SystemManager.cpp">
+      <Filter>ECS</Filter>
     </ClCompile>
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Components\TransformComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\CameraComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\DrawComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility\AlphaEngineHelper.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\GraphicsSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\CollisionSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="Systems\CameraSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\SnekSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\BackgroundSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\LevelLoaderSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\BuildingsSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\CameraShake.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\ProjectileSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\ParticleEffectComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\ParticleComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\ParticleSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\CanvasUISystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Menus\MainMenuSystem.cpp">
-      <Filter>Systems\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\TextRendererComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\AudioSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\PowerUpComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\PowerUpSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Menus\HUDSystem.cpp">
-      <Filter>Systems\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Menus\WinScreenSystem.cpp">
-      <Filter>Systems\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Components\AnimationComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\AnimationSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp">
-      <Filter>Systems\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp">
-      <Filter>Systems\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Menus\CreditsScreenSystem.cpp">
-      <Filter>Systems\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Menus\SplashScreenSystem.cpp">
-      <Filter>Systems\Menus</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\Component.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ComponentList.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ComponentManager.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ECSystem.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Entity.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EntityList.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EntityManager.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EventManager.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\System.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\SystemManager.h">
-      <Filter>ECSystem</Filter>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Components\AnimationComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Math\Aabb.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\misc.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\GameStateManager.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\Logger.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\InputSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\PhysicsSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\EventListener.h">
-      <Filter>ECSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\DebugPrintToScreen.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\HTColor.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\HTVector2.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\PerlinNoise.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\MemoryAllocator.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\TransformComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\CameraComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\DrawComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\PhysicsComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\AlphaEngineHelper.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\GraphicsSystem.h">
+    <ClInclude Include="Systems\AnimationSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\CollisionSystem.h">
+    <ClInclude Include="Systems\AudioSystem.h">
       <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\CollisionComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\SnekSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\CameraSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\SnekHeadComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\InvulnerableComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\FollowComponent.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Systems\BackgroundSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\LevelLoaderSystem.h">
-      <Filter>Systems</Filter>
+    <ClInclude Include="Components\BloomComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Systems\BuildingsSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="Components\CameraComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
     <ClInclude Include="Math\CameraShake.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\ProjectileSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\FileIO.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\ParticleEffectComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\ParticleComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\ParticleSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\CanvasUISystem.h">
+    <ClInclude Include="Systems\CameraSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Components\CanvasComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\Menus\MainMenuSystem.h">
-      <Filter>Systems\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\TextRendererComponent.h">
+    <ClInclude Include="Components\CollisionComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\AudioSystem.h">
+    <ClInclude Include="Systems\CanvasUISystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\Menus\HUDSystem.h">
+    <ClInclude Include="Systems\CollisionSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Component.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentList.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\CreditsScreenSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Components\PowerUpComponent.h">
+    <ClInclude Include="Utility\DebugPrintToScreen.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\DrawComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ECSystem.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Entity.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EntityList.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EntityManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EventListener.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EventManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\System.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\FileIO.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\FollowComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\GraphicsSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\InputSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\LevelLoaderSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\ParticleSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\PhysicsSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\ProjectileSystem.h">
+      <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Systems\PowerUpSystem.h">
       <Filter>Systems</Filter>
@@ -324,30 +252,94 @@
     <ClInclude Include="Systems\Menus\WinScreenSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\SystemList.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Components\AnimationComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\AnimationSystem.h">
-      <Filter>Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\Menus\HelpMenuSystem.h">
+    <ClInclude Include="Systems\Menus\SplashScreenSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Components\BloomComponent.h">
-      <Filter>Components</Filter>
+    <ClInclude Include="Systems\Menus\MainMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Menus\PauseMenuSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\Menus\CreditsScreenSystem.h">
+    <ClInclude Include="Systems\Menus\HUDSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\Menus\SplashScreenSystem.h">
+    <ClInclude Include="Systems\Menus\HelpMenuSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="Components\TransformComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\TextRendererComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SnekHeadComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PowerUpHolderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PowerUpComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhysicsComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleSpawnerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\InvulnerableComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\HTColor.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\HTVector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\GameStateManager.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Logger.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\MemoryAllocator.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\misc.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\RTTIHelper.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\SnekSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\SystemManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{0347917b-6f42-422b-888c-93ef57fd919c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{3c777a66-f8ed-4e42-9518-c990dbabed47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{16d351ec-d892-4d4c-bea8-cf624642b413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{cfc5e017-6796-4838-964a-66a1e38edc64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{d29cb2fa-fdca-4839-9fa7-4b5c2a15564b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Menus">
+      <UniqueIdentifier>{d8510fb9-f541-4aa1-9260-a0f2e7a54824}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

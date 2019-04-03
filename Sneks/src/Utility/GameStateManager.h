@@ -7,6 +7,7 @@
 #include "../ECS/EventManager.h"
 #include "../Utility/Logger.h"
 #include "../ECS/EntityManager.h"
+#include "../Systems/GraphicsSystem.h"
 
 class WinScreenSystem;
 typedef void(*FP)(void);
@@ -41,6 +42,13 @@ private:
 	EntityManager* m_o_EntityManager;
 	SystemManager* m_o_SystemManager;
 	EventManager* m_o_EventManager;
+
+	GraphicsSystem* m_po_GraphicsSystem;
+	bool m_b_PutTransition = false;
+	bool m_b_RemoveTransition = false;
+	float m_f_ScreenMoveSpeed = 5000.0f;
+	float m_f_ScreenWidth = 2500.0f;
+	ScreenOverlayEntity* m_x_TransitionEntity = nullptr;
 public:
 	time_t ReturnTimeStamp();
 	static	State	ReturnCurrentState();
@@ -53,7 +61,8 @@ public:
 	GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr, bool* engineStatus);
 	~GameStateManager();
 
-	void Update();
+	void AddGraphics(GraphicsSystem* graphics);
+	void Update(float dt);
 	void ExitGame();
 	void Load();
 	void Unload();
