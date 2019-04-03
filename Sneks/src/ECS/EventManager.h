@@ -14,6 +14,7 @@
 #include "../Components/TextRendererComponent.h"
 #include "../Utility/RTTIHelper.h"
 
+enum State : int;
 
 enum kEventList
 {
@@ -97,6 +98,11 @@ namespace Events
 		char WinnerNumber;
 	};
 
+	struct EV_GAME_STATE_CHANGED
+	{
+		State changedToState;
+		State changedFromState;
+	};
 }
 
 class EventManager

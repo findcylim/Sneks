@@ -23,6 +23,8 @@ class Sound
 	char m_c_PlayCap	= 0;
 	float m_f_Timer		= 0.0f;
 public:
+	float m_f_PlayTimer = 0.0f;
+	bool m_b_IsPlaying = false;
 	Sound();
 	/* Error-checking*/
 	void FmodErrorCheck(FMOD_RESULT result);
@@ -50,8 +52,11 @@ public:
 
 class AudioSystem final : public BaseSystem // Add event listeners here
 , public EventListener<Events::EV_PLAYER_COLLISION>
+, public EventListener<Events::EV_GAME_STATE_CHANGED>
 {
-	Sound m_o_BackgroundMusic;
+	Sound m_o_MainMenuMusic;
+	Sound m_o_IntroBattleMusic;
+	Sound m_o_BattleLoopMusic;
 	Sound m_o_HitSound;
 	Sound m_o_PowerUpSound;
 	Sound m_o_ExplosionSound;
@@ -62,6 +67,7 @@ public:
 	~AudioSystem();
 	void Initialize();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
+	void Receive(const Events::EV_GAME_STATE_CHANGED& eventData) override;
 	void Update(float dt) override;
 };
 

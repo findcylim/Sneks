@@ -140,6 +140,7 @@ void GameStateManager::LoadBattle()
 	m_o_SystemManager->EnableSystem<ProjectileSystem>();
 	m_o_SystemManager->EnableSystem<ParticleSystem>();
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
+	AEInputShowCursor(false);
 
 	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
@@ -157,6 +158,7 @@ void GameStateManager::UnloadBattle()
 	m_o_SystemManager->DisableSystem<SnekSystem>();
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
+	AEInputShowCursor(true);
 }
 
 void GameStateManager::LoadHelpMenu()
@@ -164,6 +166,7 @@ void GameStateManager::LoadHelpMenu()
 	m_o_SystemManager->EnableSystem<HelpMenuSystem>();
 	if (m_x_Previous == kStateMainMenu)
 		m_o_SystemManager->GetSystem<HelpMenuSystem>("HelpMenu")->SetNextState(kStateGame);
+	
 }
 
 void GameStateManager::UnloadHelpMenu()
@@ -325,6 +328,7 @@ void GameStateManager::Update()
 {
 	if (m_x_Current != m_x_Next)
 	{
+		m_o_EventManager->EmitEvent<Events::EV_GAME_STATE_CHANGED>(Events::EV_GAME_STATE_CHANGED{ m_x_Next ,m_x_Current });
 		m_x_Previous = m_x_Current;
 		m_x_Current = m_x_Next;
 		Unload();

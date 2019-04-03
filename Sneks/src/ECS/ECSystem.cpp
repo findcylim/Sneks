@@ -216,7 +216,8 @@ void ECSystem::InitializeEngine()
 	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
 	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
-
+	m_o_EntityComponentManager->GetSpecificEntityInstance<MouseEntity>(kEntityMouse, "MouseEntity")
+		->GetComponent<DrawComponent>()->m_f_RgbaColor.alpha = 0;
 
 
 
