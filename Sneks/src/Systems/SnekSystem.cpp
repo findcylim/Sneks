@@ -780,7 +780,9 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 	velocity.x = 0;
 	velocity.y = 0;
 
-	owner->GetComponent<PowerUpComponent>()->ResetPowerIncrease();
+	auto powerUpComp = owner->GetComponent<PowerUpComponent>();
+	powerUpComp->ResetPowerIncrease();
+	powerUpComp->m_f_PowerUpDurationLeft = 0;
 
 	transformComp->SetPositionY(0);
 
@@ -821,6 +823,12 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 			FaceReference(followComponent->m_po_FolloweeTransform, bodyDraw->m_po_TransformComponent);
 			MoveTowardsReference(followDrawComponent, bodyDraw, headPhysicsComponent);
 		}
+	}
+	snekHeadComp->GetComponent<DrawComponent>()->m_f_RgbaColor = { 1.0f,1.0f,1.0f,1.0f };
+	for (auto& i_BodyParts : snekHeadComp->m_x_BodyParts)
+	{
+		auto bodyDraw = i_BodyParts->GetComponent<DrawComponent>();
+		bodyDraw->m_f_RgbaColor = { 1.0f,1.0f,1.0f,1.0f };
 	}
 }
 

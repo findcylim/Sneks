@@ -247,7 +247,7 @@ void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_SPEED & eventData)
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_STARMODE & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	m_o_StarModeMusic.Play(0.2f);
+	m_o_StarModeMusic.Play(0.15f);
 	m_o_BattleLoopMusic.Pause(true);
 }
 
