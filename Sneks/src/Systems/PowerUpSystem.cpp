@@ -196,6 +196,7 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 		case kPowerUpSpeedIncrease:
 		{
 			snekHeadComponent->m_f_AccelerationForce *= powerUp->GetPowerIncrease();
+			m_po_EventManagerPtr->EmitEvent<Events::EV_POWERUP_PICKUP_SPEED>(Events::EV_POWERUP_PICKUP_SPEED{});
 			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
 			//	Component::kComponentSnekHead)->m_f_MinSpeed *= powerup->GetPowerIncrease();
 			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
@@ -216,6 +217,7 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 
 		case kPowerUpStar:
 		{
+			m_po_EventManagerPtr->EmitEvent<Events::EV_POWERUP_PICKUP_STARMODE>(Events::EV_POWERUP_PICKUP_STARMODE{});
 		}
 			break;
 
@@ -233,6 +235,8 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 			for (int i = 0; i < powerUp->GetPowerIncrease(); i++)
 				m_po_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerUp->m_po_OwnerEntity),
 					bodyTexture, snekHeadComponent->m_i_PlayerNumber);
+
+			m_po_EventManagerPtr->EmitEvent<Events::EV_POWERUP_PICKUP_HEALTH>(Events::EV_POWERUP_PICKUP_HEALTH{});
 		}
 			break;
 

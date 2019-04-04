@@ -22,27 +22,31 @@ Technology is prohibited.
 #include "CameraSystem.h"
 #include "../Components/CameraComponent.h"
 #include "../Math/Aabb.h"
+#include "../Utility/GameStateManager.h"
 
 void CameraSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
-		SetShake(0.4f);
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
+	if (GameStateManager::ReturnCurrentState() == kStateGame)
 	{
+		if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
+			SetShake(0.4f);
+		else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon)
+		{
+		}
+		else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
+			eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body ||
+			eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head &&
+			eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body ||
+			eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
+			eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head) {
+			SetShake(13.0f);
+		}
+		else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
+		{
+		}
+		else
+			SetShake(3.0f);
 	}
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
-		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body ||
-		eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head &&
-		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek1Body ||
-		eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupSnek1Head &&
-		eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Head) {
-		SetShake(13.0f);
-	}
-	else if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
-	{ 
-	}
-	else
-		SetShake(3.0f);
 }
 
 CameraSystem::CameraSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics):

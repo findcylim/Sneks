@@ -103,6 +103,18 @@ namespace Events
 		State changedToState;
 		State changedFromState;
 	};
+
+	struct EV_POWERUP_PICKUP_SPEED
+	{
+	};
+
+	struct EV_POWERUP_PICKUP_HEALTH
+	{
+	};
+
+	struct EV_POWERUP_PICKUP_STARMODE
+	{
+	};
 }
 
 class EventManager
