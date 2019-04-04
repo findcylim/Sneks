@@ -17,13 +17,13 @@ void CreditsScreenSystem::Initialize()
 	Events::EV_NEW_UI_ELEMENT CreditsBackgroundUIElement = { canvas_Component, HTVector2{ 0.5f ,0.5f } ,
 													   kCanvasBasicSprite,"CreditBackground" ,"Credits-Background" ,"","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT CreditsMenuUIElement = { canvas_Component, HTVector2{ 0.622f ,0.499f } ,
-													   kCanvasBasicSprite,"CreditPortrait" ,"CY" ,"","","", nullptr };
+													   kCanvasBasicSprite,"CreditPortrait" ,"Spoodermun" ,"","","", nullptr };
 	
 
 	Events::EV_NEW_UI_ELEMENT MemberNameUIElement = { canvas_Component, HTVector2{ 0.37f , 0.5f } ,
-														 kCanvasTextLabel,"NameTextLabelEntity" ,"" ,"Lim Chu Yan","","", nullptr ,HTColor{1.0f,1.0f,1.0f,0.0f} };
+														 kCanvasTextLabel,"NameTextLabelEntity" ,"" ,"Javier Foo","","", nullptr ,HTColor{1.0f,1.0f,1.0f,0.0f} };
 	Events::EV_NEW_UI_ELEMENT MemberRoleUIElement = { canvas_Component, HTVector2{ 0.37f , 0.45f } ,
-														 kCanvasTextLabel,"RoleTextLabelEntity" ,"" ,"Tech Lead","","", nullptr,HTColor{1.0f,1.0f,1.0f,0.0f} };
+														 kCanvasTextLabel,"RoleTextLabelEntity" ,"" ,"Lead Designer","","", nullptr,HTColor{1.0f,1.0f,1.0f,0.0f} };
 
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvas_Component, HTVector2{ 0.5f , 0.5f } ,
 														 kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
@@ -74,7 +74,7 @@ void CreditsScreenSystem::Update(float dt)
 
 		m_f_Timer = 3.0f;
 		m_i_PortraitValue++;
-		if (m_i_PortraitValue > 3)
+		if (m_i_PortraitValue > 7)
 			m_i_PortraitValue = 0;
 
 
@@ -107,6 +107,23 @@ void CreditsScreenSystem::Update(float dt)
 
 			UpdateText(NameEntity, "Adam Amin", ScreenSize);
 			UpdateText(RoleEntity, "Producer", ScreenSize);
+			break;
+		case 4:
+			PortraitEntity->GetComponent<DrawComponent>()->m_px_Texture = m_po_GraphicsSystem->FetchTexture("DigipenSquareLogo");
+			UpdateText(RoleEntity, "Game Instructor", ScreenSize);
+			UpdateText(NameEntity, "Prior Kevin Andrew", ScreenSize);
+			break;
+		case 5:
+			UpdateText(RoleEntity, "Game Instructor", ScreenSize);
+			UpdateText(NameEntity, "Hosry Elie", ScreenSize);
+			break;
+		case 6:
+			UpdateText(RoleEntity, "President", ScreenSize);
+			UpdateText(NameEntity, "Claude Comair", ScreenSize);
+			break;
+		case 7:
+			UpdateText(NameEntity, "© 2019 DigiPen Corporation (SG)", ScreenSize);
+			UpdateText(RoleEntity, "All Rights Reserved", ScreenSize);
 			break;
 		}
 

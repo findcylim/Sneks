@@ -151,7 +151,6 @@ BaseSystem(entityManagerPtr)
 	m_o_ExplosionSound.Initialize(2,2.0f);
 	m_o_ExplosionSound.Create("../Resources/Sounds/explosion.wav");
 
-
 	m_o_StarModeMusic.Initialize(1,5.0f);
 	m_o_HealthPickup.Initialize(2,1.0f);
 	m_o_SpeedPickup.Initialize(2,1.0f);

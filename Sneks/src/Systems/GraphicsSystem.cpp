@@ -265,14 +265,15 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Portraits/CY.png", "CY");
 	LoadTextureToMap("../Resources/Portraits/Adam.png", "Adam");
 	LoadTextureToMap("../Resources/Portraits/Spoodermun.png", "Spoodermun");
+	LoadTextureToMap("../Resources/Portraits/DigipenSquareLogo.png", "DigipenSquareLogo");
 	LoadTextureToMap("../Resources/DigiPen_Singapore.png", "DigipenLogo");
 	LoadTextureToMap("../Resources/TeamLogo.png", "TeamLogo");
 	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
 
 	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
 	LoadTextureToMap("../Resources/PowerUpTextHealth.png", "PowerUpTextHealth");
-	LoadTextureToMap("../Resources/PowerUpTextBoost.png", "PowerUpTextBoost");
-
+	LoadTextureToMap("../Resources/PowerUpTextBoost.png", "PowerUpTextBoost"); 
+	
 }
 
 AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
