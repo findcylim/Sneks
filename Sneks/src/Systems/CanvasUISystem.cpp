@@ -101,7 +101,7 @@ void CanvasUISystem::ClearUI(CanvasComponent* canvas)
 
 void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset,CanvasElementEnum num, const char * name, 
 								const char * uiElementSprite, const char* uiText,const char * uiHoverSprite, const char * uiClickSprite,
-								void(*ButtonFunction)(),HTColor textColor)
+								void(*ButtonFunction)(SystemManager*),HTColor textColor)
 {
 	CanvasElementComponent* ui_Component = nullptr;
 	TransformComponent *    t_Component = nullptr;
@@ -212,7 +212,8 @@ void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			drawComponent->m_px_Texture = elementComp->m_x_HoverSprite;
 			elementComp->m_b_IsClicked = true;
 			if (elementComp && elementComp->ButtonFunction)
-				elementComp->ButtonFunction();
+				elementComp->ButtonFunction(m_o_SystemManager);
+			//TODO Reform this to variadic functions
 		}
 		else
 			elementComp->m_b_IsClicked = false;

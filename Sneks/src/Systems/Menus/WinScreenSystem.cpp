@@ -2,13 +2,15 @@
 #include "../../Utility/GameStateManager.h"
 
 
-void Restart()
+void Restart(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateGame);
 }
 
-void QuitToMain()
+void QuitToMain(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateMainMenu);
 }
 

@@ -74,7 +74,7 @@ namespace Events
 		const char * uiTextLabel = "";
 		const char * uiHoverSpriteName = "";
 		const char * uiClickSpriteName = "";
-		void(*ButtonPressFunc)(void) = nullptr;
+		void(*ButtonPressFunc)(SystemManager*) = nullptr;
 		HTColor textColor = { 0.0f,0.0f, 0.0f, 0.0f };
 	};
 

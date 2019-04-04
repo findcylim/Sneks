@@ -29,20 +29,21 @@ MainMenuSystem::~MainMenuSystem()
 	}
 }
 
-void PlayGame()
+void PlayGame(SystemManager* systemManager)
 {
-	// Change game state
-	// TODO
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateHelpMenu);
 }
 
-void OpenCredits()
+void OpenCredits(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateCreditsScreen);
 }
 
-void QuitGame()
+void QuitGame(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateExit);
 }
 
