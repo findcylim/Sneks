@@ -195,11 +195,11 @@ void GraphicsSystem::PreLoadTextures()
 	//SET NAMES TO BE FILE NAMES
 	//ENFORCE FILE NAMES TO BE UNIQUE
 	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
-	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
+	LoadTextureToMap("../Resources/Untitled1.png"			 , "SnekHead02");
 	LoadTextureToMap("../Resources/bodytest.png"		 , "SnekBody01");
-	LoadTextureToMap("../Resources/bodytest2.png"	 , "SnekBody02");
+	LoadTextureToMap("../Resources/Untitledbody.png"	 , "SnekBody02");
 	LoadTextureToMap("../Resources/Placeholder/tail.png"				 , "SnekTail01");
-	LoadTextureToMap("../Resources/Placeholder/tail2.png"				 , "SnekTail02");
+	LoadTextureToMap("../Resources/Untitled.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
 	LoadTextureToMap("../Resources/building1.png"		 , "Building01"); 
 	LoadTextureToMap("../Resources/building2.png", "Building02");
@@ -273,6 +273,22 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
 	LoadTextureToMap("../Resources/PowerUpTextHealth.png", "PowerUpTextHealth");
 	LoadTextureToMap("../Resources/PowerUpTextBoost.png", "PowerUpTextBoost"); 
+
+	LoadTextureToMap("../Resources/ChooseYourSnek-Banner.png", "Select_Banner");
+	LoadTextureToMap("../Resources/Confirm-ButtonHover-Icon.png", "Confirm_Hover");
+	LoadTextureToMap("../Resources/Confirm-ButtonIdle-Icon.png", "Confirm_Idle");
+
+	LoadTextureToMap("../Resources/Arrow-Down-Hover.png", "Down_Hover");
+	LoadTextureToMap("../Resources/Arrow-Down-Idle.png", "Down_Idle");
+	LoadTextureToMap("../Resources/Arrow-Up-Hover.png", "Up_Hover");
+	LoadTextureToMap("../Resources/Arrow-Up-Idle.png", "Up_Idle");
+
+	LoadTextureToMap("../Resources/AD-Tutorial.png", "P1TurnTut");
+	LoadTextureToMap("../Resources/LeftRight-Tutorial.png", "P2TurnTut");
+	LoadTextureToMap("../Resources/WS-Tutorial.png", "P1AccelTut");
+	LoadTextureToMap("../Resources/UpDown-Tutorial.png", "P2AccelTut");
+	LoadTextureToMap("../Resources/LShift-Tutorial.png", "P1SpecialTut");
+	LoadTextureToMap("../Resources/RShift-Tutorial.png", "P2SpecialTut");
 	
 }
 

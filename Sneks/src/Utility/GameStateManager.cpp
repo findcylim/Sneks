@@ -18,6 +18,7 @@
 #include "../Systems/Menus/HelpMenuSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
+#include "../Systems/Menus/SnekSelectMenuSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -95,6 +96,24 @@ void GameStateManager::UnloadMainMenu()
 {
 	m_o_SystemManager->DisableSystem<MainMenuSystem>();
 	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+}
+
+void GameStateManager::LoadSnekSelect()
+{
+	m_o_SystemManager->EnableSystem<SnekSelectMenuSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Snek Select UI");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+}
+
+void GameStateManager::UnloadSnekSelect()
+{
+	m_o_SystemManager->DisableSystem<SnekSelectMenuSystem>();
+	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Snek Select UI");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
 	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
@@ -200,7 +219,7 @@ void GameStateManager::UnloadBattle()
 void GameStateManager::LoadHelpMenu()
 {
 	m_o_SystemManager->EnableSystem<HelpMenuSystem>();
-	if (m_x_Previous == kStateMainMenu)
+	if (m_x_Previous == kStateCharacterSelection)
 		m_o_SystemManager->GetSystem<HelpMenuSystem>("HelpMenu")->SetNextState(kStateGame);
 	
 }
@@ -316,6 +335,9 @@ void GameStateManager::Load()
 	case kStateWinScreen:	
 		LoadWinScreen();
 		break;
+	case kStateCharacterSelection:
+		LoadSnekSelect();
+		break;
 	case kStateHelpMenu:	
 		LoadHelpMenu();
 		break;
@@ -347,6 +369,9 @@ void GameStateManager::Unload()
 		break;
 	case kStateCreditsScreen:
 		UnloadCreditsScreen();
+		break;
+	case kStateCharacterSelection:
+		UnloadSnekSelect();
 		break;
 	case kStateHelpMenu:	
 		UnloadHelpMenu();		

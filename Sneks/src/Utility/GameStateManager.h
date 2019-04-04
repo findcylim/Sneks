@@ -68,6 +68,8 @@ public:
 	void Unload();
 	void LoadMainMenu();
 	void UnloadMainMenu();
+	void LoadSnekSelect();
+	void UnloadSnekSelect();
 	void LoadBattle();
 	void UnloadBattle();
 	void LoadWinScreen();

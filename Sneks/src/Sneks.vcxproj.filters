@@ -135,6 +135,12 @@
     <ClCompile Include="Utility\MemoryAllocator.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\TutorialMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\SnekSelectMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -320,6 +326,12 @@
     </ClInclude>
     <ClInclude Include="ECS\SystemManager.h">
       <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\TutorialMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\SnekSelectMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

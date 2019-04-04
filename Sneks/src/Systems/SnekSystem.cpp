@@ -492,6 +492,7 @@ void SnekSystem::Update(float dt)
 		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)) &&
 			 i_SnekHead->m_f_BoostCooldown >= i_SnekHead->m_f_BoostSetCooldown)
 		{
+			i_SnekHead->specialTutorial = false;
 			if (i_SnekHead->m_x_SnekType == kSnekTypeFlip)
 			{
 				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));

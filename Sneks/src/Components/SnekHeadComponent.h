@@ -68,6 +68,10 @@ public:
 	unsigned int   m_i_BoostKey            = AEVK_RCTRL;
 	//unsigned int   m_i_SpecialKey          = AEVK_RSHIFT;
 
+	bool accelerationTutorial = false;
+	bool turningTutorial = false;
+	bool specialTutorial = false;
+
 
 	std::vector<SnekBodyEntity*> m_x_BodyParts = {};
 

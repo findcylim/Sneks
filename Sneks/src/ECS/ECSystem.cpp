@@ -23,6 +23,8 @@
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
 #include "../Systems/Menus/SplashScreenSystem.h"
+#include "../Systems/Menus/SnekSelectMenuSystem.h"
+#include "../Systems/Menus/TutorialMenuSystem.h"
 
 
 ECSystem::ECSystem()
@@ -91,8 +93,8 @@ void ECSystem::InitializeEngine()
 	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
 	auto anim = new AnimationSystem(m_o_EntityComponentManager, graphics);
 	auto splashScreen = new SplashScreenSystem(m_o_EntityComponentManager, m_o_EventManager,graphics);
-
-	
+	auto snekSelect = new SnekSelectMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
+	auto tutorial = new TutorialMenuSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager);
 
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
@@ -142,6 +144,16 @@ void ECSystem::InitializeEngine()
 	snek->CreateSnek(-200, 0, PI* 3 / 4, 20, "HeadAnim", 0);
 	snek->CreateSnek(200, 0, PI* 7 / 4, 20, "SnekHead02", 1);
 
+	auto snekHead1 = snek->m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+	auto snekHead2 = static_cast<SnekHeadComponent*>(snekHead1->m_po_NextComponent);
+
+	snekHead1->accelerationTutorial = true;
+	snekHead2->accelerationTutorial = true;
+	snekHead1->turningTutorial = true;
+	snekHead2->turningTutorial = true;
+	snekHead1->specialTutorial = true;
+	snekHead2->specialTutorial = true;
+
 	m_o_SystemManager->AddSystem(background);
 	background->SetName("Background");
 	background->CreateInstancedBackgrounds(2, 2, "Background01");
@@ -171,6 +183,12 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(mainMenu);
 	mainMenu->SetName("Main Menu"); 
 
+	CanvasEntity* SelectCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Snek Select UI");
+
+	snekSelect->Initialize(SelectCanvas->GetComponent<CanvasComponent>());
+	m_o_SystemManager->AddSystem(snekSelect);
+	snekSelect->SetName("Snek Select");
+
 	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 
 	auto hud = new HUDSystem(m_o_EntityComponentManager, m_o_EventManager, graphics);
@@ -181,6 +199,12 @@ void ECSystem::InitializeEngine()
 	helpmenu->Initialize();
 	helpmenu->SetName("HelpMenu");
 	m_o_SystemManager->AddSystem(helpmenu);
+
+	CanvasEntity* TutorialCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Tutorial UI");
+
+	tutorial->Initialize(TutorialCanvas->GetComponent<CanvasComponent>());
+	m_o_SystemManager->AddSystem(tutorial);
+	tutorial->SetName("Tutorial");
 
 	m_o_SystemManager->AddSystem(powerup);
 	powerup->SetName("Power Up");
@@ -230,9 +254,11 @@ void ECSystem::InitializeEngine()
 
 
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Snek Select UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
 
 	m_o_SystemManager->DisableSystem<HUDSystem>();
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();

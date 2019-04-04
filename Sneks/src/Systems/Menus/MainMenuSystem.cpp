@@ -29,10 +29,10 @@ MainMenuSystem::~MainMenuSystem()
 	}
 }
 
-void PlayGame(SystemManager* systemManager)
+void SnekSelect(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
-	GameStateManager::SetState(kStateHelpMenu);
+	GameStateManager::SetState(kStateCharacterSelection);
 }
 
 void OpenCredits(SystemManager* systemManager)
@@ -56,7 +56,7 @@ void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
 	{ canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"MainMenuLogo" ,"","","", nullptr };
 
 	Events::EV_NEW_UI_ELEMENT PlayElement = 
-	{ canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"PlayButton" ,"UIBack" ,"Play","UIBack_Hover","UIBack_Click",PlayGame };
+	{ canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"PlayButton" ,"UIBack" ,"Play","UIBack_Hover","UIBack_Click",SnekSelect };
 
 	Events::EV_NEW_UI_ELEMENT CreditsElement = 
 	{ canvasComponent,HTVector2{ 0.825f , 0.6125f } ,kCanvasButton,"CreditsButton" ,"UIBack" ,"Credits","UIBack_Hover","UIBack_Click",OpenCredits };
