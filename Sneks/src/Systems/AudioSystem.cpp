@@ -147,9 +147,9 @@ BaseSystem(entityManagerPtr)
 	m_o_HitSound.Initialize(5,1.0f);
 	m_o_HitSound.Create("../Resources/Sounds/hitsound.wav");
 
-	/*m_o_PowerUpSound.Initialize();
-	m_o_PowerUpSound.Create("../Resources/Sounds/powerup.wav");
-*/
+	//m_o_PowerUpSound.Initialize();
+	//m_o_PowerUpSound.Create("../Resources/Sounds/powerup.wav");
+
 	m_o_ExplosionSound.Initialize(2,2.0f);
 	m_o_ExplosionSound.Create("../Resources/Sounds/explosion.wav");
 
@@ -301,7 +301,6 @@ void AudioSystem::Update(float dt)
 	m_o_HitSound.Update();
 	//m_o_PowerUpSound.Update();
 	m_o_ExplosionSound.Update();
-
 
 	if (m_o_StarModeMusic.m_f_Timer > m_o_StarModeMusic.m_f_PlayTimer && !muted)
 	{
