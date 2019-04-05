@@ -23,6 +23,8 @@
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/TintSystem.h"
 #include "../Systems/FollowSystem.h"
+#include "../Systems/Menus/CreditsScreenSystem.h"
+#include "../Systems/Menus/SplashScreenSystem.h"
 
 
 ECSystem::ECSystem()
@@ -87,7 +89,8 @@ void ECSystem::InitializeEngine()
 	auto mainMenu = new MainMenuSystem();
 	auto hud = new HUDSystem(graphics);
 	auto pauseMenu = new PauseMenuSystem();
-	auto winScreen = new WinScreenSystem();
+  auto splashScreen = new SplashScreenSystem(graphics);
+
 
 
 	m_o_SystemManager->AddSystem(projectile);
@@ -163,8 +166,18 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(pauseMenu);
 	pauseMenu->SetName("PauseMenu");
 
-	m_o_SystemManager->AddSystem(winScreen);
-	winScreen->SetName("WinScreen");
+	m_o_SystemManager->MakeSystem<WinScreenSystem>("WinScreen");
+
+	auto creditsScreen = new CreditsScreenSystem(graphics);
+	m_o_SystemManager->AddSystem(creditsScreen);
+	creditsScreen->SetName("CreditsScreen");
+	creditsScreen->Initialize();
+
+	m_o_SystemManager->AddSystem(splashScreen);
+	splashScreen->SetName("SplashScreen");
+	splashScreen->Initialize();
+
+	m_o_GameStateManager->AddGraphics(graphics);
 
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
@@ -179,7 +192,8 @@ void ECSystem::InitializeEngine()
 	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
 	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
-
+	m_o_EntityComponentManager->GetSpecificEntityInstance<MouseEntity>(kEntityMouse, "MouseEntity")
+		->GetComponent<DrawComponent>()->m_f_RgbaColor.alpha = 0;
 
 
 
@@ -188,6 +202,9 @@ void ECSystem::InitializeEngine()
 	/*************************************************************************/
 
 	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
+
+
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
@@ -196,6 +213,10 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();
 	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
+	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
+	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
+	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
+
 	m_o_SystemManager->DisableSystem<PhysicsSystem>();
 	m_o_SystemManager->DisableSystem<PowerUpSystem>();
 	m_o_SystemManager->DisableSystem<BackgroundSystem>();
@@ -232,22 +253,24 @@ void ECSystem::Update()
 		if (actualDt > dtCap)
 			++m_o_SystemManager->m_i_DroppedFrames;
 
-		m_o_GameStateManager->Update();
+		m_o_GameStateManager->Update(cappedDt);
 		m_o_EventManager->Update();
 		m_o_SystemManager->Update(cappedDt);
 
-		if (GetAsyncKeyState(AEVK_ESCAPE))
+		//DEBUG
+		//DISABLE TODO
+		/*if (GetAsyncKeyState(AEVK_ESCAPE))
 		{
 			m_b_EngineStatus = false;
-		}
-		if (AEInputCheckTriggered(AEVK_COMMA))
+		}*/
+		/*if (AEInputCheckTriggered(AEVK_COMMA))
 		{
 			AEToogleFullScreen(false);
 		}
 		if (AEInputCheckTriggered(AEVK_PERIOD))
 		{
 			AEToogleFullScreen(true);
-		}
+		}*/
 		m_o_EntityComponentManager->ResolveDeletes();
 
 		actualDt -= dtCap;

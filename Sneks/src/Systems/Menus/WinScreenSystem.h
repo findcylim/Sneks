@@ -7,9 +7,13 @@ class WinScreenSystem :
 	public BaseSystem
 {
 public:
-	void Initialize();
+	WinScreenSystem();
 	~WinScreenSystem();
-	void Update(float dt)override;
+	void Initialize() override;
+	void Update(float dt) override;
+	void SwapWinScreen();
+
+	int m_c_Winner = 1;
 };
 
 #endif // !WIN_SCREEN_SYSTEM_H

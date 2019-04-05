@@ -210,8 +210,8 @@ public:
 class CanvasTextLabelEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { kComponentTransform , kComponentDraw, kComponentCanvasElement,
-											kComponentTextRenderer, kComponentEnd };
+	Component m_ax_InitialComponents[4] = { Component::kComponentTransform , Component::kComponentCanvasElement,
+											Component::kComponentTextRenderer, Component::kComponentEnd };
 
 	CanvasTextLabelEntity(const char* entityName) : BaseEntity(entityName) {};
 };
@@ -230,6 +230,14 @@ public:
 	Component m_ax_InitialComponents[4] ={ kComponentTransform ,kComponentDraw, kComponentEnd };
 
 	GrowthPickupEntity(const char* entityName) : BaseEntity(entityName) {};
+};
+
+class ScreenOverlayEntity : public BaseEntity
+{
+public:
+	Component m_ax_InitialComponents[4] ={ Component::kComponentTransform ,Component::kComponentDraw, Component::kComponentEnd };
+
+	ScreenOverlayEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
 #endif

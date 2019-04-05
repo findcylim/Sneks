@@ -11,8 +11,10 @@
 #include "../Components/CollisionComponent.h"
 #include "../Components/SnekHeadComponent.h"
 #include "../Components/CanvasComponent.h"
+#include "../Components/TextRendererComponent.h"
 #include "../Utility/RTTIHelper.h"
 
+enum State : int;
 
 enum kEventList
 {
@@ -62,11 +64,6 @@ namespace Events
 		const char * texName;
 	};
 
-	struct EV_PLAY_SOUND
-	{
-
-	};
-
 	struct EV_NEW_UI_ELEMENT
 	{
 		CanvasComponent* canvas;
@@ -77,24 +74,46 @@ namespace Events
 		const char * uiTextLabel = "";
 		const char * uiHoverSpriteName = "";
 		const char * uiClickSpriteName = "";
-		void(*ButtonPressFunc)(void) = nullptr;
+		void(*ButtonPressFunc)(SystemManager*) = nullptr;
+		HTColor textColor = { 0.0f,0.0f, 0.0f, 0.0f };
 	};
 
 	struct EV_PLAYER_COLLISION_ON_ENTER
 	{
 		CollisionComponent* object1;
-		CollisionComponent* object2;
 	};
 
 	struct EV_PLAYER_COLLISION_ON_EXIT
 	{
 		CollisionComponent* object1;
-		CollisionComponent* object2;
 	};
 
 	struct EV_MOUSE_ONCLICK
 	{
 
+	};
+
+	struct EV_PLAYER_WIN
+	{
+		char WinnerNumber;
+	};
+
+	struct EV_GAME_STATE_CHANGED
+	{
+		State changedToState;
+		State changedFromState;
+	};
+
+	struct EV_POWERUP_PICKUP_SPEED
+	{
+	};
+
+	struct EV_POWERUP_PICKUP_HEALTH
+	{
+	};
+
+	struct EV_POWERUP_PICKUP_STARMODE
+	{
 	};
 }
 

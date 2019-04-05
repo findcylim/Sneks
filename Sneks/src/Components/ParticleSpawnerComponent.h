@@ -15,7 +15,8 @@ enum ParticleType : unsigned char
 	kParticleExplosion,
 	kParticleHit,
 	kParticleSpark,
-	kParticleSparks
+	kParticleSparks,
+	kParticleText
 };
 
 struct ParticleSpawnerComponent : public BaseComponent
@@ -24,6 +25,11 @@ struct ParticleSpawnerComponent : public BaseComponent
 	int m_i_ParticleDrawOrder = 3;
 	int m_i_SplitNumber = 0;
 	int m_i_CurrentSplit = -1;
+
+	//for transform location
+	bool m_b_ParticleFixOffset = false;
+	bool m_b_ParticleFixDirection = false;
+
 	float m_f_SpreadDistance = 0.0f;
 	//Angle stored as radian.
 	float m_f_AngleForSpreadDistance = 0.0f;
@@ -58,6 +64,7 @@ struct ParticleSpawnerComponent : public BaseComponent
 	int m_i_RandomStartFrame = 0;
 	HTColor m_x_ParticleEffectColor ={ 1.0f,1.0f,1.0f,1.0f };
 	void SetParticleType(ParticleType type, GraphicsSystem* graphics);
+	void SetPickUpText(AEGfxTexture* texture);
 	void UpdateTime(float dt);
 	bool IsParticleEffectAlive();
 	int GetCurrentSplit();

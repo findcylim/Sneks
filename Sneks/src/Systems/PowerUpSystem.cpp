@@ -161,6 +161,14 @@ void PowerUpSystem::Update(float dt)
 		}
 
 	}, kComponentPowerUp, true);
+
+	m_po_ComponentManager->Each<PowerUpHolderComponent>([&](PowerUpHolderComponent* powerUpHolderComponent)
+	{
+		powerUpHolderComponent->m_f_RemainingLife -= dt;
+
+		if (powerUpHolderComponent->m_f_RemainingLife <= 0)
+			m_po_EntityManager->AddToDeleteQueue(powerUpHolderComponent->m_po_OwnerEntity);
+	}, kComponentPowerUpHolder, true);
 }
 
 void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
@@ -224,6 +232,8 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % 2);
 		const char * texture = "PowerUpIcon";
+    
+		powerUpComp->m_f_RemainingLife = m_f_HolderLifeTime;
 
 		switch (powerUpComp->m_x_Type)
 		{
@@ -290,25 +300,30 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 
 		case kPowerUpStar:
 		{
+			m_po_EventManagerPtr->EmitEvent<Events::EV_POWERUP_PICKUP_STARMODE>(Events::EV_POWERUP_PICKUP_STARMODE{});
 		}
 		break;
 
-		//case kPowerUpPlusBody:
-		//{
-		//	//TODO emit event to snek system to increase body part
-		//	//TODO snek system to recieve event to grow body part
-		//	const char* bodyTexture = nullptr;
-		//	if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-		//		(powerUp, kComponentSnekHead)->m_i_PlayerNumber == 0)
-		//		bodyTexture = "SnekBody01";
-		//	else
-		//		bodyTexture = "SnekBody02";
+		case kPowerUpPlusBody:
+		{
+			//TODO emit event to snek system to increase body part
+			//TODO snek system to recieve event to grow body part
+			const char* bodyTexture = nullptr;
+			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+				(powerUp, kComponentSnekHead)->m_i_PlayerNumber == 0)
+				bodyTexture = "SnekBody01";
+			else
+				bodyTexture = "SnekBody02";
 
-		//	for (int i = 0; i < powerUp->GetPowerIncrease(); i++)
-		//		m_po_SnekSystem->CreateSnekBody(static_cast<SnekHeadEntity*>(powerUp->m_po_OwnerEntity),
-		//			bodyTexture, snekHeadComponent->m_i_PlayerNumber);
-		//}
-		//	break;
+			auto snek = m_po_SystemManager->GetSystem<SnekSystem>();
+			for (int i = 0; i < powerUp->GetPowerIncrease(); i++)
+			{
+				snek->CreateSnekBody(static_cast<SnekHeadEntity*>(powerUp->m_po_OwnerEntity),
+					bodyTexture, snekHeadComponent->m_i_PlayerNumber);
+			}
+			m_po_EventManagerPtr->EmitEvent<Events::EV_POWERUP_PICKUP_HEALTH>(Events::EV_POWERUP_PICKUP_HEALTH{});
+		}
+		break;
 
 		case kPowerUpIncreaseDamage:
 			//m_po_SnekSystem->TweakPlayerDamage(snekHeadComponent, static_cast<int>(powerup->GetPowerIncrease()));

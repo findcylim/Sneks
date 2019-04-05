@@ -20,15 +20,21 @@ MainMenuSystem::~MainMenuSystem()
 	}
 }
 
-void PlayGame()
+void PlayGame(SystemManager* systemManager)
 {
-	// Change game state
-	// TODO
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateHelpMenu);
 }
 
-void QuitGame()
+void OpenCredits(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
+	GameStateManager::SetState(kStateCreditsScreen);
+}
+
+void QuitGame(SystemManager* systemManager)
+{
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateExit);
 }
 
@@ -37,11 +43,20 @@ void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
 	//CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
-	Events::EV_NEW_UI_ELEMENT LogoElement = { canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"MainMenuLogo" ,"","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT PlayElement = { canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"PlayButton" ,"UIBack" ,"Play","UIBack_Hover","UIBack_Click",PlayGame };
-	Events::EV_NEW_UI_ELEMENT CreditsElement = { canvasComponent,HTVector2{ 0.825f , 0.6125f } ,kCanvasButton,"CreditsButton" ,"UIBack" ,"Credits","UIBack_Hover","UIBack_Click",PlayGame };
-	Events::EV_NEW_UI_ELEMENT QuitElement = { canvasComponent, HTVector2{ 0.825f , 0.725f }, kCanvasButton, "QuitButton", "UIBack", "Quit","UIBack_Hover","UIBack_Click", QuitGame };
-	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvasComponent, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LogoElement = 
+	{ canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"MainMenuLogo" ,"","","", nullptr };
+
+	Events::EV_NEW_UI_ELEMENT PlayElement = 
+	{ canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"PlayButton" ,"UIBack" ,"Play","UIBack_Hover","UIBack_Click",PlayGame };
+
+	Events::EV_NEW_UI_ELEMENT CreditsElement = 
+	{ canvasComponent,HTVector2{ 0.825f , 0.6125f } ,kCanvasButton,"CreditsButton" ,"UIBack" ,"Credits","UIBack_Hover","UIBack_Click",OpenCredits };
+
+	Events::EV_NEW_UI_ELEMENT QuitElement = 
+	{ canvasComponent, HTVector2{ 0.825f , 0.725f }, kCanvasButton, "QuitButton", "UIBack", "Quit","UIBack_Hover","UIBack_Click", QuitGame };
+
+	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = 
+	{ canvasComponent, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LogoElement);

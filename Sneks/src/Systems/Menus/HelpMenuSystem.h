@@ -6,7 +6,7 @@ class HelpMenuSystem :
 	public EventListener<Events::EV_MOUSE_ONCLICK>
 {
 	State m_e_PrevState = kStateExit;
-	float m_f_Timer = 2.0f;
+	float m_f_Timer = 0.5f;
 public:
 	void SetNextState(State nextState);
 	void Initialize();

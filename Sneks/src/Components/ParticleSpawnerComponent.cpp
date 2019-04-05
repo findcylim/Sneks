@@ -7,7 +7,10 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 	{
 		case ParticleType::kParticleBasicOneShot:
 			m_x_ParticleType = type;
-		
+			
+			m_b_ParticleFixOffset = false;
+			m_b_ParticleFixDirection = false;
+
 			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
 
 			m_i_RandomStartFrame = 28;
@@ -50,6 +53,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 		case ParticleType::kParticleLargeOneShot:
 			m_x_ParticleType = type;
 
+			m_b_ParticleFixOffset = false;
+			m_b_ParticleFixDirection = false;
+
 			m_px_ParticleTexture = graphics->FetchTexture("Rock");
 			m_i_SpriteCountX = 4;
 			m_i_SpriteCountY = 7;
@@ -87,7 +93,10 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 
 		case ParticleType::kParticleTrailEffect:
 			m_x_ParticleType = type;
-		
+
+			m_b_ParticleFixOffset = false;
+			m_b_ParticleFixDirection = false;
+
 			m_px_ParticleTexture = graphics->FetchTexture("junction.png");
 			m_i_SpriteCountX = 1;
 			m_i_SpriteCountY = 1;
@@ -129,6 +138,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			
 			m_x_ParticleType = type;
 
+			m_b_ParticleFixOffset = false;
+			m_b_ParticleFixDirection = false;
+
 			m_px_ParticleTexture = graphics->FetchTexture("Rocks");
 			m_i_SpriteCountX = 4;
 			m_i_SpriteCountY = 7;
@@ -166,6 +178,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 
 		case ParticleType::kParticleExplosion:
 			m_x_ParticleType = type;
+
+			m_b_ParticleFixOffset = false;
+			m_b_ParticleFixDirection = false;
 
 			m_px_ParticleTexture = graphics->FetchTexture("ExplosionParticle");
 			m_i_SpriteCountX = 5;
@@ -206,6 +221,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 		case ParticleType::kParticleHit:
 			m_x_ParticleType = type;
 
+			m_b_ParticleFixOffset = false;
+			m_b_ParticleFixDirection = false;
+
 			m_px_ParticleTexture = graphics->FetchTexture("HitParticle");
 			m_i_SpriteCountX = 4;
 			m_i_SpriteCountY = 1;
@@ -243,6 +261,9 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			break;
 		case ParticleType::kParticleSpark:
 			m_x_ParticleType = type;
+
+			m_b_ParticleFixOffset = false;
+			m_b_ParticleFixDirection = false;
 
 			m_px_ParticleTexture = graphics->FetchTexture("SparkParticleWhite");
 			m_i_SpriteCountX = 5;
@@ -316,6 +337,49 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_b_UseStaticLocation = true;
 			break;
 	}
+}
+
+void ParticleSpawnerComponent::SetPickUpText(AEGfxTexture* texture)
+{
+	m_x_ParticleType = kParticleText;
+
+	m_b_ParticleFixOffset = true;
+	m_b_ParticleFixDirection = true;
+
+	m_px_ParticleTexture = texture;
+	m_i_SpriteCountX = 1;
+	m_i_SpriteCountY = 1;
+	m_i_SecondsPerFrame = 10.0f;
+
+	m_i_ParticleDrawOrder = 2;
+
+	m_i_SplitNumber = 0;
+	m_i_CurrentSplit = -1;
+
+	m_f_ParticleSize = 1.0f;
+
+	m_f_SpreadDistance = 0.0f;
+	m_f_AngleForSpreadDistance = PI * 0.0f;
+	m_f_SpreadAngle = PI * 0.0f;
+	m_f_OffsetDistance = 50.0f;
+	m_f_AngleForOffsetDistance = PI * 0.5f;
+	m_f_OffsetAngle = PI * 0.5f;
+
+	m_x_ParticleEffectColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+	m_f_ParticleSpeed = 200.0f;
+	m_f_ParticleSpawnFrequency = 0.00f;
+	m_i_ParticleSpawnDensity = 1;
+	m_f_ParticleMaxLifetime = 0.75f;
+
+	m_f_ParticleStartingAlpha = 1.0f;
+	m_f_ParticleFadeAmount = 0.5f;
+
+	//m_f_ParticleEffectMaxLifetime = 0.5f;
+	m_f_ParticleEffectRemainingLifetime = 0.0f;
+	m_b_IsParticleEffectEternal = false;
+	m_b_IsParticleEffectOneShot = true;
+	m_b_HasParticleEffectFired = false;
+	m_b_AlphaScalingEnabled = true;
 }
 
 void ParticleSpawnerComponent::UpdateTime(float dt)

@@ -216,7 +216,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UIBack_Hover.png", "UIBack_Hover");
 	LoadTextureToMap("../Resources/UIBack_Click.png", "UIBack_Click");
 
-	LoadTextureToMap("../Resources/Player1_Win.png", "Player1Win");
+	LoadTextureToMap("../Resources/WinSprite.png", "WinSprite");
+	LoadTextureToMap("../Resources/LoseSprite.png", "LoseSprite");
 	
 	LoadTextureToMap("../Resources/Ball.png", "Ball");
 	LoadTextureToMap("../Resources/Moon.png", "Moon");
@@ -258,10 +259,23 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle.png", "SparkParticle");
 	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle-White.png", "SparkParticleWhite");
 
+	LoadTextureToMap("../Resources/Credits-Background.png", "Credits-Background");
+	
+	LoadTextureToMap("../Resources/Portraits/Edwin.png", "Edwin");
+	LoadTextureToMap("../Resources/Portraits/CY.png", "CY");
+	LoadTextureToMap("../Resources/Portraits/Adam.png", "Adam");
+	LoadTextureToMap("../Resources/Portraits/Spoodermun.png", "Spoodermun");
+	LoadTextureToMap("../Resources/Portraits/DigipenSquareLogo.png", "DigipenSquareLogo");
+	LoadTextureToMap("../Resources/DigiPen_Singapore.png", "DigipenLogo");
+	LoadTextureToMap("../Resources/TeamLogo.png", "TeamLogo");
 	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
 
 	LoadTextureToMap("../Resources/Placeholder/Sparks2-Particle.png", "Sparks2Particle");
 
+	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
+	LoadTextureToMap("../Resources/PowerUpTextHealth.png", "PowerUpTextHealth");
+	LoadTextureToMap("../Resources/PowerUpTextBoost.png", "PowerUpTextBoost"); 
+	
 }
 
 AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
@@ -532,7 +546,7 @@ void GraphicsSystem::DrawTextRenderer()const
 	halfScreenSizeX /= 2;
 	halfScreenSizeY /= 2;
 
-	m_po_ComponentManager->Each<TextRendererComponent>([&](TextRendererComponent* text_Comp)
+	m_po_ComponentManager->Each<TextRendererComponent>([&](TextRendererComponent* text_Comp)->void
 	{
 		//if (text_Comp->m_b_IsActive)
 		//{
@@ -541,15 +555,16 @@ void GraphicsSystem::DrawTextRenderer()const
 			char textToDraw[100];
 			sprintf_s(textToDraw, 100, "%s", text_Comp->m_p_Text);
 
-
-			AEGfxPrint(m_i_font,
-				textToDraw,
-				static_cast<s32>(text_Comp->m_x_TextPosition.x - halfScreenSizeX),
-				static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 0, 0, 0);
+				AEGfxPrint(m_i_font,
+					textToDraw,
+					static_cast<s32>(text_Comp->m_x_TextPosition.x - halfScreenSizeX),
+					static_cast<s32>(text_Comp->m_x_TextPosition.y - halfScreenSizeY), 
+					text_Comp->m_x_TextColor.red,
+					text_Comp->m_x_TextColor.green,
+					text_Comp->m_x_TextColor.blue);
+			
 		}
-		//}
-	}, kComponentTextRenderer, true);
-
+	},kComponentTextRenderer,true);
 }
 
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue)

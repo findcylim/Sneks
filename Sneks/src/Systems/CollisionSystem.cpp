@@ -114,12 +114,18 @@ void CollisionSystem::Update(float dt)
 						Events::EV_PLAYER_COLLISION collEvent = { objectA,
 							objectB
 						};
-						/*if (!objectsInGroupA)
+						/*if (!objectA->m_b_Colliding )
 						{
-							Events::EV_PLAYER_COLLISION_ON_ENTER collEventEnter{ objectA,
-							objectsInGroupB->objects[i_ObjectB]
-							};
-							//objectA->m_b_OnEnter = true;
+							objectA->m_b_Colliding = true;
+							Events::EV_PLAYER_COLLISION_ON_ENTER collEventEnter
+							{ objectA };
+							m_po_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_ENTER>(collEventEnter);
+						}
+						if (!objectB->m_b_Colliding)
+						{
+							objectB->m_b_Colliding = true;
+							Events::EV_PLAYER_COLLISION_ON_ENTER collEventEnter
+							{ objectB };
 							m_po_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_ENTER>(collEventEnter);
 						}*/
 						m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_COLLISION>(collEvent);
@@ -127,12 +133,18 @@ void CollisionSystem::Update(float dt)
 					}
 					/*else
 					{
-						/* if (objectsInGroupA->objects[i_ObjectA]->m_b_OnEnter)
+						if (objectA->m_b_Colliding)
 						{
-							Events::EV_PLAYER_COLLISION_ON_EXIT collEventEnter{ objectsInGroupA->objects[i_ObjectA],
-							objectsInGroupB->objects[i_ObjectB]
-							};
-							objectsInGroupA = false;
+							objectA->m_b_Colliding = false;
+							Events::EV_PLAYER_COLLISION_ON_EXIT collEventEnter
+							{ objectA };
+							m_po_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_EXIT>(collEventEnter);
+						}
+						if (objectB->m_b_Colliding)
+						{
+							objectB->m_b_Colliding = false;
+							Events::EV_PLAYER_COLLISION_ON_EXIT collEventEnter
+							{ objectB };
 							m_po_EventManagerPtr->EmitEvent < Events::EV_PLAYER_COLLISION_ON_EXIT>(collEventEnter);
 						}
 					}*/
@@ -181,17 +193,17 @@ void CollisionSystem::UpdateComponentsPerGroup()
 	
 }
 
-
+//MARK
 HTVector2 CollisionSystem::GetMin(DrawComponent* drawComponent) 
 {
 	return AabbHelper::GetMin(drawComponent->m_po_TransformComponent->m_x_Position, 
-		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
+		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetDrawScale());
 }
 
 HTVector2 CollisionSystem::GetMax(DrawComponent* drawComponent) 
 {
 	return AabbHelper::GetMax(drawComponent->m_po_TransformComponent->m_x_Position,
-		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->m_f_Scale);
+		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetDrawScale());
 }
 
 void CollisionSystem::UpdateAllHitBoxes()

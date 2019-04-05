@@ -526,6 +526,14 @@ void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 		float blinkSpeedModifier = 1.0f / invulComponent->m_f_InvulnerableTime;
 		float blinkSpeedModifierClamped = AEClamp(blinkSpeedModifier, 0.2f, 1.0f);
 
+		if (!invulComponent->m_b_IsAlive)
+		{
+			drawComponent->m_f_RgbaColor.red += 1.0f;
+			drawComponent->m_f_RgbaColor.blue -= 0.3f;
+			drawComponent->m_f_RgbaColor.green -= 0.3f;
+			invulComponent->m_b_IsAlive = true;
+		}
+
 		drawComponent->m_f_RgbaColor.alpha -= blinkSpeedModifierClamped * invulComponent->m_f_BlinkSpeed * dt;
 
 		if (drawComponent->GetAlpha() <= invulComponent->m_f_MinAlphaBlinking)
@@ -538,6 +546,14 @@ void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 	{
 		collisionComponent->enabled = true;
 		drawComponent->SetAlpha(1.0f);
+
+		if (invulComponent->m_b_IsAlive)
+		{
+			drawComponent->m_f_RgbaColor.red -= 1.0f;
+			drawComponent->m_f_RgbaColor.blue += 0.3f;
+			drawComponent->m_f_RgbaColor.green += 0.3f;
+			invulComponent->m_b_IsAlive = false;
+		}
 	}
 }
 
@@ -709,7 +725,9 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 	velocity.x = 0;
 	velocity.y = 0;
 
-	owner->GetComponent<PowerUpComponent>()->ResetPowerIncrease();
+	auto powerUpComp = owner->GetComponent<PowerUpComponent>();
+	powerUpComp->ResetPowerIncrease();
+	powerUpComp->m_f_PowerUpDurationLeft = 0;
 
 	transformComp->m_x_Position.y = (0);
 
@@ -747,6 +765,12 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 
 			FollowSystem::FaceReference(followComponent->m_po_FolloweeTransform, bodyDraw->m_po_TransformComponent);
 		}
+	}
+	snekHeadComp->GetComponent<DrawComponent>()->m_f_RgbaColor = { 1.0f,1.0f,1.0f,1.0f };
+	for (auto& i_BodyParts : snekHeadComp->m_x_BodyParts)
+	{
+		auto bodyDraw = i_BodyParts->GetComponent<DrawComponent>();
+		bodyDraw->m_f_RgbaColor = { 1.0f,1.0f,1.0f,1.0f };
 	}
 }
 

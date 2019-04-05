@@ -1,19 +1,22 @@
 #include "PauseMenuSystem.h"
 #include "../../Utility/GameStateManager.h"
 
-void Pause_Continue()
+void Pause_Continue(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateGame);
 	
 }
 
-void Pause_Restart()
+void Pause_Restart(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateRestart);
 }
 
-void Pause_QuitToMain()
+void Pause_QuitToMain(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateMainMenu);
 }
 
@@ -56,4 +59,6 @@ PauseMenuSystem::~PauseMenuSystem()
 void PauseMenuSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
+	/*if (AEInputCheckTriggered(AEVK_ESCAPE))
+		Pause_Continue();*/
 }
