@@ -22,6 +22,7 @@
 #include "../Systems/AnimationSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/TintSystem.h"
+#include "../Systems/FollowSystem.h"
 
 
 ECSystem::ECSystem()
@@ -97,6 +98,8 @@ void ECSystem::InitializeEngine()
 
 	m_o_SystemManager->AddSystem(snek);
 	snek->SetName("Snek");
+
+	m_o_SystemManager->MakeSystem<FollowSystem>("Follow");
 
 	m_o_SystemManager->AddSystem(physics);
 	physics->SetName("Physics");

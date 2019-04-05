@@ -81,6 +81,7 @@ class BaseEntity
 
 		Entity GetEntityID();
 		void SetEntityID(Entity type);
+		virtual ~BaseEntity() = default;
 };
 
 class SnekHeadEntity : public BaseEntity
@@ -154,12 +155,12 @@ public:
 	ProjectileEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
-class ParticleEffectEntity : public BaseEntity
+class ParticleSpawnerEntity : public BaseEntity
 {
 public:
 	Component m_ax_InitialComponents[5] = { kComponentParticleEffect, kComponentEnd };
 
-	ParticleEffectEntity(const char* entityName) : BaseEntity(entityName) {};
+	ParticleSpawnerEntity(const char* entityName) : BaseEntity(entityName) {};
 };
 
 class ParticleEntity : public BaseEntity

@@ -29,8 +29,10 @@ private:
 public:
 	ParticleSystem(GraphicsSystem* graphics);
 	~ParticleSystem();
+	int m_i_CreatedTrails = 0;
 
 	void Initialize();
+	void ResetTrails();
 	void Update(float dt);
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData);
 };

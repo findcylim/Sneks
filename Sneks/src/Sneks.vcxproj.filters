@@ -157,6 +157,9 @@
     <ClCompile Include="Systems\TintSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\FollowSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -341,6 +344,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Systems\TintSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\FollowSystem.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

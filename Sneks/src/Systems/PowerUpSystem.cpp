@@ -3,6 +3,8 @@
 #include "../Components/InvulnerableComponent.h"
 #include "../Components/BloomComponent.h"
 #include "../Components/PowerUpHolderComponent.h"
+#include "../Components/FollowComponent.h"
+#include "CollisionSystem.h"
 
 
 PowerUpSystem::PowerUpSystem(GraphicsSystem* graphics)
@@ -57,9 +59,72 @@ void PowerUpSystem::Update(float dt)
 		{
 			switch (powerUpComponent->m_x_PowerUpType)
 			{
-			case kPowerUpSpeedIncrease: break;
-			case kPowerUpGrowthIncrease: break;
-			case kPowerUpUnlimitedSpecial: break;
+			case kPowerUpSpring: 
+				if (powerUpComponent->m_i_Stage == 0)
+				{
+					auto snekHeadComponent = powerUpComponent->GetComponent<SnekHeadComponent>();
+					auto physicsComponent = powerUpComponent->GetComponent<PhysicsComponent>();
+					//Perform once when entering stage
+					if (powerUpComponent->m_f_SpecialTimer <= 0.01f)
+					{
+						physicsComponent->m_f_MaxSpeed = 10;
+						snekHeadComponent->m_f_IdleSpeed = -100;
+					}
+
+					//Persistent during this stage
+					//Coil up the snek
+					for (auto i_BodyPart : snekHeadComponent->m_x_BodyParts)
+					{
+						auto followComp = i_BodyPart->GetComponent<FollowComponent>();
+						if (followComp->m_f_StretchThreshold < 600)
+							followComp->m_f_StretchThreshold += 8.0f;
+					}
+
+					powerUpComponent->m_f_SpecialTimer += dt;
+					//Advance to next stage after coiling
+					if (powerUpComponent->m_f_SpecialTimer > 1.2f)
+					{
+						powerUpComponent->m_f_SpecialTimer = 0;
+						powerUpComponent->m_i_Stage = 1;
+					}
+				}
+				else if (powerUpComponent->m_i_Stage == 1)
+				{
+					auto snekHeadComponent = powerUpComponent->GetComponent<SnekHeadComponent>();
+					auto physicsComponent = powerUpComponent->GetComponent<PhysicsComponent>();
+
+					//Perform once when entering stage
+					if (powerUpComponent->m_f_SpecialTimer <= 0.01f)
+					{
+						for (auto i_BodyPart : snekHeadComponent->m_x_BodyParts)
+						{
+							auto followComp = i_BodyPart->GetComponent<FollowComponent>();
+							followComp->m_f_StretchThreshold = 100.0f;
+						}
+					}
+
+					snekHeadComponent->m_f_AccelerationForce = 30000;
+					physicsComponent->m_f_MaxSpeed = 4000;
+					snekHeadComponent->m_f_IdleSpeed = 100;
+					snekHeadComponent->m_f_TurnSpeed = 0;
+					
+
+					powerUpComponent->m_f_SpecialTimer += dt;
+
+					if (powerUpComponent->m_f_SpecialTimer > 1.0f)
+					{
+						powerUpComponent->m_f_SpecialTimer = 0;
+						powerUpComponent->m_i_Stage = 2;
+					}
+				}
+				else if (powerUpComponent->m_i_Stage == 2)
+				{
+					PowerUpExpire(powerUpComponent);
+				}
+				break;
+			case kPowerUpConsume:
+				break;
+			case kPowerUpTailSwipe: break;
 			case kPowerUpStar:
 			{
 				auto snekDraw = powerUpComponent->GetComponent<DrawComponent>();
@@ -100,17 +165,37 @@ void PowerUpSystem::Update(float dt)
 
 void PowerUpSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
+	CollisionGroupName collGroup1 = eventData.object1->m_i_CollisionGroupVec[0];
+	CollisionGroupName collGroup2 = eventData.object2->m_i_CollisionGroupVec[0];
+	CollisionGroupPairing colPairing ={ collGroup1, collGroup2 };
+
 	auto obj2 = eventData.object2;
 	auto obj1 = eventData.object1;
 
-	if (obj2->m_i_CollisionGroupVec[0] == kCollGroupBuilding)
+	if (collGroup2 == kCollGroupBuilding)
+	{
 		SpawnPowerUp(obj2->GetComponent<TransformComponent>(),
-						 obj1->GetComponent<TransformComponent>());
-	else if (obj2->m_i_CollisionGroupVec[0] == kCollGroupPowerUp)
+			obj1->GetComponent<TransformComponent>());
+		return;
+	}
+
+	if (collGroup2 == kCollGroupPowerUp)
 	{
 		PowerUpPickup(obj1->GetComponent<PowerUpComponent>(), obj2->GetComponent<PowerUpHolderComponent>());
-
 		m_po_EntityManager->AddToDeleteQueue(obj2->m_po_OwnerEntity);
+		return;
+	}
+
+	if (colPairing == CollisionGroupPairing{ kCollGroupSnek2Head, kCollGroupSnek1Body } ||
+	 	 colPairing == CollisionGroupPairing{ kCollGroupSnek1Head, kCollGroupSnek2Body })
+	{
+		if (auto powerup = obj1->GetComponent<PowerUpComponent>())
+		{
+			if (powerup->m_x_PowerUpType == kPowerUpSpring)
+			{
+				PowerUpExpire(powerup);
+			}
+		}
 	}
 }
 
@@ -137,23 +222,21 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		auto powerUpComp = powerupHolder->GetComponent<PowerUpHolderComponent>();
 
-		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % kPowerUpEnd);
-		//MARK
-		powerUpComp->m_x_Type = kPowerUpStar;
+		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % 2);
 		const char * texture = "PowerUpIcon";
 
 		switch (powerUpComp->m_x_Type)
 		{
-		case kPowerUpSpeedIncrease:
+		case kPowerUpSpring:
 			texture = "PowerUpIconSpeed";
 			break;
 		case kPowerUpStar:
 			texture = "PowerUpIconInvul";
 			break;
-		case kPowerUpPlusBody:
+		case kPowerUpConsume:
 			texture = "PowerUpIconHealth";
 			break;
-		case kPowerUpIncreaseDamage:
+		case kPowerUpTailSwipe:
 			texture = "PowerUpIconDamage";
 			break;
 		}
@@ -173,6 +256,10 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderComponent* powerUpHolder)
 {
+	if (powerUp->IsActive() && powerUp->m_x_PowerUpType == kPowerUpSpring)
+	{
+		return;
+	}
 	//Expire the last powerUp
 	if (powerUp->IsActive() || powerUp->Expired())
 		PowerUpExpire(powerUp);
@@ -181,30 +268,30 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 	auto snekHeadComponent = powerUp->GetComponent<SnekHeadComponent>();
 	switch (powerUpHolder->m_x_Type)
 	{
-		case kPowerUpSpeedIncrease:
+		case kPowerUpSpring:
 		{
-			snekHeadComponent->m_f_AccelerationForce *= powerUp->GetPowerIncrease();
+			//snekHeadComponent->m_f_AccelerationForce *= powerUp->GetPowerIncrease();
 			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
 			//	Component::kComponentSnekHead)->m_f_MinSpeed *= powerup->GetPowerIncrease();
 			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
 			//	Component::kComponentSnekHead)->m_f_MaxVelocity *= powerup->GetPowerIncrease();
 		}
-			break;
+		break;
 
-		case kPowerUpGrowthIncrease:
+		case kPowerUpConsume:
 		{
 		}
-			break;
+		break;
 
-		case kPowerUpUnlimitedSpecial:
+		case kPowerUpTailSwipe:
 		{
 		}
-			break;
+		break;
 
 		case kPowerUpStar:
 		{
 		}
-			break;
+		break;
 
 		//case kPowerUpPlusBody:
 		//{
@@ -226,37 +313,45 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 		case kPowerUpIncreaseDamage:
 			//m_po_SnekSystem->TweakPlayerDamage(snekHeadComponent, static_cast<int>(powerup->GetPowerIncrease()));
 
-			break;
+		break;
 		case kPowerUpEnd:
-			break;
+		break;
 	}
 }
 
 void PowerUpSystem::PowerUpExpire(PowerUpComponent* powerUp) const
 {
 	powerUp->m_f_PowerUpDurationLeft = 0.0f;
+	powerUp->m_i_Stage = 0;
+	powerUp->m_f_SpecialTimer = 0;
 	auto snekHeadComponent = powerUp->GetComponent<SnekHeadComponent>();
 	switch (powerUp->GetPowerUp())
 	{
-		case kPowerUpSpeedIncrease:
+		case kPowerUpSpring:
 		{
-			snekHeadComponent->m_f_AccelerationForce /= powerUp->GetPowerIncrease();
+			auto physicsComponent = snekHeadComponent->GetComponent<PhysicsComponent>();
+			snekHeadComponent->m_f_AccelerationForce = 200;
+			physicsComponent->m_f_MaxSpeed = 400;
+			physicsComponent->m_f_Speed = 400;
+			snekHeadComponent->m_f_IdleSpeed = 100;
+			snekHeadComponent->m_f_TurnSpeed = 6;
+
 			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
 			//	Component::kComponentSnekHead)->m_f_MinSpeed /= powerup->GetPowerIncrease();
 			//m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>(powerup,
 			//	Component::kComponentSnekHead)->m_f_MaxVelocity /= powerup->GetPowerIncrease();
 		}
-			break;
+		break;
 
-		case kPowerUpGrowthIncrease:
+		case kPowerUpConsume:
 		{
 		}
-			break;
+		break;
 
-		case kPowerUpUnlimitedSpecial:
+		case kPowerUpTailSwipe:
 		{
 		}
-			break;
+		break;
 
 		case kPowerUpStar:
 		{
@@ -267,7 +362,10 @@ void PowerUpSystem::PowerUpExpire(PowerUpComponent* powerUp) const
 				bodyDraw->m_f_RgbaColor ={ 1.0f,1.0f,1.0f,1.0f };
 			}
 		}
-			break;
+		break;
+		case kPowerUpPlusBody: break;
+		case kPowerUpIncreaseDamage: break;
+		default: ;
 	}
 
 	powerUp->SetPowerUp(kPowerUpEnd);

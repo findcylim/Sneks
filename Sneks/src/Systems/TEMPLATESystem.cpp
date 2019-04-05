@@ -28,8 +28,8 @@ void <name>System::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	CollisionGroupName collGroup2 = eventData.object2->m_i_CollisionGroupVec[0];
 	CollisionGroupPairing colPairing ={ collGroup1, collGroup2 };
 
-	if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon &&
-	   eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
+	if(collGroup1 == kCollGroupSnek1Head &&
+		collGroup2 == kCollGroupSnek2Body)
 	{ 
 	  //Do something
 	}

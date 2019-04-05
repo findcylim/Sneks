@@ -55,8 +55,8 @@ struct SnekHeadComponent : public BaseComponent
 	float m_f_GrowthMeter   = 5;
 
 	int m_i_LivesLeft = 3;
-	int m_i_CurrentDamage = 3;
-	int m_i_BaseDamage = 3;
+	int m_i_CurrentDamage = 2;
+	int m_i_BaseDamage = 2;
 
 	unsigned short m_i_PlayerNumber        = 0;
 	SnekType m_x_SnekType                  = kSnekTypeSpeed;

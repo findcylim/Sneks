@@ -23,17 +23,17 @@ void PowerUpComponent::SetPowerUp(const PowerUpType type)
 
 	switch (type)
 	{
-		case kPowerUpSpeedIncrease:
-			m_f_PowerUpDurationLeft = 5.0f;
+		case kPowerUpSpring:
+			m_f_PowerUpDurationLeft = 6.0f;
 			m_f_PowerIncrease = 1.2f;
 			break;
 
-		case kPowerUpGrowthIncrease:
+		case kPowerUpConsume:
 			m_f_PowerUpDurationLeft = 5.0f;
 			m_f_PowerIncrease = 2.0f;
 			break;
 
-		case kPowerUpUnlimitedSpecial:
+		case kPowerUpTailSwipe:
 			m_f_PowerUpDurationLeft = 0;
 			m_f_PowerIncrease = 0;
 			break;

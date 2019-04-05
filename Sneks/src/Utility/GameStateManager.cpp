@@ -90,14 +90,8 @@ void GameStateManager::UnloadMainMenu()
 
 void GameStateManager::ResetBattle()
 {
-
 	m_o_EntityManager->ResolveDeletes();
-
-	auto camera = m_o_SystemManager->GetSystem<CameraSystem>("Camera");
-	camera->RemoveCameraTrackObjects();
-
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-
 	//auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
 	snek->ResetStage();
 }

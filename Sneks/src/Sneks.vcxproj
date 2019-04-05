@@ -49,6 +49,7 @@
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CanvasUISystem.cpp" />
     <ClCompile Include="Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Systems\FollowSystem.cpp" />
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CanvasUISystem.h" />
     <ClInclude Include="Systems\CollisionSystem.h" />
+    <ClInclude Include="Systems\FollowSystem.h" />
     <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
