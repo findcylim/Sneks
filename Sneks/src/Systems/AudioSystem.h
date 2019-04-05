@@ -9,7 +9,7 @@
 #include <fmod_errors.h>
 #include "../Utility/GameStateManager.h"
 
-class Sound
+struct Sound
 {
 	FMOD_BOOL	soundOn;		/* is sound on? */
 	FMOD_BOOL	canPlaySound;	/* is it possible to play sound? */
@@ -70,10 +70,11 @@ class AudioSystem final : public BaseSystem // Add event listeners here
 	Sound m_o_PowerUpSound;
 	Sound m_o_ExplosionSound;
 
-
+	GameStateManager* m_po_GameStateManager;
+	bool muted = false;
 	//std::map<const char*, Sound> m_x_SoundMap;
 public:
-	AudioSystem(EntityManager* entityManagerPtr);
+	AudioSystem(EntityManager* entityManagerPtr, GameStateManager* gameStateManager);
 	~AudioSystem();
 	void Initialize();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
@@ -82,6 +83,7 @@ public:
 	void Receive(const Events::EV_POWERUP_PICKUP_SPEED& eventData) override;
 	void Receive(const Events::EV_POWERUP_PICKUP_STARMODE& eventData) override;
 	void Update(float dt) override;
+	void ToggleMute();
 };
 
 

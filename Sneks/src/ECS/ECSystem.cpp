@@ -25,7 +25,7 @@
 #include "../Systems/Menus/SplashScreenSystem.h"
 #include "../Systems/Menus/SnekSelectMenuSystem.h"
 #include "../Systems/Menus/TutorialMenuSystem.h"
-
+#include "../Systems/Menus/OptionsMenuSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -87,7 +87,7 @@ void ECSystem::InitializeEngine()
 	auto collisions = new CollisionSystem(m_o_EntityComponentManager);
 	auto projectile = new ProjectileSystem(m_o_EntityComponentManager, graphics);
 	auto particle = new ParticleSystem(m_o_EntityComponentManager, graphics);
-	auto audio = new AudioSystem(m_o_EntityComponentManager);
+	auto audio = new AudioSystem(m_o_EntityComponentManager, m_o_GameStateManager);
 	auto powerup = new PowerUpSystem(m_o_EntityComponentManager, graphics, snek);
 	auto helpmenu = new HelpMenuSystem(m_o_EntityComponentManager,m_o_EventManager);
 	auto canvas = new CanvasUISystem(m_o_EntityComponentManager, graphics, m_o_EventManager);
@@ -95,6 +95,7 @@ void ECSystem::InitializeEngine()
 	auto splashScreen = new SplashScreenSystem(m_o_EntityComponentManager, m_o_EventManager,graphics);
 	auto snekSelect = new SnekSelectMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 	auto tutorial = new TutorialMenuSystem(m_o_EntityComponentManager, m_o_EventManager, m_o_GameStateManager);
+	auto options = new OptionsMenuSystem(m_o_EntityComponentManager, m_o_EventManager);
 
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
@@ -206,6 +207,12 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(tutorial);
 	tutorial->SetName("Tutorial");
 
+	CanvasEntity* OptionsCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "OptionsMenuEntity");
+
+	options->Initialize(OptionsCanvas->GetComponent<CanvasComponent>());
+	m_o_SystemManager->AddSystem(options);
+	options->SetName("Options");
+
 	m_o_SystemManager->AddSystem(powerup);
 	powerup->SetName("Power Up");
 	powerup->Initialize();
@@ -259,6 +266,7 @@ void ECSystem::InitializeEngine()
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
 
 	m_o_SystemManager->DisableSystem<HUDSystem>();
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();

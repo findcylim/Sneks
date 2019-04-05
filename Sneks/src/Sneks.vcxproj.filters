@@ -141,6 +141,9 @@
     <ClCompile Include="Systems\Menus\SnekSelectMenuSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\OptionsMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -331,6 +334,9 @@
       <Filter>Systems\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Menus\SnekSelectMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\OptionsMenuSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>

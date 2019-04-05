@@ -85,5 +85,7 @@ public:
 	void UnloadSplashScreen();
 	void LoadCreditsScreen();
 	void UnloadCreditsScreen();
+	void LoadOptions();
+	void UnloadOptions();
 };
 #endif

@@ -19,6 +19,7 @@
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
 #include "../Systems/Menus/SnekSelectMenuSystem.h"
+#include "../Systems/Menus/OptionsMenuSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -303,6 +304,18 @@ void GameStateManager::UnloadCreditsScreen()
 	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
 }
 
+void GameStateManager::LoadOptions()
+{
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
+	m_o_SystemManager->EnableSystem<OptionsMenuSystem>();
+}
+
+void GameStateManager::UnloadOptions()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
+	m_o_SystemManager->DisableSystem<OptionsMenuSystem>();
+}
+
 void GameStateManager::ExitGame()
 {
 	*EngineStatus = false;
@@ -325,6 +338,9 @@ void GameStateManager::Load()
 		break;
 	case kStateSplashScreen:
 		LoadSplashScreen();
+		break;
+	case kStateOptions:
+		LoadOptions();
 		break;
 	case kStateGame:
 		LoadBattle();
@@ -360,6 +376,9 @@ void GameStateManager::Unload()
 		break;
 	case kStateMainMenu:    
 		UnloadMainMenu();		
+		break;
+	case kStateOptions:
+		UnloadOptions();
 		break;
 	case kStateGame:		
 		UnloadBattle();		

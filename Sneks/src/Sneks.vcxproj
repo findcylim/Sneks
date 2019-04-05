@@ -55,6 +55,7 @@
     <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\HUDSystem.cpp" />
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp" />
+    <ClCompile Include="Systems\Menus\OptionsMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\SnekSelectMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\SplashScreenSystem.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Systems\Menus\HelpMenuSystem.h" />
     <ClInclude Include="Systems\Menus\HUDSystem.h" />
     <ClInclude Include="Systems\Menus\MainMenuSystem.h" />
+    <ClInclude Include="Systems\Menus\OptionsMenuSystem.h" />
     <ClInclude Include="Systems\Menus\PauseMenuSystem.h" />
     <ClInclude Include="Systems\Menus\SnekSelectMenuSystem.h" />
     <ClInclude Include="Systems\Menus\SplashScreenSystem.h" />
