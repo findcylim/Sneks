@@ -1,4 +1,5 @@
 #include "TutorialMenuSystem.h"
+#include "../../Utility/AlphaEngineHelper.h"
 
 TutorialMenuSystem::TutorialMenuSystem(EntityManager* entityManager, EventManager* eventManager, GameStateManager* gameStateManager)
 {
@@ -25,14 +26,20 @@ TutorialMenuSystem::~TutorialMenuSystem()
 
 void TutorialMenuSystem::Initialize(CanvasComponent* canvasComponent)
 {
-	Events::EV_NEW_UI_ELEMENT P1TurningTutorialElement = { canvasComponent, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"P1TurnTut" ,"P1TurnTut" ,"","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT P2TurningTutorialElement = { canvasComponent, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"P2TurnTut" ,"P2TurnTut" ,"","","", nullptr };
+	float screenX = 0, screenY = 0;
+	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 
-	Events::EV_NEW_UI_ELEMENT P1AccelTutorialElement = { canvasComponent, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"P1AccelTut" ,"P1AccelTut" ,"","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT P2AccelTutorialElement = { canvasComponent, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"P2AccelTut" ,"P2AccelTut" ,"","","", nullptr };
+	auto snekHead1pos = 200.0f / screenX + 0.125f;
+	auto snekHead2pos = 1 - 200.0f / screenX - 0.125f;
 
-	Events::EV_NEW_UI_ELEMENT P1SpecialTutorialElement = { canvasComponent, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"P1SpecialTut" ,"P1SpecialTut" ,"","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT P2SpecialTutorialElement = { canvasComponent, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"P2SpecialTut" ,"P2SpecialTut" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT P1TurningTutorialElement = { canvasComponent, HTVector2{ snekHead1pos ,0.5f } ,kCanvasBasicSprite,"P1TurnTut" ,"P1TurnTut" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT P2TurningTutorialElement = { canvasComponent, HTVector2{ snekHead2pos ,0.5f } ,kCanvasBasicSprite,"P2TurnTut" ,"P2TurnTut" ,"","","", nullptr };
+
+	Events::EV_NEW_UI_ELEMENT P1AccelTutorialElement = { canvasComponent, HTVector2{ snekHead1pos ,0.5f } ,kCanvasBasicSprite,"P1AccelTut" ,"P1AccelTut" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT P2AccelTutorialElement = { canvasComponent, HTVector2{ snekHead2pos ,0.5f } ,kCanvasBasicSprite,"P2AccelTut" ,"P2AccelTut" ,"","","", nullptr };
+
+	Events::EV_NEW_UI_ELEMENT P1SpecialTutorialElement = { canvasComponent, HTVector2{ snekHead1pos ,0.5f } ,kCanvasBasicSprite,"P1SpecialTut" ,"P1SpecialTut" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT P2SpecialTutorialElement = { canvasComponent, HTVector2{ snekHead2pos ,0.5f } ,kCanvasBasicSprite,"P2SpecialTut" ,"P2SpecialTut" ,"","","", nullptr };
 
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(P1TurningTutorialElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(P2TurningTutorialElement);
@@ -130,13 +137,13 @@ void TutorialMenuSystem::Update(float dt)
 
 		if (!strncmp(element->m_pc_EntityName, "P1", 2))
 		{
-			trans_Comp->m_x_Position.x = (snekHead1->GetComponent<TransformComponent>()->m_x_Position.x + 5.0f);
-			trans_Comp->m_x_Position.y = (snekHead1->GetComponent<TransformComponent>()->m_x_Position.y + 5.0f);
+			trans_Comp->m_x_Position.x = (snekHead1->GetComponent<TransformComponent>()->m_x_Position.x);
+			trans_Comp->m_x_Position.y = (snekHead1->GetComponent<TransformComponent>()->m_x_Position.y);
 		}
 		else if (!strncmp(element->m_pc_EntityName, "P2", 2))
 		{
-			trans_Comp->m_x_Position.x = (snekHead2->GetComponent<TransformComponent>()->m_x_Position.x + 5.0f);
-			trans_Comp->m_x_Position.y = (snekHead2->GetComponent<TransformComponent>()->m_x_Position.y + 5.0f);
+			trans_Comp->m_x_Position.x = (snekHead2->GetComponent<TransformComponent>()->m_x_Position.x);
+			trans_Comp->m_x_Position.y = (snekHead2->GetComponent<TransformComponent>()->m_x_Position.y);
 		}
 	}
 

@@ -42,8 +42,11 @@ void CanvasUISystem::Update(float dt)
 
 			float scale = 1.0f / c_Comp->GetScale();
 			t_Comp->SetScale(scale);
-			t_Comp->SetPositionX(-c_Comp->GetCameraPos().x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
-			t_Comp->SetPositionY(-c_Comp->GetCameraPos().y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+			if (strcmp(can_Comp->m_po_OwnerEntity->m_pc_EntityName, "Tutorial UI"))
+			{
+				t_Comp->SetPositionX(-c_Comp->GetCameraPos().x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
+				t_Comp->SetPositionY(-c_Comp->GetCameraPos().y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+			}
 
 			if (collisionComponent)
 			{
