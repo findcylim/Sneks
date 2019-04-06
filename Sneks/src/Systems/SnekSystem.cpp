@@ -425,10 +425,11 @@ void SnekSystem::Update(float dt)
 		}
 
 		//if (GetAsyncKeyState(i_SnekHead->m_i_AccelerationKey)) 
-		//{
+		{
+		//Always on acceleration
 		Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_UP};
 		m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
-		//}
+		}
 		//else
 		//{
 		//	headPhysicsComponent->m_f_Acceleration = 0;
@@ -472,7 +473,6 @@ void SnekSystem::Update(float dt)
 				i_SnekHead->m_f_BoostCooldown = 0;
 			}
 		}
-
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
@@ -526,13 +526,13 @@ void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 		float blinkSpeedModifier = 1.0f / invulComponent->m_f_InvulnerableTime;
 		float blinkSpeedModifierClamped = AEClamp(blinkSpeedModifier, 0.2f, 1.0f);
 
-		if (!invulComponent->m_b_IsAlive)
-		{
-			drawComponent->m_f_RgbaColor.red += 1.0f;
-			drawComponent->m_f_RgbaColor.blue -= 0.3f;
-			drawComponent->m_f_RgbaColor.green -= 0.3f;
-			invulComponent->m_b_IsAlive = true;
-		}
+		//if (!invulComponent->m_b_IsAlive)
+		//{
+		//	drawComponent->m_f_RgbaColor.red += 1.0f;
+		//	drawComponent->m_f_RgbaColor.blue -= 0.3f;
+		//	drawComponent->m_f_RgbaColor.green -= 0.3f;
+		//	invulComponent->m_b_IsAlive = true;
+		//}
 
 		drawComponent->m_f_RgbaColor.alpha -= blinkSpeedModifierClamped * invulComponent->m_f_BlinkSpeed * dt;
 
@@ -547,13 +547,13 @@ void SnekSystem::CheckInvulnerability(BaseComponent* component, float dt) const
 		collisionComponent->enabled = true;
 		drawComponent->SetAlpha(1.0f);
 
-		if (invulComponent->m_b_IsAlive)
-		{
-			drawComponent->m_f_RgbaColor.red -= 1.0f;
-			drawComponent->m_f_RgbaColor.blue += 0.3f;
-			drawComponent->m_f_RgbaColor.green += 0.3f;
-			invulComponent->m_b_IsAlive = false;
-		}
+		//if (->m_b_IsAlive)
+		//{
+		//	//drawComponent->m_f_RgbaColor.red -= 1.0f;
+		//	//drawComponent->m_f_RgbaColor.blue += 0.3f;
+		//	//drawComponent->m_f_RgbaColor.green += 0.3f;
+		//	//invulComponent->m_b_IsAlive = false;
+		//}
 	}
 }
 

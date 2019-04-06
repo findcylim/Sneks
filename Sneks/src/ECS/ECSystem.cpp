@@ -33,7 +33,7 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_EntityComponentManager	= new EntityManager();
-	m_o_GameStateManager       = new GameStateManager(kStateMainMenu, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
+	m_o_GameStateManager       = new GameStateManager(kStateSplashScreen, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
 	m_b_EngineStatus			   = true;
 }
 
@@ -89,7 +89,7 @@ void ECSystem::InitializeEngine()
 	auto mainMenu = new MainMenuSystem();
 	auto hud = new HUDSystem(graphics);
 	auto pauseMenu = new PauseMenuSystem();
-  auto splashScreen = new SplashScreenSystem(graphics);
+   auto splashScreen = new SplashScreenSystem(graphics);
 
 
 
@@ -147,7 +147,7 @@ void ECSystem::InitializeEngine()
 
 	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 
-	m_o_SystemManager->AddSystem(mainMenu);
+	m_o_SystemManager->AddSystem(mainMenu, false);
 	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	mainMenu->SetName("Main Menu"); 
 
@@ -155,7 +155,6 @@ void ECSystem::InitializeEngine()
 
 	m_o_SystemManager->AddSystem(hud);
 	hud->SetName("HUD");
-	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
 
 	m_o_SystemManager->AddSystem(helpMenu);
 	helpMenu->SetName("HelpMenu");
@@ -171,11 +170,9 @@ void ECSystem::InitializeEngine()
 	auto creditsScreen = new CreditsScreenSystem(graphics);
 	m_o_SystemManager->AddSystem(creditsScreen);
 	creditsScreen->SetName("CreditsScreen");
-	creditsScreen->Initialize();
 
 	m_o_SystemManager->AddSystem(splashScreen);
 	splashScreen->SetName("SplashScreen");
-	splashScreen->Initialize();
 
 	m_o_GameStateManager->AddGraphics(graphics);
 

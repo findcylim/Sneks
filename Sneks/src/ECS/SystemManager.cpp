@@ -113,7 +113,7 @@ size_t SystemManager::GetSystemCount() const
 	return m_v_SystemList.size();
 }
 
-void SystemManager::AddSystem(BaseSystem* newSystem)
+void SystemManager::AddSystem(BaseSystem* newSystem, bool init)
 {
 	if (newSystem != nullptr)
 	{
@@ -123,7 +123,8 @@ void SystemManager::AddSystem(BaseSystem* newSystem)
 		newSystem->m_po_SystemManager = this;
 		newSystem->SetID(static_cast<short>(GetSystemCount()));
 		m_v_SystemList.push_back(newSystem);
-		newSystem->Initialize();
+		if (init)
+			newSystem->Initialize();
 	}
 	else
 	{
