@@ -23,13 +23,12 @@ SystemManager::SystemManager(Logger* logger)
 
 SystemManager::~SystemManager()
 {
-
 #ifdef LOG_SYSTEM_UPDATE_TIME
 	{
 		int counter = 0;
 
-		char fileName[100] = {'\0'};
-		char timeDate[100] = {'\0'};
+		char fileName[100] = { '\0' };
+		char timeDate[100] = { '\0' };
 
 		strcpy_s(fileName, sizeof(fileName), "../Logs/time_log_");
 
@@ -41,16 +40,16 @@ SystemManager::~SystemManager()
 
 		strftime(timeDate, sizeof(timeDate), "%d%m%y %H.%M.%S", &timeinfo);
 
-		strcat_s(fileName, sizeof(fileName),timeDate);
+		strcat_s(fileName, sizeof(fileName), timeDate);
 		strcat_s(fileName, sizeof(fileName), ".txt\0");
-		
+
 		std::ofstream outFile(fileName, std::ios::trunc);
 		//Asset if file is open
 		if (outFile.is_open())
 		{
 			float lowestFps = 60;
 			float avgFps = 60;
-			for (unsigned int i = 0; i < fpsLog.size(); i ++)
+			for (unsigned int i = 0; i < fpsLog.size(); i++)
 			{
 				if (fpsLog[i] <= lowestFps)
 				{
@@ -61,7 +60,7 @@ SystemManager::~SystemManager()
 			//Write string to file
 			for (unsigned int i = 0; i < timeLog.size(); i++) {
 				outFile << nameLog[i] << " took " << timeLog[i] << " ms " << std::endl;
-				totalTime[counter]+=timeLog[i];
+				totalTime[counter] += timeLog[i];
 				counter = ++counter % m_v_SystemList.size();
 			}
 
@@ -70,7 +69,7 @@ SystemManager::~SystemManager()
 			f64 totalTotalTime = 0;
 			for (unsigned i = 0; i < m_v_SystemList.size(); i++)
 			{
-				totalTotalTime+=totalTime[i];
+				totalTotalTime += totalTime[i];
 				outFile << nameLog[i] << " took a total of " << totalTime[i] << " ms." << std::endl;
 			}
 
@@ -81,9 +80,9 @@ SystemManager::~SystemManager()
 				outFile << nameLog[i] << " took " << totalTime[i] / totalTotalTime * 100 << "%% of the time." << std::endl;
 			}
 			outFile << "A total of " << timeElapsed << " ms elapsed during this session. " << std::endl
-					  <<  "Average FPS was " << avgFps << std::endl
-					  <<  "Lowest FPS was "  << lowestFps << std::endl
-					  <<  "Number of Dropped Frames: " << droppedFramesLog.back() << std::endl;
+				<< "Average FPS was " << avgFps << std::endl
+				<< "Lowest FPS was " << lowestFps << std::endl
+				<< "Number of Dropped Frames: " << droppedFramesLog.back() << std::endl;
 
 		}
 		nameLog.clear();
@@ -160,32 +159,31 @@ void SystemManager::RemoveSystem(BaseSystem* toRemove)
 
 void SystemManager::Update(float dt)
 {
+
 #ifdef LOG_SYSTEM_UPDATE_TIME
-	fpsLog.push_back( 1.0f / static_cast<float>(dt) );
+	fpsLog.push_back(1.0f / static_cast<float>(dt));
 	droppedFramesLog.push_back(m_i_DroppedFrames);
 #endif
 
 	for (BaseSystem* currSystem : m_v_SystemList)
 	{
-#ifdef LOG_SYSTEM_UPDATE_TIME
-		auto preTime = AEGetTime(nullptr);
-#endif
 		if (currSystem->m_b_isActive)
 		{
-
+#ifdef LOG_SYSTEM_UPDATE_TIME
+			auto preTime = AEGetTime(nullptr);
+#endif
 
 			currSystem->Update(dt);
 
-
-		}
 #ifdef LOG_SYSTEM_UPDATE_TIME
-		auto timeToUpdate = AEGetTime(nullptr) - preTime;
-		totalFrames++;
-		timeToUpdate *= 1000;
-		timeElapsed += timeToUpdate;
-		nameLog.push_back(currSystem->GetName());
-		timeLog.push_back(timeToUpdate);
+			auto timeToUpdate = AEGetTime(nullptr) - preTime;
+			totalFrames++;
+			timeToUpdate *= 1000;
+			timeElapsed += timeToUpdate;
+			nameLog.push_back(currSystem->GetName());
+			timeLog.push_back(timeToUpdate);
 #endif
+		}
 	}
 }
 

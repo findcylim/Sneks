@@ -141,7 +141,7 @@ void ECSystem::InitializeEngine()
 	//levelLoader->LoadLevel(kLevel1);
 
 	m_o_SystemManager->AddSystem(input);
-	buildings->SetName("Input");
+	input->SetName("Input");
 
 	LoadLevel1();
 
