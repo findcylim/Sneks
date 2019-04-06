@@ -23,6 +23,7 @@ SystemManager::SystemManager(Logger* logger)
 
 SystemManager::~SystemManager()
 {
+
 #ifdef LOG_SYSTEM_UPDATE_TIME
 	{
 		int counter = 0;
@@ -112,7 +113,7 @@ size_t SystemManager::GetSystemCount() const
 	return m_v_SystemList.size();
 }
 
-void SystemManager::AddSystem(BaseSystem* newSystem)
+void SystemManager::AddSystem(BaseSystem* newSystem, bool init)
 {
 	if (newSystem != nullptr)
 	{
@@ -122,7 +123,8 @@ void SystemManager::AddSystem(BaseSystem* newSystem)
 		newSystem->m_po_SystemManager = this;
 		newSystem->SetID(static_cast<short>(GetSystemCount()));
 		m_v_SystemList.push_back(newSystem);
-		newSystem->Initialize();
+		if (init)
+			newSystem->Initialize();
 	}
 	else
 	{
@@ -133,9 +135,9 @@ void SystemManager::AddSystem(BaseSystem* newSystem)
 //Needs to be tested. May just erase all systems
 void SystemManager::RemoveSystem(BaseSystem* toRemove)
 {
-	for (std::vector<BaseSystem*>::iterator sys = m_v_SystemList.begin();sys != m_v_SystemList.end();)
+	for (std::vector<BaseSystem*>::iterator sys = m_v_SystemList.begin(); sys != m_v_SystemList.end();)
 	{
-		if (strcmp( (*sys)->GetName(),toRemove->GetName())==0)
+		if (strcmp((*sys)->GetName(), toRemove->GetName()) == 0)
 		{
 			try
 			{
@@ -159,7 +161,6 @@ void SystemManager::RemoveSystem(BaseSystem* toRemove)
 
 void SystemManager::Update(float dt)
 {
-
 #ifdef LOG_SYSTEM_UPDATE_TIME
 	fpsLog.push_back(1.0f / static_cast<float>(dt));
 	droppedFramesLog.push_back(m_i_DroppedFrames);
@@ -167,23 +168,25 @@ void SystemManager::Update(float dt)
 
 	for (BaseSystem* currSystem : m_v_SystemList)
 	{
+#ifdef LOG_SYSTEM_UPDATE_TIME
+		auto preTime = AEGetTime(nullptr);
+#endif
 		if (currSystem->m_b_isActive)
 		{
-#ifdef LOG_SYSTEM_UPDATE_TIME
-			auto preTime = AEGetTime(nullptr);
-#endif
+
 
 			currSystem->Update(dt);
 
-#ifdef LOG_SYSTEM_UPDATE_TIME
-			auto timeToUpdate = AEGetTime(nullptr) - preTime;
-			totalFrames++;
-			timeToUpdate *= 1000;
-			timeElapsed += timeToUpdate;
-			nameLog.push_back(currSystem->GetName());
-			timeLog.push_back(timeToUpdate);
-#endif
+
 		}
+#ifdef LOG_SYSTEM_UPDATE_TIME
+		auto timeToUpdate = AEGetTime(nullptr) - preTime;
+		totalFrames++;
+		timeToUpdate *= 1000;
+		timeElapsed += timeToUpdate;
+		nameLog.push_back(currSystem->GetName());
+		timeLog.push_back(timeToUpdate);
+#endif
 	}
 }
 
