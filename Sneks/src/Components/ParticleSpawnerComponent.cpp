@@ -97,7 +97,7 @@ void ParticleSpawnerComponent::SetParticleType(ParticleType type, GraphicsSystem
 			m_b_ParticleFixOffset = false;
 			m_b_ParticleFixDirection = false;
 
-			m_px_ParticleTexture = graphics->FetchTexture("junction.png");
+			m_px_ParticleTexture = graphics->FetchTexture("Trail");
 			m_i_SpriteCountX = 1;
 			m_i_SpriteCountY = 1;
 			m_i_SecondsPerFrame = 10.0f;

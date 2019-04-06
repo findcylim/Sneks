@@ -41,6 +41,7 @@ Technology is prohibited.
 #include "CameraSystem.h"
 #include "../Components/ParticleSpawnerComponent.h"
 #include "ParticleSystem.h"
+#include "PowerUpSystem.h"
 
 int SnekSystem::GetWinner()
 {
@@ -286,13 +287,13 @@ void SnekSystem::SnekLoseLife(SnekHeadComponent* snekHead)
 
 void SnekSystem::ResetStage()
 {
+
+
 	//m_po_ComponentManager->Each<SnekHeadComponent>([&](SnekHeadComponent* snekHead)->void
 	//{
 	// ResetSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
 	//}, kComponentSnekHead);
-	
-	//ResetDamageAll();
-	
+		
 	auto camera = m_po_SystemManager->GetSystem<CameraSystem>("Camera");
 	camera->RemoveCameraTrackObjects();
 
