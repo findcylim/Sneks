@@ -341,10 +341,10 @@ void GameStateManager::ExitGame()
 void GameStateManager::Load()
 {
 //	if (m_x_Previous == kStateWinScreen && m_x_Current == kStateMainMenu)
-	if (m_x_Previous == kStateWinScreen)
-	{
-		ResetBattle();
-	}
+	//if (m_x_Previous == kStateWinScreen)
+	//{
+	//	ResetBattle();
+	//}
 
 	switch (m_x_Current) 
 	{
@@ -392,6 +392,10 @@ void GameStateManager::Load()
 
 void GameStateManager::Unload()
 {
+	if (m_x_Next == kStateMainMenu)
+	{
+		ResetBattle();
+	}
 	switch (m_x_Previous)
 	{
 	case kStateSplashScreen:

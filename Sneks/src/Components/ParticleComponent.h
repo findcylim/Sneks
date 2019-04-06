@@ -32,6 +32,7 @@ public:
 	void UpdateTime(float dt);
 	float GetAlphaValue();
 	bool IsAlive();
+	void KillParticle();
 	float m_f_ParticleStartingAlpha = 1.0f;
 	float m_f_ParticleFadeAmount = 1.0f;
 
