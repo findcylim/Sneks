@@ -21,6 +21,7 @@
 #include "../Systems/Menus/SplashScreenSystem.h"
 #include "../Systems/Menus/SnekSelectMenuSystem.h"
 #include "../Systems/Menus/OptionsMenuSystem.h"
+#include "../Systems/InputSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -157,6 +158,7 @@ void GameStateManager::ResetBattle()
 
 void GameStateManager::LoadBattle()
 {
+	m_o_SystemManager->DisableSystem<InputSystem>();
 	m_o_SystemManager->EnableSystem<PhysicsSystem>();
 	m_o_SystemManager->EnableSystem<HUDSystem>();
 	m_o_SystemManager->EnableSystem<PowerUpSystem>();
@@ -186,6 +188,7 @@ void GameStateManager::UnloadBattle()
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
 	AEInputShowCursor(true);
+	m_o_SystemManager->EnableSystem<InputSystem>();
 }
 
 void GameStateManager::LoadHelpMenu()
@@ -394,7 +397,6 @@ void GameStateManager::Update(float dt)
 		}
 		else
 		{
-			
 			m_x_Previous = m_x_Current;
 			m_x_Current = m_x_Next;
 			Unload();

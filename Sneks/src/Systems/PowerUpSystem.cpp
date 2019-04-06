@@ -67,6 +67,7 @@ void PowerUpSystem::Update(float dt)
 					//Perform once when entering stage
 					if (powerUpComponent->m_f_SpecialTimer <= 0.01f)
 					{
+						m_po_EventManagerPtr->EmitEvent<Events::EV_POWERUP_PICKUP_SPEED>(Events::EV_POWERUP_PICKUP_SPEED{});
 						physicsComponent->m_f_MaxSpeed = 10;
 						snekHeadComponent->m_f_IdleSpeed = -100;
 					}

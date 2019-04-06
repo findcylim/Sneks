@@ -62,10 +62,10 @@ public:
 	void Update(float dt) override;
 
 private:
-	std::vector<KeyState> m_x_CurrentKeyStates;
+	//std::vector<KeyState> m_x_CurrentKeyStates;
 	HTVector2 m_o_ScreenSize;
 	void SetKeyBinds();
-	void ResolveKeyPress(unsigned char keyId);
+	//void ResolveKeyPress(unsigned char keyId);
 };
 
 #endif

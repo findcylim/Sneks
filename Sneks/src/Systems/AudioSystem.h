@@ -59,6 +59,8 @@ class AudioSystem final : public BaseSystem // Add event listeners here
 , public EventListener<Events::EV_POWERUP_PICKUP_HEALTH>
 , public EventListener<Events::EV_POWERUP_PICKUP_SPEED>
 , public EventListener<Events::EV_POWERUP_PICKUP_STARMODE>
+, public EventListener<Events::EV_SPECIAL_SKILL_BOOST>
+, public EventListener<Events::EV_SPECIAL_SKILL_FLIP>
 {
 	Sound m_o_MainMenuMusic;
 	Sound m_o_IntroBattleMusic;
@@ -69,6 +71,8 @@ class AudioSystem final : public BaseSystem // Add event listeners here
 	Sound m_o_HitSound;
 	Sound m_o_PowerUpSound;
 	Sound m_o_ExplosionSound;
+	Sound m_o_SpeedSpecialSound;
+	Sound m_o_FlipSpecialSound;
 
 	GameStateManager* m_po_GameStateManager;
 	bool muted = false;
@@ -82,6 +86,8 @@ public:
 	void Receive(const Events::EV_POWERUP_PICKUP_HEALTH& eventData) override;
 	void Receive(const Events::EV_POWERUP_PICKUP_SPEED& eventData) override;
 	void Receive(const Events::EV_POWERUP_PICKUP_STARMODE& eventData) override;
+	void Receive(const Events::EV_SPECIAL_SKILL_BOOST& eventData) override;
+	void Receive(const Events::EV_SPECIAL_SKILL_FLIP& eventData) override;
 	void Update(float dt) override;
 	void ToggleMute();
 };

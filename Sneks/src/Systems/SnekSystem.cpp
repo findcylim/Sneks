@@ -440,6 +440,7 @@ void SnekSystem::Update(float dt)
 			i_SnekHead->specialTutorial = false;
 			if (i_SnekHead->m_x_SnekType == kSnekTypeFlip)
 			{
+				m_po_EventManagerPtr->EmitEvent<Events::EV_SPECIAL_SKILL_FLIP>(Events::EV_SPECIAL_SKILL_FLIP{});
 				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
 				i_SnekHead->m_f_BoostSetCooldown = 2;
 				i_SnekHead->m_f_BoostCooldown = 0;
@@ -465,6 +466,7 @@ void SnekSystem::Update(float dt)
 			}
 			else if (i_SnekHead->m_x_SnekType == kSnekTypeSpeed)
 			{
+				m_po_EventManagerPtr->EmitEvent<Events::EV_SPECIAL_SKILL_BOOST>(Events::EV_SPECIAL_SKILL_BOOST{});
 				i_SnekHead->m_f_AccelerationForce *= 5.0f;
 				i_SnekHead->GetComponent<PhysicsComponent>()->m_f_MaxSpeed *= 1.5f;
 				//i_SnekHead->GetComponent<BloomComponent>()->m_f_BloomStrength *= 1.4f;
@@ -476,13 +478,13 @@ void SnekSystem::Update(float dt)
 
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
-			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			Events::EV_PLAYER_MOVEMENT_KEY moveKeyL{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKeyL);
 		}
 		else if (GetAsyncKeyState(i_SnekHead->m_i_RightKey))
 		{
-			Events::EV_PLAYER_MOVEMENT_KEY moveKey{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
-			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKey);
+			Events::EV_PLAYER_MOVEMENT_KEY moveKeyR{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
+			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKeyR);
 		}
 
 

@@ -115,6 +115,15 @@ namespace Events
 	struct EV_POWERUP_PICKUP_STARMODE
 	{
 	};
+
+	struct EV_SPECIAL_SKILL_BOOST
+	{
+	};
+
+	struct EV_SPECIAL_SKILL_FLIP
+	{
+	};
+
 }
 
 class EventManager

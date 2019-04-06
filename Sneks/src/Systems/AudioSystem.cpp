@@ -34,7 +34,7 @@ void Sound::Initialize(char counterCap,float playTimer)
 
 void Sound::Create(const char* filename)
 {
-	FMOD_System_CreateSound(system, filename, FMOD_LOOP_OFF | FMOD_CREATESAMPLE, 0, &fmodSound);
+	FMOD_System_CreateSound(system, filename, FMOD_LOOP_OFF | FMOD_CREATESTREAM, 0, &fmodSound);
 	FmodErrorCheck(result);
 	FMOD_System_PlaySound(system, fmodSound, 0, true, &channel);
 	FmodErrorCheck(result);
@@ -42,9 +42,9 @@ void Sound::Create(const char* filename)
 
 void Sound::CreateBGM(const char*filename)
 {
-	FMOD_Sound_SetMusicChannelVolume(fmodSound, 0, 0);
+	FMOD_System_CreateStream(system, filename, FMOD_LOOP_NORMAL | FMOD_CREATESTREAM, 0, &fmodSound);
 	FmodErrorCheck(result);
-	FMOD_System_CreateStream(system, filename, FMOD_LOOP_NORMAL, 0, &fmodSound);
+	FMOD_Sound_SetMusicChannelVolume(fmodSound, 0, 0);
 	FmodErrorCheck(result);
 	FMOD_System_PlaySound(system, fmodSound, 0, true, &channel);
 	FmodErrorCheck(result);
@@ -55,7 +55,6 @@ void Sound::Play(float volume)
 	if (m_c_PlayCounter < m_c_PlayCap)
 	{
 		soundOn = true;
-
 		FMOD_System_PlaySound(system, fmodSound, 0, false, &channel);
 		m_b_IsPlaying = true;
 		FmodErrorCheck(result);
@@ -152,13 +151,20 @@ AudioSystem::AudioSystem(GameStateManager* gameStateManager)
 	m_o_ExplosionSound.Initialize(2,2.0f);
 	m_o_ExplosionSound.Create("../Resources/Sounds/explosion.wav");
 
+/*
+	m_o_SpeedSpecialSound.Initialize(2, 1.0f);
+	m_o_FlipSpecialSound.Initialize(2, 1.0f);
+	m_o_SpeedSpecialSound.Create("../Resources/Sounds/SpeedUp-SFX.wav");
+	m_o_FlipSpecialSound.Create("../Resources/Sounds/SpeedUp-SFX.wav");*/
+
 	m_o_StarModeMusic.Initialize(1,5.0f);
 	m_o_HealthPickup.Initialize(2,1.0f);
-	m_o_SpeedPickup.Initialize(2,1.0f);
+	m_o_SpeedPickup.Initialize(2,4.0f);
 
 	m_o_StarModeMusic.Create("../Resources/Sounds/StarMode-Music.wav");
 	m_o_HealthPickup.Create("../Resources/Sounds/Health-SFX.wav");
-	m_o_SpeedPickup.Create("../Resources/Sounds/SpeedUp-SFX.wav");
+	m_o_SpeedPickup.Create("../Resources/Sounds/SpringBoost-SFX.wav");
+
 }
 
 AudioSystem::~AudioSystem()
@@ -168,6 +174,8 @@ AudioSystem::~AudioSystem()
 	m_po_EventManagerPtr->RemoveListener<Events::EV_POWERUP_PICKUP_HEALTH>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_POWERUP_PICKUP_SPEED>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_POWERUP_PICKUP_STARMODE>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_SPECIAL_SKILL_BOOST>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_SPECIAL_SKILL_FLIP>(this);
 	if (m_o_MainMenuMusic.GetSystem() != NULL)
 		m_o_MainMenuMusic.Release();
 	if (m_o_HitSound.GetSystem() != NULL)
@@ -205,6 +213,8 @@ void AudioSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_POWERUP_PICKUP_HEALTH>(this, this);
 	m_po_EventManagerPtr->AddListener<Events::EV_POWERUP_PICKUP_SPEED>(this, this);
 	m_po_EventManagerPtr->AddListener<Events::EV_POWERUP_PICKUP_STARMODE>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_SPECIAL_SKILL_BOOST>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_SPECIAL_SKILL_FLIP>(this, this);
 }
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
@@ -284,6 +294,24 @@ void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_STARMODE & eventData)
 	}
 }
 
+void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_BOOST & eventData)
+{
+	UNREFERENCED_PARAMETER(eventData);
+	if (!muted)
+	{
+		//m_o_SpeedSpecialSound.Play(1.0f);
+	}
+}
+
+void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_FLIP & eventData)
+{
+	UNREFERENCED_PARAMETER(eventData);
+	if (!muted)
+	{
+		//m_o_FlipSpecialSound.Play(0.4f);
+	}
+}
+
 void AudioSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
@@ -309,4 +337,6 @@ void AudioSystem::Update(float dt)
 	m_o_StarModeMusic.Update();
 	m_o_HealthPickup.Update();
 	m_o_SpeedPickup.Update();
+	/*m_o_SpeedSpecialSound.Update();
+	m_o_FlipSpecialSound.Update();*/
 }
