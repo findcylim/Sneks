@@ -3,6 +3,7 @@
 \file AnimationComponent.cpp
 \author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
+\par Secondary Authors:
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios

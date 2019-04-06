@@ -192,12 +192,13 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		auto victimHeadComponent = eventData.object2->m_po_OwnerEntity->
 			GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
-		auto attackerHeadComponent = eventData.object1->m_po_OwnerEntity->
+		/*auto attackerHeadComponent = eventData.object1->m_po_OwnerEntity->
 			GetComponent<FollowComponent>()->m_po_ParentEntity->GetComponent<SnekHeadComponent>();
-
+		*/
 		if (victimHeadComponent->m_po_OwnerEntity->m_b_IsActive)
 		{
-			RemoveBodyParts(attackerHeadComponent->m_i_CurrentDamage / 2, victimHeadComponent);
+			RemoveBodyParts(2, victimHeadComponent);
+			//RemoveBodyParts(attackerHeadComponent->m_i_CurrentDamage / 2, victimHeadComponent);
 		}
 		return;
 	}
