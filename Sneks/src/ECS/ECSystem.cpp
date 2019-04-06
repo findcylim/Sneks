@@ -56,8 +56,8 @@ void ECSystem::LoadLevel1()
 	m_o_EntityComponentManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>();
 
-	snek->CreateSnek(-200, 0, PI * 3 / 4, 20, "HeadAnim", 0);
-	snek->CreateSnek(200, 0, PI * 7 / 4, 20, "SnekHead02", 1);
+	snek->CreateSnek(-200, 0, PI * 3 / 4, 20, kSnekTypeSpeed, 0,3);
+	snek->CreateSnek(200, 0, PI * 7 / 4, 20, kSnekTypeFlip, 1,3);
 }
 
 /*******************************************************

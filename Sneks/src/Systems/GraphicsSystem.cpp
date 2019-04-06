@@ -195,11 +195,17 @@ void GraphicsSystem::PreLoadTextures()
 	//SET NAMES TO BE FILE NAMES
 	//ENFORCE FILE NAMES TO BE UNIQUE
 	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
-	LoadTextureToMap("../Resources/Untitled1.png"			 , "SnekHead02");
+	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
+	LoadTextureToMap("../Resources/head3.png", "SnekHead03");
+
 	LoadTextureToMap("../Resources/bodytest.png"		 , "SnekBody01");
-	LoadTextureToMap("../Resources/Untitledbody.png"	 , "SnekBody02");
+	LoadTextureToMap("../Resources/bodytest2.png"	 , "SnekBody02");
+	LoadTextureToMap("../Resources/body3.png", "SnekBody03");
+
 	LoadTextureToMap("../Resources/Placeholder/tail.png"				 , "SnekTail01");
-	LoadTextureToMap("../Resources/Untitled.png"				 , "SnekTail02");
+	LoadTextureToMap("../Resources/Placeholder/tail2.png", "SnekTail02");
+	LoadTextureToMap("../Resources/Head3Back.png"				 , "SnekTail03");
+
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
 	LoadTextureToMap("../Resources/building1.png"		 , "Building01"); 
 	LoadTextureToMap("../Resources/building2.png", "Building02");
@@ -253,7 +259,6 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
 	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
 
-	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
 	LoadTextureToMap("../Resources/Animated/Fire-Explosion-Particle.png", "ExplosionParticle");
 	LoadTextureToMap("../Resources/Animated/Void-Particle.png", "VoidParticle");
 	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle.png", "SparkParticle");

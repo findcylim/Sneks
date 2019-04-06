@@ -73,6 +73,7 @@ public:
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 	void SnekLoseLife(SnekHeadComponent* snekHead);
 	void ResetStage();
+	void UpdateSneks();
 	void HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim);
 	void HeadInvulnerableSet(float duration, BaseComponent* anyComponent);
 	void HeadCollideBody(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
@@ -81,7 +82,7 @@ public:
 	void CheckInvulnerability(BaseComponent* component, float dt) const;
 	void BodyInvulnerableSet(SnekHeadComponent* snekHead) const;
 	void Initialize();
-	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, const char* textureName, int controlScheme) const;
+	void CreateSnek(float posX, float posY, float rotation, const int numBodyParts, SnekType snekType, int controlScheme, int lives) const;
 	void ResetSnek(SnekHeadEntity* owner);
 	void CreateSnekBody(SnekHeadEntity* owner, const char* textureName, int playerNumber) const;
 	void CreateSnekTail(SnekHeadEntity* owner, const char* textureName) const;

@@ -124,19 +124,29 @@ void SnekSystem::CheckGrowthMeters()
 {
 	m_po_ComponentManager->Each<SnekHeadComponent>([&](SnekHeadComponent* snekHead)->void
 	{
-		auto texture = "SnekBody01";
-		if (snekHead->m_i_PlayerNumber != 0)
-		{
-			texture = "SnekBody02";
-		}
+		
 		if (snekHead->m_f_CurrentGrowth >= snekHead->m_f_GrowthMeter)
 		{
+			const char* bodyTexture = nullptr;
+			switch (snekHead->m_x_SnekType)
+			{
+			case kSnekTypeFlip:
+				bodyTexture = "SnekBody03";
+				break;
+			case kSnekTypeShoot:
+				bodyTexture = "SnekBody02";
+				break;
+			case kSnekTypeSpeed:
+				bodyTexture = "SnekBody01";
+				break;
+
+			}
 			snekHead->m_f_CurrentGrowth = 0;
 			//Make it harder for the snake to grow
 			snekHead->m_f_GrowthMeter *= 1.1f;
 			//Spawn new body part
 			CreateSnekBody(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity),
-				texture, snekHead->m_i_PlayerNumber);
+				bodyTexture, snekHead->m_i_PlayerNumber);
 		}
 	}, kComponentSnekHead);
 }
@@ -293,11 +303,17 @@ void SnekSystem::ResetStage()
 	
 	//ResetDamageAll();
 	
+	int lives[2],Counter=0;
+	SnekType snekType[2];
+
 	auto camera = m_po_SystemManager->GetSystem<CameraSystem>("Camera");
 	camera->RemoveCameraTrackObjects();
 
 	m_po_ComponentManager->Each<SnekHeadComponent>([&](SnekHeadComponent* snekHead)->void
 	{
+		lives[Counter] = snekHead->m_i_LivesLeft;
+		snekType[Counter] = snekHead->m_x_SnekType;
+		++Counter;
 		DeleteSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
 		//ResetSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
 	}, kComponentSnekHead);
@@ -317,8 +333,8 @@ void SnekSystem::ResetStage()
 	//Regenerate buildings
 	m_po_SystemManager->GetSystem<BuildingsSystem>()->ResetLevel1();
 
-	CreateSnek(-200, 0, PI * 3 / 4, 20, "HeadAnim", 0);
-	CreateSnek(200, 0, PI * 7 / 4, 20, "SnekHead02", 1);
+	CreateSnek(-200, 0, PI * 3 / 4, 20, snekType[0], 0, lives[0]);
+	CreateSnek(200, 0, PI * 7 / 4, 20, snekType[1], 1, lives[1]);
 
 	//TODO MOVE TO EVENTS
 	m_po_SystemManager->GetSystem<ParticleSystem>()->ResetTrails();
@@ -586,7 +602,7 @@ void SnekSystem::Initialize()
 //BODY SIZE:  61,  80
 //SCALE : 0.635f
 void SnekSystem::CreateSnek(float posX, float posY, float rotation,
-	const int numBodyParts, const char* textureName, int controlScheme) const
+	const int numBodyParts, SnekType snekType, int controlScheme,int lives) const
 {
 	//Count the number of previous snek heads
 	int snekHeadCount = 0;
@@ -597,13 +613,33 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 
 	auto tailTexture = "SnekTail01";
 	auto bodyTexture = "SnekBody01";
+	auto headTexture = "SnekHead01";
 	auto spriteCountX = 2;
 	auto spriteCountY = 1;
-	if (!strcmp(textureName, "SnekHead02"))
+
+	switch (snekType)
 	{
+	case kSnekTypeFlip:
+		spriteCountX = 1;
+		spriteCountY = 1;
+		headTexture = "SnekHead03";
+		bodyTexture = "SnekBody03";
+		tailTexture = "SnekTail03";
+		break;
+	case kSnekTypeSpeed:
+		spriteCountX = 2;
+		spriteCountY = 1;
+		headTexture = "HeadAnim";
+		bodyTexture = "SnekBody01";
+		tailTexture = "SnekTail01";
+		break;
+	case kSnekTypeShoot:
+		spriteCountX = 1;
+		spriteCountY = 1;
+		headTexture = "SnekHead02";
 		bodyTexture = "SnekBody02";
 		tailTexture = "SnekTail02";
-		spriteCountX = 1;
+		break;
 	}
 
 	while (i_SnekHeadComponents)
@@ -614,6 +650,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 
 	auto newSnekHeadEntity = 
 		m_po_EntityManager->NewEntity<SnekHeadEntity>(kEntitySnekHead, "Head");
+
 
 	for (auto i_Component : newSnekHeadEntity->m_v_AttachedComponentsList)
 	{
@@ -633,14 +670,14 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		}
 		else if (i_Component->m_x_ComponentID == kComponentDraw)
 		{
-			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), textureName,
+			m_o_GraphicsSystem->InitializeDrawComponent(static_cast<DrawComponent*>(i_Component), headTexture,
 				HTColor{ 1,1,1,1 }, spriteCountX, spriteCountY);
 			static_cast<DrawComponent*>(i_Component)->m_f_DrawPriority = 4;
 		}
 		else if (i_Component->m_x_ComponentID == kComponentAnimation)
 		{
 			auto animComp = static_cast<AnimationComponent*>(i_Component);
-			Animation anim(SpriteSheet{ textureName, spriteCountX,spriteCountY }, 0, spriteCountX * spriteCountY);
+			Animation anim(SpriteSheet{ headTexture, spriteCountX,spriteCountY }, 0, spriteCountX * spriteCountY);
 			anim.m_f_SecondsPerFrame = 1.0f;
 			animComp->m_vx_AnimationsList.push_back(anim);
 
@@ -654,6 +691,8 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 		else if (i_Component->m_x_ComponentID == kComponentSnekHead)
 		{
 			static_cast<SnekHeadComponent*>(i_Component)->m_i_PlayerNumber = static_cast<unsigned short>(controlScheme);
+			static_cast<SnekHeadComponent*>(i_Component)->m_i_LivesLeft = lives;
+			static_cast<SnekHeadComponent*>(i_Component)->m_x_SnekType = snekType;
 			if (controlScheme)
 			{
 
@@ -1100,4 +1139,27 @@ void SnekSystem::SetSnekType(int playerNumber, SnekType snekType)
 			snekHead->m_x_SnekType = snekType;
 		}
 	}, kComponentSnekHead);
+	UpdateSneks();
+}
+
+void SnekSystem::UpdateSneks()
+{
+	int lives[2], Counter = 0;
+	SnekType snekType[2];
+
+	auto camera = m_po_SystemManager->GetSystem<CameraSystem>("Camera");
+	camera->RemoveCameraTrackObjects();
+
+	m_po_ComponentManager->Each<SnekHeadComponent>([&](SnekHeadComponent* snekHead)->void
+	{
+		lives[Counter] = snekHead->m_i_LivesLeft;
+		snekType[Counter] = snekHead->m_x_SnekType;
+		++Counter;
+		DeleteSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
+		//ResetSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
+	}, kComponentSnekHead);
+
+	CreateSnek(-200, 0, PI * 3 / 4, 20, snekType[0], 0, lives[0]);
+	CreateSnek(200, 0, PI * 7 / 4, 20, snekType[1], 1, lives[1]);
+
 }
