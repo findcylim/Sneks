@@ -23,14 +23,13 @@ public:
 	SystemType* MakeSystem(const char* systemName = "")
 	{
 		auto newSystem = new SystemType();
-		AddSystem(newSystem);
+		AddSystem(newSystem, true);
 		newSystem->SetName(systemName);
-		//newSystem->Initialize();
 		return newSystem;
 	}
 
 
-	void AddSystem(BaseSystem* newSystem);
+	void AddSystem(BaseSystem* newSystem, bool init = true);
 	void RemoveSystem(BaseSystem* toRemove);
 	void Update(float dt);
 	//BaseSystem* GetSystem(int ID); 
