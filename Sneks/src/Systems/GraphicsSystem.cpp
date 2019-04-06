@@ -195,11 +195,11 @@ void GraphicsSystem::PreLoadTextures()
 	//SET NAMES TO BE FILE NAMES
 	//ENFORCE FILE NAMES TO BE UNIQUE
 	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
-	LoadTextureToMap("../Resources/Untitled1.png"			 , "SnekHead02");
+	LoadTextureToMap("../Resources/Untitled2.png"			 , "SnekHead02");
 	LoadTextureToMap("../Resources/bodytest.png"		 , "SnekBody01");
-	LoadTextureToMap("../Resources/Untitledbody.png"	 , "SnekBody02");
+	LoadTextureToMap("../Resources/Untitledbody2.png"	 , "SnekBody02");
 	LoadTextureToMap("../Resources/Placeholder/tail.png"				 , "SnekTail01");
-	LoadTextureToMap("../Resources/Untitled.png"				 , "SnekTail02");
+	LoadTextureToMap("../Resources/Untitled2.png"				 , "SnekTail02");
 	LoadTextureToMap("../Resources/map.png"				 , "Background01");
 	LoadTextureToMap("../Resources/building1.png"		 , "Building01"); 
 	LoadTextureToMap("../Resources/building2.png", "Building02");
