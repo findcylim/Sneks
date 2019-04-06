@@ -88,9 +88,7 @@ void SnekSelectMenuSystem::Initialize(CanvasComponent* canvasComponent)
 	Events::EV_NEW_UI_ELEMENT P2UpElement = { canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"P2Up" ,"Up_Idle", "","Up_Hover","UIBack_Click",P2SnekStateUp };
 	Events::EV_NEW_UI_ELEMENT P2DownElement = { canvasComponent, HTVector2{ 0.825f , 0.6125f }, kCanvasButton,"P2Down", "Down_Idle", "", "Down_Hover","UIBack_Click", P2SnekStateDown };
 	Events::EV_NEW_UI_ELEMENT ConfirmElement = { canvasComponent, HTVector2{ 0.5f , 0.9f }, kCanvasButton,"Confirm", "Confirm_Idle", "", "Confirm_Hover","UIBack_Click", PlayGame };
-	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvasComponent, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
-	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LogoElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(P1UpElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(P1DownElement);
