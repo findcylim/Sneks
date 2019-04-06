@@ -32,7 +32,7 @@ std::vector<float> fpsLog;
 std::vector<int> droppedFramesLog;
 std::vector<const char*> nameLog;
 std::vector<f64> timeLog;
-std::vector<f64> totalTime(20);
+std::vector<f64> totalTime(22);
 int totalFrames = 0;
 f64 timeElapsed = 0;
 #endif
@@ -80,7 +80,8 @@ SystemManager::~SystemManager()
 				avgFps = (avgFps * i + fpsLog[i]) / (i + 1);
 			}
 			//Write string to file
-			for (unsigned int i = 0; i < timeLog.size(); i++) {
+			for (unsigned int i = 0; i < timeLog.size(); i++) 
+			{
 				outFile << nameLog[i] << " took " << timeLog[i] << " ms " << std::endl;
 				totalTime[counter]+=timeLog[i];
 				counter = ++counter % m_v_SystemList.size();
@@ -194,12 +195,9 @@ void SystemManager::Update(float dt)
 #endif
 		if (currSystem->m_b_isActive)
 		{
-
-
 			currSystem->Update(dt);
-
-
 		}
+
 #ifdef LOG_SYSTEM_UPDATE_TIME
 		auto timeToUpdate = AEGetTime(nullptr) - preTime;
 		totalFrames++;
@@ -208,6 +206,7 @@ void SystemManager::Update(float dt)
 		nameLog.push_back(currSystem->GetName());
 		timeLog.push_back(timeToUpdate);
 #endif
+
 	}
 }
 
