@@ -265,5 +265,4 @@ void HUDSystem::Update(float dt)
 			oldScale2 = snek->GetSpecialAttackPercentage(1);
 		}
 	}
-
 }

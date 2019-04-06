@@ -198,22 +198,11 @@ void CameraSystem::UpdateCamera(const float dt) const
 			{-cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_x_CurrentViewDistance.x,
 			-cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_x_CurrentViewDistance.y} };
 
-		//original param
-		//Aabb cameraAABB = { {-cameraComponent->m_f_VirtualOffset.x - cameraComponent->m_x_CurrentViewDistance.x / 2,
-		//	-cameraComponent->m_f_VirtualOffset.y - cameraComponent->m_x_CurrentViewDistance.y / 2},
-		//	{-cameraComponent->m_f_VirtualOffset.x + cameraComponent->m_x_CurrentViewDistance.x / 2,
-		//	-cameraComponent->m_f_VirtualOffset.y + cameraComponent->m_x_CurrentViewDistance.y / 2} };
-
-
 		auto transformComponent =
 			m_po_ComponentManager->GetFirstComponentInstance<TransformComponent>(kComponentTransform);
 
 		while(transformComponent)
 		{
-			// Aabb otherAABB = { {transformComponent->m_x_Position.x - transformComponent->GetDrawScale().x / 2,
-			// 	transformComponent->m_x_Position.y - transformComponent->GetDrawScale().y / 2},
-			// 	{transformComponent->m_x_Position.x + transformComponent->GetDrawScale().x / 2,
-			// 	transformComponent->m_x_Position.y + transformComponent->GetDrawScale().y / 2} };
 			transformComponent->m_x_Position += offset;
 
 			if (transformComponent->m_po_OwnerEntity->GetEntityID() == kEntityBackground ||
@@ -287,7 +276,6 @@ void CameraSystem::UpdateCamera(const float dt) const
 			}
 			transformComponent = static_cast<TransformComponent*>(transformComponent->m_po_NextComponent);
 		}
-		//cameraComponent = static_cast<CameraComponent*>(cameraComponent->m_po_NextComponent);
 	}
 }
 

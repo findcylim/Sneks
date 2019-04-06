@@ -64,7 +64,6 @@ void SnekSystem::ResetDamageAll()
 	}, kComponentSnekHead);
 }
 
-
 int SnekSystem::GetLives(SnekHeadComponent* snekHead) const
 {
 	return snekHead->m_i_LivesLeft;
@@ -735,31 +734,6 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	{
 		CreateSnekBody(newSnekHeadEntity, bodyTexture, controlScheme);
 	}
-
-	//auto snekHead = newSnekHeadEntity->GetComponent<SnekHeadComponent>();
-		
-	//for (auto& i_Body : snekHead->m_x_BodyParts)
-	//{
-	//	auto bodyDraw =
-	//		m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
-	//			i_Body, kComponentDraw
-	//			);
-
-	//	auto followComponent =
-	//		m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(
-	//			i_Body, kComponentFollow
-	//			);
-
-	//	auto followDrawComponent =
-	//		m_po_ComponentManager->GetSpecificComponentInstance<DrawComponent>(
-	//			followComponent->m_po_FolloweeTransform->m_po_OwnerEntity, kComponentDraw
-	//			);
-
-	//	FaceReference(followComponent->m_po_FolloweeTransform, bodyDraw->m_po_TransformComponent);
-	//	MoveTowardsReference(followDrawComponent, bodyDraw,
-	//		snekHead->GetComponent<PhysicsComponent>());
-	//}
-
 }
 
 void SnekSystem::ResetSnek(SnekHeadEntity* owner)
@@ -804,10 +778,6 @@ void SnekSystem::ResetSnek(SnekHeadEntity* owner)
 		{
 			auto bodyDraw = i_Body->GetComponent<DrawComponent>();
 			auto followComponent = i_Body->GetComponent<FollowComponent>();
-//			auto followDrawComponent =	followComponent->m_po_FolloweeTransform->m_po_OwnerEntity->
-//												 GetComponent<DrawComponent>();
-
-//			auto headPhysicsComponent = snekHeadComp->GetComponent<PhysicsComponent>();
 
 			FollowSystem::FaceReference(followComponent->m_po_FolloweeTransform, bodyDraw->m_po_TransformComponent);
 		}
@@ -827,7 +797,6 @@ void SnekSystem::DeleteSnek(SnekHeadEntity* snekHead)
 		m_po_EntityManager->AddToDeleteQueue(snekBody);
 		//RemoveSnekBody(snekBody, snekHead->GetComponent<SnekHeadComponent>());
 	}
-
 	m_po_EntityManager->AddToDeleteQueue(snekHead);
 }
 
@@ -1063,27 +1032,7 @@ void SnekSystem::CreateSnekTail(SnekHeadEntity* owner, const char* textureName) 
 	}
 
 	ownerHeadComponent->m_x_BodyParts.push_back(newSnekBodyEntity);
-	
-
-	/*auto followComponent = 
-		m_po_ComponentManager->GetSpecificComponentInstance<FollowComponent>(
-			newSnekBodyEntity, kComponentFollow);
-
-	if (ownerHeadComponent->m_x_BodyParts.empty())
-	{
-		followComponent->m_po_TransformComponent = ownerTransform;
-	}
-	else
-	{
-		auto toFollowTransform =
-			m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(
-				ownerHeadComponent->m_x_BodyParts.back(), kComponentTransform);
-
-		followComponent->m_po_TransformComponent = toFollowTransform;
-	}*/
-
 }
-
 
 void SnekSystem::Flip(SnekHeadEntity* owner)
 {

@@ -130,8 +130,8 @@ class EventManager
 {
 protected:
 public:
-	void Update();
-	void ProcessEvents();
+	void Update() {}
+	void ProcessEvents() {}
 
 
 	template<typename T>
@@ -206,8 +206,8 @@ public:
 		}
 	}
 
-	EventManager();
-	virtual ~EventManager();
+	EventManager() {}
+	virtual ~EventManager() {}
 private:
 	std::map<std::type_index, std::vector<BaseEventListener*>> m_l_ListenerList;
 };

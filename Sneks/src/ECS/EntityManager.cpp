@@ -90,7 +90,8 @@ void EntityManager::AddEntity(BaseEntity* entityPointer, Entity entityType)
 		AttachAllComponents(entityPointer, entityType);
 	}
 }
-
+//TODO
+// TEMPLATE THIS 
 void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entityType)
 {
 	if (entityPointer)

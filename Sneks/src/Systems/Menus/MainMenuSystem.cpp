@@ -86,20 +86,7 @@ float zoomSpeed = 0.05f;
 void MainMenuSystem::Update(float dt)
 {
 	
-	auto snekSystem = m_po_SystemManager->GetSystem<SnekSystem>("Snek");
-	if (AEInputCheckTriggered(AEVK_1))
-		snekSystem->SetSnekType(0, kSnekTypeSpeed);
-	else if (AEInputCheckTriggered(AEVK_2))
-		snekSystem->SetSnekType(0, kSnekTypeShoot);
-	else if (AEInputCheckTriggered(AEVK_3))
-		snekSystem->SetSnekType(0, kSnekTypeFlip);
-	else if (AEInputCheckTriggered(AEVK_4))
-		snekSystem->SetSnekType(1, kSnekTypeSpeed);
-	else if (AEInputCheckTriggered(AEVK_5))
-		snekSystem->SetSnekType(1, kSnekTypeShoot);
-	else if (AEInputCheckTriggered(AEVK_6))
-		snekSystem->SetSnekType(1, kSnekTypeFlip);
-	
+	//auto snekSystem = m_po_SystemManager->GetSystem<SnekSystem>("Snek");
 
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	cameraComponent->m_x_CameraAttributes.speedDecay = 0.99f;

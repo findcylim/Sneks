@@ -31,7 +31,6 @@
     <ClCompile Include="ECS\ECSystem.cpp" />
     <ClCompile Include="ECS\EntityList.cpp" />
     <ClCompile Include="ECS\EntityManager.cpp" />
-    <ClCompile Include="ECS\EventManager.cpp" />
     <ClCompile Include="ECS\System.cpp" />
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="GameEntry.cpp" />
@@ -142,7 +141,6 @@
     <ClInclude Include="Utility\GameStateManager.h" />
     <ClInclude Include="Utility\Logger.h" />
     <ClInclude Include="Utility\MemoryAllocator.h" />
-    <ClInclude Include="Utility\misc.h" />
     <ClInclude Include="Utility\RTTIHelper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

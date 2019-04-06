@@ -37,9 +37,6 @@
     <ClCompile Include="ECS\EntityManager.cpp">
       <Filter>ECSystem</Filter>
     </ClCompile>
-    <ClCompile Include="ECS\EventManager.cpp">
-      <Filter>ECSystem</Filter>
-    </ClCompile>
     <ClCompile Include="ECS\System.cpp">
       <Filter>ECSystem</Filter>
     </ClCompile>
@@ -208,9 +205,6 @@
     </ClInclude>
     <ClInclude Include="Math\Aabb.h">
       <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility\misc.h">
-      <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Utility\GameStateManager.h">
       <Filter>Utility</Filter>

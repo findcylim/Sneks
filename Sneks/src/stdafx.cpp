@@ -12,7 +12,7 @@
 This file contains the precompiled header .cpp to store the generated
 code from stdafx.h.
 
-\par Contribution (hours): CY - 1
+\par Contribution (hours): CY - 0.1
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

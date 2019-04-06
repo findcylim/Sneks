@@ -11,9 +11,4 @@ std::type_index getTypeIndex()
 	return std::type_index(typeid(T));
 }
 
-
-
-
-
-
 #endif
