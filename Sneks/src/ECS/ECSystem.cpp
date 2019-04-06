@@ -25,7 +25,9 @@
 #include "../Systems/FollowSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
 #include "../Systems/Menus/SplashScreenSystem.h"
-
+#include "../Systems/Menus/SnekSelectMenuSystem.h"
+#include "../Systems/Menus/TutorialMenuSystem.h"
+#include "../Systems/Menus/OptionsMenuSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -80,7 +82,7 @@ void ECSystem::InitializeEngine()
 	auto collisions = new CollisionSystem();
 	auto projectile = new ProjectileSystem(graphics);
 	auto particle = new ParticleSystem(graphics);
-	auto audio = new AudioSystem();
+	auto audio = new AudioSystem(m_o_GameStateManager);
 	auto powerUp = new PowerUpSystem(graphics);
 	auto helpMenu = new HelpMenuSystem();
 	auto canvas = new CanvasUISystem(graphics);
@@ -89,9 +91,11 @@ void ECSystem::InitializeEngine()
 	auto mainMenu = new MainMenuSystem();
 	auto hud = new HUDSystem(graphics);
 	auto pauseMenu = new PauseMenuSystem();
-  auto splashScreen = new SplashScreenSystem(graphics);
-
-
+	auto splashScreen = new SplashScreenSystem(graphics);
+	auto snekSelect = new SnekSelectMenuSystem();
+	auto tutorial = new TutorialMenuSystem(m_o_GameStateManager);
+	auto options = new OptionsMenuSystem();
+	auto creditsScreen = new CreditsScreenSystem(graphics);
 
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
@@ -101,7 +105,6 @@ void ECSystem::InitializeEngine()
 
 	m_o_SystemManager->AddSystem(snek);
 	snek->SetName("Snek");
-
 	m_o_SystemManager->MakeSystem<FollowSystem>("Follow");
 
 	m_o_SystemManager->AddSystem(physics);
@@ -140,42 +143,43 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(input);
 	buildings->SetName("Input");
 
+	LoadLevel1();
 
 	/*************************************************************************/
 	// UI & MENUS
 	/*************************************************************************/
 
-	CanvasEntity* mainMenuCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
-
 	m_o_SystemManager->AddSystem(mainMenu);
-	mainMenu->Initialize(mainMenuCanvas->GetComponent<CanvasComponent>());
 	mainMenu->SetName("Main Menu"); 
 
-	CanvasEntity* HUDCanvas = m_o_EntityComponentManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
+	m_o_SystemManager->AddSystem(snekSelect);
+	snekSelect->SetName("Snek Select");
 
 	m_o_SystemManager->AddSystem(hud);
 	hud->SetName("HUD");
-	hud->Initialize(HUDCanvas->GetComponent<CanvasComponent>());
-
+	
 	m_o_SystemManager->AddSystem(helpMenu);
 	helpMenu->SetName("HelpMenu");
 
 	m_o_SystemManager->AddSystem(powerUp);
 	powerUp->SetName("Power Up");
+	
+	m_o_SystemManager->AddSystem(tutorial);
+	tutorial->SetName("Tutorial");
+
+	m_o_SystemManager->AddSystem(options);
+	options->SetName("Options");
 
 	m_o_SystemManager->AddSystem(pauseMenu);
 	pauseMenu->SetName("PauseMenu");
 
 	m_o_SystemManager->MakeSystem<WinScreenSystem>("WinScreen");
 
-	auto creditsScreen = new CreditsScreenSystem(graphics);
 	m_o_SystemManager->AddSystem(creditsScreen);
 	creditsScreen->SetName("CreditsScreen");
-	//creditsScreen->Initialize();
 
 	m_o_SystemManager->AddSystem(splashScreen);
 	splashScreen->SetName("SplashScreen");
-	//splashScreen->Initialize();
 
 	m_o_GameStateManager->AddGraphics(graphics);
 
@@ -187,7 +191,6 @@ void ECSystem::InitializeEngine()
 	/*************************************************************************/
 	// Other Entity Creation
 	/*************************************************************************/
-	LoadLevel1();
 
 	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
@@ -205,9 +208,12 @@ void ECSystem::InitializeEngine()
 
 
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Snek Select UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
 
 	m_o_SystemManager->DisableSystem<HUDSystem>();
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();

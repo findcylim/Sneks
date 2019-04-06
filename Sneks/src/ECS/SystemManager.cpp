@@ -1,7 +1,7 @@
 
 #include "SystemManager.h"
 
-//#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
+#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
 
 #ifdef LOG_SYSTEM_UPDATE_TIME
 #define __STDC_WANT_LIB_EXT1__ 1
@@ -11,7 +11,7 @@ std::vector<float> fpsLog;
 std::vector<int> droppedFramesLog;
 std::vector<const char*> nameLog;
 std::vector<f64> timeLog;
-std::vector<f64> totalTime(20);
+std::vector<f64> totalTime(25);
 int totalFrames = 0;
 f64 timeElapsed = 0;
 #endif

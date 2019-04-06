@@ -27,8 +27,11 @@ HUDSystem::~HUDSystem()
 	}
 }
 
-void HUDSystem::Initialize(CanvasComponent* canvasComponent)
+void HUDSystem::Initialize()
 {
+	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
+	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
+
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 

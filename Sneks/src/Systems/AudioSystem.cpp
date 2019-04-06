@@ -129,8 +129,10 @@ void Sound::ResetSoundCounter()
 	m_c_PlayCounter = 0;
 }
 
-AudioSystem::AudioSystem()
+AudioSystem::AudioSystem(GameStateManager* gameStateManager)
 {
+	m_po_GameStateManager = gameStateManager;
+
 	m_o_MainMenuMusic.Initialize(1,112.0f);
 	m_o_MainMenuMusic.CreateBGM("../Resources/Sounds/MainMenu-Loop.mp3");
 	m_o_MainMenuMusic.Play(0.3f);
@@ -144,9 +146,9 @@ AudioSystem::AudioSystem()
 	m_o_HitSound.Initialize(5,1.0f);
 	m_o_HitSound.Create("../Resources/Sounds/hitsound.wav");
 
-	/*m_o_PowerUpSound.Initialize();
-	m_o_PowerUpSound.Create("../Resources/Sounds/powerup.wav");
-*/
+	//m_o_PowerUpSound.Initialize();
+	//m_o_PowerUpSound.Create("../Resources/Sounds/powerup.wav");
+
 	m_o_ExplosionSound.Initialize(2,2.0f);
 	m_o_ExplosionSound.Create("../Resources/Sounds/explosion.wav");
 
@@ -176,6 +178,26 @@ AudioSystem::~AudioSystem()
 		m_o_ExplosionSound.Release();
 }
 
+void AudioSystem::ToggleMute()
+{
+	muted = !muted;
+
+	if (muted)
+	{
+		FMOD_Channel_SetVolume(m_o_MainMenuMusic.channel, 0.0f);
+		FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.0f);
+		FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.0f);
+		FMOD_Channel_SetVolume(m_o_StarModeMusic.channel, 0.0f);
+	}
+	else
+	{
+		FMOD_Channel_SetVolume(m_o_MainMenuMusic.channel, 0.3f);
+		FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.1f);
+		FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.1f);
+		FMOD_Channel_SetVolume(m_o_StarModeMusic.channel, 0.15f);
+	}
+}
+
 void AudioSystem::Initialize()
 {
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this,this);
@@ -187,67 +209,79 @@ void AudioSystem::Initialize()
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
-	if (eventData.object1->IsGroup(kCollGroupMouse) && eventData.object2->IsGroup(kCollGroupUIButton))
+	if (!muted)
 	{
-		
-	}
-	else if (eventData.object2->IsGroup(kCollGroupPowerUp))
-	{
-		//m_o_PowerUpSound.Play();
-	}
-	else if (eventData.object1->IsGroup(kCollGroupSnek1Head) &&
-				eventData.object2->IsGroup(kCollGroupSnek2Body) ||
-				eventData.object1->IsGroup(kCollGroupSnek2Head) &&
-				eventData.object2->IsGroup(kCollGroupSnek1Body) || 
-				eventData.object1->IsGroup(kCollGroupSnek1Head) &&
-				eventData.object2->IsGroup(kCollGroupSnek2Head))
-	{
-		m_o_ExplosionSound.Play();
-	}
-	else
-	{
-		if(GameStateManager::ReturnCurrentState()==kStateGame)
-			m_o_HitSound.Play();
+		if (eventData.object1->IsGroup(kCollGroupMouse) && eventData.object2->IsGroup(kCollGroupUIButton))
+		{
+
+		}
+		else if (eventData.object2->IsGroup(kCollGroupPowerUp))
+		{
+			//m_o_PowerUpSound.Play();
+		}
+		else if (eventData.object1->IsGroup(kCollGroupSnek1Head) &&
+			eventData.object2->IsGroup(kCollGroupSnek2Body) ||
+			eventData.object1->IsGroup(kCollGroupSnek2Head) &&
+			eventData.object2->IsGroup(kCollGroupSnek1Body) ||
+			eventData.object1->IsGroup(kCollGroupSnek1Head) &&
+			eventData.object2->IsGroup(kCollGroupSnek2Head))
+		{
+			m_o_ExplosionSound.Play();
+		}
+		else
+		{
+			if (GameStateManager::ReturnCurrentState() == kStateGame)
+				m_o_HitSound.Play();
+		}
 	}
 }
 
 void AudioSystem::Receive(const Events::EV_GAME_STATE_CHANGED & eventData)
 {
-	if (eventData.changedToState == kStateGame && eventData.changedFromState == kStateHelpMenu) // Change this to countdown
+	if (!muted)
 	{
-		m_o_MainMenuMusic.Pause(true);
-		m_o_IntroBattleMusic.ResetSoundCounter();
-		m_o_BattleLoopMusic.ResetSoundCounter();
-		m_o_StarModeMusic.ResetSoundCounter();
-		m_o_IntroBattleMusic.Play(0.1f);
-	}
-	else if (eventData.changedToState == kStateMainMenu &&
+		if (eventData.changedToState == kStateGame && eventData.changedFromState == kStateHelpMenu) // Change this to countdown
+		{
+			m_o_MainMenuMusic.Pause(true);
+			m_o_IntroBattleMusic.ResetSoundCounter();
+			m_o_BattleLoopMusic.ResetSoundCounter();
+			m_o_StarModeMusic.ResetSoundCounter();
+			m_o_IntroBattleMusic.Play(0.1f);
+		}
+		else if (eventData.changedToState == kStateMainMenu &&
 			(eventData.changedFromState == kStatePause || eventData.changedFromState == kStateWinScreen))
-	{
-		m_o_IntroBattleMusic.Pause(true);
-		m_o_BattleLoopMusic.Pause(true);
-		m_o_StarModeMusic.Pause(true);
-		m_o_MainMenuMusic.Pause(false);
+		{
+			m_o_IntroBattleMusic.Pause(true);
+			m_o_BattleLoopMusic.Pause(true);
+			m_o_StarModeMusic.Pause(true);
+			m_o_MainMenuMusic.Pause(false);
+		}
 	}
 }
 
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_HEALTH & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	m_o_HealthPickup.Play(0.4f);
+	if (!muted)
+		m_o_HealthPickup.Play(0.4f);
 }
 
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_SPEED & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	m_o_SpeedPickup.Play(0.4f);
+	if (!muted)
+		m_o_SpeedPickup.Play(0.4f);
 }
 
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_STARMODE & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	m_o_StarModeMusic.Play(0.15f);
-	m_o_BattleLoopMusic.Pause(true);
+
+	if (!muted)
+	{
+		m_o_StarModeMusic.Play(0.15f);
+		m_o_BattleLoopMusic.Pause(true);
+	}
 }
 
 void AudioSystem::Update(float dt)
@@ -258,7 +292,8 @@ void AudioSystem::Update(float dt)
 	{
 		m_o_IntroBattleMusic.Pause(true);
 		m_o_IntroBattleMusic.m_f_Timer = 0.0f;
-		m_o_BattleLoopMusic.Play(0.1f);
+		if (!muted)
+			m_o_BattleLoopMusic.Play(0.1f);
 	}
 	m_o_IntroBattleMusic.Update();
 	m_o_BattleLoopMusic.Update();
@@ -266,8 +301,7 @@ void AudioSystem::Update(float dt)
 	//m_o_PowerUpSound.Update();
 	m_o_ExplosionSound.Update();
 
-
-	if (m_o_StarModeMusic.m_f_Timer > m_o_StarModeMusic.m_f_PlayTimer)
+	if (m_o_StarModeMusic.m_f_Timer > m_o_StarModeMusic.m_f_PlayTimer && !muted)
 	{
 		m_o_BattleLoopMusic.Pause(false);
 		m_o_StarModeMusic.Pause(true);

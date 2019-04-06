@@ -437,6 +437,7 @@ void SnekSystem::Update(float dt)
 		if (AEInputCheckTriggered(static_cast<u8>(i_SnekHead->m_i_BoostKey)) &&
 			 i_SnekHead->m_f_BoostCooldown >= i_SnekHead->m_f_BoostSetCooldown)
 		{
+			i_SnekHead->specialTutorial = false;
 			if (i_SnekHead->m_x_SnekType == kSnekTypeFlip)
 			{
 				Flip(static_cast<SnekHeadEntity*>(headTransComponent->m_po_OwnerEntity));
@@ -661,7 +662,7 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_BrakeKey = AEVK_S;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_LeftKey = AEVK_A;
 				static_cast<SnekHeadComponent*>(i_Component)->m_i_RightKey = AEVK_D;
-				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LCTRL;
+				static_cast<SnekHeadComponent*>(i_Component)->m_i_BoostKey = AEVK_LSHIFT;
 				//static_cast<SnekHeadComponent*>(i_Component)->m_i_SpecialKey = AEVK_Q;
 			}
 			//TODO :: LOTS OF SHIT

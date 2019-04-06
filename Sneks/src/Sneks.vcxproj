@@ -56,8 +56,11 @@
     <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\HUDSystem.cpp" />
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp" />
+    <ClCompile Include="Systems\Menus\OptionsMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\PauseMenuSystem.cpp" />
+    <ClCompile Include="Systems\Menus\SnekSelectMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\SplashScreenSystem.cpp" />
+    <ClCompile Include="Systems\Menus\TutorialMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\WinScreenSystem.cpp" />
     <ClCompile Include="Systems\ParticleSystem.cpp" />
     <ClCompile Include="Systems\PhysicsSystem.cpp" />
@@ -120,8 +123,11 @@
     <ClInclude Include="Systems\Menus\HelpMenuSystem.h" />
     <ClInclude Include="Systems\Menus\HUDSystem.h" />
     <ClInclude Include="Systems\Menus\MainMenuSystem.h" />
+    <ClInclude Include="Systems\Menus\OptionsMenuSystem.h" />
     <ClInclude Include="Systems\Menus\PauseMenuSystem.h" />
+    <ClInclude Include="Systems\Menus\SnekSelectMenuSystem.h" />
     <ClInclude Include="Systems\Menus\SplashScreenSystem.h" />
+    <ClInclude Include="Systems\Menus\TutorialMenuSystem.h" />
     <ClInclude Include="Systems\Menus\WinScreenSystem.h" />
     <ClInclude Include="Systems\ParticleSystem.h" />
     <ClInclude Include="Systems\PhysicsSystem.h" />

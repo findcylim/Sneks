@@ -7,7 +7,7 @@ class HUDSystem : public BaseSystem
 {
 	GraphicsSystem* m_o_GraphicsSystem;
 public:
-	void Initialize(CanvasComponent* canvasComponent);
+	void Initialize();
 	void Update(float dt) override;
 	HUDSystem(GraphicsSystem* graphics);
 	~HUDSystem();

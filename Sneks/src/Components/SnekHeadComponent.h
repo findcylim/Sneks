@@ -64,8 +64,12 @@ struct SnekHeadComponent : public BaseComponent
 	unsigned int   m_i_BrakeKey            = AEVK_DOWN;
 	unsigned int   m_i_LeftKey             = AEVK_LEFT;
 	unsigned int   m_i_RightKey            = AEVK_RIGHT;
-	unsigned int   m_i_BoostKey            = AEVK_RCTRL;
+	unsigned int   m_i_BoostKey            = AEVK_RSHIFT;
 	//unsigned int   m_i_SpecialKey          = AEVK_RSHIFT;
+
+	bool accelerationTutorial = false;
+	bool turningTutorial = false;
+	bool specialTutorial = false;
 
 
 	std::vector<SnekBodyEntity*> m_x_BodyParts = {};

@@ -165,6 +165,15 @@
     <ClCompile Include="Systems\Menus\SplashScreenSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\TutorialMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\SnekSelectMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\Menus\OptionsMenuSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -359,6 +368,15 @@
       <Filter>Systems\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Menus\SplashScreenSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\TutorialMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\SnekSelectMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\OptionsMenuSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>
