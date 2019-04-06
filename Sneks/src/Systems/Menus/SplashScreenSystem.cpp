@@ -54,12 +54,33 @@ void SplashScreenSystem::Update(float dt)
 			}
 		}
 	}
+	if (GetAsyncKeyState(VK_RBUTTON) < 0)
+	{
+		timer = -1;
+		splashScreenCounter = 3;
+	}
+	else if (GetAsyncKeyState(VK_SPACE) < 0)
+	{
+		timer = -1;
+		splashScreenCounter = 3;
+	}
+	else if (GetAsyncKeyState(VK_RETURN) < 0)
+	{
+		timer = -1;
+		splashScreenCounter = 3;
+	}
+	else if (GetAsyncKeyState(VK_ESCAPE) < 0)
+	{
+		timer = -1;
+		splashScreenCounter = 3;
+	}
 }
 
 void SplashScreenSystem::Receive(const Events::EV_MOUSE_ONCLICK & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 	timer = -1;
+	splashScreenCounter = 3;
 }
 
 SplashScreenSystem::SplashScreenSystem(GraphicsSystem* graphicsSystem)
