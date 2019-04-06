@@ -42,3 +42,8 @@ bool ParticleComponent::IsAlive()
 {
 	return m_f_ParticleRemainingLifetime > 0;
 }
+
+void ParticleComponent::KillParticle()
+{
+	m_f_ParticleRemainingLifetime = 0;
+}

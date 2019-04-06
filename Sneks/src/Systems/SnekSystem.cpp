@@ -329,10 +329,10 @@ void SnekSystem::ResetStage()
 	}, kComponentPowerUpHolder);
 
 	//Remove all particles
-	 m_po_ComponentManager->Each<ParticleComponent>([&](ParticleComponent* comp)
-	 {
-	 	m_po_EntityManager->AddToDeleteQueue(comp->m_po_OwnerEntity);
-	 }, kComponentParticle);
+	m_po_ComponentManager->Each<ParticleComponent>([&](ParticleComponent* comp)
+	{
+		comp->KillParticle();
+	}, kComponentParticle);
 
 	//Regenerate buildings
 	m_po_SystemManager->GetSystem<BuildingsSystem>()->ResetLevel1();

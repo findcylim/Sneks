@@ -329,6 +329,7 @@ void EntityManager::  DeleteEntity(BaseEntity* entityPointer)
 		//m_v_ToFree.push_back(entityPointer);
 
 		delete entityPointer;
+		entityPointer = nullptr;
 	}
 }
 
