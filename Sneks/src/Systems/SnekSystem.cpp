@@ -615,34 +615,55 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 			kComponentSnekHead
 		);
 
-	auto tailTexture = "SnekTail01";
-	auto bodyTexture = "SnekBody01";
-	auto headTexture = "SnekHead01";
+	auto headTexture = "P1SpeedSnekHead";
+	auto bodyTexture = "P1SpeedSnekBody";
+	auto tailTexture = "P1SpeedSnekTail";
 	auto spriteCountX = 2;
 	auto spriteCountY = 1;
 
 	switch (snekType)
 	{
 	case kSnekTypeFlip:
-		spriteCountX = 1;
-		spriteCountY = 1;
-		headTexture = "SnekHead03";
-		bodyTexture = "SnekBody03";
-		tailTexture = "SnekTail03";
+		if (controlScheme)
+		{
+			headTexture = "P2FlipSnekHead";
+			bodyTexture = "P2FlipSnekBody";
+			tailTexture = "P2FlipSnekTail";
+		}
+		else
+		{
+			headTexture = "P1FlipSnekHead";
+			bodyTexture = "P1FlipSnekBody";
+			tailTexture = "P1FlipSnekTail";
+		}
 		break;
 	case kSnekTypeSpeed:
-		spriteCountX = 2;
-		spriteCountY = 1;
-		headTexture = "HeadAnim";
-		bodyTexture = "SnekBody01";
-		tailTexture = "SnekTail01";
+		if (controlScheme)
+		{
+			headTexture = "P2SpeedSnekHead";
+			bodyTexture = "P2SpeedSnekBody";
+			tailTexture = "P2SpeedSnekTail";
+		}
+		else
+		{
+			headTexture = "P1SpeedSnekHead";
+			bodyTexture = "P1SpeedSnekBody";
+			tailTexture = "P1SpeedSnekTail";
+		}
 		break;
 	case kSnekTypeShoot:
-		spriteCountX = 1;
-		spriteCountY = 1;
-		headTexture = "SnekHead02";
-		bodyTexture = "SnekBody02";
-		tailTexture = "SnekTail02";
+		if (controlScheme)
+		{
+			headTexture = "P2ShootSnekHead";
+			bodyTexture = "P2ShootSnekBody";
+			tailTexture = "P2ShootSnekTail";
+		}
+		else
+		{
+			headTexture = "P1ShootSnekHead";
+			bodyTexture = "P1ShootSnekBody";
+			tailTexture = "P1ShootSnekTail";
+		}
 		break;
 	}
 
