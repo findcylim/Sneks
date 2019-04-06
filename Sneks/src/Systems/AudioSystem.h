@@ -14,6 +14,7 @@ struct Audio
 	FMOD_SYSTEM		*system;	/* the system where the sound will be using */
 	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
 	Audio();
+	void Release();
 	/* Error-checking*/
 	void FmodErrorCheck(FMOD_RESULT result);
 	/* FMOD initialisation */

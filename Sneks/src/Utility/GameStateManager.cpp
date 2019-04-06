@@ -170,7 +170,12 @@ void GameStateManager::LoadBattle()
 	m_o_SystemManager->EnableSystem<ParticleSystem>();
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	AEInputShowCursor(false);
-
+	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+	while (snekHead)
+	{
+		snekHead->m_i_LivesLeft = 3;
+		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
+	}
 	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
 	cameraComponent->m_b_TrackObjects = true;

@@ -28,6 +28,13 @@ void Audio::FmodErrorCheck(FMOD_RESULT resultCheck)
 	}
 }
 
+void Audio::Release()
+{
+
+	FMOD_System_Release(system);
+	FmodErrorCheck(result);
+}
+
 void Audio::Initialize()
 {
 	FMOD_System_Create(&system);
@@ -129,8 +136,6 @@ void Sound::Release()
 {
 	FMOD_Sound_Release(fmodSound);
 	FmodErrorCheck(result);
-	FMOD_System_Release(system);
-	FmodErrorCheck(result);
 }
 
 FMOD_SYSTEM	*Sound::GetSystem()
@@ -196,6 +201,9 @@ AudioSystem::~AudioSystem()
 		m_o_PowerUpSound.Release();
 	if (m_o_ExplosionSound.GetSystem() != NULL)
 		m_o_ExplosionSound.Release();
+
+	BGM.Release();
+	SFX.Release();
 }
 
 void AudioSystem::ToggleMute()
@@ -309,7 +317,7 @@ void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_BOOST & eventData)
 	UNREFERENCED_PARAMETER(eventData);
 	if (!muted)
 	{
-		m_o_SpeedSpecialSound.Play(1.0f);
+		m_o_SpeedSpecialSound.Play(0.4f);
 	}
 }
 
