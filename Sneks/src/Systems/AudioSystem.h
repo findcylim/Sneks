@@ -9,18 +9,28 @@
 #include <fmod_errors.h>
 #include "../Utility/GameStateManager.h"
 
+struct Audio
+{
+	FMOD_SYSTEM		*system;	/* the system where the sound will be using */
+	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
+	Audio();
+	/* Error-checking*/
+	void FmodErrorCheck(FMOD_RESULT result);
+	/* FMOD initialisation */
+	void Initialize();
+};
+
 struct Sound
 {
 	FMOD_BOOL	soundOn;		/* is sound on? */
 	FMOD_BOOL	canPlaySound;	/* is it possible to play sound? */
-	char*			currentSound;	/* currently played sound */
+	char*		currentSound;	/* currently played sound */
 
 	/* FMOD-specific stuff */
 	FMOD_SYSTEM		*system;	/* the system where the sound will be using */
+	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
 	FMOD_SOUND		*fmodSound;	/* holding the actual sound */
 	FMOD_CHANNEL	*channel;	/* the channel where the sound will be playing from */
-	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
-
 public:
 	float m_f_Timer = 0.0f;
 	char m_c_PlayCounter = 0;
@@ -28,13 +38,10 @@ public:
 	char m_c_PlayCap = 0;
 	bool m_b_IsPlaying = false;
 	Sound();
-	/* Error-checking*/
 	void FmodErrorCheck(FMOD_RESULT result);
-	/* FMOD initialisation */
-	void Initialize(char counterCap, float playTimer);
 	/* FMOD sound/channel/system creation */
-	void CreateBGM(const char* filename);
-	void Create(const char* filename);
+	void CreateBGM(const char* filename, char counterCap, float playTimer, Audio* audioPtr);
+	void Create(const char* filename, char counterCap, float playTimer, Audio* audioPtr);
 	/* Playing */
 	void Play(float volume = 0.33f);
 	/* Update functions */
@@ -62,6 +69,8 @@ class AudioSystem final : public BaseSystem // Add event listeners here
 , public EventListener<Events::EV_SPECIAL_SKILL_BOOST>
 , public EventListener<Events::EV_SPECIAL_SKILL_FLIP>
 {
+	Audio BGM;
+	Audio SFX;
 	Sound m_o_MainMenuMusic;
 	Sound m_o_IntroBattleMusic;
 	Sound m_o_StarModeMusic;
