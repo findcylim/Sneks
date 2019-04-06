@@ -282,6 +282,8 @@ void GraphicsSystem::PreLoadTextures()
 
 	LoadTextureToMap("../Resources/Arrow-Down-Hover.png", "Down_Hover");
 	LoadTextureToMap("../Resources/Arrow-Down-Idle.png", "Down_Idle");
+	LoadTextureToMap("../Resources/Arrow-Down-Click.png", "Down_Click");
+	LoadTextureToMap("../Resources/Arrow-Up-Click.png", "Up_Click");
 	LoadTextureToMap("../Resources/Arrow-Up-Hover.png", "Up_Hover");
 	LoadTextureToMap("../Resources/Arrow-Up-Idle.png", "Up_Idle");
 
