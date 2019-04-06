@@ -328,11 +328,11 @@ void SnekSystem::ResetStage()
 		m_po_EntityManager->AddToDeleteQueue(comp->m_po_OwnerEntity);
 	}, kComponentPowerUpHolder);
 
-	////Remove all particles
-	//m_po_ComponentManager->Each<ParticleComponent>([&](ParticleComponent* comp)
-	//{
-	//	m_po_EntityManager->AddToDeleteQueue(comp->m_po_OwnerEntity);
-	//}, kComponentPowerUpHolder);
+	//Remove all particles
+	 m_po_ComponentManager->Each<ParticleComponent>([&](ParticleComponent* comp)
+	 {
+	 	m_po_EntityManager->AddToDeleteQueue(comp->m_po_OwnerEntity);
+	 }, kComponentParticle);
 
 	//Regenerate buildings
 	m_po_SystemManager->GetSystem<BuildingsSystem>()->ResetLevel1();
@@ -624,22 +624,16 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 	switch (snekType)
 	{
 	case kSnekTypeFlip:
-		spriteCountX = 1;
-		spriteCountY = 1;
 		headTexture = "SnekHead03";
 		bodyTexture = "SnekBody03";
 		tailTexture = "SnekTail03";
 		break;
 	case kSnekTypeSpeed:
-		spriteCountX = 2;
-		spriteCountY = 1;
 		headTexture = "HeadAnim";
 		bodyTexture = "SnekBody01";
 		tailTexture = "SnekTail01";
 		break;
 	case kSnekTypeShoot:
-		spriteCountX = 1;
-		spriteCountY = 1;
 		headTexture = "SnekHead02";
 		bodyTexture = "SnekBody02";
 		tailTexture = "SnekTail02";

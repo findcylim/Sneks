@@ -193,16 +193,15 @@ AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName, int* retWidt
 void GraphicsSystem::PreLoadTextures()
 {
 	//TODO: MAKE FILE PARSER RESOURCES NEEDED PER LEVEL?
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Head_Animated.png", "HeadAnim");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Head.png", "SnekHead01");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek02_Head.png", "SnekHead02");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek03_Head.png", "SnekHead03");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Body.png", "SnekBody01");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek02_Body.png", "SnekBody02");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek03_Body.png", "SnekBody03");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Tail.png", "SnekTail01");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek02_Tail.png", "SnekTail02");
-	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek03_Tail.png", "SnekTail03");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_SpeedSnek_Head.png", "HeadAnim");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_FlipSnek_Head.png", "SnekHead02");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_ShootSnek_Head.png", "SnekHead03");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_SpeedSnek_Body.png", "SnekBody01");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_FlipSnek_Body.png", "SnekBody02");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_ShootSnek_Body.png", "SnekBody03");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_SpeedSnek_Tail.png", "SnekTail01");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_FlipSnek_Tail.png", "SnekTail02");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/P1_ShootSnek_Tail.png", "SnekTail03");
 
 	LoadTextureToMap("../Resources/Gameplay/Background/Background01.png", "Background01");
 	LoadTextureToMap("../Resources/Gameplay/Background/Building01.png", "Building01"); 

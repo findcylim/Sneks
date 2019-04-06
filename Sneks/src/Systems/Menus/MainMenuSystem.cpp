@@ -111,7 +111,7 @@ void MainMenuSystem::Update(float dt)
 
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	cameraComponent->m_x_CameraAttributes.speedDecay = 0.99f;
-	cameraComponent->m_b_TrackObjects = false;
+	cameraComponent->m_b_TrackObjects = true;
 
 	if (zoomPause > 0.0f)
 	{
