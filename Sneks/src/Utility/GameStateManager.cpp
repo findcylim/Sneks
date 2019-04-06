@@ -19,6 +19,7 @@
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
 #include "../Systems/Menus/SplashScreenSystem.h"
+#include "../ECS/ECSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -69,7 +70,7 @@ GameStateManager::~GameStateManager()
 {
 }
 
-void GameStateManager::AddGraphics(GraphicsSystem* graphics)
+void GameStateManager::InitializeTransitionEntity(GraphicsSystem* graphics)
 {
 	m_po_GraphicsSystem = graphics;
 	m_x_TransitionEntity = m_o_EntityManager->NewEntity<ScreenOverlayEntity>(kEntityScreenOverlay, "Transition Screen");
@@ -211,13 +212,15 @@ void GameStateManager::LoadWinScreen()
 void GameStateManager::LoadPauseMenu()
 {
 	m_o_SystemManager->EnableSystem<PauseMenuSystem>();
-	m_o_SystemManager->DisableSystem<PhysicsSystem>();
+	SetTimeScale(0);
+	//m_o_SystemManager->DisableSystem<PhysicsSystem>();
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
 }
 
 void GameStateManager::UnloadPauseMenu()
 {
 	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	SetTimeScale(1.0f);
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 }
 
@@ -292,7 +295,9 @@ void GameStateManager::Load()
 		break;
 	case kStatePause:		
 		LoadPauseMenu();
-		break;	
+		break;
+	case kStateCountdown:
+		LoadCountdown();
 	case kStateExit:		
 		ExitGame();
 		break;

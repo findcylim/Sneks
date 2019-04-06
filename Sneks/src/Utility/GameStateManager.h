@@ -61,7 +61,7 @@ public:
 	GameStateManager(State InitialState,  SystemManager* systemManagerPtr, EntityManager* entityManager, EventManager* eventManagerPtr, bool* engineStatus);
 	~GameStateManager();
 
-	void AddGraphics(GraphicsSystem* graphics);
+	void InitializeTransitionEntity(GraphicsSystem* graphics);
 	void Update(float dt);
 	void ExitGame();
 	void Load();

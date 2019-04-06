@@ -1,11 +1,13 @@
+#include <queue>
+
 #include "ECSystem.h"
 #include "../Utility/GameStateManager.h"
+#include "../Utility/AlphaEngineHelper.h"
 #include "../Systems/InputSystem.h"
 #include "../Systems/PhysicsSystem.h"
 #include "../Systems/LevelLoaderSystem.h"
 #include "../Systems/GraphicsSystem.h"
 #include "../Systems/CollisionSystem.h"
-#include "../Utility/AlphaEngineHelper.h"
 #include "../Systems/CameraSystem.h"
 #include "../Systems/SnekSystem.h"
 #include "../Systems/BackgroundSystem.h"
@@ -18,7 +20,6 @@
 #include "../Systems/Menus/WinScreenSystem.h"
 #include "../Systems/Menus/HelpMenuSystem.h"
 #include "../Systems/PowerUpSystem.h"
-#include <queue>
 #include "../Systems/AnimationSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/TintSystem.h"
@@ -174,7 +175,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(splashScreen);
 	splashScreen->SetName("SplashScreen");
 
-	m_o_GameStateManager->AddGraphics(graphics);
+	m_o_GameStateManager->InitializeTransitionEntity(graphics);
 
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
@@ -213,7 +214,6 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
-
 	m_o_SystemManager->DisableSystem<PhysicsSystem>();
 	m_o_SystemManager->DisableSystem<PowerUpSystem>();
 	m_o_SystemManager->DisableSystem<BackgroundSystem>();
@@ -231,7 +231,7 @@ bool ECSystem::IsEngineOn() const
 
 float actualDt = 0;
 float cappedDt = 0;
-
+float m_f_TimeScale = 1.0f;
 
 void ECSystem::Update()
 {
@@ -252,7 +252,7 @@ void ECSystem::Update()
 
 		m_o_GameStateManager->Update(cappedDt);
 		m_o_EventManager->Update();
-		m_o_SystemManager->Update(cappedDt);
+		m_o_SystemManager->Update(cappedDt * m_f_TimeScale);
 
 		//DEBUG
 		//DISABLE TODO
@@ -285,4 +285,10 @@ float GetUncappedDt()
 float GetCappedDt()
 {
 	return cappedDt;
+}
+
+float SetTimeScale(float timeScale)
+{
+	m_f_TimeScale = timeScale;
+	return m_f_TimeScale;
 }

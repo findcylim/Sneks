@@ -29,5 +29,6 @@ public:
 
 float GetUncappedDt();
 float GetCappedDt();
+float SetTimeScale(float timeScale);
 
 #endif

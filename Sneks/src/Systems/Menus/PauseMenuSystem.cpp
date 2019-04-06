@@ -28,7 +28,7 @@ void PauseMenuSystem::Initialize()
 	auto canvas = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "PauseMenuEntity");
 
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
-
+	   
 	Events::EV_NEW_UI_ELEMENT PauseMenuUIElement = { canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"PauseScreen" ,"UIGame_Paused" ,"","","", nullptr }; //placeholder, replace with PAUSED
 
 	Events::EV_NEW_UI_ELEMENT ContinueUIElement =
