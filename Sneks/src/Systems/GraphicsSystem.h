@@ -1,16 +1,14 @@
 /* Start Header****************************************************************/
 /*!
 \file GraphicsSystem.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
+\author Primary Author : Lim Chu Yan, chuyan.lim
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 12/02/2019
-\date Modified: 26/03/2019
-\brief This file contains 
+\brief This file contains
 
-\par Contribution (hours): CY - 15
+\par Contribution : CY     - 100.00%
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

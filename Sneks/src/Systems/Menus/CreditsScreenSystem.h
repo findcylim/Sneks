@@ -1,16 +1,14 @@
-/* Start Header ***************************************************************/
-/*!TODO
-\file InvulnerableComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
-\par email: chuyan.lim\@digipen.edu
+/* Start Header****************************************************************/
+/*!
+\file CreditsScreenSystem.h
+\author Primary Author : Muhammad Adam Bin Mohamad Amin, m.muhammadadambin
+\par email: m.muhammadadambin\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 05/04/2019
-\date Modified: 06/04/2019
-\brief This file contains 
+\brief This file contains
 
-\par Contribution (hours): CY - 3
+\par Contribution : Adam   - 100.00%
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents
@@ -18,7 +16,8 @@ without the prior written consent of DigiPen Institute of
 Technology is prohibited.
 */
 /* End Header *****************************************************************/
-
+#ifndef CREDITS_SCREEN_SYSTEM_H
+#define CREDITS_SCREEN_SYSTEM_H
 #pragma once
 #include "../../ECS/System.h"
 #include "../../Utility/GameStateManager.h"
@@ -44,3 +43,4 @@ public:
 	void OnDisable() override;
 };
 
+#endif

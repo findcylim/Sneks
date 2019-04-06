@@ -135,7 +135,6 @@
     <ClInclude Include="Systems\PowerUpSystem.h" />
     <ClInclude Include="Systems\ProjectileSystem.h" />
     <ClInclude Include="Systems\SnekSystem.h" />
-    <ClInclude Include="Systems\SystemList.h" />
     <ClInclude Include="Systems\TintSystem.h" />
     <ClInclude Include="Utility\AlphaEngineHelper.h" />
     <ClInclude Include="Utility\DebugPrintToScreen.h" />

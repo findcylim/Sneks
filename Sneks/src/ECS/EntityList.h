@@ -1,16 +1,17 @@
-/* Start Header ***************************************************************/
-/*!TODO
-\file InvulnerableComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
-\par email: chuyan.lim\@digipen.edu
+/* Start Header****************************************************************/
+/*!
+\file EntityList.h
+\author Primary Author : Edwin Khoo, b.khoo
+\par email: b.khoo\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 12/02/2019
-\date Modified: 06/04/2019
-\brief This file contains 
+\brief This file contains
 
-\par Contribution (hours): CY - 3
+\par Contribution : CY     - 25.00%  (Equal Split)
+\par Contribution : Javier - 25.00%  (Equal Split)
+\par Contribution : Edwin  - 25.00%  (Equal Split)
+\par Contribution : Adam   - 25.00%  (Equal Split)
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents
@@ -18,7 +19,6 @@ without the prior written consent of DigiPen Institute of
 Technology is prohibited.
 */
 /* End Header *****************************************************************/
-
 
 #ifndef ENTITY_LIST_H
 #define ENTITY_LIST_H

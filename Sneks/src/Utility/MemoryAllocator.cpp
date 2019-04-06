@@ -13,7 +13,7 @@ This file contains the source for custom memory allocator for this engine which
 tracks the new and delete calls, logging each new and delete, and warns the user
 if memory leaks were detected if program ends normally.
 
-\par Contribution (hours): CY - 5
+\par Contribution : CY - 100.00%
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

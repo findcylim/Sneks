@@ -1,16 +1,15 @@
-/* Start Header ***************************************************************/
-/*!TODO
-\file InvulnerableComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
-\par email: chuyan.lim\@digipen.edu
+/* Start Header****************************************************************/
+/*!
+\file ParticleSystem.cpp
+\author Primary Author : Edwin Khoo, b.khoo
+\par email: b.khoo\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 18/03/2019
-\date Modified: 06/04/2019
-\brief This file contains 
+\brief This file contains
 
-\par Contribution (hours): CY - 3
+\par Contribution : CY     - 28.74%  (Rework Speed Powerup)
+\par Contribution : Edwin  - 71.26%  (Main code)
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

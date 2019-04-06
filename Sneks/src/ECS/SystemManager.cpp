@@ -1,16 +1,15 @@
-/* Start Header ***************************************************************/
-/*!TODO
-\file InvulnerableComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
+/* Start Header****************************************************************/
+/*!
+\file SystemManager.cpp
+\author Primary Author : Lim Chu Yan, chuyan.lim
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 12/02/2019
-\date Modified: 06/04/2019
-\brief This file contains 
+\brief This file contains
 
-\par Contribution (hours): CY - 3
+\par Contribution : CY     - 64.52% (System Time Logging)
+\par Contribution : Adam   - 35.48% (System Management functions)
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

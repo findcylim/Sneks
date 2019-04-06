@@ -1,16 +1,15 @@
-/* Start Header ***************************************************************/
-/*!TODO
-\file InvulnerableComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
-\par email: chuyan.lim\@digipen.edu
+/* Start Header****************************************************************/
+/*!
+\file ProjectileSystem.cpp
+\author Primary Author : Muhammad Adam Bin Mohamad Amin, m.muhammadadambin
+\par email: m.muhammadadambin\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 18/03/2019
-\date Modified: 06/04/2019
-\brief This file contains 
+\brief This file contains code for Lunar pellet projectile
 
-\par Contribution (hours): CY - 3
+\par Contribution : Adam   - 51.72% (Projectile rework)
+\par Contribution : Javier - 48.28% (Original projectile code)
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents
@@ -31,7 +30,6 @@ Technology is prohibited.
 time_t timeStampProjectile = 0;
 
 ProjectileSystem::ProjectileSystem( GraphicsSystem* graphics)
-	
 {
 	m_o_GraphicsSystem = graphics;
 }

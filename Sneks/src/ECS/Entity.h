@@ -1,16 +1,17 @@
-/* Start Header ***************************************************************/
-/*!TODO
-\file InvulnerableComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
-\par email: chuyan.lim\@digipen.edu
+/* Start Header****************************************************************/
+/*!
+\file Entity.h
+\author Primary Author : Muhammad Adam Bin Mohamad Amin, m.muhammadadambin
+\par email: m.muhammadadambin\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 12/02/2019
-\date Modified: 06/04/2019
-\brief This file contains 
+\brief This file contains the list of all entities archetypes we have
 
-\par Contribution (hours): CY - 3
+\par Contribution : CY     - 23.08%
+\par Contribution : Javier - 23.08%
+\par Contribution : Edwin  - 26.92%
+\par Contribution : Adam   - 26.92% 
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

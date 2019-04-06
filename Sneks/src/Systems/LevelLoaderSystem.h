@@ -1,16 +1,15 @@
-/* Start Header ***************************************************************/
-/*!TODO
-\file InvulnerableComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918 
-\par email: chuyan.lim\@digipen.edu
+/* Start Header****************************************************************/
+/*!
+\file LevelLoaderSystem.h
+\author Primary Author : Muhammad Adam Bin Mohamad Amin, m.muhammadadambin
+\par email: m.muhammadadambin\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\date Created: 12/02/2019
-\date Modified: 06/04/2019
-\brief This file contains 
+\brief This file contains deprecated/for future use parsing code for a level
+editor saved .xml files
 
-\par Contribution (hours): CY - 3
+\par Contribution : Adam   - 100.00%
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents
