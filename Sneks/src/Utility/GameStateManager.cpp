@@ -18,6 +18,7 @@
 #include "../Systems/Menus/HelpMenuSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
+#include "../Systems/Menus/SplashScreenSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -237,7 +238,7 @@ void GameStateManager::LoadSplashScreen()
 
 void GameStateManager::UnloadSplashScreen()
 {
-	auto splashScreen = m_o_SystemManager->GetSystem<MainMenuSystem>("SplashScreen");
+	auto splashScreen = m_o_SystemManager->GetSystem<SplashScreenSystem>("SplashScreen");
 	if(splashScreen)
 		m_o_SystemManager->RemoveSystem(splashScreen);
 }

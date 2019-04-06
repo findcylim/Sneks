@@ -33,7 +33,7 @@ ECSystem::ECSystem()
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
 	m_o_EntityComponentManager	= new EntityManager();
-	m_o_GameStateManager       = new GameStateManager(kStateMainMenu, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
+	m_o_GameStateManager       = new GameStateManager(kStateSplashScreen, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
 	m_b_EngineStatus			   = true;
 }
 
@@ -171,11 +171,11 @@ void ECSystem::InitializeEngine()
 	auto creditsScreen = new CreditsScreenSystem(graphics);
 	m_o_SystemManager->AddSystem(creditsScreen);
 	creditsScreen->SetName("CreditsScreen");
-	creditsScreen->Initialize();
+	//creditsScreen->Initialize();
 
 	m_o_SystemManager->AddSystem(splashScreen);
 	splashScreen->SetName("SplashScreen");
-	splashScreen->Initialize();
+	//splashScreen->Initialize();
 
 	m_o_GameStateManager->AddGraphics(graphics);
 

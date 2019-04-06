@@ -25,7 +25,7 @@ public:
 		auto newSystem = new SystemType();
 		AddSystem(newSystem);
 		newSystem->SetName(systemName);
-		newSystem->Initialize();
+		//newSystem->Initialize();
 		return newSystem;
 	}
 
