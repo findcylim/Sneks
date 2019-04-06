@@ -57,14 +57,11 @@ struct KeyState
 class InputSystem : public BaseSystem
 {
 public:
-	InputSystem(EntityManager* entityManagerPtr, EventManager* eventManager, short ID, const char * name, GameStateManager* gameStateManager, Logger* logger);
+	InputSystem();
 	~InputSystem();
 	void Update(float dt) override;
 
 private:
-	EventManager*		m_o_EventManager;
-	GameStateManager*	m_o_GameStateManager;
-	Logger*				m_o_Logger;
 	std::vector<KeyState> m_x_CurrentKeyStates;
 	HTVector2 m_o_ScreenSize;
 	void SetKeyBinds();

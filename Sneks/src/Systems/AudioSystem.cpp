@@ -129,8 +129,7 @@ void Sound::ResetSoundCounter()
 	m_c_PlayCounter = 0;
 }
 
-AudioSystem::AudioSystem(EntityManager* entityManagerPtr, GameStateManager* gameStateManager) :
-BaseSystem(entityManagerPtr)
+AudioSystem::AudioSystem(GameStateManager* gameStateManager)
 {
 	m_po_GameStateManager = gameStateManager;
 

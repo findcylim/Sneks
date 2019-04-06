@@ -131,7 +131,7 @@ void EntityManager::AttachAllComponents(BaseEntity* entityPointer, Entity entity
 			break;
 
 		case Entity::kEntityParticleEffect:
-			componentPointer = ((ParticleEffectEntity*)entityPointer)->m_ax_InitialComponents;
+			componentPointer = ((ParticleSpawnerEntity*)entityPointer)->m_ax_InitialComponents;
 			break;
 
 		case Entity::kEntityParticle:
@@ -212,7 +212,7 @@ BaseEntity* EntityManager::NewEntityReroute(Entity entityType, const char* entit
 			break;
 		
 		case kEntityParticleEffect:
-			entityPointer = (BaseEntity*)new ParticleEffectEntity(entityName);
+			entityPointer = (BaseEntity*)new ParticleSpawnerEntity(entityName);
 			break;
 		
 		case kEntityParticle:
@@ -261,6 +261,10 @@ void EntityManager::DeleteEntity(BaseComponent* componentPointer)
 
 void EntityManager::AddToDeleteQueue(BaseEntity* entityPointer)
 {
+	entityPointer->m_b_IsActive = false;
+	for (auto comp : entityPointer->m_v_AttachedComponentsList)
+		comp->m_b_IsActive = false;
+
 	if(entityPointer)
 		m_v_ToDelete.push_back(entityPointer);
 }

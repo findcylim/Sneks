@@ -18,6 +18,7 @@
 #include "../Components/AnimationComponent.h"
 #include "../Components/BloomComponent.h"
 #include "../Components/PowerUpHolderComponent.h"
+#include "../Components/TintComponent.h"
 
 ComponentManager::ComponentManager()
 {
@@ -118,6 +119,9 @@ BaseComponent* ComponentManager::NewComponentReroute(BaseEntity* entityPointer, 
 			componentPointer = static_cast<BaseComponent*>(new PowerUpHolderComponent);
 			break;
 		
+		case kComponentTint:
+			componentPointer = static_cast<BaseComponent*>(new TintComponent);
+			break;
 
 		}
 

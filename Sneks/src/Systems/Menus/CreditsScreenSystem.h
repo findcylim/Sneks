@@ -16,7 +16,7 @@ public:
 	void SetNextState(State nextState);
 	void Initialize();
 	void Receive(const Events::EV_MOUSE_ONCLICK& eventData) override;
-	CreditsScreenSystem(EntityManager* entityManager, EventManager* eventManager,GraphicsSystem* graphicsSystem);
+	CreditsScreenSystem(GraphicsSystem* graphicsSystem);
 	~CreditsScreenSystem();
 	void Update(float dt);
 	void OnEnable() override;

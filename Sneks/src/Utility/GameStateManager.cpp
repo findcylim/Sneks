@@ -18,6 +18,7 @@
 #include "../Systems/Menus/HelpMenuSystem.h"
 #include "../Systems/Menus/PauseMenuSystem.h"
 #include "../Systems/Menus/CreditsScreenSystem.h"
+#include "../Systems/Menus/SplashScreenSystem.h"
 #include "../Systems/Menus/SnekSelectMenuSystem.h"
 #include "../Systems/Menus/OptionsMenuSystem.h"
 
@@ -55,12 +56,12 @@ void GameStateManager::SetState(State state)
 	m_x_Next = state;
 }
 
-GameStateManager::GameStateManager(State InitialState, EntityManager* entityManagerPtr, SystemManager* systemManagerPtr, EventManager* eventManagerPtr, bool * engineStatus)
+GameStateManager::GameStateManager(State InitialState,  SystemManager* systemManagerPtr, EntityManager* entityManager, EventManager* eventManagerPtr, bool * engineStatus)
 {
 	m_x_Current		= InitialState;
 	m_x_Next		= InitialState;
 	m_x_Previous	= InitialState;
-	m_o_EntityManager = entityManagerPtr;
+	m_o_EntityManager = entityManager;
 	m_o_SystemManager = systemManagerPtr;
 	m_o_EventManager = eventManagerPtr;
 	EngineStatus = engineStatus;
@@ -122,66 +123,36 @@ void GameStateManager::UnloadSnekSelect()
 
 void GameStateManager::ResetBattle()
 {
-	//auto graphics = m_o_SystemManager->GetSystem<GraphicsSystem>("Graphics");
+	// auto particleEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEntity>(kEntityParticle);
 
-	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+	// while (particleEntity)
+	// {
+	// 	m_o_EntityManager->AddToDeleteQueue(particleEntity);
+	// 	particleEntity = static_cast<ParticleEntity*>(particleEntity->m_po_NextEntity);
+	// }
 
-	while (snekHead)
-	{
-		m_o_SystemManager->GetSystem<SnekSystem>("Snek")->DeleteSnek(static_cast<SnekHeadEntity*>(snekHead->m_po_OwnerEntity));
-		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
-	}
+	// auto particleSpawnerEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEffectEntity>(kEntityParticleEffect);
 
-	auto particleEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEntity>(kEntityParticle);
+	// while (particleSpawnerEntity)
+	// {
+	// 	m_o_EntityManager->AddToDeleteQueue(particleSpawnerEntity);
+	// 	particleSpawnerEntity = static_cast<ParticleEffectEntity*>(particleSpawnerEntity->m_po_NextEntity);
+	// }
 
-	while (particleEntity)
-	{
-		m_o_EntityManager->AddToDeleteQueue(particleEntity);
-		particleEntity = static_cast<ParticleEntity*>(particleEntity->m_po_NextEntity);
-	}
+	// auto powerupEntity = m_o_EntityManager->GetFirstEntityInstance<PowerUpHolderEntity>(kEntityPowerUpHolder);
 
-	auto particleSpawnerEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEffectEntity>(kEntityParticleEffect);
-
-	while (particleSpawnerEntity)
-	{
-		m_o_EntityManager->AddToDeleteQueue(particleSpawnerEntity);
-		particleSpawnerEntity = static_cast<ParticleEffectEntity*>(particleSpawnerEntity->m_po_NextEntity);
-	}
-
-	auto powerupEntity = m_o_EntityManager->GetFirstEntityInstance<PowerUpHolderEntity>(kEntityPowerUpHolder);
-
-	while (powerupEntity)
-	{
-		m_o_EntityManager->AddToDeleteQueue(powerupEntity);
-		powerupEntity = static_cast<PowerUpHolderEntity*>(powerupEntity->m_po_NextEntity);
-	}
+	// while (powerupEntity)
+	// {
+	// 	m_o_EntityManager->AddToDeleteQueue(powerupEntity);
+	// 	powerupEntity = static_cast<PowerUpHolderEntity*>(powerupEntity->m_po_NextEntity);
+	// }
 
 	m_o_EntityManager->ResolveDeletes();
-
-	auto camera = m_o_SystemManager->GetSystem<CameraSystem>("Camera");
-	camera->RemoveCameraTrackObjects();
-
-	//m_o_SystemManager->RemoveSystem(m_o_SystemManager->GetSystem<BaseSystem>("Snek"));
-	//auto snek = new SnekSystem(m_o_EntityManager, graphics, this);
-	//m_o_SystemManager->AddSystem(snek);
-	//snek->SetName("Snek");
-	//snek->Initialize();
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-	//snek->CreateSnek(-200, 0, PI, 20, "HeadAnim", 0);
-	//snek->CreateSnek(200, 0, 0, 20, "SnekHead02", 1);
-	snek->CreateSnek(-200, 0, PI * 3 / 4, 20, "HeadAnim", 0);
-	snek->CreateSnek(200, 0, PI * 7 / 4, 20, "SnekHead02", 1);
-
-	auto buildings = m_o_SystemManager->GetSystem<BuildingsSystem>("Buildings");
-	buildings->ResetLevel1();
-
+	snek->ResetStage();
 	
-	//auto buildings = new BuildingsSystem(m_o_EntityManager, graphics);
-	//m_o_SystemManager->AddSystem(buildings);
-	//buildings->SetName("Buildings");
-	//buildings->Initialize();
-	snek->ResetDamageAll();
-	snek->ResetLivesAll();
+	// snek->ResetDamageAll();
+	// snek->ResetLivesAll();
 }
 
 void GameStateManager::LoadBattle()
@@ -287,7 +258,7 @@ void GameStateManager::LoadSplashScreen()
 
 void GameStateManager::UnloadSplashScreen()
 {
-	auto splashScreen = m_o_SystemManager->GetSystem<MainMenuSystem>("SplashScreen");
+	auto splashScreen = m_o_SystemManager->GetSystem<SplashScreenSystem>("SplashScreen");
 	if(splashScreen)
 		m_o_SystemManager->RemoveSystem(splashScreen);
 }
@@ -416,8 +387,8 @@ void GameStateManager::Update(float dt)
 			m_o_SystemManager->DisableSystem<CameraSystem>();
 			auto transformComponent = m_x_TransitionEntity->GetComponent<TransformComponent>();
 			auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-			transformComponent->SetPositionX(m_f_ScreenWidth / cameraComponent->m_f_VirtualScale - cameraComponent->m_f_VirtualOffset.x);
-			transformComponent->SetPositionY(-cameraComponent->m_f_VirtualOffset.y);
+			transformComponent->m_x_Position.x = (m_f_ScreenWidth / cameraComponent->m_f_VirtualScale - cameraComponent->m_f_VirtualOffset.x);
+			transformComponent->m_x_Position.y = (-cameraComponent->m_f_VirtualOffset.y);
 			transformComponent->m_f_Scale = m_f_ScreenWidth / cameraComponent->m_f_VirtualScale;
 			m_b_PutTransition = true;
 		}
@@ -434,9 +405,9 @@ void GameStateManager::Update(float dt)
 	{
 		auto transformComponent = m_x_TransitionEntity->GetComponent<TransformComponent>();
 		auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-		transformComponent->SetPositionX(transformComponent->GetPosition().x - m_f_ScreenMoveSpeed / cameraComponent->m_f_VirtualScale * dt);
+		transformComponent->m_x_Position.x = (transformComponent->m_x_Position.x - m_f_ScreenMoveSpeed / cameraComponent->m_f_VirtualScale * dt);
 
-		if (transformComponent->GetPosition().x <= -cameraComponent->m_f_VirtualOffset.x)
+		if (transformComponent->m_x_Position.x <= -cameraComponent->m_f_VirtualOffset.x)
 		{
 			cameraComponent->m_f_VirtualOffset = { 0,0 };
 			cameraComponent->m_f_VirtualScale = 1;
@@ -457,7 +428,7 @@ void GameStateManager::Update(float dt)
 
 		m_x_TransitionEntity->GetComponent<DrawComponent>()->SetAlpha(
 			((m_f_ScreenWidth / cameraComponent->m_f_VirtualScale) -
-				transformComponent->GetPosition().x - cameraComponent->m_f_VirtualOffset.x) /
+				transformComponent->m_x_Position.x - cameraComponent->m_f_VirtualOffset.x) /
 				(m_f_ScreenWidth / cameraComponent->m_f_VirtualScale)
 		);
 	}
@@ -465,11 +436,11 @@ void GameStateManager::Update(float dt)
 	{
 		auto transformComponent = m_x_TransitionEntity->GetComponent<TransformComponent>();
 		auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-		transformComponent->SetPositionX(transformComponent->GetPosition().x - m_f_ScreenMoveSpeed / cameraComponent->m_f_VirtualScale * dt);
-		transformComponent->SetPositionY(-cameraComponent->m_f_VirtualOffset.y);
+		transformComponent->m_x_Position.x = (transformComponent->m_x_Position.x - m_f_ScreenMoveSpeed / cameraComponent->m_f_VirtualScale * dt);
+		transformComponent->m_x_Position.y = (-cameraComponent->m_f_VirtualOffset.y);
 		transformComponent->m_f_Scale = m_f_ScreenWidth / cameraComponent->m_f_VirtualScale;
 
-		if (transformComponent->GetPosition().x <= (-m_f_ScreenWidth / cameraComponent->m_f_VirtualScale) - cameraComponent->m_f_VirtualOffset.x)
+		if (transformComponent->m_x_Position.x <= (-m_f_ScreenWidth / cameraComponent->m_f_VirtualScale) - cameraComponent->m_f_VirtualOffset.x)
 		{
 			m_b_RemoveTransition = false;
 			m_o_SystemManager->EnableSystem<InputSystem>();
@@ -478,7 +449,7 @@ void GameStateManager::Update(float dt)
 
 		m_x_TransitionEntity->GetComponent<DrawComponent>()->SetAlpha(
 			((-m_f_ScreenWidth / cameraComponent->m_f_VirtualScale) -
-				transformComponent->GetPosition().x - cameraComponent->m_f_VirtualOffset.x) /
+				transformComponent->m_x_Position.x - cameraComponent->m_f_VirtualOffset.x) /
 				(-m_f_ScreenWidth / cameraComponent->m_f_VirtualScale)
 		);
 	}

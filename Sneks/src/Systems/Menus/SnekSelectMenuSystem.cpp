@@ -1,10 +1,8 @@
 #include "SnekSelectMenuSystem.h"
 #include "../SnekSystem.h"
 
-SnekSelectMenuSystem::SnekSelectMenuSystem(EntityManager* entityManager, EventManager* eventManager)
+SnekSelectMenuSystem::SnekSelectMenuSystem()
 {
-	m_po_EventManagerPtr = eventManager;
-	m_po_EntityManager = entityManager;
 }
 
 SnekSelectMenuSystem::~SnekSelectMenuSystem()
@@ -80,8 +78,11 @@ void PlayGame(SystemManager* systemManager)
 	GameStateManager::SetState(kStateHelpMenu);
 }
 
-void SnekSelectMenuSystem::Initialize(CanvasComponent* canvasComponent)
+void SnekSelectMenuSystem::Initialize()
 {
+	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Snek Select UI");
+	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
+
 	Events::EV_NEW_UI_ELEMENT LogoElement = { canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"Select_Banner" ,"","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT P1UpElement = { canvasComponent,HTVector2{ 0.175f , 0.5f } ,kCanvasButton,"P1Up" ,"Up_Idle" ,"","Up_Hover","UIBack_Click",P1SnekStateUp };
 	Events::EV_NEW_UI_ELEMENT P1DownElement = { canvasComponent,HTVector2{ 0.175f , 0.6125f } ,kCanvasButton,"P1Down" ,"Down_Idle", "" ,"Down_Hover","UIBack_Click",P1SnekStateDown };

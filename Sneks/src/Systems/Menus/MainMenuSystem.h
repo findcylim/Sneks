@@ -4,9 +4,8 @@
 class MainMenuSystem: public BaseSystem
 {
 public:
-	void Initialize(CanvasComponent* canvasComponent);
+	void Initialize();
 	void Update(float dt) override;
-	MainMenuSystem(EntityManager* entityManagerPtr, EventManager* eventManager);
 	~MainMenuSystem();
 };
 

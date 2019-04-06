@@ -1,6 +1,6 @@
 /* Start Header ***************************************************************/
 /*!
-\file InvulnerableComponent.h
+\file TintComponent.h
 \author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
@@ -18,20 +18,22 @@ without the prior written consent of DigiPen Institute of
 Technology is prohibited.
 */
 /* End Header *****************************************************************/
+#include "../Math/HTColor.h"
 
-#ifndef INVULNERABLE_COMPONENT_H
-#define INVULNERABLE_COMPONENT_H
+#ifndef TINT_COMPONENT_H
+#define TINT_COMPONENT_H
 #pragma once
 
 #include "../ECS/ComponentList.h"
 
-struct InvulnerableComponent : public BaseComponent
+
+struct TintComponent : public BaseComponent
 {
-	float m_f_InvulnerableTime = 0;
-	float m_f_MaxAlphaBlinking = 0.5f;
-	float m_f_MinAlphaBlinking = 0.1f;
-	float m_f_BlinkSpeed = 2.0f;
-	bool m_b_IsAlive = false;
+	HTColor m_x_OriginalColor = {1,1,1,1};
+	HTColor m_x_TintColor ={ 1.0f, 0,0,1.0f };
+	float m_f_CurrentTintTimer = 0;
+	float m_f_TintDuration = 0;
+
 };
 
-#endif //INVULNERABLE_COMPONENT_H
+#endif

@@ -27,11 +27,12 @@ Technology is prohibited.
 #include "TransformComponent.h"
 
 
-class FollowComponent : public BaseComponent
+struct FollowComponent : public BaseComponent
 {
-public:
 	TransformComponent*		m_po_FolloweeTransform;
 	BaseEntity *			   m_po_ParentEntity;
+	float						   m_f_ScaleFactorMultiplier = 0.3f;
+	float							m_f_StretchThreshold = 100.0f;
 };
 
 #endif

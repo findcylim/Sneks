@@ -48,6 +48,7 @@
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CanvasUISystem.cpp" />
     <ClCompile Include="Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Systems\FollowSystem.cpp" />
     <ClCompile Include="Systems\GraphicsSystem.cpp" />
     <ClCompile Include="Systems\InputSystem.cpp" />
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="Systems\PowerUpSystem.cpp" />
     <ClCompile Include="Systems\ProjectileSystem.cpp" />
     <ClCompile Include="Systems\SnekSystem.cpp" />
+    <ClCompile Include="Systems\TintSystem.cpp" />
     <ClCompile Include="Utility\AlphaEngineHelper.cpp" />
     <ClCompile Include="Utility\DebugPrintToScreen.cpp" />
     <ClCompile Include="Utility\GameStateManager.cpp" />
@@ -88,6 +90,7 @@
     <ClInclude Include="Components\PowerUpHolderComponent.h" />
     <ClInclude Include="Components\SnekHeadComponent.h" />
     <ClInclude Include="Components\TextRendererComponent.h" />
+    <ClInclude Include="Components\TintComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentList.h" />
@@ -112,6 +115,7 @@
     <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CanvasUISystem.h" />
     <ClInclude Include="Systems\CollisionSystem.h" />
+    <ClInclude Include="Systems\FollowSystem.h" />
     <ClInclude Include="Systems\GraphicsSystem.h" />
     <ClInclude Include="Systems\InputSystem.h" />
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
@@ -130,6 +134,8 @@
     <ClInclude Include="Systems\PowerUpSystem.h" />
     <ClInclude Include="Systems\ProjectileSystem.h" />
     <ClInclude Include="Systems\SnekSystem.h" />
+    <ClInclude Include="Systems\SystemList.h" />
+    <ClInclude Include="Systems\TintSystem.h" />
     <ClInclude Include="Utility\AlphaEngineHelper.h" />
     <ClInclude Include="Utility\DebugPrintToScreen.h" />
     <ClInclude Include="Utility\FileIO.h" />
@@ -232,7 +238,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
@@ -279,7 +285,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\FMOD\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)Dependencies\ALPHA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>

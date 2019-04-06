@@ -30,7 +30,7 @@ class BackgroundSystem :
 	public BaseSystem
 {
 public:
-	BackgroundSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics);
+	BackgroundSystem( GraphicsSystem* graphics);
 	void Update(float dt);
 	void Initialize();
 	BackgroundEntity* CreateBackground(float posX, float posY, float sizeX, float sizeY, const char* textureName) const;

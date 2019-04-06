@@ -55,11 +55,8 @@ void SplashScreenSystem::Receive(const Events::EV_MOUSE_ONCLICK & eventData)
 	timer = -1;
 }
 
-SplashScreenSystem::SplashScreenSystem(EntityManager* entityManagerPtr,EventManager* eventManager,
-									   GraphicsSystem* graphicsSystem)
-	: BaseSystem{entityManagerPtr}
+SplashScreenSystem::SplashScreenSystem(GraphicsSystem* graphicsSystem)
 {
-	m_po_EventManagerPtr = eventManager;
 	m_po_GraphicsSystem = graphicsSystem;
 }
 

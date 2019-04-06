@@ -2,10 +2,8 @@
 #include "CreditsScreenSystem.h"
 
 
-CreditsScreenSystem::CreditsScreenSystem(EntityManager* entityManager,EventManager* eventManager, GraphicsSystem* graphicsSystem)
-	:BaseSystem{ entityManager }
+CreditsScreenSystem::CreditsScreenSystem(GraphicsSystem* graphicsSystem)
 {
-	m_po_EventManagerPtr = eventManager;
 	m_po_GraphicsSystem = graphicsSystem;
 }
 

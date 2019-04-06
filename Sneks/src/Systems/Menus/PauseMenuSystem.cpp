@@ -27,10 +27,8 @@ void Pause_Options(SystemManager* systemManager)
 }
 
 
-PauseMenuSystem::PauseMenuSystem(EntityManager* entityManager, EventManager* eventManager)
-	:BaseSystem{ entityManager }
+PauseMenuSystem::PauseMenuSystem()
 {
-	m_po_EventManagerPtr = eventManager;
 }
 
 void PauseMenuSystem::Initialize()

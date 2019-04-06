@@ -18,40 +18,39 @@ without the prior written consent of DigiPen Institute of
 Technology is prohibited.
 */
 /* End Header *****************************************************************/
-// #include "<name>System.h"
-// #include "../Components/<name>Component.h"
+#include "<name>System.h"
+#include "../Components/<name>Component.h"
 
 
-// void <name>System::Receive(const Events::EV_PLAYER_COLLISION& eventData)
-// {
-// 	if(eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon &&
-//      eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
-//   { 
-//     //Do something
-//   }
-// }
+void <name>System::Receive(const Events::EV_PLAYER_COLLISION& eventData)
+{
+	CollisionGroupName collGroup1 = eventData.object1->m_i_CollisionGroupVec[0];
+	CollisionGroupName collGroup2 = eventData.object2->m_i_CollisionGroupVec[0];
+	CollisionGroupPairing colPairing ={ collGroup1, collGroup2 };
 
-// <name>System::<name>System(EntityManager* entityManagerPtr):
-// BaseSystem(entityManagerPtr)
-// {
+	if(collGroup1 == kCollGroupSnek1Head &&
+		collGroup2 == kCollGroupSnek2Body)
+	{ 
+	  //Do something
+	}
+}
 
-// }
+<name>System::<name>System()
+{
+}
 
-// <name>System::~<name>System()
-// {
-// 	delete m_po_CamShake;
-// 	m_o_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
-// }
+<name>System::~<name>System()
+{
+}
 
-// void <name>System::Initialize()
-// {
-// 	m_o_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this);
-// }
+void <name>System::Initialize()
+{
+	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+}
 
-// void <name>System::Update(float dt)
-// {
-//   m_po_ComponentManager->Each<<name>Component>([&](<name>Component* camComp){
-//     //Do something
-//   },kComponent<name>);
-// }
-
+void <name>System::Update(float dt)
+{
+	m_po_ComponentManager->Each<<name>Component>([&](<name>Component* comp){
+	  //Do something
+	},kComponent<name>);
+}

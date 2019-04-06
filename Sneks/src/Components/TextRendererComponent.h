@@ -3,10 +3,8 @@
 #include "../Components/TransformComponent.h"
 #include "../Math/HTColor.h"
 
-class TextRendererComponent :
-	public BaseComponent
+struct TextRendererComponent : public BaseComponent
 {
-public:
 	TransformComponent* m_po_LinkedTransform;
 	HTVector2 m_x_TextPosition;
 	HTColor m_x_TextColor;

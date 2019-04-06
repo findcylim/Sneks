@@ -1,10 +1,8 @@
 #include "TutorialMenuSystem.h"
 #include "../../Utility/AlphaEngineHelper.h"
 
-TutorialMenuSystem::TutorialMenuSystem(EntityManager* entityManager, EventManager* eventManager, GameStateManager* gameStateManager)
+TutorialMenuSystem::TutorialMenuSystem(GameStateManager* gameStateManager)
 {
-	m_po_EntityManager = entityManager;
-	m_po_EventManagerPtr = eventManager;
 	m_po_GameStateManager = gameStateManager;
 	timer = 0.0f;
 }
@@ -24,8 +22,21 @@ TutorialMenuSystem::~TutorialMenuSystem()
 	}
 }
 
-void TutorialMenuSystem::Initialize(CanvasComponent* canvasComponent)
+void TutorialMenuSystem::Initialize()
 {
+	auto snekHead1 = m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+	auto snekHead2 = static_cast<SnekHeadComponent*>(snekHead1->m_po_NextComponent);
+
+	snekHead1->accelerationTutorial = true;
+	snekHead2->accelerationTutorial = true;
+	snekHead1->turningTutorial = true;
+	snekHead2->turningTutorial = true;
+	snekHead1->specialTutorial = true;
+	snekHead2->specialTutorial = true;
+
+	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Tutorial UI");
+	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
+
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 

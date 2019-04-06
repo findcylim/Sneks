@@ -33,9 +33,8 @@ enum SnekType : unsigned char
 };
 
 
-class SnekHeadComponent : public BaseComponent
+struct SnekHeadComponent : public BaseComponent
 {
-public:
 	float m_f_AccelerationForce            = 200;
 	float m_f_TurnSpeed                    = 6;
 	float m_f_IdleSpeed                    = 100;		//default move speed
@@ -56,8 +55,8 @@ public:
 	float m_f_GrowthMeter   = 5;
 
 	int m_i_LivesLeft = 3;
-	int m_i_CurrentDamage = 3;
-	int m_i_BaseDamage = 3;
+	int m_i_CurrentDamage = 2;
+	int m_i_BaseDamage = 2;
 
 	unsigned short m_i_PlayerNumber        = 0;
 	SnekType m_x_SnekType                  = kSnekTypeSpeed;
@@ -65,7 +64,7 @@ public:
 	unsigned int   m_i_BrakeKey            = AEVK_DOWN;
 	unsigned int   m_i_LeftKey             = AEVK_LEFT;
 	unsigned int   m_i_RightKey            = AEVK_RIGHT;
-	unsigned int   m_i_BoostKey            = AEVK_RCTRL;
+	unsigned int   m_i_BoostKey            = AEVK_RSHIFT;
 	//unsigned int   m_i_SpecialKey          = AEVK_RSHIFT;
 
 	bool accelerationTutorial = false;

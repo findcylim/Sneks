@@ -23,6 +23,7 @@ enum Component : unsigned char
 	kComponentPowerUp,
 	kComponentBloom,
 	kComponentPowerUpHolder,
+	kComponentTint,
 	kComponentEnd
 };
 

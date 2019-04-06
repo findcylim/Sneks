@@ -9,14 +9,13 @@ class TutorialMenuSystem :
 	public BaseSystem,
 	public EventListener<Events::EV_PLAYER_MOVEMENT_KEY>
 {
-	EntityManager * m_po_EntityManager;
 	GameStateManager* m_po_GameStateManager;
 	float timer;
 public:
-	TutorialMenuSystem(EntityManager* entityManager, EventManager* eventManager, GameStateManager* gameStateManager);
+	TutorialMenuSystem(GameStateManager* gameStateManager);
 	~TutorialMenuSystem();
 
-	void Initialize(CanvasComponent* canvasComponent);
+	void Initialize();
 	void Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
 	void Update(float dt)override;
 };

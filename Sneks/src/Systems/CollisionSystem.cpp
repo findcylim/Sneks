@@ -40,8 +40,7 @@ std::vector<CollisionGroupPairing> CollisionSystem::m_vx_CollisionsPairings =
  {kCollGroupMouse    ,kCollGroupUIButton}
 };
 
-CollisionSystem::CollisionSystem(EntityManager* entityManagerPtr):
-BaseSystem(entityManagerPtr)
+CollisionSystem::CollisionSystem()
 {
 }
 
@@ -194,17 +193,17 @@ void CollisionSystem::UpdateComponentsPerGroup()
 	
 }
 
-
+//MARK
 HTVector2 CollisionSystem::GetMin(DrawComponent* drawComponent) 
 {
 	return AabbHelper::GetMin(drawComponent->m_po_TransformComponent->m_x_Position, 
-		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetScale());
+		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetDrawScale());
 }
 
 HTVector2 CollisionSystem::GetMax(DrawComponent* drawComponent) 
 {
 	return AabbHelper::GetMax(drawComponent->m_po_TransformComponent->m_x_Position,
-		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetScale());
+		drawComponent->m_x_MeshSize, drawComponent->m_po_TransformComponent->GetDrawScale());
 }
 
 void CollisionSystem::UpdateAllHitBoxes()

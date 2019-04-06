@@ -9,9 +9,9 @@ class OptionsMenuSystem : public BaseSystem
 	GraphicsSystem* m_o_GraphicsSystem;
 	bool fullscreen = true;
 public:
-	void Initialize(CanvasComponent* canvasComponent);
+	void Initialize();
 	void Update(float dt) override;
-	OptionsMenuSystem(EntityManager* entityManagerPtr, EventManager* eventManager);
+	OptionsMenuSystem();
 	~OptionsMenuSystem();
 	bool ReturnFullscreen();
 	void ToggleFullscreen();

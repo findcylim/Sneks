@@ -1,8 +1,6 @@
 #ifndef ECSYSTEM_H
 #define ECSYSTEM_H
 #pragma once
-#include <minwindef.h> //HINSTANCE typdef
-
 
 #include "EventManager.h"
 #include "SystemManager.h"
@@ -23,11 +21,13 @@ private:
 public:
 	ECSystem();
 	~ECSystem();
+	void LoadLevel1();
 	void InitializeEngine();
 	bool IsEngineOn() const;
 	void Update();
 };
 
-float getDt();
+float GetUncappedDt();
+float GetCappedDt();
 
 #endif

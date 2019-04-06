@@ -6,8 +6,7 @@
 
 // Will handle loading and unloading of StaticObjects and Background Objects
 
-LevelLoaderSystem::LevelLoaderSystem(EntityManager* entityManagerPtr, EventManager* eventManager, GameStateManager* gameStateManager,GraphicsSystem* graphicsSystem)
-	:BaseSystem(entityManagerPtr)
+LevelLoaderSystem::LevelLoaderSystem( EventManager* eventManager, GameStateManager* gameStateManager,GraphicsSystem* graphicsSystem)
 {
 	m_o_GraphicsSystem = graphicsSystem;
 	m_o_EventManager = eventManager;
@@ -17,9 +16,6 @@ LevelLoaderSystem::LevelLoaderSystem(EntityManager* entityManagerPtr, EventManag
 
 LevelLoaderSystem::~LevelLoaderSystem()
 {
-
-
-
 }
 
 
@@ -86,8 +82,8 @@ bool LevelLoaderSystem::LoadLevel(LevelID levelID)
 					float x = static_cast<float>(atof(cPointer));
 					while (*(cPointer++) != '=') {}
 					float y = static_cast<float>(atof(cPointer));
-					static_cast<TransformComponent*>(comp)->SetPositionX(x);
-					static_cast<TransformComponent*>(comp)->SetPositionY(y);
+					static_cast<TransformComponent*>(comp)->m_x_Position.x = (x);
+					static_cast<TransformComponent*>(comp)->m_x_Position.y=(y);
 
 					std::getline(inFile, output);
 					cPointer = output.c_str();

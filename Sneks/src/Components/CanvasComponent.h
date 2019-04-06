@@ -25,7 +25,7 @@ enum CanvasElementButtonState
 	kButtonClick
 };
 
-class CanvasComponent : public BaseComponent
+struct CanvasComponent : public BaseComponent
 {
 public:
 	CanvasComponent(){}

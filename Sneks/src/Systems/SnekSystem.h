@@ -62,13 +62,12 @@ class SnekSystem final : public BaseSystem,
 {
 private:
 	GraphicsSystem* m_o_GraphicsSystem;
-	GameStateManager* m_o_GameStateManager;
 
 	float f_AngleHeadHit = PI / 4;
 
 	int winner;
 public:
-	SnekSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics, GameStateManager* gameStateManagerPtr);
+	SnekSystem( GraphicsSystem* graphics);
 	~SnekSystem() ;
 	void CheckGrowthMeters();
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
@@ -76,7 +75,7 @@ public:
 	void ResetStage();
 	void HeadApplyRecoil(BaseComponent* aggressor, BaseComponent* victim);
 	void HeadInvulnerableSet(float duration, BaseComponent* anyComponent);
-	void HeadCollideBodyCheck(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
+	void HeadCollideBody(CollisionComponent* victimCollision, CollisionComponent* aggressorCollision);
 	void Update(float dt) override;
 	void BodyPartsFollowHead();
 	void CheckInvulnerability(BaseComponent* component, float dt) const;
@@ -89,10 +88,6 @@ public:
 	void DeleteSnek(SnekHeadEntity* snekHead);
 	void RemoveBodyParts(int partsToRemove, SnekHeadComponent* snekHead);
 	void CutSnekBody(SnekBodyEntity*, SnekHeadComponent* snekHead);
-	void FaceReference(const TransformComponent* reference, TransformComponent* toChange) const;
-	void MoveTowardsReference(::DrawComponent* reference, ::DrawComponent* toChange, PhysicsComponent* headPhysicsComponent) const;
-	void MoveTowardsReference2(DrawComponent* reference, DrawComponent* toChange,
-	                           PhysicsComponent* headPhysicsComponent) const;
 
 	void CheckOutOfBounds(TransformComponent* transformComponent) const;
 	void Flip(SnekHeadEntity* owner);

@@ -6,10 +6,10 @@
 class SnekSelectMenuSystem : public BaseSystem
 {
 public:
-	SnekSelectMenuSystem(EntityManager* entityManager, EventManager* eventManager);
+	SnekSelectMenuSystem();
 	~SnekSelectMenuSystem();
 
-	void Initialize(CanvasComponent* canvasComponent);
+	void Initialize();
 	void Update(float dt)override;
 };
 

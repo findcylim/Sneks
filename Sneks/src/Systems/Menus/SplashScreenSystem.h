@@ -14,7 +14,7 @@ public:
 	void Initialize();
 	void Update(float dt) override;
 	void Receive(const Events::EV_MOUSE_ONCLICK& eventData) override;
-	SplashScreenSystem(EntityManager* entityManagerPtr, EventManager* eventManager,GraphicsSystem* graphicsSystem);
+	SplashScreenSystem(GraphicsSystem* graphicsSystem);
 	virtual ~SplashScreenSystem();
 };
 

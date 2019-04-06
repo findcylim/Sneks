@@ -31,8 +31,7 @@ constexpr int bgInstancesX = 2;
 constexpr int bgInstancesY = 2;
 
 
-BuildingsSystem::BuildingsSystem(EntityManager* entityManagerPtr, GraphicsSystem* graphics) :
-	BaseSystem(entityManagerPtr)
+BuildingsSystem::BuildingsSystem( GraphicsSystem* graphics)
 {
 	m_o_GraphicsSystem = graphics;
 }
@@ -92,8 +91,8 @@ StaticObjectEntity* BuildingsSystem::CreateBuilding(float posX, float posY,
 	{
 		if (i_Component->m_x_ComponentID == kComponentTransform)
 		{
-			static_cast<TransformComponent*>(i_Component)->SetPositionX(posX);
-			static_cast<TransformComponent*>(i_Component)->SetPositionY(posY);
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.x = (posX);
+			static_cast<TransformComponent*>(i_Component)->m_x_Position.y=(posY);
 			static_cast<TransformComponent*>(i_Component)->SetRotation(0);
 			static_cast<TransformComponent*>(i_Component)->m_f_Scale.x *= scale.x;
 			static_cast<TransformComponent*>(i_Component)->m_f_Scale.y *= scale.y;

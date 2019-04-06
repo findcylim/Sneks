@@ -3,10 +3,10 @@
 
 enum PowerUpType : unsigned char
 {
-	kPowerUpSpeedIncrease = 0,
-	kPowerUpGrowthIncrease,
-	kPowerUpUnlimitedSpecial,
+	kPowerUpSpring = 0,
 	kPowerUpStar,
+	kPowerUpConsume,
+	kPowerUpTailSwipe,
 	kPowerUpPlusBody,
 	kPowerUpIncreaseDamage,
 	kPowerUpEnd
@@ -19,7 +19,8 @@ struct PowerUpComponent : public BaseComponent
 	float m_f_PowerIncrease = 0;
 	bool m_b_JustExpired = false;
 	float m_f_SpecialTimer = 0;
-public:
+	int m_i_Stage = 0;
+
 	PowerUpComponent();
 	void UpdateTime(float dt);
 	void SetPowerUp(const PowerUpType type);

@@ -6,11 +6,11 @@
 class WinScreenSystem :
 	public BaseSystem
 {
-	EntityManager * m_po_EntityManager;
 public:
-	WinScreenSystem(EntityManager* entityManager, EventManager* eventManager);
+	WinScreenSystem();
 	~WinScreenSystem();
-	void Update(float dt)override;
+	void Initialize() override;
+	void Update(float dt) override;
 	void SwapWinScreen();
 
 	int m_c_Winner = 1;

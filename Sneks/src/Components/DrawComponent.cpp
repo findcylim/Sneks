@@ -49,23 +49,6 @@ float DrawComponent::GetAlpha() const
 	return m_f_RgbaColor.alpha;
 }
 
-void DrawComponent::SetColor(float red, float green, float blue, float alpha)
-{
-	m_f_RgbaColor.red = red;
-	m_f_RgbaColor.green = green;
-	m_f_RgbaColor.blue = blue;
-	m_f_RgbaColor.alpha = alpha;
-}
-
-float DrawComponent::GetMeshSizeX() const
-{
-	return m_x_MeshSize.x;
-}
-
-float DrawComponent::GetMeshSizeY() const
-{
-	return m_x_MeshSize.y;
-}
 
 HTVector2 DrawComponent::GetSizeInPixels() const
 {

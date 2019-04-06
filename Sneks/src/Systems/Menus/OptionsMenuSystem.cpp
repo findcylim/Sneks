@@ -2,10 +2,8 @@
 #include "../AudioSystem.h"
 #include "AESystem.h"
 
-OptionsMenuSystem::OptionsMenuSystem(EntityManager* entityManagerPtr, EventManager* eventManager)
-	:BaseSystem(entityManagerPtr)
+OptionsMenuSystem::OptionsMenuSystem()
 {
-	m_po_EventManagerPtr = eventManager;
 }
 
 OptionsMenuSystem::~OptionsMenuSystem()
@@ -57,8 +55,11 @@ void BackToMenu(SystemManager* systemManager)
 }
 
 
-void OptionsMenuSystem::Initialize(CanvasComponent* canvasComponent)
+void OptionsMenuSystem::Initialize()
 {
+	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "OptionsMenuEntity");
+	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
+
 	Events::EV_NEW_UI_ELEMENT LogoElement =
 	{ canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"MainMenuLogo" ,"","","", nullptr };
 

@@ -27,8 +27,7 @@ Technology is prohibited.
 //TODO FIX THIS HARD CODE
 static float currDt;
 
-PhysicsSystem::PhysicsSystem(EntityManager* entityManagerPtr):
-BaseSystem(entityManagerPtr)
+PhysicsSystem::PhysicsSystem()
 {
 }
 
@@ -38,9 +37,8 @@ PhysicsSystem::~PhysicsSystem()
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
-void PhysicsSystem::Initialize(GameStateManager* gameStateManager)
+void PhysicsSystem::Initialize()
 {
-	m_o_GameStateManager	= gameStateManager;
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_MOVEMENT_KEY>(this,this);
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 }
@@ -64,8 +62,10 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 		phyComp->m_f_Acceleration = -snekHeadComponent->m_f_AccelerationForce / 3;
 	}
 	else if (eventData.key == Events::MOVE_KEY_LEFT) {
+		float turnSpeedMultiplier = 0.0f;
 
-		auto turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
+		if (phyComp->m_f_MaxSpeed != 0.0f)
+			turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
 
 		if (turnSpeedMultiplier > 1.0f)
 			turnSpeedMultiplier = 1.0f;
@@ -79,7 +79,10 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 			);
 	}
 	else if (eventData.key == Events::MOVE_KEY_RIGHT) {
-		auto turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
+		float turnSpeedMultiplier = 0.0f;
+
+		if (phyComp->m_f_MaxSpeed != 0.0f)
+			turnSpeedMultiplier = phyComp->m_f_Speed / phyComp->m_f_MaxSpeed;
 
 		if (turnSpeedMultiplier > 1.0f)
 			turnSpeedMultiplier = 1.0f;
@@ -99,7 +102,7 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 void PhysicsSystem::Update(float dt)
 {
 	currDt = dt;
-	State currentState = m_o_GameStateManager->ReturnCurrentState();
+	State currentState = GameStateManager::ReturnCurrentState();
 
 	UNREFERENCED_PARAMETER(currentState);
 
@@ -175,8 +178,11 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadCo
 
 void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float dt) const
 {
+	if (physicsComponent->m_f_MaxSpeed == 0.0f)
+		return;
+
 	//Clamp percentage higher when speed is higher, so less acceleration when speed high
-	float accelClamp = 1.0f - fabsf(physicsComponent->m_f_Speed / physicsComponent->m_f_MaxSpeed);
+	float accelClamp = 1.0f - fabsf(physicsComponent->m_f_Speed / physicsComponent->m_f_MaxSpeed );
 	
 	if (accelClamp < 0)
 		accelClamp = 0;

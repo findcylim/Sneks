@@ -1,6 +1,6 @@
 /* Start Header ***************************************************************/
 /*!
-\file <name>System.h
+\file FollowSystem.h
 \author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
@@ -20,16 +20,19 @@ Technology is prohibited.
 /* End Header *****************************************************************/
  #pragma once
 #include "../ECS/System.h"
+#include "../Components/FollowComponent.h"
 
-class <name>System : public BaseSystem,
+class FollowSystem : public BaseSystem,
  	public EventListener<Events::EV_PLAYER_COLLISION>
  {
  private:
  	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
  public:
- 	<name>System();
- 	~<name>System();
- 	void Initialize();
+ 	FollowSystem();
+ 	~FollowSystem();
+ 	void Initialize() override;
  	void Update(float dt) override;
+   static void FaceReference(const TransformComponent* reference, TransformComponent* toChange);
+   void MoveTowardsReference(FollowComponent* follow) const;
  };
 

@@ -4,11 +4,9 @@
 #include "../Utility/AlphaEngineHelper.h"
 
 
-CanvasUISystem::CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* graphicsManager,EventManager* eventManager) :
-	BaseSystem(entityManagerPtr)
+CanvasUISystem::CanvasUISystem(GraphicsSystem* graphicsManager)
 {
 	m_po_GraphicsManager = graphicsManager;
-	m_po_EventManagerPtr = eventManager;
 }
 
 
@@ -41,13 +39,12 @@ void CanvasUISystem::Update(float dt)
 			DrawComponent * drawComponent = element->GetComponent<DrawComponent>();
 
 			float scale = 1.0f / c_Comp->GetScale();
-			t_Comp->SetScale(scale);
+			t_Comp->m_f_ScaleMultiplier=(scale);
 			if (strcmp(can_Comp->m_po_OwnerEntity->m_pc_EntityName, "Tutorial UI"))
 			{
-				t_Comp->SetPositionX(-c_Comp->GetCameraPos().x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
-				t_Comp->SetPositionY(-c_Comp->GetCameraPos().y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+				t_Comp->m_x_Position.y = (-c_Comp->GetCameraPos().y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
+				t_Comp->m_x_Position.x = (-c_Comp->GetCameraPos().x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
 			}
-
 			if (collisionComponent)
 			{
 				if (canvasElementComponent->m_b_IsClicked)
@@ -215,7 +212,7 @@ void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			drawComponent->m_px_Texture = elementComp->m_x_HoverSprite;
 			elementComp->m_b_IsClicked = true;
 			if (elementComp && elementComp->ButtonFunction)
-				elementComp->ButtonFunction(m_o_SystemManager);
+				elementComp->ButtonFunction(m_po_SystemManager);
 			//TODO Reform this to variadic functions
 		}
 		else

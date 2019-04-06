@@ -32,8 +32,6 @@ Technology is prohibited.
 static unsigned debugFont;
 void PrintOnScreen(unsigned int fontId, const char* toPrint, float relativePosX, float relativePosY, float red, float green, float blue);
 
-GraphicsSystem::GraphicsSystem(EntityManager* entityManagerPtr) : BaseSystem(entityManagerPtr)
-{};
 
 
 GraphicsSystem::~GraphicsSystem()
@@ -61,6 +59,8 @@ void GraphicsSystem::Initialize()
 	m_i_font = AEGfxCreateFont("Arial", 30, false, false);
 	//for (auto i : m_x_DrawOrderTest)
 	//	memset(i, 0, 10000 * sizeof(DrawComponent*));
+	PreLoadTextures();
+
 }
 
 //constexpr int spriteGapX = 3;
@@ -269,6 +269,8 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/DigiPen_Singapore.png", "DigipenLogo");
 	LoadTextureToMap("../Resources/TeamLogo.png", "TeamLogo");
 	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
+
+	LoadTextureToMap("../Resources/Placeholder/Sparks2-Particle.png", "Sparks2Particle");
 
 	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
 	LoadTextureToMap("../Resources/PowerUpTextHealth.png", "PowerUpTextHealth");

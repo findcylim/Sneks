@@ -5,15 +5,6 @@
 #include "../SnekSystem.h"
 
 
-MainMenuSystem::MainMenuSystem(EntityManager* entityManagerPtr, EventManager* eventManager)
-	:BaseSystem(entityManagerPtr)
-{
-	m_po_EventManagerPtr = eventManager;
-	//auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	//cameraComponent->m_f_VirtualOffset.x = -AEGfxGetWinMaxX();
-	//cameraComponent->m_f_VirtualOffset.y = AEGfxGetWinMaxY();
-	//cameraComponent->m_f_VirtualScale = 1.0f;
-}
 
 MainMenuSystem::~MainMenuSystem()
 {
@@ -53,8 +44,12 @@ void OpenOptions(SystemManager* systemManager)
 	GameStateManager::SetState(kStateOptions);
 }
 
-void MainMenuSystem::Initialize(CanvasComponent* canvasComponent)
+void MainMenuSystem::Initialize()
 {
+	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
+	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
+
+
 	//CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
@@ -91,7 +86,7 @@ float zoomSpeed = 0.05f;
 void MainMenuSystem::Update(float dt)
 {
 	
-	auto snekSystem = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
+	auto snekSystem = m_po_SystemManager->GetSystem<SnekSystem>("Snek");
 	if (AEInputCheckTriggered(AEVK_1))
 		snekSystem->SetSnekType(0, kSnekTypeSpeed);
 	else if (AEInputCheckTriggered(AEVK_2))

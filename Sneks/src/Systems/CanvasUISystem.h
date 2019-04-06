@@ -10,7 +10,7 @@ class CanvasUISystem :
 	HTVector2 m_o_ScreenSize;
 public:
 	void Update(float dt) override;
-	CanvasUISystem(EntityManager* entityManagerPtr,GraphicsSystem* graphicsManager, EventManager* eventManager);
+	CanvasUISystem(GraphicsSystem* graphicsManager);
 	~CanvasUISystem();
 	void Initialize();
 	void AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset, CanvasElementEnum num, const char * name,
