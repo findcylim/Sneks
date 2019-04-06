@@ -58,6 +58,8 @@ public:
 	/* Getter/Setter */
 	FMOD_SYSTEM	*GetSystem();
 	FMOD_SOUND *GetFmodSound();
+	float GetVolume();
+	void SetVolume(float volume);
 	void ResetSoundCounter();
 };
 
@@ -69,6 +71,7 @@ class AudioSystem final : public BaseSystem // Add event listeners here
 , public EventListener<Events::EV_POWERUP_PICKUP_STARMODE>
 , public EventListener<Events::EV_SPECIAL_SKILL_BOOST>
 , public EventListener<Events::EV_SPECIAL_SKILL_FLIP>
+, public EventListener<Events::EV_PAUSED_GAME>
 {
 	Audio BGM;
 	Audio SFX;
@@ -98,6 +101,7 @@ public:
 	void Receive(const Events::EV_POWERUP_PICKUP_STARMODE& eventData) override;
 	void Receive(const Events::EV_SPECIAL_SKILL_BOOST& eventData) override;
 	void Receive(const Events::EV_SPECIAL_SKILL_FLIP& eventData) override;
+	void Receive(const Events::EV_PAUSED_GAME& eventData) override;
 	void Update(float dt) override;
 	void ToggleMute();
 };

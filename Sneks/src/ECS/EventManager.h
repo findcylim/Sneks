@@ -123,7 +123,10 @@ namespace Events
 	struct EV_SPECIAL_SKILL_FLIP
 	{
 	};
-
+	struct EV_PAUSED_GAME
+	{
+		bool pauseCheck;
+	};
 }
 
 class EventManager

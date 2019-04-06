@@ -88,10 +88,23 @@ void Sound::Play(float volume)
 		m_b_IsPlaying = true;
 		FmodErrorCheck(result);
 		FMOD_Channel_SetVolume(channel, volume);
+		
 		//FMOD_Channel_SetPaused(channel, false);
 		++m_c_PlayCounter;
 		m_f_Timer = 0;
 	}
+}
+
+float Sound::GetVolume() 
+{
+	float volume = 0.0f;
+	FMOD_Channel_GetVolume(channel, &volume);
+	return volume;
+}
+
+void Sound::SetVolume(float volume)
+{
+	FMOD_Channel_SetVolume(channel, volume);
 }
 
 void Sound::Update()
@@ -194,6 +207,7 @@ AudioSystem::~AudioSystem()
 	m_po_EventManagerPtr->RemoveListener<Events::EV_POWERUP_PICKUP_STARMODE>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_SPECIAL_SKILL_BOOST>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_SPECIAL_SKILL_FLIP>(this);
+	m_po_EventManagerPtr->RemoveListener<Events::EV_PAUSED_GAME>(this);
 	if (m_o_MainMenuMusic.GetSystem() != NULL)
 		m_o_MainMenuMusic.Release();
 	if (m_o_HitSound.GetSystem() != NULL)
@@ -236,6 +250,7 @@ void AudioSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_POWERUP_PICKUP_STARMODE>(this, this);
 	m_po_EventManagerPtr->AddListener<Events::EV_SPECIAL_SKILL_BOOST>(this, this);
 	m_po_EventManagerPtr->AddListener<Events::EV_SPECIAL_SKILL_FLIP>(this, this);
+	m_po_EventManagerPtr->AddListener<Events::EV_PAUSED_GAME>(this, this);
 }
 
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
@@ -332,6 +347,23 @@ void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_FLIP & eventData)
 	if (!muted)
 	{
 		m_o_FlipSpecialSound.Play(0.4f);
+	}
+}
+
+void AudioSystem::Receive(const Events::EV_PAUSED_GAME & eventData)
+{
+	if (eventData.pauseCheck)
+	{
+		
+		m_o_IntroBattleMusic.SetVolume(m_o_IntroBattleMusic.GetVolume()*0.2f);
+		m_o_BattleLoopMusic.SetVolume(m_o_BattleLoopMusic.GetVolume()*0.2f);
+		m_o_StarModeMusic.SetVolume(m_o_StarModeMusic.GetVolume()*0.2f);
+	}
+	else
+	{
+		m_o_IntroBattleMusic.SetVolume(m_o_IntroBattleMusic.GetVolume()*5.0f);
+		m_o_BattleLoopMusic.SetVolume(m_o_BattleLoopMusic.GetVolume()*5.0f);
+		m_o_StarModeMusic.SetVolume(m_o_StarModeMusic.GetVolume()*5.0f);
 	}
 }
 

@@ -73,3 +73,13 @@ void PauseMenuSystem::Update(float dt)
 	if (AEInputCheckTriggered(AEVK_ESCAPE))
 		Pause_Continue(m_po_SystemManager);
 }
+
+void PauseMenuSystem::OnEnable()
+{
+	m_po_EventManagerPtr->EmitEvent<Events::EV_PAUSED_GAME>(Events::EV_PAUSED_GAME{ true });
+}
+
+void PauseMenuSystem::OnDisable()
+{
+	m_po_EventManagerPtr->EmitEvent<Events::EV_PAUSED_GAME>(Events::EV_PAUSED_GAME{ false });
+}
