@@ -30,9 +30,9 @@ void SplashScreenSystem::Update(float dt)
 	timer -= dt;
 	if(timer < 0)
 	{
-		timer = 1.5f;
+		timer = 2.0f;
 		splashScreenCounter++;
-		if (splashScreenCounter > 1)
+		if (splashScreenCounter > 2)
 		{
 			GameStateManager::SetState(kStateMainMenu);
 			return;
@@ -41,10 +41,17 @@ void SplashScreenSystem::Update(float dt)
 			->GetComponent<DrawComponent>();
 		if (d_Comp)
 		{
-			d_Comp->m_po_TransformComponent->m_f_Scale = { 1,1 };
-			m_po_GraphicsSystem->InitializeDrawComponent(d_Comp, "TeamLogo");
-			//d_Comp->m_px_Texture = m_po_GraphicsSystem->FetchTexture("TeamLogo");
-
+			if (splashScreenCounter == 1)
+			{
+				d_Comp->m_po_TransformComponent->m_f_Scale = { 1,1 };
+				m_po_GraphicsSystem->InitializeDrawComponent(d_Comp, "TeamLogo");
+				//d_Comp->m_px_Texture = m_po_GraphicsSystem->FetchTexture("TeamLogo");
+			}
+			else if (splashScreenCounter == 2)
+			{
+				d_Comp->m_po_TransformComponent->m_f_Scale = { 1,1 };
+				m_po_GraphicsSystem->InitializeDrawComponent(d_Comp, "FMODLogoSplash");
+			}
 		}
 	}
 }

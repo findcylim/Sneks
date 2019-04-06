@@ -84,10 +84,17 @@ void InputSystem::Update(float dt)
 		t_Comp->m_x_Position.y -= (t_Comp->m_x_Position.y*(1 - scale));
 
 
-	if (AEInputCheckTriggered(AEVK_LBUTTON))
+	if (AEInputCheckReleased(VK_LBUTTON))
 	{
-		m_po_EventManagerPtr->EmitEvent<Events::EV_MOUSE_ONCLICK>(Events::EV_MOUSE_ONCLICK{});
-		AEInputUpdate();
+		if (m_b_IsMousePressed == false)
+		{
+			m_b_IsMousePressed = true;
+			m_po_EventManagerPtr->EmitEvent<Events::EV_MOUSE_ONCLICK>(Events::EV_MOUSE_ONCLICK{});
+		}
+	}
+	else
+	{
+		m_b_IsMousePressed = false;
 	}
 
 	//CanvasButtonEntity* base = m_po_EntityManager->GetFirstEntityInstance<CanvasButtonEntity>(kEntityCanvasButton);

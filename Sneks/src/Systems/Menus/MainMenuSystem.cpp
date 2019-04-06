@@ -35,7 +35,7 @@ void OpenCredits(SystemManager* systemManager)
 void QuitGame(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
-	GameStateManager::SetState(kStateExit);
+	GameStateManager::SetState(kStateConfirmationScreen);
 }
 
 void OpenOptions(SystemManager* systemManager)

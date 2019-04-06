@@ -171,6 +171,9 @@
     <ClCompile Include="Systems\Menus\OptionsMenuSystem.cpp">
       <Filter>Systems\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Menus\ConfirmationScreenSystem.cpp">
+      <Filter>Systems\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\Component.h">
@@ -371,6 +374,9 @@
       <Filter>Systems\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Menus\OptionsMenuSystem.h">
+      <Filter>Systems\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Menus\ConfirmationScreenSystem.h">
       <Filter>Systems\Menus</Filter>
     </ClInclude>
   </ItemGroup>

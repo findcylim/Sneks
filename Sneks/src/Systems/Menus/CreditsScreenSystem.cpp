@@ -72,7 +72,7 @@ void CreditsScreenSystem::Update(float dt)
 
 		m_f_Timer = 3.0f;
 		m_i_PortraitValue++;
-		if (m_i_PortraitValue > 7)
+		if (m_i_PortraitValue > 8)
 			m_i_PortraitValue = 0;
 
 
@@ -123,8 +123,12 @@ void CreditsScreenSystem::Update(float dt)
 			UpdateText(NameEntity, "© 2019 DigiPen Corporation (SG)", ScreenSize);
 			UpdateText(RoleEntity, "All Rights Reserved", ScreenSize);
 			break;
+		case 8:
+			PortraitEntity->GetComponent<DrawComponent>()->m_px_Texture = m_po_GraphicsSystem->FetchTexture("FmodLogo");
+			UpdateText(RoleEntity, "Made with FMOD Studio By", ScreenSize);
+			UpdateText(NameEntity, "Firelight Technologies Pty Ltd.", ScreenSize);
+			break; 
 		}
-
 	}
 }
 

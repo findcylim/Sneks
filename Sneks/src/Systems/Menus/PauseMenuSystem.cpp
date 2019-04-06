@@ -17,7 +17,7 @@ void Pause_Restart(SystemManager* systemManager)
 void Pause_QuitToMain(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
-	GameStateManager::SetState(kStateMainMenu);
+	GameStateManager::SetState(kStateConfirmationScreen);
 }
 
 void Pause_Options(SystemManager* systemManager)
@@ -25,7 +25,6 @@ void Pause_Options(SystemManager* systemManager)
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateOptions);
 }
-
 
 PauseMenuSystem::PauseMenuSystem()
 {

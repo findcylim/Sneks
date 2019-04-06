@@ -29,14 +29,15 @@
 #include "../Systems/Menus/SnekSelectMenuSystem.h"
 #include "../Systems/Menus/TutorialMenuSystem.h"
 #include "../Systems/Menus/OptionsMenuSystem.h"
+#include "../Systems/Menus/ConfirmationScreenSystem.h"
 
 ECSystem::ECSystem()
 {
 	m_o_Logger					   = new Logger("log.txt");
 	m_o_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
-	m_o_EntityComponentManager	= new EntityManager();
-	m_o_GameStateManager       = new GameStateManager(kStateSplashScreen, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
+	m_o_EntityComponentManager	   = new EntityManager();
+	m_o_GameStateManager		   = new GameStateManager(kStateSplashScreen, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
 	m_b_EngineStatus			   = true;
 }
 
@@ -97,6 +98,7 @@ void ECSystem::InitializeEngine()
 	auto tutorial = new TutorialMenuSystem(m_o_GameStateManager);
 	auto options = new OptionsMenuSystem();
 	auto creditsScreen = new CreditsScreenSystem(graphics);
+	auto confirmationScreen = new ConfirmationScreenSystem();
 
 	m_o_SystemManager->AddSystem(projectile);
 	projectile->SetName("Projectile");
@@ -182,7 +184,11 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(splashScreen);
 	splashScreen->SetName("SplashScreen");
 
+	m_o_SystemManager->AddSystem(confirmationScreen);
+	confirmationScreen->SetName("ConfirmationScreen");
+
 	m_o_GameStateManager->InitializeTransitionEntity(graphics);
+
 
 	/*************************************************************************/
 	//\\\\\\\\\\END UI & MENUS
@@ -221,6 +227,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
+	m_o_SystemManager->DisableSystem<ConfirmationScreenSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 	m_o_SystemManager->DisableSystem<PhysicsSystem>();

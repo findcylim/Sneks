@@ -8,6 +8,7 @@ class CanvasUISystem :
 {
 	GraphicsSystem* m_po_GraphicsManager;
 	HTVector2 m_o_ScreenSize;
+	bool m_b_IsMousePressed = false;
 public:
 	void Update(float dt) override;
 	CanvasUISystem(GraphicsSystem* graphicsManager);

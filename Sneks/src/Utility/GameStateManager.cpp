@@ -21,6 +21,7 @@
 #include "../Systems/Menus/SplashScreenSystem.h"
 #include "../Systems/Menus/SnekSelectMenuSystem.h"
 #include "../Systems/Menus/OptionsMenuSystem.h"
+#include "../Systems/Menus/ConfirmationScreenSystem.h"
 #include "../Systems/InputSystem.h"
 #include "../ECS/ECSystem.h"
 
@@ -300,6 +301,18 @@ void GameStateManager::UnloadOptions()
 	m_o_SystemManager->DisableSystem<OptionsMenuSystem>();
 }
 
+void GameStateManager::LoadConfirm()
+{
+	m_o_SystemManager->EnableSystem<ConfirmationScreenSystem>();
+}
+
+void GameStateManager::UnloadConfirm()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("ConfirmationScreen");
+	m_o_SystemManager->DisableSystem<ConfirmationScreenSystem>();
+}
+
+
 void GameStateManager::ExitGame()
 {
 	*EngineStatus = false;
@@ -344,8 +357,12 @@ void GameStateManager::Load()
 	case kStatePause:		
 		LoadPauseMenu();
 		break;
+	case kStateConfirmationScreen:
+		LoadConfirm();
+		break;
 	case kStateCountdown:
 		LoadCountdown();
+		break;
 	case kStateExit:		
 		ExitGame();
 		break;
@@ -380,6 +397,9 @@ void GameStateManager::Unload()
 		break;
 	case kStateHelpMenu:	
 		UnloadHelpMenu();		
+		break;
+	case kStateConfirmationScreen:
+		UnloadConfirm();
 		break;
 	case kStateCountdown:	
 		UnloadCountdown();		

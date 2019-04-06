@@ -1,5 +1,6 @@
 #include "AudioSystem.h"
 #include "../Utility/GameStateManager.h"
+#include "Menus/ConfirmationScreenSystem.h"
 
 Sound::Sound()
 {
@@ -212,6 +213,8 @@ void AudioSystem::ToggleMute()
 
 	if (muted)
 	{
+		FMOD_Channel_SetVolume(m_o_MainMenuMusic.channel, 0.0f);
+		FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.0f);
 		FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.0f);
 		FMOD_Channel_SetVolume(m_o_StarModeMusic.channel, 0.0f);
 	}
@@ -266,24 +269,26 @@ void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 
 void AudioSystem::Receive(const Events::EV_GAME_STATE_CHANGED & eventData)
 {
-	if (!muted)
+	if (eventData.changedToState == kStateGame && eventData.changedFromState == kStateHelpMenu) // Change this to countdown
 	{
-		if (eventData.changedToState == kStateGame && eventData.changedFromState == kStateHelpMenu) // Change this to countdown
-		{
-			m_o_MainMenuMusic.Pause(true);
-			m_o_IntroBattleMusic.ResetSoundCounter();
-			m_o_BattleLoopMusic.ResetSoundCounter();
-			m_o_StarModeMusic.ResetSoundCounter();
-			m_o_IntroBattleMusic.Play(0.1f);
-		}
-		else if (eventData.changedToState == kStateMainMenu &&
-			(eventData.changedFromState == kStatePause || eventData.changedFromState == kStateWinScreen))
-		{
-			m_o_IntroBattleMusic.Pause(true);
-			m_o_BattleLoopMusic.Pause(true);
-			m_o_StarModeMusic.Pause(true);
-			m_o_MainMenuMusic.Pause(false);
-		}
+		m_o_MainMenuMusic.Pause(true);
+		m_o_IntroBattleMusic.ResetSoundCounter();
+		m_o_BattleLoopMusic.ResetSoundCounter();
+		m_o_StarModeMusic.ResetSoundCounter();
+		m_o_IntroBattleMusic.Play(0.1f);
+		if(muted)
+			FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.0f);
+	}
+	else if (eventData.changedToState == kStateMainMenu &&
+			(eventData.changedFromState == kStatePause || 
+			 eventData.changedFromState == kStateWinScreen || 
+			 (eventData.changedFromState == kStateConfirmationScreen &&
+			  ConfirmationScreenSystem::m_e_PrevState == kStatePause)))
+	{
+		m_o_IntroBattleMusic.Pause(true);
+		m_o_BattleLoopMusic.Pause(true);
+		m_o_StarModeMusic.Pause(true);
+		m_o_MainMenuMusic.Pause(false);
 	}
 }
 
@@ -338,8 +343,9 @@ void AudioSystem::Update(float dt)
 	{
 		m_o_IntroBattleMusic.Pause(true);
 		m_o_IntroBattleMusic.m_f_Timer = 0.0f;
-		if (!muted)
-			m_o_BattleLoopMusic.Play(0.1f);
+		m_o_BattleLoopMusic.Play(0.1f);
+		if(muted)
+			FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.0f);
 	}
 	m_o_IntroBattleMusic.Update();
 	m_o_BattleLoopMusic.Update();

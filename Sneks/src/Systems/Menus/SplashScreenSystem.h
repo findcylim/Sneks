@@ -7,7 +7,7 @@ class SplashScreenSystem :
 	public BaseSystem,
 	public EventListener<Events::EV_MOUSE_ONCLICK>
 {
-	float timer = 1.5f;
+	float timer = 2.0f;
 	size_t splashScreenCounter = 0;
 	GraphicsSystem* m_po_GraphicsSystem = nullptr;
 public:

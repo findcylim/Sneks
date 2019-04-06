@@ -21,10 +21,10 @@ typedef enum State
 	kStateCountdown,
 	kStateGame,
 	kStateHelpMenu,
-	kStatePauseMenu,
 	kStateWinScreen,
 	kStatePause,
 	kStateCreditsScreen,
+	kStateConfirmationScreen,
 	kStateRestart,
 	kStateExit = -1,
 	kStateTransition = -2,
@@ -87,5 +87,7 @@ public:
 	void UnloadCreditsScreen();
 	void LoadOptions();
 	void UnloadOptions();
+	void LoadConfirm();
+	void UnloadConfirm();
 };
 #endif

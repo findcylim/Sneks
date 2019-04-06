@@ -63,6 +63,7 @@ public:
 
 private:
 	//std::vector<KeyState> m_x_CurrentKeyStates;
+	bool m_b_IsMousePressed = false;
 	HTVector2 m_o_ScreenSize;
 	void SetKeyBinds();
 	//void ResolveKeyPress(unsigned char keyId);

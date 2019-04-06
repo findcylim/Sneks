@@ -285,7 +285,11 @@ void GraphicsSystem::PreLoadTextures()
 	LoadTextureToMap("../Resources/UI/Portraits/Spoodermun.png", "Spoodermun");
 	LoadTextureToMap("../Resources/UI/Portraits/DigipenSquareLogo.png", "DigipenSquareLogo");
 	LoadTextureToMap("../Resources/UI/DigiPen_Singapore.png", "DigipenLogo");
-	LoadTextureToMap("../Resources/UI/TeamLogo.png", "TeamLogo");
+	LoadTextureToMap("../Resources/UI/Portraits/FmodSquareLogo.png", "FmodLogo");
+	LoadTextureToMap("../Resources/UI/TeamLogo.png", "TeamLogo"); 
+	LoadTextureToMap("../Resources/UI/FMOD-Logo.png", "FMODLogoSplash");
+
+	LoadTextureToMap("../Resources/UI/ConfirmationImage.png", "ConfirmationLogo");
 }
 
 AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)

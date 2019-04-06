@@ -211,11 +211,17 @@ void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			auto drawComponent = eventData.object1->m_po_OwnerEntity->GetComponent<DrawComponent>();
 			drawComponent->m_px_Texture = elementComp->m_x_HoverSprite;
 			elementComp->m_b_IsClicked = true;
-			if (elementComp && elementComp->ButtonFunction)
+			if (elementComp && elementComp->ButtonFunction && !m_b_IsMousePressed)
+			{
+				m_b_IsMousePressed = true;
 				elementComp->ButtonFunction(m_po_SystemManager);
+			}
 			//TODO Reform this to variadic functions
 		}
 		else
+		{
 			elementComp->m_b_IsClicked = false;
+			m_b_IsMousePressed = false;
+		}
 	}
 }

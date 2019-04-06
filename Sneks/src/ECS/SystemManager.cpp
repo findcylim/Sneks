@@ -11,7 +11,7 @@ std::vector<float> fpsLog;
 std::vector<int> droppedFramesLog;
 std::vector<const char*> nameLog;
 std::vector<f64> timeLog;
-std::vector<f64> totalTime(25);
+std::vector<f64> totalTime(26);
 int totalFrames = 0;
 f64 timeElapsed = 0;
 #endif
