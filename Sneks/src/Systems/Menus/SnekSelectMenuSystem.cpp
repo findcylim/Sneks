@@ -83,12 +83,12 @@ void SnekSelectMenuSystem::Initialize()
 	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Snek Select UI");
 	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
 
-	Events::EV_NEW_UI_ELEMENT LogoElement = { canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"Select_Banner" ,"","","", nullptr };
-	Events::EV_NEW_UI_ELEMENT P1UpElement = { canvasComponent,HTVector2{ 0.175f , 0.5f } ,kCanvasButton,"P1Up" ,"Up_Idle" ,"","Up_Hover","Up_Click",P1SnekStateUp };
-	Events::EV_NEW_UI_ELEMENT P1DownElement = { canvasComponent,HTVector2{ 0.175f , 0.6125f } ,kCanvasButton,"P1Down" ,"Down_Idle", "" ,"Down_Hover","Down_Click",P1SnekStateDown };
-	Events::EV_NEW_UI_ELEMENT P2UpElement = { canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"P2Up" ,"Up_Idle", "","Up_Hover","Up_Click",P2SnekStateUp };
-	Events::EV_NEW_UI_ELEMENT P2DownElement = { canvasComponent, HTVector2{ 0.825f , 0.6125f }, kCanvasButton,"P2Down", "Down_Idle", "", "Down_Hover","Down_Click", P2SnekStateDown };
-	Events::EV_NEW_UI_ELEMENT ConfirmElement = { canvasComponent, HTVector2{ 0.5f , 0.9f }, kCanvasButton,"Confirm", "Confirm_Idle", "", "Confirm_Hover","", PlayGame };
+	Events::EV_NEW_UI_ELEMENT LogoElement = { canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"Select-Banner" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT P1UpElement = { canvasComponent,HTVector2{ 0.175f , 0.5f } ,kCanvasButton,"P1Up" ,"Up-Idle" ,"","Up-Hover","Up-Click",P1SnekStateUp };
+	Events::EV_NEW_UI_ELEMENT P1DownElement = { canvasComponent,HTVector2{ 0.175f , 0.6125f } ,kCanvasButton,"P1Down" ,"Down-Idle", "" ,"Down-Hover","Down-Click",P1SnekStateDown };
+	Events::EV_NEW_UI_ELEMENT P2UpElement = { canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"P2Up" ,"Up-Idle", "","Up-Hover","Up-Click",P2SnekStateUp };
+	Events::EV_NEW_UI_ELEMENT P2DownElement = { canvasComponent, HTVector2{ 0.825f , 0.6125f }, kCanvasButton,"P2Down", "Down-Idle", "", "Down-Hover","Down-Click", P2SnekStateDown };
+	Events::EV_NEW_UI_ELEMENT ConfirmElement = { canvasComponent, HTVector2{ 0.5f , 0.9f }, kCanvasButton,"Confirm", "Confirm-Idle", "", "Confirm-Hover","", PlayGame };
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvasComponent, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);

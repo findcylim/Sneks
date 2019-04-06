@@ -192,113 +192,100 @@ AEGfxTexture* GraphicsSystem::FetchTexture(const char* textureName, int* retWidt
 void GraphicsSystem::PreLoadTextures()
 {
 	//TODO: MAKE FILE PARSER RESOURCES NEEDED PER LEVEL?
-	//SET NAMES TO BE FILE NAMES
-	//ENFORCE FILE NAMES TO BE UNIQUE
-	LoadTextureToMap("../Resources/head.png"				 , "SnekHead01");
-	LoadTextureToMap("../Resources/head2.png"			 , "SnekHead02");
-	LoadTextureToMap("../Resources/head3.png", "SnekHead03");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Head_Animated.png", "HeadAnim");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Head.png", "SnekHead01");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek02_Head.png", "SnekHead02");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek03_Head.png", "SnekHead03");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Body.png", "SnekBody01");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek02_Body.png", "SnekBody02");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek03_Body.png", "SnekBody03");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek01_Tail.png", "SnekTail01");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek02_Tail.png", "SnekTail02");
+	LoadTextureToMap("../Resources/Gameplay/Snek Art/Snek03_Tail.png", "SnekTail03");
 
-	LoadTextureToMap("../Resources/bodytest.png"		 , "SnekBody01");
-	LoadTextureToMap("../Resources/bodytest2.png"	 , "SnekBody02");
-	LoadTextureToMap("../Resources/body3.png", "SnekBody03");
+	LoadTextureToMap("../Resources/Gameplay/Background/Background01.png", "Background01");
+	LoadTextureToMap("../Resources/Gameplay/Background/Building01.png", "Building01"); 
+	LoadTextureToMap("../Resources/Gameplay/Background/Building02.png", "Building02");
+	LoadTextureToMap("../Resources/Gameplay/Background/Building03.png", "Building03");
+	LoadTextureToMap("../Resources/Gameplay/Background/Building04.png", "Building04");
+	LoadTextureToMap("../Resources/Gameplay/Background/Building_Destroyed.png", "Destroyed01");
 
-	LoadTextureToMap("../Resources/Placeholder/tail.png"				 , "SnekTail01");
-	LoadTextureToMap("../Resources/Placeholder/tail2.png", "SnekTail02");
-	LoadTextureToMap("../Resources/Head3Back.png"				 , "SnekTail03");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Trail.png", "Trail");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Particle_Rock.png", "Rock");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Particle_Rocks_SpriteSheet.png", "Rocks");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Particle_Explosion_SpriteSheet.png", "ExplosionParticle");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Particle_Void_SpriteSheet.png", "VoidParticle");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Particle_SparkExplosion_SpriteSheet.png", "SparkParticle");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Particle_SparkExplosionWhite_SpriteSheet.png", "SparkParticleWhite");
+	LoadTextureToMap("../Resources/Gameplay/Particles/Particle_Smoke_SpriteSheet.png", "HitParticle");
+	//LoadTextureToMap("../Resources/Gameplay/Particles/Particle_Spark_SpriteSheet", "Sparks2Particle");
 
-	LoadTextureToMap("../Resources/map.png"				 , "Background01");
-	LoadTextureToMap("../Resources/building1.png"		 , "Building01"); 
-	LoadTextureToMap("../Resources/building2.png", "Building02");
-	LoadTextureToMap("../Resources/building3.png", "Building03");
-	LoadTextureToMap("../Resources/building4.png", "Building04");
-	LoadTextureToMap("../Resources/horz-road.png"		 , "horz-road.png");
-	LoadTextureToMap("../Resources/junction.png"		 , "junction.png");
-	LoadTextureToMap("../Resources/vert-road.png"		 , "vert-road.png");
-	LoadTextureToMap("../Resources/destroyed.png",		   "Destroyed01");
-	LoadTextureToMap("../Resources/MainMenuLogo.png", "MainMenuLogo");
-	LoadTextureToMap("../Resources/MouseCollider.png", "MouseCollider");
+	LoadTextureToMap("../Resources/Gameplay/Projectile_Moon.png", "Moon");
 
-	LoadTextureToMap("../Resources/UIBack.png", "UIBack");
-	LoadTextureToMap("../Resources/UIBack_Hover.png", "UIBack_Hover");
-	LoadTextureToMap("../Resources/UIBack_Click.png", "UIBack_Click");
+	LoadTextureToMap("../Resources/Gameplay/HUD/WinSprite.png", "WinSprite");
+	LoadTextureToMap("../Resources/Gameplay/HUD/LoseSprite.png", "LoseSprite");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_GrowthBarFill.png", "GrowthBarFill");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarLeft.png", "LeftBar");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarLeftSmall.png", "SmallLeftBar");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarRight.png", "RightBar");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarRightSmall.png", "SmallRightBar");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_Bar.png", "HUD");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarRightLife1.png", "LifeR1");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarRightLife2.png", "LifeR2");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarRightLife3.png", "LifeR3");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarLeftLife1.png", "LifeL1");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarLeftLife2.png", "LifeL2");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BarLeftLife3.png", "LifeL3");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_GamePaused.png", "UIGame_Paused");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_BattleCountdown.png", "Countdown");
+	LoadTextureToMap("../Resources/Gameplay/HUD/UI_HelpMenu.png", "UIHelpMenu");
 
-	LoadTextureToMap("../Resources/WinSprite.png", "WinSprite");
-	LoadTextureToMap("../Resources/LoseSprite.png", "LoseSprite");
-	
-	LoadTextureToMap("../Resources/Ball.png", "Ball");
-	LoadTextureToMap("../Resources/Moon.png", "Moon");
-
-	LoadTextureToMap("../Resources/UIGrowthBarFill.png", "GrowthBarFill");
-	LoadTextureToMap("../Resources/UI_BarLeft.png", "LeftBar");
-	LoadTextureToMap("../Resources/UI_BarLeftSmall.png", "SmallLeftBar");
-	LoadTextureToMap("../Resources/UI_BarRight.png", "RightBar");
-	LoadTextureToMap("../Resources/UI_BarRightSmall.png", "SmallRightBar");
-
-	LoadTextureToMap("../Resources/UI_Bar.png", "HUD");
-
-	LoadTextureToMap("../Resources/UI_BarRightLife1.png", "LifeR1");
-	LoadTextureToMap("../Resources/UI_BarRightLife2.png", "LifeR2");
-	LoadTextureToMap("../Resources/UI_BarRightLife3.png", "LifeR3");
-	LoadTextureToMap("../Resources/UI_BarLeftLife1.png", "LifeL1");
-	LoadTextureToMap("../Resources/UI_BarLeftLife2.png", "LifeL2");
-	LoadTextureToMap("../Resources/UI_BarLeftLife3.png", "LifeL3");
-
-	LoadTextureToMap("../Resources/rock.png", "Rock");
-	LoadTextureToMap("../Resources/PowerUpIconDamage.png", "PowerUpIconDamage");
-	LoadTextureToMap("../Resources/PowerUpIconHealth.png", "PowerUpIconHealth");
-	LoadTextureToMap("../Resources/PowerUpIconInvul.png", "PowerUpIconInvul");
-	LoadTextureToMap("../Resources/PowerUpIconSpeed.png", "PowerUpIconSpeed");
-	LoadTextureToMap("../Resources/PowerUpIcon.png", "PowerUpIcon");
-	LoadTextureToMap("../Resources/RockSpriteSheet.png", "Rocks");
-	LoadTextureToMap("../Resources/UIHelpMenu.png", "UIHelpMenu");
-	LoadTextureToMap("../Resources/UIGame_Paused.png", "UIGame_Paused");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpIcon_Damage.png", "PowerUpIconDamage");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpIcon_Health.png", "PowerUpIconHealth");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpIcon_Invul.png", "PowerUpIconInvul");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpIcon_Speed.png", "PowerUpIconSpeed");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpIcon.png", "PowerUpIcon");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpText_Star.png", "PowerUpTextStar");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpText_Health.png", "PowerUpTextHealth");
+	LoadTextureToMap("../Resources/Gameplay/PowerUps/PowerUpText_Boost.png", "PowerUpTextBoost");
 
 
-	LoadTextureToMap("../Resources/TransitionBack.png", "TransitionBack");
-	
-	LoadTextureToMap("../Resources/spritesheet2.png", "TestAnim");
-	LoadTextureToMap("../Resources/Placeholder/headanim.png", "HeadAnim");
+	LoadTextureToMap("../Resources/UI/MouseCollider.png", "MouseCollider");
 
-	LoadTextureToMap("../Resources/Animated/Fire-Explosion-Particle.png", "ExplosionParticle");
-	LoadTextureToMap("../Resources/Animated/Void-Particle.png", "VoidParticle");
-	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle.png", "SparkParticle");
-	LoadTextureToMap("../Resources/Animated/Spark-Explosion-Particle-White.png", "SparkParticleWhite");
+	LoadTextureToMap("../Resources/UI/UI_Back.png", "UIBack");
+	LoadTextureToMap("../Resources/UI/UI_Back_Hover.png", "UIBack_Hover");
+	LoadTextureToMap("../Resources/UI/UI_Back_Click.png", "UIBack_Click");
+	LoadTextureToMap("../Resources/UI/MainMenuLogo.png", "MainMenuLogo");
+	LoadTextureToMap("../Resources/UI/TransitionBack.png", "TransitionBack");
+	LoadTextureToMap("../Resources/UI/CreditsBackground.png", "Credits-Background");
 
-	LoadTextureToMap("../Resources/Credits-Background.png", "Credits-Background");
-	
-	LoadTextureToMap("../Resources/Portraits/Edwin.png", "Edwin");
-	LoadTextureToMap("../Resources/Portraits/CY.png", "CY");
-	LoadTextureToMap("../Resources/Portraits/Adam.png", "Adam");
-	LoadTextureToMap("../Resources/Portraits/Spoodermun.png", "Spoodermun");
-	LoadTextureToMap("../Resources/Portraits/DigipenSquareLogo.png", "DigipenSquareLogo");
-	LoadTextureToMap("../Resources/DigiPen_Singapore.png", "DigipenLogo");
-	LoadTextureToMap("../Resources/TeamLogo.png", "TeamLogo");
-	LoadTextureToMap("../Resources/Animated/Hit-Particle-Effect.png", "HitParticle");
+	LoadTextureToMap("../Resources/UI/Confirm-ButtonIdle-Icon.png", "Confirm-Idle");
+	LoadTextureToMap("../Resources/UI/Confirm-ButtonHover-Icon.png", "Confirm-Hover");
 
-	LoadTextureToMap("../Resources/Placeholder/Sparks2-Particle.png", "Sparks2Particle");
+	LoadTextureToMap("../Resources/UI/Arrow-Down-Idle.png", "Down-Idle");
+	LoadTextureToMap("../Resources/UI/Arrow-Down-Hover.png", "Down-Hover");
+	LoadTextureToMap("../Resources/UI/Arrow-Down-Click.png", "Down-Click");
 
-	LoadTextureToMap("../Resources/PowerUpTextStar.png", "PowerUpTextStar");
-	LoadTextureToMap("../Resources/PowerUpTextHealth.png", "PowerUpTextHealth");
-	LoadTextureToMap("../Resources/PowerUpTextBoost.png", "PowerUpTextBoost"); 
+	LoadTextureToMap("../Resources/UI/Arrow-Up-Idle.png", "Up-Idle");
+	LoadTextureToMap("../Resources/UI/Arrow-Up-Hover.png", "Up-Hover");
+	LoadTextureToMap("../Resources/UI/Arrow-Up-Click.png", "Up-Click");
 
-	LoadTextureToMap("../Resources/ChooseYourSnek-Banner.png", "Select_Banner");
-	LoadTextureToMap("../Resources/Confirm-ButtonHover-Icon.png", "Confirm_Hover");
-	LoadTextureToMap("../Resources/Confirm-ButtonIdle-Icon.png", "Confirm_Idle");
+	LoadTextureToMap("../Resources/UI/ChooseYourSnek-Banner.png", "Select-Banner");
 
-	LoadTextureToMap("../Resources/Arrow-Down-Hover.png", "Down_Hover");
-	LoadTextureToMap("../Resources/Arrow-Down-Idle.png", "Down_Idle");
-	LoadTextureToMap("../Resources/Arrow-Down-Click.png", "Down_Click");
-	LoadTextureToMap("../Resources/Arrow-Up-Click.png", "Up_Click");
-	LoadTextureToMap("../Resources/Arrow-Up-Hover.png", "Up_Hover");
-	LoadTextureToMap("../Resources/Arrow-Up-Idle.png", "Up_Idle");
+	LoadTextureToMap("../Resources/UI/AD-Tutorial.png", "P1TurnTut");
+	LoadTextureToMap("../Resources/UI/LeftRight-Tutorial.png", "P2TurnTut");
+	LoadTextureToMap("../Resources/UI/WS-Tutorial.png", "P1AccelTut");
+	LoadTextureToMap("../Resources/UI/UpDown-Tutorial.png", "P2AccelTut");
+	LoadTextureToMap("../Resources/UI/LShift-Tutorial.png", "P1SpecialTut");
+	LoadTextureToMap("../Resources/UI/RShift-Tutorial.png", "P2SpecialTut");
 
-	LoadTextureToMap("../Resources/AD-Tutorial.png", "P1TurnTut");
-	LoadTextureToMap("../Resources/LeftRight-Tutorial.png", "P2TurnTut");
-	LoadTextureToMap("../Resources/WS-Tutorial.png", "P1AccelTut");
-	LoadTextureToMap("../Resources/UpDown-Tutorial.png", "P2AccelTut");
-	LoadTextureToMap("../Resources/LShift-Tutorial.png", "P1SpecialTut");
-	LoadTextureToMap("../Resources/RShift-Tutorial.png", "P2SpecialTut");
-	
+	LoadTextureToMap("../Resources/UI/Portraits/Edwin.png", "Edwin");
+	LoadTextureToMap("../Resources/UI/Portraits/CY.png", "CY");
+	LoadTextureToMap("../Resources/UI/Portraits/Adam.png", "Adam");
+	LoadTextureToMap("../Resources/UI/Portraits/Spoodermun.png", "Spoodermun");
+	LoadTextureToMap("../Resources/UI/Portraits/DigipenSquareLogo.png", "DigipenSquareLogo");
+	LoadTextureToMap("../Resources/UI/DigiPen_Singapore.png", "DigipenLogo");
+	LoadTextureToMap("../Resources/UI/TeamLogo.png", "TeamLogo");
 }
 
 AEGfxTexture* GraphicsSystem::LoadTextureToMap(const char* fileName, const char* textureName)
