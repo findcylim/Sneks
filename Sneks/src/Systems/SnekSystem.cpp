@@ -263,13 +263,22 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		auto snekHed1 = eventData.object1->m_po_OwnerEntity->GetComponent<SnekHeadComponent>();
 		auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>();
-	
+
+
 		if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
 		{
 			bool snekLostLife = false;
 			//Perform removal of body parts for body snek heds and check for win condition
 			for (auto i_SnekHed = snekHed1;; i_SnekHed = snekHed2)
 			{
+				auto powerUpComp = i_SnekHed->GetComponent<PowerUpComponent>();
+				//if victim under star power
+				if (powerUpComp->m_x_PowerUpType == kPowerUpStar &&
+					powerUpComp->m_f_PowerUpDurationLeft >= 0)
+				{
+					continue;
+				}
+
 				if (i_SnekHed->m_x_BodyParts.size() > 1)
 				{
 					RemoveBodyParts(i_SnekHed->m_i_CurrentDamage, i_SnekHed);

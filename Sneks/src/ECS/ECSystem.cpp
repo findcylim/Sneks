@@ -271,6 +271,8 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<SnekSystem>();
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
+
+	srand(static_cast<unsigned>(time(nullptr)));
 }
 
 bool ECSystem::IsEngineOn() const
