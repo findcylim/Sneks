@@ -340,10 +340,6 @@ void GameStateManager::ExitGame()
 
 void GameStateManager::Load()
 {
-	if (m_x_Previous == kStateWinScreen)
-	{
-		ResetBattle();
-	}
 	switch (m_x_Current) 
 	{
 	case kStateMainMenu:   
