@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the declaration for the Confirmation screen menu
 
 \par Contribution : Adam   - 100.00%
 
@@ -21,6 +21,12 @@ Technology is prohibited.
 #pragma once
 #include "../../ECS/System.h"
 #include "../../Utility/GameStateManager.h"
+
+/*
+	Confirmation Screen System
+
+	A screen to be shown before any destructive choices
+*/
 class ConfirmationScreenSystem :
 	public BaseSystem
 {

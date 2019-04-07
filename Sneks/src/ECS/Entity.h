@@ -24,7 +24,9 @@ Technology is prohibited.
 #ifndef ENTITY_H
 #define ENTITY_H
 
-
+/*
+	Enum of all the archetypes for entities
+*/
 enum Entity : unsigned char
 {
 	kEntityBase,

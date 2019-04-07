@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the UI and menus for the Credits Screen
 
 \par Contribution : Adam   - 100.00%
 
@@ -20,17 +20,26 @@ Technology is prohibited.
 #include "../../stdafx.h"
 #include "CreditsScreenSystem.h"
 
-
+/*
+	Constructor 
+*/
 CreditsScreenSystem::CreditsScreenSystem(GraphicsSystem* graphicsSystem)
 {
 	m_po_GraphicsSystem = graphicsSystem;
 }
 
+/*
+	Initialize function
+*/
 void CreditsScreenSystem::Initialize()
 {
+	//Add event listener
 	m_po_EventManagerPtr->AddListener<Events::EV_MOUSE_ONCLICK>(this, this);
+
+	//Creates the initial canvas
 	auto canvas				= m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "CreditsMenuEntity");
 	auto canvas_Component	= canvas->GetComponent<CanvasComponent>();
+
 	Events::EV_NEW_UI_ELEMENT CreditsBackgroundUIElement = { canvas_Component, HTVector2{ 0.5f ,0.5f } ,
 													   kCanvasBasicSprite,"CreditBackground" ,"Credits-Background" ,"","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT CreditsMenuUIElement = { canvas_Component, HTVector2{ 0.622f ,0.499f } ,
@@ -45,21 +54,30 @@ void CreditsScreenSystem::Initialize()
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = { canvas_Component, HTVector2{ 0.5f , 0.5f } ,
 														 kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
+	// Send the data to the event listener to be created by the canvas UI system
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(CreditsBackgroundUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(CreditsMenuUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(MemberNameUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(MemberRoleUIElement);
 	
+	//Disables the canvas initially
 	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CreditsMenuEntity");
 }
 
+/*
+	Destructor
+*/
 CreditsScreenSystem::~CreditsScreenSystem()
 {
+	// Remove the listener and deletes the canvas 
 	m_po_EventManagerPtr->RemoveListener<Events::EV_MOUSE_ONCLICK>(this);
 	m_po_EntityManager->AddToDeleteQueue(m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas, "CreditsMenuEntity"));
 }
 
+/*
+	On mouse click it will return to the main menu
+*/
 void CreditsScreenSystem::Receive(const Events::EV_MOUSE_ONCLICK& eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
@@ -67,6 +85,9 @@ void CreditsScreenSystem::Receive(const Events::EV_MOUSE_ONCLICK& eventData)
 		GameStateManager::SetState(m_e_PrevState);
 }
 
+/*
+	Updates the text spacing and such
+*/
 void CreditsScreenSystem::UpdateText(CanvasTextLabelEntity* textEntity,const char * nameText,HTVector2 ScreenOffset)
 {
 	auto NameTextRenderer = textEntity->GetComponent<TextRendererComponent>();
@@ -76,9 +97,14 @@ void CreditsScreenSystem::UpdateText(CanvasTextLabelEntity* textEntity,const cha
 
 }
 
+/*
+	Update function
+*/
 void CreditsScreenSystem::Update(float dt)
 {
 	m_f_Timer -= dt;
+	// The credits screen is on a timer
+	// It will change the graphic after a time
 	if (m_f_Timer < 0)
 	{
 		m_b_ClickHold = false;
@@ -98,7 +124,7 @@ void CreditsScreenSystem::Update(float dt)
 		HTVector2 ScreenSize;
 		AlphaEngineHelper::GetScreenSize(&ScreenSize.x, &ScreenSize.y);
 
-
+		// Changes the image and text
 		switch (m_i_PortraitValue)
 		{
 		case 0:
@@ -151,11 +177,18 @@ void CreditsScreenSystem::Update(float dt)
 	}
 }
 
+/*
+	Gets the state previous to this
+	Its normally main menu but its best to remove any dependencies
+*/
 void CreditsScreenSystem::SetNextState(State nextState)
 {
 	m_e_PrevState = nextState;
 }
 
+/*
+	OnEnable function
+*/
 void CreditsScreenSystem::OnEnable()
 {
 	m_po_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CreditsMenuEntity");
@@ -163,6 +196,9 @@ void CreditsScreenSystem::OnEnable()
 	m_b_ClickHold = true;
 }
 
+/*
+	OnDisable function
+*/
 void CreditsScreenSystem::OnDisable()
 {
 	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CreditsMenuEntity");

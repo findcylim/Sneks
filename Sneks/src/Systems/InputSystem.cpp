@@ -59,15 +59,22 @@ Technology is prohibited.
 
 //constexpr size_t kKeyCount = sizeof(m_x_CurrentKeyStates) / sizeof(KeyState);
 
+/*
+	Constructor
+*/
 InputSystem::InputSystem()
 {
 	AlphaEngineHelper::GetScreenSize(&m_o_ScreenSize.x, &m_o_ScreenSize.y);
+	// Sets the screen size
 	m_o_ScreenSize.x *= 0.5f;
 	m_o_ScreenSize.y *= 0.5f;
 }
 
 InputSystem::~InputSystem() = default;
 
+/*
+	For future use
+*/
 void InputSystem::SetKeyBinds()
 {
 	/*
@@ -77,15 +84,23 @@ void InputSystem::SetKeyBinds()
 	}*/
 }
 
+/*
+	Update function
+
+	Currently, updates the mouse position and calculates the coordinate system conversion
+*/
 void InputSystem::Update(float dt)
 {
 	MouseEntity* mouseEntity = m_po_EntityManager->GetFirstEntityInstance<MouseEntity>(kEntityMouse);
 	POINT mouse;
 	
+	// Get mouse screen position
 	GetCursorPos(&mouse);
 	TransformComponent* t_Comp = mouseEntity->GetComponent<TransformComponent>();
 	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	
+
+	//	According to the camera scale
+	//	Will update the position
 	float scale = 1.0f / c_Comp->GetScale();
 	t_Comp->m_f_ScaleMultiplier = (scale);
 	float overScale = (1 / scale);
@@ -93,6 +108,7 @@ void InputSystem::Update(float dt)
 	t_Comp->m_x_Position.x = (-c_Comp->m_f_VirtualOffset.x*overScale + (mouse.x- m_o_ScreenSize.x)-mouseOffset);
 	t_Comp->m_x_Position.y = (-c_Comp->m_f_VirtualOffset.y*overScale + (m_o_ScreenSize.y-mouse.y )+mouseOffset*4);
 
+	//	 Offset from scale
 	if (t_Comp->m_x_Position.x > 0)
 		t_Comp->m_x_Position.x -= (t_Comp->m_x_Position.x*(1 - scale));
 	else if(t_Comp->m_x_Position.x < 0)
@@ -103,7 +119,7 @@ void InputSystem::Update(float dt)
 	else if (t_Comp->m_x_Position.y < 0)
 		t_Comp->m_x_Position.y -= (t_Comp->m_x_Position.y*(1 - scale));
 
-
+	
 	if (AEInputCheckReleased(VK_LBUTTON))
 	{
 		if (m_b_IsMousePressed == false)

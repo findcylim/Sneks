@@ -20,8 +20,12 @@ Technology is prohibited.
 #pragma once
 #include "../../ECS/System.h"
 
+// Forward declaration of GraphicsSystem
 class GraphicsSystem;
 
+/*
+	Splash screen declaration	
+*/
 class SplashScreenSystem :
 	public BaseSystem,
 	public EventListener<Events::EV_MOUSE_ONCLICK>

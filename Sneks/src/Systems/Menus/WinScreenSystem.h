@@ -20,16 +20,26 @@ Technology is prohibited.
 #ifndef WIN_SCREEN_SYSTEM_H
 #define WIN_SCREEN_SYSTEM_H
 
-
 #include "../../ECS/System.h"
+
+
+/*
+	Win Screen System declaration	
+*/
 class WinScreenSystem :
 	public BaseSystem
 {
 public:
+	/*
+		Constructor and destructor
+	*/
 	WinScreenSystem();
 	~WinScreenSystem();
+
+	// BaseSystem Overrides
 	void Initialize() override;
 	void Update(float dt) override;
+
 	void SwapWinScreen();
 
 	int m_c_Winner = 1;

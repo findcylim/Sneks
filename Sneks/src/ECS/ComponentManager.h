@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains code for the intro splash screen images
+\brief This file contains code for management of components
 
 \par Contribution : CY   - 25.86% (Each-lambda/std::function function)
 \par Contribution : Adam - 74.14% (Everything Else)

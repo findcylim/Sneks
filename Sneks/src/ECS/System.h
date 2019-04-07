@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the base system class where all other systems 
 
 \par Contribution : Adam - 51.61% (BaseSystem) 
 \par Contribution : CY   - 48.39% (Edits)

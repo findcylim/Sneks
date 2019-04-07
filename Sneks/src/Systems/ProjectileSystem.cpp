@@ -29,25 +29,39 @@ Technology is prohibited.
 
 time_t timeStampProjectile = 0;
 
+/*
+	Constructor
+*/
 ProjectileSystem::ProjectileSystem( GraphicsSystem* graphics)
 {
 	m_o_GraphicsSystem = graphics;
 }
 
+/*
+	Update function
+*/
 void ProjectileSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
 
 }
 
+/*
+	Initialize function
+*/
 void ProjectileSystem::Initialize()
 {
+	// Adds the listeners
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
 	m_po_EventManagerPtr->AddListener<Events::EV_CREATE_PROJECTILE>(this, this);
 }
 
+/*
+	Create projectile event
+*/
 void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 {
+	//	Creates the new projectile entity 
 	ProjectileEntity* ent = m_po_EntityManager->NewEntity<ProjectileEntity>(kEntityProjectile, eventData.texName);
 	auto T_Comp = ent->GetComponent<TransformComponent>();
 	T_Comp->m_x_Position.x = (eventData.pos->x);
@@ -55,12 +69,18 @@ void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 	T_Comp->SetRotation(eventData.rot);
 	T_Comp->m_f_Scale = eventData.scale;
 
+	/*
+		Sets the physics component details for the projectile
+	*/
 	auto P_Comp = ent->GetComponent<PhysicsComponent>();
 	P_Comp->m_x_Velocity.x = eventData.velocity->x;
 	P_Comp->m_x_Velocity.y = eventData.velocity->y;
 	P_Comp->m_po_TransformComponent = T_Comp;
 	P_Comp->m_f_Speed = eventData.speed;
 
+	/*
+		Sets the collision settings
+	*/
 	auto C_Comp = ent->GetComponent<CollisionComponent>();
 	C_Comp->m_i_CollisionGroupVec.push_back(kCollGroupMoon);
 
@@ -68,6 +88,9 @@ void ProjectileSystem::Receive(const Events::EV_CREATE_PROJECTILE& eventData)
 	m_o_GraphicsSystem->InitializeDrawComponent(G_Comp, eventData.texName);
 }
 
+/*
+	Projectile collisions
+*/
 void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMoon && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupSnek2Body)
@@ -82,8 +105,12 @@ void ProjectileSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	m_po_EventManagerPtr->EmitEvent<Events::EV_ENTITY_POOL_CHANGED>(Events::EV_ENTITY_POOL_CHANGED());
 }
 
+/*
+	Destructor
+*/
 ProjectileSystem::~ProjectileSystem()
 {
+	//	Removes the listeners
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_CREATE_PROJECTILE>(this);
 };

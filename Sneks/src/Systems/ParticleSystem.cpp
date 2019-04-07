@@ -203,6 +203,17 @@ void ParticleSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 }
 
+void ParticleSystem::OnDisable()
+{
+	auto pec = m_po_ComponentManager->GetFirstComponentInstance<ParticleComponent>(kComponentParticle);
+	while(pec)
+	{
+		pec->KillParticle();
+		pec = static_cast<ParticleComponent*>(pec->m_po_NextComponent);
+	}
+	Update(0.0f);
+}
+
 bool ParticleSystem::CollisionCheckForParticleSystem(CollisionGroupName collisionGroupName1, TransformComponent* transComp_1,
 	CollisionGroupName collisionGroupName2, TransformComponent* transComp_2, CollisionGroupName collGroupToCheck,
 	TransformComponent** outTransformComponent)

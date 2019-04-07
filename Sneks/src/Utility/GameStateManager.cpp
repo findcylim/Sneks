@@ -171,9 +171,17 @@ void GameStateManager::ResetBattle()
 	// 	powerupEntity = static_cast<PowerUpHolderEntity*>(powerupEntity->m_po_NextEntity);
 	// }
 
+
 	m_o_EntityManager->ResolveDeletes();
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
 	snek->ResetStage();
+
+	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+	while (snekHead)
+	{
+		snekHead->m_i_LivesLeft = 3;
+		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
+	}
 	
 	// snek->ResetDamageAll();
 	// snek->ResetLivesAll();
@@ -194,12 +202,7 @@ void GameStateManager::LoadBattle()
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
 	AEInputShowCursor(false);
-	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
-	while (snekHead)
-	{
-		snekHead->m_i_LivesLeft = 3;
-		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
-	}
+	
 	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
 	cameraComponent->m_b_TrackObjects = true;
