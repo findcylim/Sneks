@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that defines powerup pickups in the game
+and how they affect the snek. Some powerups are in multiple stages.
 
 \par Contribution : CY     - 51.92% (Rework)
 \par Contribution : Edwin  - 48.08% (Original PowerUp System)

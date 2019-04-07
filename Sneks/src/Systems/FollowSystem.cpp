@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that allows entities to move towards its 
+reference and change its rotation according to it.
 
 \par Contribution : CY     - 100.00%
 

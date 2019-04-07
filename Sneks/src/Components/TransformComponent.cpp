@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code to manipulate some data in transform component
+that does not use public/default getters/setters
 
 \par Contribution : CY - 100.00%
 

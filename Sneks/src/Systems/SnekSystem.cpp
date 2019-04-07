@@ -6,7 +6,9 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains 
+\brief This file contains code that manipulate how snek heads and body parts
+work in the game. It handles mainly the game logic for SNEKS and will not
+be relevant for the engine for other games.
 
 \par Contribution : CY     - 58.44% (Everything else)
 \par Contribution : Javier - 27.51% (Flip Skill)

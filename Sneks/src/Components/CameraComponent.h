@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains data that allows the Camera system to work.
+The attributes can be set to alter camera scrolling parameters.
 
 \par Contribution : CY - 100.00%
 

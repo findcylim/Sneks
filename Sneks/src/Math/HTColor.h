@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains some code for our custom color struct.
 
 \par Contribution : CY     - 100.00%
 

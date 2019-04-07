@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains data that defines how a snek head behaves. Logic is
+used mainly by snek system.
 
 \par Contribution : CY    - 86.49% (Main structure)
 \par Contribution : Edwin - 13.51% (Edits)

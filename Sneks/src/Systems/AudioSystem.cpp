@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that listens to events and react by playing 
+sounds.
 
 \par Contribution : CY     - 13.07% (Adding of sounds)
 \par Contribution : Javier - 70.59% (Sound & Audio System structure)
