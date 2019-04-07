@@ -135,21 +135,6 @@ void SnekSystem::CheckGrowthMeters()
 				switch (snekHead->m_x_SnekType)
 				{
 				case kSnekTypeFlip:
-					bodyTexture = "P1FlipSnekBody";
-					break;
-				case kSnekTypeShoot:
-					bodyTexture = "P1ShootSnekBody";
-					break;
-				case kSnekTypeSpeed:
-					bodyTexture = "P1SpeedSnekBody";
-					break;
-				}
-			}
-			else
-			{
-				switch (snekHead->m_x_SnekType)
-				{
-				case kSnekTypeFlip:
 					bodyTexture = "P2FlipSnekBody";
 					break;
 				case kSnekTypeShoot:
@@ -157,6 +142,21 @@ void SnekSystem::CheckGrowthMeters()
 					break;
 				case kSnekTypeSpeed:
 					bodyTexture = "P2SpeedSnekBody";
+					break;
+				}
+			}
+			else // player 1
+			{
+				switch (snekHead->m_x_SnekType)
+				{
+				case kSnekTypeFlip:
+					bodyTexture = "P1FlipSnekBody";
+					break;
+				case kSnekTypeShoot:
+					bodyTexture = "P1ShootSnekBody";
+					break;
+				case kSnekTypeSpeed:
+					bodyTexture = "P1SpeedSnekBody";
 					break;
 				}
 			}
