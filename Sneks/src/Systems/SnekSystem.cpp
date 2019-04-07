@@ -45,6 +45,7 @@ Technology is prohibited.
 #include "../Components/ParticleSpawnerComponent.h"
 #include "ParticleSystem.h"
 #include "PowerUpSystem.h"
+#include "../ECS/ECSystem.h"
 
 int SnekSystem::GetWinner()
 {
@@ -284,7 +285,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			}
 			if (snekLostLife)
 			{
-				ResetStage();
+				GameStateManager::SetState(kStateEndOfRound);
 				return;
 			}
 
@@ -353,6 +354,7 @@ void SnekSystem::ResetStage()
 	m_po_ComponentManager->Each<ParticleComponent>([&](ParticleComponent* comp)
 	{
 		comp->KillParticle();
+		comp->m_b_IsActive = false;
 	}, kComponentParticle);
 
 	//Regenerate buildings

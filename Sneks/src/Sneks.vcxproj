@@ -53,6 +53,7 @@
     <ClCompile Include="Systems\LevelLoaderSystem.cpp" />
     <ClCompile Include="Systems\Menus\ConfirmationScreenSystem.cpp" />
     <ClCompile Include="Systems\Menus\CreditsScreenSystem.cpp" />
+    <ClCompile Include="Systems\Menus\EndRoundScreenSystem.cpp" />
     <ClCompile Include="Systems\Menus\HelpMenuSystem.cpp" />
     <ClCompile Include="Systems\Menus\HUDSystem.cpp" />
     <ClCompile Include="Systems\Menus\MainMenuSystem.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="Systems\LevelLoaderSystem.h" />
     <ClInclude Include="Systems\Menus\ConfirmationScreenSystem.h" />
     <ClInclude Include="Systems\Menus\CreditsScreenSystem.h" />
+    <ClInclude Include="Systems\Menus\EndRoundScreenSystem.h" />
     <ClInclude Include="Systems\Menus\HelpMenuSystem.h" />
     <ClInclude Include="Systems\Menus\HUDSystem.h" />
     <ClInclude Include="Systems\Menus\MainMenuSystem.h" />

@@ -52,6 +52,7 @@ Technology is prohibited.
 #include "../Systems/Menus/TutorialMenuSystem.h"
 #include "../Systems/Menus/OptionsMenuSystem.h"
 #include "../Systems/Menus/ConfirmationScreenSystem.h"
+#include "../Systems/Menus/EndRoundScreenSystem.h"
 
 ECSystem::ECSystem()
 {
@@ -198,6 +199,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(pauseMenu);
 	pauseMenu->SetName("PauseMenu");
 
+	m_o_SystemManager->MakeSystem<EndRoundScreenSystem>("EndRound");
 	m_o_SystemManager->MakeSystem<WinScreenSystem>("WinScreen");
 
 	m_o_SystemManager->AddSystem(creditsScreen);
@@ -241,6 +243,7 @@ void ECSystem::InitializeEngine()
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
 	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
 
@@ -250,6 +253,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
 	m_o_SystemManager->DisableSystem<ConfirmationScreenSystem>();
+	m_o_SystemManager->DisableSystem<EndRoundScreenSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 	m_o_SystemManager->DisableSystem<PhysicsSystem>();

@@ -44,6 +44,7 @@ Technology is prohibited.
 #include "../Systems/Menus/ConfirmationScreenSystem.h"
 #include "../Systems/InputSystem.h"
 #include "../ECS/ECSystem.h"
+#include "../Systems/Menus/EndRoundScreenSystem.h"
 
 State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
@@ -275,6 +276,21 @@ void GameStateManager::UnloadPauseMenu()
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 }
 
+void GameStateManager::LoadEndRound()
+{
+	m_o_SystemManager->EnableSystem<EndRoundScreenSystem>();
+	SetTimeScale(0);
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
+}
+
+void GameStateManager::UnloadEndRound()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
+	SetTimeScale(1.0f);
+	m_o_SystemManager->DisableSystem<EndRoundScreenSystem>();
+	m_o_SystemManager->GetSystem<SnekSystem>()->ResetStage();
+}
+
 void GameStateManager::LoadCountdown()
 {
 	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
@@ -371,6 +387,9 @@ void GameStateManager::Load()
 	case kStatePause:		
 		LoadPauseMenu();
 		break;
+	case kStateEndOfRound:
+		LoadEndRound();
+		break;
 	case kStateConfirmationScreen:
 		LoadConfirm();
 		break;
@@ -418,6 +437,9 @@ void GameStateManager::Unload()
 	case kStateCountdown:	
 		UnloadCountdown();		
 		break;
+	case kStateEndOfRound:
+		UnloadEndRound();
+		break;
 	case kStatePause:		
 		UnloadPauseMenu();			
 		break;
@@ -430,7 +452,7 @@ void GameStateManager::Update(float dt)
 	{
 		m_o_EventManager->EmitEvent<Events::EV_GAME_STATE_CHANGED>(Events::EV_GAME_STATE_CHANGED{ m_x_Next ,m_x_Current });
 
-		if (m_x_Current == kStateMainMenu || m_x_Next == kStateMainMenu || m_x_Next == kStateRestart)
+		if (m_x_Current == kStateMainMenu || m_x_Next == kStateMainMenu || m_x_Next == kStateRestart || (m_x_Current == kStateEndOfRound && m_x_Next == kStateGame ))
 		{
 			m_o_SystemManager->DisableSystem<InputSystem>();
 			m_o_SystemManager->DisableSystem<CameraSystem>();

@@ -44,6 +44,7 @@ typedef enum State
 	kStatePause,
 	kStateCreditsScreen,
 	kStateConfirmationScreen,
+	kStateEndOfRound,
 	kStateRestart,
 	kStateExit = -1,
 	kStateTransition = -2,
@@ -98,6 +99,8 @@ public:
 	void ResetBattle();
 	void LoadPauseMenu();
 	void UnloadPauseMenu();
+	void LoadEndRound();
+	void UnloadEndRound();
 	void LoadCountdown();
 	void UnloadCountdown();
 	void LoadSplashScreen();
