@@ -129,19 +129,38 @@ void SnekSystem::CheckGrowthMeters()
 		if (snekHead->m_f_CurrentGrowth >= snekHead->m_f_GrowthMeter)
 		{
 			const char* bodyTexture = nullptr;
-			switch (snekHead->m_x_SnekType)
-			{
-			case kSnekTypeFlip:
-				bodyTexture = "SnekBody03";
-				break;
-			case kSnekTypeShoot:
-				bodyTexture = "SnekBody02";
-				break;
-			case kSnekTypeSpeed:
-				bodyTexture = "SnekBody01";
-				break;
 
+			if (snekHead->m_i_PlayerNumber) // player 2
+			{
+				switch (snekHead->m_x_SnekType)
+				{
+				case kSnekTypeFlip:
+					bodyTexture = "P1FlipSnekBody";
+					break;
+				case kSnekTypeShoot:
+					bodyTexture = "P1ShootSnekBody";
+					break;
+				case kSnekTypeSpeed:
+					bodyTexture = "P1SpeedSnekBody";
+					break;
+				}
 			}
+			else
+			{
+				switch (snekHead->m_x_SnekType)
+				{
+				case kSnekTypeFlip:
+					bodyTexture = "P2FlipSnekBody";
+					break;
+				case kSnekTypeShoot:
+					bodyTexture = "P2ShootSnekBody";
+					break;
+				case kSnekTypeSpeed:
+					bodyTexture = "P2SpeedSnekBody";
+					break;
+				}
+			}
+
 			snekHead->m_f_CurrentGrowth = 0;
 			//Make it harder for the snake to grow
 			snekHead->m_f_GrowthMeter *= 1.1f;
@@ -615,29 +634,53 @@ void SnekSystem::CreateSnek(float posX, float posY, float rotation,
 			kComponentSnekHead
 		);
 
-	auto tailTexture = "SnekTail01";
-	auto bodyTexture = "SnekBody01";
-	auto headTexture = "SnekHead01";
+	auto tailTexture = "P1FlipSnekTail";
+	auto bodyTexture = "P1SpeedSnekBody";
+	auto headTexture = "P1SpeedSnekHead";
 	auto spriteCountX = 2;
 	auto spriteCountY = 1;
 
-	switch (snekType)
+	if (controlScheme) // player 2
 	{
-	case kSnekTypeFlip:
-		headTexture = "SnekHead03";
-		bodyTexture = "SnekBody03";
-		tailTexture = "SnekTail03";
-		break;
-	case kSnekTypeSpeed:
-		headTexture = "HeadAnim";
-		bodyTexture = "SnekBody01";
-		tailTexture = "SnekTail01";
-		break;
-	case kSnekTypeShoot:
-		headTexture = "SnekHead02";
-		bodyTexture = "SnekBody02";
-		tailTexture = "SnekTail02";
-		break;
+		switch (snekType)
+		{
+		case kSnekTypeFlip:
+			headTexture = "P2FlipSnekHead";
+			bodyTexture = "P2FlipSnekBody";
+			tailTexture = "P2FlipSnekTail";
+			break;
+		case kSnekTypeSpeed:
+			headTexture = "P2SpeedSnekHead";
+			bodyTexture = "P2SpeedSnekBody";
+			tailTexture = "P2SpeedSnekTail";
+			break;
+		case kSnekTypeShoot:
+			headTexture = "P2ShootSnekHead";
+			bodyTexture = "P2ShootSnekBody";
+			tailTexture = "P2ShootSnekTail";
+			break;
+		}
+	}
+	else // player 1
+	{
+		switch (snekType)
+		{
+		case kSnekTypeFlip:
+			headTexture = "P1FlipSnekHead";
+			bodyTexture = "P1FlipSnekBody";
+			tailTexture = "P1FlipSnekTail";
+			break;
+		case kSnekTypeSpeed:
+			headTexture = "P1SpeedSnekHead";
+			bodyTexture = "P1SpeedSnekBody";
+			tailTexture = "P1SpeedSnekTail";
+			break;
+		case kSnekTypeShoot:
+			headTexture = "P1ShootSnekHead";
+			bodyTexture = "P1ShootSnekBody";
+			tailTexture = "P1ShootSnekTail";
+			break;
+		}
 	}
 
 	while (i_SnekHeadComponents)
