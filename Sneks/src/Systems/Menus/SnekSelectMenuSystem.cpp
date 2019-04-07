@@ -102,7 +102,7 @@ void SnekSelectMenuSystem::Initialize()
 	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Snek Select UI");
 	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
 
-	Events::EV_NEW_UI_ELEMENT LogoElement = { canvasComponent,HTVector2{ 0.3f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"Select-Banner" ,"","","", nullptr };
+	Events::EV_NEW_UI_ELEMENT LogoElement = { canvasComponent,HTVector2{ 0.5f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"Select-Banner" ,"","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT P1UpElement = { canvasComponent,HTVector2{ 0.175f , 0.5f } ,kCanvasButton,"P1Up" ,"Up-Idle" ,"","Up-Hover","Up-Click",P1SnekStateUp };
 	Events::EV_NEW_UI_ELEMENT P1DownElement = { canvasComponent,HTVector2{ 0.175f , 0.655f } ,kCanvasButton,"P1Down" ,"Down-Idle", "" ,"Down-Hover","Down-Click",P1SnekStateDown };
 	Events::EV_NEW_UI_ELEMENT P2UpElement = { canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"P2Up" ,"Up-Idle", "","Up-Hover","Up-Click",P2SnekStateUp };
