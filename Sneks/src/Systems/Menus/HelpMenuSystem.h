@@ -20,18 +20,25 @@ Technology is prohibited.
 #pragma once
 #include "../../ECS/System.h"
 #include "../../Utility/GameStateManager.h"
+
+/*
+	Help Menu System
+
+	System to show the help menu before the game starts
+*/
 class HelpMenuSystem :
 	public BaseSystem,
 	public EventListener<Events::EV_MOUSE_ONCLICK>
 {
 	State m_e_PrevState = kStateExit;
-	float m_f_Timer = 0.5f;
+	float m_f_Timer		= 0.5f;
 public:
+	HelpMenuSystem();
+	~HelpMenuSystem();
+
 	void SetNextState(State nextState);
 	void Initialize();
 	void Receive(const Events::EV_MOUSE_ONCLICK& eventData) override;
-	HelpMenuSystem();
-	~HelpMenuSystem();
 	void Update(float dt);
 	void OnEnable() override;
 	void OnDisable() override;

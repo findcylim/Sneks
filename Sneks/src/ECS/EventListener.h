@@ -23,7 +23,9 @@ Technology is prohibited.
 
 #include "../Utility/RTTIHelper.h"
 
+// BaseSystem forward declaration
 class BaseSystem;
+
 //This base class is so that we can manage EventListeners without knowing their template types
 class BaseEventListener
 {

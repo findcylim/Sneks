@@ -26,6 +26,11 @@ Technology is prohibited.
 
 // Will handle loading and unloading of StaticObjects and Background Objects
 
+
+/*
+	FOR FUTURE USE
+	NOT USING ATM
+*/
 LevelLoaderSystem::LevelLoaderSystem( EventManager* eventManager, GameStateManager* gameStateManager,GraphicsSystem* graphicsSystem)
 {
 	m_o_GraphicsSystem = graphicsSystem;

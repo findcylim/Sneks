@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains manager for management of systems
 
 \par Contribution : CY     - 26.32% (GetSystem & MakeSystem)
 \par Contribution : Adam   - 73.68% (Everything else)
@@ -28,6 +28,11 @@ Technology is prohibited.
 #include "../Utility/Logger.h"
 #include "Component.h"
 
+/*
+	System Manager
+	
+	In charge of creation, deletion, updating and other function relating to systems
+*/
 class SystemManager
 {
 private:
@@ -39,6 +44,9 @@ private:
 public:
 	size_t GetSystemCount() const;
 
+	/*
+		Creates a system. Default parameters
+	*/
 	template <typename SystemType>
 	SystemType* MakeSystem(const char* systemName = "")
 	{
@@ -48,8 +56,13 @@ public:
 		return newSystem;
 	}
 
-
+	/*
+		Adds a created system to the system list
+	*/
 	void AddSystem(BaseSystem* newSystem, bool init = true);
+	/*
+		Removes the system from the system list
+	*/
 	void RemoveSystem(BaseSystem* toRemove);
 	void Update(float dt);
 	//BaseSystem* GetSystem(int ID); 
@@ -58,6 +71,9 @@ public:
 	SystemManager(Logger* logger);
 	~SystemManager();
 
+	/*
+		Gets a system by name
+	*/
 	template <typename SystemType>
 	SystemType* GetSystem(const char* Name = "")
 	{
@@ -75,6 +91,9 @@ public:
 		return nullptr;
 	}
 
+	/*
+		Disables a system given by template parameter
+	*/
 	template <typename SystemType>
 	void DisableSystem()
 	{
@@ -89,7 +108,9 @@ public:
 			}
 		}
 	}
-
+	/*
+		Enables a system given by template parameter
+	*/
 	template <typename SystemType>
 	void EnableSystem()
 	{
@@ -104,6 +125,7 @@ public:
 			}
 		}
 	}
+
 
 	template<typename T>
 	void DisableAllComponents(Component type)

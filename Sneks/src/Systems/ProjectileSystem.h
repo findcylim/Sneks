@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file containscode for Lunar pellet projectile
 
 \par Contribution : Adam     - 50.00% 
 \par Contribution : Javier   - 50.00%
@@ -24,17 +24,23 @@ Technology is prohibited.
 #pragma once
 #include "../ECS/System.h"
 #include "../ECS/EntityManager.h"
-//#include "../ECS/ECSystem.h"
 #include "GraphicsSystem.h"
-//#include "SnekSystem.h"
 
+/*
+	Projectile System 
+
+	Handling all current and future projectiles
+	Game specific
+*/
 class ProjectileSystem : public BaseSystem,
 	public EventListener<Events::EV_PLAYER_COLLISION>,
 	public EventListener<Events::EV_CREATE_PROJECTILE>
 {
 public:
+	// Constructor and Destructor
 	ProjectileSystem( GraphicsSystem* graphics);
 	~ProjectileSystem();
+
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData);
 	void Receive(const Events::EV_CREATE_PROJECTILE& eventData);
 	void Update(float dt) override;

@@ -1,14 +1,16 @@
-/* Start Header****************************************************************/
+/* Start Header ***************************************************************/
 /*!
-\file CollisionSystem.h
-\author Lim Chu Yan, chuyan.lim, 440002918
+\file CollisionComponent.h
+\author Lim Chu Yan, chuyan.lim, 440002918 
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\date Created: 12/02/2019
+\date Modified: 26/03/2019
+\brief This file contains 
 
-\par Contribution : CY - 100.00%
+\par Contribution (hours): CY - 3
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

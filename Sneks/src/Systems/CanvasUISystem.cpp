@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains implementation for UI canvas components
 
 \par Contribution : Adam   - 100.00%  
 
@@ -22,41 +22,56 @@ Technology is prohibited.
 #include "../Utility/FileIO.h"
 #include "../Utility/AlphaEngineHelper.h"
 
-
+/*
+	Constructor
+*/
 CanvasUISystem::CanvasUISystem(GraphicsSystem* graphicsManager)
 {
 	m_po_GraphicsManager = graphicsManager;
 }
 
-
+/*
+	Destructor	
+*/
 CanvasUISystem::~CanvasUISystem()
 {
+	//Removing the event listeners
 	m_po_EventManagerPtr->RemoveListener<Events::EV_NEW_UI_ELEMENT>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
 }
 
+/*
+	Update Function	
+*/
 void CanvasUISystem::Update(float dt) 
 {
 	(void)dt;
 	
+	// Getting the camera and first canvas component
 	CameraComponent * c_Comp = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	CanvasComponent * can_Comp = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
 
 	while (can_Comp)
 	{
+		// Check if the canvas is active
 		if(can_Comp->m_b_IsActive)
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
+			//If the inner element is inactive
 			if (!element->m_b_IsActive)
 			{
+				//Enable the entity
 				m_po_EntityManager->EnableSpecificEntityType(*element->m_v_AttachedComponentsList.begin());
 			}
+
+			//Fetching a bunch of components
 			TransformComponent * t_Comp = m_po_ComponentManager->GetSpecificComponentInstance<TransformComponent>(element, kComponentTransform);
 			CanvasElementComponent * canvasElementComponent = element->GetComponent<CanvasElementComponent>();
-			//Need to figure out a more optimized way to do this
 			CollisionComponent * collisionComponent = element->GetComponent<CollisionComponent>();
 			DrawComponent * drawComponent = element->GetComponent<DrawComponent>();
 
+			// Update the position according to the camera position and scale
+			// It is a UI element so it should not move in the world space
 			float scale = 1.0f / c_Comp->GetScale();
 			t_Comp->m_f_ScaleMultiplier=(scale);
 			if (strcmp(can_Comp->m_po_OwnerEntity->m_pc_EntityName, "Tutorial UI"))
@@ -64,6 +79,7 @@ void CanvasUISystem::Update(float dt)
 				t_Comp->m_x_Position.y = (-c_Comp->GetCameraPos().y - (canvasElementComponent->m_f_YOffset  * scale) + m_o_ScreenSize.y  * scale);
 				t_Comp->m_x_Position.x = (-c_Comp->GetCameraPos().x + (canvasElementComponent->m_f_XOffset  * scale) - m_o_ScreenSize.x  * scale);
 			}
+			// Change the textures accordingly to its click and hover status
 			if (collisionComponent)
 			{
 				if (canvasElementComponent->m_b_IsClicked)
@@ -87,8 +103,10 @@ void CanvasUISystem::Update(float dt)
 		}
 		else
 		{
+			// If it is not active
 			for (auto& element : can_Comp->m_x_CanvasElementList)
 			{
+				// Make sure everything is inactive
 				if (element->m_b_IsActive)
 				{
 					m_po_EntityManager->DisableSpecificEntityType(*element->m_v_AttachedComponentsList.begin());
@@ -99,16 +117,24 @@ void CanvasUISystem::Update(float dt)
 	}
 }
 
-
+/*
+	Initialize function	
+*/
 void CanvasUISystem::Initialize()
 {
+	//	 Adds event listeners
 	m_po_EventManagerPtr->AddListener<Events::EV_NEW_UI_ELEMENT>(this, this);
 	m_po_EventManagerPtr->AddListener<Events::EV_PLAYER_COLLISION>(this, this);
+
+	//	Sets the screen size
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 	m_o_ScreenSize = { screenX *0.5f, screenY*0.5f };
 }
 
+/*
+	Clears the all canvas elements in a canvas component
+*/
 void CanvasUISystem::ClearUI(CanvasComponent* canvas)
 {
 	for (auto& element : canvas->m_x_CanvasElementList)
@@ -118,6 +144,9 @@ void CanvasUISystem::ClearUI(CanvasComponent* canvas)
 	canvas->m_x_CanvasElementList.clear();
 }
 
+/*
+	Handles all the creation of UI elements
+*/
 void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset,CanvasElementEnum num, const char * name, 
 								const char * uiElementSprite, const char* uiText,const char * uiHoverSprite, const char * uiClickSprite,
 								void(*ButtonFunction)(SystemManager*),HTColor textColor)
@@ -130,6 +159,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 	float ScreenSizeX, ScreenSizeY;
 	AlphaEngineHelper::GetScreenSize(&ScreenSizeX, &ScreenSizeY);
 
+	//Gets the components according to the type of UI element
 	switch (num)
 	{
 		case kCanvasTextLabel:
@@ -162,14 +192,17 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			break;
 		}
 	}
+	// Check if null
 	if (ui_Component)
 	{
 		if (num != kCanvasTextLabel)
 		{
+			//	Set the draw depth and initializes the draw component
 			m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
 			d_Component->m_f_DrawPriority = 1;
 		}
 
+		//	Sets the texture pointers
 		ui_Component->m_x_BasicSprite = m_po_GraphicsManager->FetchTexture(uiElementSprite);
 		if (strcmp(uiHoverSprite, "") != 0)
 			ui_Component->m_x_HoverSprite = m_po_GraphicsManager->FetchTexture(uiHoverSprite);
@@ -184,6 +217,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		ui_Component->m_f_YOffset = initialOffset.y * m_o_ScreenSize.y * 2;
 		t_Component->SetRotation(0);
 		
+		//	Calculates the offset text label for center alignment
 		if (strcmp(uiText, "") != 0)
 		{
 			int length = static_cast<int>(strlen(uiText) + 1);
@@ -200,12 +234,11 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		}
 		canvasComponent->m_x_CanvasElementList.push_back(ui_Component->m_po_OwnerEntity);
 	}
-	else
-	{
-		
-	}
 }
 
+/*
+	Event Receive for creation of new elements
+*/
 void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
 {
 	AddElement(eventData.canvas,			eventData.initialPosition,		eventData.elementType, 
@@ -214,8 +247,12 @@ void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
 			   eventData.uiClickSpriteName,eventData.ButtonPressFunc,eventData.textColor);
 }
 
+/*
+	Event Receive for collision events
+*/
 void CanvasUISystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
+	// Mouse Collision 
 	if (eventData.object1->m_i_CollisionGroupVec[0] == kCollGroupMouse && eventData.object2->m_i_CollisionGroupVec[0] == kCollGroupUIButton)
 	{
 		auto elementComp = eventData.object2->m_po_OwnerEntity->GetComponent<CanvasElementComponent>();
