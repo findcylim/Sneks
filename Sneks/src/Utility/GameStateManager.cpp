@@ -187,6 +187,7 @@ void GameStateManager::ResetBattle()
 	// snek->ResetLivesAll();
 }
 
+bool countDown;
 void GameStateManager::LoadBattle()
 {
 	m_o_SystemManager->DisableSystem<InputSystem>();
@@ -228,7 +229,7 @@ void GameStateManager::LoadHelpMenu()
 {
 	m_o_SystemManager->EnableSystem<HelpMenuSystem>();
 	if (m_x_Previous == kStateCharacterSelection)
-		m_o_SystemManager->GetSystem<HelpMenuSystem>("HelpMenu")->SetNextState(kStateGame);
+		m_o_SystemManager->GetSystem<HelpMenuSystem>("HelpMenu")->SetNextState(kStateCountdown);
 	
 }
 
@@ -296,13 +297,19 @@ void GameStateManager::UnloadEndRound()
 
 void GameStateManager::LoadCountdown()
 {
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
-	timeStamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	auto countDownEntity = m_o_EntityManager->GetSpecificEntityInstance<CanvasEntity>(
+															kEntityCanvas,"CountDownEntity");
+	countDownEntity->m_b_IsActive = true;
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountDownEntity");
+	auto canvasComp = countDownEntity->GetComponent<CanvasComponent>();
+	auto animComp = canvasComp->m_x_CanvasElementList.front()->GetComponent<AnimationComponent>();
+	animComp->m_vx_AnimationsList.front().m_i_CurrentFrameIndex = 0;
+	animComp->m_vx_AnimationsList.front().m_f_CurrentTimeElapsed = 0;
 }
 
 void GameStateManager::UnloadCountdown()
 {
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountdownEntity");
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountDownEntity");
 }
 
 void GameStateManager::LoadSplashScreen()
@@ -448,7 +455,7 @@ void GameStateManager::Unload()
 		break;
 	}
 }
-
+float countDownTimer = 0;
 void GameStateManager::Update(float dt)
 {
 	if (m_x_Current != m_x_Next && !m_b_PutTransition && !m_b_RemoveTransition)
@@ -495,7 +502,7 @@ void GameStateManager::Update(float dt)
 			if (m_x_Current == kStateRestart)
 			{
 				ResetBattle();
-				m_x_Next = kStateGame;
+				m_x_Next = kStateCountdown;
 			}
 		}
 
@@ -527,10 +534,16 @@ void GameStateManager::Update(float dt)
 		);
 	}
 
-	if (GetAsyncKeyState(VK_ESCAPE) && m_x_Current == kStateGame)
+	if (AEInputCheckTriggered(VK_ESCAPE) && m_x_Current == kStateGame)
 		SetState(kStatePause);
 
 	if (m_x_Current == kStateCountdown)
-		if ((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) - timeStamp) > 3.5) // check if countdown is over
-			m_x_Next = kStateGame;
+	{
+		countDownTimer += dt;
+		if (countDownTimer > 3.5f)
+		{
+			countDownTimer = 0;
+			SetState(kStateGame);
+		}
+	}
 }

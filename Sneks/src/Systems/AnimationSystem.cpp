@@ -61,19 +61,22 @@ void AnimationSystem::Initialize()
 
 void AnimationSystem::Update(float dt)
 {
-	auto animationComponent = m_po_ComponentManager->GetFirstComponentInstance<AnimationComponent>(kComponentAnimation);
 	//iterate all animation comps
-	while (animationComponent) 
+	m_po_ComponentManager->Each<AnimationComponent>([&](AnimationComponent* animationComponent)
 	{
+		if (animationComponent->m_vx_AnimationsList.empty())
+		{
+			return;
+		}
 		//TODO initialize animation comps properly
 		UpdateDrawCompTexture(animationComponent);
 		if (animationComponent->m_b_IsAnimating)
 		{
 			auto& currentAnim = animationComponent->m_vx_AnimationsList[animationComponent->m_i_CurrentAnimationId];
 			currentAnim.m_f_CurrentTimeElapsed += dt;
-			if (currentAnim.m_f_CurrentTimeElapsed >= currentAnim.m_f_SecondsPerFrame) 
+			if (currentAnim.m_f_CurrentTimeElapsed >= currentAnim.m_f_SecondsPerFrame)
 			{
-			//	currentAnim.m_f_CurrentTimeElapsed -= currentAnim.m_f_MsPerFrame;
+				//	currentAnim.m_f_CurrentTimeElapsed -= currentAnim.m_f_MsPerFrame;
 				currentAnim.m_f_CurrentTimeElapsed = 0;
 
 				//Increment frame index, wrap around if last frame
@@ -84,8 +87,7 @@ void AnimationSystem::Update(float dt)
 			}
 		}
 
-		animationComponent = static_cast<AnimationComponent*>(animationComponent->m_po_NextComponent);
-	}
+	}, kComponentAnimation, true);
 }
 
 void AnimationSystem::UpdateDrawCompTexture(AnimationComponent* animComp)
@@ -93,6 +95,7 @@ void AnimationSystem::UpdateDrawCompTexture(AnimationComponent* animComp)
 	auto drawComp = animComp->GetComponent<DrawComponent>();
 	if (drawComp)
 	{
+
 		auto& currentAnim = animComp->m_vx_AnimationsList[animComp->m_i_CurrentAnimationId];
 
 		int currentX = currentAnim.m_i_CurrentFrameIndex % currentAnim.m_px_SpriteSheet.m_i_Width;

@@ -149,12 +149,13 @@ void CanvasUISystem::ClearUI(CanvasComponent* canvas)
 */
 void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset,CanvasElementEnum num, const char * name, 
 								const char * uiElementSprite, const char* uiText,const char * uiHoverSprite, const char * uiClickSprite,
-								void(*ButtonFunction)(SystemManager*),HTColor textColor)
+								void(*ButtonFunction)(SystemManager*),HTColor textColor, int spriteCountX, int spriteCountY)
 {
 	CanvasElementComponent* ui_Component = nullptr;
 	TransformComponent *    t_Component = nullptr;
 	DrawComponent *         d_Component = nullptr;
 	TextRendererComponent* text_Component = nullptr;
+	AnimationComponent*	  anim_Component = nullptr;
 
 	float ScreenSizeX, ScreenSizeY;
 	AlphaEngineHelper::GetScreenSize(&ScreenSizeX, &ScreenSizeY);
@@ -178,6 +179,7 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 			ui_Component = newElement2->GetComponent<CanvasElementComponent>();
 			d_Component = newElement2->GetComponent<DrawComponent>();
 			text_Component = newElement2->GetComponent<TextRendererComponent>();
+			anim_Component = newElement2->GetComponent<AnimationComponent>();
 			break;
 		}
 		case kCanvasButton:
@@ -198,8 +200,17 @@ void CanvasUISystem::AddElement(CanvasComponent* canvasComponent, HTVector2 init
 		if (num != kCanvasTextLabel)
 		{
 			//	Set the draw depth and initializes the draw component
-			m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite);
+			m_po_GraphicsManager->InitializeDrawComponent(d_Component, uiElementSprite,HTColor{1,1,1,1},
+																			spriteCountX, spriteCountY);
 			d_Component->m_f_DrawPriority = 1;
+		}
+		if ((spriteCountX > 1 || spriteCountY > 1) && anim_Component)
+		{
+			Animation anim(SpriteSheet{ uiElementSprite , spriteCountX,spriteCountY }, 0, spriteCountX * spriteCountY);
+			anim.m_f_SecondsPerFrame = 1.0f;
+			anim_Component->m_vx_AnimationsList.push_back(anim);
+			anim_Component->m_b_IsAnimating = true;
+			anim_Component->m_i_CurrentAnimationId = 0;
 		}
 
 		//	Sets the texture pointers
@@ -244,7 +255,8 @@ void CanvasUISystem::Receive(const Events::EV_NEW_UI_ELEMENT& eventData)
 	AddElement(eventData.canvas,			eventData.initialPosition,		eventData.elementType, 
 			   eventData.elementEntityName, eventData.uiElementSpriteName, 
 			   eventData.uiTextLabel,		eventData.uiHoverSpriteName,	
-			   eventData.uiClickSpriteName,eventData.ButtonPressFunc,eventData.textColor);
+			   eventData.uiClickSpriteName,eventData.ButtonPressFunc,eventData.textColor, 
+				eventData.spriteCountX, eventData.spriteCountY);
 }
 
 /*

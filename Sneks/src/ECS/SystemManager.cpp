@@ -20,6 +20,8 @@ Technology is prohibited.
 
 
 #include "SystemManager.h"
+#include "ECSystem.h"
+#include "../Systems/AnimationSystem.h"
 
 #define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
 
@@ -194,7 +196,11 @@ void SystemManager::Update(float dt)
 #endif
 		if (currSystem->m_b_isActive)
 		{
-			currSystem->Update(dt);
+			auto timeScaledDt = dt * GetTimeScale();
+			if (dynamic_cast<AnimationSystem*>(currSystem))
+				currSystem->Update(dt);
+			else
+				currSystem->Update(timeScaledDt);
 		}
 
 #ifdef LOG_SYSTEM_UPDATE_TIME

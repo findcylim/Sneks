@@ -44,6 +44,7 @@ public:
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 	void Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
 	void Update(float dt) override;
+	float ApplyFriction(PhysicsComponent* physicsComponent) const;
 	HTVector2 ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const;
 	HTVector2 CalculateVelocity(PhysicsComponent* physicsComponent) const;
 	void ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const;

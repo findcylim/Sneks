@@ -23,7 +23,7 @@ Technology is prohibited.
 void EndRound_Continue(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
-	GameStateManager::SetState(kStateGame);
+	GameStateManager::SetState(kStateCountdown);
 	
 }
 
@@ -43,8 +43,8 @@ void EndRoundScreenSystem::Initialize()
 
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
 
-	Events::EV_NEW_UI_ELEMENT endRound =
-	{ canvas_Component, HTVector2{ 0.5f ,0.6f } ,kCanvasTextLabel,"EndText" ,"" ,"Snek Destroyed!","","", nullptr };
+	//Events::EV_NEW_UI_ELEMENT endRound =
+	//{ canvas_Component, HTVector2{ 0.5f ,0.3f } ,kCanvasBasicSprite,"EndText" ,"Countdown" ,"Snek Destroyed!","","", nullptr,{1,1,1,1},4,1 };
 
 	Events::EV_NEW_UI_ELEMENT endNextButton =
 	{ canvas_Component, HTVector2{ 0.5f ,0.6f } ,kCanvasButton,"EndNextButton" ,"UIBack" ,"Next Round","UIBack_Hover","UIBack_Click", EndRound_Continue };
@@ -56,8 +56,6 @@ void EndRoundScreenSystem::Initialize()
 	{ canvas_Component, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"ConfirmationBackground" ,"TransitionBack" ,"","","", nullptr };
 
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
-
-
 	//m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(pauseMenuUiElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(endNextButton);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(endSelectButton);

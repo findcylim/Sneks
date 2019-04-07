@@ -242,13 +242,13 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		transformComponent->m_x_Position.y = (spawnPoint->m_x_Position.y);
 
-		transformComponent->SetRotation(snekTransform->GetRotation() +
-													 (AERandFloat() - 0.5f) * m_f_ForwardAngleRange);
+		transformComponent->SetRotation(AERandFloat() * 2 * PI);
 
 		transformComponent->m_f_Scale = m_f_HolderSizeRatio;
 
-		powerupHolder->GetComponent<PhysicsComponent>()->m_f_Speed = 
-			snekTransform->GetComponent<PhysicsComponent>()->m_f_Speed * m_f_HolderSpeedRatio;
+		auto speedMultiplier = snekTransform->GetComponent<PhysicsComponent>()->m_f_Speed * m_f_HolderSpeedRatio;
+		speedMultiplier = AEClamp(speedMultiplier, 50.0f, 250.0f);
+		powerupHolder->GetComponent<PhysicsComponent>()->m_f_Speed = speedMultiplier;
 
 		auto powerUpComp = powerupHolder->GetComponent<PowerUpHolderComponent>();
 

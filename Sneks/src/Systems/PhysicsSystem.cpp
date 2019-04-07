@@ -101,15 +101,10 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 void PhysicsSystem::Update(float dt)
 {
 	currDt = dt;
-	State currentState = GameStateManager::ReturnCurrentState();
 
-	UNREFERENCED_PARAMETER(currentState);
-
-	auto i_PhysicsComponent = m_po_ComponentManager
-		->GetFirstComponentInstance<PhysicsComponent>(kComponentPhysics);
-
-	while (i_PhysicsComponent)
+	m_po_ComponentManager->Each<PhysicsComponent>([&](PhysicsComponent* i_PhysicsComponent)
 	{
+		
 		//Calculate the stuff
 		ApplyAcceleration(i_PhysicsComponent, dt);
 		CalculateVelocity(i_PhysicsComponent);
@@ -117,21 +112,25 @@ void PhysicsSystem::Update(float dt)
 		// Snek checks
 		//for (auto component : i_PhysicsComponent->m_po_OwnerEntity->m_v_AttachedComponentsList) {
 		//	//only if its a head
-		if (auto component = i_PhysicsComponent->GetComponent<SnekHeadComponent>()){
-				CheckOutOfBounds(i_PhysicsComponent->m_po_TransformComponent,i_PhysicsComponent);
-				ClampVelocity(i_PhysicsComponent, static_cast<SnekHeadComponent*>(component));
+		if (auto component = i_PhysicsComponent->GetComponent<SnekHeadComponent>()) {
+			CheckOutOfBounds(i_PhysicsComponent->m_po_TransformComponent, i_PhysicsComponent);
+			ClampVelocity(i_PhysicsComponent, static_cast<SnekHeadComponent*>(component));
 		}
 		//Move the object
 		ApplyVelocity(i_PhysicsComponent, dt);
-		
+
 		if (i_PhysicsComponent->m_po_OwnerEntity->GetEntityID() == kEntityPowerUpHolder)
-		//if (i_PhysicsComponent->GetComponent<PowerUpComponent>())
+			//if (i_PhysicsComponent->GetComponent<PowerUpComponent>())
 		{
 			DeleteOutOfBound(i_PhysicsComponent->GetComponent<TransformComponent>());
 		}
 
-		i_PhysicsComponent = static_cast<PhysicsComponent*>(i_PhysicsComponent->m_po_NextComponent);
-	}
+	}, kComponentPhysics, true);
+}
+
+float PhysicsSystem::ApplyFriction(PhysicsComponent* physicsComponent) const
+{
+	return physicsComponent->m_f_Speed *= 0.99f;
 }
 
 HTVector2 PhysicsSystem::ApplyVelocity(PhysicsComponent* physicsComponent, float dt) const

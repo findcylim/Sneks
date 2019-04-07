@@ -57,7 +57,6 @@ private:
 	static State	m_x_Current;	/* Index of the m_x_Current game state. */
 	static State	m_x_Previous;	/* Index of the m_x_Previous game state. */
 	static State	m_x_Next;		/* Index of the m_x_Next game state. */
-	time_t timeStamp;
 	WinScreenSystem* WinScreen;
 	EntityManager* m_o_EntityManager;
 	SystemManager* m_o_SystemManager;
