@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the system that moves entities with a physics
+component.
 
 \par Contribution : CY     - 100.00% (Everything else)
 

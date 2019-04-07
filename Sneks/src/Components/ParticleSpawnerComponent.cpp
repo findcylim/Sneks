@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that sets the prefabs of particles.
 
 \par Contribution : CY     - 6.12%	 (Setting particle settings)
 \par Contribution : Edwin  - 93.88%  (Everything else)

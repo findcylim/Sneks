@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that manipulates the spawning of buildings
 
 \par Contribution : CY     - 89.25% (Main generation of buildings)
 \par Contribution : Adam   - 10.75% (Enabled 2 sizes of buildings)

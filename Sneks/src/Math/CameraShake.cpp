@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that calculates the math for the camera shake 
+paremeters.
 
 \par Contribution : CY     - 100.00%
 

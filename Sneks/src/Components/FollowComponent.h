@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains a component that allows an entity to follow another
+using the logic in follow system.
 
 \par Contribution : CY - 100.00%
 

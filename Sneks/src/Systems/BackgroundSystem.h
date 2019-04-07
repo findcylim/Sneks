@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the system code that draws the backgrounds which
+handles how many instances are drawn by default.
 
 \par Contribution : CY     - 100.00%
 

@@ -6,7 +6,9 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains struct typedefs that support animationSystem and
+also the animationComponent data that allows animationSystem to work. Any
+entity that has a animation component MUST have a draw component as well.
 
 \par Contribution : CY - 100.00%
 

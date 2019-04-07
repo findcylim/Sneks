@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that manipulates the in game virtual camera 
+system, which draws all objects relative to a camera entity.
 
 \par Contribution : CY - 100.00%
 
