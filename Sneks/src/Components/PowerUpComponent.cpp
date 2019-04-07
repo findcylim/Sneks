@@ -64,7 +64,7 @@ void PowerUpComponent::SetPowerUp(const PowerUpType type)
 
 		case kPowerUpPlusBody:
 			m_f_PowerUpDurationLeft = 0;
-			m_f_PowerIncrease = 5;
+			m_f_PowerIncrease = 2;
 			break;
 
 		case kPowerUpIncreaseDamage:

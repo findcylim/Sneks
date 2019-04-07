@@ -333,7 +333,7 @@ void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_HEALTH & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 	if (!muted)
-		m_o_HealthPickup.Play(0.4f);
+		m_o_HealthPickup.Play(0.25f);
 }
 
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_SPEED & eventData)

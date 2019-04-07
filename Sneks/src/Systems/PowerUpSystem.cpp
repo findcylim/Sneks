@@ -252,7 +252,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		auto powerUpComp = powerupHolder->GetComponent<PowerUpHolderComponent>();
 
-		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % 2);
+		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % 3);
 		const char * texture = "PowerUpIcon";
     
 		powerUpComp->m_f_RemainingLife = m_f_HolderLifeTime;
@@ -265,7 +265,7 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		case kPowerUpStar:
 			texture = "PowerUpIconInvul";
 			break;
-		case kPowerUpConsume:
+		case kPowerUpPlusBody:
 			texture = "PowerUpIconHealth";
 			break;
 		case kPowerUpTailSwipe:
@@ -331,12 +331,42 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 			//TODO emit event to snek system to increase body part
 			//TODO snek system to recieve event to grow body part
 			const char* bodyTexture = nullptr;
-			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-				(powerUp, kComponentSnekHead)->m_i_PlayerNumber == 0)
-				bodyTexture = "SnekBody01";
-			else
-				bodyTexture = "SnekBody02";
-
+			auto snekHead = m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+				(powerUp, kComponentSnekHead);
+			
+			if (snekHead)
+			{
+				if (snekHead->m_i_PlayerNumber) // player 2
+				{
+					switch (snekHead->m_x_SnekType)
+					{
+					case kSnekTypeFlip:
+						bodyTexture = "P2FlipSnekBody";
+						break;
+					case kSnekTypeShoot:
+						bodyTexture = "P2ShootSnekBody";
+						break;
+					case kSnekTypeSpeed:
+						bodyTexture = "P2SpeedSnekBody";
+						break;
+					}
+				}
+				else // player 1
+				{
+					switch (snekHead->m_x_SnekType)
+					{
+					case kSnekTypeFlip:
+						bodyTexture = "P1FlipSnekBody";
+						break;
+					case kSnekTypeShoot:
+						bodyTexture = "P1ShootSnekBody";
+						break;
+					case kSnekTypeSpeed:
+						bodyTexture = "P1SpeedSnekBody";
+						break;
+					}
+				}
+			}
 			auto snek = m_po_SystemManager->GetSystem<SnekSystem>();
 			for (int i = 0; i < powerUp->GetPowerIncrease(); i++)
 			{

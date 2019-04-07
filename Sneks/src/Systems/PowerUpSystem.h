@@ -32,7 +32,7 @@ class PowerUpSystem final : public BaseSystem,
 {
 	private:
 		GraphicsSystem* m_po_GraphicsSystem;
-		float m_f_SpawnChance = 0.5f;
+		float m_f_SpawnChance = 0.3f;
 		float m_f_ForwardAngleRange = PI * 0.4f;
 		float m_f_HolderSpeedRatio = 0.3f;
 		float m_f_HolderSizeRatio = 0.3f;
