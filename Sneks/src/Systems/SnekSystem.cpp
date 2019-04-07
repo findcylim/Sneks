@@ -1155,4 +1155,5 @@ void SnekSystem::UpdateSneks()
 	CreateSnek(-200, 0, PI * 3 / 4, 20, snekType[0], 0, lives[0]);
 	CreateSnek(200, 0, PI * 7 / 4, 20, snekType[1], 1, lives[1]);
 
+	m_po_SystemManager->GetSystem<ParticleSystem>()->ResetTrails();
 }
