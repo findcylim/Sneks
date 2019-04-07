@@ -89,7 +89,7 @@ PauseMenuSystem::~PauseMenuSystem()
 void PauseMenuSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
-	if (AEInputCheckTriggered(AEVK_ESCAPE))
+	if (AEInputCheckReleased(AEVK_ESCAPE))
 		Pause_Continue(m_po_SystemManager);
 }
 

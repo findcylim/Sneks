@@ -505,7 +505,7 @@ void GameStateManager::Update(float dt)
 		);
 	}
 
-	if (GetAsyncKeyState(VK_ESCAPE) && m_x_Current == kStateGame)
+	if (AEInputCheckReleased(AEVK_ESCAPE) && m_x_Current == kStateGame)
 		SetState(kStatePause);
 
 	if (m_x_Current == kStateCountdown)
