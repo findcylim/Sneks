@@ -26,7 +26,7 @@ Technology is prohibited.
 void Restart(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
-	GameStateManager::SetState(kStateGame);
+	GameStateManager::SetState(kStateRestart);
 }
 
 /*
