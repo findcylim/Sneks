@@ -53,7 +53,6 @@ void Audio::FmodErrorCheck(FMOD_RESULT resultCheck)
 
 void Audio::Release()
 {
-
 	FMOD_System_Release(system);
 	FmodErrorCheck(result);
 }
@@ -110,8 +109,6 @@ void Sound::Play(float volume)
 		m_b_IsPlaying = true;
 		FmodErrorCheck(result);
 		FMOD_Channel_SetVolume(channel, volume);
-		
-		//FMOD_Channel_SetPaused(channel, false);
 		++m_c_PlayCounter;
 		m_f_Timer = 0;
 	}
@@ -119,7 +116,7 @@ void Sound::Play(float volume)
 
 float Sound::GetVolume() 
 {
-	float volume = 0.0f;
+	float volume;
 	FMOD_Channel_GetVolume(channel, &volume);
 	return volume;
 }

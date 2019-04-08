@@ -113,6 +113,8 @@ public:
 	AudioSystem(GameStateManager* gameStateManager);
 	~AudioSystem();
 	void Initialize();
+
+	/* Event Receivers */
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
 	void Receive(const Events::EV_GAME_STATE_CHANGED& eventData) override;
 	void Receive(const Events::EV_POWERUP_PICKUP_HEALTH& eventData) override;
@@ -122,6 +124,7 @@ public:
 	void Receive(const Events::EV_SPECIAL_SKILL_FLIP& eventData) override;
 	void Receive(const Events::EV_PAUSED_GAME& eventData) override;
 	void Update(float dt) override;
+
 	void ToggleMute();
 };
 

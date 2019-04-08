@@ -24,7 +24,6 @@ void Pause_Continue(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateGame);
-	
 }
 
 void Pause_Restart(SystemManager* systemManager)

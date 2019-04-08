@@ -43,7 +43,6 @@ ProjectileSystem::ProjectileSystem( GraphicsSystem* graphics)
 void ProjectileSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
-
 }
 
 /*
