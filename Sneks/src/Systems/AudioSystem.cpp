@@ -322,9 +322,11 @@ void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 void AudioSystem::Receive(const Events::EV_GAME_STATE_CHANGED & eventData)
 {
 	// Change to Battle Music
-	if (eventData.changedToState == kStateGame && eventData.changedFromState == kStateCountdown)
+	if (eventData.changedToState == kStateCountdown)
 	{
 		m_o_MainMenuMusic.Pause(true);
+		m_o_IntroBattleMusic.Pause(true);
+		m_o_BattleLoopMusic.Pause(true);
 		m_o_IntroBattleMusic.ResetSoundCounter();
 		m_o_BattleLoopMusic.ResetSoundCounter();
 		m_o_StarModeMusic.ResetSoundCounter();
