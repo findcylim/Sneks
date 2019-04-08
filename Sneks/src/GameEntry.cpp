@@ -40,6 +40,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE,
 	}
 	delete(engine);
 	AESysExit();
-	assert(!LogMemoryLeaks() && "Memory leaks detected! Check log file for more info.");
+	//assert(!LogMemoryLeaks() && "Memory leaks detected! Check log file for more info.");
 	return 0;
 }

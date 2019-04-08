@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the powerup component in charge of the powerup behaviour
+in terms of which powerup and its life.
 
 \par Contribution : Edwin  - 100.00%
 

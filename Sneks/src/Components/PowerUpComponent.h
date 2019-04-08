@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the powerup component in charge of the powerup behaviour
+in terms of which powerup and its life.
 
 \par Contribution : Edwin  - 100.00%
 
@@ -33,9 +34,13 @@ enum PowerUpType : unsigned char
 
 struct PowerUpComponent : public BaseComponent
 {
+	//type of powerup
 	PowerUpType m_x_PowerUpType = kPowerUpEnd;
+	//duration of current powerup left
 	float m_f_PowerUpDurationLeft = 0;
+	//how much the increase in "power" for the current powerup type
 	float m_f_PowerIncrease = 0;
+	//if the powerup just expired
 	bool m_b_JustExpired = false;
 	float m_f_SpecialTimer = 0;
 	int m_i_Stage = 0;

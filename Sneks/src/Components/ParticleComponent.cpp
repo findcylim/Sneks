@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the particle component that allows the control of the
+alpha and life of particle.
 
 \par Contribution : Edwin  - 100.00%
 

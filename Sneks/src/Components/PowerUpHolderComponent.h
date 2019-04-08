@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the holder component in charge of the powerup holder
+in terms of which powerup and its life.
 
 \par Contribution : Edwin  - 100.00%
 
@@ -28,7 +29,9 @@ Technology is prohibited.
 class PowerUpHolderComponent : public BaseComponent
 {
 public:
+	//type of powerup
 	PowerUpType m_x_Type;
+	//remaining life of the powerup holder
 	float m_f_RemainingLife;
 };
 

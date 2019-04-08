@@ -391,8 +391,8 @@ void GraphicsSystem::Draw(float dt)
 	//Look for DrawComponents
 	auto firstDrawComponent = m_po_ComponentManager
 		->GetFirstComponentInstance<DrawComponent>(kComponentDraw);
-	auto i_DrawComponent = firstDrawComponent;
-	int drawCount = 0;
+	//auto i_DrawComponent = firstDrawComponent;
+	//int drawCount = 0;
 
 	//while (i_DrawComponent)
 	//{

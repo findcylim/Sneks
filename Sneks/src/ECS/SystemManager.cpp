@@ -23,7 +23,7 @@ Technology is prohibited.
 #include "ECSystem.h"
 #include "../Systems/AnimationSystem.h"
 
-#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
+//#define LOG_SYSTEM_UPDATE_TIME //DEFINE THIS IF YOU WANT SYSTEM LOGGING
 
 #ifdef LOG_SYSTEM_UPDATE_TIME
 #define __STDC_WANT_LIB_EXT1__ 1

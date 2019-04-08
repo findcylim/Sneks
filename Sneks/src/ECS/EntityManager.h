@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code for management of entities.
 
 \par Contribution : Edwin  - 51.98% (Main Entity Structure)
 \par Contribution : Adam   - 48.02% (Enabling and disabling helper functions)

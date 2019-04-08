@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the list of all entities and their values.
 
 \par Contribution : CY     - 25.00%  (Equal Split)
 \par Contribution : Javier - 25.00%  (Equal Split)

@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the enums of components.
 
 \par Contribution : Adam - 25.93%	
 Edwin - 25.93%

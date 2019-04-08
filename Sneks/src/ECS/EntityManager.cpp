@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code for management of entities.
 
 \par Contribution : CY     - 21.58% (Entity List & Delete Queue)
 \par Contribution : Javier - 7.19%  (Entity List)
