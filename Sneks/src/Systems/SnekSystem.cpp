@@ -276,6 +276,8 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (powerUpComp->m_x_PowerUpType == kPowerUpStar &&
 					powerUpComp->m_f_PowerUpDurationLeft >= 0)
 				{
+					if (i_SnekHed == snekHed2)
+						break;
 					continue;
 				}
 
