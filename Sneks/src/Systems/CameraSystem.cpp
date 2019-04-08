@@ -294,6 +294,16 @@ void CameraSystem::SetShake(float magnitude)
 	m_po_CamShake->SetShake(magnitude);
 }
 
+void CameraSystem::RemoveCameraTrackObject(BaseEntity* ent)
+{
+	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	if (!cameraComponent)
+		return;
+	std::remove(cameraComponent->m_v_EntitiesToTrack.begin(),
+		cameraComponent->m_v_EntitiesToTrack.end(),
+		ent->GetComponent<TransformComponent>());
+}
+
 void CameraSystem::RemoveCameraTrackObjects()
 {
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);

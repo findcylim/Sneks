@@ -103,6 +103,8 @@ namespace Events
 		const char * uiClickSpriteName = "";
 		void(*ButtonPressFunc)(SystemManager*) = nullptr;
 		HTColor textColor = { 0.0f,0.0f, 0.0f, 0.0f };
+		int spriteCountX = 1;
+		int spriteCountY = 1;
 	};
 
 	struct EV_PLAYER_COLLISION_ON_ENTER

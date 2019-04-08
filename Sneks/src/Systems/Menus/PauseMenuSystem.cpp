@@ -23,7 +23,7 @@ Technology is prohibited.
 void Pause_Continue(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
-	GameStateManager::SetState(kStateGame);
+	GameStateManager::SetState(kStateCountdown);
 	
 }
 
