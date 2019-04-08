@@ -28,16 +28,18 @@ Technology is prohibited.
 #include <fmod_errors.h>
 #include "../Utility/GameStateManager.h"
 
-struct Audio
+struct Stream
 {
 	FMOD_SYSTEM		*system;	/* the system where the sound will be using */
 	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
-	Audio();
-	void Release();
+	/* Constructor */
+	Stream();
 	/* Error-checking*/
 	void FmodErrorCheck(FMOD_RESULT result);
 	/* FMOD initialisation */
 	void Initialize();
+	/* Release from system */
+	void Release();
 };
 
 struct Sound
@@ -46,23 +48,30 @@ struct Sound
 	FMOD_BOOL	canPlaySound;	/* is it possible to play sound? */
 	char*		currentSound;	/* currently played sound */
 
-	/* FMOD-specific stuff */
+	/* FMOD-specific */
 	FMOD_SYSTEM		*system;	/* the system where the sound will be using */
 	FMOD_RESULT		result;		/* allows error checking for FMOD functions */
 	FMOD_SOUND		*fmodSound;	/* holding the actual sound */
 	FMOD_CHANNEL	*channel;	/* the channel where the sound will be playing from */
 public:
+	/* Sound Statistics */
 	float m_f_Timer = 0.0f;
 	char m_c_PlayCounter = 0;
 	float m_f_PlayTimer = 0.0f;
 	char m_c_PlayCap = 0;
 	bool m_b_IsPlaying = false;
+
+	/* Constructor */
 	Sound();
+	/* Error-checking*/
 	void FmodErrorCheck(FMOD_RESULT result);
+
 	/* FMOD sound/channel/system creation */
-	void CreateBGM(const char* filename, char counterCap, float playTimer, Audio* audioPtr);
-	void Create(const char* filename, char counterCap, float playTimer, Audio* audioPtr);
-	/* Playing */
+	void CreateBGM(const char* filename, char counterCap, float playTimer, Stream* audioPtr);
+	void Create(const char* filename, char counterCap, float playTimer, Stream* audioPtr);
+
+	/* General Audio Functions */
+	/* Play the sound */
 	void Play(float volume = 0.33f);
 	/* Update functions */
 	void Update();
@@ -70,16 +79,16 @@ public:
 	void Pause(FMOD_BOOL pause);
 	/* Unload sound */
 	void Unload();
-	/* Getter/setter functions */
-	bool CheckPlaying();
 	/* Unload from memory */
 	void Release();
+
 	/* Getter/Setter */
 	FMOD_SYSTEM	*GetSystem();
 	FMOD_SOUND *GetFmodSound();
 	float GetVolume();
 	void SetVolume(float volume);
 	void ResetSoundCounter();
+	bool CheckPlaying();
 };
 
 class AudioSystem final : public BaseSystem // Add event listeners here
@@ -92,8 +101,8 @@ class AudioSystem final : public BaseSystem // Add event listeners here
 , public EventListener<Events::EV_SPECIAL_SKILL_FLIP>
 , public EventListener<Events::EV_PAUSED_GAME>
 {
-	Audio BGM;
-	Audio SFX;
+	Stream BGM;
+	Stream SFX;
 	Sound m_o_MainMenuMusic;
 	Sound m_o_IntroBattleMusic;
 	Sound m_o_StarModeMusic;
@@ -101,18 +110,16 @@ class AudioSystem final : public BaseSystem // Add event listeners here
 	Sound m_o_SpeedPickup;
 	Sound m_o_BattleLoopMusic;
 	Sound m_o_HitSound;
-	Sound m_o_PowerUpSound;
 	Sound m_o_ExplosionSound;
 	Sound m_o_SpeedSpecialSound;
 	Sound m_o_FlipSpecialSound;
 
 	GameStateManager* m_po_GameStateManager;
 	bool muted = false;
-	//std::map<const char*, Sound> m_x_SoundMap;
 public:
+	/* Constructor/Destructor */
 	AudioSystem(GameStateManager* gameStateManager);
 	~AudioSystem();
-	void Initialize();
 
 	/* Event Receivers */
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;
@@ -123,8 +130,12 @@ public:
 	void Receive(const Events::EV_SPECIAL_SKILL_BOOST& eventData) override;
 	void Receive(const Events::EV_SPECIAL_SKILL_FLIP& eventData) override;
 	void Receive(const Events::EV_PAUSED_GAME& eventData) override;
+
+	/* General System Functions */
+	void Initialize();
 	void Update(float dt) override;
 
+	/* Mute/Unmute */
 	void ToggleMute();
 };
 

@@ -20,10 +20,12 @@ Technology is prohibited.
 #include "SnekSelectMenuSystem.h"
 #include "../SnekSystem.h"
 
+/* Constructor */
 SnekSelectMenuSystem::SnekSelectMenuSystem()
 {
 }
 
+/* Destructor */
 SnekSelectMenuSystem::~SnekSelectMenuSystem()
 {
 	auto UI = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
@@ -38,6 +40,7 @@ SnekSelectMenuSystem::~SnekSelectMenuSystem()
 	}
 }
 
+/* Iterate through P1 Snek States */
 void P1SnekStateUp(SystemManager* systemManager)
 {
 	auto snekSystem = systemManager->GetSystem<SnekSystem>("Snek");
@@ -63,6 +66,7 @@ void P1SnekStateDown(SystemManager* systemManager)
 		snekSystem->SetSnekType(0, kSnekTypeFlip);
 }
 
+/* Iterate through P2 Snek States */
 void P2SnekStateUp(SystemManager* systemManager)
 {
 	auto snekSystem = systemManager->GetSystem<SnekSystem>("Snek");
@@ -91,6 +95,7 @@ void P2SnekStateDown(SystemManager* systemManager)
 		snekSystem->SetSnekType(1, kSnekTypeFlip);
 }
 
+/* Start Game */
 void PlayGame(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
@@ -102,7 +107,10 @@ void SnekSelectMenuSystem::Initialize()
 	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Snek Select UI");
 	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
 
+	/*Snek Select Banner */
 	Events::EV_NEW_UI_ELEMENT LogoElement = { canvasComponent,HTVector2{ 0.5f ,0.2f } ,kCanvasBasicSprite,"Logo" ,"Select-Banner" ,"","","", nullptr };
+
+	/* Buttons */
 	Events::EV_NEW_UI_ELEMENT P1UpElement = { canvasComponent,HTVector2{ 0.175f , 0.5f } ,kCanvasButton,"P1Up" ,"Up-Idle" ,"","Up-Hover","Up-Click",P1SnekStateUp };
 	Events::EV_NEW_UI_ELEMENT P1DownElement = { canvasComponent,HTVector2{ 0.175f , 0.655f } ,kCanvasButton,"P1Down" ,"Down-Idle", "" ,"Down-Hover","Down-Click",P1SnekStateDown };
 	Events::EV_NEW_UI_ELEMENT P2UpElement = { canvasComponent,HTVector2{ 0.825f , 0.5f } ,kCanvasButton,"P2Up" ,"Up-Idle", "","Up-Hover","Up-Click",P2SnekStateUp };

@@ -26,10 +26,15 @@ class PauseMenuSystem :
 	public BaseSystem
 {
 public:
+	/* Constructor/Destructor */
 	PauseMenuSystem();
-	void Initialize();
 	~PauseMenuSystem();
+
+	/* General System Functions */
+	void Initialize();
 	void Update(float dt)override;
+
+	/* Event Emitters */
 	void OnEnable()override;
 	void OnDisable()override;
 };

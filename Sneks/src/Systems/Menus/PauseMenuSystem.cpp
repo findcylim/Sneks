@@ -20,33 +20,42 @@ Technology is prohibited.
 #include "PauseMenuSystem.h"
 #include "../../Utility/GameStateManager.h"
 
+/* Constructor */
+PauseMenuSystem::PauseMenuSystem()
+{
+}
+
+/* Destructor */
+PauseMenuSystem::~PauseMenuSystem()
+{
+}
+
+/* Return to Game */
 void Pause_Continue(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateCountdown);
-	
 }
 
+/* Restart Round */
 void Pause_Restart(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateRestart);
 }
 
-void Pause_QuitToMain(SystemManager* systemManager)
-{
-	UNREFERENCED_PARAMETER(systemManager);
-	GameStateManager::SetState(kStateConfirmationScreen);
-}
-
+/* Go to Options */
 void Pause_Options(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateOptions);
 }
 
-PauseMenuSystem::PauseMenuSystem()
+/* Quit to Main Menu */
+void Pause_QuitToMain(SystemManager* systemManager)
 {
+	UNREFERENCED_PARAMETER(systemManager);
+	GameStateManager::SetState(kStateConfirmationScreen);
 }
 
 void PauseMenuSystem::Initialize()
@@ -54,9 +63,11 @@ void PauseMenuSystem::Initialize()
 	auto canvas = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "PauseMenuEntity");
 
 	auto canvas_Component = canvas->GetComponent<CanvasComponent>();
-	   
+	
+	/* Pause Message */
 	Events::EV_NEW_UI_ELEMENT PauseMenuUIElement = { canvas_Component, HTVector2{ 0.5f ,0.4f } ,kCanvasBasicSprite,"PauseScreen" ,"UIGame_Paused" ,"","","", nullptr }; //placeholder, replace with PAUSED
 
+	/* Buttons */
 	Events::EV_NEW_UI_ELEMENT ContinueUIElement =
 	{ canvas_Component, HTVector2{ 0.5f ,0.6f } ,kCanvasButton,"PauseContinueButton" ,"UIBack" ,"Continue","UIBack_Hover","UIBack_Click", Pause_Continue };
 
@@ -69,6 +80,7 @@ void PauseMenuSystem::Initialize()
 	Events::EV_NEW_UI_ELEMENT ReturnToMainUIElement =
 	{ canvas_Component, HTVector2{ 0.5f ,0.9f } ,kCanvasButton,"PauseReturnToMainButton" ,"UIBack" ,"Return To Main Menu","UIBack_Hover","UIBack_Click", Pause_QuitToMain };
 
+	/* Dim Background */
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement =
 	{ canvas_Component, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"PauseBackground" ,"TransitionBack" ,"","","", nullptr };
 
@@ -80,19 +92,15 @@ void PauseMenuSystem::Initialize()
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(ReturnToMainUIElement);
 }
 
-PauseMenuSystem::~PauseMenuSystem()
-{
-	//m_po_EntityManager->AddToDeleteQueue(m_po_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas,"PauseMenuEntity"));
-}
-
-
 void PauseMenuSystem::Update(float dt)
 {
 	UNREFERENCED_PARAMETER(dt);
+	/* Check for ESC keypress */
 	if (AEInputCheckReleased(AEVK_ESCAPE))
 		Pause_Continue(m_po_SystemManager);
 }
 
+/* Event Emitters */
 void PauseMenuSystem::OnEnable()
 {
 	m_po_EventManagerPtr->EmitEvent<Events::EV_PAUSED_GAME>(Events::EV_PAUSED_GAME{ true });

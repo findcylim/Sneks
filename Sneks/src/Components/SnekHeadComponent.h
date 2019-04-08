@@ -67,6 +67,7 @@ struct SnekHeadComponent : public BaseComponent
 	unsigned int   m_i_BoostKey            = AEVK_RSHIFT;
 	//unsigned int   m_i_SpecialKey          = AEVK_RSHIFT;
 
+	// Check if controls have been used - activates tutorials accordingly
 	bool accelerationTutorial = false;
 	bool turningTutorial = false;
 	bool specialTutorial = false;

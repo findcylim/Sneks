@@ -29,11 +29,13 @@ class TutorialMenuSystem :
 	public EventListener<Events::EV_PLAYER_MOVEMENT_KEY>
 {
 	GameStateManager* m_po_GameStateManager;
-	float timer;
+	float timer; // for enabling display after set amount of time
 public:
+	/* Constructor/Destructor */
 	TutorialMenuSystem(GameStateManager* gameStateManager);
 	~TutorialMenuSystem();
 
+	/* General System Functions */
 	void Initialize();
 	void Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData) override;
 	void Update(float dt)override;

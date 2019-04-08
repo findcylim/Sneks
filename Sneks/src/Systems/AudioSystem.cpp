@@ -24,24 +24,17 @@ Technology is prohibited.
 #include "../Utility/GameStateManager.h"
 #include "Menus/ConfirmationScreenSystem.h"
 
-Sound::Sound()
+/***********************************************************
+				 Stream Functions
+***********************************************************/
+
+/* Constructor */
+Stream::Stream(): system{0}, result{FMOD_OK}
 {
-	soundOn = false;		/* is sound on? */
-	canPlaySound = true;	/* is it possible to play sound? */
-	currentSound = 0;		/* currently played sound */
-	result = FMOD_OK;
-	system = 0;
-	fmodSound = 0;
-	channel = 0;
 }
 
-Audio::Audio()
-{
-	system = 0;
-	result = FMOD_OK;
-}
-
-void Audio::FmodErrorCheck(FMOD_RESULT resultCheck)
+/* Error check */
+void Stream::FmodErrorCheck(FMOD_RESULT resultCheck)
 {
 	/* Throw an error if FMOD finds something wrong */
 	if (resultCheck != FMOD_OK)
@@ -51,13 +44,8 @@ void Audio::FmodErrorCheck(FMOD_RESULT resultCheck)
 	}
 }
 
-void Audio::Release()
-{
-	FMOD_System_Release(system);
-	FmodErrorCheck(result);
-}
-
-void Audio::Initialize()
+/* General System Functions */
+void Stream::Initialize()
 {
 	FMOD_System_Create(&system);
 	FmodErrorCheck(result);
@@ -65,6 +53,23 @@ void Audio::Initialize()
 	FmodErrorCheck(result);
 }
 
+void Stream::Release()
+{
+	FMOD_System_Release(system);
+	FmodErrorCheck(result);
+}
+
+/***********************************************************
+				 Sound Functions
+***********************************************************/
+
+/* Constructor */
+Sound::Sound() : soundOn{ false }, canPlaySound{ true }, currentSound{ 0 }, result{ FMOD_OK }, 
+system{ 0 }, fmodSound{ 0 }, channel{ 0 }
+{
+}
+
+/* Error check */
 void Sound::FmodErrorCheck(FMOD_RESULT resultCheck)
 {
 	/* Throw an error if FMOD finds something wrong */
@@ -75,8 +80,10 @@ void Sound::FmodErrorCheck(FMOD_RESULT resultCheck)
 	}
 }
 
+/* Sound Creation */
 
-void Sound::Create(const char* filename, char counterCap, float playTimer, Audio* audioPtr)
+/* For SFX */
+void Sound::Create(const char* filename, char counterCap, float playTimer, Stream* audioPtr)
 {
 	system = audioPtr->system;
 	m_c_PlayCap = counterCap;
@@ -87,7 +94,8 @@ void Sound::Create(const char* filename, char counterCap, float playTimer, Audio
 	FmodErrorCheck(result);
 }
 
-void Sound::CreateBGM(const char*filename, char counterCap, float playTimer, Audio* audioPtr)
+/* For BGM */
+void Sound::CreateBGM(const char*filename, char counterCap, float playTimer, Stream* audioPtr)
 {
 	system = audioPtr->system;
 	m_c_PlayCap = counterCap;
@@ -99,6 +107,8 @@ void Sound::CreateBGM(const char*filename, char counterCap, float playTimer, Aud
 	FMOD_System_PlaySound(system, fmodSound, 0, true, &channel);
 	FmodErrorCheck(result);
 }
+
+/* General Audio Functions */
 
 void Sound::Play(float volume)
 {
@@ -114,24 +124,11 @@ void Sound::Play(float volume)
 	}
 }
 
-float Sound::GetVolume() 
-{
-	float volume;
-	FMOD_Channel_GetVolume(channel, &volume);
-	return volume;
-}
-
-void Sound::SetVolume(float volume)
-{
-	FMOD_Channel_SetVolume(channel, volume);
-}
-
 void Sound::Update()
 {
 	FMOD_System_Update(system);
 	FmodErrorCheck(result);
 	float dt = static_cast<float>(AEFrameRateControllerGetFrameTime());
-	//m_f_Timer += dt;
 	if (m_f_Timer > m_f_PlayTimer)
 	{
 		m_f_Timer	= 0.0f;
@@ -158,19 +155,13 @@ void Sound::Unload()
 	FmodErrorCheck(result);
 }
 
-bool Sound::CheckPlaying()
-{
-	FMOD_Channel_IsPlaying(channel, &soundOn);
-	FmodErrorCheck(result);
-	return soundOn;
-}
-
 void Sound::Release()
 {
 	FMOD_Sound_Release(fmodSound);
 	FmodErrorCheck(result);
 }
 
+/* Getters/Setters */
 FMOD_SYSTEM	*Sound::GetSystem()
 {
 	return system;
@@ -181,19 +172,42 @@ FMOD_SOUND* Sound::GetFmodSound()
 	return fmodSound;
 }
 
+float Sound::GetVolume()
+{
+	float volume;
+	FMOD_Channel_GetVolume(channel, &volume);
+	return volume;
+}
+
+void Sound::SetVolume(float volume)
+{
+	FMOD_Channel_SetVolume(channel, volume);
+}
+
 void Sound::ResetSoundCounter()
 {
 	m_f_Timer = 0;
 	m_c_PlayCounter = 0;
 }
 
-AudioSystem::AudioSystem(GameStateManager* gameStateManager)
+bool Sound::CheckPlaying()
 {
-	m_po_GameStateManager = gameStateManager;
+	FMOD_Channel_IsPlaying(channel, &soundOn);
+	FmodErrorCheck(result);
+	return soundOn;
+}
 
-	BGM.Initialize();
-	SFX.Initialize();
+/***********************************************************
+                 Audio System Functions 
+***********************************************************/
 
+/* Constructor */
+AudioSystem::AudioSystem(GameStateManager* gameStateManager): m_po_GameStateManager{gameStateManager}
+{
+	BGM.Initialize(); // create BGM channel
+	SFX.Initialize(); // create SFX channel
+
+	/* Load up BGMs */
 	m_o_MainMenuMusic.CreateBGM("../Resources/Sounds/MainMenu-Loop.mp3", 1, 112.0f, &BGM);
 	m_o_MainMenuMusic.Play(0.3f);
 
@@ -201,10 +215,8 @@ AudioSystem::AudioSystem(GameStateManager* gameStateManager)
 
 	m_o_BattleLoopMusic.CreateBGM("../Resources/Sounds/BattleMusic-Loop.wav", 1, 64.0f, &BGM);
 
+	/* Load Up SFX */
 	m_o_HitSound.Create("../Resources/Sounds/hitsound.wav", 5, 1.0f, &SFX);
-
-	//m_o_PowerUpSound.Initialize();
-	//m_o_PowerUpSound.Create("../Resources/Sounds/powerup.wav");
 
 	m_o_ExplosionSound.Create("../Resources/Sounds/explosion.wav", 2, 2.0f, &SFX);
 
@@ -214,9 +226,9 @@ AudioSystem::AudioSystem(GameStateManager* gameStateManager)
 	m_o_StarModeMusic.Create("../Resources/Sounds/StarMode-Music.wav", 1, 5.0f, &SFX);
 	m_o_HealthPickup.Create("../Resources/Sounds/Health-SFX.wav", 2, 1.0f, &SFX);
 	m_o_SpeedPickup.Create("../Resources/Sounds/SpringBoost-SFX.wav", 2, 4.0f, &SFX);
-
 }
 
+/* Destructor */
 AudioSystem::~AudioSystem()
 {
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_COLLISION>(this);
@@ -227,37 +239,16 @@ AudioSystem::~AudioSystem()
 	m_po_EventManagerPtr->RemoveListener<Events::EV_SPECIAL_SKILL_BOOST>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_SPECIAL_SKILL_FLIP>(this);
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PAUSED_GAME>(this);
+
 	if (m_o_MainMenuMusic.GetSystem() != NULL)
 		m_o_MainMenuMusic.Release();
 	if (m_o_HitSound.GetSystem() != NULL)
 		m_o_HitSound.Release();
-	if (m_o_PowerUpSound.GetSystem() != NULL)
-		m_o_PowerUpSound.Release();
 	if (m_o_ExplosionSound.GetSystem() != NULL)
 		m_o_ExplosionSound.Release();
 
 	BGM.Release();
 	SFX.Release();
-}
-
-void AudioSystem::ToggleMute()
-{
-	muted = !muted;
-
-	if (muted)
-	{
-		FMOD_Channel_SetVolume(m_o_MainMenuMusic.channel, 0.0f);
-		FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.0f);
-		FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.0f);
-		FMOD_Channel_SetVolume(m_o_StarModeMusic.channel, 0.0f);
-	}
-	else
-	{
-		FMOD_Channel_SetVolume(m_o_MainMenuMusic.channel, 0.3f);
-		FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.1f);
-		FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.1f);
-		FMOD_Channel_SetVolume(m_o_StarModeMusic.channel, 0.15f);
-	}
 }
 
 void AudioSystem::Initialize()
@@ -272,18 +263,44 @@ void AudioSystem::Initialize()
 	m_po_EventManagerPtr->AddListener<Events::EV_PAUSED_GAME>(this, this);
 }
 
+void AudioSystem::Update(float dt)
+{
+	UNREFERENCED_PARAMETER(dt);
+	m_o_MainMenuMusic.Update();
+	if (m_o_IntroBattleMusic.m_f_Timer > m_o_IntroBattleMusic.m_f_PlayTimer)
+	{
+		m_o_IntroBattleMusic.Pause(true);
+		m_o_IntroBattleMusic.m_f_Timer = 0.0f;
+		m_o_BattleLoopMusic.Play(0.1f);
+		if (muted)
+			FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.0f);
+	}
+	m_o_IntroBattleMusic.Update();
+	m_o_BattleLoopMusic.Update();
+	m_o_HitSound.Update();
+	m_o_ExplosionSound.Update();
+
+	if (m_o_StarModeMusic.m_f_Timer > m_o_StarModeMusic.m_f_PlayTimer && !muted)
+	{
+		m_o_BattleLoopMusic.Pause(false);
+		m_o_StarModeMusic.Pause(true);
+	}
+	m_o_StarModeMusic.Update();
+	m_o_HealthPickup.Update();
+	m_o_SpeedPickup.Update();
+	m_o_SpeedSpecialSound.Update();
+	m_o_FlipSpecialSound.Update();
+}
+
+/* Collision Event */
 void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 {
 	if (!muted)
 	{
 		if (eventData.object1->IsGroup(kCollGroupMouse) && eventData.object2->IsGroup(kCollGroupUIButton))
 		{
-
 		}
-		else if (eventData.object2->IsGroup(kCollGroupPowerUp))
-		{
-			//m_o_PowerUpSound.Play();
-		}
+		// Snek on Snek collision
 		else if (eventData.object1->IsGroup(kCollGroupSnek1Head) &&
 			eventData.object2->IsGroup(kCollGroupSnek2Body) ||
 			eventData.object1->IsGroup(kCollGroupSnek2Head) &&
@@ -301,9 +318,11 @@ void AudioSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	}
 }
 
+/* Game State Change Event */
 void AudioSystem::Receive(const Events::EV_GAME_STATE_CHANGED & eventData)
 {
-	if (eventData.changedToState == kStateGame && eventData.changedFromState == kStateHelpMenu) // Change this to countdown
+	// Change to Battle Music
+	if (eventData.changedToState == kStateGame && eventData.changedFromState == kStateCountdown)
 	{
 		m_o_MainMenuMusic.Pause(true);
 		m_o_IntroBattleMusic.ResetSoundCounter();
@@ -313,6 +332,7 @@ void AudioSystem::Receive(const Events::EV_GAME_STATE_CHANGED & eventData)
 		if(muted)
 			FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.0f);
 	}
+	// Change to Main Menu Music
 	else if (eventData.changedToState == kStateMainMenu &&
 			(eventData.changedFromState == kStatePause || 
 			 eventData.changedFromState == kStateWinScreen || 
@@ -326,6 +346,7 @@ void AudioSystem::Receive(const Events::EV_GAME_STATE_CHANGED & eventData)
 	}
 }
 
+/* Health Powerup Pickup */
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_HEALTH & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
@@ -333,6 +354,7 @@ void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_HEALTH & eventData)
 		m_o_HealthPickup.Play(0.25f);
 }
 
+/* Speed Powerup Pickup */
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_SPEED & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
@@ -340,6 +362,7 @@ void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_SPEED & eventData)
 		m_o_SpeedPickup.Play(0.4f);
 }
 
+/* Star Powerup Pickup */
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_STARMODE & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
@@ -351,6 +374,7 @@ void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_STARMODE & eventData)
 	}
 }
 
+/* Boost Special Skill */
 void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_BOOST & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
@@ -360,6 +384,7 @@ void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_BOOST & eventData)
 	}
 }
 
+/* Flip Special Skill */
 void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_FLIP & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
@@ -369,6 +394,7 @@ void AudioSystem::Receive(const Events::EV_SPECIAL_SKILL_FLIP & eventData)
 	}
 }
 
+/* Game Paused */
 void AudioSystem::Receive(const Events::EV_PAUSED_GAME & eventData)
 {
 	if (eventData.pauseCheck)
@@ -386,32 +412,25 @@ void AudioSystem::Receive(const Events::EV_PAUSED_GAME & eventData)
 	}
 }
 
-void AudioSystem::Update(float dt)
+/* Mute/Unmute */
+void AudioSystem::ToggleMute()
 {
-	UNREFERENCED_PARAMETER(dt);
-	m_o_MainMenuMusic.Update();
-	if (m_o_IntroBattleMusic.m_f_Timer > m_o_IntroBattleMusic.m_f_PlayTimer)
-	{
-		m_o_IntroBattleMusic.Pause(true);
-		m_o_IntroBattleMusic.m_f_Timer = 0.0f;
-		m_o_BattleLoopMusic.Play(0.1f);
-		if(muted)
-			FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.0f);
-	}
-	m_o_IntroBattleMusic.Update();
-	m_o_BattleLoopMusic.Update();
-	m_o_HitSound.Update();
-	//m_o_PowerUpSound.Update();
-	m_o_ExplosionSound.Update();
+	muted = !muted;
 
-	if (m_o_StarModeMusic.m_f_Timer > m_o_StarModeMusic.m_f_PlayTimer && !muted)
+	/* Mute currently playing BGM */
+	if (muted)
 	{
-		m_o_BattleLoopMusic.Pause(false);
-		m_o_StarModeMusic.Pause(true);
+		FMOD_Channel_SetVolume(m_o_MainMenuMusic.channel, 0.0f);
+		FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.0f);
+		FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.0f);
+		FMOD_Channel_SetVolume(m_o_StarModeMusic.channel, 0.0f);
 	}
-	m_o_StarModeMusic.Update();
-	m_o_HealthPickup.Update();
-	m_o_SpeedPickup.Update();
-	m_o_SpeedSpecialSound.Update();
-	m_o_FlipSpecialSound.Update();
+	/* Unmute currently playing BGM */
+	else
+	{
+		FMOD_Channel_SetVolume(m_o_MainMenuMusic.channel, 0.3f);
+		FMOD_Channel_SetVolume(m_o_IntroBattleMusic.channel, 0.1f);
+		FMOD_Channel_SetVolume(m_o_BattleLoopMusic.channel, 0.1f);
+		FMOD_Channel_SetVolume(m_o_StarModeMusic.channel, 0.15f);
+	}
 }

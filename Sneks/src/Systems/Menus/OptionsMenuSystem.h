@@ -26,12 +26,17 @@ Technology is prohibited.
 class OptionsMenuSystem : public BaseSystem
 {
 	GraphicsSystem* m_o_GraphicsSystem;
-	bool fullscreen = true;
+	bool fullscreen = true; // start on fullscreen mode
 public:
-	void Initialize();
-	void Update(float dt) override;
+	/* Constructor/Destructor */
 	OptionsMenuSystem();
 	~OptionsMenuSystem();
+
+	/* General System Functions */
+	void Initialize();
+	void Update(float dt) override;
+
+	/* Fullscreen Toggle Helper Functions */
 	bool ReturnFullscreen();
 	void ToggleFullscreen();
 };

@@ -20,12 +20,14 @@ Technology is prohibited.
 #include "TutorialMenuSystem.h"
 #include "../../Utility/AlphaEngineHelper.h"
 
+/* Constructor */
 TutorialMenuSystem::TutorialMenuSystem(GameStateManager* gameStateManager)
 {
 	m_po_GameStateManager = gameStateManager;
 	timer = 0.0f;
 }
 
+/* Destructor */
 TutorialMenuSystem::~TutorialMenuSystem()
 {
 	m_po_EventManagerPtr->RemoveListener<Events::EV_PLAYER_MOVEMENT_KEY>(this);
@@ -46,6 +48,7 @@ void TutorialMenuSystem::Initialize()
 	auto snekHead1 = m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
 	auto snekHead2 = static_cast<SnekHeadComponent*>(snekHead1->m_po_NextComponent);
 
+	/* Set all to true upon startup */
 	snekHead1->accelerationTutorial = true;
 	snekHead2->accelerationTutorial = true;
 	snekHead1->turningTutorial = true;
@@ -56,18 +59,23 @@ void TutorialMenuSystem::Initialize()
 	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Tutorial UI");
 	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
 
+	/* Screen Size Helpers */
 	float screenX = 0, screenY = 0;
 	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
 
+	/* Snek spawn locations */
 	auto snekHead1pos = 200.0f / screenX + 0.125f;
 	auto snekHead2pos = 1 - 200.0f / screenX - 0.125f;
 
+	/* Turning tutorial */
 	Events::EV_NEW_UI_ELEMENT P1TurningTutorialElement = { canvasComponent, HTVector2{ snekHead1pos ,0.5f } ,kCanvasBasicSprite,"P1TurnTut" ,"P1TurnTut" ,"","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT P2TurningTutorialElement = { canvasComponent, HTVector2{ snekHead2pos ,0.5f } ,kCanvasBasicSprite,"P2TurnTut" ,"P2TurnTut" ,"","","", nullptr };
 
+	/* Acceleration tutorial */
 	Events::EV_NEW_UI_ELEMENT P1AccelTutorialElement = { canvasComponent, HTVector2{ snekHead1pos ,0.5f } ,kCanvasBasicSprite,"P1AccelTut" ,"P1AccelTut" ,"","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT P2AccelTutorialElement = { canvasComponent, HTVector2{ snekHead2pos ,0.5f } ,kCanvasBasicSprite,"P2AccelTut" ,"P2AccelTut" ,"","","", nullptr };
 
+	/* Special Attack tutorial */
 	Events::EV_NEW_UI_ELEMENT P1SpecialTutorialElement = { canvasComponent, HTVector2{ snekHead1pos ,0.5f } ,kCanvasBasicSprite,"P1SpecialTut" ,"P1SpecialTut" ,"","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT P2SpecialTutorialElement = { canvasComponent, HTVector2{ snekHead2pos ,0.5f } ,kCanvasBasicSprite,"P2SpecialTut" ,"P2SpecialTut" ,"","","", nullptr };
 
@@ -93,6 +101,7 @@ void TutorialMenuSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData
 	auto snekHeadComponent = m_po_ComponentManager->
 		GetSpecificComponentInstance<SnekHeadComponent>(eventData.caller, kComponentSnekHead);
 
+	/* Set the booleans to false if the control has been used -> Indicates player knows what he/she is doing  */
 	if (eventData.key == Events::MOVE_KEY_UP) 
 	{
 		snekHeadComponent->accelerationTutorial = false;
@@ -116,13 +125,15 @@ void TutorialMenuSystem::Update(float dt)
 	if (m_po_GameStateManager->ReturnCurrentState() == kStateGame)
 		timer += dt;
 	else
-		timer = 0;
+		timer = 0; // reset timer upon leaving battle
 
 	auto snekHead1 = m_po_ComponentManager->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
 	auto snekHead2 = static_cast<SnekHeadComponent*>(snekHead1->m_po_NextComponent);
 
+	/* Enable/Disable each element according to the boolean */
 	if (m_po_EntityManager->GetSpecificEntityInstance<CanvasBasicSpriteEntity>(kEntityCanvas, "Tutorial UI")->m_b_IsActive)
 	{
+		/* Player 1 booleans */
 		if (snekHead1->accelerationTutorial)
 			m_po_EntityManager->GetSpecificEntityInstance<CanvasBasicSpriteEntity>(kEntityCanvasBasicSprite, "P1AccelTut")->GetComponent<DrawComponent>()->SetAlpha(1.0f);
 		else
@@ -138,6 +149,7 @@ void TutorialMenuSystem::Update(float dt)
 		else 
 			m_po_EntityManager->GetSpecificEntityInstance<CanvasBasicSpriteEntity>(kEntityCanvasBasicSprite, "P1SpecialTut")->GetComponent<DrawComponent>()->SetAlpha(0);
 
+		/* Player 2 booleans */
 		if (snekHead2->accelerationTutorial)
 			m_po_EntityManager->GetSpecificEntityInstance<CanvasBasicSpriteEntity>(kEntityCanvasBasicSprite, "P2AccelTut")->GetComponent<DrawComponent>()->SetAlpha(1.0f);
 		else
@@ -165,6 +177,7 @@ void TutorialMenuSystem::Update(float dt)
 
 		TransformComponent * trans_Comp = element->GetComponent<TransformComponent>();
 
+		/* Update element positions */
 		if (!strncmp(element->m_pc_EntityName, "P1", 2))
 		{
 			trans_Comp->m_x_Position.x = (snekHead1->GetComponent<TransformComponent>()->m_x_Position.x);
@@ -177,6 +190,7 @@ void TutorialMenuSystem::Update(float dt)
 		}
 	}
 
+	/* Display the tutorial elements (if any) after 5 seconds of game start */
 	if (timer >= 5)
 		m_po_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
 	else 
