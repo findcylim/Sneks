@@ -534,7 +534,7 @@ void GameStateManager::Update(float dt)
 		);
 	}
 
-	if (AEInputCheckTriggered(VK_ESCAPE) && m_x_Current == kStateGame)
+	if (AEInputCheckReleased(VK_ESCAPE) && m_x_Current == kStateGame)
 		SetState(kStatePause);
 
 	if (m_x_Current == kStateCountdown)
