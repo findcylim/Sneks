@@ -46,25 +46,11 @@ Technology is prohibited.
 #include "../ECS/ECSystem.h"
 #include "../Systems/Menus/EndRoundScreenSystem.h"
 
-State GameStateManager::m_x_Next = kStateErrorState;
 State GameStateManager::m_x_Current = kStateErrorState;
 State GameStateManager::m_x_Previous = kStateErrorState;
+State GameStateManager::m_x_Next = kStateErrorState;
 
-State GameStateManager::ReturnCurrentState()
-{
-	return m_x_Current;
-}
-
-State GameStateManager::ReturnNextState()
-{
-	return m_x_Next;
-}
-
-State GameStateManager::ReturnPreviousState()
-{
-	return m_x_Previous;
-}
-
+/* Game State Manager Checks */
 bool GameStateManager::IsChanging()
 {
 	return (m_x_Current != m_x_Next);
@@ -75,10 +61,7 @@ bool GameStateManager::IsValid(State state)
 	return (state >= 0 && state <= 6);
 }
 
-void GameStateManager::SetState(State state)
-{
-	m_x_Next = state;
-}
+/* Constructor */
 
 GameStateManager::GameStateManager(State InitialState,  SystemManager* systemManagerPtr, EntityManager* entityManager, EventManager* eventManagerPtr, bool * engineStatus)
 {
@@ -90,6 +73,8 @@ GameStateManager::GameStateManager(State InitialState,  SystemManager* systemMan
 	m_o_EventManager = eventManagerPtr;
 	EngineStatus = engineStatus;
 }
+
+/* Destructor */
 
 GameStateManager::~GameStateManager()
 {
@@ -108,256 +93,7 @@ void GameStateManager::InitializeTransitionEntity(GraphicsSystem* graphics)
 	m_po_GraphicsSystem->InitializeDrawComponent(drawComponent, "Background01", { 0, 0, 0, 0 }, 1, 1);
 }
 
-void GameStateManager::LoadMainMenu()
-{
-	m_o_SystemManager->EnableSystem<MainMenuSystem>();
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
-	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
-	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
-	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
-}
-
-void GameStateManager::UnloadMainMenu()
-{
-	m_o_SystemManager->DisableSystem<MainMenuSystem>();
-	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Main Menu UI");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
-}
-
-void GameStateManager::LoadSnekSelect()
-{
-	m_o_SystemManager->EnableSystem<SnekSelectMenuSystem>();
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Snek Select UI");
-	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
-	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
-	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
-}
-
-void GameStateManager::UnloadSnekSelect()
-{
-	m_o_SystemManager->DisableSystem<SnekSelectMenuSystem>();
-	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Snek Select UI");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
-}
-
-void GameStateManager::ResetBattle()
-{
-	// auto particleEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEntity>(kEntityParticle);
-
-	// while (particleEntity)
-	// {
-	// 	m_o_EntityManager->AddToDeleteQueue(particleEntity);
-	// 	particleEntity = static_cast<ParticleEntity*>(particleEntity->m_po_NextEntity);
-	// }
-
-	// auto particleSpawnerEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEffectEntity>(kEntityParticleEffect);
-
-	// while (particleSpawnerEntity)
-	// {
-	// 	m_o_EntityManager->AddToDeleteQueue(particleSpawnerEntity);
-	// 	particleSpawnerEntity = static_cast<ParticleEffectEntity*>(particleSpawnerEntity->m_po_NextEntity);
-	// }
-
-	// auto powerupEntity = m_o_EntityManager->GetFirstEntityInstance<PowerUpHolderEntity>(kEntityPowerUpHolder);
-
-	// while (powerupEntity)
-	// {
-	// 	m_o_EntityManager->AddToDeleteQueue(powerupEntity);
-	// 	powerupEntity = static_cast<PowerUpHolderEntity*>(powerupEntity->m_po_NextEntity);
-	// }
-
-
-	m_o_EntityManager->ResolveDeletes();
-	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-	snek->ResetStage();
-
-	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
-	while (snekHead)
-	{
-		snekHead->m_i_LivesLeft = 3;
-		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
-	}
-	
-	// snek->ResetDamageAll();
-	// snek->ResetLivesAll();
-}
-
-bool countDown;
-void GameStateManager::LoadBattle()
-{
-	m_o_SystemManager->DisableSystem<InputSystem>();
-	m_o_SystemManager->EnableSystem<PhysicsSystem>();
-	m_o_SystemManager->EnableSystem<HUDSystem>();
-	m_o_SystemManager->EnableSystem<PowerUpSystem>();
-	m_o_SystemManager->EnableSystem<BackgroundSystem>();
-	m_o_SystemManager->EnableSystem<BuildingsSystem>();
-	m_o_SystemManager->EnableSystem<LevelLoaderSystem>();
-	m_o_SystemManager->EnableSystem<SnekSystem>();
-	m_o_SystemManager->EnableSystem<ProjectileSystem>();
-	m_o_SystemManager->EnableSystem<ParticleSystem>();
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
-	AEInputShowCursor(false);
-	
-	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
-	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
-	cameraComponent->m_b_TrackObjects = true;
-}
-
-void GameStateManager::UnloadBattle()
-{
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
-	m_o_SystemManager->DisableSystem<PhysicsSystem>();
-	m_o_SystemManager->DisableSystem<HUDSystem>();
-	m_o_SystemManager->DisableSystem<PowerUpSystem>();
-	m_o_SystemManager->DisableSystem<BackgroundSystem>();
-	m_o_SystemManager->DisableSystem<BuildingsSystem>();
-	m_o_SystemManager->DisableSystem<LevelLoaderSystem>();
-	m_o_SystemManager->DisableSystem<SnekSystem>();
-	m_o_SystemManager->DisableSystem<ProjectileSystem>();
-	m_o_SystemManager->DisableSystem<ParticleSystem>();
-	AEInputShowCursor(true);
-	m_o_SystemManager->EnableSystem<InputSystem>();
-}
-
-void GameStateManager::LoadHelpMenu()
-{
-	m_o_SystemManager->EnableSystem<HelpMenuSystem>();
-	if (m_x_Previous == kStateCharacterSelection)
-		m_o_SystemManager->GetSystem<HelpMenuSystem>("HelpMenu")->SetNextState(kStateCountdown);
-	
-}
-
-void GameStateManager::UnloadHelpMenu()
-{
-	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
-}
-
-void GameStateManager::UnloadWinScreen()
-{
-	//m_o_EntityManager->AddToDeleteQueue(m_o_EntityManager->GetSpecificEntityInstance<CanvasEntity>(kEntityCanvas, "WinScreenEntity"));
-	//m_o_SystemManager->RemoveSystem(WinScreen);
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("RestartButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("ReturnToMainButton");
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Background");
-}
-
-void GameStateManager::LoadWinScreen()
-{
-	//TODO:: Set win screen to player 2 texture if p2 wins
-	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
-
-	auto winscreen = m_o_SystemManager->GetSystem<WinScreenSystem>("WinScreen");
-
-	if (winscreen->m_c_Winner != snek->GetWinner())
-	{
-		winscreen->SwapWinScreen();
-		winscreen->m_c_Winner = snek->GetWinner();
-	}
-
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
-	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
-}
-
-void GameStateManager::LoadPauseMenu()
-{
-	m_o_SystemManager->EnableSystem<PauseMenuSystem>();
-	SetTimeScale(0);
-	//m_o_SystemManager->DisableSystem<PhysicsSystem>();
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
-}
-
-void GameStateManager::UnloadPauseMenu()
-{
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
-	SetTimeScale(1.0f);
-	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
-}
-
-void GameStateManager::LoadEndRound()
-{
-	m_o_SystemManager->EnableSystem<EndRoundScreenSystem>();
-	SetTimeScale(0);
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
-}
-
-void GameStateManager::UnloadEndRound()
-{
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
-	SetTimeScale(1.0f);
-	m_o_SystemManager->DisableSystem<EndRoundScreenSystem>();
-	m_o_SystemManager->GetSystem<SnekSystem>()->ResetStage();
-}
-
-void GameStateManager::LoadCountdown()
-{
-	auto countDownEntity = m_o_EntityManager->GetSpecificEntityInstance<CanvasEntity>(
-															kEntityCanvas,"CountDownEntity");
-	countDownEntity->m_b_IsActive = true;
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountDownEntity");
-	auto canvasComp = countDownEntity->GetComponent<CanvasComponent>();
-	auto animComp = canvasComp->m_x_CanvasElementList.front()->GetComponent<AnimationComponent>();
-	animComp->m_vx_AnimationsList.front().m_i_CurrentFrameIndex = 0;
-	animComp->m_vx_AnimationsList.front().m_f_CurrentTimeElapsed = 0;
-}
-
-void GameStateManager::UnloadCountdown()
-{
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountDownEntity");
-}
-
-void GameStateManager::LoadSplashScreen()
-{
-}
-
-void GameStateManager::UnloadSplashScreen()
-{
-	auto splashScreen = m_o_SystemManager->GetSystem<SplashScreenSystem>("SplashScreen");
-	if(splashScreen)
-		m_o_SystemManager->RemoveSystem(splashScreen);
-}
-
-void GameStateManager::LoadCreditsScreen()
-{
-	m_o_SystemManager->EnableSystem<CreditsScreenSystem>();
-	if (m_x_Previous == kStateMainMenu)
-		m_o_SystemManager->GetSystem<CreditsScreenSystem>("CreditsScreen")->SetNextState(kStateMainMenu);
-}
-
-void GameStateManager::UnloadCreditsScreen()
-{
-	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
-}
-
-void GameStateManager::LoadOptions()
-{
-	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
-	m_o_SystemManager->EnableSystem<OptionsMenuSystem>();
-}
-
-void GameStateManager::UnloadOptions()
-{
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
-	m_o_SystemManager->DisableSystem<OptionsMenuSystem>();
-}
-
-void GameStateManager::LoadConfirm()
-{
-	m_o_SystemManager->EnableSystem<ConfirmationScreenSystem>();
-}
-
-void GameStateManager::UnloadConfirm()
-{
-	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("ConfirmationScreen");
-	m_o_SystemManager->DisableSystem<ConfirmationScreenSystem>();
-}
-
+/* General Game State Manager Functions */
 
 void GameStateManager::ExitGame()
 {
@@ -370,6 +106,7 @@ void GameStateManager::Load()
 	{
 	case kStateMainMenu:   
 		LoadMainMenu();
+		// Always reset when entering main menu from game
 		if(m_x_Previous != kStateCreditsScreen && m_x_Previous != kStateSplashScreen)
 			ResetBattle();
 		break;
@@ -534,9 +271,11 @@ void GameStateManager::Update(float dt)
 		);
 	}
 
+	// Check for pause input
 	if (AEInputCheckReleased(VK_ESCAPE) && m_x_Current == kStateGame)
 		SetState(kStatePause);
 
+	// Automatically transit once countdown over
 	if (m_x_Current == kStateCountdown)
 	{
 		countDownTimer += dt;
@@ -546,4 +285,278 @@ void GameStateManager::Update(float dt)
 			SetState(kStateGame);
 		}
 	}
+}
+
+/* Load/Unload Helper Functions 
+   ----------------------------
+   These functions enable/disable the needed systems for the state.
+*/
+
+void GameStateManager::LoadMainMenu()
+{
+	m_o_SystemManager->EnableSystem<MainMenuSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
+}
+
+void GameStateManager::UnloadMainMenu()
+{
+	m_o_SystemManager->DisableSystem<MainMenuSystem>();
+	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+}
+
+void GameStateManager::LoadSnekSelect()
+{
+	m_o_SystemManager->EnableSystem<SnekSelectMenuSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Snek Select UI");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->EnableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+}
+
+void GameStateManager::UnloadSnekSelect()
+{
+	m_o_SystemManager->DisableSystem<SnekSelectMenuSystem>();
+	m_o_EntityManager->DisableSpecificEntityType<CanvasEntity, kEntityCanvas>("Snek Select UI");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("PlayButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("CreditsButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("QuitButton");
+}
+
+bool countDown;
+void GameStateManager::LoadBattle()
+{
+	m_o_SystemManager->DisableSystem<InputSystem>();
+	m_o_SystemManager->EnableSystem<PhysicsSystem>();
+	m_o_SystemManager->EnableSystem<HUDSystem>();
+	m_o_SystemManager->EnableSystem<PowerUpSystem>();
+	m_o_SystemManager->EnableSystem<BackgroundSystem>();
+	m_o_SystemManager->EnableSystem<BuildingsSystem>();
+	m_o_SystemManager->EnableSystem<LevelLoaderSystem>();
+	m_o_SystemManager->EnableSystem<SnekSystem>();
+	m_o_SystemManager->EnableSystem<ProjectileSystem>();
+	m_o_SystemManager->EnableSystem<ParticleSystem>();
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
+	AEInputShowCursor(false);
+
+	auto cameraComponent = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	cameraComponent->m_x_CameraAttributes.speedDecay = 0.9f;
+	cameraComponent->m_b_TrackObjects = true;
+}
+
+void GameStateManager::UnloadBattle()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
+	m_o_SystemManager->DisableSystem<PhysicsSystem>();
+	m_o_SystemManager->DisableSystem<HUDSystem>();
+	m_o_SystemManager->DisableSystem<PowerUpSystem>();
+	m_o_SystemManager->DisableSystem<BackgroundSystem>();
+	m_o_SystemManager->DisableSystem<BuildingsSystem>();
+	m_o_SystemManager->DisableSystem<LevelLoaderSystem>();
+	m_o_SystemManager->DisableSystem<SnekSystem>();
+	m_o_SystemManager->DisableSystem<ProjectileSystem>();
+	m_o_SystemManager->DisableSystem<ParticleSystem>();
+	AEInputShowCursor(true);
+	m_o_SystemManager->EnableSystem<InputSystem>();
+}
+
+void GameStateManager::LoadHelpMenu()
+{
+	m_o_SystemManager->EnableSystem<HelpMenuSystem>();
+	if (m_x_Previous == kStateCharacterSelection)
+		m_o_SystemManager->GetSystem<HelpMenuSystem>("HelpMenu")->SetNextState(kStateCountdown);
+}
+
+void GameStateManager::UnloadHelpMenu()
+{
+	m_o_SystemManager->DisableSystem<HelpMenuSystem>();
+}
+
+void GameStateManager::UnloadWinScreen()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("RestartButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasButtonEntity, kEntityCanvasButton>("ReturnToMainButton");
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Background");
+}
+
+void GameStateManager::LoadWinScreen()
+{
+	//TODO:: Set win screen to player 2 texture if p2 wins
+	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
+
+	auto winscreen = m_o_SystemManager->GetSystem<WinScreenSystem>("WinScreen");
+
+	// Check for the winner
+	if (winscreen->m_c_Winner != snek->GetWinner())
+	{
+		winscreen->SwapWinScreen();
+		winscreen->m_c_Winner = snek->GetWinner();
+	}
+
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
+	m_o_EntityManager->DisableSpecificEntityType<SnekHeadEntity, kEntitySnekHead>("Head");
+}
+
+void GameStateManager::LoadPauseMenu()
+{
+	m_o_SystemManager->EnableSystem<PauseMenuSystem>();
+	SetTimeScale(0);
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+}
+
+void GameStateManager::UnloadPauseMenu()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	SetTimeScale(1.0f);
+	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
+}
+
+void GameStateManager::LoadEndRound()
+{
+	m_o_SystemManager->EnableSystem<EndRoundScreenSystem>();
+	SetTimeScale(0);
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
+}
+
+void GameStateManager::UnloadEndRound()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
+	SetTimeScale(1.0f);
+	m_o_SystemManager->DisableSystem<EndRoundScreenSystem>();
+	m_o_SystemManager->GetSystem<SnekSystem>()->ResetStage();
+}
+
+void GameStateManager::LoadCountdown()
+{
+	auto countDownEntity = m_o_EntityManager->GetSpecificEntityInstance<CanvasEntity>(
+		kEntityCanvas, "CountDownEntity");
+	countDownEntity->m_b_IsActive = true;
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("CountDownEntity");
+	auto canvasComp = countDownEntity->GetComponent<CanvasComponent>();
+	auto animComp = canvasComp->m_x_CanvasElementList.front()->GetComponent<AnimationComponent>();
+	animComp->m_vx_AnimationsList.front().m_i_CurrentFrameIndex = 0;
+	animComp->m_vx_AnimationsList.front().m_f_CurrentTimeElapsed = 0;
+}
+
+void GameStateManager::UnloadCountdown()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountDownEntity");
+}
+
+void GameStateManager::LoadSplashScreen()
+{
+}
+
+void GameStateManager::UnloadSplashScreen()
+{
+	auto splashScreen = m_o_SystemManager->GetSystem<SplashScreenSystem>("SplashScreen");
+	if (splashScreen)
+		m_o_SystemManager->RemoveSystem(splashScreen);
+}
+
+void GameStateManager::LoadCreditsScreen()
+{
+	m_o_SystemManager->EnableSystem<CreditsScreenSystem>();
+	if (m_x_Previous == kStateMainMenu)
+		m_o_SystemManager->GetSystem<CreditsScreenSystem>("CreditsScreen")->SetNextState(kStateMainMenu);
+}
+
+void GameStateManager::UnloadCreditsScreen()
+{
+	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
+}
+
+void GameStateManager::LoadOptions()
+{
+	m_o_EntityManager->EnableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
+	m_o_SystemManager->EnableSystem<OptionsMenuSystem>();
+}
+
+void GameStateManager::UnloadOptions()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
+	m_o_SystemManager->DisableSystem<OptionsMenuSystem>();
+}
+
+void GameStateManager::LoadConfirm()
+{
+	m_o_SystemManager->EnableSystem<ConfirmationScreenSystem>();
+}
+
+void GameStateManager::UnloadConfirm()
+{
+	m_o_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("ConfirmationScreen");
+	m_o_SystemManager->DisableSystem<ConfirmationScreenSystem>();
+}
+
+void GameStateManager::ResetBattle()
+{
+	// auto particleEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEntity>(kEntityParticle);
+
+	// while (particleEntity)
+	// {
+	// 	m_o_EntityManager->AddToDeleteQueue(particleEntity);
+	// 	particleEntity = static_cast<ParticleEntity*>(particleEntity->m_po_NextEntity);
+	// }
+
+	// auto particleSpawnerEntity = m_o_EntityManager->GetFirstEntityInstance<ParticleEffectEntity>(kEntityParticleEffect);
+
+	// while (particleSpawnerEntity)
+	// {
+	// 	m_o_EntityManager->AddToDeleteQueue(particleSpawnerEntity);
+	// 	particleSpawnerEntity = static_cast<ParticleEffectEntity*>(particleSpawnerEntity->m_po_NextEntity);
+	// }
+
+	// auto powerupEntity = m_o_EntityManager->GetFirstEntityInstance<PowerUpHolderEntity>(kEntityPowerUpHolder);
+
+	// while (powerupEntity)
+	// {
+	// 	m_o_EntityManager->AddToDeleteQueue(powerupEntity);
+	// 	powerupEntity = static_cast<PowerUpHolderEntity*>(powerupEntity->m_po_NextEntity);
+	// }
+
+
+	m_o_EntityManager->ResolveDeletes();
+	auto snek = m_o_SystemManager->GetSystem<SnekSystem>("Snek");
+	snek->ResetStage();
+
+	auto snekHead = m_o_EntityManager->GetComponentManager()->GetFirstComponentInstance<SnekHeadComponent>(kComponentSnekHead);
+	while (snekHead)
+	{
+		snekHead->m_i_LivesLeft = 3;
+		snekHead = static_cast<SnekHeadComponent*>(snekHead->m_po_NextComponent);
+	}
+
+	// snek->ResetDamageAll();
+	// snek->ResetLivesAll();
+}
+
+/* Getter/Setter functions */
+
+void GameStateManager::SetState(State state)
+{
+	m_x_Next = state;
+}
+
+State GameStateManager::ReturnCurrentState()
+{
+	return m_x_Current;
+}
+
+State GameStateManager::ReturnNextState()
+{
+	return m_x_Next;
+}
+
+State GameStateManager::ReturnPreviousState()
+{
+	return m_x_Previous;
 }

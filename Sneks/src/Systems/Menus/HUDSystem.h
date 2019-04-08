@@ -26,8 +26,11 @@ class HUDSystem : public BaseSystem
 {
 	GraphicsSystem* m_o_GraphicsSystem;
 public:
-	void Initialize();
-	void Update(float dt) override;
+	/* Constructor/ Destructor */
 	HUDSystem(GraphicsSystem* graphics);
 	~HUDSystem();
+
+	/* General System Functions */
+	void Initialize();
+	void Update(float dt) override;
 };

@@ -25,9 +25,11 @@ Technology is prohibited.
 class SnekSelectMenuSystem : public BaseSystem
 {
 public:
+	/* Constrcutor/Destructor */
 	SnekSelectMenuSystem();
 	~SnekSelectMenuSystem();
 
+	/* General System Functions */
 	void Initialize();
 	void Update(float dt)override;
 };

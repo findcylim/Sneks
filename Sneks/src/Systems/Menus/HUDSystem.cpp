@@ -28,9 +28,6 @@ float oldScale1 = 0, oldScale2 = 0;
 HUDSystem::HUDSystem(GraphicsSystem* graphics)
 {
 	m_o_GraphicsSystem = graphics;
-	//cameraComponent->m_f_VirtualOffset.x = -AEGfxGetWinMaxX();
-	//cameraComponent->m_f_VirtualOffset.y = AEGfxGetWinMaxY();
-	//cameraComponent->m_f_VirtualScale = 1.0f;
 }
 
 HUDSystem::~HUDSystem()
@@ -52,12 +49,11 @@ void HUDSystem::Initialize()
 	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Heads Up Display");
 	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
 
-	float screenX = 0, screenY = 0;
-	AlphaEngineHelper::GetScreenSize(&screenX, &screenY);
-
+	/* position of HUD: each texture already has the appropriate alpha offset so they all use the same position */
 	float X = 0.5f;
 	float Y = 0.083f;
 
+	/* Bar Meters */
 	Events::EV_NEW_UI_ELEMENT LBarElement ={ canvasComponent,HTVector2{ X , Y } ,kCanvasBasicSprite, "LBar", "LeftBar","","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT sLBarElement ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "sLBar", "SmallLeftBar","","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT RBarElement ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RBar", "RightBar","","","", nullptr };
@@ -65,6 +61,7 @@ void HUDSystem::Initialize()
 
 	Events::EV_NEW_UI_ELEMENT HUDElement ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "Display", "HUD","","","", nullptr };
 
+	/* Life Orbs */
 	Events::EV_NEW_UI_ELEMENT RLifeElement1 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL1", "LifeR1","","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT RLifeElement2 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL2", "LifeR2","","","", nullptr };
 	Events::EV_NEW_UI_ELEMENT RLifeElement3 ={ canvasComponent,HTVector2{ X, Y } ,kCanvasBasicSprite, "RL3", "LifeR3","","","", nullptr };
@@ -98,7 +95,7 @@ void HUDSystem::Update(float dt)
 
 	for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
-		if (!strncmp(element->m_pc_EntityName, "LL", 2))
+		if (!strncmp(element->m_pc_EntityName, "LL", 2)) // Enable all orbs
 		{
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(1.0f);
@@ -107,28 +104,29 @@ void HUDSystem::Update(float dt)
 
 	for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
-		if (!strncmp(element->m_pc_EntityName, "RL", 2))
+		if (!strncmp(element->m_pc_EntityName, "RL", 2)) // Enable all orbs
 		{
 			DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 			draw_Comp->SetAlpha(1.0f);
 		}
 	}
 
+	/* Check for number of P1 lives */
 	switch (snek->GetLives(0)) {
 	case 0:
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			if (!strcmp(element->m_pc_EntityName, "RL3"))
+			if (!strcmp(element->m_pc_EntityName, "RL3")) // Remove third orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
 			}
-			if (!strcmp(element->m_pc_EntityName, "RL2"))
+			if (!strcmp(element->m_pc_EntityName, "RL2")) // Remove second orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
 			}
-			if (!strcmp(element->m_pc_EntityName, "RL1"))
+			if (!strcmp(element->m_pc_EntityName, "RL1")) // Remove first orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
@@ -139,12 +137,12 @@ void HUDSystem::Update(float dt)
 	case 1:
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			if (!strcmp(element->m_pc_EntityName, "RL2"))
+			if (!strcmp(element->m_pc_EntityName, "RL2")) // Remove second orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
 			}
-			if (!strcmp(element->m_pc_EntityName, "RL1"))
+			if (!strcmp(element->m_pc_EntityName, "RL1")) // Remove first orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
@@ -155,7 +153,7 @@ void HUDSystem::Update(float dt)
 	case 2:
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			if (!strcmp(element->m_pc_EntityName, "RL1"))
+			if (!strcmp(element->m_pc_EntityName, "RL1")) // Remove first orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
@@ -164,21 +162,22 @@ void HUDSystem::Update(float dt)
 		break;
 	}
 
+	/* Check for number of P2 lives */
 	switch (snek->GetLives(1)) {
-	case 0:
+	case 0: // no lives
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			if (!strcmp(element->m_pc_EntityName, "LL3"))
+			if (!strcmp(element->m_pc_EntityName, "LL3")) // Remove third orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
 			}
-			if (!strcmp(element->m_pc_EntityName, "LL2"))
+			if (!strcmp(element->m_pc_EntityName, "LL2")) // Remove second orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
 			}
-			if (!strcmp(element->m_pc_EntityName, "LL1"))
+			if (!strcmp(element->m_pc_EntityName, "LL1")) // Remove first orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
@@ -186,15 +185,15 @@ void HUDSystem::Update(float dt)
 		}
 		break;
 
-	case 1:
+	case 1: // 1 life
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			if (!strcmp(element->m_pc_EntityName, "LL2"))
+			if (!strcmp(element->m_pc_EntityName, "LL2")) // Remove second orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
 			}
-			if (!strcmp(element->m_pc_EntityName, "LL1"))
+			if (!strcmp(element->m_pc_EntityName, "LL1")) // Remove first orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
@@ -202,10 +201,10 @@ void HUDSystem::Update(float dt)
 		}
 		break;
 
-	case 2:
+	case 2: // 2 lives
 		for (auto& element : can_Comp->m_x_CanvasElementList)
 		{
-			if (!strcmp(element->m_pc_EntityName, "LL1"))
+			if (!strcmp(element->m_pc_EntityName, "LL1")) // Remove first orb
 			{
 				DrawComponent * draw_Comp = element->GetComponent<DrawComponent>();
 				draw_Comp->SetAlpha(0);
@@ -229,12 +228,13 @@ void HUDSystem::Update(float dt)
 
 			difference = (960.0f / screenX * snek->GetGrowthPercentage(0) - 960.0f / screenX * oldScale1) / 2.0f;
 
+			// Bar offset
 			if (difference > 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 			else if (difference < 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 
-			oldScale1 = snek->GetGrowthPercentage(0);
+			oldScale1 = snek->GetGrowthPercentage(0); // keep track of old scale
 		}
 
 		if (!strcmp(element->m_pc_EntityName, "LBar"))
@@ -244,14 +244,17 @@ void HUDSystem::Update(float dt)
 
 			difference = (960.0f / screenX * snek->GetGrowthPercentage(1) - 960.0f / screenX * oldScale2) / 2.0f;
 
+			// Bar offset
 			if (difference > 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 			else if (difference < 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 
-			oldScale2 = snek->GetGrowthPercentage(1);
+			oldScale2 = snek->GetGrowthPercentage(1); // keep track of old scale
 		}
 	}
+
+	/* Updating special attack meter */
 
 	for (auto& element : can_Comp->m_x_CanvasElementList)
 	{
@@ -262,12 +265,13 @@ void HUDSystem::Update(float dt)
 
 			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(0) - 960.0f / screenX * oldScale1) / 2.0f;
 
+			// Bar offset
 			if (difference > 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 			else if (difference < 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 
-			oldScale1 = snek->GetSpecialAttackPercentage(0);
+			oldScale1 = snek->GetSpecialAttackPercentage(0); // keep track of old scale
 		}
 
 		if (!strcmp(element->m_pc_EntityName, "sLBar"))
@@ -277,12 +281,13 @@ void HUDSystem::Update(float dt)
 
 			difference = (960.0f / screenX * snek->GetSpecialAttackPercentage(1) - 960.0f / screenX * oldScale2) / 2.0f;
 
+			// Bar offset
 			if (difference > 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x - difference);
 			else if (difference < 0)
 				trans_Comp->m_x_Position.x = (trans_Comp->m_x_Position.x + difference);
 
-			oldScale2 = snek->GetSpecialAttackPercentage(1);
+			oldScale2 = snek->GetSpecialAttackPercentage(1); // keep track of old scale
 		}
 	}
 }
