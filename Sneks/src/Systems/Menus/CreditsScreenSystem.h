@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the UI and menus for the Credits Screen
 
 \par Contribution : Adam   - 100.00%
 
@@ -16,18 +16,25 @@ without the prior written consent of DigiPen Institute of
 Technology is prohibited.
 */
 /* End Header *****************************************************************/
+
 #ifndef CREDITS_SCREEN_SYSTEM_H
 #define CREDITS_SCREEN_SYSTEM_H
 #pragma once
 #include "../../ECS/System.h"
 #include "../../Utility/GameStateManager.h"
 #include "../GraphicsSystem.h"
+
+/*
+	Credits Screen System
+*/
 class CreditsScreenSystem :
 	public BaseSystem,
 	public EventListener<Events::EV_MOUSE_ONCLICK>
 {
 	State m_e_PrevState = kStateExit;
+	//Initial timer value
 	float m_f_Timer = 3.0f;
+	//First portrait to show
 	int m_i_PortraitValue = 0;
 	GraphicsSystem* m_po_GraphicsSystem = nullptr;
 	bool m_b_ClickHold = true;

@@ -6,7 +6,9 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that supports collisions in game, with 
+collision components with different groups. The pairings define which groups
+collide with other groups, and can be found in collisionsystem.cpp.
 
 \par Contribution : CY     - 100.00% 
 

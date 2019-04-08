@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the implementation for main menu elements
 
 \par Contribution : CY     - 21.93%  (Zooming in and out animation)
 \par Contribution : Javier - 4.39%   (Adding additional button)
@@ -26,12 +26,15 @@ Technology is prohibited.
 #include "../SnekSystem.h"
 
 
-
+/*
+	Destructor
+*/
 MainMenuSystem::~MainMenuSystem()
 {
 	auto UI = m_po_ComponentManager->GetFirstComponentInstance<CanvasComponent>(kComponentCanvas);
 	while (UI)
 	{
+		// Ensures that all the elements are deleted
 		for (auto& element : UI->m_x_CanvasElementList)
 		{
 			m_po_EntityManager->AddToDeleteQueue(element);
@@ -41,32 +44,50 @@ MainMenuSystem::~MainMenuSystem()
 	}
 }
 
+/*
+	Go to Snek select/ Game
+*/
 void SnekSelect(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateCharacterSelection);
 }
 
+/*
+	Credits 
+*/
 void OpenCredits(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateCreditsScreen);
 }
 
+/*
+	Quit
+*/
 void QuitGame(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateConfirmationScreen);
 }
 
+/*
+	Options
+*/
 void OpenOptions(SystemManager* systemManager)
 {
 	UNREFERENCED_PARAMETER(systemManager);
 	GameStateManager::SetState(kStateOptions);
 }
 
+/*
+	Initialize function
+*/
 void MainMenuSystem::Initialize()
 {
+	/*
+		Creates the main menu canvas
+	*/
 	auto canvasEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "Main Menu UI");
 	auto canvasComponent = canvasEntity->GetComponent<CanvasComponent>();
 
@@ -92,6 +113,9 @@ void MainMenuSystem::Initialize()
 	Events::EV_NEW_UI_ELEMENT TransitonBackUIElement = 
 	{ canvasComponent, HTVector2{ 0.5f , 0.5f } ,kCanvasBasicSprite,"Background" ,"TransitionBack" ,"","","", nullptr };
 
+	/*
+		Sends the data to be created
+	*/
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(TransitonBackUIElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(LogoElement);
 	m_po_EventManagerPtr->EmitEvent<Events::EV_NEW_UI_ELEMENT>(PlayElement);
@@ -107,12 +131,13 @@ float zoomSpeed = 0.05f;
 void MainMenuSystem::Update(float dt)
 {
 	
-	//auto snekSystem = m_po_SystemManager->GetSystem<SnekSystem>("Snek");
-
 	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
 	cameraComponent->m_x_CameraAttributes.speedDecay = 0.99f;
-	cameraComponent->m_b_TrackObjects = true;
+	//cameraComponent->m_b_TrackObjects = true;
 
+	/*
+		Zooms in and out animation
+	*/
 	if (zoomPause > 0.0f)
 	{
 		if (fabsf(cameraComponent->m_f_ZoomVelocity) <= 0.02f) {

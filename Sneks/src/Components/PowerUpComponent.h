@@ -24,9 +24,9 @@ enum PowerUpType : unsigned char
 {
 	kPowerUpSpring = 0,
 	kPowerUpStar,
+	kPowerUpPlusBody,
 	kPowerUpConsume,
 	kPowerUpTailSwipe,
-	kPowerUpPlusBody,
 	kPowerUpIncreaseDamage,
 	kPowerUpEnd
 };

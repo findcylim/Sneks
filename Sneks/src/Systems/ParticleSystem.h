@@ -55,6 +55,7 @@ public:
 	void ResetTrails();
 	void Update(float dt);
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData);
+	void OnDisable()override;
 };
 
 #endif // !PARTICLESYSTEM_H

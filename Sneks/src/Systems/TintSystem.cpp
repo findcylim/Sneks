@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the system that tints the snek when it is damaged,
+which shows a red tint temporarily.
 
 \par Contribution : CY     - 100.00%
 

@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains implementation for UI canvas components
 
 \par Contribution : Adam   - 100.00%
 
@@ -20,22 +20,31 @@ Technology is prohibited.
 #pragma once
 #include "../ECS/System.h"
 #include "GraphicsSystem.h"
+
+/*
+	Canvas UI System
+
+	System handling all UI elements
+*/
 class CanvasUISystem :
 	public BaseSystem,
 	public EventListener<Events::EV_NEW_UI_ELEMENT>,
 	public EventListener<Events::EV_PLAYER_COLLISION>
 {
-	GraphicsSystem* m_po_GraphicsManager;
-	HTVector2 m_o_ScreenSize;
-	bool m_b_IsMousePressed = false;
+	GraphicsSystem*		m_po_GraphicsManager;
+	HTVector2			m_o_ScreenSize;
+	bool				m_b_IsMousePressed = false;
 public:
-	void Update(float dt) override;
+
 	CanvasUISystem(GraphicsSystem* graphicsManager);
 	~CanvasUISystem();
+	void Update(float dt) override;
 	void Initialize();
-	void AddElement(CanvasComponent* canvasComponent, HTVector2 initialOffset, CanvasElementEnum num, const char * name,
-		const char * uiElementSprite, const char* uiText = "", const char * uiHoverSprite = "", const char * uiClickSprite = "", 
-		void(*ButtonFunction)(SystemManager*) = nullptr, HTColor textColor = {1.0f,1.0f,1.0f,1.0f});
+	void AddElement(CanvasComponent* canvasComponent,	HTVector2 initialOffset, CanvasElementEnum num, const char * name,
+					const char * uiElementSprite,		const char* uiText = "", 
+					const char * uiHoverSprite = "",	const char * uiClickSprite = "", 
+					void(*ButtonFunction)(SystemManager*) = nullptr, HTColor textColor = {1.0f,1.0f,1.0f,1.0f},
+					int spriteCountX = 1, int spriteCountY = 1);
 	void ClearUI(CanvasComponent* canvas);
 	void Receive(const Events::EV_NEW_UI_ELEMENT& eventData) override;
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;

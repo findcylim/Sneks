@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file a manager handling callbacks event listeners
 
 \par Contribution : CY     - 11.11%  (Event Structs)
 \par Contribution : Javier - 11.11%  (Event Structs)
@@ -38,6 +38,7 @@ Technology is prohibited.
 
 enum State : int;
 
+// Unused
 enum kEventList
 {
 	Ev_PLAYER1GAME_LEFTKEY,
@@ -46,10 +47,14 @@ enum kEventList
 	Ev_PLAYER2GAME_LEFTKEY,
 	Ev_PLAYER2GAME_RIGHTKEY,
 	Ev_PLAYER2GAME_RIGHTSHIFTKEY,
-
 };
 
-
+/*
+	Events are created based on a event data structure
+	So specific events would still be able to pass data around specific to the event
+	Using templates we can distinguish between events while storing the data specific to the event
+	All event names are self explanatory
+*/
 namespace Events
 {
 	//Declare all events here
@@ -98,6 +103,8 @@ namespace Events
 		const char * uiClickSpriteName = "";
 		void(*ButtonPressFunc)(SystemManager*) = nullptr;
 		HTColor textColor = { 0.0f,0.0f, 0.0f, 0.0f };
+		int spriteCountX = 1;
+		int spriteCountY = 1;
 	};
 
 	struct EV_PLAYER_COLLISION_ON_ENTER
@@ -151,14 +158,21 @@ namespace Events
 	};
 }
 
+/*
+	EventManager Class
+*/
 class EventManager
 {
 protected:
 public:
 	void Update() {}
+	//Unused
+	//Need to learn about type erasure and type reflection to store events in a global queue
 	void ProcessEvents() {}
 
-
+	/*
+		Adds a new listener to the list who is listening to a specific event
+	*/
 	template<typename T>
 	bool AddListener(EventListener<T>* listener, BaseSystem* systemPtr)
 	{
@@ -180,6 +194,9 @@ public:
 		return true;
 	}
 
+	/*
+		Removes the listener from the map
+	*/
 	template<typename T>
 	void RemoveListener(EventListener<T>* listener)
 	{
@@ -196,6 +213,9 @@ public:
 		}
 	}
 
+	/*
+		Removes all listeners. Basically the destructor
+	*/
 	template<typename T>
 	void RemoveAllListener()
 	{
@@ -211,6 +231,9 @@ public:
 		}
 	}
 
+	/*
+		Called by systems to call events to those who are subscribed to it.
+	*/
 	template<typename T>
 	bool EmitEvent(const T& event)
 	{

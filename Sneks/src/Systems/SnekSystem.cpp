@@ -6,7 +6,9 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains 
+\brief This file contains code that manipulate how snek heads and body parts
+work in the game. It handles mainly the game logic for SNEKS and will not
+be relevant for the engine for other games.
 
 \par Contribution : CY     - 58.44% (Everything else)
 \par Contribution : Javier - 27.51% (Flip Skill)
@@ -43,6 +45,7 @@ Technology is prohibited.
 #include "../Components/ParticleSpawnerComponent.h"
 #include "ParticleSystem.h"
 #include "PowerUpSystem.h"
+#include "../ECS/ECSystem.h"
 
 int SnekSystem::GetWinner()
 {
@@ -260,13 +263,22 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 	{
 		auto snekHed1 = eventData.object1->m_po_OwnerEntity->GetComponent<SnekHeadComponent>();
 		auto snekHed2 = eventData.object2->m_po_OwnerEntity->GetComponent<SnekHeadComponent>();
-	
+
+
 		if (snekHed1->m_po_OwnerEntity->m_b_IsActive && snekHed2->m_po_OwnerEntity->m_b_IsActive)
 		{
 			bool snekLostLife = false;
 			//Perform removal of body parts for body snek heds and check for win condition
 			for (auto i_SnekHed = snekHed1;; i_SnekHed = snekHed2)
 			{
+				auto powerUpComp = i_SnekHed->GetComponent<PowerUpComponent>();
+				//if victim under star power
+				if (powerUpComp->m_x_PowerUpType == kPowerUpStar &&
+					powerUpComp->m_f_PowerUpDurationLeft >= 0)
+				{
+					continue;
+				}
+
 				if (i_SnekHed->m_x_BodyParts.size() > 1)
 				{
 					RemoveBodyParts(i_SnekHed->m_i_CurrentDamage, i_SnekHed);
@@ -282,7 +294,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 			}
 			if (snekLostLife)
 			{
-				ResetStage();
+				GameStateManager::SetState(kStateEndOfRound);
 				return;
 			}
 
@@ -351,6 +363,7 @@ void SnekSystem::ResetStage()
 	m_po_ComponentManager->Each<ParticleComponent>([&](ParticleComponent* comp)
 	{
 		comp->KillParticle();
+		comp->m_b_IsActive = false;
 	}, kComponentParticle);
 
 	//Regenerate buildings
@@ -1153,4 +1166,5 @@ void SnekSystem::UpdateSneks()
 	CreateSnek(-200, 0, PI * 3 / 4, 20, snekType[0], 0, lives[0]);
 	CreateSnek(200, 0, PI * 7 / 4, 20, snekType[1], 1, lives[1]);
 
+	m_po_SystemManager->GetSystem<ParticleSystem>()->ResetTrails();
 }

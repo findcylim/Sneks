@@ -1,12 +1,14 @@
 /* Start Header****************************************************************/
 /*!
 \file DrawComponent.h
-\author Lim Chu Yan, chuyan.lim, 440002918
+\author Primary Author : Lim Chu Yan, chuyan.lim
 \par email: chuyan.lim\@digipen.edu
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains data fields to support draw Component mainly for 
+rendering entities to the screen. Any entity with a draw component will
+be drawn onto the screen.
 
 \par Contribution : CY - 100.00%
 

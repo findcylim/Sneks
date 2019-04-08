@@ -6,7 +6,9 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains data to support collision system. Camera Logic
+can be changed in cameraSystem. Collision Groups can be defined so
+objects in different groups can collide with one another.
 
 \par Contribution : CY - 100.00%
 

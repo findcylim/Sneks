@@ -8,7 +8,11 @@
 \par High Tea Studios
 \brief This file contains
 
-\par Contribution : Edwin  - 100.00%
+\par Contribution : Adam - 25.93%	
+Edwin - 25.93%
+Javier - 25.93%	
+CY - 22.22%
+
 
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents

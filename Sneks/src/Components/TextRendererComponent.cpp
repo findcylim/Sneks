@@ -20,19 +20,27 @@ Technology is prohibited.
 #include "TextRendererComponent.h"
 #include <iostream>
 
-
+/*
+	Destructor	
+*/
 TextRendererComponent::~TextRendererComponent()
 {
 	delete[] m_p_Text;
 	m_p_Text = nullptr;
 }
 
+/*
+	Constructor
+*/
 TextRendererComponent::TextRendererComponent(TransformComponent* t_Comp)
 {
 	m_po_LinkedTransform = t_Comp;
 	m_p_Text = nullptr;
 }
 
+/*
+	Helper function to create the text
+*/
 void TextRendererComponent::CreateText(float xTextPosition, float yTextPosition, const char * textIn,HTColor textColor)
 {
 	SetText(textIn);
@@ -41,7 +49,9 @@ void TextRendererComponent::CreateText(float xTextPosition, float yTextPosition,
 	m_x_TextPosition.y = yTextPosition;
 }
 
-
+/*
+	Helper function to create the text 
+*/
 void TextRendererComponent::SetText(const char * textIn)
 {
 	int len = static_cast<int>(strlen(textIn)) + 1;

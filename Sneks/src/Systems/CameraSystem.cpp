@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that manipulates the in game virtual camera 
+system, which draws all objects relative to a camera entity.
 
 \par Contribution : CY     - 54.55% (Everything else)
 \par Contribution : Edwin  - 45.45% (Culling)
@@ -291,6 +292,16 @@ float CameraSystem::AddShake(float magnitude)
 void CameraSystem::SetShake(float magnitude)
 {
 	m_po_CamShake->SetShake(magnitude);
+}
+
+void CameraSystem::RemoveCameraTrackObject(BaseEntity* ent)
+{
+	auto cameraComponent = m_po_ComponentManager->GetFirstComponentInstance<CameraComponent>(kComponentCamera);
+	if (!cameraComponent)
+		return;
+	std::remove(cameraComponent->m_v_EntitiesToTrack.begin(),
+		cameraComponent->m_v_EntitiesToTrack.end(),
+		ent->GetComponent<TransformComponent>());
 }
 
 void CameraSystem::RemoveCameraTrackObjects()

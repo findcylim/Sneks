@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that listens to events and react by playing 
+sounds.
 
 \par Contribution : CY     - 13.07% (Adding of sounds)
 \par Contribution : Javier - 70.59% (Sound & Audio System structure)
@@ -332,7 +333,7 @@ void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_HEALTH & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
 	if (!muted)
-		m_o_HealthPickup.Play(0.4f);
+		m_o_HealthPickup.Play(0.25f);
 }
 
 void AudioSystem::Receive(const Events::EV_POWERUP_PICKUP_SPEED & eventData)

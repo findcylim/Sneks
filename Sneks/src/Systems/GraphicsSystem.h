@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the system that renders all draw components onto the
+viewport. Also handles bloom for now.
 
 \par Contribution : CY     - 100.00%
 

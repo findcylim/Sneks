@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that defines powerup pickups in the game
+and how they affect the snek. Some powerups are in multiple stages.
 
 \par Contribution : CY     - 51.92% (Rework)
 \par Contribution : Edwin  - 48.08% (Original PowerUp System)
@@ -241,17 +242,17 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 
 		transformComponent->m_x_Position.y = (spawnPoint->m_x_Position.y);
 
-		transformComponent->SetRotation(snekTransform->GetRotation() +
-													 (AERandFloat() - 0.5f) * m_f_ForwardAngleRange);
+		transformComponent->SetRotation(AERandFloat() * 2 * PI);
 
 		transformComponent->m_f_Scale = m_f_HolderSizeRatio;
 
-		powerupHolder->GetComponent<PhysicsComponent>()->m_f_Speed = 
-			snekTransform->GetComponent<PhysicsComponent>()->m_f_Speed * m_f_HolderSpeedRatio;
+		auto speedMultiplier = snekTransform->GetComponent<PhysicsComponent>()->m_f_Speed * m_f_HolderSpeedRatio;
+		speedMultiplier = AEClamp(speedMultiplier, 50.0f, 250.0f);
+		powerupHolder->GetComponent<PhysicsComponent>()->m_f_Speed = speedMultiplier;
 
 		auto powerUpComp = powerupHolder->GetComponent<PowerUpHolderComponent>();
 
-		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % 2);
+		powerUpComp->m_x_Type = static_cast<PowerUpType>(rand() % 3);
 		const char * texture = "PowerUpIcon";
     
 		powerUpComp->m_f_RemainingLife = m_f_HolderLifeTime;
@@ -264,8 +265,22 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 		case kPowerUpStar:
 			texture = "PowerUpIconInvul";
 			break;
-		case kPowerUpConsume:
-			texture = "PowerUpIconHealth";
+		case kPowerUpPlusBody:
+			if((rand() % 2) == 0)
+				texture = "PowerUpIconHealth";	
+			else
+			{
+				if ((rand() % 2) == 0)
+				{
+					powerUpComp->m_x_Type = kPowerUpSpring;
+					texture = "PowerUpIconSpeed";
+				}
+				else
+				{
+					powerUpComp->m_x_Type = kPowerUpStar;
+					texture = "PowerUpIconInvul";
+				}
+			}
 			break;
 		case kPowerUpTailSwipe:
 			texture = "PowerUpIconDamage";
@@ -330,12 +345,42 @@ void PowerUpSystem::PowerUpPickup(PowerUpComponent* powerUp, PowerUpHolderCompon
 			//TODO emit event to snek system to increase body part
 			//TODO snek system to recieve event to grow body part
 			const char* bodyTexture = nullptr;
-			if (m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
-				(powerUp, kComponentSnekHead)->m_i_PlayerNumber == 0)
-				bodyTexture = "SnekBody01";
-			else
-				bodyTexture = "SnekBody02";
-
+			auto snekHead = m_po_ComponentManager->GetSpecificComponentInstance<SnekHeadComponent>
+				(powerUp, kComponentSnekHead);
+			
+			if (snekHead)
+			{
+				if (snekHead->m_i_PlayerNumber) // player 2
+				{
+					switch (snekHead->m_x_SnekType)
+					{
+					case kSnekTypeFlip:
+						bodyTexture = "P2FlipSnekBody";
+						break;
+					case kSnekTypeShoot:
+						bodyTexture = "P2ShootSnekBody";
+						break;
+					case kSnekTypeSpeed:
+						bodyTexture = "P2SpeedSnekBody";
+						break;
+					}
+				}
+				else // player 1
+				{
+					switch (snekHead->m_x_SnekType)
+					{
+					case kSnekTypeFlip:
+						bodyTexture = "P1FlipSnekBody";
+						break;
+					case kSnekTypeShoot:
+						bodyTexture = "P1ShootSnekBody";
+						break;
+					case kSnekTypeSpeed:
+						bodyTexture = "P1SpeedSnekBody";
+						break;
+					}
+				}
+			}
 			auto snek = m_po_SystemManager->GetSystem<SnekSystem>();
 			for (int i = 0; i < powerUp->GetPowerIncrease(); i++)
 			{

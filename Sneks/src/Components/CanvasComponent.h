@@ -30,6 +30,9 @@ Technology is prohibited.
 class EntityManager;
 class SystemManager;
 
+/*
+	Enum for the elements we have
+*/
 enum CanvasElementEnum
 {
 	kCanvasButton,
@@ -37,6 +40,9 @@ enum CanvasElementEnum
 	kCanvasTextLabel
 };
 
+/*
+	Enum for the button states
+*/
 enum CanvasElementButtonState
 {
 	kButtonIdle,
@@ -44,6 +50,9 @@ enum CanvasElementButtonState
 	kButtonClick
 };
 
+/*
+	Data struct for canvas component 
+*/
 struct CanvasComponent : public BaseComponent
 {
 public:
@@ -60,14 +69,21 @@ public:
 	CanvasComponent(const CanvasComponent&) = delete;
 	CanvasComponent& operator=(const CanvasComponent&) = delete;
 	ComponentManager* m_po_ComponentManager;
+	/*
+		Contains the element list
+	*/
 	std::list<BaseEntity*> m_x_CanvasElementList;
 };
 
+/*
+	Base Canvas element component
+*/
 class CanvasElementComponent : public BaseComponent
 {
 public:
 	char* m_pc_ElementText = nullptr;
 	AEGfxTexture * m_x_BasicSprite,* m_x_HoverSprite,* m_x_ClickSprite;
+	// Function pointer for the button
 	void(*ButtonFunction)(SystemManager*);
 	float m_f_XOffset = 0.0f; // 0 to 1.0f
 	float m_f_YOffset = 0.0f; // 0 to 1.0f

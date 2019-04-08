@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the declaration for main menu elements
 
 \par Contribution : Adam   - 100.00%
 
@@ -20,6 +20,7 @@ Technology is prohibited.
 #pragma once
 #include "../CanvasUISystem.h"
 #include "../../ECS/System.h"
+
 class MainMenuSystem: public BaseSystem
 {
 public:

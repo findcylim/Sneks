@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains header file that manipulates the texture offsets u and
+v for animation components, which allow spritesheets to work based on dt.
 
 \par Contribution : CY     - 100.00%
 

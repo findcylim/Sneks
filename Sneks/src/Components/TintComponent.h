@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that allows an entity to be tinted red when 
+getting hit to show feedback to player.
 
 \par Contribution : CY - 100.00%
 

@@ -6,7 +6,9 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains some data manipulation function to
+facilitate usage of the draw component. Most work should be done in graphics
+system though.
 
 \par Contribution : CY - 100.00%
 

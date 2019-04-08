@@ -6,7 +6,7 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains code that defines where an entity is in world space.
 
 \par Contribution : CY - 100.00%
 
