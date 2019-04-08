@@ -266,7 +266,21 @@ void PowerUpSystem::SpawnPowerUp(TransformComponent* spawnPoint, TransformCompon
 			texture = "PowerUpIconInvul";
 			break;
 		case kPowerUpPlusBody:
-			texture = "PowerUpIconHealth";
+			if((rand() % 2) == 0)
+				texture = "PowerUpIconHealth";	
+			else
+			{
+				if ((rand() % 2) == 0)
+				{
+					powerUpComp->m_x_Type = kPowerUpSpring;
+					texture = "PowerUpIconSpeed";
+				}
+				else
+				{
+					powerUpComp->m_x_Type = kPowerUpStar;
+					texture = "PowerUpIconInvul";
+				}
+			}
 			break;
 		case kPowerUpTailSwipe:
 			texture = "PowerUpIconDamage";
