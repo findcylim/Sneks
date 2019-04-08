@@ -86,25 +86,28 @@ void SplashScreenSystem::Update(float dt)
 		}
 	}
 	// IF ANY OF THESE BUTTONS ARE PRESSED IT WILL BE PASSED
-	if (GetAsyncKeyState(VK_RBUTTON) < 0)
+	if (splashScreenCounter > 0)
 	{
-		timer = -1;
-		splashScreenCounter = 3;
-	}
-	else if (GetAsyncKeyState(VK_SPACE) < 0)
-	{
-		timer = -1;
-		splashScreenCounter = 3;
-	}
-	else if (GetAsyncKeyState(VK_RETURN) < 0)
-	{
-		timer = -1;
-		splashScreenCounter = 3;
-	}
-	else if (GetAsyncKeyState(VK_ESCAPE) < 0)
-	{
-		timer = -1;
-		splashScreenCounter = 3;
+		if (GetAsyncKeyState(VK_RBUTTON) < 0)
+		{
+			timer = -1;
+			splashScreenCounter = 3;
+		}
+		else if (GetAsyncKeyState(VK_SPACE) < 0)
+		{
+			timer = -1;
+			splashScreenCounter = 3;
+		}
+		else if (GetAsyncKeyState(VK_RETURN) < 0)
+		{
+			timer = -1;
+			splashScreenCounter = 3;
+		}
+		else if (GetAsyncKeyState(VK_ESCAPE) < 0)
+		{
+			timer = -1;
+			splashScreenCounter = 3;
+		}
 	}
 }
 
@@ -114,8 +117,11 @@ void SplashScreenSystem::Update(float dt)
 void SplashScreenSystem::Receive(const Events::EV_MOUSE_ONCLICK & eventData)
 {
 	UNREFERENCED_PARAMETER(eventData);
-	timer = -1;
-	splashScreenCounter = 3;
+	if (splashScreenCounter > 0)
+	{
+		timer = -1;
+		splashScreenCounter = 3;
+	}
 }
 
 /*

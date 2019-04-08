@@ -36,9 +36,9 @@ class ECSystem
 private:
 	GameStateManager*	 m_o_GameStateManager;
 	Logger*				 m_o_Logger;
-	EventManager*		 m_o_EventManager;
+	EventManager*		 m_po_EventManager;
 	SystemManager*		 m_o_SystemManager;
-	EntityManager*		 m_o_EntityComponentManager;
+	EntityManager*		 m_po_EntityManager;
 	bool					 m_b_EngineStatus;
 public:
 	ECSystem();
@@ -52,5 +52,6 @@ public:
 float GetUncappedDt();
 float GetCappedDt();
 float SetTimeScale(float timeScale);
+float GetTimeScale();
 
 #endif

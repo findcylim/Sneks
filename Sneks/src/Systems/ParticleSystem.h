@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the functions required to spawn and delete particles
+spawners and their particles.
 
 \par Contribution : Edwin  - 100.00%
 

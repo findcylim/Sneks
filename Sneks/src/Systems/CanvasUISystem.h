@@ -43,7 +43,8 @@ public:
 	void AddElement(CanvasComponent* canvasComponent,	HTVector2 initialOffset, CanvasElementEnum num, const char * name,
 					const char * uiElementSprite,		const char* uiText = "", 
 					const char * uiHoverSprite = "",	const char * uiClickSprite = "", 
-					void(*ButtonFunction)(SystemManager*) = nullptr, HTColor textColor = {1.0f,1.0f,1.0f,1.0f});
+					void(*ButtonFunction)(SystemManager*) = nullptr, HTColor textColor = {1.0f,1.0f,1.0f,1.0f},
+					int spriteCountX = 1, int spriteCountY = 1);
 	void ClearUI(CanvasComponent* canvas);
 	void Receive(const Events::EV_NEW_UI_ELEMENT& eventData) override;
 	void Receive(const Events::EV_PLAYER_COLLISION& eventData) override;

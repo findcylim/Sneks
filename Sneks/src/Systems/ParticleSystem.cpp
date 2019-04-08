@@ -6,7 +6,8 @@
 \par Course : GAM150
 \par SNEKS ATTACK
 \par High Tea Studios
-\brief This file contains
+\brief This file contains the functions required to spawn and delete particles
+spawners and their particles.
 
 \par Contribution : CY     - 28.74%  (Rework Speed Powerup)
 \par Contribution : Edwin  - 71.26%  (Main code)
@@ -99,6 +100,7 @@ void ParticleSystem::Update(float dt)
 				float& spawnTimer = pec->m_f_ParticleEffectSpawnTimer;
 				spawnTimer += dt;
 
+				//spawning amount is density per second
 				if (spawnTimer >= pec->m_f_ParticleSpawnFrequency)
 				{
 					for (int i = 0; i < pec->m_i_ParticleSpawnDensity; ++i)

@@ -52,14 +52,15 @@ Technology is prohibited.
 #include "../Systems/Menus/TutorialMenuSystem.h"
 #include "../Systems/Menus/OptionsMenuSystem.h"
 #include "../Systems/Menus/ConfirmationScreenSystem.h"
+#include "../Systems/Menus/EndRoundScreenSystem.h"
 
 ECSystem::ECSystem()
 {
 	m_o_Logger					   = new Logger("log.txt");
-	m_o_EventManager			   = new EventManager();
+	m_po_EventManager			   = new EventManager();
 	m_o_SystemManager			   = new SystemManager(m_o_Logger);
-	m_o_EntityComponentManager	   = new EntityManager();
-	m_o_GameStateManager		   = new GameStateManager(kStateSplashScreen, m_o_SystemManager, m_o_EntityComponentManager, m_o_EventManager,&m_b_EngineStatus);
+	m_po_EntityManager	   = new EntityManager();
+	m_o_GameStateManager		   = new GameStateManager(kStateSplashScreen, m_o_SystemManager, m_po_EntityManager, m_po_EventManager,&m_b_EngineStatus);
 	m_b_EngineStatus			   = true;
 }
 
@@ -68,16 +69,16 @@ ECSystem::~ECSystem()
 {
 	delete(m_o_Logger);
 	delete(m_o_SystemManager);
-	delete(m_o_EventManager);
+	delete(m_po_EventManager);
 	delete(m_o_GameStateManager);
-	delete(m_o_EntityComponentManager);
+	delete(m_po_EntityManager);
 	
 }
 
 
 void ECSystem::LoadLevel1()
 {
-	m_o_EntityComponentManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
+	m_po_EntityManager->NewEntity<CameraEntity>(kEntityCamera, "Camera");
 	auto snek = m_o_SystemManager->GetSystem<SnekSystem>();
 
 	snek->CreateSnek(-200, 0, PI * 3 / 4, 20, kSnekTypeSpeed, 0,3);
@@ -94,7 +95,7 @@ Function: InitializeEngine
 ********************************************************/
 void ECSystem::InitializeEngine()
 {
-	m_o_SystemManager->Initialize(m_o_EventManager, m_o_EntityComponentManager);
+	m_o_SystemManager->Initialize(m_po_EventManager, m_po_EntityManager);
 
 	auto graphics = new GraphicsSystem();
 	auto physics = new PhysicsSystem();
@@ -198,6 +199,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->AddSystem(pauseMenu);
 	pauseMenu->SetName("PauseMenu");
 
+	m_o_SystemManager->MakeSystem<EndRoundScreenSystem>("EndRound");
 	m_o_SystemManager->MakeSystem<WinScreenSystem>("WinScreen");
 
 	m_o_SystemManager->AddSystem(creditsScreen);
@@ -221,13 +223,20 @@ void ECSystem::InitializeEngine()
 	// Other Entity Creation
 	/*************************************************************************/
 
-	MouseEntity* mouseEntity = m_o_EntityComponentManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
+	MouseEntity* mouseEntity = m_po_EntityManager->NewEntity<MouseEntity>(kEntityMouse, "MouseEntity");
 	mouseEntity->GetComponent<CollisionComponent>()->m_i_CollisionGroupVec.push_back(kCollGroupMouse);
 	graphics->InitializeDrawComponent(mouseEntity->GetComponent<DrawComponent>(), "MouseCollider");
-	m_o_EntityComponentManager->GetSpecificEntityInstance<MouseEntity>(kEntityMouse, "MouseEntity")
+	m_po_EntityManager->GetSpecificEntityInstance<MouseEntity>(kEntityMouse, "MouseEntity")
 		->GetComponent<DrawComponent>()->m_f_RgbaColor.alpha = 0;
 
+	auto countDownEntity = m_po_EntityManager->NewEntity<CanvasEntity>(kEntityCanvas, "CountDownEntity");
+	auto canvas_Component = countDownEntity->GetComponent<CanvasComponent>();
+	Events::EV_NEW_UI_ELEMENT countDown =
+		{ canvas_Component, HTVector2{ 0.5f ,0.5f } ,kCanvasBasicSprite,"EndText" ,
+			"Countdown" ,"","","", nullptr,
+			{1,1,1,1},4,1 };
 
+	m_po_EventManager->EmitEvent<Events::EV_NEW_UI_ELEMENT>(countDown);
 
 	/*************************************************************************/
 	//\\\\\\\\\\END Other Entity Creation
@@ -235,14 +244,15 @@ void ECSystem::InitializeEngine()
 
 	//m_o_EntityComponentManager->DisableSpecificEntityType<CanvasTextLabelEntity , kEntityCanvasTextLabel>("Main Menu UI");
 
-
-	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
-	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Snek Select UI");
-	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
-	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
-	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
-	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
-	m_o_EntityComponentManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("CountDownEntity");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Main Menu UI");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Snek Select UI");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Heads Up Display");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("WinScreenEntity");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("PauseMenuEntity");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("EndRoundEntity");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("Tutorial UI");
+	m_po_EntityManager->DisableSpecificEntity<CanvasEntity, kEntityCanvas>("OptionsMenuEntity");
 
 	m_o_SystemManager->DisableSystem<HUDSystem>();
 	m_o_SystemManager->DisableSystem<WinScreenSystem>();
@@ -250,6 +260,7 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<PauseMenuSystem>();
 	m_o_SystemManager->DisableSystem<CreditsScreenSystem>();
 	m_o_SystemManager->DisableSystem<ConfirmationScreenSystem>();
+	m_o_SystemManager->DisableSystem<EndRoundScreenSystem>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CameraComponent, kComponentCamera>();
 	//m_o_SystemManager->DisableSystem<HUDSystem, CanvasElementComponent, kComponentCanvasElement>();
 	m_o_SystemManager->DisableSystem<PhysicsSystem>();
@@ -260,6 +271,8 @@ void ECSystem::InitializeEngine()
 	m_o_SystemManager->DisableSystem<SnekSystem>();
 	m_o_SystemManager->DisableSystem<ProjectileSystem>();
 	m_o_SystemManager->DisableSystem<ParticleSystem>();
+
+	srand(static_cast<unsigned>(time(nullptr)));
 }
 
 bool ECSystem::IsEngineOn() const
@@ -289,8 +302,8 @@ void ECSystem::Update()
 			++m_o_SystemManager->m_i_DroppedFrames;
 
 		m_o_GameStateManager->Update(cappedDt);
-		m_o_EventManager->Update();
-		m_o_SystemManager->Update(cappedDt * m_f_TimeScale);
+		m_po_EventManager->Update();
+		m_o_SystemManager->Update(cappedDt);
 
 		//DEBUG
 		//DISABLE TODO
@@ -306,7 +319,7 @@ void ECSystem::Update()
 		{
 			AEToogleFullScreen(true);
 		}*/
-		m_o_EntityComponentManager->ResolveDeletes();
+		m_po_EntityManager->ResolveDeletes();
 
 		actualDt -= dtCap;
 		
@@ -328,5 +341,10 @@ float GetCappedDt()
 float SetTimeScale(float timeScale)
 {
 	m_f_TimeScale = timeScale;
+	return m_f_TimeScale;
+}
+
+float GetTimeScale()
+{
 	return m_f_TimeScale;
 }

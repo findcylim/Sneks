@@ -222,11 +222,12 @@ public:
 class CanvasBasicSpriteEntity : public BaseEntity
 {
 public:
-	Component m_ax_InitialComponents[5] = { kComponentTransform , kComponentDraw, kComponentCanvasElement,
-											kComponentTextRenderer, kComponentEnd };
+	Component m_ax_InitialComponents[6] = { kComponentTransform , kComponentDraw, kComponentCanvasElement,
+											kComponentTextRenderer, kComponentAnimation, kComponentEnd };
 
 	CanvasBasicSpriteEntity(const char* entityName) : BaseEntity(entityName) {};
 };
+
 
 class CanvasTextLabelEntity : public BaseEntity
 {

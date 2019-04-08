@@ -39,6 +39,7 @@ public:
 	void Update(float dt) override;
 	float AddShake(float magnitude);
 	void  SetShake(float magnitude);
+	void RemoveCameraTrackObject(BaseEntity* ent);
 	void RemoveCameraTrackObjects();
 	void ReviveBuildingOnShift(TransformComponent* transformComponent) const;
 };

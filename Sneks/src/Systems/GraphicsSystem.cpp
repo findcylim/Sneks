@@ -340,7 +340,7 @@ void GraphicsSystem::Update(float dt)
 			for (auto& bodyPart : i_SnekHead->m_x_BodyParts)
 				bodyPart->GetComponent<BloomComponent>()->m_f_BloomStrength = speedBloomStr;
 		}
-	}, kComponentBloom);
+	}, kComponentBloom, true);
 
 
 	Draw(dt);
@@ -348,16 +348,16 @@ void GraphicsSystem::Update(float dt)
 
 void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 {
+	UNREFERENCED_PARAMETER(firstDrawComponent);
+
 	for (auto& orderGroup : m_x_DrawOrder)
 		orderGroup.clear();
 
-	auto i_AddDrawComponent = firstDrawComponent;
-	for (;
-		i_AddDrawComponent;
-		i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent) )
+	//auto i_AddDrawComponent = firstDrawComponent;
+	m_po_ComponentManager->Each<DrawComponent>([&](DrawComponent* i_AddDrawComponent)
 	{
-		if (!i_AddDrawComponent->m_po_OwnerEntity->m_b_IsActive)
-			continue;
+		//if (!i_AddDrawComponent->m_po_OwnerEntity->m_b_IsActive)
+		//	return ;
 		//m_x_DrawOrder.insert(std::pair<int, DrawComponent*>(i_AddDrawComponent->m_f_DrawPriority, i_AddDrawComponent));
 		while (m_x_DrawOrder.size() <= static_cast<size_t>(i_AddDrawComponent->m_f_DrawPriority))
 		{
@@ -365,8 +365,15 @@ void GraphicsSystem::UpdateDrawOrderVector(DrawComponent* firstDrawComponent)
 		}
 		m_x_DrawOrder[i_AddDrawComponent->m_f_DrawPriority].push_back(i_AddDrawComponent);
 
+	}, kComponentDraw, true);
+	//for (;
+	//	i_AddDrawComponent;
+	//	i_AddDrawComponent = static_cast<DrawComponent*>(i_AddDrawComponent->m_po_NextComponent) )
+	//{
+	//	
 
-	}
+
+	//}
 }
 void GraphicsSystem::UpdateDrawOrderVector()
 {
@@ -387,16 +394,17 @@ void GraphicsSystem::Draw(float dt)
 	auto i_DrawComponent = firstDrawComponent;
 	int drawCount = 0;
 
-	while (i_DrawComponent){
-		drawCount++;
-		i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
-	}
+	//while (i_DrawComponent)
+	//{
+	//	drawCount++;
+	//	i_DrawComponent = static_cast<DrawComponent*>(i_DrawComponent->m_po_NextComponent);
+	//}
 
-	//TODO:: actually update draw order accordingly
-	if (m_x_DrawOrder.size() != drawCount)
-	{
-		UpdateDrawOrderVector(firstDrawComponent); 
-	}
+	////TODO:: actually update draw order accordingly
+	//if (m_x_DrawOrder.size() != drawCount)
+	//{
+	UpdateDrawOrderVector(firstDrawComponent); 
+	//}
 
 	if (m_x_DrawOrder.empty())
 		return;
