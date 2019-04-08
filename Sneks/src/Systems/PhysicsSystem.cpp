@@ -56,11 +56,13 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 	if (eventData.key == Events::MOVE_KEY_UP) {
 		phyComp->m_f_Acceleration = snekHeadComponent->m_f_AccelerationForce;
 	}
-	else if (eventData.key == Events::MOVE_KEY_DOWN)
+	
+	if (eventData.key == Events::MOVE_KEY_DOWN)
 	{
 		phyComp->m_f_Acceleration = -snekHeadComponent->m_f_AccelerationForce / 3;
 	}
-	else if (eventData.key == Events::MOVE_KEY_LEFT) {
+
+	if (eventData.key == Events::MOVE_KEY_LEFT) {
 		float turnSpeedMultiplier = 0.0f;
 
 		if (phyComp->m_f_MaxSpeed != 0.0f)
@@ -70,6 +72,9 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 			turnSpeedMultiplier = 1.0f;
 		else if (turnSpeedMultiplier < 0.5f)
 			turnSpeedMultiplier = 0.5f;
+
+		phyComp->m_f_TurnSpeedMultiplier = 1.5f;
+
 
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() +
@@ -88,6 +93,8 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 		else if (turnSpeedMultiplier < 0.5f)
 			turnSpeedMultiplier = 0.5f;
 
+		phyComp->m_f_TurnSpeedMultiplier = 1.5f;
+		//phyComp->m_f_Acceleration = 10000.0f;
 		phyComp->m_po_TransformComponent->SetRotation(
 			phyComp->m_po_TransformComponent->GetRotation() -
 			snekHeadComponent->m_f_TurnSpeed * currDt *
@@ -101,10 +108,9 @@ void PhysicsSystem::Receive(const Events::EV_PLAYER_MOVEMENT_KEY& eventData)
 void PhysicsSystem::Update(float dt)
 {
 	currDt = dt;
-
+	
 	m_po_ComponentManager->Each<PhysicsComponent>([&](PhysicsComponent* i_PhysicsComponent)
 	{
-		
 		//Calculate the stuff
 		ApplyAcceleration(i_PhysicsComponent, dt);
 		CalculateVelocity(i_PhysicsComponent);
@@ -116,6 +122,8 @@ void PhysicsSystem::Update(float dt)
 			CheckOutOfBounds(i_PhysicsComponent->m_po_TransformComponent, i_PhysicsComponent);
 			ClampVelocity(i_PhysicsComponent, static_cast<SnekHeadComponent*>(component));
 		}
+
+
 		//Move the object
 		ApplyVelocity(i_PhysicsComponent, dt);
 
@@ -151,7 +159,7 @@ HTVector2 PhysicsSystem::CalculateVelocity(PhysicsComponent* physicsComponent) c
 
 void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadComponent* snekHeadComponent) const
 {
-	if (physicsComponent->m_f_Speed > physicsComponent->m_f_MaxSpeed)
+	if (physicsComponent->m_f_Speed > physicsComponent->m_f_MaxSpeed*physicsComponent->m_f_TurnSpeedMultiplier)
 	{
 		physicsComponent->m_f_Speed = physicsComponent->m_f_Speed * 0.95f;
 	}
@@ -161,7 +169,7 @@ void PhysicsSystem::ClampVelocity(PhysicsComponent* physicsComponent, SnekHeadCo
 			physicsComponent->m_f_Speed = physicsComponent->m_f_Speed * 0.99f;
 	}
 
-	//std::cout << "Accel: " << physicsComponent->m_f_Acceleration << ", " << physicsComponent->m_f_Speed << std::endl;
+	//std::cout << "Turn: " << physicsComponent->m_f_TurnSpeedMultiplier << ", " << physicsComponent->m_f_Speed << ", " << physicsComponent->m_f_Acceleration << std::endl;
 	if (physicsComponent->m_f_Acceleration == 0) 
 	{
 		if (physicsComponent->m_f_Speed < snekHeadComponent->m_f_IdleSpeed)
@@ -180,7 +188,7 @@ void PhysicsSystem::ApplyAcceleration(PhysicsComponent* physicsComponent, float 
 		return;
 
 	//Clamp percentage higher when speed is higher, so less acceleration when speed high
-	float accelClamp = 1.0f - fabsf(physicsComponent->m_f_Speed / physicsComponent->m_f_MaxSpeed );
+	float accelClamp = 1.0f - fabsf(physicsComponent->m_f_Speed / (physicsComponent->m_f_MaxSpeed*physicsComponent->m_f_TurnSpeedMultiplier));
 	
 	if (accelClamp < 0)
 		accelClamp = 0;

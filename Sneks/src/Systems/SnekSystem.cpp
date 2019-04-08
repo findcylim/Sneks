@@ -294,7 +294,7 @@ void SnekSystem::Receive(const Events::EV_PLAYER_COLLISION& eventData)
 				if (i_SnekHed == snekHed2)
 					break;
 			}
-			if (snekLostLife)
+			if (snekLostLife && GameStateManager::ReturnNextState() != kStateWinScreen)
 			{
 				GameStateManager::SetState(kStateEndOfRound);
 				return;
@@ -530,6 +530,7 @@ void SnekSystem::Update(float dt)
 				i_SnekHead->m_f_BoostCooldown = 0;
 			}
 		}
+
 		if (GetAsyncKeyState(i_SnekHead->m_i_LeftKey))
 		{
 			Events::EV_PLAYER_MOVEMENT_KEY moveKeyL{ headPhysicsComponent, Events::MOVE_KEY_LEFT };
@@ -540,7 +541,10 @@ void SnekSystem::Update(float dt)
 			Events::EV_PLAYER_MOVEMENT_KEY moveKeyR{ headPhysicsComponent,Events::MOVE_KEY_RIGHT };
 			m_po_EventManagerPtr->EmitEvent<Events::EV_PLAYER_MOVEMENT_KEY>(moveKeyR);
 		}
-
+		else
+		{
+			i_SnekHead->GetComponent<PhysicsComponent>()->m_f_TurnSpeedMultiplier = 1.0f;
+		}
 
 		for (auto& i_Body : i_SnekHead->m_x_BodyParts)
 		{

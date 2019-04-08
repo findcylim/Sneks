@@ -31,7 +31,8 @@ struct PhysicsComponent : public BaseComponent
 {
 	float		               m_f_Speed;
 	float		               m_f_MaxSpeed = 1200;
-	float							m_f_Acceleration;
+	float					   m_f_Acceleration;
+	float					   m_f_TurnSpeedMultiplier = 1.0f;
 	HTVector2					m_x_Velocity = {0,0};
 	float						   m_f_Mass = 10;
 
